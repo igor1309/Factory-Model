@@ -104,7 +104,6 @@ struct FactoryList: View {
     
     private var plusSampleButton: some View {
         Button {
-            //  MARK: FINISH THIS
             let factory = Factory(context: managedObjectContext)
             factory.name = "Сыроварня"
             factory.note = "Тестовый проект"
@@ -114,10 +113,11 @@ struct FactoryList: View {
             product1.note = "Первый продукт"
             product1.code = "1001"
             product1.group = "Сыры"
-            product1.weightNetto = 1000
+            product1.weightNetto = 1_000
+            product1.productionQty = 3_000
             
             let feedstock1 = Feedstock(context: managedObjectContext)
-            feedstock1.name = "Молоко"
+            feedstock1.name = "Молоко натуральное"
             //feedstock1.price = 30.0
             feedstock1.qty = 1
             
@@ -125,7 +125,46 @@ struct FactoryList: View {
             feedstock2.name = "Сухое молоко"
             feedstock2.qty = 1
             
-            product1.feedstock = [feedstock1, feedstock2]
+            let feedstock3 = Feedstock(context: managedObjectContext)
+            feedstock3.name = "Хлористый кальций"
+
+            let feedstock4 = Feedstock(context: managedObjectContext)
+            feedstock4.name = "Бактериальная заправка"
+            
+            let feedstock5 = Feedstock(context: managedObjectContext)
+            feedstock5.name = "Сычужная заправка (?)"
+            
+            let feedstock6 = Feedstock(context: managedObjectContext)
+            feedstock6.name = "Пепсин"
+            
+            let feedstock7 = Feedstock(context: managedObjectContext)
+            feedstock7.name = "Соль"
+            
+            let feedstock8 = Feedstock(context: managedObjectContext)
+            feedstock8.name = "Вода"
+            
+            product1.feedstock = [feedstock1, feedstock2, feedstock3, feedstock4, feedstock5, feedstock6, feedstock7, feedstock8]
+            
+            let sales1 = Sales(context: managedObjectContext)
+            sales1.buyer = "Speelo Group"
+            sales1.price = 300
+            sales1.qty = 1_000
+            
+            product1.sales = [sales1]
+            
+            let packaging1 = Packaging(context: managedObjectContext)
+            packaging1.code = "У001"
+            packaging1.note = "..."
+            packaging1.price = 17
+            packaging1.type = "Ведёрко"
+            
+            product1.packaging = packaging1
+            
+            let utility1 = Utility(context: managedObjectContext)
+            utility1.name = "Электроэнергия"
+            utility1.price = 10
+            
+            product1.utilities = [utility1]
             
             let product2 = Product(context: managedObjectContext)
             product2.name = "Сулугуни 0.5 кг"
@@ -143,41 +182,50 @@ struct FactoryList: View {
             staff1.division = "Производство"
             staff1.department = "Технологии"
             staff1.position = "Главный технолог"
+            staff1.name = "Гурам Галихадзе"
             staff1.salary = 60_000
             
             let staff2 = Staff(context: managedObjectContext)
             staff2.division = "Производство"
             staff2.department = "Производственный цех"
             staff2.position = "Старший сыродел"
+            staff2.name = "Мамука Гелашвили"
             staff2.salary = 45_000
             
             let staff3 = Staff(context: managedObjectContext)
             staff3.division = "Производство"
             staff3.department = "Производственный цех"
             staff3.position = "Сыродел"
+            staff3.name = "Василий Васильев"
             staff3.salary = 35_000
             
             let staff4 = Staff(context: managedObjectContext)
             staff4.division = "Продажи"
             staff4.department = "Отдел логистики"
             staff4.position = "Водитель"
+            staff4.name = "Иван Иванов"
             staff4.salary = 35_000
             
             let staff5 = Staff(context: managedObjectContext)
             staff5.division = "Администрация"
             staff5.department = "Администрация"
             staff5.position = "Директор + закупки"
+            staff5.name = "Петр Петров"
             staff5.salary = 60_000
             
             let staff6 = Staff(context: managedObjectContext)
             staff6.division = "Администрация"
             staff6.department = "Бухгалтерия"
             staff6.position = "Главный бухгалтер"
+            staff6.name = "Мальвина Петровна"
             staff6.salary = 30_000
             
             factory.staff = [staff1, staff2, staff3, staff4, staff5, staff6]
+            
             factory.expenses = []
+            
             factory.equipment = []
+            
             save()
         } label: {
             Image(systemName: "plus.square")

@@ -39,19 +39,28 @@ struct FactoryView: View {
             
             Section(header: Text("Product Groups".uppercased())) {
                 ForEach(factory.productGroups) { productGroup in
-                    ListRow(title: productGroup.title, subtitle: productGroup.subtitle, icon: "bag")
-                }
-            }
-            
-            Section(header: Text("Products".uppercased())) {
-                ForEach(factory.products, id: \.self) { product in
                     NavigationLink(
-                        destination: ProductView(product)
+                        destination: ProductList(group: productGroup.title, at: factory)
                     ) {
-                        ListRow(title: product.name, subtitle: product.note, detail: product.group + ": " + product.code, icon: "bag")
+                        ListRow(productGroup)
                     }
                 }
-                .onDelete(perform: removeProduct)
+                
+                VStack(spacing: 4) {
+                    HStack {
+                        Text("Total production")
+                        Spacer()
+                        Text("TBD")
+                    }
+                    
+                    HStack {
+                        Text("Total revenue")
+                        Spacer()
+                        Text("TBD")
+                    }
+                }
+                .font(.subheadline)
+                .padding(.vertical, 3)
                 
                 Button("Add Product") {
                     let product = Product(context: managedObjectContext)
@@ -66,27 +75,26 @@ struct FactoryView: View {
             
             Section(header: Text("Staff: Divisions".uppercased())) {
                 ForEach(factory.divisions) { division in
-                    ListRow(title: division.title, subtitle: division.subtitle, icon: "person.2")
+                    NavigationLink(
+                        destination: StaffList(division: division.title, at: factory)
+                    ) {
+                        ListRow(division)
+                    }
                 }
-            }
-            
-            Section(header: Text("Staff".uppercased())) {
-                ForEach(factory.staff, id: \.self) { staff in
-                    ListRow(
-                        title: staff.name,
-                        subtitle: staff.note,
-                        detail: staff.department + ": " + staff.division + ": " + staff.position,
-                        icon: "person.2"
-                    )
+                
+                HStack {
+                    Text("Total salary, incl taxes")
+                    Spacer()
+                    Text("TBD")
                 }
-                .onDelete(perform: removeStaff)
+                .font(.subheadline)
                 
                 Button("Add Staff") {
                     let staff = Staff(context: managedObjectContext)
                     staff.name = "New Staff"
                     staff.note = "Some note regarding new staff"
-                    staff.department = "Production"
                     staff.division = "Main"
+                    staff.department = "Production"
                     staff.position = "Worker"
                     staff.name = "John"
                     factory.addToStaff_(staff)
@@ -99,6 +107,13 @@ struct FactoryView: View {
                     ListRow(title: expenses.name, subtitle: expenses.note, icon: "dollarsign.circle")
                 }
                 .onDelete(perform: removeExpenses)
+                
+                HStack {
+                    Text("Total Expenses")
+                    Spacer()
+                    Text("TBD")
+                }
+                .font(.subheadline)
                 
                 Button("Add Expenses") {
                     let expenses = Expenses(context: managedObjectContext)
@@ -115,6 +130,13 @@ struct FactoryView: View {
                 }
                 .onDelete(perform: removeEquipment)
                 
+                HStack {
+                    Text("Total Equipment")
+                    Spacer()
+                    Text("TBD")
+                }
+                .font(.subheadline)
+                
                 Button("Add Equipment") {
                     let equipment = Equipment(context: managedObjectContext)
                     equipment.name = "New Equipment"
@@ -123,7 +145,6 @@ struct FactoryView: View {
                     save()
                 }
             }
-            
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)

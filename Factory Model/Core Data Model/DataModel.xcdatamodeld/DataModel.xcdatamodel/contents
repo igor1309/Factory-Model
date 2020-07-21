@@ -22,16 +22,16 @@
         <relationship name="staff_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Staff" inverseName="factory" inverseEntity="Staff"/>
     </entity>
     <entity name="Feedstock" representedClassName="Feedstock" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="price" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pricelist" inverseName="feedstock" inverseEntity="Pricelist"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="feedstock_" inverseEntity="Product"/>
     </entity>
     <entity name="Packaging" representedClassName="Packaging" syncable="YES" codeGenerationType="class">
-        <attribute name="code" optional="YES" attributeType="String"/>
-        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="code_" optional="YES" attributeType="String"/>
+        <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="type_" optional="YES" attributeType="String"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="packaging" inverseEntity="Product"/>
     </entity>
     <entity name="Pricelist" representedClassName="Pricelist" syncable="YES" codeGenerationType="class">
@@ -45,20 +45,16 @@
         <attribute name="initialInventory" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
+        <attribute name="productionQty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weightNetto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="products_" inverseEntity="Factory"/>
         <relationship name="feedstock_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="product" inverseEntity="Feedstock"/>
         <relationship name="packaging" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Packaging" inverseName="product" inverseEntity="Packaging"/>
-        <relationship name="production" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Production" inverseName="product" inverseEntity="Production"/>
         <relationship name="sales_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sales" inverseName="product" inverseEntity="Sales"/>
         <relationship name="utilities_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Utility" inverseName="product" inverseEntity="Utility"/>
     </entity>
-    <entity name="Production" representedClassName="Production" syncable="YES" codeGenerationType="class">
-        <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="production" inverseEntity="Product"/>
-    </entity>
     <entity name="Sales" representedClassName="Sales" syncable="YES" codeGenerationType="class">
-        <attribute name="buyer" optional="YES" attributeType="String"/>
+        <attribute name="buyer_" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="sales_" inverseEntity="Product"/>
@@ -73,8 +69,8 @@
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="staff_" inverseEntity="Factory"/>
     </entity>
     <entity name="Utility" representedClassName="Utility" syncable="YES" codeGenerationType="class">
-        <attribute name="cost" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="name_" optional="YES" attributeType="String"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="utilities_" inverseEntity="Product"/>
     </entity>
     <elements>
@@ -84,8 +80,7 @@
         <element name="Feedstock" positionX="-11052.6875" positionY="-9042.47265625" width="128" height="103"/>
         <element name="Packaging" positionX="-11019.03125" positionY="-8907.703125" width="128" height="118"/>
         <element name="Pricelist" positionX="-11257.05078125" positionY="-8986.09765625" width="128" height="88"/>
-        <element name="Product" positionX="-10714.9140625" positionY="-9143.62890625" width="128" height="28"/>
-        <element name="Production" positionX="-10519.19140625" positionY="-9197.18359375" width="128" height="73"/>
+        <element name="Product" positionX="-10714.9140625" positionY="-9143.62890625" width="128" height="223"/>
         <element name="Sales" positionX="-10486.12890625" positionY="-9086.26171875" width="128" height="103"/>
         <element name="Staff" positionX="-11300.98828125" positionY="-9189.1953125" width="128" height="28"/>
         <element name="Utility" positionX="-10486.453125" positionY="-8954.3515625" width="128" height="88"/>

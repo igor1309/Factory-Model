@@ -7,12 +7,45 @@
 
 import SwiftUI
 
+struct Row: Identifiable, Hashable, Comparable {
+    var title: String
+    var subtitle: String
+    var detail: String? = nil
+    var icon: String
+    
+    var id: String { title }
+    
+    static func < (lhs: Row, rhs: Row) -> Bool {
+        lhs.title < rhs.title
+    }
+}
+
+
 struct ListRow: View {
     
     var title: String
     var subtitle: String? = nil
     var detail: String? = nil
     var icon: String
+    
+    init(
+        title: String,
+        subtitle: String? = nil,
+        detail: String? = nil,
+        icon: String
+    ) {
+        self.title = title
+        self.subtitle = subtitle
+        self.detail = detail
+        self.icon = icon
+    }
+    
+    init(_ row: Row) {
+        self.title = row.title
+        self.subtitle = row.subtitle
+        self.detail = row.detail
+        self.icon = row.icon
+    }
     
     var body: some View {
         //  MARK: - change to Label when it gets fixed alignment

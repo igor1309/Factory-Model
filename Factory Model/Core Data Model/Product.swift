@@ -24,17 +24,17 @@ extension Product {
         get { group_ ?? "Unknown"}
         set { group_ = newValue }
     }
-    var feedstock: Set<Feedstock> {
-        get { feedstock_ as? Set<Feedstock> ?? [] }
-        set { feedstock_ = newValue as NSSet }
+    var feedstock: [Feedstock] {
+        get { (feedstock_ as? Set<Feedstock> ?? []).sorted() }
+        set { feedstock_ = Set(newValue) as NSSet }
     }
-    var sales: Set<Sales> {
-        get { sales_ as? Set<Sales> ?? [] }
-        set { sales_ = newValue as NSSet }
+    var sales: [Sales] {
+        get { (sales_ as? Set<Sales> ?? []).sorted() }
+        set { sales_ = Set(newValue) as NSSet }
     }
-    var utilities: Set<Utility> {
-        get { utilities_ as? Set<Utility> ?? [] }
-        set { utilities_ = newValue as NSSet }
+    var utilities: [Utility] {
+        get { (utilities_ as? Set<Utility> ?? []).sorted() }
+        set { utilities_ = Set(newValue) as NSSet }
     }
 }
 

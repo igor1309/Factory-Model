@@ -38,31 +38,35 @@ extension Factory {
         set { staff_ = Set(newValue) as NSSet }
     }
     
+    
+    func salaryForDivision(_ division: String) -> Double {
+        staff
+            .filter { $0.division == division }
+            .map { $0.salary }
+            .reduce(0, +)
+    }
+    
+    func salaryForDivisionWithTax(_ division: String) -> Double {
+        salaryForDivision(division) * 1.302
+    }
+    
+
+    
+    
+    
     //  MARK: FINISH THIS DICTIONARY
     //  THATS A SAMPLE FOR STAFF, ets
     var productGroups: [Row] {
         Dictionary(grouping: products) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
-            .map { Row(title: $0, subtitle: $1) }
+            .map { Row(title: $0, subtitle: $1, detail: "TBD: Total production & revenue".uppercased(), icon: "bag") }
             .sorted()
     }
     var divisions: [Row] {
         Dictionary(grouping: staff) { $0.division }
             .mapValues { $0.map { $0.department }.removingDuplicates().joined(separator: ", ") }
-            .map { Row(title: $0, subtitle: $1) }
+            .map { Row(title: $0, subtitle: $1 + " TBD: count", detail: "TBD: Total salary".uppercased(), icon: "person.2") }
             .sorted()
     }
 
 }
-
-struct Row: Identifiable, Hashable, Comparable {
-    var title: String
-    var subtitle: String
-    
-    var id: String { title }
-    
-    static func < (lhs: Row, rhs: Row) -> Bool {
-        lhs.title < rhs.title
-    }
-}
-
