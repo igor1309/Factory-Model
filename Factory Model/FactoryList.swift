@@ -118,11 +118,12 @@ struct FactoryList: View {
             
             let feedstock1 = Feedstock(context: managedObjectContext)
             feedstock1.name = "Молоко натуральное"
-            //feedstock1.price = 30.0
+            feedstock1.price = 30.0
             feedstock1.qty = 1
             
             let feedstock2 = Feedstock(context: managedObjectContext)
             feedstock2.name = "Сухое молоко"
+            feedstock2.price = 70
             feedstock2.qty = 1
             
             let feedstock3 = Feedstock(context: managedObjectContext)
@@ -133,12 +134,14 @@ struct FactoryList: View {
             
             let feedstock5 = Feedstock(context: managedObjectContext)
             feedstock5.name = "Сычужная заправка (?)"
+            feedstock5.price = 4
             
             let feedstock6 = Feedstock(context: managedObjectContext)
             feedstock6.name = "Пепсин"
             
             let feedstock7 = Feedstock(context: managedObjectContext)
             feedstock7.name = "Соль"
+            feedstock7.price = 30
             
             let feedstock8 = Feedstock(context: managedObjectContext)
             feedstock8.name = "Вода"
@@ -174,7 +177,7 @@ struct FactoryList: View {
             let product3 = Product(context: managedObjectContext)
             product3.name = "Творог"
             product3.code = "2001"
-            product3.group = "Творог"
+            product3.group = "Твороги"
             
             factory.products = [product1, product2, product3]
             

@@ -51,7 +51,7 @@ struct ProductList: View {
                     HStack {
                         Text("Total revenue")
                         Spacer()
-                        Text("TBD")
+                        Text("\(factory.revenueExVAT, specifier: "%.f")")
                     }
                 }
                 .font(.subheadline)

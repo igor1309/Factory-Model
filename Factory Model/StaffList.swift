@@ -66,12 +66,10 @@ struct StaffList: View {
                 
                 Button("Add Staff") {
                     let staff = Staff(context: managedObjectContext)
-                    //staff.name = "New Staff"
-                    //staff.note = "Some note regarding new staff"
-                    staff.division = division
-                    //staff.department = "..."
-                    //staff.position = "Worker"
                     staff.name = "John"
+                    staff.division = division
+                    staff.department = "..."
+                    staff.salary = 10_000
                     factory.addToStaff_(staff)
                     save()
                 }

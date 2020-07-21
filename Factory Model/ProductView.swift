@@ -60,70 +60,125 @@ struct ProductView: View {
                 }
             }
             
-            Section(header: Text("Sales".uppercased())) {
-                ForEach(sales, id: \.self) { sale in
-                    ListRow(title: sale.buyer, subtitle: "\(sale.qty) @ \(sale.price)", icon: "cart")
-                }
-                
-                HStack {
-                    Text("Total Sales")
-                    Spacer()
-                    Text("TBD")
+            Section(header: Text("Cost".uppercased())) {
+                Group {
+                    HStack {
+                        Text("Production Cost")
+                        Spacer()
+                        Text("\(draft.cost, specifier: "%.1f")")
+                    }
+                    HStack {
+                        Text("Total Production Cost")
+                        Spacer()
+                        Text("\(draft.totalCost, specifier: "%.1f")")
+                    }
                 }
                 .font(.subheadline)
-                
-                ForEach(product.sales, id: \.self) { sale in
-                    ListRow(title: sale.buyer, subtitle: "\(sale.qty) @ \(sale.price)", icon: "cart")
+            }
+            
+            Section(header: Text("Sales".uppercased())) {
+                Group {
+                    HStack {
+                        Text("Total Sales Qty")
+                        Spacer()
+                        Text("\(draft.totalSalesQty, specifier: "%.1f")")
+                    }
+                    
+                    VStack(spacing: 4) {
+                        HStack {
+                            Text("Avg price")
+                            Spacer()
+                            Text("\(draft.avgPriceExVAT, specifier: "%.1f")")
+                        }
+                        
+                        HStack {
+                            Text("Avg price, incl VAT")
+                            Spacer()
+                            Text("\(draft.avgPriceWithVAT, specifier: "%.1f")")
+                        }
+                        .foregroundColor(.secondary)
+                    }
+                    .padding(.vertical, 3)
+                    
+                    NavigationLink(
+                        destination: SalesList(for: product)
+                    ) {
+                        HStack {
+                            Label("Total Sales, ex VAT", systemImage: "cart")
+                            Spacer()
+                            Text("\(draft.revenueExVAT, specifier: "%.1f")")
+                        }
+                    }
+                    
+                    HStack {
+                        Label("COGS", systemImage: "wrench.and.screwdriver")
+                        Spacer()
+                        Text("\(draft.cogs, specifier: "%.1f")")
+                            .padding(.trailing)
+                    }
+                    
+                    HStack {
+                        Label("Margin****", systemImage: "rectangle.rightthird.inset.fill")
+                        Spacer()
+                        Text("\(draft.margin, specifier: "%.1f")")
+                            .padding(.trailing)
+                    }
+                    .foregroundColor(.secondary)
+                    
                 }
-                
+                .font(.subheadline)
+            }
 
-                Button("Add Sales") {
-                    let sales = Sales(context: managedObjectContext)
-                    product.addToSales_(sales)
-                    save()
+            Section(header: Text("Inventory".uppercased())) {
+                Group {
+                    HStack {
+                        Label("Initial Inventory", systemImage: "building.2")
+                        Spacer()
+                        Text("\(draft.initialInventory, specifier: "%.1f")")
+                    }
+                    
+                    HStack {
+                        Label("Closing Inventory", systemImage: "building.2")
+                        Spacer()
+                        Text("\(draft.closingInventory, specifier: "%.1f")")
+                    }
                 }
+                .font(.subheadline)
             }
             
             Section(header: Text("Feedstock".uppercased())) {
-                ForEach(product.feedstock, id: \.self) { feedstock in
-                    NavigationLink(
-                        destination: FeedstockView(feedstock: feedstock, for: product)
-                    ) {
-                        ListRow(title: feedstock.name, subtitle: "\(feedstock.qty) @ TBD: price, TOTAL COST", icon: "puzzlepiece")
+                NavigationLink(
+                    destination: FeedstockList(for: product)
+                ) {
+                    HStack {
+                        Label("Feedstock Total Cost", systemImage: "puzzlepiece")
+                        Spacer()
+                        Text("\(draft.cost, specifier: "%.1f")")
                     }
-                }
-                
-                HStack {
-                    Text("Feedstock Total Cost")
-                    Spacer()
-                    Text("TBD")
-                }
-                .font(.subheadline)
-                
-                Button("Add Feedstock") {
-                    let feedstock = Feedstock(context: managedObjectContext)
-                    product.addToFeedstock_(feedstock)
-                    save()
+                    .font(.subheadline)
                 }
             }
             
             Section(header: Text("Utilities".uppercased())) {
-                ForEach(product.utilities, id: \.self) { utility in
-                    ListRow(title: utility.name, subtitle: "\(utility.price)", icon: "lightbulb")
-                }
+//                ForEach(product.utilities, id: \.self) { utility in
+//                    ListRow(title: utility.name, subtitle: "\(utility.price)", icon: "lightbulb")
+//                }
                 
+             NavigationLink(
+                destination: UtilityList(for: product)
+             ) {
                 HStack {
-                    Text("Total Utilities")
+                    Label("Total Utilities", systemImage: "lightbulb")
                     Spacer()
                     Text("TBD")
                 }
                 .font(.subheadline)
-                
-                Button("Add Utility") {
-                    let utility = Utility(context: managedObjectContext)
-                    product.addToUtilities_(utility)
-                    save()
-                }
+            }
+//                Button("Add Utility") {
+//                    let utility = Utility(context: managedObjectContext)
+//                    product.addToUtilities_(utility)
+//                    save()
+//                }
             }
         }
         .listStyle(InsetGroupedListStyle())

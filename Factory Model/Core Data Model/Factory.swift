@@ -45,13 +45,32 @@ extension Factory {
             .map { $0.salary }
             .reduce(0, +)
     }
-    
     func salaryForDivisionWithTax(_ division: String) -> Double {
         salaryForDivision(division) * 1.302
     }
     
-
+    var equipmentTotal: Double {
+        equipment
+            .map { $0.price }
+            .reduce(0, +)
+    }
+    var amortizationMonthly: Double {
+        equipment
+            .map { $0.price / ($0.lifetime > 0 ? $0.lifetime : 1) / 12 }
+            .reduce(0, +)
+    }
     
+    var expensesTotal: Double {
+        expenses
+            .map { $0.amount }
+            .reduce(0, +)
+    }
+    
+    var revenueExVAT: Double {
+        products
+            .map { $0.revenueExVAT }
+            .reduce(0, +)
+    }
     
     
     //  MARK: FINISH THIS DICTIONARY

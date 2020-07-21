@@ -24,6 +24,15 @@
 		2A936E5D24C6F07F00C34381 /* StaffList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5C24C6F07F00C34381 /* StaffList.swift */; };
 		2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5E24C6F9C200C34381 /* StaffView.swift */; };
 		2A936E6124C7051500C34381 /* FeedstockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6024C7051500C34381 /* FeedstockView.swift */; };
+		2A936E6324C7112B00C34381 /* FeedstockList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6224C7112B00C34381 /* FeedstockList.swift */; };
+		2A936E6524C7147100C34381 /* SalesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6424C7147100C34381 /* SalesList.swift */; };
+		2A936E6724C7151D00C34381 /* SalesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6624C7151D00C34381 /* SalesView.swift */; };
+		2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6824C7182A00C34381 /* UtilityList.swift */; };
+		2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6A24C7187700C34381 /* UtilityView.swift */; };
+		2A936E6D24C71CD700C34381 /* ExpensesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6C24C71CD700C34381 /* ExpensesList.swift */; };
+		2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6E24C71CFC00C34381 /* ExpensesView.swift */; };
+		2A936E7124C71EB800C34381 /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E7024C71EB800C34381 /* EquipmentList.swift */; };
+		2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E7224C71EE200C34381 /* EquipmentView.swift */; };
 		2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */; };
 		2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09B24C4F4A8005F1E9F /* ContentView.swift */; };
 		2AADA09E24C4F4A9005F1E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */; };
@@ -52,6 +61,15 @@
 		2A936E5C24C6F07F00C34381 /* StaffList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffList.swift; sourceTree = "<group>"; };
 		2A936E5E24C6F9C200C34381 /* StaffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffView.swift; sourceTree = "<group>"; };
 		2A936E6024C7051500C34381 /* FeedstockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedstockView.swift; sourceTree = "<group>"; };
+		2A936E6224C7112B00C34381 /* FeedstockList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedstockList.swift; sourceTree = "<group>"; };
+		2A936E6424C7147100C34381 /* SalesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesList.swift; sourceTree = "<group>"; };
+		2A936E6624C7151D00C34381 /* SalesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesView.swift; sourceTree = "<group>"; };
+		2A936E6824C7182A00C34381 /* UtilityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityList.swift; sourceTree = "<group>"; };
+		2A936E6A24C7187700C34381 /* UtilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityView.swift; sourceTree = "<group>"; };
+		2A936E6C24C71CD700C34381 /* ExpensesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesList.swift; sourceTree = "<group>"; };
+		2A936E6E24C71CFC00C34381 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
+		2A936E7024C71EB800C34381 /* EquipmentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
+		2A936E7224C71EE200C34381 /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
 		2AADA09624C4F4A8005F1E9F /* Factory Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Factory Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_ModelApp.swift; sourceTree = "<group>"; };
 		2AADA09B24C4F4A8005F1E9F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -118,10 +136,19 @@
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A936E5A24C6E09F00C34381 /* ProductList.swift */,
-				2A936E5C24C6F07F00C34381 /* StaffList.swift */,
 				2A85734624C5DBCF009FF51A /* ProductView.swift */,
+				2A936E6424C7147100C34381 /* SalesList.swift */,
+				2A936E6624C7151D00C34381 /* SalesView.swift */,
+				2A936E5C24C6F07F00C34381 /* StaffList.swift */,
 				2A936E5E24C6F9C200C34381 /* StaffView.swift */,
+				2A936E6224C7112B00C34381 /* FeedstockList.swift */,
 				2A936E6024C7051500C34381 /* FeedstockView.swift */,
+				2A936E6824C7182A00C34381 /* UtilityList.swift */,
+				2A936E6A24C7187700C34381 /* UtilityView.swift */,
+				2A936E6C24C71CD700C34381 /* ExpensesList.swift */,
+				2A936E6E24C71CFC00C34381 /* ExpensesView.swift */,
+				2A936E7024C71EB800C34381 /* EquipmentList.swift */,
+				2A936E7224C71EE200C34381 /* EquipmentView.swift */,
 				2A936E5224C63DF100C34381 /* Array+Ext.swift */,
 				2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */,
 				2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */,
@@ -209,9 +236,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
+				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
+				2A936E6324C7112B00C34381 /* FeedstockList.swift in Sources */,
 				2AC07F9324C5AA4200BB23B1 /* FactoryList.swift in Sources */,
+				2A936E6724C7151D00C34381 /* SalesView.swift in Sources */,
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
+				2A936E7124C71EB800C34381 /* EquipmentList.swift in Sources */,
 				2A936E5524C6D5C200C34381 /* Feedstock.swift in Sources */,
+				2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */,
+				2A936E6D24C71CD700C34381 /* ExpensesList.swift in Sources */,
 				2AADA0AA24C4F4E2005F1E9F /* DataModel.xcdatamodeld in Sources */,
 				2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */,
 				2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */,
@@ -221,8 +254,11 @@
 				2A936E5724C6DB7500C34381 /* Packaging.swift in Sources */,
 				2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
+				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
+				2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */,
 				2A936E5D24C6F07F00C34381 /* StaffList.swift in Sources */,
+				2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */,
 				2A936E6124C7051500C34381 /* FeedstockView.swift in Sources */,
 				2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,

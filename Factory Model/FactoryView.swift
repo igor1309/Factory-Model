@@ -46,31 +46,31 @@ struct FactoryView: View {
                     }
                 }
                 
-                VStack(spacing: 4) {
+                Group {
                     HStack {
-                        Text("Total production")
+                        Label("Total production", systemImage: "wrench.and.screwdriver")
                         Spacer()
                         Text("TBD")
                     }
                     
                     HStack {
-                        Text("Total revenue")
+                        Label("Total revenue, ex VAT", systemImage: "cart")
                         Spacer()
-                        Text("TBD")
+                        Text("\(factory.revenueExVAT, specifier: "%.f")")
                     }
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)
                 
-                Button("Add Product") {
-                    let product = Product(context: managedObjectContext)
-                    product.name = "New Product"
-                    product.note = "Some note for product"
-                    product.code = "1001"
-                    product.group = "Group1"
-                    factory.addToProducts_(product)
-                    save()
-                }
+//                Button("Add Product") {
+//                    let product = Product(context: managedObjectContext)
+//                    product.name = "New Product"
+//                    product.note = "Some note for product"
+//                    product.code = "1001"
+//                    product.group = "Group1"
+//                    factory.addToProducts_(product)
+//                    save()
+//                }
             }
             
             Section(header: Text("Staff: Divisions".uppercased())) {
@@ -83,7 +83,7 @@ struct FactoryView: View {
                 }
                 
                 HStack {
-                    Text("Total salary, incl taxes")
+                    Label("Total salary, incl taxes", systemImage: "person.2")
                     Spacer()
                     Text("TBD")
                 }
@@ -103,46 +103,28 @@ struct FactoryView: View {
             }
             
             Section(header: Text("Expenses".uppercased())) {
-                ForEach(factory.expenses.sorted(by: { $0.name < $1.name }), id: \.self) { expenses in
-                    ListRow(title: expenses.name, subtitle: expenses.note, icon: "dollarsign.circle")
-                }
-                .onDelete(perform: removeExpenses)
-                
-                HStack {
-                    Text("Total Expenses")
-                    Spacer()
-                    Text("TBD")
-                }
-                .font(.subheadline)
-                
-                Button("Add Expenses") {
-                    let expenses = Expenses(context: managedObjectContext)
-                    expenses.name = "New Expenses"
-                    expenses.note = "Some note regarding new expenses"
-                    factory.addToExpenses_(expenses)
-                    save()
+                NavigationLink(
+                    destination: ExpensesList(at: factory)
+                ) {
+                    HStack {
+                        Label("Total Expenses", systemImage: "dollarsign.circle")
+                        Spacer()
+                        Text("\(factory.expensesTotal, specifier: "%.f")")
+                    }
+                    .font(.subheadline)
                 }
             }
             
             Section(header: Text("Equipment".uppercased())) {
-                ForEach(factory.equipment.sorted(by: { $0.name < $1.name }), id: \.self) { equipment in
-                    ListRow(title: equipment.name, subtitle: equipment.note, icon: "wrench.and.screwdriver")
-                }
-                .onDelete(perform: removeEquipment)
-                
-                HStack {
-                    Text("Total Equipment")
-                    Spacer()
-                    Text("TBD")
-                }
-                .font(.subheadline)
-                
-                Button("Add Equipment") {
-                    let equipment = Equipment(context: managedObjectContext)
-                    equipment.name = "New Equipment"
-                    equipment.note = "Some note regarding new equipment"
-                    factory.addToEquipment_(equipment)
-                    save()
+                NavigationLink(
+                    destination: EquipmentList(at: factory)
+                ) {
+                    HStack {
+                        Label("Total Equipment", systemImage: "wrench.and.screwdriver")
+                        Spacer()
+                        Text("\(factory.equipmentTotal, specifier: "%.f")")
+                    }
+                    .font(.subheadline)
                 }
             }
         }
