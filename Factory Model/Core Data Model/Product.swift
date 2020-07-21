@@ -74,6 +74,12 @@ extension Product {
     var closingInventory: Double {
         initialInventory + productionQty - totalSalesQty
     }
+    
+    var totalUtilities: Double {
+        utilities
+            .map { $0.price }
+            .reduce(0, +)
+    }
 }
 
 extension Product: Comparable {

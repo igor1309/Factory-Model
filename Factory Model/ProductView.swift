@@ -10,7 +10,7 @@ import SwiftUI
 struct ProductView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
-
+    
     var product: Product
     
     @FetchRequest var sales: FetchedResults<Sales>
@@ -33,31 +33,40 @@ struct ProductView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Product".uppercased())) {
-                TextField("Group", text: $draft.group)
-                TextField("Code", text: $draft.code)
-                TextField("Name", text: $draft.name)
-                TextField("Note", text: $draft.note)
-                
-                HStack {
-                    Text("Weight Netto")
-                    Spacer()
-                    Text("\(draft.weightNetto, specifier: "%.1f")")
-                }
-                
-                if draft.packaging != nil {
+            Section(header: Text("Product")) {
+                Group {
+                    NavigationLink(
+                        destination: ProductEditor(draft: $draft)
+                    ) {
+                        Text("\(draft.name)/\(draft.group)/\(draft.code)")
+                    }
+//                    TextField("Group", text: $draft.group)
+//                    TextField("Code", text: $draft.code)
+//                    TextField("Name", text: $draft.name)
+//                    TextField("Note", text: $draft.note)
+//
+//                    HStack {
+//                        Text("TBD: Weight Netto")
+//                        Spacer()
+//                        Text("\(draft.weightNetto, specifier: "%.1f")")
+//                    }
+//
+//                    HStack {
+//                        Text("TBD: Packaging")
+//                        Spacer()
+//                        if draft.packaging != nil {
+//                            Text("\(draft.packaging!.code)")
+//                        }
+//                    }
+                    
                     HStack {
-                        Text("Packaging")
+                        Text("TBD: Production Qty")
                         Spacer()
-                        Text("\(draft.packaging!.code)")
+                        Text("\(draft.productionQty, specifier: "%.1f")")
                     }
                 }
-                
-                HStack {
-                    Text("Production Qty")
-                    Spacer()
-                    Text("\(draft.productionQty, specifier: "%.1f")")
-                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
             
             Section(header: Text("Cost".uppercased())) {
@@ -82,6 +91,7 @@ struct ProductView: View {
                         Text("Total Sales Qty")
                         Spacer()
                         Text("\(draft.totalSalesQty, specifier: "%.1f")")
+                            .padding(.trailing)
                     }
                     
                     VStack(spacing: 4) {
@@ -89,12 +99,14 @@ struct ProductView: View {
                             Text("Avg price")
                             Spacer()
                             Text("\(draft.avgPriceExVAT, specifier: "%.1f")")
+                                .padding(.trailing)
                         }
                         
                         HStack {
                             Text("Avg price, incl VAT")
                             Spacer()
                             Text("\(draft.avgPriceWithVAT, specifier: "%.1f")")
+                                .padding(.trailing)
                         }
                         .foregroundColor(.secondary)
                     }
@@ -109,6 +121,7 @@ struct ProductView: View {
                             Text("\(draft.revenueExVAT, specifier: "%.1f")")
                         }
                     }
+                    .foregroundColor(.accentColor)
                     
                     HStack {
                         Label("COGS", systemImage: "wrench.and.screwdriver")
@@ -128,7 +141,7 @@ struct ProductView: View {
                 }
                 .font(.subheadline)
             }
-
+            
             Section(header: Text("Inventory".uppercased())) {
                 Group {
                     HStack {
@@ -151,49 +164,42 @@ struct ProductView: View {
                     destination: FeedstockList(for: product)
                 ) {
                     HStack {
-                        Label("Feedstock Total Cost", systemImage: "puzzlepiece")
+                        Label("Feedstock Cost", systemImage: "puzzlepiece")
                         Spacer()
                         Text("\(draft.cost, specifier: "%.1f")")
                     }
                     .font(.subheadline)
                 }
+                .foregroundColor(.accentColor)
             }
             
             Section(header: Text("Utilities".uppercased())) {
-//                ForEach(product.utilities, id: \.self) { utility in
-//                    ListRow(title: utility.name, subtitle: "\(utility.price)", icon: "lightbulb")
-//                }
-                
-             NavigationLink(
-                destination: UtilityList(for: product)
-             ) {
-                HStack {
-                    Label("Total Utilities", systemImage: "lightbulb")
-                    Spacer()
-                    Text("TBD")
+                NavigationLink(
+                    destination: UtilityList(for: product)
+                ) {
+                    HStack {
+                        Label("Total Utilities", systemImage: "lightbulb")
+                        Spacer()
+                        Text("TBD")
+                    }
+                    .font(.subheadline)
                 }
-                .font(.subheadline)
-            }
-//                Button("Add Utility") {
-//                    let utility = Utility(context: managedObjectContext)
-//                    product.addToUtilities_(utility)
-//                    save()
-//                }
+                .foregroundColor(.accentColor)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(draft.name)
-        .navigationBarItems(trailing: saveButton)
+//        .navigationBarItems(trailing: saveButton)
     }
     
-    private var saveButton: some View {
-        Button("Save") {
-            //  MARK: FINISH THIS
-            
-            save()
-            presentation.wrappedValue.dismiss()
-        }
-    }
+//    private var saveButton: some View {
+//        Button("Save") {
+//            //  MARK: FINISH THIS
+//            
+//            save()
+//            presentation.wrappedValue.dismiss()
+//        }
+//    }
     
     private func save() {
         if self.managedObjectContext.hasChanges {

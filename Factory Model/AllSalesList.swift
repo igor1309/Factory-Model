@@ -1,5 +1,5 @@
 //
-//  SalesList.swift
+//  AllSalesList.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 21.07.2020.
@@ -7,73 +7,51 @@
 
 import SwiftUI
 
-struct SalesList: View {
+struct AllSalesList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest var sales: FetchedResults<Sales>
     
-    let product: Product
+    var factory: Factory
     
-    init(for product: Product) {
-        self.product = product
+    init(for factory: Factory) {
+        self.factory = factory
         _sales = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "product = %@", product
-            )
+            ]
         )
     }
     
     
     var body: some View {
         List {
-            Section(header: Text("Sales Total, ex VAT".uppercased())) {
-                
+            Section(
+                header: Text("Sales"),
+                footer: Text("To edit Sales go to Product")
+            ) {
                 HStack {
-                    Text("Sales Total")
-                        .foregroundColor(.secondary)
+                    Label("Total revenue, ex VAT", systemImage: "cart")
                     Spacer()
-                    Text("\(product.revenueExVAT, specifier: "%.f")")
+                    Text("\(factory.revenueExVAT, specifier: "%.f")")
                 }
                 .font(.subheadline)
             }
             
             Section(header: Text("Sales".uppercased())) {
-                ForEach(sales, id: \.self) { sales in
-                    NavigationLink(
-                        destination: SalesView(sales)
-                    ) {
-                        ListRow(
-                            title: sales.buyer,
-                            subtitle: "\(sales.qty)",
-                            icon: "cart"
-                        )
-                    }
+                ForEach(factory.sales, id: \.self) { sales in
+                    ListRow(title: sales.buyer,
+                            subtitle: "\(sales.product == nil ? "" : sales.product!.name)",
+                            detail: "\(sales.qty) @ \(sales.price)",
+                            icon: "cart")
                 }
                 .onDelete(perform: removeSales)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.name)
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let sales = Sales(context: managedObjectContext)
-            sales.buyer = "John"
-            sales.qty = 1_000
-            sales.price = 300
-            product.addToSales_(sales)
-            save()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationTitle("Sales")
     }
     
     private func removeSales(at offsets: IndexSet) {
@@ -98,8 +76,8 @@ struct SalesList: View {
     }
 }
 
-//struct SalesList_Previews: PreviewProvider {
+//struct AllSalesList_Previews: PreviewProvider {
 //    static var previews: some View {
-//        SalesList()
+//        AllSalesList()
 //    }
 //}

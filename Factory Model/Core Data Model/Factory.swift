@@ -29,13 +29,35 @@ extension Factory {
         set { products_ = Set(newValue) as NSSet }
     }
     var staff: [Staff] {
-        get { (staff_ as? Set<Staff> ?? []).sorted {
-            $0.division < $1.division
-                && $0.department < $1.department
-                && $0.position < $1.position
-                && $0.name < $1.name
-        } }
+        get { (staff_ as? Set<Staff> ?? []).sorted() }
         set { staff_ = Set(newValue) as NSSet }
+    }
+    var staffByDivision: [String: [Staff]] {
+        Dictionary(grouping: staff) { $0.division }
+    }
+    var divisions: [String] {
+        staff
+            .map { $0.division }
+            .removingDuplicates()
+            .sorted()
+    }
+    func totalSalary(for division: String) -> Double {
+        staff
+            .filter { $0.division == division }
+            .map { $0.salary }
+            .reduce(0, +)
+    }
+    func headcount(for division: String) -> Int {
+        staff
+            .filter { $0.division == division }
+            .count
+    }
+    func departments(for division: String) -> String {
+        staff
+            .filter { $0.division == division }
+            .map { $0.department }
+            .removingDuplicates()
+            .joined(separator: ", ")
     }
     
     
@@ -48,7 +70,15 @@ extension Factory {
     func salaryForDivisionWithTax(_ division: String) -> Double {
         salaryForDivision(division) * 1.302
     }
-    
+    var totalSalary: Double {
+        staff
+            .map { $0.salary }
+            .reduce(0, +)
+    }
+    var totalSalaryWithTax: Double {
+        totalSalary * 1.302
+    }
+
     var equipmentTotal: Double {
         equipment
             .map { $0.price }
@@ -72,20 +102,22 @@ extension Factory {
             .reduce(0, +)
     }
     
+    var totalCost: Double {
+        products
+            .map { $0.totalCost }
+            .reduce(0, +)
+    }
     
-    //  MARK: FINISH THIS DICTIONARY
-    //  THATS A SAMPLE FOR STAFF, ets
     var productGroups: [Row] {
         Dictionary(grouping: products) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
             .map { Row(title: $0, subtitle: $1, detail: "TBD: Total production & revenue".uppercased(), icon: "bag") }
             .sorted()
     }
-    var divisions: [Row] {
-        Dictionary(grouping: staff) { $0.division }
-            .mapValues { $0.map { $0.department }.removingDuplicates().joined(separator: ", ") }
-            .map { Row(title: $0, subtitle: $1 + " TBD: count", detail: "TBD: Total salary".uppercased(), icon: "person.2") }
-            .sorted()
+    
+    
+    var sales: [Sales] {
+        products
+            .flatMap { $0.sales }
     }
-
 }

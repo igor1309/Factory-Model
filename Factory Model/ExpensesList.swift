@@ -44,26 +44,35 @@ struct ExpensesList: View {
                     NavigationLink(
                         destination: ExpensesView(expenses: expenses, for: factory)
                     ) {
-                        ListRow(title: expenses.name,
-                                subtitle: "\(expenses.amount) @ TBD: price, TOTAL COST",
-                                detail: expenses.note,
-                                icon: "dollarsign.circle")
+                        ListRow(
+                            title: expenses.name,
+                            subtitle: "\(expenses.amount)",
+                            detail: expenses.note,
+                            icon: "dollarsign.circle",
+                            useSmallerFont: true
+                        )
                     }
                 }
                 .onDelete(perform: removeExpenses)
-                
-                Button("Add Expenses") {
-                    let expenses = Expenses(context: managedObjectContext)
-                    expenses.name = "Сервис"
-                    expenses.note = "..."
-                    expenses.amount = 10_000
-                    factory.addToExpenses_(expenses)
-                    save()
-                }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)
+        .navigationBarItems(trailing: plusButton)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            let expenses = Expenses(context: managedObjectContext)
+            expenses.name = " ..."
+            expenses.note = "..."
+            expenses.amount = 10_000
+            factory.addToExpenses_(expenses)
+            save()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
     }
     
     private func removeExpenses(at offsets: IndexSet) {

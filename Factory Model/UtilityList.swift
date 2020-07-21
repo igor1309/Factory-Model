@@ -31,44 +31,48 @@ struct UtilityList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Utility Total".uppercased())) {
+            Section(header: Text("Total".uppercased())) {
                 
                 HStack {
                     Text("Utility Total")
                         .foregroundColor(.secondary)
                     Spacer()
-                    Text("TBD\(100, specifier: "%.f")")
+                    Text("\(product.totalUtilities, specifier: "%.f")")
                 }
                 .font(.subheadline)
             }
             
-            Section(header: Text("Utility".uppercased())) {
+            Section(header: Text("Utilities".uppercased())) {
                 ForEach(utility, id: \.self) { utility in
                     NavigationLink(
                         destination: UtilityView(utility)
                     ) {
-                        ListRow(title: utility.name,
-                                subtitle: "\(utility.price)",
-                                icon: "lightbulb")
+                        ListRow(
+                            title: utility.name,
+                            subtitle: "\(utility.price)",
+                            icon: "lightbulb",
+                            useSmallerFont: true
+                        )
                     }
                 }
                 .onDelete(perform: removeUtility)
-                
-                Button("Add Utility") {
-                    let utility = Utility(context: managedObjectContext)
-                    //utility.name = "New Utility"
-                    //utility.note = "Some note regarding new utility"
-                    //                    utility.division = division
-                    //utility.department = "..."
-                    //utility.position = "Worker"
-                    utility.name = "Электроэнергия"
-                    product.addToUtilities_(utility)
-                    save()
-                }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.name)
+        .navigationBarItems(trailing: plusButton)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            let utility = Utility(context: managedObjectContext)
+            utility.name = " ..."
+            product.addToUtilities_(utility)
+            save()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
     }
     
     private func removeUtility(at offsets: IndexSet) {

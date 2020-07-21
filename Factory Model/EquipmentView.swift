@@ -25,10 +25,14 @@ struct EquipmentView: View {
     var body: some View {
         List {
             Section(header: Text("Equipment".uppercased())) {
-                TextField("Name", text: $draft.name)
-                TextField("Name", text: $draft.note)
-                Text("TBD: lifetime: \(draft.lifetime, specifier: "%.f")")
-                Text("TBD: price: \(draft.price, specifier: "%.f")")
+                Group {
+                    TextField("Name", text: $draft.name)
+                    TextField("Name", text: $draft.note)
+                    Text("TBD: lifetime: \(draft.lifetime, specifier: "%.f")")
+                    Text("TBD: price: \(draft.price, specifier: "%.f")")
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())

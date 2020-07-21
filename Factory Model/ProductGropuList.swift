@@ -7,59 +7,46 @@
 
 import SwiftUI
 
-struct ProductList: View {
+struct ProductGropuList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest var products: FetchedResults<Product>
     
     var factory: Factory
+    let group: String
     
-    init(for factory: Factory) {
+    init(group: String, at factory: Factory) {
         self.factory = factory
+        self.group = group
         _products = FetchRequest(
             entity: Product.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Product.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "factory = %@", factory
+                format: "factory = %@ and group_ = %@", factory, group
             )
         )
     }
     
     var body: some View {
         List {
-            Section(header: Text("Totals")) {
+            Section(header: Text("Group Totals")) {
                 Group {
-                    VStack {
-                        HStack {
-                            Text("Total Production Cost**")
-                            Spacer()
-                            Text("\(factory.totalCost, specifier: "%.f")")
-                        }
-                        Text("ЕЩЕ не совсем кост — не всё учтено!!!")
-                            .foregroundColor(.red)
-                            .font(.caption)
+                    HStack {
+                        Text("Total production")
+                        Spacer()
+                        Text("TBD")
                     }
                     
                     HStack {
-                        Text("Total Revenue")
+                        Text("Total revenue")
                         Spacer()
                         Text("\(factory.revenueExVAT, specifier: "%.f")")
                     }
                 }
-                .foregroundColor(.secondary)
                 .font(.subheadline)
-            }
-            
-            Section(header: Text("Product Groups")) {
-                ForEach(factory.productGroups) { productGroup in
-                    NavigationLink(
-                        destination: ProductGropuList(group: productGroup.title, at: factory)
-                    ) {
-                        ListRow(productGroup)
-                    }
-                }
+                .padding(.vertical, 3)
             }
             
             Section(header: Text("Products")) {
@@ -71,10 +58,11 @@ struct ProductList: View {
                     }
                 }
                 .onDelete(perform: removeProduct)
+                
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Products")
+        .navigationTitle(group)
         .navigationBarItems(trailing: plusButton)
     }
     
@@ -82,6 +70,9 @@ struct ProductList: View {
         Button {
             let product = Product(context: managedObjectContext)
             product.name = " New Product"
+//            product.note = "Some note for product"
+            // product.code = "1001"
+            product.group = group
             factory.addToProducts_(product)
             save()
         } label: {
@@ -114,6 +105,6 @@ struct ProductList: View {
 
 //struct ProductList_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ProductList()
+//        ProductList(group: <#String#>, at: <#Factory#>)
 //    }
 //}

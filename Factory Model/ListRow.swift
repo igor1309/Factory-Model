@@ -27,47 +27,50 @@ struct ListRow: View {
     var subtitle: String? = nil
     var detail: String? = nil
     var icon: String
+    var useSmallerFont = false
     
     init(
         title: String,
         subtitle: String? = nil,
         detail: String? = nil,
-        icon: String
+        icon: String,
+        useSmallerFont: Bool = false
     ) {
         self.title = title
         self.subtitle = subtitle
         self.detail = detail
         self.icon = icon
+        self.useSmallerFont = useSmallerFont
     }
     
-    init(_ row: Row) {
+    init(_ row: Row, useSmallerFont: Bool = false) {
         self.title = row.title
         self.subtitle = row.subtitle
         self.detail = row.detail
         self.icon = row.icon
+        self.useSmallerFont = useSmallerFont
     }
     
     var body: some View {
-        //  MARK: - change to Label when it gets fixed alignment
-        HStack {
-            Image(systemName: icon)
-                .padding(.trailing, 6)
-
-            VStack(alignment: .leading, spacing: 3) {
+        Label {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(useSmallerFont ? .subheadline : .headline)
+                
+                if subtitle != nil, !subtitle!.isEmpty {
+                    Text(subtitle!)
+                        .foregroundColor(.secondary)
+                        .font(useSmallerFont ? .footnote : .subheadline)
+                }
+                
                 if detail != nil {
                     Text(detail!)
                         .foregroundColor(.secondary)
                         .font(.caption2)
                 }
-                
-                Text(title)
-                
-                if subtitle != nil, !subtitle!.isEmpty {
-                    Text(subtitle!)
-                        .foregroundColor(.secondary)
-                        .font(.subheadline)
-                }
             }
+        } icon: {
+            Image(systemName: icon)
         }
     }
 }

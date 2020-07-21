@@ -7,15 +7,17 @@
 
 import SwiftUI
 
-struct StaffList: View {
+struct DivisionView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest var staff: FetchedResults<Staff>
     
     var factory: Factory
+    let division: String
     
-    init(at factory: Factory) {
+    init(division: String, at factory: Factory) {
         self.factory = factory
+        self.division = division
         _staff = FetchRequest(
             entity: Staff.entity(),
             sortDescriptors: [
@@ -24,7 +26,7 @@ struct StaffList: View {
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "factory = %@", factory
+                format: "factory = %@ and division_ = %@", factory, division
             )
         )
     }
@@ -32,32 +34,19 @@ struct StaffList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Total Salary".uppercased())) {
+            Section(header: Text("Total Salary")) {
                 HStack {
                     Text("incl taxes")
                         .foregroundColor(.secondary)
                     Spacer()
-                    Text("\(factory.totalSalaryWithTax, specifier: "%.f")")
+                    Text("\(factory.salaryForDivisionWithTax(division), specifier: "%.f")")
                 }
                 .font(.subheadline)
             }
             
-            Section(header: Text("Divisions".uppercased())) {
-                ForEach(factory.divisions, id: \.self) { division in
-                    NavigationLink(
-                        destination: DivisionView(division: division, at: factory)
-                    ) {
-                        ListRow(
-                            title: division + ", \(factory.headcount(for: division))",
-                            subtitle: "\(factory.totalSalary(for: division))",
-                            detail: factory.departments(for: division),
-                            icon: "person.2"
-                        )
-                    }
-                }
-            }
-            
-            Section(header: Text("Staff".uppercased())) {
+            Section(
+                header: Text("Staff (\(factory.headcount(for: division)))")
+            ) {
                 ForEach(staff, id: \.self) { staff in
                     NavigationLink(
                         destination: StaffView(staff)
@@ -65,14 +54,14 @@ struct StaffList: View {
                         ListRow(title: staff.name,
                                 subtitle: "\(staff.salary)" + (staff.note_ == nil ? "" : ", " + staff.note),
                                 detail: staff.department + ": " + staff.position,
-                                icon: "person")
+                                icon: "person.2")
                     }
                 }
                 .onDelete(perform: removeStaff)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Staff")
+        .navigationTitle(division)
         .navigationBarItems(trailing: plusButton)
     }
     
@@ -80,6 +69,7 @@ struct StaffList: View {
         Button {
             let staff = Staff(context: managedObjectContext)
             staff.name = " ..."
+            staff.division = division
             staff.salary = 10_000
             factory.addToStaff_(staff)
             save()
@@ -113,6 +103,6 @@ struct StaffList: View {
 
 //struct StaffList_Previews: PreviewProvider {
 //    static var previews: some View {
-//        StaffList()
+//        DivisionView()
 //    }
 //}

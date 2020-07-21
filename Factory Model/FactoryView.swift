@@ -20,39 +20,50 @@ struct FactoryView: View {
     init(_ factory: Factory) {
         self.factory = factory
         _draft = State(initialValue: factory)
-        _products = FetchRequest(entity: Product.entity(),
-                                 sortDescriptors: [
-                                    NSSortDescriptor(keyPath: \Product.name_, ascending: true)
-                                 ],
-                                 predicate: NSPredicate(
-                                    format: "factory = %@", factory
-                                 )
+        _products = FetchRequest(
+            entity: Product.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
+            ],
+            predicate: NSPredicate(
+                format: "factory = %@", factory
+            )
         )
     }
     
     var body: some View {
         List {
-            Section(header: Text("Factory".uppercased())) {
-                TextField("Name", text: $draft.name)
-                TextField("Note", text: $draft.note)
+            Section(header: Text("Factory")) {
+                Group {
+                    TextField("Name", text: $draft.name)
+                    TextField("Note", text: $draft.note)
+                }
+                .foregroundColor(.accentColor)
             }
             
-            Section(header: Text("Product Groups".uppercased())) {
-                ForEach(factory.productGroups) { productGroup in
+            Section(header: Text("Products")) {
+                Group {
                     NavigationLink(
-                        destination: ProductList(group: productGroup.title, at: factory)
+                        destination: ProductList(for: factory)
                     ) {
-                        ListRow(productGroup)
+                        HStack {
+                            Label("Total production", systemImage: "wrench.and.screwdriver")
+                            Spacer()
+                            Text("TBD")
+                        }
                     }
                 }
-                
-                Group {
-                    HStack {
-                        Label("Total production", systemImage: "wrench.and.screwdriver")
-                        Spacer()
-                        Text("TBD")
-                    }
-                    
+                .font(.subheadline)
+                .padding(.vertical, 3)
+            }
+            
+            Section(
+                header: Text("Sales"),
+                footer: Text("To edit Sales go to Product")
+            ) {
+                NavigationLink(
+                    destination: AllSalesList(for: factory)
+                ) {
                     HStack {
                         Label("Total revenue, ex VAT", systemImage: "cart")
                         Spacer()
@@ -60,49 +71,23 @@ struct FactoryView: View {
                     }
                 }
                 .font(.subheadline)
-                .padding(.vertical, 3)
-                
-//                Button("Add Product") {
-//                    let product = Product(context: managedObjectContext)
-//                    product.name = "New Product"
-//                    product.note = "Some note for product"
-//                    product.code = "1001"
-//                    product.group = "Group1"
-//                    factory.addToProducts_(product)
-//                    save()
-//                }
             }
             
-            Section(header: Text("Staff: Divisions".uppercased())) {
-                ForEach(factory.divisions) { division in
-                    NavigationLink(
-                        destination: StaffList(division: division.title, at: factory)
-                    ) {
-                        ListRow(division)
+            Section(header: Text("Staff")) {
+                NavigationLink(
+                    destination: StaffList(at: factory)
+                ) {
+                    HStack {
+                        Label("Total salary, incl taxes", systemImage: "person.2")
+                        Spacer()
+                        
+                        Text("\(factory.totalSalaryWithTax, specifier: "%.f")")
                     }
-                }
-                
-                HStack {
-                    Label("Total salary, incl taxes", systemImage: "person.2")
-                    Spacer()
-                    Text("TBD")
-                }
-                .font(.subheadline)
-                
-                Button("Add Staff") {
-                    let staff = Staff(context: managedObjectContext)
-                    staff.name = "New Staff"
-                    staff.note = "Some note regarding new staff"
-                    staff.division = "Main"
-                    staff.department = "Production"
-                    staff.position = "Worker"
-                    staff.name = "John"
-                    factory.addToStaff_(staff)
-                    save()
+                    .font(.subheadline)
                 }
             }
             
-            Section(header: Text("Expenses".uppercased())) {
+            Section(header: Text("Expenses")) {
                 NavigationLink(
                     destination: ExpensesList(at: factory)
                 ) {
@@ -115,7 +100,7 @@ struct FactoryView: View {
                 }
             }
             
-            Section(header: Text("Equipment".uppercased())) {
+            Section(header: Text("Equipment")) {
                 NavigationLink(
                     destination: EquipmentList(at: factory)
                 ) {
@@ -131,43 +116,7 @@ struct FactoryView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: saveButton)
-    }
-    
-    private func removeProduct(at offsets: IndexSet) {
-        for index in offsets {
-            let product = factory.products[index]
-            managedObjectContext.delete(product)
-        }
-        
-        save()
-    }
-    
-    private func removeEquipment(at offsets: IndexSet) {
-        for index in offsets {
-            let equipment = factory.equipment[index]
-            managedObjectContext.delete(equipment)
-        }
-        
-        save()
-    }
-    
-    private func removeStaff(at offsets: IndexSet) {
-        for index in offsets {
-            let staff = factory.staff[index]
-            managedObjectContext.delete(staff)
-        }
-        
-        save()
-    }
-    
-    private func removeExpenses(at offsets: IndexSet) {
-        for index in offsets {
-            let expenses = factory.expenses[index]
-            managedObjectContext.delete(expenses)
-        }
-        
-        save()
+//        .navigationBarItems(trailing: saveButton)
     }
     
     private var saveButton: some View {

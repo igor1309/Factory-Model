@@ -23,7 +23,7 @@ struct FeedstockList: View {
         _feedstocks = FetchRequest(
             entity: Feedstock.entity(),
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Feedstock.qty, ascending: true),
+                NSSortDescriptor(keyPath: \Feedstock.qty, ascending: false),
                 NSSortDescriptor(keyPath: \Feedstock.name_, ascending: true)
             ],
             predicate: NSPredicate(
@@ -35,43 +35,55 @@ struct FeedstockList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Feedstock Total Cost".uppercased())) {
+            Section(header: Text("Total")) {
                 HStack {
-                    Text("Feedstock Total Cost")
+                    Text("Feedstock Cost")
                         .foregroundColor(.secondary)
                     Spacer()
-                    Text("TBD \(100, specifier: "%.f")")
+                    Text("\(product.cost, specifier: "%.f")")
                 }
                 .font(.subheadline)
             }
             
-            Section(header: Text("Feedstock".uppercased())) {
+            Section(
+                header: Text("Feedstock"),
+                footer: Text("Sorted by Feedstock Qty")
+            ) {
                 ForEach(feedstocks, id: \.self) { feedstock in
                     NavigationLink(
                         destination: FeedstockView(feedstock: feedstock, for: product)
                     ) {
-                        ListRow(title: feedstock.name,
-                                subtitle: "\(feedstock.qty) @ TBD: price, TOTAL COST",
-                                icon: "puzzlepiece")
+                        ListRow(
+                            title: feedstock.name,
+                            subtitle: "\(feedstock.qty) @ \(feedstock.price) = \(feedstock.total)",
+                            icon: "puzzlepiece",
+                            useSmallerFont: true
+                        )
                     }
                 }
                 .onDelete(perform: removeFeedstock)
-                
-                Button("Add Feedstock") {
-                    let feedstock = Feedstock(context: managedObjectContext)
-                    //feedstock.name = "New Feedstock"
-                    //feedstock.note = "Some note regarding new feedstock"
-                    //                    feedstock.division = division
-                    //feedstock.department = "..."
-                    //feedstock.position = "Worker"
-                    feedstock.name = "John"
-                    product.addToFeedstock_(feedstock)
-                    save()
-                }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.name)
+        .navigationBarItems(trailing: plusButton)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            let feedstock = Feedstock(context: managedObjectContext)
+            //feedstock.name = "New Feedstock"
+            //feedstock.note = "Some note regarding new feedstock"
+            //                    feedstock.division = division
+            //feedstock.department = "..."
+            //feedstock.position = "Worker"
+            feedstock.name = " ..."
+            product.addToFeedstock_(feedstock)
+            save()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
     }
     
     private func removeFeedstock(at offsets: IndexSet) {

@@ -25,10 +25,14 @@ struct FeedstockView: View {
     var body: some View {
         List {
             Section(header: Text("Feedstock".uppercased())) {
-                TextField("Name", text: $draft.name)
-                Text("TBD: Qty: \(draft.qty, specifier: "%.f")")
-                Text("TBD: Price PRICE")
-                Text("TBD: Total Cost")
+                Group {
+                    TextField("Name", text: $draft.name)
+                    Text("TBD: Qty: \(draft.qty, specifier: "%.f")")
+                    Text("TBD: Price PRICE")
+                    Text("TBD: Total Cost")
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())

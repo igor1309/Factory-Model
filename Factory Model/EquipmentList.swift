@@ -52,27 +52,36 @@ struct EquipmentList: View {
                     NavigationLink(
                         destination: EquipmentView(equipment: equipment, for: factory)
                     ) {
-                        ListRow(title: equipment.name,
-                                subtitle: "\(equipment.price) for \(equipment.lifetime) years",
-                                detail: "\(equipment.note)",
-                                icon: "wrench.and.screwdriver")
+                        ListRow(
+                            title: equipment.name,
+                            subtitle: "\(equipment.price) for \(equipment.lifetime) years",
+                            detail: "\(equipment.note)",
+                            icon: "wrench.and.screwdriver",
+                            useSmallerFont: true
+                        )
                     }
                 }
                 .onDelete(perform: removeEquipment)
-                
-                Button("Add Equipment") {
-                    let equipment = Equipment(context: managedObjectContext)
-                    equipment.name = "New Equipment"
-                    equipment.note = "Some note regarding new equipment"
-                    equipment.lifetime = 7
-                    equipment.price = 1_000_000
-                    factory.addToEquipment_(equipment)
-                    save()
-                }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)
+        .navigationBarItems(trailing: plusButton)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            let equipment = Equipment(context: managedObjectContext)
+            equipment.name = "New Equipment"
+            //            equipment.note = "Some note regarding new equipment"
+            equipment.lifetime = 7
+            equipment.price = 1_000_000
+            factory.addToEquipment_(equipment)
+            save()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
     }
     
     private func removeEquipment(at offsets: IndexSet) {

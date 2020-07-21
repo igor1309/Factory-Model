@@ -23,12 +23,16 @@ struct StaffView: View {
     var body: some View {
         List {
             Section(header: Text("".uppercased())) {
-                TextField("Name", text: $draft.name)
-                TextField("Note", text: $draft.note)
-                TextField("Position", text: $draft.position)
-                TextField("Department", text: $draft.department)
-                TextField("Division", text: $draft.division)
-                Text("TBD: Salary: \(draft.salary, specifier: "%.f")")
+                Group {
+                    TextField("Name", text: $draft.name)
+                    TextField("Note", text: $draft.note)
+                    TextField("Position", text: $draft.position)
+                    TextField("Department", text: $draft.department)
+                    TextField("Division", text: $draft.division)
+                    Text("TBD: Salary: \(draft.salary, specifier: "%.f")")
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())

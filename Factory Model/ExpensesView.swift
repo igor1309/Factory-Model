@@ -25,9 +25,13 @@ struct ExpensesView: View {
     var body: some View {
         List {
             Section(header: Text("Expenses".uppercased())) {
-                TextField("Name", text: $draft.name)
-                TextField("Name", text: $draft.note)
-                Text("TBD: Qty: \(draft.amount, specifier: "%.f")")
+                Group {
+                    TextField("Name", text: $draft.name)
+                    TextField("Name", text: $draft.note)
+                    Text("TBD: Qty: \(draft.amount, specifier: "%.f")")
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())

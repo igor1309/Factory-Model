@@ -30,3 +30,14 @@ extension Staff {
         set { note_ = newValue }
     }
 }
+
+extension Staff: Comparable {
+    public static func < (lhs: Staff, rhs: Staff) -> Bool {
+        lhs.division < rhs.division
+            && lhs.department < rhs.department
+            && lhs.position < rhs.position
+            && lhs.name < rhs.name
+    }
+    
+    
+}
