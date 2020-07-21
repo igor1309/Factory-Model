@@ -22,7 +22,7 @@ struct StaffView: View {
     
     var body: some View {
         List {
-            Section(header: Text("".uppercased())) {
+            Section(header: Text("")) {
                 Group {
                     TextField("Name", text: $draft.name)
                     TextField("Note", text: $draft.note)

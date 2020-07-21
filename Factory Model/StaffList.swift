@@ -32,7 +32,7 @@ struct StaffList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Total Salary".uppercased())) {
+            Section(header: Text("Total Salary")) {
                 HStack {
                     Text("incl taxes")
                         .foregroundColor(.secondary)
@@ -42,7 +42,7 @@ struct StaffList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Divisions".uppercased())) {
+            Section(header: Text("Divisions")) {
                 ForEach(factory.divisions, id: \.self) { division in
                     NavigationLink(
                         destination: DivisionView(division: division, at: factory)
@@ -57,7 +57,7 @@ struct StaffList: View {
                 }
             }
             
-            Section(header: Text("Staff".uppercased())) {
+            Section(header: Text("Staff")) {
                 ForEach(staff, id: \.self) { staff in
                     NavigationLink(
                         destination: StaffView(staff)

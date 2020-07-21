@@ -31,7 +31,7 @@ struct SalesList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Sales Total, ex VAT".uppercased())) {
+            Section(header: Text("Sales Total, ex VAT")) {
                 
                 HStack {
                     Text("Sales Total")
@@ -42,7 +42,7 @@ struct SalesList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Sales".uppercased())) {
+            Section(header: Text("Sales")) {
                 ForEach(sales, id: \.self) { sales in
                     NavigationLink(
                         destination: SalesView(sales)

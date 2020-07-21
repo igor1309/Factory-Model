@@ -69,6 +69,7 @@ struct ListRow: View {
                         .font(.caption2)
                 }
             }
+            .padding(.vertical, 3)
         } icon: {
             Image(systemName: icon)
         }

@@ -29,7 +29,7 @@ struct EquipmentList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Equipment Total".uppercased())) {
+            Section(header: Text("Equipment Total")) {
                 Group {
                     HStack {
                         Text("Equipment Total")
@@ -47,7 +47,7 @@ struct EquipmentList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Equipment".uppercased())) {
+            Section(header: Text("Equipment")) {
                 ForEach(equipment, id: \.self) { equipment in
                     NavigationLink(
                         destination: EquipmentView(equipment: equipment, for: factory)

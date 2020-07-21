@@ -29,7 +29,7 @@ struct ExpensesList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Expenses Total".uppercased())) {
+            Section(header: Text("Expenses Total")) {
                 HStack {
                     Text("Expenses Total")
                         .foregroundColor(.secondary)
@@ -39,7 +39,7 @@ struct ExpensesList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Expenses".uppercased())) {
+            Section(header: Text("Expenses")) {
                 ForEach(expenses, id: \.self) { expenses in
                     NavigationLink(
                         destination: ExpensesView(expenses: expenses, for: factory)

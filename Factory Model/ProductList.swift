@@ -67,7 +67,13 @@ struct ProductList: View {
                     NavigationLink(
                         destination: ProductView(product)
                     ) {
-                        ListRow(title: product.name, subtitle: product.note, detail: product.group + ": " + product.code, icon: "bag")
+                        ListRow(
+                            title: product.name,
+                                subtitle: product.note,
+                                detail: product.group + ": " + product.code,
+                                icon: "bag",
+                            useSmallerFont: true
+                        )
                     }
                 }
                 .onDelete(perform: removeProduct)

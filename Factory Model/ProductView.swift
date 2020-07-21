@@ -40,36 +40,24 @@ struct ProductView: View {
                     ) {
                         Text("\(draft.name)/\(draft.group)/\(draft.code)")
                     }
-//                    TextField("Group", text: $draft.group)
-//                    TextField("Code", text: $draft.code)
-//                    TextField("Name", text: $draft.name)
-//                    TextField("Note", text: $draft.note)
-//
-//                    HStack {
-//                        Text("TBD: Weight Netto")
-//                        Spacer()
-//                        Text("\(draft.weightNetto, specifier: "%.1f")")
-//                    }
-//
-//                    HStack {
-//                        Text("TBD: Packaging")
-//                        Spacer()
-//                        if draft.packaging != nil {
-//                            Text("\(draft.packaging!.code)")
-//                        }
-//                    }
+                    
+                    if draft.closingInventory < 0 {
+                        Text("Negative Closing Inventory - check Production and Sales Qty!")
+                            .foregroundColor(.red)
+                    }
                     
                     HStack {
-                        Text("TBD: Production Qty")
+                        Text("Production Qty")
                         Spacer()
-                        Text("\(draft.productionQty, specifier: "%.1f")")
+//                        Text("\(draft.productionQty, specifier: "%.1f")")
+                        QtyPicker(qty: $draft.productionQty)
                     }
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
             
-            Section(header: Text("Cost".uppercased())) {
+            Section(header: Text("Cost")) {
                 Group {
                     HStack {
                         Text("Production Cost")
@@ -85,7 +73,7 @@ struct ProductView: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Sales".uppercased())) {
+            Section(header: Text("Sales")) {
                 Group {
                     HStack {
                         Text("Total Sales Qty")
@@ -142,7 +130,7 @@ struct ProductView: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Inventory".uppercased())) {
+            Section(header: Text("Inventory")) {
                 Group {
                     HStack {
                         Label("Initial Inventory", systemImage: "building.2")
@@ -155,11 +143,12 @@ struct ProductView: View {
                         Spacer()
                         Text("\(draft.closingInventory, specifier: "%.1f")")
                     }
+                    .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
                 }
                 .font(.subheadline)
             }
             
-            Section(header: Text("Feedstock".uppercased())) {
+            Section(header: Text("Feedstock")) {
                 NavigationLink(
                     destination: FeedstockList(for: product)
                 ) {
@@ -173,7 +162,7 @@ struct ProductView: View {
                 .foregroundColor(.accentColor)
             }
             
-            Section(header: Text("Utilities".uppercased())) {
+            Section(header: Text("Utilities")) {
                 NavigationLink(
                     destination: UtilityList(for: product)
                 ) {
@@ -189,17 +178,17 @@ struct ProductView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(draft.name)
-//        .navigationBarItems(trailing: saveButton)
+        .navigationBarItems(trailing: saveButton)
     }
     
-//    private var saveButton: some View {
-//        Button("Save") {
-//            //  MARK: FINISH THIS
-//            
-//            save()
+    private var saveButton: some View {
+        Button("Save") {
+            //  MARK: FINISH THIS
+
+            save()
 //            presentation.wrappedValue.dismiss()
-//        }
-//    }
+        }
+    }
     
     private func save() {
         if self.managedObjectContext.hasChanges {

@@ -22,10 +22,15 @@ struct SalesView: View {
     
     var body: some View {
         List {
-            Section(header: Text("".uppercased())) {
+            Section(header: Text("")) {
                 Group {
                     TextField("Name", text: $draft.buyer)
-                    Text("TBD: Sales: \(draft.qty, specifier: "%.f")")
+
+                    HStack {
+                        Text("Sales")
+                        Spacer()
+                        QtyPicker(qty: $draft.qty)
+                    }
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

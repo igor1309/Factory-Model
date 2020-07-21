@@ -24,7 +24,7 @@ struct EquipmentView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Equipment".uppercased())) {
+            Section(header: Text("Equipment")) {
                 Group {
                     TextField("Name", text: $draft.name)
                     TextField("Name", text: $draft.note)

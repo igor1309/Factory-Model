@@ -40,12 +40,14 @@ struct AllSalesList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Sales".uppercased())) {
+            Section(header: Text("Sales")) {
                 ForEach(factory.sales, id: \.self) { sales in
-                    ListRow(title: sales.buyer,
-                            subtitle: "\(sales.product == nil ? "" : sales.product!.name)",
-                            detail: "\(sales.qty) @ \(sales.price)",
-                            icon: "cart")
+                    ListRow(
+                        title: sales.buyer,
+                        subtitle: "\(sales.product == nil ? "" : sales.product!.name): \(sales.qty) @ \(sales.price)",
+                        icon: "cart",
+                        useSmallerFont: true
+                    )
                 }
                 .onDelete(perform: removeSales)
             }

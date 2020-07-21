@@ -24,7 +24,7 @@ struct FeedstockView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Feedstock".uppercased())) {
+            Section(header: Text("Feedstock")) {
                 Group {
                     TextField("Name", text: $draft.name)
                     Text("TBD: Qty: \(draft.qty, specifier: "%.f")")
