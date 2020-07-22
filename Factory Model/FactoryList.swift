@@ -138,7 +138,7 @@ struct FactoryList: View {
             feedstock8.price = 1
             feedstock8.qty = 1
             
-            product1.feedstock = [feedstock1, feedstock2, feedstock3, feedstock4, feedstock5, feedstock6, feedstock7, feedstock8]
+            product1.feedstocks = [feedstock1, feedstock2, feedstock3, feedstock4, feedstock5, feedstock6, feedstock7, feedstock8]
             
             let sales1 = Sales(context: managedObjectContext)
             sales1.buyer = "Speelo Group"
@@ -165,6 +165,13 @@ struct FactoryList: View {
             product2.name = "Сулугуни 0.5 кг"
             product2.code = "1002"
             product2.group = "Сыры"
+            
+            let feedstock21 = Feedstock(context: managedObjectContext)
+            feedstock21.name = "Вода"
+            feedstock21.qty = 2
+            feedstock21.price = 1
+            
+            product2.feedstocks = [feedstock21]
             
             let product3 = Product(context: managedObjectContext)
             product3.name = "Творог"
@@ -253,7 +260,7 @@ struct FactoryList: View {
             equipment.price = 7_000_000
             equipment.lifetime = 7
             
-            factory.equipment = [equipment]
+            factory.equipments = [equipment]
             
             managedObjectContext.saveContext()
         } label: {
@@ -267,7 +274,7 @@ struct FactoryList_Previews: PreviewProvider {
     static var previews: some View {
         FactoryList()
             //            .environmentObject(PersistenceManager())
-            .environment(\.managedObjectContext, PersistenceManager().persistentContainer.viewContext)
+            .environment(\.managedObjectContext, PersistenceManager(containerName: "Preview").viewContext)
             .preferredColorScheme(.dark)
     }
 }

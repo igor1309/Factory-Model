@@ -9,13 +9,12 @@ import SwiftUI
 
 @main
 struct Factory_ModelApp: App {
-    let persistence = PersistenceManager()
+    let persistence = PersistenceManager(containerName: "DataModel")
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-//                .environmentObject(persistence)
-                .environment(\.managedObjectContext, persistence.persistentContainer.viewContext)
+                .environment(\.managedObjectContext, persistence.viewContext)
         }
     }
 }

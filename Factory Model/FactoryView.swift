@@ -43,16 +43,32 @@ struct FactoryView: View {
             }
             
             Section(header: Text("Products")) {
-                Group {
-                    NavigationLink(
-                        destination: ProductList(for: factory)
-                    ) {
-                        LabelWithDetail("wrench.and.screwdriver", "Total production", "TBD")
-                    }
+                NavigationLink(
+                    destination: ProductList(for: factory)
+                ) {
+                    LabelWithDetail("wrench.and.screwdriver", "Total production", "TBD")
                 }
                 .font(.subheadline)
-                .padding(.vertical, 3)
             }
+            
+            Section(header: Text("Feedstocks")) {
+                NavigationLink(
+                    destination: AllFeedstockList(for: factory)
+                ) {
+                    LabelWithDetail("puzzlepiece", "Total Feedstocks", "TBD")
+                }
+                .font(.subheadline)
+            }
+            
+            Section(header: Text("TESTING!! Feedstocks")) {
+                NavigationLink(
+                    destination: AllFeedstockListTESTING(for: factory)
+                ) {
+                    LabelWithDetail("puzzlepiece", "TESTING!! Total Feedstocks", "TBD")
+                }
+                .font(.subheadline)
+            }
+            .foregroundColor(.orange)
             
             Section(
                 header: Text("Sales"),
@@ -71,7 +87,7 @@ struct FactoryView: View {
                     destination: StaffList(at: factory)
                 ) {
                     LabelWithDetail("person.2", "Total salary, incl taxes", factory.totalSalaryWithTax.formattedGrouped)
-                    .font(.subheadline)
+                        .font(.subheadline)
                 }
             }
             
@@ -80,7 +96,7 @@ struct FactoryView: View {
                     destination: ExpensesList(at: factory)
                 ) {
                     LabelWithDetail("dollarsign.circle", "Total Expenses", factory.expensesTotal.formattedGrouped)
-                    .font(.subheadline)
+                        .font(.subheadline)
                 }
             }
             
@@ -89,7 +105,7 @@ struct FactoryView: View {
                     destination: EquipmentList(at: factory)
                 ) {
                     LabelWithDetail("wrench.and.screwdriver", "Total Equipment", factory.equipmentTotal.formattedGrouped)
-                    .font(.subheadline)
+                        .font(.subheadline)
                 }
             }
         }

@@ -66,7 +66,7 @@ struct EquipmentList: View {
             //            equipment.note = "Some note regarding new equipment"
             equipment.lifetime = 7
             equipment.price = 1_000_000
-            factory.addToEquipment_(equipment)
+            factory.addToEquipments_(equipment)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")

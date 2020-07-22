@@ -5,7 +5,7 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="equipment_" inverseEntity="Factory"/>
+        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="equipments_" inverseEntity="Factory"/>
     </entity>
     <entity name="Expenses" representedClassName="Expenses" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -16,7 +16,7 @@
     <entity name="Factory" representedClassName="Factory" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
-        <relationship name="equipment_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Equipment" inverseName="factory" inverseEntity="Equipment"/>
+        <relationship name="equipments_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Equipment" inverseName="factory" inverseEntity="Equipment"/>
         <relationship name="expenses_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expenses" inverseName="factory" inverseEntity="Expenses"/>
         <relationship name="products_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="factory" inverseEntity="Product"/>
         <relationship name="staff_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Staff" inverseName="factory" inverseEntity="Staff"/>
@@ -25,7 +25,7 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="feedstock_" inverseEntity="Product"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="feedstocks_" inverseEntity="Product"/>
     </entity>
     <entity name="Packaging" representedClassName="Packaging" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
@@ -47,7 +47,7 @@
         <attribute name="productionQty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="weightNetto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="products_" inverseEntity="Factory"/>
-        <relationship name="feedstock_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="product" inverseEntity="Feedstock"/>
+        <relationship name="feedstocks_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="product" inverseEntity="Feedstock"/>
         <relationship name="packaging" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Packaging" inverseName="product" inverseEntity="Packaging"/>
         <relationship name="sales_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sales" inverseName="product" inverseEntity="Sales"/>
         <relationship name="utilities_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Utility" inverseName="product" inverseEntity="Utility"/>

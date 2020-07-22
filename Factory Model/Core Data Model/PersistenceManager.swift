@@ -2,7 +2,7 @@
 //  PersistenceManager.swift
 //  Factory Model
 //
-//  https://www.donnywals.com/using-core-data-with-swiftui-2-0-and-xcode-12/
+//  Created by Igor Malyarov on 20.07.2020.
 //
 
 import SwiftUI

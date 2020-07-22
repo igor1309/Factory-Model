@@ -24,9 +24,9 @@ extension Product {
         get { group_ ?? "Unknown"}
         set { group_ = newValue }
     }
-    var feedstock: [Feedstock] {
-        get { (feedstock_ as? Set<Feedstock> ?? []).sorted() }
-        set { feedstock_ = Set(newValue) as NSSet }
+    var feedstocks: [Feedstock] {
+        get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
+        set { feedstocks_ = Set(newValue) as NSSet }
     }
     var sales: [Sales] {
         get { (sales_ as? Set<Sales> ?? []).sorted() }
@@ -60,8 +60,8 @@ extension Product {
     }
 
     var cost: Double {
-        feedstock
-            .map { $0.qty * $0.price }
+        feedstocks
+            .map { $0.cost }
             .reduce(0, +)
     }
     var totalCost: Double {

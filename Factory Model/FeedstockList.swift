@@ -50,7 +50,7 @@ struct FeedstockList: View {
                     ) {
                         ListRow(
                             title: feedstock.name,
-                            subtitle: "\(feedstock.qty) @ \(feedstock.price) = \(feedstock.total)",
+                            subtitle: "\(feedstock.qty) @ \(feedstock.price) = \(feedstock.cost)",
                             icon: "puzzlepiece",
                             useSmallerFont: true
                         )
@@ -73,7 +73,7 @@ struct FeedstockList: View {
             //feedstock.department = "..."
             //feedstock.position = "Worker"
             feedstock.name = " ..."
-            product.addToFeedstock_(feedstock)
+            product.addToFeedstocks_(feedstock)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")
