@@ -12,6 +12,17 @@ extension Sales {
         get { buyer_ ?? "Unknown" }
         set { buyer_ = newValue }
     }
+    var productName: String {
+        product?.name ?? "Unknown"
+    }
+    
+    var total: Double {
+        qty * price
+    }
+    
+    var comment: String {
+        "\(productName): \(qty.formattedGrouped) @ \(price.formattedGrouped) = \(total.formattedGrouped)"
+    }
     
     var priceWithVAT: Double {
         //  MARK: FIX THIS: VAT is project/country constant

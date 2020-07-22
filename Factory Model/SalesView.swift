@@ -26,11 +26,7 @@ struct SalesView: View {
                 Group {
                     TextField("Name", text: $draft.buyer)
 
-                    HStack {
-                        Text("Sales")
-                        Spacer()
-                        QtyPicker(qty: $draft.qty)
-                    }
+                    LabelWithDetailView("Sales", QtyPicker(qty: $draft.qty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

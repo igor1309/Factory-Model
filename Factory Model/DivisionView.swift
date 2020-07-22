@@ -35,12 +35,7 @@ struct DivisionView: View {
     var body: some View {
         List {
             Section(header: Text("Total Salary")) {
-                HStack {
-                    Text("incl taxes")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(factory.salaryForDivisionWithTax(division), specifier: "%.f")")
-                }
+                LabelWithDetail("incl taxes", factory.salaryForDivisionWithTax(division).formattedGroupedWith1Decimal)
                 .font(.subheadline)
             }
             

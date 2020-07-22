@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftPI
 
 struct AllSalesList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -32,11 +33,7 @@ struct AllSalesList: View {
                 header: Text("Sales"),
                 footer: Text("To edit Sales go to Product")
             ) {
-                HStack {
-                    Label("Total revenue, ex VAT", systemImage: "cart")
-                    Spacer()
-                    Text("\(factory.revenueExVAT, specifier: "%.f")")
-                }
+                LabelWithDetail("cart", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                 .font(.subheadline)
             }
             
@@ -44,7 +41,7 @@ struct AllSalesList: View {
                 ForEach(factory.sales, id: \.self) { sales in
                     ListRow(
                         title: sales.buyer,
-                        subtitle: "\(sales.product == nil ? "" : sales.product!.name): \(sales.qty) @ \(sales.price)",
+                        subtitle: sales.comment,
                         icon: "cart",
                         useSmallerFont: true
                     )

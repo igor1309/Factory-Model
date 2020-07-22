@@ -32,14 +32,8 @@ struct SalesList: View {
     var body: some View {
         List {
             Section(header: Text("Sales Total, ex VAT")) {
-                
-                HStack {
-                    Text("Sales Total")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(product.revenueExVAT, specifier: "%.f")")
-                }
-                .font(.subheadline)
+                LabelWithDetail("Sales Total", product.revenueExVAT.formattedGroupedWith1Decimal)
+                    .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {

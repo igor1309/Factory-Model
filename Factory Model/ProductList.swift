@@ -32,21 +32,14 @@ struct ProductList: View {
             Section(header: Text("Totals")) {
                 Group {
                     VStack {
-                        HStack {
-                            Text("Total Production Cost**")
-                            Spacer()
-                            Text("\(factory.totalCost, specifier: "%.f")")
-                        }
+                        LabelWithDetail("Total Production Cost**", factory.totalCost.formattedGroupedWith1Decimal)
+                        
                         Text("ЕЩЕ не совсем кост — не всё учтено!!!")
                             .foregroundColor(.red)
                             .font(.caption)
                     }
                     
-                    HStack {
-                        Text("Total Revenue")
-                        Spacer()
-                        Text("\(factory.revenueExVAT, specifier: "%.f")")
-                    }
+                    LabelWithDetail("Total Revenue", factory.revenueExVAT.formattedGroupedWith1Decimal)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

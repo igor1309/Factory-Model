@@ -33,12 +33,7 @@ struct UtilityList: View {
         List {
             Section(header: Text("Total")) {
                 
-                HStack {
-                    Text("Utility Total")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(product.totalUtilities, specifier: "%.f")")
-                }
+                LabelWithDetail("Utility Total", product.totalUtilities.formattedGroupedWith1Decimal)
                 .font(.subheadline)
             }
             

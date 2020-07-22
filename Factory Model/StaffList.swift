@@ -33,12 +33,7 @@ struct StaffList: View {
     var body: some View {
         List {
             Section(header: Text("Total Salary")) {
-                HStack {
-                    Text("incl taxes")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(factory.totalSalaryWithTax, specifier: "%.f")")
-                }
+                LabelWithDetail("incl taxes", factory.totalSalaryWithTax.formattedGroupedWith1Decimal)
                 .font(.subheadline)
             }
             

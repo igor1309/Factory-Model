@@ -46,12 +46,7 @@ struct ProductView: View {
                             .foregroundColor(.red)
                     }
                     
-                    HStack {
-                        Text("Production Qty")
-                        Spacer()
-//                        Text("\(draft.productionQty, specifier: "%.1f")")
-                        QtyPicker(qty: $draft.productionQty)
-                    }
+                    LabelWithDetailView("Production Qty", QtyPicker(qty: $draft.productionQty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -59,72 +54,41 @@ struct ProductView: View {
             
             Section(header: Text("Cost")) {
                 Group {
-                    HStack {
-                        Text("Production Cost")
-                        Spacer()
-                        Text("\(draft.cost, specifier: "%.1f")")
-                    }
-                    HStack {
-                        Text("Total Production Cost")
-                        Spacer()
-                        Text("\(draft.totalCost, specifier: "%.1f")")
-                    }
+                    LabelWithDetail("Production Cost", draft.cost.formattedGroupedWith1Decimal)
+                    LabelWithDetail("Total Production Cost", draft.totalCost.formattedGroupedWith1Decimal)
                 }
                 .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {
                 Group {
-                    HStack {
-                        Text("Total Sales Qty")
-                        Spacer()
-                        Text("\(draft.totalSalesQty, specifier: "%.1f")")
+                    LabelWithDetail("Total Sales Qty", draft.totalSalesQty.formattedGroupedWith1Decimal)
                             .padding(.trailing)
-                    }
                     
                     VStack(spacing: 4) {
-                        HStack {
-                            Text("Avg price")
-                            Spacer()
-                            Text("\(draft.avgPriceExVAT, specifier: "%.1f")")
+                        LabelWithDetail("Avg price", draft.avgPriceExVAT.formattedGroupedWith1Decimal)
                                 .padding(.trailing)
-                        }
                         
-                        HStack {
-                            Text("Avg price, incl VAT")
-                            Spacer()
-                            Text("\(draft.avgPriceWithVAT, specifier: "%.1f")")
+                        LabelWithDetail("Avg price, incl VAT", draft.avgPriceWithVAT.formattedGroupedWith1Decimal)
                                 .padding(.trailing)
-                        }
-                        .foregroundColor(.secondary)
+                            .foregroundColor(.secondary)
                     }
                     .padding(.vertical, 3)
                     
                     NavigationLink(
                         destination: SalesList(for: product)
                     ) {
-                        HStack {
-                            Label("Total Sales, ex VAT", systemImage: "cart")
-                            Spacer()
-                            Text("\(draft.revenueExVAT, specifier: "%.1f")")
-                        }
+                        LabelWithDetail("cart", "Total Sales, ex VAT", draft.revenueExVAT.formattedGrouped)
                     }
                     .foregroundColor(.accentColor)
                     
-                    HStack {
-                        Label("COGS", systemImage: "wrench.and.screwdriver")
-                        Spacer()
-                        Text("\(draft.cogs, specifier: "%.1f")")
-                            .padding(.trailing)
-                    }
+                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGroupedWith1Decimal)
+                        .padding(.trailing)
                     
-                    HStack {
-                        Label("Margin****", systemImage: "rectangle.rightthird.inset.fill")
-                        Spacer()
-                        Text("\(draft.margin, specifier: "%.1f")")
-                            .padding(.trailing)
-                    }
-                    .foregroundColor(.secondary)
+                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", draft.margin.formattedGrouped)
+                        .padding(.trailing)
+                        
+                        .foregroundColor(.secondary)
                     
                 }
                 .font(.subheadline)
@@ -132,17 +96,9 @@ struct ProductView: View {
             
             Section(header: Text("Inventory")) {
                 Group {
-                    HStack {
-                        Label("Initial Inventory", systemImage: "building.2")
-                        Spacer()
-                        Text("\(draft.initialInventory, specifier: "%.1f")")
-                    }
+                    LabelWithDetail("building.2", "Initial Inventory", draft.initialInventory.formattedGroupedWith1Decimal)
                     
-                    HStack {
-                        Label("Closing Inventory", systemImage: "building.2")
-                        Spacer()
-                        Text("\(draft.closingInventory, specifier: "%.1f")")
-                    }
+                    LabelWithDetail("building.2", "Closing Inventory", draft.closingInventory.formattedGroupedWith1Decimal)
                     .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
                 }
                 .font(.subheadline)
@@ -152,11 +108,7 @@ struct ProductView: View {
                 NavigationLink(
                     destination: FeedstockList(for: product)
                 ) {
-                    HStack {
-                        Label("Feedstock Cost", systemImage: "puzzlepiece")
-                        Spacer()
-                        Text("\(draft.cost, specifier: "%.1f")")
-                    }
+                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGroupedWith1Decimal)
                     .font(.subheadline)
                 }
                 .foregroundColor(.accentColor)
@@ -166,11 +118,7 @@ struct ProductView: View {
                 NavigationLink(
                     destination: UtilityList(for: product)
                 ) {
-                    HStack {
-                        Label("Total Utilities", systemImage: "lightbulb")
-                        Spacer()
-                        Text("TBD")
-                    }
+                    LabelWithDetail("lightbulb", "Total Utilities", "TBD")
                     .font(.subheadline)
                 }
                 .foregroundColor(.accentColor)

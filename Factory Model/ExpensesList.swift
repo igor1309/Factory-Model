@@ -30,12 +30,7 @@ struct ExpensesList: View {
     var body: some View {
         List {
             Section(header: Text("Expenses Total")) {
-                HStack {
-                    Text("Expenses Total")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(factory.expensesTotal, specifier: "%.f")")
-                }
+                LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGroupedWith1Decimal)
                 .font(.subheadline)
             }
             

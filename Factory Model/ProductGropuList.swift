@@ -33,17 +33,9 @@ struct ProductGropuList: View {
         List {
             Section(header: Text("Group Totals")) {
                 Group {
-                    HStack {
-                        Text("Total production")
-                        Spacer()
-                        Text("TBD")
-                    }
+                    LabelWithDetail("Total production", "TBD")
                     
-                    HStack {
-                        Text("Total revenue")
-                        Spacer()
-                        Text("\(factory.revenueExVAT, specifier: "%.f")")
-                    }
+                    LabelWithDetail("Total revenue", factory.revenueExVAT.formattedGroupedWith1Decimal)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)

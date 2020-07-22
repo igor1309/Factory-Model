@@ -31,18 +31,8 @@ struct EquipmentList: View {
         List {
             Section(header: Text("Equipment Total")) {
                 Group {
-                    HStack {
-                        Text("Equipment Total")
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Text("\(factory.equipmentTotal, specifier: "%.f")")
-                    }
-                    HStack {
-                        Text("Amortization, monthly")
-                            .foregroundColor(.secondary)
-                        Spacer()
-                        Text("\(factory.amortizationMonthly, specifier: "%.f")")
-                    }
+                    LabelWithDetail("Equipment Total", factory.equipmentTotal.formattedGroupedWith1Decimal)
+                    LabelWithDetail("Amortization, monthly", factory.amortizationMonthly.formattedGroupedWith1Decimal)
                 }
                 .font(.subheadline)
             }

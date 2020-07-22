@@ -36,6 +36,9 @@ extension Product {
         get { (utilities_ as? Set<Utility> ?? []).sorted() }
         set { utilities_ = Set(newValue) as NSSet }
     }
+    var packagingCode: String {
+        packaging?.code ?? "Unknown"
+    }
     
     var totalSalesQty: Double {
         sales.map { $0.qty }.reduce(0, +)

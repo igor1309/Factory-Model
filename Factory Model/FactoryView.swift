@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftPI
 
 struct FactoryView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -46,11 +47,7 @@ struct FactoryView: View {
                     NavigationLink(
                         destination: ProductList(for: factory)
                     ) {
-                        HStack {
-                            Label("Total production", systemImage: "wrench.and.screwdriver")
-                            Spacer()
-                            Text("TBD")
-                        }
+                        LabelWithDetail("wrench.and.screwdriver", "Total production", "TBD")
                     }
                 }
                 .font(.subheadline)
@@ -64,11 +61,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: AllSalesList(for: factory)
                 ) {
-                    HStack {
-                        Label("Total revenue, ex VAT", systemImage: "cart")
-                        Spacer()
-                        Text("\(factory.revenueExVAT, specifier: "%.f")")
-                    }
+                    LabelWithDetail("cart", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                 }
                 .font(.subheadline)
             }
@@ -77,12 +70,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: StaffList(at: factory)
                 ) {
-                    HStack {
-                        Label("Total salary, incl taxes", systemImage: "person.2")
-                        Spacer()
-                        
-                        Text("\(factory.totalSalaryWithTax, specifier: "%.f")")
-                    }
+                    LabelWithDetail("person.2", "Total salary, incl taxes", factory.totalSalaryWithTax.formattedGrouped)
                     .font(.subheadline)
                 }
             }
@@ -91,11 +79,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: ExpensesList(at: factory)
                 ) {
-                    HStack {
-                        Label("Total Expenses", systemImage: "dollarsign.circle")
-                        Spacer()
-                        Text("\(factory.expensesTotal, specifier: "%.f")")
-                    }
+                    LabelWithDetail("dollarsign.circle", "Total Expenses", factory.expensesTotal.formattedGrouped)
                     .font(.subheadline)
                 }
             }
@@ -104,11 +88,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: EquipmentList(at: factory)
                 ) {
-                    HStack {
-                        Label("Total Equipment", systemImage: "wrench.and.screwdriver")
-                        Spacer()
-                        Text("\(factory.equipmentTotal, specifier: "%.f")")
-                    }
+                    LabelWithDetail("wrench.and.screwdriver", "Total Equipment", factory.equipmentTotal.formattedGrouped)
                     .font(.subheadline)
                 }
             }

@@ -36,12 +36,7 @@ struct FeedstockList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                HStack {
-                    Text("Feedstock Cost")
-                        .foregroundColor(.secondary)
-                    Spacer()
-                    Text("\(product.cost, specifier: "%.f")")
-                }
+                LabelWithDetail("Feedstock Cost", product.cost.formattedGroupedWith1Decimal)
                 .font(.subheadline)
             }
             

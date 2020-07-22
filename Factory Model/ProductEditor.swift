@@ -19,19 +19,9 @@ struct ProductEditor: View {
                     TextField("Name", text: $draft.name)
                     TextField("Note", text: $draft.note)
                     
-                    HStack {
-                        Text("TBD: Weight Netto")
-                        Spacer()
-                        Text("\(draft.weightNetto, specifier: "%.1f")")
-                    }
+                    LabelWithDetail("TBD: Weight Netto", draft.weightNetto.formattedGroupedWith1Decimal)
                     
-                    HStack {
-                        Text("TBD: Packaging")
-                        Spacer()
-                        if draft.packaging != nil {
-                            Text("\(draft.packaging!.code)")
-                        }
-                    }
+                    LabelWithDetail("TBD: Packaging", draft.packagingCode)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
