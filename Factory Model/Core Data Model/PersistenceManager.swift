@@ -8,24 +8,13 @@
 import SwiftUI
 import CoreData
 
-extension NSManagedObjectContext {
-    func saveContext() {
-        if self.hasChanges {
-            do {
-                try self.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-}
-
 class PersistenceManager: ObservableObject {
     
-    let persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "DataModel")
+    private let containerName: String
+    var viewContext: NSManagedObjectContext { persistentContainer.viewContext }
+    
+    private lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: containerName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -34,7 +23,9 @@ class PersistenceManager: ObservableObject {
         return container
     }()
     
-    init() {
+    init(containerName: String) {
+        self.containerName = containerName
+        
         let center = NotificationCenter.default
         let notification = UIApplication.willResignActiveNotification
         
@@ -46,13 +37,15 @@ class PersistenceManager: ObservableObject {
             }
         }
     }
-    
+}
+
+extension NSManagedObjectContext {
     func saveContext() {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
+        if self.hasChanges {
             do {
-                try context.save()
+                try self.save()
             } catch {
+                // handle the Core Data error
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
