@@ -23,6 +23,7 @@ struct AllFeedstockList: View {
                 footer: Text("To edit Feedstocks go to Product")
             ) {
                 LabelWithDetail("puzzlepiece", "Total Feedstock Cost", factory.totalFeedstockCost.formattedGrouped)
+                    .font(.subheadline).foregroundColor(.secondary)
                     .font(.subheadline)
             }
             

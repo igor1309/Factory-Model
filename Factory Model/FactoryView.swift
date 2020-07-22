@@ -46,7 +46,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: ProductList(for: factory)
                 ) {
-                    LabelWithDetail("wrench.and.screwdriver", "Total production", "TBD")
+                    LabelWithDetail("bag", "Total production", "TBD")
                 }
                 .font(.subheadline)
             }

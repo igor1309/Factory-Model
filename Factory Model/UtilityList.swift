@@ -32,9 +32,9 @@ struct UtilityList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                
                 LabelWithDetail("Utility Total", product.totalUtilities.formattedGroupedWith1Decimal)
-                .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
             }
             
             Section(header: Text("Utilities")) {
@@ -62,6 +62,7 @@ struct UtilityList: View {
         Button {
             let utility = Utility(context: managedObjectContext)
             utility.name = " ..."
+            utility.price = 10
             product.addToUtilities_(utility)
             managedObjectContext.saveContext()
         } label: {

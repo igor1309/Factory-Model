@@ -29,11 +29,12 @@ struct AllSalesList: View {
     var body: some View {
         List {
             Section(
-                header: Text("Totals"),
+                header: Text("Total"),
                 footer: Text("To edit Sales go to Product")
             ) {
                 LabelWithDetail("cart", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {

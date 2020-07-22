@@ -54,15 +54,15 @@ struct ProductView: View {
             
             Section(header: Text("Cost")) {
                 Group {
-                    LabelWithDetail("Production Cost", draft.cost.formattedGroupedWith1Decimal)
-                    LabelWithDetail("Total Production Cost", draft.totalCost.formattedGroupedWith1Decimal)
+                    LabelWithDetail("Production Cost", draft.cost.formattedGrouped)
+                    LabelWithDetail("Total Production Cost", draft.totalCost.formattedGrouped)
                 }
                 .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {
                 Group {
-                    LabelWithDetail("Total Sales Qty", draft.totalSalesQty.formattedGroupedWith1Decimal)
+                    LabelWithDetail("Total Sales Qty", draft.totalSalesQty.formattedGrouped)
                             .padding(.trailing)
                     
                     VStack(spacing: 4) {
@@ -82,7 +82,7 @@ struct ProductView: View {
                     }
                     .foregroundColor(.accentColor)
                     
-                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGroupedWith1Decimal)
+                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGrouped)
                         .padding(.trailing)
                     
                     LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", draft.margin.formattedGrouped)
@@ -96,9 +96,9 @@ struct ProductView: View {
             
             Section(header: Text("Inventory")) {
                 Group {
-                    LabelWithDetail("building.2", "Initial Inventory", draft.initialInventory.formattedGroupedWith1Decimal)
+                    LabelWithDetail("building.2", "Initial Inventory", draft.initialInventory.formattedGrouped)
                     
-                    LabelWithDetail("building.2", "Closing Inventory", draft.closingInventory.formattedGroupedWith1Decimal)
+                    LabelWithDetail("building.2", "Closing Inventory", draft.closingInventory.formattedGrouped)
                     .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
                 }
                 .font(.subheadline)
@@ -108,7 +108,7 @@ struct ProductView: View {
                 NavigationLink(
                     destination: FeedstockList(for: product)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGroupedWith1Decimal)
+                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGrouped)
                     .font(.subheadline)
                 }
                 .foregroundColor(.accentColor)

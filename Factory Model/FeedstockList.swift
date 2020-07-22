@@ -37,7 +37,8 @@ struct FeedstockList: View {
         List {
             Section(header: Text("Total")) {
                 LabelWithDetail("Feedstock Cost", product.cost.formattedGroupedWith1Decimal)
-                .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
             }
             
             Section(

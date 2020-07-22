@@ -29,17 +29,15 @@ struct ProductList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Totals")) {
+            Section(header: Text("Total")) {
                 Group {
-                    VStack {
-                        LabelWithDetail("Total Production Cost**", factory.totalCost.formattedGroupedWith1Decimal)
-                        
-                        Text("ЕЩЕ не совсем кост — не всё учтено!!!")
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
+                    LabelWithDetail("bag", "Total Production Cost**", factory.totalCost.formattedGrouped)
                     
-                    LabelWithDetail("Total Revenue", factory.revenueExVAT.formattedGroupedWith1Decimal)
+                    Text("ЕЩЕ не совсем кост — не всё учтено!!!")
+                        .foregroundColor(.red)
+                        .font(.caption)
+                    
+                    LabelWithDetail("cart", "Total Revenue", factory.revenueExVAT.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

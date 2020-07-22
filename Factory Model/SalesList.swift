@@ -33,6 +33,7 @@ struct SalesList: View {
         List {
             Section(header: Text("Sales Total, ex VAT")) {
                 LabelWithDetail("Sales Total", product.revenueExVAT.formattedGroupedWith1Decimal)
+                    .foregroundColor(.secondary)
                     .font(.subheadline)
             }
             

@@ -32,9 +32,10 @@ struct StaffList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Total Salary")) {
-                LabelWithDetail("incl taxes", factory.totalSalaryWithTax.formattedGroupedWith1Decimal)
-                .font(.subheadline)
+            Section(header: Text("Total")) {
+                LabelWithDetail("Total Salary incl taxes", factory.totalSalaryWithTax.formattedGrouped)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
             }
             
             Section(header: Text("Divisions")) {

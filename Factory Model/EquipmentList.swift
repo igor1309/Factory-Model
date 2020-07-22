@@ -29,11 +29,12 @@ struct EquipmentList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Equipment Total")) {
+            Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("Equipment Total", factory.equipmentTotal.formattedGroupedWith1Decimal)
                     LabelWithDetail("Amortization, monthly", factory.amortizationMonthly.formattedGroupedWith1Decimal)
                 }
+                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
             
@@ -55,7 +56,7 @@ struct EquipmentList: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(factory.name)
+        .navigationTitle("Equipment")
         .navigationBarItems(trailing: plusButton)
     }
     
