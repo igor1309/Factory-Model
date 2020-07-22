@@ -24,6 +24,9 @@ extension Feedstock {
     var productName: String {
         product?.name ?? "Unknown"
     }
+    var productionQty: Double {
+        product?.productionQty ?? 0
+    }
 }
 
 extension Feedstock: Comparable {

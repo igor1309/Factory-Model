@@ -122,18 +122,32 @@ extension Factory {
             .map { Row(title: $0, subtitle: $1, detail: "TBD: Total production & revenue".uppercased(), icon: "bag") }
             .sorted()
     }
+
+
+    var sales: [Sales] {
+        products
+            .flatMap { $0.sales }
+    }
+    var feedstocks: [Feedstock] {
+        products
+            .flatMap { $0.feedstocks }
+            .filter { $0.qty > 0 }
+    }
+    var totalFeedstockCost: Double {
+        products
+            .reduce(0) { $0 + $1.totalCost }
+    }
     
     func feedstocksByGroups() -> [Something] {
         
-        let allFeedstocks = products.flatMap { $0.feedstocks }
-        
-        let feedstocksByGroups = Dictionary(grouping: allFeedstocks) { $0.name }
+        let feedstocksByGroups = Dictionary(grouping: feedstocks) { $0.name }
         
         let somethings = feedstocksByGroups
             .mapValues { feedstocks -> (qty: Double, cost: Double, products: [String]) in
                 
-                let qty = feedstocks.reduce(0, { $0 + $1.qty })
-                let cost = feedstocks.reduce(0, { $0 + $1.cost })
+                let qty = feedstocks.reduce(0, { $0 + $1.qty * $1.productionQty })
+                let cost = feedstocks.reduce(0, { $0 + $1.cost * $1.productionQty })
+                
                 let products = feedstocks.reduce([String]()) { $0 + [$1.productName]  }
                 
                 return (qty: qty, cost: cost, products: products)
@@ -152,19 +166,14 @@ extension Factory {
         
         return somethings
     }
-    
+}
+ 
 
-    var sales: [Sales] {
-        products
-            .flatMap { $0.sales }
-    }
-    var feedstocks: [Feedstock] {
-        products
-            .flatMap { $0.feedstocks }
-            .filter { $0.qty > 0 }
-    }
-    
-    
+
+
+
+
+extension Factory {
     
     //  MARK: NOT WORKING IDEALLY
     ///https://www.alfianlosari.com/posts/building-expense-tracker-ios-app-with-core-data-and-swiftui/
@@ -208,16 +217,4 @@ extension Factory {
             }
         }
     }
-}
-
-struct Something: Hashable, Identifiable, Comparable {
-    static func < (lhs: Something, rhs: Something) -> Bool {
-        lhs.name < rhs.name
-    }
-    
-    var id: UUID
-    var name: String
-    var qty: Double
-    var cost: Double
-    var products: String
 }

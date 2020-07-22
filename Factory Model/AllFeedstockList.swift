@@ -19,10 +19,10 @@ struct AllFeedstockList: View {
     var body: some View {
         List {
             Section(
-                header: Text("Totals"),
+                header: Text("Production"),
                 footer: Text("To edit Feedstocks go to Product")
             ) {
-                LabelWithDetail("cart", "Total Feedstock Cost", factory.revenueExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Total Feedstock Cost", factory.totalFeedstockCost.formattedGrouped)
                     .font(.subheadline)
             }
             

@@ -55,7 +55,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: AllFeedstockList(for: factory)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Total Feedstocks", "TBD")
+                    LabelWithDetail("puzzlepiece", "Total Feedstocks", factory.totalFeedstockCost.formattedGrouped)
                 }
                 .font(.subheadline)
             }
