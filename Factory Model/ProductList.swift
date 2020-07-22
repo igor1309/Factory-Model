@@ -48,7 +48,7 @@ struct ProductList: View {
             Section(header: Text("Product Groups")) {
                 ForEach(factory.productGroups) { productGroup in
                     NavigationLink(
-                        destination: ProductGropuList(group: productGroup.title, at: factory)
+                        destination: ProductGroupList(group: productGroup.title, at: factory)
                     ) {
                         ListRow(productGroup)
                     }
@@ -82,7 +82,8 @@ struct ProductList: View {
             let product = Product(context: managedObjectContext)
             product.name = " New Product"
             factory.addToProducts_(product)
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -95,20 +96,21 @@ struct ProductList: View {
             managedObjectContext.delete(product)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if self.managedObjectContext.hasChanges {
+//            do {
+//                try self.managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 }
 
 //struct ProductList_Previews: PreviewProvider {

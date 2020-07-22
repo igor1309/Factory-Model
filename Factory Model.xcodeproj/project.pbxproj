@@ -26,7 +26,7 @@
 		2A936E5524C6D5C200C34381 /* Feedstock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5424C6D5C200C34381 /* Feedstock.swift */; };
 		2A936E5724C6DB7500C34381 /* Packaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5624C6DB7500C34381 /* Packaging.swift */; };
 		2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5824C6DDDF00C34381 /* Utility.swift */; };
-		2A936E5B24C6E09F00C34381 /* ProductGropuList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5A24C6E09F00C34381 /* ProductGropuList.swift */; };
+		2A936E5B24C6E09F00C34381 /* ProductGroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5A24C6E09F00C34381 /* ProductGroupList.swift */; };
 		2A936E5D24C6F07F00C34381 /* DivisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5C24C6F07F00C34381 /* DivisionView.swift */; };
 		2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5E24C6F9C200C34381 /* StaffView.swift */; };
 		2A936E6124C7051500C34381 /* FeedstockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6024C7051500C34381 /* FeedstockView.swift */; };
@@ -69,7 +69,7 @@
 		2A936E5424C6D5C200C34381 /* Feedstock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedstock.swift; sourceTree = "<group>"; };
 		2A936E5624C6DB7500C34381 /* Packaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packaging.swift; sourceTree = "<group>"; };
 		2A936E5824C6DDDF00C34381 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
-		2A936E5A24C6E09F00C34381 /* ProductGropuList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductGropuList.swift; sourceTree = "<group>"; };
+		2A936E5A24C6E09F00C34381 /* ProductGroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductGroupList.swift; sourceTree = "<group>"; };
 		2A936E5C24C6F07F00C34381 /* DivisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionView.swift; sourceTree = "<group>"; };
 		2A936E5E24C6F9C200C34381 /* StaffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffView.swift; sourceTree = "<group>"; };
 		2A936E6024C7051500C34381 /* FeedstockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedstockView.swift; sourceTree = "<group>"; };
@@ -125,6 +125,16 @@
 			path = "Core Data Model";
 			sourceTree = "<group>";
 		};
+		2A30470F24C82FEE0002E5DD /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A85734824C5FDB1009FF51A /* ListRow.swift */,
+				2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */,
+				2A30470824C7995B0002E5DD /* QtyPicker.swift */,
+			);
+			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
 		2AADA08D24C4F4A8005F1E9F = {
 			isa = PBXGroup;
 			children = (
@@ -146,13 +156,11 @@
 			children = (
 				2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */,
 				2AADA09B24C4F4A8005F1E9F /* ContentView.swift */,
-				2A85734824C5FDB1009FF51A /* ListRow.swift */,
-				2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */,
-				2A30470824C7995B0002E5DD /* QtyPicker.swift */,
+				2A30470F24C82FEE0002E5DD /* Supporting Views */,
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A30470224C778AD0002E5DD /* ProductList.swift */,
-				2A936E5A24C6E09F00C34381 /* ProductGropuList.swift */,
+				2A936E5A24C6E09F00C34381 /* ProductGroupList.swift */,
 				2A85734624C5DBCF009FF51A /* ProductView.swift */,
 				2A30470624C78F260002E5DD /* ProductEditor.swift */,
 				2A30470424C77C3A0002E5DD /* AllSalesList.swift */,
@@ -296,7 +304,7 @@
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */,
 				2A30470324C778AD0002E5DD /* ProductList.swift in Sources */,
-				2A936E5B24C6E09F00C34381 /* ProductGropuList.swift in Sources */,
+				2A936E5B24C6E09F00C34381 /* ProductGroupList.swift in Sources */,
 				2A2F4BD224C5A84600B2F8D9 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

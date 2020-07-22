@@ -26,7 +26,6 @@ struct AllSalesList: View {
         )
     }
     
-    
     var body: some View {
         List {
             Section(
@@ -59,20 +58,21 @@ struct AllSalesList: View {
             managedObjectContext.delete(sale)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if self.managedObjectContext.hasChanges {
+//            do {
+//                try self.managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 }
 
 //struct AllSalesList_Previews: PreviewProvider {

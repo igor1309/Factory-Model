@@ -67,7 +67,8 @@ struct EquipmentList: View {
             equipment.lifetime = 7
             equipment.price = 1_000_000
             factory.addToEquipment_(equipment)
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -80,20 +81,21 @@ struct EquipmentList: View {
             managedObjectContext.delete(expense)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if self.managedObjectContext.hasChanges {
+//            do {
+//                try self.managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 }
 
 //struct EquipmentList_Previews: PreviewProvider {

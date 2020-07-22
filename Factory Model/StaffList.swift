@@ -77,7 +77,8 @@ struct StaffList: View {
             staff.name = " ..."
             staff.salary = 10_000
             factory.addToStaff_(staff)
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -90,20 +91,21 @@ struct StaffList: View {
             managedObjectContext.delete(stafff)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if self.managedObjectContext.hasChanges {
+//            do {
+//                try self.managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 }
 
 //struct StaffList_Previews: PreviewProvider {

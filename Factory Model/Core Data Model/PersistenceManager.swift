@@ -8,6 +8,20 @@
 import SwiftUI
 import CoreData
 
+extension NSManagedObjectContext {
+    func saveContext() {
+        if self.hasChanges {
+            do {
+                try self.save()
+            } catch {
+                // handle the Core Data error
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+}
+
 class PersistenceManager: ObservableObject {
     
     let persistentContainer: NSPersistentContainer = {

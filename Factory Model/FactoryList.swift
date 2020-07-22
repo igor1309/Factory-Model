@@ -68,12 +68,14 @@ struct FactoryList: View {
             managedObjectContext.delete(language)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
     private func delete(_ factory: Factory) {
         managedObjectContext.delete(factory)
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
 
     private var plusButton: some View {
@@ -83,24 +85,25 @@ struct FactoryList: View {
             factory.name = "New Factory"
             factory.note = "Some note regarding the factory"
             
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
         }
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if managedObjectContext.hasChanges {
+//            do {
+//                try managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
     
     private var plusSampleButton: some View {
         Button {
@@ -267,7 +270,8 @@ struct FactoryList: View {
             
             factory.equipment = [equipment]
             
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus.square")
                 .padding([.leading, .vertical])

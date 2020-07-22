@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProductGropuList: View {
+struct ProductGroupList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest var products: FetchedResults<Product>
@@ -33,9 +33,9 @@ struct ProductGropuList: View {
         List {
             Section(header: Text("Group Totals")) {
                 Group {
-                    LabelWithDetail("Total production", "TBD")
+                    LabelWithDetail("Production", "TBD")
                     
-                    LabelWithDetail("Total revenue", factory.revenueExVAT.formattedGroupedWith1Decimal)
+                    LabelWithDetail("Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGroupedWith1Decimal)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)
@@ -66,7 +66,8 @@ struct ProductGropuList: View {
             // product.code = "1001"
             product.group = group
             factory.addToProducts_(product)
-            save()
+            managedObjectContext.saveContext()
+            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -79,20 +80,21 @@ struct ProductGropuList: View {
             managedObjectContext.delete(product)
         }
         
-        save()
+        managedObjectContext.saveContext()
+        //        save()
     }
     
-    private func save() {
-        if self.managedObjectContext.hasChanges {
-            do {
-                try self.managedObjectContext.save()
-            } catch {
-                // handle the Core Data error
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
+//    private func save() {
+//        if self.managedObjectContext.hasChanges {
+//            do {
+//                try self.managedObjectContext.save()
+//            } catch {
+//                // handle the Core Data error
+//                let nserror = error as NSError
+//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+//            }
+//        }
+//    }
 }
 
 //struct ProductList_Previews: PreviewProvider {

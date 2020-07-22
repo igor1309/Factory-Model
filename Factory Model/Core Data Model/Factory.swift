@@ -102,6 +102,13 @@ extension Factory {
             .reduce(0, +)
     }
     
+    func revenueExVAT(for group: String) -> Double {
+        products
+            .filter { $0.group == group }
+            .map { $0.revenueExVAT }
+            .reduce(0, +)
+    }
+    
     var totalCost: Double {
         products
             .map { $0.totalCost }
