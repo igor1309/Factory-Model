@@ -69,13 +69,11 @@ struct FactoryList: View {
         }
         
         managedObjectContext.saveContext()
-        //        save()
     }
     
     private func delete(_ factory: Factory) {
         managedObjectContext.delete(factory)
         managedObjectContext.saveContext()
-        //        save()
     }
 
     private var plusButton: some View {
@@ -86,24 +84,11 @@ struct FactoryList: View {
             factory.note = "Some note regarding the factory"
             
             managedObjectContext.saveContext()
-            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
         }
     }
-    
-//    private func save() {
-//        if managedObjectContext.hasChanges {
-//            do {
-//                try managedObjectContext.save()
-//            } catch {
-//                // handle the Core Data error
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
     
     private var plusSampleButton: some View {
         Button {
@@ -271,7 +256,6 @@ struct FactoryList: View {
             factory.equipment = [equipment]
             
             managedObjectContext.saveContext()
-            //        save()
         } label: {
             Image(systemName: "plus.square")
                 .padding([.leading, .vertical])

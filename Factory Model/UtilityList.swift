@@ -64,7 +64,6 @@ struct UtilityList: View {
             utility.name = " ..."
             product.addToUtilities_(utility)
             managedObjectContext.saveContext()
-            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -78,20 +77,7 @@ struct UtilityList: View {
         }
         
         managedObjectContext.saveContext()
-        //        save()
     }
-    
-//    private func save() {
-//        if self.managedObjectContext.hasChanges {
-//            do {
-//                try self.managedObjectContext.save()
-//            } catch {
-//                // handle the Core Data error
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
 }
 
 //struct UtilityList_Previews: PreviewProvider {

@@ -67,7 +67,6 @@ struct ProductGroupList: View {
             product.group = group
             factory.addToProducts_(product)
             managedObjectContext.saveContext()
-            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -81,20 +80,7 @@ struct ProductGroupList: View {
         }
         
         managedObjectContext.saveContext()
-        //        save()
     }
-    
-//    private func save() {
-//        if self.managedObjectContext.hasChanges {
-//            do {
-//                try self.managedObjectContext.save()
-//            } catch {
-//                // handle the Core Data error
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
 }
 
 //struct ProductList_Previews: PreviewProvider {

@@ -75,7 +75,6 @@ struct FeedstockList: View {
             feedstock.name = " ..."
             product.addToFeedstock_(feedstock)
             managedObjectContext.saveContext()
-            //        save()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -89,20 +88,7 @@ struct FeedstockList: View {
         }
         
         managedObjectContext.saveContext()
-        //        save()
     }
-    
-//    private func save() {
-//        if self.managedObjectContext.hasChanges {
-//            do {
-//                try self.managedObjectContext.save()
-//            } catch {
-//                // handle the Core Data error
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
 }
 
 //struct FeedstockList_Previews: PreviewProvider {

@@ -131,25 +131,9 @@ struct ProductView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            //  MARK: FINISH THIS
-
             managedObjectContext.saveContext()
-            //        save()
-//            presentation.wrappedValue.dismiss()
         }
     }
-    
-//    private func save() {
-//        if self.managedObjectContext.hasChanges {
-//            do {
-//                try self.managedObjectContext.save()
-//            } catch {
-//                // handle the Core Data error
-//                let nserror = error as NSError
-//                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-//            }
-//        }
-//    }
 }
 
 struct ProductView_Previews: PreviewProvider {
