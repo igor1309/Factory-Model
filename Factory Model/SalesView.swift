@@ -25,13 +25,13 @@ struct SalesView: View {
                 Group {
                     TextField("Name", text: $sales.buyer)
                     
-                    Picker("Existing Buyer", selection: $sales.buyer) {
+                    Picker("Select Existing Buyer", selection: $sales.buyer) {
                         ForEach(factory.buyers, id: \.self) { buyer in
                             Text(buyer)
                         }
                     }
                     
-                    LabelWithDetailView("Sales", QtyPicker(qty: $sales.qty))
+                    LabelWithDetailView("Qty", QtyPicker(qty: $sales.qty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
