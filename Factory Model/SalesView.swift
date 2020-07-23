@@ -12,11 +12,13 @@ struct SalesView: View {
     @Environment(\.presentationMode) var presentation
     
     var sales: Sales
+    var factory: Factory
     
     @State private var draft: Sales
     
-    init(_ sales: Sales) {
+    init(_ sales: Sales, for factory: Factory) {
         self.sales = sales
+        self.factory = factory
         _draft = State(initialValue: sales)
     }
     
@@ -25,6 +27,12 @@ struct SalesView: View {
             Section(header: Text("")) {
                 Group {
                     TextField("Name", text: $draft.buyer)
+                    
+                    Picker("Existing Buyer", selection: $draft.buyer) {
+                        ForEach(factory.buyers, id: \.self) { buyer in
+                            Text(buyer)
+                        }
+                    }
 
                     LabelWithDetailView("Sales", QtyPicker(qty: $draft.qty))
                 }

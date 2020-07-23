@@ -24,6 +24,9 @@ extension Product {
         get { group_ ?? "Unknown"}
         set { group_ = newValue }
     }
+    var idd: String {
+        "\(name) : \(code)/\(group) : \(packagingCode)"
+    }
     var feedstocks: [Feedstock] {
         get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
         set { feedstocks_ = Set(newValue) as NSSet }

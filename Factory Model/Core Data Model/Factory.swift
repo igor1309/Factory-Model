@@ -29,6 +29,11 @@ extension Factory {
         get { (products_ as? Set<Product> ?? []).sorted() }
         set { products_ = Set(newValue) as NSSet }
     }
+    var buyers: [String] {
+        products
+            .flatMap { $0.sales }
+            .compactMap { $0.buyer }
+    }
     var staff: [Staff] {
         get { (staff_ as? Set<Staff> ?? []).sorted() }
         set { staff_ = Set(newValue) as NSSet }
@@ -116,13 +121,25 @@ extension Factory {
             .reduce(0, +)
     }
     
-    var productGroups: [Row] {
+    var productGroupsAsRows: [Row] {
         Dictionary(grouping: products) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
             .map { Row(title: $0, subtitle: $1, detail: "TBD: Total production & revenue".uppercased(), icon: "bag") }
             .sorted()
     }
+    
+    var productGroups: [String] {
+        products
+            .map { $0.group }
+            .removingDuplicates()
+            .sorted()
+    }
 
+    func productsForGroup(_ group: String) -> [Product] {
+        products
+            .filter { $0.group == group }
+            .sorted()
+    }
 
     var sales: [Sales] {
         products

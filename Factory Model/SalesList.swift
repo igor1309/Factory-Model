@@ -40,12 +40,13 @@ struct SalesList: View {
             Section(header: Text("Sales")) {
                 ForEach(sales, id: \.self) { sales in
                     NavigationLink(
-                        destination: SalesView(sales)
+                        destination: SalesView(sales, for: product.factory!)
                     ) {
                         ListRow(
                             title: sales.buyer,
                             subtitle: "\(sales.qty)",
-                            icon: "cart"
+                            icon: "cart",
+                            useSmallerFont: true
                         )
                     }
                 }

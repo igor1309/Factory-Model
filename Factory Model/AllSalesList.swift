@@ -22,7 +22,10 @@ struct AllSalesList: View {
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
-            ]
+            ],
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Sales.product.factory), factory
+            )
         )
     }
     
@@ -38,19 +41,40 @@ struct AllSalesList: View {
             }
             
             Section(header: Text("Sales")) {
-                ForEach(factory.sales, id: \.self) { sales in
-                    ListRow(
-                        title: sales.buyer,
-                        subtitle: sales.comment,
-                        icon: "cart",
-                        useSmallerFont: true
-                    )
+                ForEach(sales, id: \.self) { sales in
+                    
+                    NavigationLink(
+                        destination: SalesEditor(sales: sales)
+                    ) {
+                        ListRow(
+                            title: sales.buyer,
+                            subtitle: sales.comment,
+                            icon: "cart",
+                            useSmallerFont: true
+                        )
+                    }
                 }
                 .onDelete(perform: removeSales)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
+        .navigationBarItems(trailing: plusButton)
+    }
+    
+    @State private var showProductPicker = false
+    private var plusButton: some View {
+        Button {
+            //  MARK: FINISH THIS
+            showProductPicker = true
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
+        //        .sheet(isPresented: $showProductPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
+        //              ProductPicker(product: .constant(Product()), for: factory)
+        //            BuyerPicker(buyer: .constant(Buyer()), factory: factory)
+        //        }
     }
     
     private func removeSales(at offsets: IndexSet) {

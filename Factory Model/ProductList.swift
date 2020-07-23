@@ -44,7 +44,7 @@ struct ProductList: View {
             }
             
             Section(header: Text("Product Groups")) {
-                ForEach(factory.productGroups) { productGroup in
+                ForEach(factory.productGroupsAsRows) { productGroup in
                     NavigationLink(
                         destination: ProductGroupList(group: productGroup.title, at: factory)
                     ) {

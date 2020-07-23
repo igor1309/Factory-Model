@@ -20,6 +20,9 @@
 		2A30471124C836200002E5DD /* AllFeedstockList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471024C836200002E5DD /* AllFeedstockList.swift */; };
 		2A30471324C8734F0002E5DD /* AllFeedstockListTESTING.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471224C8734F0002E5DD /* AllFeedstockListTESTING.swift */; };
 		2A30471524C87AB90002E5DD /* Something.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471424C87AB90002E5DD /* Something.swift */; };
+		2A30471724C89C5F0002E5DD /* ProductPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471624C89C5F0002E5DD /* ProductPicker.swift */; };
+		2A74038A24C8CB8200BA7999 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* test.swift */; };
+		2A74038E24C8D11F00BA7999 /* SalesEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038D24C8D11F00BA7999 /* SalesEditor.swift */; };
 		2A85734124C5CFB3009FF51A /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734024C5CFB3009FF51A /* Equipment.swift */; };
 		2A85734324C5D853009FF51A /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734224C5D853009FF51A /* Expenses.swift */; };
 		2A85734524C5D8B2009FF51A /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734424C5D8B2009FF51A /* Staff.swift */; };
@@ -65,6 +68,9 @@
 		2A30471024C836200002E5DD /* AllFeedstockList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedstockList.swift; sourceTree = "<group>"; };
 		2A30471224C8734F0002E5DD /* AllFeedstockListTESTING.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFeedstockListTESTING.swift; sourceTree = "<group>"; };
 		2A30471424C87AB90002E5DD /* Something.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Something.swift; sourceTree = "<group>"; };
+		2A30471624C89C5F0002E5DD /* ProductPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductPicker.swift; sourceTree = "<group>"; };
+		2A74038924C8CB8200BA7999 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		2A74038D24C8D11F00BA7999 /* SalesEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesEditor.swift; sourceTree = "<group>"; };
 		2A85734024C5CFB3009FF51A /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		2A85734224C5D853009FF51A /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		2A85734424C5D8B2009FF51A /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -138,6 +144,7 @@
 				2A85734824C5FDB1009FF51A /* ListRow.swift */,
 				2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */,
 				2A30470824C7995B0002E5DD /* QtyPicker.swift */,
+				2A30471624C89C5F0002E5DD /* ProductPicker.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -171,8 +178,10 @@
 				2A85734624C5DBCF009FF51A /* ProductView.swift */,
 				2A30470624C78F260002E5DD /* ProductEditor.swift */,
 				2A30470424C77C3A0002E5DD /* AllSalesList.swift */,
+				2A74038924C8CB8200BA7999 /* test.swift */,
 				2A936E6424C7147100C34381 /* SalesList.swift */,
 				2A936E6624C7151D00C34381 /* SalesView.swift */,
+				2A74038D24C8D11F00BA7999 /* SalesEditor.swift */,
 				2A936E5C24C6F07F00C34381 /* DivisionView.swift */,
 				2AC7952424C76E7500018817 /* StaffList.swift */,
 				2A936E5E24C6F9C200C34381 /* StaffView.swift */,
@@ -278,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A30471724C89C5F0002E5DD /* ProductPicker.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
 				2A936E6324C7112B00C34381 /* FeedstockList.swift in Sources */,
@@ -298,6 +308,7 @@
 				2A85734724C5DBCF009FF51A /* ProductView.swift in Sources */,
 				2A85734124C5CFB3009FF51A /* Equipment.swift in Sources */,
 				2A85734524C5D8B2009FF51A /* Staff.swift in Sources */,
+				2A74038A24C8CB8200BA7999 /* test.swift in Sources */,
 				2A936E5724C6DB7500C34381 /* Packaging.swift in Sources */,
 				2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
@@ -307,6 +318,7 @@
 				2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */,
 				2A936E5D24C6F07F00C34381 /* DivisionView.swift in Sources */,
 				2A30470724C78F260002E5DD /* ProductEditor.swift in Sources */,
+				2A74038E24C8D11F00BA7999 /* SalesEditor.swift in Sources */,
 				2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */,
 				2A936E6124C7051500C34381 /* FeedstockView.swift in Sources */,
 				2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */,
