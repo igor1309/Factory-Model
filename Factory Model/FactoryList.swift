@@ -95,15 +95,16 @@ struct FactoryList: View {
     
     private var plusSampleButton: some View {
         Button {
-            let factory = Factory(context: managedObjectContext)
-            factory.name = "Сыроварня"
-            factory.note = "Тестовый проект"
+            let factory1 = Factory(context: managedObjectContext)
+            factory1.name = "Сыроварня"
+            factory1.note = "Тестовый проект"
             
             let product1 = Product(context: managedObjectContext)
             product1.name = "Сулугуни 1 кг"
             product1.note = "Первый продукт"
             product1.code = "1001"
             product1.group = "Сыры"
+            product1.unit = .weight
             product1.weightNetto = 1_000
             product1.productionQty = 3_000
             
@@ -181,7 +182,7 @@ struct FactoryList: View {
             product3.code = "2001"
             product3.group = "Твороги"
             
-            factory.products = [product1, product2, product3]
+            factory1.products = [product1, product2, product3]
             
             let staff1 = Staff(context: managedObjectContext)
             staff1.division = "Производство"
@@ -225,7 +226,7 @@ struct FactoryList: View {
             staff6.name = "Мальвина Петровна"
             staff6.salary = 30_000
             
-            factory.staff = [staff1, staff2, staff3, staff4, staff5, staff6]
+            factory1.staff = [staff1, staff2, staff3, staff4, staff5, staff6]
             
             let expenses1 = Expenses(context: managedObjectContext)
             expenses1.name = "Связь"
@@ -255,7 +256,7 @@ struct FactoryList: View {
             expenses7.name = "Аренда"
             expenses7.amount = 50_000
             
-            factory.expenses = [expenses1, expenses2, expenses3, expenses4, expenses5, expenses6, expenses7]
+            factory1.expenses = [expenses1, expenses2, expenses3, expenses4, expenses5, expenses6, expenses7]
             
             let equipment = Equipment(context: managedObjectContext)
             equipment.name = "Сырная линия"
@@ -263,7 +264,34 @@ struct FactoryList: View {
             equipment.price = 7_000_000
             equipment.lifetime = 7
             
-            factory.equipments = [equipment]
+            factory1.equipments = [equipment]
+            
+            let factory2 = Factory(context: managedObjectContext)
+            factory2.name = "Полуфабрикаты"
+            factory2.note = "Заморозка и прочее"
+            
+            let product21 = Product(context: managedObjectContext)
+            product21.name = "Хинкали"
+            product21.group = "Заморозка"
+            product21.unit_ = "piece"
+            product21.weightNetto = 60
+            
+            let feedstock211 = Feedstock(context: managedObjectContext)
+            feedstock211.name = "Мука"
+            
+            let feedstock212 = Feedstock(context: managedObjectContext)
+            feedstock212.name = "Мясо"
+            
+            product21.feedstocks = [feedstock211, feedstock212]
+            
+            let sales211 = Sales(context: managedObjectContext)
+            sales211.buyer = "METRO"
+            sales211.qty = 1_000
+            sales211.price = 230
+            
+            product21.sales = [sales211]
+            
+            factory2.products = [product21]
             
             managedObjectContext.saveContext()
         } label: {

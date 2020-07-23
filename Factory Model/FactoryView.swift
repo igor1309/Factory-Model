@@ -45,14 +45,6 @@ struct FactoryView: View {
                     LabelWithDetail("puzzlepiece", "Feedstocks", factory.totalFeedstockCost.formattedGrouped)
                 }
                 .font(.subheadline)
-                
-                NavigationLink(
-                    destination: AllFeedstockListTESTING(for: factory)
-                ) {
-                    LabelWithDetail("puzzlepiece", "TESTING!! Total Feedstocks", "TBD")
-                }
-                .font(.subheadline)
-                .foregroundColor(.orange)
             }
             
             Section(
@@ -98,6 +90,17 @@ struct FactoryView: View {
                 }
                 .foregroundColor(.accentColor)
             }
+            
+            Section(header: Text("TESTING")) {
+                NavigationLink(
+                    destination: AllFeedstockListTESTING(for: factory)
+                ) {
+                    LabelWithDetail("puzzlepiece", "TESTING!! Total Feedstocks", "TBD")
+                }
+                .font(.subheadline)
+            }
+            .foregroundColor(.orange)
+
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)

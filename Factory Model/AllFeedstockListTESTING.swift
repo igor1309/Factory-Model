@@ -13,7 +13,7 @@ struct AllFeedstockListTESTING: View {
     @ObservedObject var factory: Factory
     
     @State private var feedstocks: [Something]?
-    { didSet { print(feedstocks as Any) }}
+    //    { didSet { print(feedstocks as Any) }}
     
     init(for factory: Factory) {
         self.factory = factory
@@ -22,24 +22,22 @@ struct AllFeedstockListTESTING: View {
     var body: some View {
         List {
             //  MARK: FINISH THIS!!!
-            //    MARK: DISAPPEARING BLOCK _ CAN'T FINS ERROR
             if let feedstocks = feedstocks {
-                Section(header: Text("Feedstocks")) {
+                Section(
+                    header: Text("Feedstocks")
+                ) {
                     ForEach(feedstocks) { feedstock in
-                        Text("\(feedstock.title): \(feedstock.qty.formattedGrouped) \(feedstock.cost.formattedGrouped)")
+                        LabelWithDetail(feedstock.title, "\(feedstock.qty.formattedGrouped) \(feedstock.cost.formattedGrouped)")
                             .font(.subheadline)
                     }
                 }
             }
-            
         }
-        //    MARK: DISAPPEARING BLOCK _ CAN'T FINS ERROR
         .onAppear(perform: fetchFeedstocks)
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Feedstock")
     }
     
-    //  MARK: DISAPPEARING BLOCK _ CAN'T FINS ERROR
     func fetchFeedstocks() {
         //        Factory.fetchFeedstocksTotalsGrouped(context: managedObjectContext) {
         //        factory.fetchFeedstocksTotalsGrouped { results in

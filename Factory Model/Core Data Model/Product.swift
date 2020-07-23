@@ -8,6 +8,12 @@
 import Foundation
 
 extension Product {
+    enum Unit: String, CaseIterable { case weight, piece, undefined }
+    var unit: Unit {
+        get { Unit(rawValue: unit_ ?? "weight") ?? .undefined }
+        set { unit_ = newValue.rawValue }
+    }
+    
     var name: String {
         get { name_ ?? "Unknown"}
         set { name_ = newValue }

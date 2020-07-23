@@ -45,6 +45,7 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="productionQty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit_" optional="YES" attributeType="String"/>
         <attribute name="weightNetto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="products_" inverseEntity="Factory"/>
         <relationship name="feedstocks_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="product" inverseEntity="Feedstock"/>
@@ -79,7 +80,7 @@
         <element name="Feedstock" positionX="-11052.6875" positionY="-9042.47265625" width="128" height="103"/>
         <element name="Packaging" positionX="-11019.03125" positionY="-8907.703125" width="128" height="118"/>
         <element name="Pricelist" positionX="-11257.05078125" positionY="-8986.09765625" width="128" height="73"/>
-        <element name="Product" positionX="-10714.9140625" positionY="-9143.62890625" width="128" height="223"/>
+        <element name="Product" positionX="-10714.9140625" positionY="-9143.62890625" width="128" height="238"/>
         <element name="Sales" positionX="-10494.03515625" positionY="-9183.51171875" width="128" height="103"/>
         <element name="Staff" positionX="-11333.140625" positionY="-9189.1953125" width="128" height="148"/>
         <element name="Utility" positionX="-10486.453125" positionY="-8954.3515625" width="128" height="88"/>

@@ -14,7 +14,7 @@ extension Factory {
         set { name_ = newValue }
     }
     var note: String {
-        get { note_ ?? "Unknown"}
+        get { note_ ?? ""}
         set { note_ = newValue }
     }
     var equipments: [Equipment] {
@@ -203,6 +203,7 @@ extension Factory {
 extension Factory {
     
     //  MARK: NOT WORKING IDEALLY
+    //  HOW TO FILTER ON FACTORY???
     ///https://www.alfianlosari.com/posts/building-expense-tracker-ios-app-with-core-data-and-swiftui/
     static func fetchFeedstocksTotalsGrouped(
         context: NSManagedObjectContext,
@@ -216,7 +217,8 @@ extension Factory {
         sumDesc.name = "sum"
         sumDesc.expressionResultType = .decimalAttributeType
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Feedstock.entity().name ?? "ExpenseLog")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Feedstock.entity().name ?? "Feedstock")
+        request.predicate = NSPredicate(format: "qty > 0")
         request.returnsObjectsAsFaults = false
         request.propertiesToGroupBy = ["name_"]
         request.propertiesToFetch = [sumDesc, "name_"]
