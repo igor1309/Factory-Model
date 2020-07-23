@@ -14,9 +14,9 @@ struct ProductEditor: View {
         List {
             Section(header: Text("Product")) {
                 Group {
+                    TextField("Name", text: $draft.name)
                     TextField("Group", text: $draft.group)
                     TextField("Code", text: $draft.code)
-                    TextField("Name", text: $draft.name)
                     TextField("Note", text: $draft.note)
                     
                     LabelWithDetail("TBD: Weight Netto", draft.weightNetto.formattedGroupedWith1Decimal)
@@ -26,6 +26,27 @@ struct ProductEditor: View {
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
+            
+            Section(header: Text("Feedstock")) {
+                NavigationLink(
+                    destination: FeedstockList(for: draft)
+                ) {
+                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGrouped)
+                        .font(.subheadline)
+                }
+                .foregroundColor(.accentColor)
+            }
+            
+            Section(header: Text("Utilities")) {
+                NavigationLink(
+                    destination: UtilityList(for: draft)
+                ) {
+                    LabelWithDetail("lightbulb", "Total Utilities", "TBD")
+                        .font(.subheadline)
+                }
+                .foregroundColor(.accentColor)
+            }
+
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(draft.name)

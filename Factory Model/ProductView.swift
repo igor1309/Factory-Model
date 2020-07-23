@@ -57,39 +57,35 @@ struct ProductView: View {
                     LabelWithDetail("Production Cost", draft.cost.formattedGrouped)
                     LabelWithDetail("Total Production Cost", draft.totalCost.formattedGrouped)
                 }
+                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {
                 Group {
                     LabelWithDetail("Total Sales Qty", draft.totalSalesQty.formattedGrouped)
-                            .padding(.trailing)
                     
                     VStack(spacing: 4) {
                         LabelWithDetail("Avg price", draft.avgPriceExVAT.formattedGroupedWith1Decimal)
-                                .padding(.trailing)
                         
                         LabelWithDetail("Avg price, incl VAT", draft.avgPriceWithVAT.formattedGroupedWith1Decimal)
-                                .padding(.trailing)
                             .foregroundColor(.secondary)
                     }
                     .padding(.vertical, 3)
                     
+                    LabelWithDetail("cart", "Total Sales, ex VAT", draft.revenueExVAT.formattedGrouped)
+                    
+                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGrouped)
+                    
+                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", draft.margin.formattedGrouped)
+                        .foregroundColor(.systemOrange)
+                    
                     NavigationLink(
                         destination: SalesList(for: product)
                     ) {
-                        LabelWithDetail("cart", "Total Sales, ex VAT", draft.revenueExVAT.formattedGrouped)
+                        Label("Edit Sales", systemImage: "cart")
                     }
                     .foregroundColor(.accentColor)
-                    
-                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGrouped)
-                        .padding(.trailing)
-                    
-                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", draft.margin.formattedGrouped)
-                        .padding(.trailing)
-                        
-                        .foregroundColor(.secondary)
-                    
                 }
                 .font(.subheadline)
             }
@@ -99,29 +95,9 @@ struct ProductView: View {
                     LabelWithDetail("building.2", "Initial Inventory", draft.initialInventory.formattedGrouped)
                     
                     LabelWithDetail("building.2", "Closing Inventory", draft.closingInventory.formattedGrouped)
-                    .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
+                        .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
                 }
                 .font(.subheadline)
-            }
-            
-            Section(header: Text("Feedstock")) {
-                NavigationLink(
-                    destination: FeedstockList(for: product)
-                ) {
-                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGrouped)
-                    .font(.subheadline)
-                }
-                .foregroundColor(.accentColor)
-            }
-            
-            Section(header: Text("Utilities")) {
-                NavigationLink(
-                    destination: UtilityList(for: product)
-                ) {
-                    LabelWithDetail("lightbulb", "Total Utilities", "TBD")
-                    .font(.subheadline)
-                }
-                .foregroundColor(.accentColor)
             }
         }
         .listStyle(InsetGroupedListStyle())
