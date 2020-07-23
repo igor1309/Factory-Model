@@ -12,7 +12,7 @@ struct EquipmentList: View {
     
     @FetchRequest var equipment: FetchedResults<Equipment>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
@@ -31,8 +31,8 @@ struct EquipmentList: View {
         List {
             Section(header: Text("Total")) {
                 Group {
-                    LabelWithDetail("Equipment Total", factory.equipmentTotal.formattedGroupedWith1Decimal)
-                    LabelWithDetail("Amortization, monthly", factory.amortizationMonthly.formattedGroupedWith1Decimal)
+                    LabelWithDetail("wrench.and.screwdriver", "Equipment, total", factory.equipmentTotal.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Amortization, monthly", factory.amortizationMonthly.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -41,12 +41,12 @@ struct EquipmentList: View {
             Section(header: Text("Equipment")) {
                 ForEach(equipment, id: \.self) { equipment in
                     NavigationLink(
-                        destination: EquipmentView(equipment: equipment, for: factory)
+                        destination: EquipmentView(equipment: equipment)
                     ) {
                         ListRow(
                             title: equipment.name,
-                            subtitle: "\(equipment.price) for \(equipment.lifetime) years",
-                            detail: "\(equipment.note)",
+                            subtitle: "\(equipment.note)",
+                            detail: equipment.idd,
                             icon: "wrench.and.screwdriver",
                             useSmallerFont: true
                         )

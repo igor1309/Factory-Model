@@ -11,32 +11,51 @@ struct EquipmentView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var equipment: Equipment
-    var factory: Factory
+    @ObservedObject var equipment: Equipment
     
-    @State private var draft: Equipment
-    
-    init(equipment: Equipment, for factory: Factory) {
+    init(equipment: Equipment) {
         self.equipment = equipment
-        self.factory = factory
-        _draft = State(initialValue: equipment)
     }
+    
+    private let lifetimes: [Double] = [1, 2, 3, 4, 5, 6, 7, 10]
     
     var body: some View {
         List {
             Section(header: Text("Equipment")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Name", text: $draft.note)
-                    Text("TBD: lifetime: \(draft.lifetime, specifier: "%.f")")
-                    Text("TBD: price: \(draft.price, specifier: "%.f")")
+                    TextField("Name", text: $equipment.name)
+                    TextField("Name", text: $equipment.note)
+                    
+                    Picker("Lifetime", selection: $equipment.lifetime) {
+                        ForEach(lifetimes, id: \.self) { lifetime in
+                            Text(lifetime.formattedGrouped).tag(lifetime)
+                        }
+                    }
+                    
+                    Text("TBD: price: \(equipment.price, specifier: "%.f")")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
+            
+            Section(
+                header: Text("Amortization")
+            ) {
+                LabelWithDetail("dollarsign.circle", "Monthly", equipment.amortizationMonthly.formattedGrouped)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(equipment.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

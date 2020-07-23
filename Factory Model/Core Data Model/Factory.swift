@@ -92,7 +92,7 @@ extension Factory {
     }
     var amortizationMonthly: Double {
         equipments
-            .map { $0.price / ($0.lifetime > 0 ? $0.lifetime : 1) / 12 }
+            .map { $0.amortizationMonthly }
             .reduce(0, +)
     }
     
