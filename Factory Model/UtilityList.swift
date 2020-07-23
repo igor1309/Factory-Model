@@ -42,12 +42,7 @@ struct UtilityList: View {
                     NavigationLink(
                         destination: UtilityView(utility)
                     ) {
-                        ListRow(
-                            title: utility.name,
-                            subtitle: "\(utility.price)",
-                            icon: "lightbulb",
-                            useSmallerFont: true
-                        )
+                        UtilityRow(utility)
                     }
                 }
                 .onDelete(perform: removeUtility)

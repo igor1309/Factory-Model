@@ -33,9 +33,9 @@ struct ProductGroupList: View {
         List {
             Section(header: Text("Group Totals")) {
                 Group {
-                    LabelWithDetail("Production", "TBD")
+                    LabelWithDetail("bag", "Production", "TBD")
                     
-                    LabelWithDetail("Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGroupedWith1Decimal)
+                    LabelWithDetail("dollarsign.circle", "Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGrouped)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)
@@ -46,7 +46,7 @@ struct ProductGroupList: View {
                     NavigationLink(
                         destination: ProductView(product)
                     ) {
-                        ListRow(title: product.name, subtitle: product.note, detail: product.group + ": " + product.code, icon: "bag")
+                        ProductRow(product)
                     }
                 }
                 .onDelete(perform: removeProduct)

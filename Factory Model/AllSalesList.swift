@@ -46,12 +46,7 @@ struct AllSalesList: View {
                     NavigationLink(
                         destination: SalesEditor(sales: sales)
                     ) {
-                        ListRow(
-                            title: sales.buyer,
-                            subtitle: sales.idd,
-                            icon: "cart",
-                            useSmallerFont: true
-                        )
+                        SalesRow(sales)
                     }
                 }
                 .onDelete(perform: removeSales)

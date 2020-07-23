@@ -43,13 +43,7 @@ struct EquipmentList: View {
                     NavigationLink(
                         destination: EquipmentView(equipment: equipment)
                     ) {
-                        ListRow(
-                            title: equipment.name,
-                            subtitle: "\(equipment.note)",
-                            detail: equipment.idd,
-                            icon: "wrench.and.screwdriver",
-                            useSmallerFont: true
-                        )
+                        EquipmentRow(equipment)
                     }
                 }
                 .onDelete(perform: removeEquipment)

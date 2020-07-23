@@ -28,25 +28,30 @@ struct FactoryList: View {
                     NavigationLink(
                         destination: FactoryView(factory)
                     ) {
-                        ListRow(title: factory.name, subtitle: factory.note, icon: "gearshape")
-                            .contextMenu {
-                                Button {
-                                    showDeleteAction = true
-                                } label: {
-                                    Image(systemName: "trash.circle")
-                                    Text("Delete")
-                                }
+                        ListRow(
+                            title: factory.name,
+                            subtitle: factory.note,
+                            icon: "gearshape",
+                            useSmallerFont: false
+                        )
+                        .contextMenu {
+                            Button {
+                                showDeleteAction = true
+                            } label: {
+                                Image(systemName: "trash.circle")
+                                Text("Delete")
                             }
-                            .actionSheet(isPresented: $showDeleteAction) {
-                                ActionSheet(
-                                    title: Text("Delete?".uppercased()),
-                                    message: Text("Do you really want to delete '\(factory.name)'?\nThis cannot be undone."),
-                                    buttons: [
-                                        .destructive(Text("Yes, delete")) { delete(factory) },
-                                        .cancel()
-                                    ]
-                                )
-                            }
+                        }
+                        .actionSheet(isPresented: $showDeleteAction) {
+                            ActionSheet(
+                                title: Text("Delete?".uppercased()),
+                                message: Text("Do you really want to delete '\(factory.name)'?\nThis cannot be undone."),
+                                buttons: [
+                                    .destructive(Text("Yes, delete")) { delete(factory) },
+                                    .cancel()
+                                ]
+                            )
+                        }
                     }
                 }
                 .onDelete(perform: removeFactories)
@@ -75,7 +80,7 @@ struct FactoryList: View {
         managedObjectContext.delete(factory)
         managedObjectContext.saveContext()
     }
-
+    
     private var plusButton: some View {
         Button {
             //  MARK: FINISH THIS
@@ -116,7 +121,7 @@ struct FactoryList: View {
             
             let feedstock3 = Feedstock(context: managedObjectContext)
             feedstock3.name = "Хлористый кальций"
-
+            
             let feedstock4 = Feedstock(context: managedObjectContext)
             feedstock4.name = "Бактериальная заправка"
             

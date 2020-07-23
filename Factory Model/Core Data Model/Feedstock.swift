@@ -22,9 +22,9 @@ extension Feedstock {
     }
     
     var iddFinancial: String {
-        "\(qty) @ \(price) = \(cost)"
+        "\(qty.formattedGrouped) @ \(price) = \(cost.formattedGrouped)"
     }
-    
+        
     var productName: String {
         product?.name ?? "Unknown"
     }

@@ -45,7 +45,7 @@ struct StaffList: View {
                     ) {
                         ListRow(
                             title: division + ", \(factory.headcount(for: division))",
-                            subtitle: "\(factory.totalSalary(for: division))",
+                            subtitle: factory.totalSalary(for: division).formattedGrouped,
                             detail: factory.departments(for: division),
                             icon: "person.2"
                         )
@@ -58,10 +58,7 @@ struct StaffList: View {
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {
-                        ListRow(title: staff.name,
-                                subtitle: "\(staff.salary)" + (staff.note_ == nil ? "" : ", " + staff.note),
-                                detail: staff.department + ": " + staff.position,
-                                icon: "person")
+                        StaffRow(staff)
                     }
                 }
                 .onDelete(perform: removeStaff)

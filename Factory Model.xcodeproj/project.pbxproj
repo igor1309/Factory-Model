@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A13E4BE24C99F4D00016CBC /* ProductRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4BD24C99F4D00016CBC /* ProductRow.swift */; };
+		2A13E4C024C99FE000016CBC /* FeedstockRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4BF24C99FE000016CBC /* FeedstockRow.swift */; };
+		2A13E4C224C9A0B200016CBC /* SalesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4C124C9A0B200016CBC /* SalesRow.swift */; };
+		2A13E4C424C9A1FF00016CBC /* SomethingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4C324C9A1FF00016CBC /* SomethingRow.swift */; };
+		2A13E4C624C9A34C00016CBC /* UtilityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4C524C9A34C00016CBC /* UtilityRow.swift */; };
+		2A13E4C824C9A3E400016CBC /* EquipmentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4C724C9A3E400016CBC /* EquipmentRow.swift */; };
+		2A13E4CA24C9A45300016CBC /* ExpensesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4C924C9A45300016CBC /* ExpensesRow.swift */; };
+		2A13E4CD24C9ABF900016CBC /* StaffRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4CC24C9ABF900016CBC /* StaffRow.swift */; };
 		2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */; };
 		2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */; };
 		2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BCF24C5A72100B2F8D9 /* Factory.swift */; };
@@ -56,6 +64,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2A13E4BD24C99F4D00016CBC /* ProductRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRow.swift; sourceTree = "<group>"; };
+		2A13E4BF24C99FE000016CBC /* FeedstockRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedstockRow.swift; sourceTree = "<group>"; };
+		2A13E4C124C9A0B200016CBC /* SalesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesRow.swift; sourceTree = "<group>"; };
+		2A13E4C324C9A1FF00016CBC /* SomethingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SomethingRow.swift; sourceTree = "<group>"; };
+		2A13E4C524C9A34C00016CBC /* UtilityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityRow.swift; sourceTree = "<group>"; };
+		2A13E4C724C9A3E400016CBC /* EquipmentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentRow.swift; sourceTree = "<group>"; };
+		2A13E4C924C9A45300016CBC /* ExpensesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesRow.swift; sourceTree = "<group>"; };
+		2A13E4CC24C9ABF900016CBC /* StaffRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffRow.swift; sourceTree = "<group>"; };
 		2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
 		2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		2A2F4BCF24C5A72100B2F8D9 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
@@ -118,6 +134,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A13E4CB24C9A4C700016CBC /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				2A85734824C5FDB1009FF51A /* ListRow.swift */,
+				2A13E4C324C9A1FF00016CBC /* SomethingRow.swift */,
+				2A13E4C724C9A3E400016CBC /* EquipmentRow.swift */,
+				2A13E4C924C9A45300016CBC /* ExpensesRow.swift */,
+				2A13E4BF24C99FE000016CBC /* FeedstockRow.swift */,
+				2A13E4BD24C99F4D00016CBC /* ProductRow.swift */,
+				2A13E4C124C9A0B200016CBC /* SalesRow.swift */,
+				2A13E4CC24C9ABF900016CBC /* StaffRow.swift */,
+				2A13E4C524C9A34C00016CBC /* UtilityRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
 		2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,7 +173,6 @@
 		2A30470F24C82FEE0002E5DD /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
-				2A85734824C5FDB1009FF51A /* ListRow.swift */,
 				2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */,
 				2A30470824C7995B0002E5DD /* QtyPicker.swift */,
 				2A30471624C89C5F0002E5DD /* ProductPicker.swift */,
@@ -170,6 +201,7 @@
 			children = (
 				2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */,
 				2AADA09B24C4F4A8005F1E9F /* ContentView.swift */,
+				2A13E4CB24C9A4C700016CBC /* Rows */,
 				2A30470F24C82FEE0002E5DD /* Supporting Views */,
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
@@ -288,12 +320,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A30471724C89C5F0002E5DD /* ProductPicker.swift in Sources */,
+				2A13E4C024C99FE000016CBC /* FeedstockRow.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
 				2A936E6324C7112B00C34381 /* FeedstockList.swift in Sources */,
 				2AC07F9324C5AA4200BB23B1 /* FactoryList.swift in Sources */,
 				2A30470B24C81AD60002E5DD /* LabelWithDetail.swift in Sources */,
+				2A13E4C624C9A34C00016CBC /* UtilityRow.swift in Sources */,
 				2A936E6724C7151D00C34381 /* SalesView.swift in Sources */,
+				2A13E4C824C9A3E400016CBC /* EquipmentRow.swift in Sources */,
 				2A30471124C836200002E5DD /* AllFeedstockList.swift in Sources */,
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
 				2A936E7124C71EB800C34381 /* EquipmentList.swift in Sources */,
@@ -305,14 +340,18 @@
 				2AADA0AA24C4F4E2005F1E9F /* DataModel.xcdatamodeld in Sources */,
 				2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */,
 				2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */,
+				2A13E4CD24C9ABF900016CBC /* StaffRow.swift in Sources */,
 				2A85734724C5DBCF009FF51A /* ProductView.swift in Sources */,
 				2A85734124C5CFB3009FF51A /* Equipment.swift in Sources */,
 				2A85734524C5D8B2009FF51A /* Staff.swift in Sources */,
 				2A74038A24C8CB8200BA7999 /* test.swift in Sources */,
+				2A13E4C424C9A1FF00016CBC /* SomethingRow.swift in Sources */,
+				2A13E4C224C9A0B200016CBC /* SalesRow.swift in Sources */,
 				2A936E5724C6DB7500C34381 /* Packaging.swift in Sources */,
 				2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
 				2A30471324C8734F0002E5DD /* AllFeedstockListTESTING.swift in Sources */,
+				2A13E4CA24C9A45300016CBC /* ExpensesRow.swift in Sources */,
 				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
 				2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */,
@@ -327,6 +366,7 @@
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */,
+				2A13E4BE24C99F4D00016CBC /* ProductRow.swift in Sources */,
 				2A30470324C778AD0002E5DD /* ProductList.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* ProductGroupList.swift in Sources */,
 				2A2F4BD224C5A84600B2F8D9 /* Product.swift in Sources */,

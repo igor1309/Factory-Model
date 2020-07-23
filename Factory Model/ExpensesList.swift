@@ -40,13 +40,7 @@ struct ExpensesList: View {
                     NavigationLink(
                         destination: ExpensesView(expenses: expenses)
                     ) {
-                        ListRow(
-                            title: expenses.name,
-                            subtitle: "\(expenses.amount)",
-                            detail: expenses.note,
-                            icon: "dollarsign.circle",
-                            useSmallerFont: true
-                        )
+                        ExpensesRow(expenses)
                     }
                 }
                 .onDelete(perform: removeExpenses)

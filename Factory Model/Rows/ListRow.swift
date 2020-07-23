@@ -27,14 +27,14 @@ struct ListRow: View {
     var subtitle: String? = nil
     var detail: String? = nil
     var icon: String
-    var useSmallerFont = false
+    var useSmallerFont: Bool
     
     init(
         title: String,
         subtitle: String? = nil,
         detail: String? = nil,
         icon: String,
-        useSmallerFont: Bool = false
+        useSmallerFont: Bool = true
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -43,7 +43,7 @@ struct ListRow: View {
         self.useSmallerFont = useSmallerFont
     }
     
-    init(_ row: Row, useSmallerFont: Bool = false) {
+    init(_ row: Row, useSmallerFont: Bool = true) {
         self.title = row.title
         self.subtitle = row.subtitle
         self.detail = row.detail

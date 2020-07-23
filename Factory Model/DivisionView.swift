@@ -46,10 +46,7 @@ struct DivisionView: View {
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {
-                        ListRow(title: staff.name,
-                                subtitle: "\(staff.salary)" + (staff.note_ == nil ? "" : ", " + staff.note),
-                                detail: staff.department + ": " + staff.position,
-                                icon: "person.2")
+                        StaffRow(staff)
                     }
                 }
                 .onDelete(perform: removeStaff)

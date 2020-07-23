@@ -18,3 +18,9 @@ struct Something: Hashable, Identifiable, Comparable {
     var cost: Double
     var products: String
 }
+
+extension Something {
+    var iddFinancialTotal: String {
+        "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
+    }
+}

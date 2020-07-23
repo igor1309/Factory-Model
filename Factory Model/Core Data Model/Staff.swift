@@ -8,6 +8,19 @@
 import Foundation
 
 extension Staff {
+    var name: String {
+        get { name_ ?? "Unknown"}
+        set { name_ = newValue }
+    }
+    var note: String {
+        get { note_ ?? "Unknown"}
+        set { note_ = newValue }
+    }
+    
+    var position: String {
+        get { position_ ?? "Unknown"}
+        set { position_ = newValue }
+    }
     var department: String {
         get { department_ ?? "Unknown"}
         set { department_ = newValue }
@@ -16,18 +29,11 @@ extension Staff {
         get { division_ ?? "Unknown"}
         set { division_ = newValue }
     }
-    var position: String {
-        get { position_ ?? "Unknown"}
-        set { position_ = newValue }
-    }
-
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
-    var note: String {
-        get { note_ ?? "Unknown"}
-        set { note_ = newValue }
+    
+    var idd: String {
+        [department, position]
+            .filter { !$0.isEmpty}
+            .joined(separator: ": ")
     }
 }
 
