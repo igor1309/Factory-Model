@@ -20,10 +20,6 @@ extension Equipment {
     var amortizationMonthly: Double {
         price / (lifetime > 0 ? lifetime : 1) / 12
     }
-    
-    var idd: String {
-        "\(amortizationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
-    }
 }
 
 extension Equipment: Comparable {

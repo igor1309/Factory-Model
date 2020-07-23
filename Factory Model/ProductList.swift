@@ -58,7 +58,7 @@ struct ProductList: View {
                     NavigationLink(
                         destination: ProductView(product)
                     ) {
-                        ProductRow(product)
+                        ListRow(product)
                     }
                 }
                 .onDelete(perform: removeProduct)

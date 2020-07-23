@@ -30,7 +30,7 @@ struct ExpensesList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGroupedWith1Decimal)
+                LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -40,7 +40,7 @@ struct ExpensesList: View {
                     NavigationLink(
                         destination: ExpensesView(expenses: expenses)
                     ) {
-                        ExpensesRow(expenses)
+                        ListRow(expenses)
                     }
                 }
                 .onDelete(perform: removeExpenses)

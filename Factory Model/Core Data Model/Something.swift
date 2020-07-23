@@ -7,20 +7,26 @@
 
 import Foundation
 
-struct Something: Hashable, Identifiable, Comparable {
-    static func < (lhs: Something, rhs: Something) -> Bool {
-        lhs.name < rhs.name
-    }
-    
+struct Something: Hashable, Identifiable {
     var id: UUID
-    var name: String
+
+    var title: String
     var qty: Double
     var cost: Double
-    var products: String
+    var detail: String?
+    var icon: String = "puzzlepiece"
 }
 
-extension Something {
-    var iddFinancialTotal: String {
+extension Something: Comparable {
+    static func < (lhs: Something, rhs: Something) -> Bool {
+        lhs.title < rhs.title
+    }
+}
+
+extension Something: Summarable {
+//    var title: String { name }
+    
+    var subtitle: String {
         "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
     }
 }

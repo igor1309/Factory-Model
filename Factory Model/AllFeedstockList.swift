@@ -28,8 +28,8 @@ struct AllFeedstockList: View {
             }
             
             Section(header: Text("Feedstocks")) {
-                ForEach(factory.feedstocksByGroups()) { feedstock in
-                    SomethingRow(feedstock, icon: "puzzlepiece")
+                ForEach(factory.feedstocksByGroups()) { something in
+                    ListRow(something)
                 }
             }
         }
@@ -37,9 +37,3 @@ struct AllFeedstockList: View {
         .navigationTitle("Feedstock")
     }
 }
-
-//struct AllFeedstockList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AllFeedstockList()
-//    }
-//}

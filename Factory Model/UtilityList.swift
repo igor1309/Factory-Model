@@ -32,7 +32,7 @@ struct UtilityList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("Utility Total", product.totalUtilities.formattedGroupedWith1Decimal)
+                LabelWithDetail("Utility Total", product.totalUtilities.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -42,7 +42,7 @@ struct UtilityList: View {
                     NavigationLink(
                         destination: UtilityView(utility)
                     ) {
-                        UtilityRow(utility)
+                        ListRow(utility)
                     }
                 }
                 .onDelete(perform: removeUtility)

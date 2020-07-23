@@ -20,10 +20,6 @@ extension Sales {
         qty * price
     }
     
-    var idd: String {
-        "\(productName): \(qty.formattedGrouped) @ \(price.formattedGrouped) = \(total.formattedGrouped)"
-    }
-    
     var priceWithVAT: Double {
         //  MARK: FIX THIS: VAT is project/country constant
         get { price * 1.20 }

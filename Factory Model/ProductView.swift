@@ -35,7 +35,7 @@ struct ProductView: View {
                     NavigationLink(
                         destination: ProductEditor(product)
                     ) {
-                        Text(product.idd)
+                        Text(product.title)
                     }
                     
                     if product.closingInventory < 0 {

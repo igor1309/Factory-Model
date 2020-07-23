@@ -33,12 +33,6 @@ extension Staff {
     var salaryWithTax: Double {
         salary * 1.302
     }
-    
-    var idd: String {
-        [department, position]
-            .filter { !$0.isEmpty}
-            .joined(separator: ": ")
-    }
 }
 
 extension Staff: Comparable {

@@ -58,7 +58,7 @@ struct StaffList: View {
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {
-                        StaffRow(staff)
+                        ListRow(staff)
                     }
                 }
                 .onDelete(perform: removeStaff)
@@ -91,9 +91,3 @@ struct StaffList: View {
         managedObjectContext.saveContext()
     }
 }
-
-//struct StaffList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StaffList()
-//    }
-//}

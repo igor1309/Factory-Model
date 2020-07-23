@@ -26,7 +26,7 @@ struct AllFeedstockListTESTING: View {
             if let feedstocks = feedstocks {
                 Section(header: Text("Feedstocks")) {
                     ForEach(feedstocks) { feedstock in
-                        Text("\(feedstock.name): \(feedstock.qty.formattedGrouped) \(feedstock.cost.formattedGrouped)")
+                        Text("\(feedstock.title): \(feedstock.qty.formattedGrouped) \(feedstock.cost.formattedGrouped)")
                             .font(.subheadline)
                     }
                 }

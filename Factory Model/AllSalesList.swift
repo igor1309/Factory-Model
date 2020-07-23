@@ -46,7 +46,7 @@ struct AllSalesList: View {
                     NavigationLink(
                         destination: SalesEditor(sales: sales)
                     ) {
-                        SalesRow(sales)
+                        ListRow(sales)
                     }
                 }
                 .onDelete(perform: removeSales)

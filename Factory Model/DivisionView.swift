@@ -34,8 +34,8 @@ struct DivisionView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Total Salary")) {
-                LabelWithDetail("incl taxes", factory.salaryForDivisionWithTax(division).formattedGroupedWith1Decimal)
+            Section(header: Text("Total")) {
+                LabelWithDetail("Total Salary incl taxes", factory.salaryForDivisionWithTax(division).formattedGrouped)
                 .font(.subheadline)
             }
             
@@ -46,7 +46,7 @@ struct DivisionView: View {
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {
-                        StaffRow(staff)
+                        ListRow(staff)
                     }
                 }
                 .onDelete(perform: removeStaff)

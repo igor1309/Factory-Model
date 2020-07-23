@@ -20,7 +20,7 @@ struct ProductPicker: View {
         Button {
             showPicker = true
         } label: {
-            Text(product?.idd ?? "--")
+            Text(product?.title ?? "--")
         }
         .sheet(isPresented: $showPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
             ProductPickerTable(product: $product, for: factory, in: managedObjectContext)
@@ -53,7 +53,7 @@ fileprivate struct ProductPickerTable: View {
                                 self.product = product
                                 presentation.wrappedValue.dismiss()
                             } label: {
-                                Text(product.idd).tag(product)
+                                Text(product.title).tag(product)
                             }
                         }
                     }

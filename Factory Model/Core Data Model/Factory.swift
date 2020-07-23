@@ -122,10 +122,19 @@ extension Factory {
             .reduce(0, +)
     }
     
-    var productGroupsAsRows: [Row] {
+    var productGroupsAsRows: [Something] {
         Dictionary(grouping: products) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
-            .map { Row(title: $0, subtitle: $1, detail: "TBD: Total production & revenue".uppercased(), icon: "bag") }
+            .map {
+                Something(
+                    id: UUID(),
+                    title: $0,
+                    qty: 0,
+                    cost: 0,
+                    detail: $1,
+                    icon: "bag"
+                )
+            }
             .sorted()
     }
     
@@ -173,10 +182,10 @@ extension Factory {
             .map {
                 Something(
                     id: UUID(),
-                    name: $0.key,
+                    title: $0.key,
                     qty: $0.value.qty,
                     cost: $0.value.cost,
-                    products: $0.value.products.joined(separator: ", ")
+                    detail: $0.value.products.joined(separator: ", ")
                 )
             }
             .filter { $0.qty > 0 }
@@ -223,7 +232,7 @@ extension Factory {
                         let name = resultDict["name_"] as? String else
                     { return nil }
                     
-                    return Something(id: UUID(), name: name, qty: qty, cost: 0, products: "")
+                    return Something(id: UUID(), title: name, qty: qty, cost: 0, detail: nil)
                 }
                 .compactMap { $0 }
                 

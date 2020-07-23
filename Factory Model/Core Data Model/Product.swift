@@ -24,11 +24,6 @@ extension Product {
         get { group_ ?? "Unknown"}
         set { group_ = newValue }
     }
-    var idd: String {
-        [name, code, group, packagingCode]
-            .filter { !$0.isEmpty }
-            .joined(separator: " : ")
-    }
     var feedstocks: [Feedstock] {
         get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
         set { feedstocks_ = Set(newValue) as NSSet }
@@ -64,18 +59,6 @@ extension Product {
         avgPriceExVAT * 1.20
     }
     
-    var iddFinancial: String {
-        if closingInventory < 0 {
-            return "ERROR: Negative Closing Inventory"
-        }
-        
-        if revenueExVAT > 0 {
-            return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
-        } else {
-            return "Production \(productionQty.formattedGrouped)"
-        }
-    }
-
     var cost: Double {
         feedstocks
             .map { $0.cost }

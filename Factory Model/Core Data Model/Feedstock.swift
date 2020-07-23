@@ -12,19 +12,9 @@ extension Feedstock {
         get { name_ ?? "Unknown"}
         set { name_ = newValue }
     }
-
     var cost: Double {
         qty * price
     }
-    
-    var idd: String {
-        "\(name) \(qty.formattedGrouped) @ \(price.formattedGroupedWithDecimals)"
-    }
-    
-    var iddFinancial: String {
-        "\(qty.formattedGrouped) @ \(price) = \(cost.formattedGrouped)"
-    }
-        
     var productName: String {
         product?.name ?? "Unknown"
     }

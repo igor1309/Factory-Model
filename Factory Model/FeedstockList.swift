@@ -36,7 +36,7 @@ struct FeedstockList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Feedstock Cost", product.cost.formattedGroupedWith1Decimal)
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", product.cost.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -49,7 +49,7 @@ struct FeedstockList: View {
                     NavigationLink(
                         destination: FeedstockView(feedstock: feedstock)
                     ) {
-                        FeedstockRow(feedstock)
+                        ListRow(feedstock)
                     }
                 }
                 .onDelete(perform: removeFeedstock)

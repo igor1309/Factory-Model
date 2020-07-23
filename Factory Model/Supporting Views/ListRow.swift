@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-struct Row: Identifiable, Hashable, Comparable {
-    var title: String
-    var subtitle: String
-    var detail: String? = nil
-    var icon: String
-    
-    var id: String { title }
-    
-    static func < (lhs: Row, rhs: Row) -> Bool {
-        lhs.title < rhs.title
-    }
-}
-
-
 struct ListRow: View {
     
     var title: String
@@ -43,7 +29,19 @@ struct ListRow: View {
         self.useSmallerFont = useSmallerFont
     }
     
-    init(_ row: Row, useSmallerFont: Bool = true) {
+    init<T: Summarable & ObservableObject>(
+        _ object: T,
+        useSmallerFont: Bool = true
+    ) {
+        self.title = object.title
+        self.subtitle = object.subtitle
+        self.detail = object.detail
+        self.icon = object.icon
+        self.useSmallerFont = useSmallerFont
+        
+    }
+
+    init(_ row: Summarable, useSmallerFont: Bool = true) {
         self.title = row.title
         self.subtitle = row.subtitle
         self.detail = row.detail
@@ -73,15 +71,5 @@ struct ListRow: View {
         } icon: {
             Image(systemName: icon)
         }
-    }
-}
-
-struct ListRow_Previews: PreviewProvider {
-    static var previews: some View {
-        List {
-            ListRow(title: "title", icon: "crop")
-            ListRow(title: "title2", subtitle: "subtitle", detail: "detail here", icon: "moon")
-        }
-        .preferredColorScheme(.dark)
     }
 }

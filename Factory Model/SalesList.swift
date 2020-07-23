@@ -31,8 +31,8 @@ struct SalesList: View {
     
     var body: some View {
         List {
-            Section(header: Text("Sales Total, ex VAT")) {
-                LabelWithDetail("Sales Total", product.revenueExVAT.formattedGroupedWith1Decimal)
+            Section(header: Text("Total")) {
+                LabelWithDetail("Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -42,7 +42,7 @@ struct SalesList: View {
                     NavigationLink(
                         destination: SalesView(sales, for: product.factory!)
                     ) {
-                        SalesRow(sales)
+                        ListRow(sales)
                     }
                 }
                 .onDelete(perform: removeSales)

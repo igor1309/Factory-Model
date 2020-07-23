@@ -43,7 +43,7 @@ struct EquipmentList: View {
                     NavigationLink(
                         destination: EquipmentView(equipment: equipment)
                     ) {
-                        EquipmentRow(equipment)
+                        ListRow(equipment)
                     }
                 }
                 .onDelete(perform: removeEquipment)
