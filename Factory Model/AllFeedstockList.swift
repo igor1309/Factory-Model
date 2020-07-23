@@ -10,7 +10,7 @@ import SwiftUI
 struct AllFeedstockList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory

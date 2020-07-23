@@ -11,15 +11,12 @@ struct ProductView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var product: Product
+    @ObservedObject var product: Product
     
     @FetchRequest var sales: FetchedResults<Sales>
     
-    @State private var draft: Product
-    
     init(_ product: Product) {
         self.product = product
-        _draft = State(initialValue: product)
         _sales = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
@@ -36,17 +33,17 @@ struct ProductView: View {
             Section(header: Text("Product")) {
                 Group {
                     NavigationLink(
-                        destination: ProductEditor(draft: $draft)
+                        destination: ProductEditor(product)
                     ) {
-                        Text("\(draft.name)/\(draft.group)/\(draft.code)")
+                        Text("\(product.name)/\(product.group)/\(product.code)")
                     }
                     
-                    if draft.closingInventory < 0 {
+                    if product.closingInventory < 0 {
                         Text("Negative Closing Inventory - check Production and Sales Qty!")
                             .foregroundColor(.red)
                     }
                     
-                    LabelWithDetailView("Production Qty", QtyPicker(qty: $draft.productionQty))
+                    LabelWithDetailView("Production Qty", QtyPicker(qty: $product.productionQty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -54,8 +51,8 @@ struct ProductView: View {
             
             Section(header: Text("Cost")) {
                 Group {
-                    LabelWithDetail("Production Cost", draft.cost.formattedGrouped)
-                    LabelWithDetail("Total Production Cost", draft.totalCost.formattedGrouped)
+                    LabelWithDetail("Production Cost", product.cost.formattedGrouped)
+                    LabelWithDetail("Total Production Cost", product.totalCost.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -63,21 +60,21 @@ struct ProductView: View {
             
             Section(header: Text("Sales")) {
                 Group {
-                    LabelWithDetail("Total Sales Qty", draft.totalSalesQty.formattedGrouped)
+                    LabelWithDetail("Total Sales Qty", product.totalSalesQty.formattedGrouped)
                     
                     VStack(spacing: 4) {
-                        LabelWithDetail("Avg price", draft.avgPriceExVAT.formattedGroupedWith1Decimal)
+                        LabelWithDetail("Avg price", product.avgPriceExVAT.formattedGroupedWith1Decimal)
                         
-                        LabelWithDetail("Avg price, incl VAT", draft.avgPriceWithVAT.formattedGroupedWith1Decimal)
+                        LabelWithDetail("Avg price, incl VAT", product.avgPriceWithVAT.formattedGroupedWith1Decimal)
                             .foregroundColor(.secondary)
                     }
                     .padding(.vertical, 3)
                     
-                    LabelWithDetail("cart", "Total Sales, ex VAT", draft.revenueExVAT.formattedGrouped)
+                    LabelWithDetail("cart", "Total Sales, ex VAT", product.revenueExVAT.formattedGrouped)
                     
-                    LabelWithDetail("wrench.and.screwdriver", "COGS", draft.cogs.formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "COGS", product.cogs.formattedGrouped)
                     
-                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", draft.margin.formattedGrouped)
+                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", product.margin.formattedGrouped)
                         .foregroundColor(.systemOrange)
                     
                     NavigationLink(
@@ -92,16 +89,16 @@ struct ProductView: View {
             
             Section(header: Text("Inventory")) {
                 Group {
-                    LabelWithDetail("building.2", "Initial Inventory", draft.initialInventory.formattedGrouped)
+                    LabelWithDetail("building.2", "Initial Inventory", product.initialInventory.formattedGrouped)
                     
-                    LabelWithDetail("building.2", "Closing Inventory", draft.closingInventory.formattedGrouped)
-                        .foregroundColor(draft.closingInventory < 0 ? .red : .primary)
+                    LabelWithDetail("building.2", "Closing Inventory", product.closingInventory.formattedGrouped)
+                        .foregroundColor(product.closingInventory < 0 ? .red : .primary)
                 }
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(product.name)
         .navigationBarItems(trailing: saveButton)
     }
     

@@ -8,20 +8,24 @@
 import SwiftUI
 
 struct ProductEditor: View {
-    @Binding var draft: Product
+    @ObservedObject var product: Product
+
+    init(_ product: Product) {
+        self.product = product
+    }
     
     var body: some View {
         List {
             Section(header: Text("Product")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Group", text: $draft.group)
-                    TextField("Code", text: $draft.code)
-                    TextField("Note", text: $draft.note)
+                    TextField("Name", text: $product.name)
+                    TextField("Group", text: $product.group)
+                    TextField("Code", text: $product.code)
+                    TextField("Note", text: $product.note)
                     
-                    LabelWithDetail("TBD: Weight Netto", draft.weightNetto.formattedGroupedWith1Decimal)
+                    LabelWithDetail("TBD: Weight Netto", product.weightNetto.formattedGroupedWith1Decimal)
                     
-                    LabelWithDetail("TBD: Packaging", draft.packagingCode)
+                    LabelWithDetail("TBD: Packaging", product.packagingCode)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -29,9 +33,9 @@ struct ProductEditor: View {
             
             Section(header: Text("Feedstock")) {
                 NavigationLink(
-                    destination: FeedstockList(for: draft)
+                    destination: FeedstockList(for: product)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Feedstock Cost", draft.cost.formattedGrouped)
+                    LabelWithDetail("puzzlepiece", "Feedstock Cost", product.cost.formattedGrouped)
                         .font(.subheadline)
                 }
                 .foregroundColor(.accentColor)
@@ -39,7 +43,7 @@ struct ProductEditor: View {
             
             Section(header: Text("Utilities")) {
                 NavigationLink(
-                    destination: UtilityList(for: draft)
+                    destination: UtilityList(for: product)
                 ) {
                     LabelWithDetail("lightbulb", "Total Utilities", "TBD")
                         .font(.subheadline)
@@ -49,7 +53,7 @@ struct ProductEditor: View {
 
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(product.name)
     }
 }
 

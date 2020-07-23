@@ -14,13 +14,10 @@ struct FactoryView: View {
     
     @FetchRequest var products: FetchedResults<Product>
     
-    var factory: Factory
-    
-    @State private var draft: Factory
+    @ObservedObject var factory: Factory
     
     init(_ factory: Factory) {
         self.factory = factory
-        _draft = State(initialValue: factory)
         _products = FetchRequest(
             entity: Product.entity(),
             sortDescriptors: [
@@ -96,8 +93,8 @@ struct FactoryView: View {
             
             Section(header: Text("Factory Details")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Note", text: $draft.note)
+                    TextField("Name", text: $factory.name)
+                    TextField("Note", text: $factory.note)
                 }
                 .foregroundColor(.accentColor)
             }
