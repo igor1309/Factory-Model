@@ -34,45 +34,32 @@ struct FactoryView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Factory")) {
-                Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Note", text: $draft.note)
-                }
-                .foregroundColor(.accentColor)
-            }
-            
             Section(header: Text("Products")) {
                 NavigationLink(
                     destination: ProductList(for: factory)
                 ) {
-                    LabelWithDetail("bag", "Total production", "TBD")
+                    LabelWithDetail("bag", "Production", "TBD")
                 }
                 .font(.subheadline)
-            }
-            
-            Section(header: Text("Feedstocks")) {
+                
                 NavigationLink(
                     destination: AllFeedstockList(for: factory)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Total Feedstocks", factory.totalFeedstockCost.formattedGrouped)
+                    LabelWithDetail("puzzlepiece", "Feedstocks", factory.totalFeedstockCost.formattedGrouped)
                 }
                 .font(.subheadline)
-            }
-            
-            Section(header: Text("TESTING!! Feedstocks")) {
+                
                 NavigationLink(
                     destination: AllFeedstockListTESTING(for: factory)
                 ) {
                     LabelWithDetail("puzzlepiece", "TESTING!! Total Feedstocks", "TBD")
                 }
                 .font(.subheadline)
+                .foregroundColor(.orange)
             }
-            .foregroundColor(.orange)
             
             Section(
-                header: Text("Sales"),
-                footer: Text("To edit Sales go to Product")
+                header: Text("Sales")
             ) {
                 NavigationLink(
                     destination: AllSalesList(for: factory)
@@ -82,20 +69,18 @@ struct FactoryView: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Staff")) {
+            Section(header: Text("Expenses")) {
                 NavigationLink(
                     destination: StaffList(at: factory)
                 ) {
-                    LabelWithDetail("person.2", "Total salary, incl taxes", factory.totalSalaryWithTax.formattedGrouped)
+                    LabelWithDetail("person.2", "Salary, incl taxes", factory.totalSalaryWithTax.formattedGrouped)
                         .font(.subheadline)
                 }
-            }
-            
-            Section(header: Text("Expenses")) {
+                
                 NavigationLink(
                     destination: ExpensesList(at: factory)
                 ) {
-                    LabelWithDetail("dollarsign.circle", "Total Expenses", factory.expensesTotal.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Other Expenses", factory.expensesTotal.formattedGrouped)
                         .font(.subheadline)
                 }
             }
@@ -108,11 +93,19 @@ struct FactoryView: View {
                         .font(.subheadline)
                 }
             }
+            
+            Section(header: Text("Factory Details")) {
+                Group {
+                    TextField("Name", text: $draft.name)
+                    TextField("Note", text: $draft.note)
+                }
+                .foregroundColor(.accentColor)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)
         .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarItems(trailing: saveButton)
+        //        .navigationBarItems(trailing: saveButton)
     }
     
     private var saveButton: some View {
