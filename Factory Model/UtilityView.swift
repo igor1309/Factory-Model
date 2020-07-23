@@ -11,28 +11,33 @@ struct UtilityView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var utility: Utility
-    
-    @State private var draft: Utility
+    @ObservedObject var utility: Utility
     
     init(_ utility: Utility) {
         self.utility = utility
-        _draft = State(initialValue: utility)
     }
     
     var body: some View {
         List {
             Section(header: Text("")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    Text("TBD: Salary: \(draft.price, specifier: "%.f")")
+                    TextField("Name", text: $utility.name)
+                    Text("TBD: Price: \(utility.price, specifier: "%.f")")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(utility.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

@@ -12,7 +12,7 @@ struct ExpensesList: View {
     
     @FetchRequest var expenses: FetchedResults<Expenses>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
@@ -38,7 +38,7 @@ struct ExpensesList: View {
             Section(header: Text("Expenses")) {
                 ForEach(expenses, id: \.self) { expenses in
                     NavigationLink(
-                        destination: ExpensesView(expenses: expenses, for: factory)
+                        destination: ExpensesView(expenses: expenses)
                     ) {
                         ListRow(
                             title: expenses.name,

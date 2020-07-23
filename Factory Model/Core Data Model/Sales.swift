@@ -20,7 +20,7 @@ extension Sales {
         qty * price
     }
     
-    var comment: String {
+    var idd: String {
         "\(productName): \(qty.formattedGrouped) @ \(price.formattedGrouped) = \(total.formattedGrouped)"
     }
     

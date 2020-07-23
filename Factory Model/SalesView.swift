@@ -11,37 +11,42 @@ struct SalesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var sales: Sales
+    @ObservedObject var sales: Sales
     var factory: Factory
-    
-    @State private var draft: Sales
     
     init(_ sales: Sales, for factory: Factory) {
         self.sales = sales
         self.factory = factory
-        _draft = State(initialValue: sales)
     }
     
     var body: some View {
         List {
             Section(header: Text("")) {
                 Group {
-                    TextField("Name", text: $draft.buyer)
+                    TextField("Name", text: $sales.buyer)
                     
-                    Picker("Existing Buyer", selection: $draft.buyer) {
+                    Picker("Existing Buyer", selection: $sales.buyer) {
                         ForEach(factory.buyers, id: \.self) { buyer in
                             Text(buyer)
                         }
                     }
-
-                    LabelWithDetailView("Sales", QtyPicker(qty: $draft.qty))
+                    
+                    LabelWithDetailView("Sales", QtyPicker(qty: $sales.qty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.buyer)
+        .navigationTitle(sales.buyer)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

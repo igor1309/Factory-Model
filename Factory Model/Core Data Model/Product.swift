@@ -13,7 +13,7 @@ extension Product {
         set { name_ = newValue }
     }
     var note: String {
-        get { note_ ?? "Unknown"}
+        get { note_ ?? ""}
         set { note_ = newValue }
     }
     var code: String {
@@ -25,7 +25,9 @@ extension Product {
         set { group_ = newValue }
     }
     var idd: String {
-        "\(name) : \(code)/\(group) : \(packagingCode)"
+        [name, code, group, packagingCode]
+            .filter { !$0.isEmpty }
+            .joined(separator: " : ")
     }
     var feedstocks: [Feedstock] {
         get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
@@ -40,7 +42,7 @@ extension Product {
         set { utilities_ = Set(newValue) as NSSet }
     }
     var packagingCode: String {
-        packaging?.code ?? "Unknown"
+        packaging?.code ?? ""
     }
     
     var totalSalesQty: Double {
@@ -60,6 +62,18 @@ extension Product {
     }
     var avgPriceWithVAT: Double {
         avgPriceExVAT * 1.20
+    }
+    
+    var iddFinancial: String {
+        if closingInventory < 0 {
+            return "ERROR: Negative Closing Inventory"
+        }
+        
+        if revenueExVAT > 0 {
+            return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
+        } else {
+            return "Production \(productionQty.formattedGrouped)"
+        }
     }
 
     var cost: Double {

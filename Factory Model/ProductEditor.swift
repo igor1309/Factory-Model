@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ProductEditor: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.presentationMode) var presentation
+    
     @ObservedObject var product: Product
 
     init(_ product: Product) {
@@ -54,6 +57,14 @@ struct ProductEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

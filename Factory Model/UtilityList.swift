@@ -12,7 +12,7 @@ struct UtilityList: View {
     
     @FetchRequest var utility: FetchedResults<Utility>
     
-    let product: Product
+    @ObservedObject var product: Product
     
     init(for product: Product) {
         self.product = product

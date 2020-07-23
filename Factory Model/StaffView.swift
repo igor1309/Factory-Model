@@ -11,32 +11,37 @@ struct StaffView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var staff: Staff
-    
-    @State private var draft: Staff
+    @ObservedObject var staff: Staff
     
     init(_ staff: Staff) {
         self.staff = staff
-        _draft = State(initialValue: staff)
     }
     
     var body: some View {
         List {
             Section(header: Text("")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Note", text: $draft.note)
-                    TextField("Position", text: $draft.position)
-                    TextField("Department", text: $draft.department)
-                    TextField("Division", text: $draft.division)
-                    Text("TBD: Salary: \(draft.salary, specifier: "%.f")")
+                    TextField("Name", text: $staff.name)
+                    TextField("Note", text: $staff.note)
+                    TextField("Position", text: $staff.position)
+                    TextField("Department", text: $staff.department)
+                    TextField("Division", text: $staff.division)
+                    Text("TBD: Salary: \(staff.salary, specifier: "%.f")")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(staff.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

@@ -35,7 +35,7 @@ struct ProductView: View {
                     NavigationLink(
                         destination: ProductEditor(product)
                     ) {
-                        Text("\(product.name)/\(product.group)/\(product.code)")
+                        Text(product.idd)
                     }
                     
                     if product.closingInventory < 0 {
@@ -60,17 +60,17 @@ struct ProductView: View {
             
             Section(header: Text("Sales")) {
                 Group {
-                    LabelWithDetail("Total Sales Qty", product.totalSalesQty.formattedGrouped)
+                    LabelWithDetail("bag", "Sales Qty", product.totalSalesQty.formattedGrouped)
                     
                     VStack(spacing: 4) {
-                        LabelWithDetail("Avg price", product.avgPriceExVAT.formattedGroupedWith1Decimal)
+                        LabelWithDetail("dollarsign.circle", "Avg price, ex VAT", product.avgPriceExVAT.formattedGroupedWith1Decimal)
                         
-                        LabelWithDetail("Avg price, incl VAT", product.avgPriceWithVAT.formattedGroupedWith1Decimal)
+                        LabelWithDetail("dollarsign.circle", "Avg price, incl VAT", product.avgPriceWithVAT.formattedGroupedWith1Decimal)
                             .foregroundColor(.secondary)
                     }
                     .padding(.vertical, 3)
                     
-                    LabelWithDetail("cart", "Total Sales, ex VAT", product.revenueExVAT.formattedGrouped)
+                    LabelWithDetail("cart", "Sales, ex VAT", product.revenueExVAT.formattedGrouped)
                     
                     LabelWithDetail("wrench.and.screwdriver", "COGS", product.cogs.formattedGrouped)
                     

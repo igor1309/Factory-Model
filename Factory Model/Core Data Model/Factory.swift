@@ -33,6 +33,7 @@ extension Factory {
         products
             .flatMap { $0.sales }
             .compactMap { $0.buyer }
+            .removingDuplicates()
     }
     var staff: [Staff] {
         get { (staff_ as? Set<Staff> ?? []).sorted() }

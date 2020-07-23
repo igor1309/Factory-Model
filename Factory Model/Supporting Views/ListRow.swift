@@ -63,9 +63,9 @@ struct ListRow: View {
                         .font(useSmallerFont ? .footnote : .subheadline)
                 }
                 
-                if detail != nil {
+                if detail != nil, !detail!.isEmpty {
                     Text(detail!)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(detail!.hasPrefix("ERROR") ? .systemRed : .secondary)
                         .font(.caption2)
                 }
             }

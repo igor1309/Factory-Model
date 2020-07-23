@@ -59,10 +59,10 @@ struct ProductList: View {
                         destination: ProductView(product)
                     ) {
                         ListRow(
-                            title: product.name,
-                                subtitle: product.note,
-                                detail: product.group + ": " + product.code,
-                                icon: "bag",
+                            title: product.idd,
+                            subtitle: product.note,
+                            detail: product.iddFinancial,
+                            icon: "bag",
                             useSmallerFont: true
                         )
                     }

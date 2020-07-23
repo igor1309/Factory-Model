@@ -14,7 +14,7 @@ struct FeedstockList: View {
     
     //    var factory: Factory
     //    let division: String
-    let product: Product
+    @ObservedObject var product: Product
     
     init(for product: Product) {
         self.product = product
@@ -47,11 +47,11 @@ struct FeedstockList: View {
             ) {
                 ForEach(feedstocks, id: \.self) { feedstock in
                     NavigationLink(
-                        destination: FeedstockView(feedstock: feedstock, for: product)
+                        destination: FeedstockView(feedstock: feedstock)
                     ) {
                         ListRow(
                             title: feedstock.name,
-                            subtitle: "\(feedstock.qty) @ \(feedstock.price) = \(feedstock.cost)",
+                            subtitle: feedstock.iddFinancial,
                             icon: "puzzlepiece",
                             useSmallerFont: true
                         )

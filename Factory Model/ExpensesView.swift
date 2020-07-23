@@ -11,31 +11,34 @@ struct ExpensesView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var expenses: Expenses
-    var factory: Factory
+    @ObservedObject var expenses: Expenses
     
-    @State private var draft: Expenses
-    
-    init(expenses: Expenses, for factory: Factory) {
+    init(expenses: Expenses) {
         self.expenses = expenses
-        self.factory = factory
-        _draft = State(initialValue: expenses)
     }
     
     var body: some View {
         List {
             Section(header: Text("Expenses")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    TextField("Name", text: $draft.note)
-                    Text("TBD: Qty: \(draft.amount, specifier: "%.f")")
+                    TextField("Name", text: $expenses.name)
+                    TextField("Name", text: $expenses.note)
+                    Text("TBD: Qty: \(expenses.amount, specifier: "%.f")")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(expenses.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

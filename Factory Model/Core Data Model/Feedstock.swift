@@ -17,8 +17,12 @@ extension Feedstock {
         qty * price
     }
     
-    var comment: String {
+    var idd: String {
         "\(name) \(qty.formattedGrouped) @ \(price.formattedGroupedWithDecimals)"
+    }
+    
+    var iddFinancial: String {
+        "\(qty) @ \(price) = \(cost)"
     }
     
     var productName: String {

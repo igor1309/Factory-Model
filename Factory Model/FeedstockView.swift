@@ -11,23 +11,18 @@ struct FeedstockView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    var feedstock: Feedstock
-    var product: Product
+    @ObservedObject var feedstock: Feedstock
 
-    @State private var draft: Feedstock
-    
-    init(feedstock: Feedstock, for product: Product) {
+    init(feedstock: Feedstock) {
         self.feedstock = feedstock
-        self.product = product
-        _draft = State(initialValue: feedstock)
     }
     
     var body: some View {
         List {
             Section(header: Text("Feedstock")) {
                 Group {
-                    TextField("Name", text: $draft.name)
-                    Text("TBD: Qty: \(draft.qty, specifier: "%.f")")
+                    TextField("Name", text: $feedstock.name)
+                    Text("TBD: Qty: \(feedstock.qty, specifier: "%.f")")
                     Text("TBD: Price PRICE")
                     Text("TBD: Total Cost")
                 }
@@ -36,7 +31,15 @@ struct FeedstockView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(draft.name)
+        .navigationTitle(feedstock.name)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            managedObjectContext.saveContext()
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 

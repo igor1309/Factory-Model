@@ -48,7 +48,7 @@ struct AllSalesList: View {
                     ) {
                         ListRow(
                             title: sales.buyer,
-                            subtitle: sales.comment,
+                            subtitle: sales.idd,
                             icon: "cart",
                             useSmallerFont: true
                         )
