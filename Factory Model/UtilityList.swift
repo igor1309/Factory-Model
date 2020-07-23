@@ -10,13 +10,13 @@ import SwiftUI
 struct UtilityList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var utility: FetchedResults<Utility>
+    @FetchRequest private var utilities: FetchedResults<Utility>
     
     @ObservedObject var product: Product
     
     init(for product: Product) {
         self.product = product
-        _utility = FetchRequest(
+        _utilities = FetchRequest(
             entity: Utility.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Utility.name_, ascending: true),
@@ -38,7 +38,7 @@ struct UtilityList: View {
             }
             
             Section(header: Text("Utilities")) {
-                ForEach(utility, id: \.self) { utility in
+                ForEach(utilities, id: \.objectID) { utility in
                     NavigationLink(
                         destination: UtilityView(utility)
                     ) {
@@ -68,7 +68,7 @@ struct UtilityList: View {
     
     private func removeUtility(at offsets: IndexSet) {
         for index in offsets {
-            let util = utility[index]
+            let util = utilities[index]
             managedObjectContext.delete(util)
         }
         

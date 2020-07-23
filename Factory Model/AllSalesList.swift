@@ -11,9 +11,9 @@ import SwiftPI
 struct AllSalesList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var sales: FetchedResults<Sales>
+    @FetchRequest private var sales: FetchedResults<Sales>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
@@ -41,7 +41,7 @@ struct AllSalesList: View {
             }
             
             Section(header: Text("Sales")) {
-                ForEach(sales, id: \.self) { sales in
+                ForEach(sales, id: \.objectID) { sales in
                     
                     NavigationLink(
                         destination: SalesEditor(sales: sales)

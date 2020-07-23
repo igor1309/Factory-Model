@@ -28,7 +28,7 @@ struct ProductPicker: View {
     }
 }
 
-struct ProductPickerTable: View {
+fileprivate struct ProductPickerTable: View {
     @Environment(\.presentationMode) var presentation
     
     @Binding var product: Product?
@@ -48,7 +48,7 @@ struct ProductPickerTable: View {
                     Section(
                         header: Text(group)
                     ) {
-                        ForEach(factory.productsForGroup(group), id: \.self) { product in
+                        ForEach(factory.productsForGroup(group), id: \.objectID) { product in
                             Button {
                                 self.product = product
                                 presentation.wrappedValue.dismiss()

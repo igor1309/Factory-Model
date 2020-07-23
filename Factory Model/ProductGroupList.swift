@@ -10,9 +10,9 @@ import SwiftUI
 struct ProductGroupList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var products: FetchedResults<Product>
+    @FetchRequest private var products: FetchedResults<Product>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     let group: String
     
     init(group: String, at factory: Factory) {
@@ -42,7 +42,7 @@ struct ProductGroupList: View {
             }
             
             Section(header: Text("Products")) {
-                ForEach(products, id: \.self) { product in
+                ForEach(products, id: \.objectID) { product in
                     NavigationLink(
                         destination: ProductView(product)
                     ) {

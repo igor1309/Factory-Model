@@ -13,7 +13,7 @@ extension Staff {
         set { name_ = newValue }
     }
     var note: String {
-        get { note_ ?? "Unknown"}
+        get { note_ ?? ""}
         set { note_ = newValue }
     }
     
@@ -28,6 +28,10 @@ extension Staff {
     var division: String {
         get { division_ ?? "Unknown"}
         set { division_ = newValue }
+    }
+    
+    var salaryWithTax: Double {
+        salary * 1.302
     }
     
     var idd: String {

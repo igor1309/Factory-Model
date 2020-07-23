@@ -10,9 +10,9 @@ import SwiftUI
 struct DivisionView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var staff: FetchedResults<Staff>
+    @FetchRequest private var staff: FetchedResults<Staff>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     let division: String
     
     init(division: String, at factory: Factory) {
@@ -42,7 +42,7 @@ struct DivisionView: View {
             Section(
                 header: Text("Staff (\(factory.headcount(for: division)))")
             ) {
-                ForEach(staff, id: \.self) { staff in
+                ForEach(staff, id: \.objectID) { staff in
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {

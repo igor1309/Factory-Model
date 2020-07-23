@@ -10,9 +10,9 @@ import SwiftUI
 struct StaffList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var staff: FetchedResults<Staff>
+    @FetchRequest private var staff: FetchedResults<Staff>
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
@@ -38,23 +38,23 @@ struct StaffList: View {
                     .font(.subheadline)
             }
             
-            Section(header: Text("Divisions")) {
-                ForEach(factory.divisions, id: \.self) { division in
-                    NavigationLink(
-                        destination: DivisionView(division: division, at: factory)
-                    ) {
-                        ListRow(
-                            title: division + ", \(factory.headcount(for: division))",
-                            subtitle: factory.totalSalary(for: division).formattedGrouped,
-                            detail: factory.departments(for: division),
-                            icon: "person.2"
-                        )
-                    }
-                }
-            }
+//            Section(header: Text("Divisions")) {
+//                ForEach(factory.divisions, id: \.self) { division in
+//                    NavigationLink(
+//                        destination: DivisionView(division: division, at: factory)
+//                    ) {
+//                        ListRow(
+//                            title: division + ", \(factory.headcount(for: division))",
+//                            subtitle: factory.totalSalary(for: division).formattedGrouped,
+//                            detail: factory.departments(for: division),
+//                            icon: "person.2"
+//                        )
+//                    }
+//                }
+//            }
             
             Section(header: Text("Staff")) {
-                ForEach(staff, id: \.self) { staff in
+                ForEach(staff, id: \.objectID) { staff in
                     NavigationLink(
                         destination: StaffView(staff)
                     ) {

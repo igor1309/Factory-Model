@@ -13,7 +13,7 @@ struct ProductView: View {
     
     @ObservedObject var product: Product
     
-    @FetchRequest var sales: FetchedResults<Sales>
+    @FetchRequest private var sales: FetchedResults<Sales>
     
     init(_ product: Product) {
         self.product = product

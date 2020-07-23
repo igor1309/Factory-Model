@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct FactoryList: View {
-    //    @EnvironmentObject var persistence: PersistenceManager
     @Environment(\.managedObjectContext) var managedObjectContext
     
     @FetchRequest(
@@ -16,15 +15,14 @@ struct FactoryList: View {
         sortDescriptors: [
             NSSortDescriptor(keyPath: \Factory.name_, ascending: true),
         ]
-    ) var factories: FetchedResults<Factory>
+    ) private var factories: FetchedResults<Factory>
     
     @State private var showDeleteAction = false
     
     var body: some View {
-        
         NavigationView {
             List {
-                ForEach(factories, id: \.self) { factory in
+                ForEach(factories, id: \.objectID) { factory in
                     NavigationLink(
                         destination: FactoryView(factory)
                     ) {

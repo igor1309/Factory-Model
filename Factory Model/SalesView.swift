@@ -12,7 +12,7 @@ struct SalesView: View {
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(_ sales: Sales, for factory: Factory) {
         self.sales = sales

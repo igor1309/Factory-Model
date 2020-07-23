@@ -10,7 +10,7 @@ import SwiftUI
 struct FeedstockList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var feedstocks: FetchedResults<Feedstock>
+    @FetchRequest private var feedstocks: FetchedResults<Feedstock>
     
     //    var factory: Factory
     //    let division: String
@@ -45,7 +45,7 @@ struct FeedstockList: View {
                 header: Text("Feedstock"),
                 footer: Text("Sorted by Feedstock Qty")
             ) {
-                ForEach(feedstocks, id: \.self) { feedstock in
+                ForEach(feedstocks, id: \.objectID) { feedstock in
                     NavigationLink(
                         destination: FeedstockView(feedstock: feedstock)
                     ) {

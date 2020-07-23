@@ -10,7 +10,7 @@ import SwiftUI
 struct AllFeedstockListTESTING: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     @State private var feedstocks: [Something]?
     { didSet { print(feedstocks as Any) }}

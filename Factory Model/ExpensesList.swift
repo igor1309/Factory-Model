@@ -10,7 +10,7 @@ import SwiftUI
 struct ExpensesList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var expenses: FetchedResults<Expenses>
+    @FetchRequest private var expenses: FetchedResults<Expenses>
     
     @ObservedObject var factory: Factory
     
@@ -36,7 +36,7 @@ struct ExpensesList: View {
             }
             
             Section(header: Text("Expenses")) {
-                ForEach(expenses, id: \.self) { expenses in
+                ForEach(expenses, id: \.objectID) { expenses in
                     NavigationLink(
                         destination: ExpensesView(expenses: expenses)
                     ) {

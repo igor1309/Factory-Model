@@ -24,7 +24,7 @@ struct QtyPicker: View {
     }
 }
 
-struct QtyPickerTable: View {
+fileprivate struct QtyPickerTable: View {
     @Environment(\.presentationMode) var presentation
     
     let values: [Double] = [100, 200, 300, 500, 1_000, 1_500, 2_000, 2_500, 3_000, 5_000, 7_500, 10_000]

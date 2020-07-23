@@ -12,7 +12,7 @@ struct FactoryView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    @FetchRequest var products: FetchedResults<Product>
+    @FetchRequest private var products: FetchedResults<Product>
     
     @ObservedObject var factory: Factory
     

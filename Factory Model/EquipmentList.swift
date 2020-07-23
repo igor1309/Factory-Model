@@ -10,13 +10,13 @@ import SwiftUI
 struct EquipmentList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var equipment: FetchedResults<Equipment>
+    @FetchRequest private var equipments: FetchedResults<Equipment>
     
     @ObservedObject var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
-        _equipment = FetchRequest(
+        _equipments = FetchRequest(
             entity: Equipment.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Equipment.name_, ascending: true)
@@ -39,7 +39,7 @@ struct EquipmentList: View {
             }
             
             Section(header: Text("Equipment")) {
-                ForEach(equipment, id: \.self) { equipment in
+                ForEach(equipments, id: \.objectID) { equipment in
                     NavigationLink(
                         destination: EquipmentView(equipment: equipment)
                     ) {
@@ -71,7 +71,7 @@ struct EquipmentList: View {
     
     private func removeEquipment(at offsets: IndexSet) {
         for index in offsets {
-            let expense = equipment[index]
+            let expense = equipments[index]
             managedObjectContext.delete(expense)
         }
         

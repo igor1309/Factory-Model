@@ -10,7 +10,7 @@ import SwiftUI
 struct SalesList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var sales: FetchedResults<Sales>
+    @FetchRequest private var sales: FetchedResults<Sales>
     
     @ObservedObject var product: Product
     
@@ -38,7 +38,7 @@ struct SalesList: View {
             }
             
             Section(header: Text("Sales")) {
-                ForEach(sales, id: \.self) { sales in
+                ForEach(sales, id: \.objectID) { sales in
                     NavigationLink(
                         destination: SalesView(sales, for: product.factory!)
                     ) {

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StaffRow: View {
-    let staff: Staff
+    @ObservedObject var staff: Staff
     let useSmallerFont: Bool
     
     init(

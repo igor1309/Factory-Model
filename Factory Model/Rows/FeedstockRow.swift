@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedstockRow: View {
-    let feedstock: Feedstock
+    @ObservedObject var feedstock: Feedstock
     let useSmallerFont: Bool
     
     init(

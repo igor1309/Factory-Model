@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpensesRow: View {
-    let expenses: Expenses
+    @ObservedObject var expenses: Expenses
     let useSmallerFont: Bool
     
     init(
