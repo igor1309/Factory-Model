@@ -12,29 +12,32 @@ struct UtilityList: View {
     
     @FetchRequest private var utilities: FetchedResults<Utility>
     
-    @ObservedObject var product: Product
+//    @ObservedObject
+    var base: Base
     
-    init(for product: Product) {
-        self.product = product
+    init(for base: Base) {
+        self.base = base
         _utilities = FetchRequest(
             entity: Utility.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Utility.name_, ascending: true),
-                NSSortDescriptor(keyPath: \Utility.price, ascending: true)
+                NSSortDescriptor(keyPath: \Utility.priceExVAT, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "product = %@", product
+                format: "base = %@", base
             )
         )
     }
     
-    
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("Utility Total", product.totalUtilities.formattedGrouped)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
+                Group {
+                    LabelWithDetail("Utility Total, ex VAT", base.totalUtilitiesExVAT.formattedGrouped)
+                    LabelWithDetail("Utility Total, incl VAT", base.totalUtilitiesWithVAT.formattedGrouped)
+                }
+                .foregroundColor(.secondary)
+                .font(.subheadline)
             }
             
             Section(header: Text("Utilities")) {
@@ -49,7 +52,7 @@ struct UtilityList: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.name)
+        .navigationTitle(base.name)
         .navigationBarItems(trailing: plusButton)
     }
     
@@ -57,8 +60,8 @@ struct UtilityList: View {
         Button {
             let utility = Utility(context: managedObjectContext)
             utility.name = " ..."
-            utility.price = 10
-            product.addToUtilities_(utility)
+            utility.priceExVAT = 10
+            base.addToUtilities_(utility)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")
@@ -75,9 +78,3 @@ struct UtilityList: View {
         managedObjectContext.saveContext()
     }
 }
-
-//struct UtilityList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UtilityList()
-//    }
-//}

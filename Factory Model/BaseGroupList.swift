@@ -1,5 +1,5 @@
 //
-//  ProductList.swift
+//  BaseList.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 21.07.2020.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct ProductGroupList: View {
+struct BaseGroupList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest private var products: FetchedResults<Product>
+    @FetchRequest private var bases: FetchedResults<Base>
     
     @ObservedObject var factory: Factory
     let group: String
@@ -18,10 +18,10 @@ struct ProductGroupList: View {
     init(group: String, at factory: Factory) {
         self.factory = factory
         self.group = group
-        _products = FetchRequest(
-            entity: Product.entity(),
+        _bases = FetchRequest(
+            entity: Base.entity(),
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
+                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
             ],
             predicate: NSPredicate(
                 format: "factory = %@ and group_ = %@", factory, group
@@ -33,7 +33,7 @@ struct ProductGroupList: View {
         List {
             Section(header: Text("Group Totals")) {
                 Group {
-                    LabelWithDetail("bag", "Production", "TBD")
+                    LabelWithDetail("bag", "Baseion", "TBD")
                     
                     LabelWithDetail("dollarsign.circle", "Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGrouped)
                 }
@@ -41,15 +41,15 @@ struct ProductGroupList: View {
                 .padding(.vertical, 3)
             }
             
-            Section(header: Text("Products")) {
-                ForEach(products, id: \.objectID) { product in
+            Section(header: Text("Bases")) {
+                ForEach(bases, id: \.objectID) { base in
                     NavigationLink(
-                        destination: ProductView(product)
+                        destination: BaseView(base)
                     ) {
-                        ListRow(product)
+                        ListRow(base)
                     }
                 }
-                .onDelete(perform: removeProduct)
+                .onDelete(perform: removeBase)
                 
             }
         }
@@ -60,12 +60,12 @@ struct ProductGroupList: View {
     
     private var plusButton: some View {
         Button {
-            let product = Product(context: managedObjectContext)
-            product.name = " New Product"
-//            product.note = "Some note for product"
-            // product.code = "1001"
-            product.group = group
-            factory.addToProducts_(product)
+            let base = Base(context: managedObjectContext)
+            base.name = " New Base"
+//            base.note = "Some note for base"
+            // base.code = "1001"
+            base.group = group
+            factory.addToBases_(base)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")
@@ -73,18 +73,18 @@ struct ProductGroupList: View {
         }
     }
     
-    private func removeProduct(at offsets: IndexSet) {
+    private func removeBase(at offsets: IndexSet) {
         for index in offsets {
-            let product = products[index]
-            managedObjectContext.delete(product)
+            let base = bases[index]
+            managedObjectContext.delete(base)
         }
         
         managedObjectContext.saveContext()
     }
 }
 
-//struct ProductList_Previews: PreviewProvider {
+//struct BaseList_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ProductList(group: <#String#>, at: <#Factory#>)
+//        BaseList(group: <#String#>, at: <#Factory#>)
 //    }
 //}

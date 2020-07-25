@@ -12,7 +12,8 @@ struct StaffList: View {
     
     @FetchRequest private var staff: FetchedResults<Staff>
     
-    @ObservedObject var factory: Factory
+//    @ObservedObject
+    var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory

@@ -12,10 +12,11 @@ struct SalesList: View {
     
     @FetchRequest private var sales: FetchedResults<Sales>
     
-    @ObservedObject var product: Product
+//    @ObservedObject
+    var packaging: Packaging
     
-    init(for product: Product) {
-        self.product = product
+    init(for packaging: Packaging) {
+        self.packaging = packaging
         _sales = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
@@ -23,7 +24,7 @@ struct SalesList: View {
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "product = %@", product
+                format: "packaging = %@", packaging
             )
         )
     }
@@ -32,7 +33,7 @@ struct SalesList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
+                LabelWithDetail("Sales Total, ex VAT", packaging.revenueExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -40,7 +41,7 @@ struct SalesList: View {
             Section(header: Text("Sales")) {
                 ForEach(sales, id: \.objectID) { sales in
                     NavigationLink(
-                        destination: SalesView(sales, for: product.factory!)
+                        destination: SalesView(sales, for: packaging.factory!)
                     ) {
                         ListRow(sales)
                     }
@@ -49,7 +50,7 @@ struct SalesList: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.name)
+        .navigationTitle(packaging.name)
         .navigationBarItems(trailing: plusButton)
     }
     
@@ -58,8 +59,8 @@ struct SalesList: View {
             let sales = Sales(context: managedObjectContext)
             sales.buyer = "John"
             sales.qty = 1_000
-            sales.price = 300
-            product.addToSales_(sales)
+            sales.priceExVAT = 300
+            packaging.addToSales_(sales)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")

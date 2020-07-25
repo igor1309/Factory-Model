@@ -20,9 +20,9 @@ struct AllFeedstockList: View {
         List {
             Section(
                 header: Text("Total"),
-                footer: Text("To edit Feedstocks go to Product")
+                footer: Text("To edit Feedstocks go to Base")
             ) {
-                LabelWithDetail("puzzlepiece", "Feedstock Cost", factory.totalFeedstockCost.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", factory.totalFeedstockCostExVAT.formattedGrouped)
                     .font(.subheadline).foregroundColor(.secondary)
                     .font(.subheadline)
             }

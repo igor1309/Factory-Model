@@ -14,10 +14,11 @@ struct FeedstockList: View {
     
     //    var factory: Factory
     //    let division: String
-    @ObservedObject var product: Product
+//    @ObservedObject
+    var base: Base
     
-    init(for product: Product) {
-        self.product = product
+    init(for base: Base) {
+        self.base = base
         //        self.factory = factory
         //        self.division = division
         _feedstocks = FetchRequest(
@@ -27,7 +28,7 @@ struct FeedstockList: View {
                 NSSortDescriptor(keyPath: \Feedstock.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "product = %@", product
+                format: "base = %@", base
             )
         )
     }
@@ -36,7 +37,7 @@ struct FeedstockList: View {
     var body: some View {
         List {
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Feedstock Cost", product.cost.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.costExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -56,7 +57,7 @@ struct FeedstockList: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.name)
+        .navigationTitle(base.name)
         .navigationBarItems(trailing: plusButton)
     }
     
@@ -69,7 +70,7 @@ struct FeedstockList: View {
             //feedstock.department = "..."
             //feedstock.position = "Worker"
             feedstock.name = " ..."
-            product.addToFeedstocks_(feedstock)
+            base.addToFeedstocks_(feedstock)
             managedObjectContext.saveContext()
         } label: {
             Image(systemName: "plus")

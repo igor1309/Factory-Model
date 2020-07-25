@@ -20,13 +20,14 @@ struct SalesEditor: View {
                     TextField("Name", text: $sales.buyer)
                     
                     Picker("Existing Buyer", selection: $sales.buyer) {
-                        ForEach(sales.product!.factory!.buyers, id: \.self) { buyer in
+                        //  MARK: CHANGE TO FETCH REQUEST
+                        ForEach(sales.packaging!.factory!.buyers, id: \.self) { buyer in
                             Text(buyer)
                         }
                     }
                     .labelsHidden()
                     
-                    ProductPicker(product: $sales.product, factory: sales.product!.factory!)
+                    PackagingPicker(packaging: $sales.packaging, factory: sales.packaging!.factory!)
                     
                     LabelWithDetail("Price", "TBD")
                     
@@ -48,9 +49,3 @@ struct SalesEditor: View {
         }
     }
 }
-
-//struct SalesEditor_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SalesEditor()
-//    }
-//}

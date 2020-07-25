@@ -17,6 +17,10 @@ extension Factory {
         get { note_ ?? ""}
         set { note_ = newValue }
     }
+    var packagings: [Packaging] {
+        get { (packagings_ as? Set<Packaging> ?? []).sorted() }
+        set { packagings_ = Set(newValue) as NSSet }
+    }
     var equipments: [Equipment] {
         get { (equipments_ as? Set<Equipment> ?? []).sorted() }
         set { equipments_ = Set(newValue) as NSSet }
@@ -25,12 +29,8 @@ extension Factory {
         get { (expenses_ as? Set<Expenses> ?? []).sorted() }
         set { expenses_ = Set(newValue) as NSSet }
     }
-    var products: [Product] {
-        get { (products_ as? Set<Product> ?? []).sorted() }
-        set { products_ = Set(newValue) as NSSet }
-    }
     var buyers: [String] {
-        products
+        packagings
             .flatMap { $0.sales }
             .compactMap { $0.buyer }
             .removingDuplicates()
@@ -104,26 +104,30 @@ extension Factory {
     }
     
     var revenueExVAT: Double {
-        products
+        packagings
             .map { $0.revenueExVAT }
             .reduce(0, +)
     }
     
     func revenueExVAT(for group: String) -> Double {
-        products
+        packagings
+            .compactMap { $0.base }
             .filter { $0.group == group }
             .map { $0.revenueExVAT }
             .reduce(0, +)
     }
-    
-    var totalCost: Double {
-        products
-            .map { $0.totalCost }
+
+    var totalCostExVAT: Double {
+        packagings
+            .compactMap { $0.base }
+            .map { $0.totalCostExVAT }
             .reduce(0, +)
     }
     
-    var productGroupsAsRows: [Something] {
-        Dictionary(grouping: products) { $0.group }
+    var baseGroupsAsRows: [Something] {
+        let bases = packagings.compactMap { $0.base }
+        
+        return Dictionary(grouping: bases) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
             .map {
                 Something(
@@ -138,31 +142,47 @@ extension Factory {
             .sorted()
     }
     
-    var productGroups: [String] {
-        products
+    var baseGroups: [String] {
+        packagings
+            .compactMap { $0.base }
             .map { $0.group }
             .removingDuplicates()
             .sorted()
     }
-
-    func productsForGroup(_ group: String) -> [Product] {
-        products
+    func basesForGroup(_ group: String) -> [Base] {
+        packagings
+            .compactMap { $0.base }
             .filter { $0.group == group }
             .sorted()
     }
-
+    
+    var packagingTypes: [String] {
+        packagings
+            .map { $0.type }
+            .removingDuplicates()
+            .sorted()
+    }
+    func packagingForType(_ type: String) -> [Packaging] {
+        packagings
+            .filter { $0.type_ == type }
+            .sorted()
+    }
+    
     var sales: [Sales] {
-        products
+        packagings
+            .compactMap { $0.base }
             .flatMap { $0.sales }
     }
     var feedstocks: [Feedstock] {
-        products
+        packagings
+            .compactMap { $0.base }
             .flatMap { $0.feedstocks }
             .filter { $0.qty > 0 }
     }
-    var totalFeedstockCost: Double {
-        products
-            .reduce(0) { $0 + $1.totalCost }
+    var totalFeedstockCostExVAT: Double {
+        packagings
+            .compactMap { $0.base }
+            .reduce(0) { $0 + $1.totalCostExVAT }
     }
     
     func feedstocksByGroups() -> [Something] {
@@ -170,14 +190,14 @@ extension Factory {
         let feedstocksByGroups = Dictionary(grouping: feedstocks) { $0.name }
         
         let somethings = feedstocksByGroups
-            .mapValues { feedstocks -> (qty: Double, cost: Double, products: [String]) in
+            .mapValues { feedstocks -> (qty: Double, cost: Double, bases: [String]) in
                 
-                let qty = feedstocks.reduce(0, { $0 + $1.qty * $1.productionQty })
-                let cost = feedstocks.reduce(0, { $0 + $1.cost * $1.productionQty })
+                let qty = feedstocks.reduce(0, { $0 + $1.qty * $1.baseQty })
+                let costExVAT = feedstocks.reduce(0, { $0 + $1.costExVAT * $1.baseQty })
                 
-                let products = feedstocks.reduce([String]()) { $0 + [$1.productName]  }
+                let bases = feedstocks.reduce([String]()) { $0 + [$1.baseName]  }
                 
-                return (qty: qty, cost: cost, products: products)
+                return (qty: qty, cost: costExVAT, bases: bases)
             }
             .map {
                 Something(
@@ -185,7 +205,7 @@ extension Factory {
                     title: $0.key,
                     qty: $0.value.qty,
                     cost: $0.value.cost,
-                    detail: $0.value.products.joined(separator: ", ")
+                    detail: $0.value.bases.joined(separator: ", ")
                 )
             }
             .filter { $0.qty > 0 }

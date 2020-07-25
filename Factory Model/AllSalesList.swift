@@ -24,7 +24,7 @@ struct AllSalesList: View {
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Sales.product.factory), factory
+                format: "%K == %@", #keyPath(Sales.packaging.factory), factory
             )
         )
     }
@@ -33,11 +33,32 @@ struct AllSalesList: View {
         List {
             Section(
                 header: Text("Total"),
-                footer: Text("To edit Sales go to Product")
+                footer: Text("To edit Sales go to Packaging")
             ) {
-                LabelWithDetail("cart", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                    .foregroundColor(.secondary)
+                LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                    .foregroundColor(.systemGreen)
                     .font(.subheadline)
+
+                ListRow(
+                    title: "Общие Продажи",
+                    subtitle: "Деньги (выручка и маржа, маржинальность) и объемы",
+                    detail: "",
+                    icon: "creditcard"
+                )
+                
+                ListRow(
+                    title: "Продажи по покупателям",
+                    subtitle: "Деньги (выручка и маржа, маржинальность) и объемы",
+                    detail: "По Packaging и по Product",
+                    icon: "creditcard"
+                )
+                
+                ListRow(
+                    title: "Продажи по продуктам",
+                    subtitle: "Деньги (выручка и маржа, маржинальность), средние цены, объемы и штуки",
+                    detail: "По Packaging и по Product",
+                    icon: "creditcard"
+                )
             }
             
             Section(header: Text("Sales")) {
@@ -54,22 +75,6 @@ struct AllSalesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    @State private var showProductPicker = false
-    private var plusButton: some View {
-        Button {
-            //  MARK: FINISH THIS
-            showProductPicker = true
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
-        //        .sheet(isPresented: $showProductPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
-        //              ProductPicker(product: .constant(Product()), for: factory)
-        //            BuyerPicker(buyer: .constant(Buyer()), factory: factory)
-        //        }
     }
     
     private func removeSales(at offsets: IndexSet) {
@@ -82,8 +87,3 @@ struct AllSalesList: View {
     }
 }
 
-//struct AllSalesList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AllSalesList()
-//    }
-//}

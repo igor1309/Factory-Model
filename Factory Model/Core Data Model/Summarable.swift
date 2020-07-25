@@ -36,16 +36,43 @@ extension Feedstock: Summarable {
     var title: String { name }
     
     var subtitle: String {
-        "\(qty.formattedGrouped) @ \(price) = \(cost.formattedGrouped)"
+        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
     }
     
     var detail: String? { nil }
     var icon: String { "puzzlepiece" }
 }
 
-extension Product: Summarable {
+extension Packaging: Summarable {
     var title: String {
-        [name, code, group, packagingCode]
+//        [baseName, name]
+//            .filter { !$0.isEmpty }
+//            .joined(separator: ", ")
+        base == nil
+            ? "\(name)"
+            : "\(baseName), \(type) \(baseQty.formattedGrouped) \(base!.unit.idd)"
+    }
+    
+    var subtitle: String {
+        [code, note]
+            .filter { !$0.isEmpty}
+            .joined(separator: ": ")
+    }
+    
+    var detail: String? {
+        base == nil
+            ? "ERROR: no base for packaging"
+            : [name, type, code]
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
+    }
+    
+    var icon: String { "bag.circle" }
+}
+
+extension Base: Summarable {
+    var title: String {
+        [name, code, group]
             .filter { !$0.isEmpty }
             .joined(separator: " : ")
     }
@@ -60,7 +87,7 @@ extension Product: Summarable {
         if revenueExVAT > 0 {
             return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
         } else {
-            return "Production \(productionQty.formattedGrouped)"
+            return "Baseion \(productionQty.formattedGrouped)"
         }
     }
     
@@ -71,11 +98,11 @@ extension Sales: Summarable {
     var title: String { buyer }
     
     var subtitle: String {
-        "\(productName): \(qty.formattedGrouped) @ \(price.formattedGrouped) = \(total.formattedGrouped)"
+        "\(packagingName): \(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
     var detail: String? { nil }
-    var icon: String { "cart" }
+    var icon: String { "creditcard.fill" }
 }
 
 extension Staff: Summarable {
@@ -93,7 +120,7 @@ extension Staff: Summarable {
 
 extension Utility: Summarable {
     var title: String { name }
-    var subtitle: String { price.formattedGroupedWithMax2Decimals }
-    var detail: String? { nil }
+    var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
+    var detail: String? { vat.formattedPercentage }
     var icon: String { "lightbulb" }
 }

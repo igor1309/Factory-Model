@@ -1,17 +1,17 @@
 //
-//  ProductPicker.swift
+//  PackagingPicker.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 22.07.2020.
+//  Created by Igor Malyarov on 24.07.2020.
 //
 
 import SwiftUI
 import CoreData
 
-struct ProductPicker: View {
+struct PackagingPicker: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @Binding var product: Product?
+    @Binding var packaging: Packaging?
     
     var factory: Factory
     
@@ -20,23 +20,23 @@ struct ProductPicker: View {
         Button {
             showPicker = true
         } label: {
-            Text(product?.title ?? "--")
+            Text(packaging?.title ?? "--")
         }
         .sheet(isPresented: $showPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
-            ProductPickerTable(product: $product, for: factory, in: managedObjectContext)
+            PackagingPickerTable(packaging: $packaging, for: factory, in: managedObjectContext)
         }
     }
 }
 
-fileprivate struct ProductPickerTable: View {
+fileprivate struct PackagingPickerTable: View {
     @Environment(\.presentationMode) var presentation
     
-    @Binding var product: Product?
+    @Binding var packaging: Packaging?
     var factory: Factory
     var context: NSManagedObjectContext
     
-    init(product: Binding<Product?>, for factory: Factory, in context: NSManagedObjectContext) {
-        _product = product
+    init(packaging: Binding<Packaging?>, for factory: Factory, in context: NSManagedObjectContext) {
+        _packaging = packaging
         self.factory = factory
         self.context = context
     }
@@ -44,16 +44,16 @@ fileprivate struct ProductPickerTable: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(factory.productGroups, id: \.self) { group in
+                ForEach(factory.packagingTypes, id: \.self) { type in
                     Section(
-                        header: Text(group)
+                        header: Text(type)
                     ) {
-                        ForEach(factory.productsForGroup(group), id: \.objectID) { product in
+                        ForEach(factory.packagingForType(type), id: \.objectID) { packaging in
                             Button {
-                                self.product = product
+                                self.packaging = packaging
                                 presentation.wrappedValue.dismiss()
                             } label: {
-                                Text(product.title).tag(product)
+                                Text(packaging.title).tag(packaging)
                             }
                         }
                     }
@@ -65,9 +65,3 @@ fileprivate struct ProductPickerTable: View {
         }
     }
 }
-
-//struct ProductPicker_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProductPicker()
-//    }
-//}

@@ -12,14 +12,23 @@ extension Feedstock {
         get { name_ ?? "Unknown"}
         set { name_ = newValue }
     }
-    var cost: Double {
-        qty * price
+    var priceWithVAT: Double {
+        get { priceExVAT * (1 + vat) }
+        set { priceExVAT = vat == 0 ? 0 : newValue / vat }
     }
-    var productName: String {
-        product?.name ?? "Unknown"
+    var costExVAT: Double {
+        qty * priceExVAT
+    }
+    var baseName: String {
+        base?.name ?? "Unknown"
     }
     var productionQty: Double {
-        product?.productionQty ?? 0
+        base?.productionQty ?? 0
+    }
+    var baseQty: Double {
+        base?.packagings
+            .compactMap { $0.baseQty }
+            .reduce(0) { $0 + $1 } ?? 0
     }
 }
 

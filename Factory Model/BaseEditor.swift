@@ -1,5 +1,5 @@
 //
-//  ProductEditor.swift
+//  BaseEditor.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 22.07.2020.
@@ -7,28 +7,28 @@
 
 import SwiftUI
 
-struct ProductEditor: View {
+struct BaseEditor: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.presentationMode) var presentation
     
-    @ObservedObject var product: Product
+    @ObservedObject var base: Base
 
-    init(_ product: Product) {
-        self.product = product
+    init(_ base: Base) {
+        self.base = base
     }
     
     var body: some View {
         List {
-            Section(header: Text("Product")) {
+            Section(header: Text("Base")) {
                 Group {
-                    TextField("Name", text: $product.name)
-                    TextField("Group", text: $product.group)
-                    TextField("Code", text: $product.code)
-                    TextField("Note", text: $product.note)
+                    TextField("Name", text: $base.name)
+                    TextField("Group", text: $base.group)
+                    TextField("Code", text: $base.code)
+                    TextField("Note", text: $base.note)
                     
-                    LabelWithDetail("TBD: Weight Netto", product.weightNetto.formattedGroupedWith1Decimal)
+                    LabelWithDetail("TBD: Weight Netto", base.weightNetto.formattedGroupedWith1Decimal)
                     
-                    LabelWithDetail("TBD: Packaging", product.packagingCode)
+                    LabelWithDetail("TBD: Packaging", "TBD")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -36,9 +36,9 @@ struct ProductEditor: View {
             
             Section(header: Text("Feedstock")) {
                 NavigationLink(
-                    destination: FeedstockList(for: product)
+                    destination: FeedstockList(for: base)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Feedstock Cost", product.cost.formattedGrouped)
+                    LabelWithDetail("puzzlepiece", "Feedstock Cost ex VAT", base.costExVAT.formattedGrouped)
                         .font(.subheadline)
                 }
                 .foregroundColor(.accentColor)
@@ -46,7 +46,7 @@ struct ProductEditor: View {
             
             Section(header: Text("Utilities")) {
                 NavigationLink(
-                    destination: UtilityList(for: product)
+                    destination: UtilityList(for: base)
                 ) {
                     LabelWithDetail("lightbulb", "Total Utilities", "TBD")
                         .font(.subheadline)
@@ -56,7 +56,7 @@ struct ProductEditor: View {
 
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.name)
+        .navigationTitle(base.name)
         .navigationBarItems(trailing: saveButton)
     }
     
@@ -68,8 +68,8 @@ struct ProductEditor: View {
     }
 }
 
-//struct ProductEditor_Previews: PreviewProvider {
+//struct BaseEditor_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ProductEditor()
+//        BaseEditor()
 //    }
 //}
