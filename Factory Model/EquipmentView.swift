@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EquipmentView: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var equipment: Equipment
@@ -49,7 +49,7 @@ struct EquipmentView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            сontext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

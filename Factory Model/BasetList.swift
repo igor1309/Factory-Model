@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseList: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var bases: FetchedResults<Base>
     
@@ -87,10 +87,10 @@ struct BaseList: View {
     
     private var plusButton: some View {
         Button {
-            let base = Base(context: сontext)
+            let base = Base(context: moc)
             base.name = " New Base"
             factory.addToBases_(base)
-            сontext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -100,9 +100,9 @@ struct BaseList: View {
     private func removeBase(at offsets: IndexSet) {
         for index in offsets {
             let base = bases[index]
-            сontext.delete(base)
+            moc.delete(base)
         }
         
-        сontext.saveContext()
+        moc.saveContext()
     }
 }

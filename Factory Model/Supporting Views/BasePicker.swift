@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct BasePicker: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @Binding var base: Base?
     
@@ -30,13 +30,13 @@ struct BasePicker: View {
         }
         .sheet(isPresented: $showPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
             BasePickerTable(base: $base, for: factory)
-                .environment(\.managedObjectContext, сontext)
+                .environment(\.managedObjectContext, moc)
         }
     }
 }
 
 fileprivate struct BasePickerTable: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @Binding var base: Base?
@@ -74,10 +74,10 @@ fileprivate struct BasePickerTable: View {
     
     private var plusButton: some View {
         Button {
-            let base = Base(context: сontext)
+            let base = Base(context: moc)
             base.name = "New Base"
             factory.addToBases_(base)
-            сontext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])

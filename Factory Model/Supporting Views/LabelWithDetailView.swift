@@ -1,13 +1,13 @@
 //
-//  LabelWithDetail.swift
+//  LabelWithDetailView.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 22.07.2020.
+//  Created by Igor Malyarov on 26.07.2020.
 //
 
 import SwiftUI
 
-struct LabelWithDetail<T: StringProtocol, U: StringProtocol>: View {
+struct LabelWithDetailView<T: StringProtocol, U: View>: View {
     
     private let systemName: String?
     private let title: T
@@ -38,7 +38,7 @@ struct LabelWithDetail<T: StringProtocol, U: StringProtocol>: View {
                 HStack {
                     Text(title)
                     Spacer()
-                    Text(detail)
+                    detail
                 }
             } icon: {
                 Image(systemName: systemName)
@@ -47,7 +47,7 @@ struct LabelWithDetail<T: StringProtocol, U: StringProtocol>: View {
             HStack {
                 Text(title)
                 Spacer()
-                Text(detail)
+                detail
             }
         }
     }

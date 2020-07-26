@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ProductList: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest var products: FetchedResults<Product>
+    @FetchRequest var allProducts: FetchedResults<Product>
     
     //    @ObservedObject
     var factory: Factory
@@ -27,11 +28,26 @@ struct ProductList: View {
                 format: "%K = %@", #keyPath(Product.base.factory), factory
             )
         )
+        _allProducts = FetchRequest(
+            entity: Product.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Product.group_, ascending: true),
+                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
+            ]
+//            ,
+//            predicate: NSPredicate(
+//                format: "%K = %@", #keyPath(Product.base.factory), factory
+//            )
+        )
     }
     
     var body: some View {
         List {
-            Text("TBD: How to select Base Product to create Product here?")
+            Text("""
+                TBD:
+                - How to select Base Product to create Product here?
+                - Fix Fetch Requests
+                """)
                 .foregroundColor(.systemRed)
                 .font(.footnote)
             
@@ -66,6 +82,18 @@ struct ProductList: View {
             }
             
             Section(
+                header: Text("FIX: ALL Products").foregroundColor(.systemRed)
+            ) {
+                ForEach(allProducts, id: \.objectID) { product in
+                    NavigationLink(
+                        destination: ProductView(product: product, factory: factory)
+                    ) {
+                        ListRow(product)
+                    }
+                }
+            }
+            
+            Section(
                 header: Text("Products")
             ) {
                 ListRow(
@@ -87,27 +115,27 @@ struct ProductList: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Products")
         .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarItems(trailing: plusButton)
+        .navigationBarItems(trailing: plusButton)
     }
     
-//    private var plusButton: some View {
-//        Button {
-//            let product = Product(context: context)
-//            product.name = " New Product"
+    private var plusButton: some View {
+        Button {
+            let product = Product(context: moc)
+            product.name = " New Product"
 //            factory.addToProducts_(product)
-//            context.saveContext()
-//        } label: {
-//            Image(systemName: "plus")
-//                .padding([.leading, .vertical])
-//        }
-//    }
+            moc.saveContext()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
+    }
     
     private func removeProduct(at offsets: IndexSet) {
         for index in offsets {
             let product = products[index]
-            сontext.delete(product)
+            moc.delete(product)
         }
-        сontext.saveContext()
+        moc.saveContext()
     }
     
 }

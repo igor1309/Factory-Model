@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PackagingList: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var packagings: FetchedResults<Packaging>
     @FetchRequest private var orphans: FetchedResults<Packaging>
@@ -94,7 +94,9 @@ struct PackagingList: View {
                 }
             }
         }
-        .onDisappear { сontext.saveContext() }
+        .onDisappear {
+            moc.saveContext()
+        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
@@ -106,10 +108,10 @@ struct PackagingList: View {
             //  MARK: - FINISH THIS удаление не сиротских объектов лучше не допускать без подтверждения
             for index in offsets {
                 let packaging = packagings[index]
-                сontext.delete(packaging)
+                moc.delete(packaging)
             }
             
-            сontext.saveContext()
+            moc.saveContext()
         }
         
         return ForEach(packagings, id: \.objectID) { packaging in
@@ -124,12 +126,12 @@ struct PackagingList: View {
     
     private var plusButton: some View {
         Button {
-            let packaging = Packaging(context: сontext)
+            let packaging = Packaging(context: moc)
             packaging.name = " New Packaging"
             //            packaging.addToProducts(product)
             //            factory.addToPackagings_(packaging)
             packaging.objectWillChange.send()
-            сontext.saveContext()
+            moc.saveContext()
             //  MARK: FINISH THIS: PROBLEM: VIEW NOT UPDATING!!!
         } label: {
             Image(systemName: "plus")

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PackagingView: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
         
     @ObservedObject var packaging: Packaging
     
@@ -43,7 +43,9 @@ struct PackagingView: View {
                 .font(.subheadline)
             }
         }
-        .onDisappear { сontext.saveContext() }
+        .onDisappear {
+            moc.saveContext()
+        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(packaging.name)
         .navigationBarTitleDisplayMode(.inline)

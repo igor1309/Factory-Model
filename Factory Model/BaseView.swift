@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseView: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
@@ -98,7 +98,7 @@ struct BaseView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            сontext.saveContext()
+            moc.saveContext()
         }
     }
 }

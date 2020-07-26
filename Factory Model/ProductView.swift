@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductView: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var product: Product

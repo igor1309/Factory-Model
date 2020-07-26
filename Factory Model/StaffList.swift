@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StaffList: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var staff: FetchedResults<Staff>
     
@@ -74,18 +74,18 @@ struct StaffList: View {
     
     private var plusButton: some View {
         Button {
-            let staff = Staff(context: сontext)
+            let staff = Staff(context: moc)
             staff.name = " ..."
             staff.salary = 10_000
             
-            let department = Department(context: сontext)
+            let department = Department(context: moc)
             department.name = " New Department"
             department.type = .production
             
             department.addToStaffs_(staff)
             
             factory.addToDepartments_(department)
-            сontext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -95,9 +95,9 @@ struct StaffList: View {
     private func removeStaff(at offsets: IndexSet) {
         for index in offsets {
             let stafff = staff[index]
-            сontext.delete(stafff)
+            moc.delete(stafff)
         }
         
-        сontext.saveContext()
+        moc.saveContext()
     }
 }

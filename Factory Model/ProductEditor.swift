@@ -30,7 +30,7 @@ struct PickerWithTextField: View {
 }
 
 struct ProductEditor: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var product: Product

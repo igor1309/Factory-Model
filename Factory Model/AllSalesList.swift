@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftPI
 
 struct AllSalesList: View {
-    @Environment(\.managedObjectContext) var сontext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var sales: FetchedResults<Sales>
     
@@ -80,10 +80,10 @@ struct AllSalesList: View {
     private func removeSales(at offsets: IndexSet) {
         for index in offsets {
             let sale = sales[index]
-            сontext.delete(sale)
+            moc.delete(sale)
         }
         
-        сontext.saveContext()
+        moc.saveContext()
     }
 }
 
