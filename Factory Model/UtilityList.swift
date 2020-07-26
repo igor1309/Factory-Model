@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UtilityList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var utilities: FetchedResults<Utility>
     
@@ -58,11 +58,11 @@ struct UtilityList: View {
     
     private var plusButton: some View {
         Button {
-            let utility = Utility(context: managedObjectContext)
+            let utility = Utility(context: moc)
             utility.name = " ..."
             utility.priceExVAT = 10
             base.addToUtilities_(utility)
-            managedObjectContext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -72,9 +72,9 @@ struct UtilityList: View {
     private func removeUtility(at offsets: IndexSet) {
         for index in offsets {
             let util = utilities[index]
-            managedObjectContext.delete(util)
+            moc.delete(util)
         }
         
-        managedObjectContext.saveContext()
+        moc.saveContext()
     }
 }

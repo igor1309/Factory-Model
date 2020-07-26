@@ -12,14 +12,14 @@ extension Sales {
         get { buyer_ ?? "Unknown" }
         set { buyer_ = newValue }
     }
-    var packagingName: String {
-        packaging?.name ?? "Unknown"
+    var productName: String {
+        product?.name ?? "Unknown"
     }
     
     var priceWithVAT: Double {
-        get { priceExVAT * (packaging?.vat ?? 0) }
+        get { priceExVAT * (product?.vat ?? 0) }
         set {
-            let vat = (packaging?.vat ?? 0)
+            let vat = (product?.vat ?? 0)
             priceExVAT = vat == 0 ? 0 : newValue / vat
         }
     }
@@ -31,7 +31,7 @@ extension Sales {
         qty * priceWithVAT
     }
     
-    var cogs: Double { packaging?.cogs ?? 0 }
+    var cogs: Double { product?.cogs ?? 0 }
 }
 
 extension Sales: Comparable {

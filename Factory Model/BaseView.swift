@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct BaseView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
     
-    @FetchRequest private var packagings: FetchedResults<Packaging>
+    @FetchRequest private var products: FetchedResults<Product>
     
     init(_ base: Base) {
         self.base = base
-        _packagings = FetchRequest(
-            entity: Packaging.entity(),
+        _products = FetchRequest(
+            entity: Product.entity(),
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
+                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
             ],
             predicate: NSPredicate(
                 format: "base = %@", base
@@ -40,7 +40,7 @@ struct BaseView: View {
                     
                     if base.closingInventory < 0 {
                         Text("Negative Closing Inventory - check Baseion and Sales Qty!")
-                            .foregroundColor(.red)
+                            .foregroundColor(.systemRed)
                     }
                     
                     LabelWithDetail("MARK: CHANGE IN PACKAGING AND PRODUCTION!!! Baseion Qty", "base.baseQty.formattedGrouped")
@@ -86,7 +86,7 @@ struct BaseView: View {
                     LabelWithDetail("building.2", "Initial Inventory", base.initialInventory.formattedGrouped)
                     
                     LabelWithDetail("building.2", "Closing Inventory", base.closingInventory.formattedGrouped)
-                        .foregroundColor(base.closingInventory < 0 ? .red : .primary)
+                        .foregroundColor(base.closingInventory < 0 ? .systemRed : .primary)
                 }
                 .font(.subheadline)
             }
@@ -98,7 +98,7 @@ struct BaseView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            сontext.saveContext()
         }
     }
 }

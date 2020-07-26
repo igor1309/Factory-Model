@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DivisionView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var staff: FetchedResults<Staff>
     
@@ -21,8 +21,6 @@ struct DivisionView: View {
         _staff = FetchRequest(
             entity: Staff.entity(),
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Staff.division_, ascending: true),
-                NSSortDescriptor(keyPath: \Staff.department_, ascending: true),
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
             predicate: NSPredicate(
@@ -34,6 +32,10 @@ struct DivisionView: View {
     
     var body: some View {
         List {
+            Text("MARK: NEED TO BE DONE IN A CORRECT WAY")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
             Section(header: Text("Total")) {
                 LabelWithDetail("Total Salary incl taxes", factory.salaryForDivisionWithTax(division).formattedGrouped)
                 .font(.subheadline)
@@ -59,12 +61,16 @@ struct DivisionView: View {
     
     private var plusButton: some View {
         Button {
-            let staff = Staff(context: managedObjectContext)
+            //  MARK: NEED TO BE DONE IN A CORRECT WAY
+            let staff = Staff(context: moc)
             staff.name = " ..."
-            staff.division = division
             staff.salary = 10_000
-            factory.addToStaff_(staff)
-            managedObjectContext.saveContext()
+            
+            let department = Department(context: moc)
+            department.addToStaffs_(staff)
+            
+            factory.addToDepartments_(department)
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -74,15 +80,9 @@ struct DivisionView: View {
     private func removeStaff(at offsets: IndexSet) {
         for index in offsets {
             let stafff = staff[index]
-            managedObjectContext.delete(stafff)
+            moc.delete(stafff)
         }
         
-        managedObjectContext.saveContext()
+        moc.saveContext()
     }
 }
-
-//struct StaffList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DivisionView()
-//    }
-//}

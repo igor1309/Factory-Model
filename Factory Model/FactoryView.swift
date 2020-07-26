@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftPI
 
 struct FactoryView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
 //    @FetchRequest private var bases: FetchedResults<Base>
@@ -31,26 +31,26 @@ struct FactoryView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Baseion")) {
+            Section(header: Text("Production")) {
                 Group {
                     NavigationLink(
-                        destination: BaseList(for: factory)
+                        destination: ProductList(for: factory)
                     ) {
                         ListRow(
-                            title: "Bases",
-                            subtitle: "Baseion",
-                            detail: "",
+                            title: "Products",
+                            subtitle: "TBD: .................",
+                            detail: "TBD: Base products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
                             icon: "bag"
                         )
                     }
                     
                     NavigationLink(
-                        destination: PackagingList(for: factory)
+                        destination: BaseList(for: factory)
                     ) {
                         ListRow(
-                            title: "Packaging",
-                            subtitle: "Packaged Bases",
-                            detail: "",
+                            title: "Base Products",
+                            subtitle: ".................",
+                            detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
                             icon: "bag.circle"
                         )
                     }
@@ -59,15 +59,27 @@ struct FactoryView: View {
                         destination: Text("TBD")
                     ) {
                         ListRow(
-                            title: "Procurement",
-                            subtitle: "Feedstocks and Packaging Materials",
-                            detail: "",
+                            title: "Feedstocks",
+                            subtitle: "TBD: .................",
+                            detail: "TBD: some extra top-level details(?)",
                             icon: "cart"
+                        )
+                    }
+                    
+                    NavigationLink(
+                        destination: PackagingList(for: factory)
+                    ) {
+                        ListRow(
+                            title: "Packaging",
+                            subtitle: "TBD: .................",
+                            detail: "TBD: List of packaging types (??)",
+                            icon: "shippingbox"
                         )
                     }
                 }
                 .font(.subheadline)
             }
+            .foregroundColor(.systemOrange)
 
             Section(
                 header: Text("Sales")
@@ -85,26 +97,34 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: StaffList(at: factory)
                 ) {
-                    LabelWithDetail("person.2", "Salary, incl taxes", factory.totalSalaryWithTax.formattedGrouped)
+                    LabelWithDetail("person.2", "Salary, incl taxes", "TBD")
                         .font(.subheadline)
                 }
                 
                 NavigationLink(
                     destination: ExpensesList(at: factory)
                 ) {
-                    LabelWithDetail("dollarsign.circle", "Other Expenses", factory.expensesTotal.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Other Expenses", "TBD")
                         .font(.subheadline)
                 }
             }
             
             Section(header: Text("Equipment")) {
-                NavigationLink(
-                    destination: EquipmentList(at: factory)
-                ) {
-                    LabelWithDetail("wrench.and.screwdriver", "Total Equipment", factory.equipmentTotal.formattedGrouped)
-                        .font(.subheadline)
+                Group {
+                    NavigationLink(
+                        destination: EquipmentList(at: factory)
+                    ) {
+                        //  MARK: more clever depreciation?
+                        LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                        
+                    }
+                    LabelWithDetail("wrench.and.screwdriver", "Cost basis", "TBD")
+                        .foregroundColor(.secondary)
+                        .padding(.trailing)
                 }
+                .font(.subheadline)
             }
+            .foregroundColor(.purple)
             
             Section(
                 header: Text("Books")
@@ -120,6 +140,7 @@ struct FactoryView: View {
                     )
                 }
             }
+            .foregroundColor(.systemTeal)
 
             Section(header: Text("Factory Details")) {
                 Group {
@@ -134,9 +155,9 @@ struct FactoryView: View {
             ) {
                 Group {
                     NavigationLink(
-                        destination: PackagingList(for: factory)
+                        destination: ProductList(for: factory)
                     ) {
-                        LabelWithDetail("bag.circle", "Packaging/Bases", "TBD")
+                        LabelWithDetail("bag.circle", "Product/Bases", "TBD")
                     }
                     
                     NavigationLink(
@@ -178,7 +199,7 @@ struct FactoryView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseEditor: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
@@ -28,7 +28,7 @@ struct BaseEditor: View {
                     
                     LabelWithDetail("TBD: Weight Netto", base.weightNetto.formattedGroupedWith1Decimal)
                     
-                    LabelWithDetail("TBD: Packaging", "TBD")
+                    LabelWithDetail("TBD: Product", "TBD")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -62,7 +62,7 @@ struct BaseEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

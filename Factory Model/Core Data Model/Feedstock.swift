@@ -26,7 +26,7 @@ extension Feedstock {
         base?.productionQty ?? 0
     }
     var baseQty: Double {
-        base?.packagings
+        base?.products
             .compactMap { $0.baseQty }
             .reduce(0) { $0 + $1 } ?? 0
     }

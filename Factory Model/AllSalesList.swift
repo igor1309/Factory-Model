@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftPI
 
 struct AllSalesList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @FetchRequest private var sales: FetchedResults<Sales>
     
@@ -24,7 +24,7 @@ struct AllSalesList: View {
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Sales.packaging.factory), factory
+                format: "%K == %@", #keyPath(Sales.product.base.factory), factory
             )
         )
     }
@@ -33,7 +33,7 @@ struct AllSalesList: View {
         List {
             Section(
                 header: Text("Total"),
-                footer: Text("To edit Sales go to Packaging")
+                footer: Text("To edit Sales go to Product")
             ) {
                 LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                     .foregroundColor(.systemGreen)
@@ -49,14 +49,14 @@ struct AllSalesList: View {
                 ListRow(
                     title: "Продажи по покупателям",
                     subtitle: "Деньги (выручка и маржа, маржинальность) и объемы",
-                    detail: "По Packaging и по Product",
+                    detail: "По Product и по Product",
                     icon: "creditcard"
                 )
                 
                 ListRow(
                     title: "Продажи по продуктам",
                     subtitle: "Деньги (выручка и маржа, маржинальность), средние цены, объемы и штуки",
-                    detail: "По Packaging и по Product",
+                    detail: "По Product и по Product",
                     icon: "creditcard"
                 )
             }
@@ -80,10 +80,10 @@ struct AllSalesList: View {
     private func removeSales(at offsets: IndexSet) {
         for index in offsets {
             let sale = sales[index]
-            managedObjectContext.delete(sale)
+            сontext.delete(sale)
         }
         
-        managedObjectContext.saveContext()
+        сontext.saveContext()
     }
 }
 

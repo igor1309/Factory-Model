@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EquipmentList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var equipments: FetchedResults<Equipment>
     
@@ -32,8 +32,15 @@ struct EquipmentList: View {
         List {
             Section(header: Text("Total")) {
                 Group {
-                    LabelWithDetail("wrench.and.screwdriver", "Equipment, total", factory.equipmentTotal.formattedGrouped)
-                    LabelWithDetail("dollarsign.circle", "Amortization, monthly", factory.amortizationMonthly.formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                        .foregroundColor(.primary)
+
+                    /// https://www.investopedia.com/terms/a/accumulated-depreciation.asp
+                    LabelWithDetail("wrench.and.screwdriver", "Accumulated Depreciation", "TBD")
+
+                    LabelWithDetail("wrench.and.screwdriver", "Cost basis", factory.equipmentTotal.formattedGrouped)
+                    
+                    LabelWithDetail("dollarsign.circle", "Amortization, monthly", factory.depreciationMonthly.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -57,13 +64,12 @@ struct EquipmentList: View {
     
     private var plusButton: some View {
         Button {
-            let equipment = Equipment(context: managedObjectContext)
+            let equipment = Equipment(context: moc)
             equipment.name = "New Equipment"
-            //            equipment.note = "Some note regarding new equipment"
             equipment.lifetime = 7
             equipment.price = 1_000_000
             factory.addToEquipments_(equipment)
-            managedObjectContext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -73,10 +79,10 @@ struct EquipmentList: View {
     private func removeEquipment(at offsets: IndexSet) {
         for index in offsets {
             let expense = equipments[index]
-            managedObjectContext.delete(expense)
+            moc.delete(expense)
         }
         
-        managedObjectContext.saveContext()
+        moc.saveContext()
     }
 }
 

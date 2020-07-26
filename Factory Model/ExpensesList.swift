@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpensesList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @FetchRequest private var expenses: FetchedResults<Expenses>
     
@@ -54,12 +54,12 @@ struct ExpensesList: View {
     
     private var plusButton: some View {
         Button {
-            let expenses = Expenses(context: managedObjectContext)
+            let expenses = Expenses(context: сontext)
             expenses.name = " ..."
             expenses.note = "..."
             expenses.amount = 10_000
             factory.addToExpenses_(expenses)
-            managedObjectContext.saveContext()
+            сontext.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -69,10 +69,10 @@ struct ExpensesList: View {
     private func removeExpenses(at offsets: IndexSet) {
         for index in offsets {
             let expense = expenses[index]
-            managedObjectContext.delete(expense)
+            сontext.delete(expense)
         }
         
-        managedObjectContext.saveContext()
+        сontext.saveContext()
     }
 }
 

@@ -13,11 +13,11 @@ extension Equipment {
         set { name_ = newValue }
     }
     var note: String {
-        get { note_ ?? "Unknown"}
+        get { note_ ?? ""}
         set { note_ = newValue }
     }
     
-    var amortizationMonthly: Double {
+    var depreciationMonthly: Double {
         price / (lifetime > 0 ? lifetime : 1) / 12
     }
 }

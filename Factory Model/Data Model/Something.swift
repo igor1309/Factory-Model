@@ -24,8 +24,6 @@ extension Something: Comparable {
 }
 
 extension Something: Summarable {
-//    var title: String { name }
-    
     var subtitle: String {
         "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
     }

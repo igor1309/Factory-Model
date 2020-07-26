@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpensesView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var expenses: Expenses
@@ -36,7 +36,7 @@ struct ExpensesView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            сontext.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

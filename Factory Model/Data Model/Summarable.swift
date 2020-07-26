@@ -5,8 +5,6 @@
 //  Created by Igor Malyarov on 23.07.2020.
 //
 
-import Foundation
-
 protocol Summarable {
     var title: String { get }
     var subtitle: String { get }
@@ -14,12 +12,42 @@ protocol Summarable {
     var icon: String { get }
 }
 
+extension Department: Summarable {
+    var title: String {
+        name
+    }
+    var subtitle: String {
+        division
+    }
+    var detail: String? {
+        type.rawValue
+    }
+    var icon: String {
+        "person.2.circle"
+    }
+}
+
+extension Factory: Summarable {
+    var title: String {
+        name
+    }
+    var subtitle: String {
+        note
+    }
+    var detail: String? {
+        "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
+    }
+    var icon: String {
+        "building.2"
+    }
+}
+
 extension Equipment: Summarable {
     var title: String { name }
     var subtitle: String { note }
     
     var detail: String? {
-        "\(amortizationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
+        "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
     }
     
     var icon: String { "wrench.and.screwdriver" }
@@ -45,24 +73,57 @@ extension Feedstock: Summarable {
 
 extension Packaging: Summarable {
     var title: String {
+        name
+    }
+    
+    var subtitle: String {
+        type
+    }
+    
+    var detail: String? {
+        if products_ == nil || products.isEmpty {
+            return "ERROR: not used in products"
+        }
+        return products.map { $0.title }.joined(separator: ", ")
+    }
+    
+    var icon: String {
+        "shippingbox"
+    }
+}
+
+extension Product: Summarable {
+    var summary: String {
+        "\(name)/\(code)/\(group)/\(note)"
+    }
+    var title: String {
 //        [baseName, name]
 //            .filter { !$0.isEmpty }
 //            .joined(separator: ", ")
         base == nil
             ? "\(name)"
-            : "\(baseName), \(type) \(baseQty.formattedGrouped) \(base!.unit.idd)"
+            : "\(name) \(baseName), \(baseQty.formattedGrouped) \(base!.unit.idd), \(weightNetto.formattedGrouped)г"
     }
     
     var subtitle: String {
-        [code, note]
-            .filter { !$0.isEmpty}
-            .joined(separator: ": ")
+        base == nil
+            ? "ERROR: no base for product"
+            : [name, group, code]
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
     }
     
     var detail: String? {
-        base == nil
-            ? "ERROR: no base for packaging"
-            : [name, type, code]
+        if base == nil {
+            return "ERROR: no base for product"
+        }
+        if productionQty == 0 {
+            return "ERROR: no production for product"
+        }
+        if sales.isEmpty {
+            return "ERROR: no sales for product"
+        }
+        return [name, group, code]
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
     }
@@ -98,7 +159,7 @@ extension Sales: Summarable {
     var title: String { buyer }
     
     var subtitle: String {
-        "\(packagingName): \(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
+        "\(productName): \(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
     var detail: String? { nil }
@@ -110,7 +171,7 @@ extension Staff: Summarable {
     var subtitle: String { salary.formattedGrouped }
     
     var detail: String? {
-        [department, position]
+        [department?.name ?? "", position]
             .filter { !$0.isEmpty}
             .joined(separator: ": ")
     }

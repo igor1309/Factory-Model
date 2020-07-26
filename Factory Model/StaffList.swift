@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StaffList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @FetchRequest private var staff: FetchedResults<Staff>
     
@@ -20,8 +20,6 @@ struct StaffList: View {
         _staff = FetchRequest(
             entity: Staff.entity(),
             sortDescriptors: [
-                NSSortDescriptor(keyPath: \Staff.division_, ascending: true),
-                NSSortDescriptor(keyPath: \Staff.department_, ascending: true),
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
             predicate: NSPredicate(
@@ -38,6 +36,10 @@ struct StaffList: View {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
+            
+            Text("MARK: NEED TO BE DONE IN A CORRECT WAY")
+                .foregroundColor(.systemRed)
+                .font(.headline)
             
             Section(header: Text("Divisions")) {
                 ForEach(factory.divisions, id: \.self) { division in
@@ -72,11 +74,18 @@ struct StaffList: View {
     
     private var plusButton: some View {
         Button {
-            let staff = Staff(context: managedObjectContext)
+            let staff = Staff(context: сontext)
             staff.name = " ..."
             staff.salary = 10_000
-            factory.addToStaff_(staff)
-            managedObjectContext.saveContext()
+            
+            let department = Department(context: сontext)
+            department.name = " New Department"
+            department.type = .production
+            
+            department.addToStaffs_(staff)
+            
+            factory.addToDepartments_(department)
+            сontext.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -86,9 +95,9 @@ struct StaffList: View {
     private func removeStaff(at offsets: IndexSet) {
         for index in offsets {
             let stafff = staff[index]
-            managedObjectContext.delete(stafff)
+            сontext.delete(stafff)
         }
         
-        managedObjectContext.saveContext()
+        сontext.saveContext()
     }
 }

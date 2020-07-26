@@ -21,14 +21,6 @@ extension Staff {
         get { position_ ?? "Unknown"}
         set { position_ = newValue }
     }
-    var department: String {
-        get { department_ ?? "Unknown"}
-        set { department_ = newValue }
-    }
-    var division: String {
-        get { division_ ?? "Unknown"}
-        set { division_ = newValue }
-    }
     
     var salaryWithTax: Double {
         salary * 1.302
@@ -37,9 +29,7 @@ extension Staff {
 
 extension Staff: Comparable {
     public static func < (lhs: Staff, rhs: Staff) -> Bool {
-        lhs.division < rhs.division
-            && lhs.department < rhs.department
-            && lhs.position < rhs.position
+        lhs.position < rhs.position
             && lhs.name < rhs.name
     }
     

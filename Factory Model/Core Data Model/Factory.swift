@@ -17,60 +17,64 @@ extension Factory {
         get { note_ ?? ""}
         set { note_ = newValue }
     }
-    var packagings: [Packaging] {
-        get { (packagings_ as? Set<Packaging> ?? []).sorted() }
-        set { packagings_ = Set(newValue) as NSSet }
-    }
     var equipments: [Equipment] {
         get { (equipments_ as? Set<Equipment> ?? []).sorted() }
         set { equipments_ = Set(newValue) as NSSet }
+    }
+    var bases: [Base] {
+        get { (bases_ as? Set<Base> ?? []).sorted() }
+        set { bases_ = Set(newValue) as NSSet }
     }
     var expenses: [Expenses] {
         get { (expenses_ as? Set<Expenses> ?? []).sorted() }
         set { expenses_ = Set(newValue) as NSSet }
     }
     var buyers: [String] {
-        packagings
+        bases
+            .flatMap { $0.products }
             .flatMap { $0.sales }
             .compactMap { $0.buyer }
             .removingDuplicates()
     }
-    var staff: [Staff] {
-        get { (staff_ as? Set<Staff> ?? []).sorted() }
-        set { staff_ = Set(newValue) as NSSet }
+    var departments: [Department] {
+        get { (departments_ as? Set<Department> ?? []).sorted() }
+        set { departments_ = Set(newValue) as NSSet }
     }
-    var staffByDivision: [String: [Staff]] {
-        Dictionary(grouping: staff) { $0.division }
+    var staffByDivision: [String: [Department]] {
+        Dictionary(grouping: departments) { $0.name }
     }
     var divisions: [String] {
-        staff
+        departments
             .map { $0.division }
             .removingDuplicates()
             .sorted()
     }
     func totalSalary(for division: String) -> Double {
-        staff
+        departments
             .filter { $0.division == division }
+            .flatMap { $0.staffs }
             .map { $0.salary }
             .reduce(0, +)
     }
     func headcount(for division: String) -> Int {
-        staff
+        departments
             .filter { $0.division == division }
+            .flatMap { $0.staffs }
             .count
     }
     func departments(for division: String) -> String {
-        staff
+        departments
             .filter { $0.division == division }
-            .map { $0.department }
+            .map { $0.name }
             .removingDuplicates()
             .joined(separator: ", ")
     }
     
     
     func salaryForDivision(_ division: String) -> Double {
-        staff
+        departments
             .filter { $0.division == division }
+            .flatMap { $0.staffs }
             .map { $0.salary }
             .reduce(0, +)
     }
@@ -78,7 +82,8 @@ extension Factory {
         salaryForDivision(division) * 1.302
     }
     var totalSalary: Double {
-        staff
+        departments
+            .flatMap { $0.staffs }
             .map { $0.salary }
             .reduce(0, +)
     }
@@ -91,9 +96,10 @@ extension Factory {
             .map { $0.price }
             .reduce(0, +)
     }
-    var amortizationMonthly: Double {
+    //  MARK: more clever depreciation?
+    var depreciationMonthly: Double {
         equipments
-            .map { $0.amortizationMonthly }
+            .map { $0.depreciationMonthly }
             .reduce(0, +)
     }
     
@@ -104,13 +110,15 @@ extension Factory {
     }
     
     var revenueExVAT: Double {
-        packagings
+        bases
+            .flatMap { $0.products }
             .map { $0.revenueExVAT }
             .reduce(0, +)
     }
     
     func revenueExVAT(for group: String) -> Double {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .filter { $0.group == group }
             .map { $0.revenueExVAT }
@@ -118,16 +126,15 @@ extension Factory {
     }
 
     var totalCostExVAT: Double {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .map { $0.totalCostExVAT }
             .reduce(0, +)
     }
     
     var baseGroupsAsRows: [Something] {
-        let bases = packagings.compactMap { $0.base }
-        
-        return Dictionary(grouping: bases) { $0.group }
+        Dictionary(grouping: bases) { $0.group }
             .mapValues { $0.map { $0.name }.joined(separator: ", ") }
             .map {
                 Something(
@@ -142,45 +149,75 @@ extension Factory {
             .sorted()
     }
     
+    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     var baseGroups: [String] {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .map { $0.group }
             .removingDuplicates()
             .sorted()
     }
+    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     func basesForGroup(_ group: String) -> [Base] {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .filter { $0.group == group }
             .sorted()
     }
     
+    //  MARK: FIX THIS: неоптимально — мне нужно с помощью FetchRequest вытащить список имеющихся групп продуктов для выбранной фабрики
     var packagingTypes: [String] {
-        packagings
+        bases
+            .flatMap { $0.products }
+            .compactMap { $0.packaging }
             .map { $0.type }
             .removingDuplicates()
             .sorted()
     }
-    func packagingForType(_ type: String) -> [Packaging] {
-        packagings
-            .filter { $0.type_ == type }
+    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
+    func packagingsForType(_ type: String) -> [Packaging] {
+        bases
+            .flatMap { $0.products }
+            .compactMap { $0.packaging }
+            .filter { $0.type == type }
+            .sorted()
+    }
+
+    
+    //  MARK: FIX THIS: неоптимально — мне нужно с помощью FetchRequest вытащить список имеющихся групп продуктов для выбранной фабрики
+    var productGroups: [String] {
+        bases
+            .flatMap { $0.products }
+            .map { $0.group }
+            .removingDuplicates()
+            .sorted()
+    }
+    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
+    func productForType(_ group: String) -> [Product] {
+        bases
+            .flatMap { $0.products }
+            .filter { $0.group == group }
             .sorted()
     }
     
     var sales: [Sales] {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .flatMap { $0.sales }
     }
     var feedstocks: [Feedstock] {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .flatMap { $0.feedstocks }
             .filter { $0.qty > 0 }
     }
     var totalFeedstockCostExVAT: Double {
-        packagings
+        bases
+            .flatMap { $0.products }
             .compactMap { $0.base }
             .reduce(0) { $0 + $1.totalCostExVAT }
     }

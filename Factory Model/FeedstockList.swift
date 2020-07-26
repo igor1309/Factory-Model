@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedstockList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var feedstocks: FetchedResults<Feedstock>
     
@@ -63,7 +63,7 @@ struct FeedstockList: View {
     
     private var plusButton: some View {
         Button {
-            let feedstock = Feedstock(context: managedObjectContext)
+            let feedstock = Feedstock(context: moc)
             //feedstock.name = "New Feedstock"
             //feedstock.note = "Some note regarding new feedstock"
             //                    feedstock.division = division
@@ -71,7 +71,7 @@ struct FeedstockList: View {
             //feedstock.position = "Worker"
             feedstock.name = " ..."
             base.addToFeedstocks_(feedstock)
-            managedObjectContext.saveContext()
+            moc.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -81,15 +81,9 @@ struct FeedstockList: View {
     private func removeFeedstock(at offsets: IndexSet) {
         for index in offsets {
             let feedstockf = feedstocks[index]
-            managedObjectContext.delete(feedstockf)
+            moc.delete(feedstockf)
         }
         
-        managedObjectContext.saveContext()
+        moc.saveContext()
     }
 }
-
-//struct FeedstockList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedstockList()
-//    }
-//}

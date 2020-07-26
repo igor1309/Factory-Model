@@ -2,58 +2,50 @@
 //  PackagingView.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 24.07.2020.
+//  Created by Igor Malyarov on 26.07.2020.
 //
 
 import SwiftUI
 
 struct PackagingView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.presentationMode) var presentation
-    
+    @Environment(\.managedObjectContext) var сontext
+        
     @ObservedObject var packaging: Packaging
-    @ObservedObject var factory: Factory
-    
-    @State private var showPicker = false
     
     var body: some View {
         List {
+            ListRow(packaging)
+            
             Section(
-                header: Text("")
+                header: Text("Packaging Details")
             ) {
                 Group {
-                    NavigationLink(
-                        destination: PackagingEditor(packaging: packaging)
-                    ) {
-                        Text("Edit '\(packaging.detail ?? packaging.title)' Packaging")
+                    HStack {
+                        Text("Name")
+                            .foregroundColor(.secondary)
+                        TextField("Name", text: $packaging.name)
                     }
-                    .foregroundColor(.accentColor)
+                    
+                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
+                    
+                }
+                .font(.subheadline)
+                .foregroundColor(.accentColor)
+            }
+            
+            Section(
+                header: Text("Products")
+            ) {
+                Group {
+                    Text(packaging.productList)
+                        .foregroundColor(packaging.isValid ? .primary : .systemRed)
                 }
                 .font(.subheadline)
             }
-            
-            Section(
-                header: Text("Base")
-            ) {
-                BasePicker(base: $packaging.base, factory: factory)
-            }
-            
-            Section(
-                header: Text("")
-            ) {
-                LabelWithDetailView("Base Qty per Package", QtyPicker(qty: $packaging.baseQty))
-                
-                LabelWithDetail("TBD: Select Base", "TBD")
-                
-                NavigationLink(
-                    destination: SalesList(for: packaging)
-                ) {
-                    Label("Edit Sales", systemImage: "cart")
-                }
-                .foregroundColor(.accentColor)
-            }
         }
+        .onDisappear { сontext.saveContext() }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(packaging.title)
+        .navigationTitle(packaging.name)
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

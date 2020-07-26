@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllFeedstockListTESTING: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var factory: Factory
     
@@ -39,9 +39,9 @@ struct AllFeedstockListTESTING: View {
     }
     
     func fetchFeedstocks() {
-        //        Factory.fetchFeedstocksTotalsGrouped(context: managedObjectContext) {
+        //        Factory.fetchFeedstocksTotalsGrouped(context: context) {
         //        factory.fetchFeedstocksTotalsGrouped { results in
-        Factory.fetchFeedstocksTotalsGrouped(context: managedObjectContext) { results in
+        Factory.fetchFeedstocksTotalsGrouped(context: moc) { results in
             feedstocks = results
         }
     }

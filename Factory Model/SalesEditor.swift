@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SalesEditor: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
@@ -21,13 +21,13 @@ struct SalesEditor: View {
                     
                     Picker("Existing Buyer", selection: $sales.buyer) {
                         //  MARK: CHANGE TO FETCH REQUEST
-                        ForEach(sales.packaging!.factory!.buyers, id: \.self) { buyer in
+                        ForEach(sales.product!.base!.factory!.buyers, id: \.self) { buyer in
                             Text(buyer)
                         }
                     }
                     .labelsHidden()
                     
-                    PackagingPicker(packaging: $sales.packaging, factory: sales.packaging!.factory!)
+                    ProductPicker(product: $sales.product, factory: sales.product!.base!.factory!)
                     
                     LabelWithDetail("Price", "TBD")
                     
@@ -44,7 +44,7 @@ struct SalesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

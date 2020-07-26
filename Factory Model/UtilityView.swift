@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UtilityView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var utility: Utility
@@ -37,7 +37,7 @@ struct UtilityView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }

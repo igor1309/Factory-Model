@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct PackagingList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @FetchRequest private var packagings: FetchedResults<Packaging>
     @FetchRequest private var orphans: FetchedResults<Packaging>
+    @FetchRequest private var allPackagings: FetchedResults<Packaging>
     
-    @ObservedObject var factory: Factory
+    //    @ObservedObject
+    var factory: Factory
     
     init(
         for factory: Factory
@@ -37,60 +39,62 @@ struct PackagingList: View {
             entity: Packaging.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
-            ],
+            ]
+            ,
             predicate: NSPredicate(
                 format: "ANY %K = nil", #keyPath(Packaging.products_)
             )
+        )
+        
+        _allPackagings = FetchRequest(
+            entity: Packaging.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
+            ]
         )
     }
     
     var body: some View {
         List {
-            Text("PROBLEM: adding packaging with + does not update the view")
-                .foregroundColor(.red)
+            Text("""
+                PROBLEM:
+                - adding packaging with +
+                - packaging editing
+                does not update the view
+                
+                LISTS:
+                - (TBD: fix FetchRequest) used on factory
+                - (TBD: fix FetchRequest) orphaned (not attached to the product)
+                - all
+                """)
+                .foregroundColor(.systemRed)
                 .font(.subheadline)
             
-            ListRow(
-                title: "Name",
-                subtitle: "TBD: сводка?",
-                detail: "TBD: что еще?",
-                icon: "shippingbox"
-            )
+            if !allPackagings.isEmpty {
+                Section(
+                    header: Text("All Packagings")
+                ) {
+                    list(of: allPackagings)
+                }
+            }
             
             if !packagings.isEmpty {
                 Section(
-                    header: Text("TESTING Factory Packagings")
+                    header: Text("Factory Packagings")
                 ) {
                     list(of: packagings)
                 }
             }
             
-            Section(
-                header: Text("Factory Packagings")
-            ) {
-                ForEach(packagings, id: \.objectID) { packaging in
-                    ListRow(packaging)
-                }
-                .onDelete(perform: removePackagings)
-            }
-            
             if !orphans.isEmpty {
                 Section(
-                    header: Text("TESTING Orphans")
+                    header: Text("Orphans")
                 ) {
                     list(of: orphans)
                 }
             }
-            
-            Section(
-                header: Text("Orphans")
-            ) {
-                ForEach(orphans, id: \.objectID) { packaging in
-                    ListRow(packaging)
-                }
-                .onDelete(perform: removeOrphans)
-            }
         }
+        .onDisappear { сontext.saveContext() }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
@@ -99,47 +103,34 @@ struct PackagingList: View {
     
     private func list(of packagings: FetchedResults<Packaging>) -> some View {
         func remove(at offsets: IndexSet) {
+            //  MARK: - FINISH THIS удаление не сиротских объектов лучше не допускать без подтверждения
             for index in offsets {
                 let packaging = packagings[index]
-                managedObjectContext.delete(packaging)
+                сontext.delete(packaging)
             }
             
-            managedObjectContext.saveContext()
+            сontext.saveContext()
         }
         
         return ForEach(packagings, id: \.objectID) { packaging in
-            ListRow(packaging)
+            NavigationLink(
+                destination: PackagingView(packaging: packaging)
+            ) {
+                ListRow(packaging)
+            }
         }
         .onDelete(perform: remove)
     }
     
-    private func removePackagings(at offsets: IndexSet) {
-        for index in offsets {
-            let packaging = packagings[index]
-            managedObjectContext.delete(packaging)
-        }
-        
-        managedObjectContext.saveContext()
-    }
-    
-    private func removeOrphans(at offsets: IndexSet) {
-        for index in offsets {
-            let orphan = orphans[index]
-            managedObjectContext.delete(orphan)
-        }
-        
-        managedObjectContext.saveContext()
-    }
-    
     private var plusButton: some View {
         Button {
-            let packaging = Packaging(context: managedObjectContext)
-            packaging.name = "New Packaging"
+            let packaging = Packaging(context: сontext)
+            packaging.name = " New Packaging"
             //            packaging.addToProducts(product)
             //            factory.addToPackagings_(packaging)
-            managedObjectContext.saveContext()
+            packaging.objectWillChange.send()
+            сontext.saveContext()
             //  MARK: FINISH THIS: PROBLEM: VIEW NOT UPDATING!!!
-            //            packaging.objectWillChange.send()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SalesView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
@@ -44,14 +44,8 @@ struct SalesView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }
 }
-
-//struct SalesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SalesView()
-//    }
-//}

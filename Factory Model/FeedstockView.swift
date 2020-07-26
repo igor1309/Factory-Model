@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedstockView: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var feedstock: Feedstock
@@ -37,14 +37,8 @@ struct FeedstockView: View {
     
     private var saveButton: some View {
         Button("Save") {
-            managedObjectContext.saveContext()
+            moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
     }
 }
-
-//struct FeedstockView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FeedstockView()
-//    }
-//}

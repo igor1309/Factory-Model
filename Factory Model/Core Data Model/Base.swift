@@ -28,9 +28,9 @@ extension Base {
         get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
         set { feedstocks_ = Set(newValue) as NSSet }
     }
-    var packagings: [Packaging] {
-        get { (packagings_ as? Set<Packaging> ?? []).sorted() }
-        set { packagings_ = Set(newValue) as NSSet }
+    var products: [Product] {
+        get { (products_ as? Set<Product> ?? []).sorted() }
+        set { products_ = Set(newValue) as NSSet }
     }
     var utilities: [Utility] {
         get { (utilities_ as? Set<Utility> ?? []).sorted() }
@@ -56,11 +56,11 @@ extension Base {
     }
     
     var sales: [Sales] {
-        packagings.flatMap { $0.sales }
+        products.flatMap { $0.sales }
     }
     
     var productionQty: Double {
-        packagings
+        products
             /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
             .reduce(0) { $0 + $1.baseQty * $1.productionQty }
     }

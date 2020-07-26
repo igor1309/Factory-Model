@@ -57,7 +57,7 @@ struct ListRow: View {
                 
                 if subtitle != nil, !subtitle!.isEmpty {
                     Text(subtitle!)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(subtitle!.hasPrefix("ERROR") ? .systemRed : .secondary)
                         .font(useSmallerFont ? .footnote : .subheadline)
                 }
                 

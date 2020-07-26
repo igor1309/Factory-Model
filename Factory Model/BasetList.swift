@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @FetchRequest private var bases: FetchedResults<Base>
     
@@ -50,7 +50,7 @@ struct BaseList: View {
                     LabelWithDetail("bag", "Total Baseion Cost**", factory.totalCostExVAT.formattedGrouped)
                     
                     Text("ЕЩЕ не совсем кост — не всё учтено!!!")
-                        .foregroundColor(.red)
+                        .foregroundColor(.systemRed)
                         .font(.caption)
                     
                     LabelWithDetail("cart", "Total Revenue", factory.revenueExVAT.formattedGrouped)
@@ -69,7 +69,7 @@ struct BaseList: View {
                 }
             }
             
-            Section(header: Text("Bases")) {
+            Section(header: Text("Base Products")) {
                 ForEach(bases, id: \.objectID) { base in
                     NavigationLink(
                         destination: BaseView(base)
@@ -87,10 +87,10 @@ struct BaseList: View {
     
     private var plusButton: some View {
         Button {
-            let base = Base(context: managedObjectContext)
+            let base = Base(context: сontext)
             base.name = " New Base"
             factory.addToBases_(base)
-            managedObjectContext.saveContext()
+            сontext.saveContext()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -100,9 +100,9 @@ struct BaseList: View {
     private func removeBase(at offsets: IndexSet) {
         for index in offsets {
             let base = bases[index]
-            managedObjectContext.delete(base)
+            сontext.delete(base)
         }
         
-        managedObjectContext.saveContext()
+        сontext.saveContext()
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllFeedstockList: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var сontext
     
     @ObservedObject var factory: Factory
     
