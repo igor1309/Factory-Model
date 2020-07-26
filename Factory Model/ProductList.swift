@@ -25,7 +25,7 @@ struct ProductList: View {
                 NSSortDescriptor(keyPath: \Product.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "%K = %@", #keyPath(Product.base.factory), factory
+                format: "%K == %@", #keyPath(Product.base.factory), factory
             )
         )
         _allProducts = FetchRequest(
@@ -36,7 +36,7 @@ struct ProductList: View {
             ]
 //            ,
 //            predicate: NSPredicate(
-//                format: "%K = %@", #keyPath(Product.base.factory), factory
+//                format: "%K == %@", #keyPath(Product.base.factory), factory
 //            )
         )
     }
@@ -50,7 +50,13 @@ struct ProductList: View {
                 """)
                 .foregroundColor(.systemRed)
                 .font(.footnote)
-            
+            ListRow(
+                title: "SAMPLE: Название продукта, например, 'Хинкали, 12 шт'",
+                subtitle: "Базовый продукт (base) и упаковка (packaging)",
+                detail: "Объем производства (production), продажи (sales)",
+                icon: "bag.circle"
+            )
+
             Section(
                 header: Text("Total"),
                 footer: Text("Go to Base to create New Product")
@@ -81,35 +87,12 @@ struct ProductList: View {
                 .font(.subheadline)
             }
             
-            Section(
-                header: Text("FIX: ALL Products").foregroundColor(.systemRed)
-            ) {
-                ForEach(allProducts, id: \.objectID) { product in
-                    NavigationLink(
-                        destination: ProductView(product: product, factory: factory)
-                    ) {
-                        ListRow(product)
-                    }
-                }
+            GenericSection("ALL Products", _allProducts) { product in
+                ProductView(product: product, factory: factory)
             }
             
-            Section(
-                header: Text("Products")
-            ) {
-                ListRow(
-                    title: "SAMPLE: Название продукта, например, 'Хинкали, 12 шт'",
-                    subtitle: "Базовый продукт (base) и упаковка (packaging)",
-                    detail: "Объем производства (production), продажи (sales)",
-                    icon: "bag.circle"
-                )
-                ForEach(products, id: \.objectID) { product in
-                    NavigationLink(
-                        destination: ProductView(product: product, factory: factory)
-                    ) {
-                        ListRow(product)
-                    }
-                }
-                .onDelete(perform: removeProduct)
+            GenericSection("Products", _products) { product in
+                ProductView(product: product, factory: factory)
             }
         }
         .listStyle(InsetGroupedListStyle())

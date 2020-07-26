@@ -23,8 +23,16 @@ struct DivisionView: View {
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
-            predicate: NSPredicate(
-                format: "factory = %@ and division_ = %@", factory, division
+            predicate: NSCompoundPredicate(
+                type: .and,
+                subpredicates: [
+                    NSPredicate(
+                        format: "%K == %@", #keyPath(Staff.department.factory), factory
+                    ),
+                    NSPredicate(
+                        format: "%K == %@", #keyPath(Staff.department.division_), division
+                    )
+                ]
             )
         )
     }
@@ -38,7 +46,7 @@ struct DivisionView: View {
             
             Section(header: Text("Total")) {
                 LabelWithDetail("Total Salary incl taxes", factory.salaryForDivisionWithTax(division).formattedGrouped)
-                .font(.subheadline)
+                    .font(.subheadline)
             }
             
             Section(

@@ -23,8 +23,12 @@ struct BaseGroupList: View {
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Base.name_, ascending: true)
             ],
-            predicate: NSPredicate(
-                format: "factory = %@ and group_ = %@", factory, group
+            predicate: NSCompoundPredicate(
+                type: .and,
+                subpredicates: [
+                    NSPredicate(format: "%K == %@", #keyPath(Base.factory), factory),
+                    NSPredicate(format: "%K == %@", #keyPath(Base.group_), group)
+                ]
             )
         )
     }
@@ -62,7 +66,7 @@ struct BaseGroupList: View {
         Button {
             let base = Base(context: moc)
             base.name = " New Base"
-//            base.note = "Some note for base"
+            //            base.note = "Some note for base"
             // base.code = "1001"
             base.group = group
             factory.addToBases_(base)

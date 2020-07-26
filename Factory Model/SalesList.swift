@@ -24,7 +24,7 @@ struct SalesList: View {
                 NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "product = %@", product
+                format: "%K == %@", #keyPath(Sales.product), product
             )
         )
     }

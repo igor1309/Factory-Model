@@ -25,7 +25,7 @@ struct StaffView: View {
 //                //                NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
 //            ],
 //            predicate: NSPredicate(
-//                format: "ANY %K = %@", #keyPath(Staff.factory.staff_), staff
+//                format: "ANY %K == %@", #keyPath(Staff.factory.staff_), staff
 //            )
 //        )
     }

@@ -23,7 +23,7 @@ struct StaffList: View {
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "factory = %@", factory
+                format: "%K == %@", #keyPath(Staff.department.factory), factory
             )
         )
     }

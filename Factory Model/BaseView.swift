@@ -23,7 +23,7 @@ struct BaseView: View {
                 NSSortDescriptor(keyPath: \Product.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "base = %@", base
+                format: "%K == %@", #keyPath(Product.base), base
             )
         )
     }

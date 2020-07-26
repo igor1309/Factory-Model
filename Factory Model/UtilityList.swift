@@ -24,7 +24,7 @@ struct UtilityList: View {
                 NSSortDescriptor(keyPath: \Utility.priceExVAT, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "base = %@", base
+                format: "%K == %@", #keyPath(Utility.base), base
             )
         )
     }

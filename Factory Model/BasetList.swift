@@ -12,7 +12,7 @@ struct BaseList: View {
     
     @FetchRequest private var bases: FetchedResults<Base>
     
-//    @ObservedObject
+    //    @ObservedObject
     var factory: Factory
     
     init(for factory: Factory) {
@@ -23,13 +23,26 @@ struct BaseList: View {
                 NSSortDescriptor(keyPath: \Base.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "factory = %@", factory
+                format: "%K == %@", #keyPath(Base.factory), factory
             )
         )
     }
     
     var body: some View {
         List {
+            Section(
+                header: Text("Base Groups"),
+                footer: Text("TBD: How to change to fetch request?")
+            ) {
+                ForEach(factory.baseGroupsAsRows) { baseGroup in
+                    NavigationLink(
+                        destination: BaseGroupList(group: baseGroup.title, at: factory)
+                    ) {
+                        ListRow(baseGroup)
+                    }
+                }
+            }
+            
             Group {
                 ListRow(
                     title: "Общий объем производства",
@@ -45,39 +58,8 @@ struct BaseList: View {
                 )
             }
             
-            Section(header: Text("Total")) {
-                Group {
-                    LabelWithDetail("bag", "Total Baseion Cost**", factory.totalCostExVAT.formattedGrouped)
-                    
-                    Text("ЕЩЕ не совсем кост — не всё учтено!!!")
-                        .foregroundColor(.systemRed)
-                        .font(.caption)
-                    
-                    LabelWithDetail("cart", "Total Revenue", factory.revenueExVAT.formattedGrouped)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-            
-            Section(header: Text("Base Groups")) {
-                ForEach(factory.baseGroupsAsRows) { baseGroup in
-                    NavigationLink(
-                        destination: BaseGroupList(group: baseGroup.title, at: factory)
-                    ) {
-                        ListRow(baseGroup)
-                    }
-                }
-            }
-            
-            Section(header: Text("Base Products")) {
-                ForEach(bases, id: \.objectID) { base in
-                    NavigationLink(
-                        destination: BaseView(base)
-                    ) {
-                        ListRow(base)
-                    }
-                }
-                .onDelete(perform: removeBase)
+            GenericSection("Base Products", _bases) { base in
+                BaseView(base)
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -95,14 +77,5 @@ struct BaseList: View {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
         }
-    }
-    
-    private func removeBase(at offsets: IndexSet) {
-        for index in offsets {
-            let base = bases[index]
-            moc.delete(base)
-        }
-        
-        moc.saveContext()
     }
 }

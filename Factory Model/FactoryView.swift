@@ -24,7 +24,7 @@ struct FactoryView: View {
 //                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
 //            ],
 //            predicate: NSPredicate(
-//                format: "factory = %@", factory
+//                format: "%K == %@", #keyPath(Base.factory), factory
 //            )
 //        )
     }

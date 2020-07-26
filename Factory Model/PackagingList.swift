@@ -31,7 +31,7 @@ struct PackagingList: View {
             ]
             ,
             predicate: NSPredicate(
-                format: "ANY %K.base.factory = %@", #keyPath(Packaging.products_), factory
+                format: "ANY %K.base.factory == %@", #keyPath(Packaging.products_), factory
             )
         )
         
@@ -70,36 +70,17 @@ struct PackagingList: View {
                 .foregroundColor(.systemRed)
                 .font(.subheadline)
             
-            Section(
-                header: Text("TESTING").foregroundColor(.systemTeal)
-            ) {
-                GenericList(_allPackagings) { packaging in
+            GenericSection("All Packagings", _allPackagings) { packaging in
+                PackagingView(packaging: packaging)
+            }
+            
+            GenericSection("Factory Packagings", _packagings) { packaging in
+                PackagingView(packaging: packaging)
+            }
+            
+            //  MARK: - FINISH THIS NOT UPDATING!!!! (((
+            GenericSection("Orphans", _orphans) { packaging in
                     PackagingView(packaging: packaging)
-                }
-            }
-            
-            if !allPackagings.isEmpty {
-                Section(
-                    header: Text("All Packagings")
-                ) {
-                    list(of: allPackagings)
-                }
-            }
-            
-            if !packagings.isEmpty {
-                Section(
-                    header: Text("Factory Packagings")
-                ) {
-                    list(of: packagings)
-                }
-            }
-            
-            if !orphans.isEmpty {
-                Section(
-                    header: Text("Orphans")
-                ) {
-                    list(of: orphans)
-                }
             }
         }
         .onDisappear {

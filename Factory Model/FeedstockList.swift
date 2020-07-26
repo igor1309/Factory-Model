@@ -28,7 +28,7 @@ struct FeedstockList: View {
                 NSSortDescriptor(keyPath: \Feedstock.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "base = %@", base
+                format: "%K == %@", #keyPath(Feedstock.base), base
             )
         )
     }
