@@ -70,6 +70,14 @@ struct PackagingList: View {
                 .foregroundColor(.systemRed)
                 .font(.subheadline)
             
+            Section(
+                header: Text("TESTING").foregroundColor(.systemTeal)
+            ) {
+                GenericList(_allPackagings) { packaging in
+                    PackagingView(packaging: packaging)
+                }
+            }
+            
             if !allPackagings.isEmpty {
                 Section(
                     header: Text("All Packagings")
