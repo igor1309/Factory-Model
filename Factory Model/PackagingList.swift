@@ -2,7 +2,7 @@
 //  PackagingList.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 24.07.2020.
+//  Created by Igor Malyarov on 26.07.2020.
 //
 
 import SwiftUI
@@ -10,86 +10,139 @@ import SwiftUI
 struct PackagingList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    @FetchRequest var packagings: FetchedResults<Packaging>
+    @FetchRequest private var packagings: FetchedResults<Packaging>
+    @FetchRequest private var orphans: FetchedResults<Packaging>
     
-    //    @ObservedObject
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
-    init(for factory: Factory){
+    init(
+        for factory: Factory
+    ) {
         self.factory = factory
+        
         _packagings = FetchRequest(
+            entity: Packaging.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(
+                    keyPath: \Packaging.name_, ascending: true
+                )
+            ]
+            ,
+            predicate: NSPredicate(
+                format: "ANY %K.base.factory = %@", #keyPath(Packaging.products_), factory
+            )
+        )
+        
+        _orphans = FetchRequest(
             entity: Packaging.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
             ],
             predicate: NSPredicate(
-                format: "factory = %@", factory
+                format: "ANY %K = nil", #keyPath(Packaging.products_)
             )
         )
     }
     
     var body: some View {
         List {
-            Section(header: Text("Total")) {
-                Group {
-                    NavigationLink(
-                        destination: Text("TBD")
-                    ) {
-                        ListRow(
-                            title: "Производство и продажи",
-                            subtitle: "Общие выручка и затраты, средние цены продаж, маржа",
-                            detail: "тут ли это показывать???",
-                            icon: "cart"
-                        )
-                    }
-                    
-                    NavigationLink(
-                        destination: Text("TBD")
-                    ) {
-                        ListRow(
-                            title: "Агрегированные данные по группам (Packaging Type)",
-                            subtitle: "Выручка и затраты, средние цены продаж, маржа",
-                            detail: "тут ли это показывать???",
-                            icon: "cart"
-                        )
-                    }
-                }
+            Text("PROBLEM: adding packaging with + does not update the view")
+                .foregroundColor(.red)
                 .font(.subheadline)
+            
+            ListRow(
+                title: "Name",
+                subtitle: "TBD: сводка?",
+                detail: "TBD: что еще?",
+                icon: "shippingbox"
+            )
+            
+            if !packagings.isEmpty {
+                Section(
+                    header: Text("TESTING Factory Packagings")
+                ) {
+                    list(of: packagings)
+                }
             }
             
-            ForEach(packagings, id: \.objectID) { packaging in
-                NavigationLink(
-                    destination: PackagingView(packaging: packaging, factory: factory)
-                ) {
+            Section(
+                header: Text("Factory Packagings")
+            ) {
+                ForEach(packagings, id: \.objectID) { packaging in
                     ListRow(packaging)
                 }
+                .onDelete(perform: removePackagings)
             }
-            .onDelete(perform: removePackaging)
+            
+            if !orphans.isEmpty {
+                Section(
+                    header: Text("TESTING Orphans")
+                ) {
+                    list(of: orphans)
+                }
+            }
+            
+            Section(
+                header: Text("Orphans")
+            ) {
+                ForEach(orphans, id: \.objectID) { packaging in
+                    ListRow(packaging)
+                }
+                .onDelete(perform: removeOrphans)
+            }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Packaging")
+        .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarItems(trailing: plusButton)
+    }
+    
+    private func list(of packagings: FetchedResults<Packaging>) -> some View {
+        func remove(at offsets: IndexSet) {
+            for index in offsets {
+                let packaging = packagings[index]
+                managedObjectContext.delete(packaging)
+            }
+            
+            managedObjectContext.saveContext()
+        }
+        
+        return ForEach(packagings, id: \.objectID) { packaging in
+            ListRow(packaging)
+        }
+        .onDelete(perform: remove)
+    }
+    
+    private func removePackagings(at offsets: IndexSet) {
+        for index in offsets {
+            let packaging = packagings[index]
+            managedObjectContext.delete(packaging)
+        }
+        
+        managedObjectContext.saveContext()
+    }
+    
+    private func removeOrphans(at offsets: IndexSet) {
+        for index in offsets {
+            let orphan = orphans[index]
+            managedObjectContext.delete(orphan)
+        }
+        
+        managedObjectContext.saveContext()
     }
     
     private var plusButton: some View {
         Button {
             let packaging = Packaging(context: managedObjectContext)
             packaging.name = "New Packaging"
-            factory.addToPackagings_(packaging)
+            //            packaging.addToProducts(product)
+            //            factory.addToPackagings_(packaging)
             managedObjectContext.saveContext()
+            //  MARK: FINISH THIS: PROBLEM: VIEW NOT UPDATING!!!
+            //            packaging.objectWillChange.send()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
         }
     }
-    
-    private func removePackaging(at offsets: IndexSet) {
-        for index in offsets {
-            let packaging = packagings[index]
-            managedObjectContext.delete(packaging)
-        }
-        managedObjectContext.saveContext()
-    }
-    
 }
