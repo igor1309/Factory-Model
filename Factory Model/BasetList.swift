@@ -30,6 +30,10 @@ struct BaseList: View {
     
     var body: some View {
         List {
+            
+            Text("TBD: Ingredients")
+                .foregroundColor(.systemRed)
+            
             Section(
                 header: Text("Base Groups"),
                 footer: Text("TBD: How to change to fetch request?")

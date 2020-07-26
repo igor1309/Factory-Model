@@ -204,12 +204,18 @@ struct FactoryList: View {
         let feedstock1 = Feedstock(context: moc)
         feedstock1.name = "Молоко натуральное"
         feedstock1.priceExVAT = 30.0
-        feedstock1.qty = 1
+        
+        let ingredient1 = Ingredient(context: moc)
+        ingredient1.qty = 1
+        ingredient1.feedstock = feedstock1
         
         let feedstock2 = Feedstock(context: moc)
         feedstock2.name = "Сухое молоко"
         feedstock2.priceExVAT = 70
-        feedstock2.qty = 1
+        
+        let ingredient2 = Ingredient(context: moc)
+        ingredient2.qty = 1
+        ingredient2.feedstock = feedstock2
         
         let feedstock3 = Feedstock(context: moc)
         feedstock3.name = "Хлористый кальций"
@@ -220,7 +226,10 @@ struct FactoryList: View {
         let feedstock5 = Feedstock(context: moc)
         feedstock5.name = "Сычужная заправка (?)"
         feedstock5.priceExVAT = 8000
-        feedstock5.qty = 0.5 / 1000
+        
+        let ingredient5 = Ingredient(context: moc)
+        ingredient5.qty = 0.5 / 1000
+        ingredient5.feedstock = feedstock5
         
         let feedstock6 = Feedstock(context: moc)
         feedstock6.name = "Пепсин"
@@ -228,14 +237,20 @@ struct FactoryList: View {
         let feedstock7 = Feedstock(context: moc)
         feedstock7.name = "Соль"
         feedstock7.priceExVAT = 20
-        feedstock7.qty = 1.5
+        
+        let ingredient7 = Ingredient(context: moc)
+        ingredient7.qty = 1.5
+        ingredient7.feedstock = feedstock7
         
         let feedstock8 = Feedstock(context: moc)
         feedstock8.name = "Вода"
         feedstock8.priceExVAT = 1
-        feedstock8.qty = 1
         
-        base1.feedstocks = [feedstock1, feedstock2, feedstock3, feedstock4, feedstock5, feedstock6, feedstock7, feedstock8]
+        let ingredient8 = Ingredient(context: moc)
+        ingredient8.qty = 1
+        ingredient8.feedstock = feedstock8
+        
+        base1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
         
         return base1
     }
@@ -248,10 +263,13 @@ struct FactoryList: View {
         
         let feedstock21 = Feedstock(context: moc)
         feedstock21.name = "Вода"
-        feedstock21.qty = 2
         feedstock21.priceExVAT = 1
         
-        base2.feedstocks = [feedstock21]
+        let ingredient21 = Ingredient(context: moc)
+        ingredient21.qty = 2
+        ingredient21.feedstock = feedstock21
+        
+        base2.ingredients = [ingredient21]
         
         return base2
     }
@@ -369,10 +387,16 @@ struct FactoryList: View {
         let feedstock1 = Feedstock(context: moc)
         feedstock1.name = "Мука"
         
+        let ingredient1 = Ingredient(context: moc)
+        ingredient1.feedstock = feedstock1
+        
         let feedstock2 = Feedstock(context: moc)
         feedstock2.name = "Мясо"
         
-        base.feedstocks = [feedstock1, feedstock2]
+        let ingredient2 = Ingredient(context: moc)
+        ingredient2.feedstock = feedstock2
+        
+        base.ingredients = [ingredient1, ingredient2]
         
         return base
     }

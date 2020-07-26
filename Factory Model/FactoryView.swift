@@ -56,7 +56,7 @@ struct FactoryView: View {
                     }
                     
                     NavigationLink(
-                        destination: Text("TBD")
+                        destination: AllFeedstockList(for: factory)
                     ) {
                         ListRow(
                             title: "Feedstocks",

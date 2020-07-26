@@ -22,7 +22,7 @@ struct FeedstockView: View {
             Section(header: Text("Feedstock")) {
                 Group {
                     TextField("Name", text: $feedstock.name)
-                    Text("TBD: Qty: \(feedstock.qty, specifier: "%.f")")
+                    Text("TBD: Qty:")
                     Text("TBD: Price PRICE")
                     Text("TBD: Total Cost")
                 }

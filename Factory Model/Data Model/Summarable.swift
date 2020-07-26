@@ -64,7 +64,9 @@ extension Feedstock: Summarable {
     var title: String { name }
     
     var subtitle: String {
-        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
+        //  MARK: - FINISH THIS
+//        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
+        "\(priceExVAT)"
     }
     
     var detail: String? { nil }

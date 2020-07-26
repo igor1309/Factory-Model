@@ -24,9 +24,9 @@ extension Base {
         get { group_ ?? " No group"}
         set { group_ = newValue }
     }
-    var feedstocks: [Feedstock] {
-        get { (feedstocks_ as? Set<Feedstock> ?? []).sorted() }
-        set { feedstocks_ = Set(newValue) as NSSet }
+    var ingredients: [Ingredient] {
+        get { (ingredients_ as? Set<Ingredient> ?? []).sorted() }
+        set { ingredients_ = Set(newValue) as NSSet }
     }
     var products: [Product] {
         get { (products_ as? Set<Product> ?? []).sorted() }
@@ -90,8 +90,11 @@ extension Base {
     }
     
     var costExVAT: Double {
-        feedstocks
-            .reduce(0) { $0 + $1.costExVAT }
+        ingredients
+            .map {
+                $0.qty * ($0.feedstock?.priceExVAT ?? 0)
+            }
+            .reduce(0, +)
     }
     var totalCostExVAT: Double {
         costExVAT * productionQty

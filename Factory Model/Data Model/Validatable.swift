@@ -14,9 +14,8 @@ extension Validatable where Self: Summarable {
         return !hasError
     }
 }
+
+extension Base: Validatable {}
+extension Feedstock: Validatable {}
 extension Packaging: Validatable {}
 extension Product: Validatable {}
-
-extension Base: Validatable {
-    
-}

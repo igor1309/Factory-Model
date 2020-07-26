@@ -41,9 +41,9 @@ struct AllFeedstockListTESTING: View {
     func fetchFeedstocks() {
         //        Factory.fetchFeedstocksTotalsGrouped(context: context) {
         //        factory.fetchFeedstocksTotalsGrouped { results in
-        Factory.fetchFeedstocksTotalsGrouped(context: moc) { results in
-            feedstocks = results
-        }
+//        Factory.fetchFeedstocksTotalsGrouped(context: moc) { results in
+//            feedstocks = results
+//        }
     }
 }
 
