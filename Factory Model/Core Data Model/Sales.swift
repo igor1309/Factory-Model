@@ -8,12 +8,11 @@
 import Foundation
 
 extension Sales {
-    var buyer: String {
-        get { buyer_ ?? "Unknown" }
-        set { buyer_ = newValue }
+    var buyerName: String {
+        buyer?.name_ ?? "Unknown"
     }
     var productName: String {
-        product?.name ?? "Unknown"
+        product?.title ?? "Unknown"
     }
     
     var priceWithVAT: Double {
@@ -37,6 +36,5 @@ extension Sales {
 extension Sales: Comparable {
     public static func < (lhs: Sales, rhs: Sales) -> Bool {
         lhs.qty < rhs.qty
-            && lhs.buyer < rhs.buyer
     }
 }

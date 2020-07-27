@@ -19,6 +19,10 @@ struct BaseEditor: View {
     
     var body: some View {
         List {
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
             Section(header: Text("Base")) {
                 Group {
                     TextField("Name", text: $base.name)
@@ -53,7 +57,6 @@ struct BaseEditor: View {
                 }
                 .foregroundColor(.accentColor)
             }
-
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)

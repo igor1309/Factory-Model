@@ -12,6 +12,37 @@ protocol Summarable {
     var icon: String { get }
 }
 
+extension Base: Summarable {
+    var title: String {
+        [name, code, group]
+            .filter { !$0.isEmpty }
+            .joined(separator: " : ")
+    }
+    
+    var subtitle: String { note }
+    
+    var detail: String? {
+        if closingInventory < 0 {
+            return "ERROR: Negative Closing Inventory"
+        }
+        
+        if revenueExVAT > 0 {
+            return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
+        } else {
+            return "Production \(productionQty.formattedGrouped)"
+        }
+    }
+    
+    var icon: String { "bag" }
+}
+
+extension Buyer: Summarable {
+    var title: String { name }
+    var subtitle: String { "" }
+    var detail: String? { "" }
+    var icon: String { "cart.fill" }
+}
+
 extension Department: Summarable {
     var title: String {
         name
@@ -136,35 +167,11 @@ extension Product: Summarable {
     var icon: String { "bag.circle" }
 }
 
-extension Base: Summarable {
-    var title: String {
-        [name, code, group]
-            .filter { !$0.isEmpty }
-            .joined(separator: " : ")
-    }
-    
-    var subtitle: String { note }
-    
-    var detail: String? {
-        if closingInventory < 0 {
-            return "ERROR: Negative Closing Inventory"
-        }
-        
-        if revenueExVAT > 0 {
-            return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
-        } else {
-            return "Production \(productionQty.formattedGrouped)"
-        }
-    }
-    
-    var icon: String { "bag" }
-}
-
 extension Sales: Summarable {
-    var title: String { buyer }
+    var title: String { name }
     
     var subtitle: String {
-        "\(productName): \(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
+        "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
     var detail: String? { nil }

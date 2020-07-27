@@ -22,6 +22,7 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
+                //  MARK: FINISH THIS: CHANGE TO GENERIC
                 ForEach(factories, id: \.objectID) { factory in
                     NavigationLink(
                         destination: FactoryView(factory)
@@ -173,13 +174,17 @@ struct FactoryList: View {
             product1_1.vat = 10/100
             product1_1.productionQty = 3_000
             
+            //  MARK: - Buyer 1_1
+            let buyer1_1 = Buyer(context: moc)
+            buyer1_1.name_ = "Speelo Group"
+            
             //  MARK: - Sales 1_1
             
             let sales1_1 = Sales(context: moc)
-            sales1_1.buyer = "Speelo Group"
             sales1_1.priceExVAT = 300
             sales1_1.qty = 1_000
             sales1_1.product = product1_1
+            sales1_1.buyer = buyer1_1
 
             //  MARK: - Utility
             
@@ -243,10 +248,13 @@ struct FactoryList: View {
             let base2_1 = createBase2_1()
             base2_1.factory = factory2
             
-            let metro = Sales(context: moc)
-            metro.buyer = "METRO"
-            metro.qty = 1_000
-            metro.priceExVAT = 230
+            let metro = Buyer(context: moc)
+            metro.name_ = "METRO"
+            
+            let metroSales = Sales(context: moc)
+            metroSales.buyer = metro
+            metroSales.qty = 1_000
+            metroSales.priceExVAT = 230
             
             let product2_1 = Product(context: moc)
             product2_1.name = "Настоящие"
@@ -254,7 +262,7 @@ struct FactoryList: View {
             product2_1.group = "Контейнер"
             product2_1.vat = 10/100
             
-            product2_1.sales = [metro]
+            product2_1.sales = [metroSales]
             product2_1.base = base2_1
             
             moc.saveContext()

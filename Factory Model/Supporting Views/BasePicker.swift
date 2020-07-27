@@ -21,11 +21,11 @@ struct BasePicker: View {
         Button {
             showPicker = true
         } label: {
-            if base == nil {
+            if let base = base {
+                Text(base.title)
+            } else {
                 Text("No Base")
                     .foregroundColor(.systemRed)
-            } else {
-                Text(base!.title)
             }
         }
         .sheet(isPresented: $showPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {

@@ -21,7 +21,7 @@ struct SalesList: View {
             entity: Sales.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
-                NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
+                NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
             ],
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Sales.product), product
@@ -56,10 +56,13 @@ struct SalesList: View {
     
     private var plusButton: some View {
         Button {
+            let buyer = Buyer(context: moc)
+            buyer.name = " John"
+
             let sales = Sales(context: moc)
-            sales.buyer = "John"
             sales.qty = 1_000
             sales.priceExVAT = 300
+            sales.buyer = buyer
             product.addToSales_(sales)
             moc.saveContext()
         } label: {

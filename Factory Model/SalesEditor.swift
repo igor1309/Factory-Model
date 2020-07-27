@@ -12,34 +12,47 @@ struct SalesEditor: View {
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
-
+    
     var body: some View {
         List {
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
+            
             Section(header: Text("")) {
                 Group {
-                    TextField("Name", text: $sales.buyer)
+//                    TextField("Name", text: $sales.buyer)
                     
-                    Picker("Existing Buyer", selection: $sales.buyer) {
-                        //  MARK: CHANGE TO FETCH REQUEST
-                        ForEach(sales.product!.base!.factory!.buyers, id: \.self) { buyer in
-                            Text(buyer)
+                    if sales.product != nil,
+                       sales.product!.base != nil,
+                       sales.product!.base!.factory != nil {
+                        Picker("Existing Buyer", selection: $sales.buyer) {
+                            //  MARK: CHANGE TO FETCH REQUEST
+                            ForEach(sales.product!.base!.factory!.buyers, id: \.self) { buyer in
+                                Text(buyer)
+                            }
                         }
+                        .labelsHidden()
+                        
+                        ProductPicker(product: $sales.product, factory: sales.product!.base!.factory!)
                     }
-                    .labelsHidden()
                     
-                    ProductPicker(product: $sales.product, factory: sales.product!.base!.factory!)
+                    EntityPicker(selection: $sales.product)
                     
                     LabelWithDetail("Price", "TBD")
                     
                     LabelWithDetailView("Qty", QtyPicker(qty: $sales.qty))
                 }
-//                .foregroundColor(.accentColor)
-//                .font(.subheadline)
+                //                .foregroundColor(.accentColor)
+                //                .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales Editor")
-//        .navigationBarItems(trailing: saveButton)
+        .onDisappear {
+            moc.saveContext()
+        }
     }
     
     private var saveButton: some View {

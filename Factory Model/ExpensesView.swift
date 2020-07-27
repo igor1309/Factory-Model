@@ -19,15 +19,19 @@ struct ExpensesView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Expenses")) {
-                Group {
-                    TextField("Name", text: $expenses.name)
-                    TextField("Name", text: $expenses.note)
-                    Text("TBD: Qty: \(expenses.amount, specifier: "%.f")")
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
+//            Section(header: Text("Expenses")) {
+//                Group {
+//                    TextField("Name", text: $expenses.name)
+//                    TextField("Name", text: $expenses.note)
+//                    Text("TBD: Qty: \(expenses.amount, specifier: "%.f")")
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(expenses.name)

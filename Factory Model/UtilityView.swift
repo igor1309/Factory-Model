@@ -19,16 +19,19 @@ struct UtilityView: View {
     
     var body: some View {
         List {
-            Section(header: Text("")) {
-                Group {
-                    TextField("Name", text: $utility.name)
-                    Text("TBD: Price ex VAT: \(utility.priceExVAT, specifier: "%.f")")
-                    LabelWithDetail("incl VAT", utility.priceWithVAT.formattedGrouped)
-                        .foregroundColor(.secondary)
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+//            Section(header: Text("")) {
+//                Group {
+//                    TextField("Name", text: $utility.name)
+//                    Text("TBD: Price ex VAT: \(utility.priceExVAT, specifier: "%.f")")
+//                    LabelWithDetail("incl VAT", utility.priceWithVAT.formattedGrouped)
+//                        .foregroundColor(.secondary)
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(utility.name)

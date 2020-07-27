@@ -8,10 +8,6 @@
 import Foundation
 
 extension Expenses {
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
     var note: String {
         get { note_ ?? "Unknown"}
         set { note_ = newValue }

@@ -29,6 +29,7 @@ extension Managed where Self: NSManagedObject {
 }
 
 extension Base: Managed {}
+extension Buyer: Managed {}
 extension Department: Managed {}
 extension Equipment: Managed {}
 extension Expenses: Managed {}

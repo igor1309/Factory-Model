@@ -13,6 +13,10 @@
         <relationship name="products_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="base" inverseEntity="Product"/>
         <relationship name="utilities_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Utility" inverseName="base" inverseEntity="Utility"/>
     </entity>
+    <entity name="Buyer" representedClassName="Buyer" syncable="YES" codeGenerationType="class">
+        <attribute name="name_" optional="YES" attributeType="String"/>
+        <relationship name="sales" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sales" inverseName="buyer" inverseEntity="Sales"/>
+    </entity>
     <entity name="Department" representedClassName="Department" syncable="YES" codeGenerationType="class">
         <attribute name="division_" optional="YES" attributeType="String"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
@@ -48,6 +52,7 @@
         <relationship name="ingredients_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="feedstock" inverseEntity="Ingredient"/>
     </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
+        <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="ingredients_" inverseEntity="Base"/>
         <relationship name="feedstock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="ingredients_" inverseEntity="Feedstock"/>
@@ -77,9 +82,10 @@
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="Sales" representedClassName="Sales" syncable="YES" codeGenerationType="class">
-        <attribute name="buyer_" optional="YES" attributeType="String"/>
+        <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="priceExVAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="buyer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Buyer" inverseName="sales" inverseEntity="Buyer"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="sales_" inverseEntity="Product"/>
     </entity>
     <entity name="Staff" representedClassName="Staff" syncable="YES" codeGenerationType="class">
@@ -97,17 +103,18 @@
     </entity>
     <elements>
         <element name="Base" positionX="-11111.8359375" positionY="-9251.57421875" width="128" height="208"/>
+        <element name="Buyer" positionX="-10695.91015625" positionY="-9124.21484375" width="128" height="73"/>
         <element name="Department" positionX="-11544.49609375" positionY="-9459.42578125" width="128" height="118"/>
         <element name="Equipment" positionX="-11544.60546875" positionY="-9128.62109375" width="128" height="118"/>
         <element name="Expenses" positionX="-11503.14453125" positionY="-8990.92578125" width="128" height="103"/>
         <element name="Factory" positionX="-11307.47265625" positionY="-9265.5390625" width="128" height="133"/>
         <element name="Feedstock" positionX="-10697.82421875" positionY="-9405.25390625" width="128" height="103"/>
-        <element name="Ingredient" positionX="-10931.15234375" positionY="-9401.41796875" width="128" height="88"/>
+        <element name="Ingredient" positionX="-10931.15234375" positionY="-9401.41796875" width="128" height="28"/>
         <element name="Packaging" positionX="-10683.890625" positionY="-9245.625" width="128" height="88"/>
         <element name="Pricelist" positionX="-11249.56640625" positionY="-9020.27734375" width="128" height="73"/>
         <element name="Product" positionX="-10897.2421875" positionY="-9255.546875" width="128" height="193"/>
-        <element name="Production" positionX="-10674.78125" positionY="-9133.453125" width="128" height="58"/>
-        <element name="Sales" positionX="-10681.2109375" positionY="-9038.04296875" width="128" height="103"/>
+        <element name="Production" positionX="-11125.84375" positionY="-9372.87890625" width="128" height="58"/>
+        <element name="Sales" positionX="-10698.3515625" positionY="-9014.265625" width="128" height="28"/>
         <element name="Staff" positionX="-11545.34765625" positionY="-9271.88671875" width="128" height="118"/>
         <element name="Utility" positionX="-10902.31640625" positionY="-9016.4140625" width="128" height="103"/>
     </elements>

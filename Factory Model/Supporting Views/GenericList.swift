@@ -12,6 +12,7 @@ struct GenericSection<T: NSManagedObject & Summarable & Validatable, Editor: Vie
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
+    
     let editor: (T) -> Editor
     let title: String
     

@@ -54,14 +54,14 @@ struct StaffView: View {
                 .foregroundColor(.systemRed)
                 .font(.headline)
             
-            Section(header: Text("Person")) {
-                Group {
-                    TextField("Name", text: $staff.name)
-                    TextField("Note", text: $staff.note)
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+//            Section(header: Text("Person")) {
+//                Group {
+//                    TextField("Name", text: $staff.name)
+//                    TextField("Note", text: $staff.note)
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
             
 //            Section(header: Text("Position")) {
 //                Group {
@@ -75,15 +75,15 @@ struct StaffView: View {
 //                .font(.subheadline)
 //            }
             
-            Section(header: Text("Salary")) {
-                Group {
-                    Text("TBD: Salary: \(staff.salary.formattedGrouped)")
-                    Text("TBD: Salary: \(staff.salaryWithTax.formattedGrouped)")
-                        .foregroundColor(.secondary)
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+//            Section(header: Text("Salary")) {
+//                Group {
+//                    Text("TBD: Salary: \(staff.salary.formattedGrouped)")
+//                    Text("TBD: Salary: \(staff.salaryWithTax.formattedGrouped)")
+//                        .foregroundColor(.secondary)
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(staff.name)

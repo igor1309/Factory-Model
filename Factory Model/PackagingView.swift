@@ -14,25 +14,28 @@ struct PackagingView: View {
     
     var body: some View {
         List {
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
             ListRow(packaging)
             
-            Section(
-                header: Text("Packaging Details")
-            ) {
-                Group {
-                    HStack {
-                        Text("Name")
-                            .foregroundColor(.secondary)
-                        TextField("Name", text: $packaging.name)
-                    }
-                    
-                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
-                    
-                }
-                .font(.subheadline)
-                .foregroundColor(.accentColor)
-            }
-            
+//            Section(
+//                header: Text("Packaging Details")
+//            ) {
+//                Group {
+//                    HStack {
+//                        Text("Name")
+//                            .foregroundColor(.secondary)
+//                        TextField("Name", text: $packaging.name)
+//                    }
+//                    
+//                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
+//                    
+//                }
+//                .font(.subheadline)
+//                .foregroundColor(.accentColor)
+//            }
+//            
             Section(
                 header: Text("Products")
             ) {

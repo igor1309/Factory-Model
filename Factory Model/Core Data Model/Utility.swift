@@ -8,11 +8,6 @@
 import Foundation
 
 extension Utility {
-    var name: String {
-        get { name_ ?? "Unknown" }
-        set { name_ = newValue }
-    }
-    
     var priceWithVAT: Double {
         get { priceExVAT * (1 + vat) }
         set { priceExVAT = vat == 0 ? 0 : newValue / vat }

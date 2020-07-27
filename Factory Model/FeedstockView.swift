@@ -19,9 +19,13 @@ struct FeedstockView: View {
     
     var body: some View {
         List {
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
             Section(header: Text("Feedstock")) {
                 Group {
-                    TextField("Name", text: $feedstock.name)
+//                    TextField("Name", text: $feedstock.name)
                     Text("TBD: Qty:")
                     Text("TBD: Price PRICE")
                     Text("TBD: Total Cost")

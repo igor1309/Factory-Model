@@ -17,30 +17,35 @@ struct EquipmentView: View {
     
     var body: some View {
         List {
-            Section(header: Text("Equipment")) {
-                Group {
-                    TextField("Name", text: $equipment.name)
-                    TextField("Name", text: $equipment.note)
-                    
-                    Picker("Lifetime", selection: $equipment.lifetime) {
-                        ForEach(lifetimes, id: \.self) { lifetime in
-                            Text(lifetime.formattedGrouped).tag(lifetime)
-                        }
-                    }
-                    
-                    Text("TBD: price: \(equipment.price, specifier: "%.f")")
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
             
-            Section(
-                header: Text("Amortization")
-            ) {
-                LabelWithDetail("dollarsign.circle", "Monthly", equipment.depreciationMonthly.formattedGrouped)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-            }
+            
+//            Section(header: Text("Equipment")) {
+//                Group {
+//                    TextField("Name", text: $equipment.name)
+//                    TextField("Name", text: $equipment.note)
+//                    
+//                    Picker("Lifetime", selection: $equipment.lifetime) {
+//                        ForEach(lifetimes, id: \.self) { lifetime in
+//                            Text(lifetime.formattedGrouped).tag(lifetime)
+//                        }
+//                    }
+//                    
+//                    Text("TBD: price: \(equipment.price, specifier: "%.f")")
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
+//            
+//            Section(
+//                header: Text("Amortization")
+//            ) {
+//                LabelWithDetail("dollarsign.circle", "Monthly", equipment.depreciationMonthly.formattedGrouped)
+//                    .foregroundColor(.secondary)
+//                    .font(.subheadline)
+//            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(equipment.name)

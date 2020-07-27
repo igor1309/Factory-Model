@@ -8,10 +8,6 @@
 import Foundation
 
 extension Department: Comparable {
-    var name: String {
-        get { name_ ?? "Unknown" }
-        set { name_ = newValue }
-    }
     var division: String {
         get { division_ ?? "No Division" }
         set { division_ = newValue }

@@ -37,6 +37,11 @@ struct ProductEditor: View {
     
     var body: some View {
         List {
+            
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
             VStack(alignment: .leading, spacing: 2) {
                 LabelWithDetail("title", product.title)
                 LabelWithDetail("subtitle", product.subtitle)
@@ -66,7 +71,7 @@ struct ProductEditor: View {
                     } else {
                         PickerWithTextField(selection: $product.group, name: "Group", values: product.productGroups)
                     }
-
+                    
                     HStack {
                         Text("Code")
                             .foregroundColor(.secondary)

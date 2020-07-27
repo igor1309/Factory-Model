@@ -8,10 +8,6 @@
 import Foundation
 
 extension Staff {
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
     var note: String {
         get { note_ ?? ""}
         set { note_ = newValue }

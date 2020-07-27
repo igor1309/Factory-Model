@@ -12,26 +12,28 @@ struct FactoryView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
-//    @FetchRequest private var bases: FetchedResults<Base>
+    //    @FetchRequest private var bases: FetchedResults<Base>
     
     @ObservedObject var factory: Factory
     
     init(_ factory: Factory) {
         self.factory = factory
-//        _bases = FetchRequest(
-//            entity: Base.entity(),
-//            sortDescriptors: [
-//                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
-//            ],
-//            predicate: NSPredicate(
-//                format: "%K == %@", #keyPath(Base.factory), factory
-//            )
-//        )
+        //        _bases = FetchRequest(
+        //            entity: Base.entity(),
+        //            sortDescriptors: [
+        //                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
+        //            ],
+        //            predicate: NSPredicate(
+        //                format: "%K == %@", #keyPath(Base.factory), factory
+        //            )
+        //        )
     }
     
     var body: some View {
         List {
-            Section(header: Text("Production")) {
+            Section(
+                header: Text("Production")
+            ) {
                 Group {
                     NavigationLink(
                         destination: ProductList(for: factory)
@@ -80,7 +82,7 @@ struct FactoryView: View {
                 .font(.subheadline)
             }
             .foregroundColor(.systemOrange)
-
+            
             Section(
                 header: Text("Sales")
             ) {
@@ -141,7 +143,7 @@ struct FactoryView: View {
                 }
             }
             .foregroundColor(.systemTeal)
-
+            
             Section(header: Text("Factory Details")) {
                 Group {
                     TextField("Name", text: $factory.name)

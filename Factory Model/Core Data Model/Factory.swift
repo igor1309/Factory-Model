@@ -9,10 +9,6 @@ import Foundation
 import CoreData
 
 extension Factory {
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
     var note: String {
         get { note_ ?? ""}
         set { note_ = newValue }
@@ -33,7 +29,7 @@ extension Factory {
         bases
             .flatMap { $0.products }
             .flatMap { $0.sales }
-            .compactMap { $0.buyer }
+            .compactMap { $0.buyerName }
             .removingDuplicates()
     }
     var departments: [Department] {

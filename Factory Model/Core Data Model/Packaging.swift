@@ -8,10 +8,6 @@
 import Foundation
 
 extension Packaging: Comparable {
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
     var type: String {
         get { type_ ?? ""}
         set { type_ = newValue }

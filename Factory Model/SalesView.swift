@@ -21,9 +21,13 @@ struct SalesView: View {
     
     var body: some View {
         List {
+            Text("NEEDS TO BE COMPLETLY REDONE")
+                .foregroundColor(.systemRed)
+                .font(.headline)
+            
             Section(header: Text("")) {
                 Group {
-                    TextField("Name", text: $sales.buyer)
+                    EntityPicker(selection: $sales.buyer)
                     
                     Picker("Select Existing Buyer", selection: $sales.buyer) {
                         ForEach(factory.buyers, id: \.self) { buyer in
@@ -38,7 +42,7 @@ struct SalesView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(sales.buyer)
+        .navigationTitle(sales.buyerName)
         .navigationBarItems(trailing: saveButton)
     }
     

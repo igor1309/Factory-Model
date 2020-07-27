@@ -9,11 +9,13 @@ import SwiftUI
 import SwiftPI
 
 struct AllSalesList: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
     
     @FetchRequest private var sales: FetchedResults<Sales>
-    
-    @ObservedObject var factory: Factory
+    @FetchRequest private var orphans: FetchedResults<Sales>
+
+//    @ObservedObject
+    var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
@@ -21,11 +23,19 @@ struct AllSalesList: View {
             entity: Sales.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
-                NSSortDescriptor(keyPath: \Sales.buyer_, ascending: true)
+                NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
             ],
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Sales.product.base.factory), factory
             )
+        )
+        _orphans = FetchRequest(
+            entity: Sales.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
+                NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
+            ],
+            predicate: nil
         )
     }
     
@@ -61,6 +71,14 @@ struct AllSalesList: View {
                 )
             }
             
+            GenericSection("Sales", _sales) { sales in
+                SalesEditor(sales: sales)
+            }
+            
+            GenericSection("Orphans", _orphans) { sales in
+                SalesEditor(sales: sales)
+            }
+            
             Section(header: Text("Sales")) {
                 ForEach(sales, id: \.objectID) { sales in
                     
@@ -75,15 +93,33 @@ struct AllSalesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
+        .navigationBarItems(trailing: plusButton)
     }
     
+    private var plusButton: some View {
+        Button {
+            let buyer = Buyer(context: context)
+            buyer.name = " John"
+            
+            let sales = Sales(context: context)
+            sales.buyer = buyer
+            sales.qty = 1_000
+            sales.priceExVAT = 300
+            
+            context.saveContext()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
+        }
+    }
+
     private func removeSales(at offsets: IndexSet) {
         for index in offsets {
             let sale = sales[index]
-            moc.delete(sale)
+            context.delete(sale)
         }
         
-        moc.saveContext()
+        context.saveContext()
     }
 }
 

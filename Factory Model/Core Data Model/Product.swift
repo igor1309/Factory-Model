@@ -8,10 +8,6 @@
 import Foundation
 
 extension Product {
-    var name: String {
-        get { name_ ?? "Unknown"}
-        set { name_ = newValue }
-    }
     var code: String {
         get { code_ ?? "No code"}
         set { code_ = newValue }
