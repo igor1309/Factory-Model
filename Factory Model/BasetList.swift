@@ -17,11 +17,7 @@ struct BaseList: View {
     
     init(for factory: Factory) {
         self.factory = factory
-        
-        let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Base.factory), factory
-        )
-        _bases = Base.defaultFetchRequest(with: predicate)
+        _bases = Base.defaultFetchRequest(for: factory)
     }
     
     var body: some View {

@@ -41,6 +41,16 @@ extension Managed where Self: Monikerable, ManagedType == Self {
     }
 }
 
+extension Managed where Self: Monikerable & FactoryTracable, ManagedType == Self {
+    static func defaultFetchRequest(for factory: Factory) -> FetchRequest<Self> {
+        let request = NSFetchRequest<ManagedType>(entityName: ManagedType.entityName)
+        request.sortDescriptors = defaultSortDescriptors
+        request.predicate = ManagedType.factoryPredicate(for: factory)
+        return FetchRequest(fetchRequest: request)
+    }
+}
+
+
 
 
 extension Base: Managed {}

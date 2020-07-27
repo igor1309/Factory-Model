@@ -17,8 +17,7 @@ struct ExpensesList: View {
     init(at factory: Factory) {
         self.factory = factory
         
-        let predicate = Expenses.factoryPredicate(for: factory)
-        _expenses = Expenses.defaultFetchRequest(with: predicate)
+        _expenses = Expenses.defaultFetchRequest(for: factory)
     }
     
     var body: some View {

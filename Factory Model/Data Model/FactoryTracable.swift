@@ -22,6 +22,15 @@ extension FactoryTracable where Self: NSManagedObject {
     }
 }
 
+extension Base: FactoryTracable {
+    static var format: String {
+        "%K == %@"
+    }
+    static var factoryPath: String {
+        "\(#keyPath(Base.factory))"
+    }
+}
+
 extension Equipment: FactoryTracable {
     static var format: String {
         "%K == %@"
@@ -56,6 +65,16 @@ extension Packaging: FactoryTracable {
     
     static var factoryPath: String {
         "\(#keyPath(Packaging.products_))"
+    }
+}
+
+extension Product: FactoryTracable {
+    static var format: String {
+        "%K == %@"
+    }
+    
+    static var factoryPath: String {
+        "\(#keyPath(Product.base.factory))"
     }
 }
 

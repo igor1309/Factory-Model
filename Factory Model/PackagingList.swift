@@ -21,8 +21,7 @@ struct PackagingList: View {
     ) {
         self.factory = factory
         
-        let predicate1 = Packaging.factoryPredicate(for: factory)
-        _packagings = Packaging.defaultFetchRequest(with: predicate1)
+        _packagings = Packaging.defaultFetchRequest(for: factory)
         
         let predicate2 = NSPredicate(
             format: "ANY %K = nil", #keyPath(Packaging.products_)

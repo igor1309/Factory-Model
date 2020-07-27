@@ -17,8 +17,7 @@ struct EquipmentList: View {
     init(at factory: Factory) {
         self.factory = factory
         
-        let predicate = Equipment.factoryPredicate(for: factory)
-        _equipments = Equipment.defaultFetchRequest(with: predicate)
+        _equipments = Equipment.defaultFetchRequest(for: factory)
     }
     
     var body: some View {

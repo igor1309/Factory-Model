@@ -18,9 +18,7 @@ struct AllFeedstockList: View {
     
     init(for factory: Factory) {
         self.factory = factory
-        _feedstocks = Feedstock.defaultFetchRequest(
-            with: Feedstock.factoryPredicate(for: factory)
-        )
+        _feedstocks = Feedstock.defaultFetchRequest(for: factory)
         _orphans = FetchRequest(
             entity: Feedstock.entity(),
             sortDescriptors: Feedstock.defaultSortDescriptors,
