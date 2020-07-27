@@ -15,8 +15,8 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
-                GenericListSection(type: Factory.self) { factory in
-                    FactoryView(factory )
+                GenericListSection(type: Factory.self, useSmallerFont: false) { factory in
+                    FactoryView(factory)
                 }
             }
             .listStyle(InsetGroupedListStyle())

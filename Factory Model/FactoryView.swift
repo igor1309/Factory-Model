@@ -20,57 +20,62 @@ struct FactoryView: View {
     
     var body: some View {
         List {
-            Group {
-                NavigationLink(
-                    destination:
-                        List {
-                            GenericListSection(
-                                title: "all feedstocks in DB",
-                                type: Feedstock.self
-                            ) { feedstock in
-                                FeedstockView(feedstock: feedstock)
+            Section(
+                header: Text("TESTING")
+            ) {
+                Group {
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    title: "all feedstocks in DB",
+                                    type: Feedstock.self
+                                ) { feedstock in
+                                    FeedstockView(feedstock: feedstock)
+                                }
                             }
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                ) {
-                    Text("all feedstocks in DB")
-                }
-                
-                NavigationLink(
-                    destination:
-                        List {
-                            GenericListSection(
-                                title: "factory feedstocks",
-                                type: Feedstock.self,
-                                predicate: NSPredicate(
-                                    format: "ANY %K.base.factory == %@", #keyPath(Feedstock.ingredients_), factory
-                                )
-                            ) { feedstock in
-                                FeedstockView(feedstock: feedstock)
+                            .listStyle(InsetGroupedListStyle())
+                    ) {
+                        Text("all feedstocks in DB")
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    title: "factory feedstocks",
+                                    type: Feedstock.self,
+                                    predicate: NSPredicate(
+                                        format: "ANY %K.base.factory == %@", #keyPath(Feedstock.ingredients_), factory
+                                    )
+                                ) { feedstock in
+                                    FeedstockView(feedstock: feedstock)
+                                }
                             }
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                ) {
-                    Text("factory feedstocks")
-                }
-                
-                NavigationLink(
-                    destination:
-                        List {
-                            GenericListSection(
-                                title: "factory feedstocks",
-                                type: Feedstock.self,
-                                predicate: Feedstock.factoryPredicate(for: factory)
-                            ) { feedstock in
-                                FeedstockView(feedstock: feedstock)
+                            .listStyle(InsetGroupedListStyle())
+                    ) {
+                        Text("factory feedstocks")
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    title: "factory feedstocks",
+                                    type: Feedstock.self,
+                                    predicate: Feedstock.factoryPredicate(for: factory)
+                                ) { feedstock in
+                                    FeedstockView(feedstock: feedstock)
+                                }
                             }
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                ) {
-                    Text("TBD: NEW: factory feedstocks")
+                            .listStyle(InsetGroupedListStyle())
+                    ) {
+                        Text("TBD: NEW: factory feedstocks")
+                    }
                 }
+                .font(.subheadline)
+                .foregroundColor(.systemPurple)
             }
-            .font(.subheadline)
             
             Section(
                 header: Text("Production")

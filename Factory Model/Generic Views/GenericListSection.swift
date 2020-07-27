@@ -17,25 +17,30 @@ struct GenericListSection<T: Listable, Editor: View>: View {
     
     let editor: (T) -> Editor
     let title: String
+    var useSmallerFont: Bool
     
     init(
         _ title: String,
         _ fetchRequest: FetchRequest<T>,
+        useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.title = title
         _fetchRequest = fetchRequest
         self.editor = editor
+        self.useSmallerFont = useSmallerFont
     }
     
     init(
         title: String = "",
         type: T.Type,
         predicate: NSPredicate? = nil,
+        useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.title = title
         self.editor = editor
+        self.useSmallerFont = useSmallerFont
         _fetchRequest = FetchRequest(
             entity: T.entity(),
             sortDescriptors: T.defaultSortDescriptors,
@@ -58,7 +63,7 @@ struct GenericListSection<T: Listable, Editor: View>: View {
                     NavigationLink(
                         destination: editor(item)
                     ) {
-                        ListRow(item)
+                        ListRow(item, useSmallerFont: useSmallerFont)
                             .contextMenu {
                                 Button {
                                     showDeleteAction = true

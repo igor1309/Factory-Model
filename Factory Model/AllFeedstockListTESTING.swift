@@ -21,14 +21,14 @@ struct AllFeedstockListTESTING: View {
     
     var body: some View {
         List {
+            Text("FINISH THIS")
             //  MARK: FINISH THIS!!!
             if let feedstocks = feedstocks {
                 Section(
                     header: Text("Feedstocks")
                 ) {
                     ForEach(feedstocks) { feedstock in
-                        LabelWithDetail(feedstock.title, "\(feedstock.qty.formattedGrouped) \(feedstock.cost.formattedGrouped)")
-                            .font(.subheadline)
+                        ListRow(feedstock)
                     }
                 }
             }
@@ -46,9 +46,3 @@ struct AllFeedstockListTESTING: View {
 //        }
     }
 }
-
-//struct AllFeedstockListTESTING_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AllFeedstockListTESTING()
-//    }
-//}

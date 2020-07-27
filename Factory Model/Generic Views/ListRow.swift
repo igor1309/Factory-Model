@@ -29,7 +29,7 @@ struct ListRow: View {
         self.useSmallerFont = useSmallerFont
     }
     
-    init<T: Summarable & ObservableObject>(
+    init<T: ObservableObject & Summarable>(
         _ object: T,
         useSmallerFont: Bool = true
     ) {
@@ -41,7 +41,10 @@ struct ListRow: View {
         
     }
 
-    init(_ row: Summarable, useSmallerFont: Bool = true) {
+    init(
+        _ row: Summarable,
+        useSmallerFont: Bool = true
+    ) {
         self.title = row.title
         self.subtitle = row.subtitle
         self.detail = row.detail
