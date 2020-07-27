@@ -15,7 +15,7 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
-                GenericListSection("Factories", type: Factory.self) { factory in
+                GenericListSection(type: Factory.self) { factory in
                     FactoryView(factory )
                 }
             }
@@ -24,23 +24,9 @@ struct FactoryList: View {
             .navigationBarItems(
                 trailing: HStack {
                     plusSampleButton
-                    plusButton
+                    CreateOrphanButton<Factory>()
                 }
             )
-        }
-    }
-    
-    private var plusButton: some View {
-        Button {
-            //  MARK: FINISH THIS
-            let factory = Factory(context: moc)
-            factory.name = "New Factory"
-            factory.note = "Some note regarding the factory"
-            
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
         }
     }
     

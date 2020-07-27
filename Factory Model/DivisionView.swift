@@ -26,9 +26,7 @@ struct DivisionView: View {
             predicate: NSCompoundPredicate(
                 type: .and,
                 subpredicates: [
-                    NSPredicate(
-                        format: "%K == %@", #keyPath(Staff.department.factory), factory
-                    ),
+                    Staff.factoryPredicate(for: factory),
                     NSPredicate(
                         format: "%K == %@", #keyPath(Staff.department.division_), division
                     )
@@ -67,6 +65,7 @@ struct DivisionView: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: linked entities
     private var plusButton: some View {
         Button {
             //  MARK: NEED TO BE DONE IN A CORRECT WAY
@@ -90,7 +89,6 @@ struct DivisionView: View {
             let stafff = staff[index]
             moc.delete(stafff)
         }
-        
         moc.saveContext()
     }
 }

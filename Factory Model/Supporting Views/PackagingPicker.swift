@@ -70,15 +70,11 @@ fileprivate struct PackagingPickerTable: View {
         _packaging = packaging
         self.product = product
         self.factory = factory
-        _orphans = FetchRequest(
-            entity: Packaging.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "ANY %K = nil", #keyPath(Packaging.products_)
-            )
+        
+        let predicate = NSPredicate(
+            format: "ANY %K = nil", #keyPath(Packaging.products_)
         )
+        _orphans = Packaging.defaultFetchRequest(with: predicate)
     }
     
     @State private var showActionSheet = false
@@ -127,7 +123,7 @@ fileprivate struct PackagingPickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Packaging")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: plusButton)
+            .navigationBarItems(trailing: CreateOrphanButton<Packaging>())
         }
     }
     
@@ -155,7 +151,6 @@ fileprivate struct PackagingPickerTable: View {
         for orphan in orphans {
             moc.delete(orphan)
         }
-        
         moc.saveContext()
     }
     
@@ -164,23 +159,6 @@ fileprivate struct PackagingPickerTable: View {
             let orphan = orphans[index]
             moc.delete(orphan)
         }
-        
         moc.saveContext()
-    }
-    
-    
-    private var plusButton: some View {
-        Button {
-            let packaging = Packaging(context: moc)
-            packaging.name = "New Packaging"
-            //            packaging.addToProducts(product)
-            //            factory.addToPackagings_(packaging)
-            moc.saveContext()
-            //  MARK: FINISH THIS: PROBLEM: VIEW NOT UPDATING!!!
-//            packaging.objectWillChange.send()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
     }
 }

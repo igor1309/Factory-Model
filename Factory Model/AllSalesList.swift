@@ -25,17 +25,14 @@ struct AllSalesList: View {
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
                 NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
             ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Sales.product.base.factory), factory
-            )
+            predicate: Sales.factoryPredicate(for: factory)
         )
         _orphans = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
                 NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
-            ],
-            predicate: nil
+            ]
         )
     }
     
@@ -71,11 +68,11 @@ struct AllSalesList: View {
                 )
             }
             
-            GenericSection("Sales", _sales) { sales in
+            GenericListSection("Sales", _sales) { sales in
                 SalesEditor(sales: sales)
             }
             
-            GenericSection("Orphans", _orphans) { sales in
+            GenericListSection("Orphans", _orphans) { sales in
                 SalesEditor(sales: sales)
             }
             
@@ -96,6 +93,7 @@ struct AllSalesList: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: linked entities
     private var plusButton: some View {
         Button {
             let buyer = Buyer(context: context)

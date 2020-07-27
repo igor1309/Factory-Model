@@ -12,20 +12,13 @@ struct ExpensesList: View {
     
     @FetchRequest private var expenses: FetchedResults<Expenses>
     
-//    @ObservedObject
     var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
-        _expenses = FetchRequest(
-            entity: Expenses.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Expenses.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Expenses.factory), factory
-            )
-        )
+        
+        let predicate = Expenses.factoryPredicate(for: factory)
+        _expenses = Expenses.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
@@ -49,21 +42,7 @@ struct ExpensesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Expenses")
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let expenses = Expenses(context: moc)
-            expenses.name = " ..."
-            expenses.note = "..."
-            expenses.amount = 10_000
-            factory.addToExpenses_(expenses)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: PlusEntityButton<Expenses>(factory: factory))
     }
     
     private func removeExpenses(at offsets: IndexSet) {
@@ -71,13 +50,6 @@ struct ExpensesList: View {
             let expense = expenses[index]
             moc.delete(expense)
         }
-        
         moc.saveContext()
     }
 }
-
-//struct ExpensesList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExpensesList()
-//    }
-//}

@@ -18,27 +18,12 @@ struct ProductList: View {
     
     init(for factory: Factory){
         self.factory = factory
-        _products = FetchRequest(
-            entity: Product.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Product.group_, ascending: true),
-                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Product.base.factory), factory
-            )
+        
+        let predicate = NSPredicate(
+            format: "%K == %@", #keyPath(Product.base.factory), factory
         )
-        _allProducts = FetchRequest(
-            entity: Product.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Product.group_, ascending: true),
-                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
-            ]
-//            ,
-//            predicate: NSPredicate(
-//                format: "%K == %@", #keyPath(Product.base.factory), factory
-//            )
-        )
+        _products = Product.defaultFetchRequest(with: predicate)
+        _allProducts = Product.defaultFetchRequest()
     }
     
     var body: some View {
@@ -87,30 +72,18 @@ struct ProductList: View {
                 .font(.subheadline)
             }
             
-            GenericSection("ALL Products", _allProducts) { product in
+            GenericListSection("ALL Products", _allProducts) { product in
                 ProductView(product: product, factory: factory)
             }
             
-            GenericSection("Products", _products) { product in
+            GenericListSection("Products", _products) { product in
                 ProductView(product: product, factory: factory)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Products")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let product = Product(context: moc)
-            product.name = " New Product"
-//            factory.addToProducts_(product)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: CreateOrphanButton<Product>())
     }
     
     private func removeProduct(at offsets: IndexSet) {
@@ -120,5 +93,4 @@ struct ProductList: View {
         }
         moc.saveContext()
     }
-    
 }

@@ -17,15 +17,11 @@ struct BaseList: View {
     
     init(for factory: Factory) {
         self.factory = factory
-        _bases = FetchRequest(
-            entity: Base.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Base.factory), factory
-            )
+        
+        let predicate = NSPredicate(
+            format: "%K == %@", #keyPath(Base.factory), factory
         )
+        _bases = Base.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
@@ -62,24 +58,13 @@ struct BaseList: View {
                 )
             }
             
-            GenericSection("Base Products", _bases) { base in
+            GenericListSection("Base Products", _bases) { base in
                 BaseView(base)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Bases")
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let base = Base(context: moc)
-            base.name = " New Base"
-            factory.addToBases_(base)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: PlusEntityButton<Base>(factory: factory))
     }
 }
+

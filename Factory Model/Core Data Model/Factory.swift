@@ -231,7 +231,7 @@ extension Factory {
     
     static func fetchRequest(_ predicate: NSPredicate) -> NSFetchRequest<Factory> {
         let request = NSFetchRequest<Factory>(entityName: "Factory")
-        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        request.sortDescriptors = Factory.defaultSortDescriptors
         request.predicate = predicate
         return request
     }

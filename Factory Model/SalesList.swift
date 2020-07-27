@@ -54,6 +54,7 @@ struct SalesList: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: linked entities
     private var plusButton: some View {
         Button {
             let buyer = Buyer(context: moc)
@@ -63,6 +64,7 @@ struct SalesList: View {
             sales.qty = 1_000
             sales.priceExVAT = 300
             sales.buyer = buyer
+            
             product.addToSales_(sales)
             moc.saveContext()
         } label: {
@@ -76,7 +78,6 @@ struct SalesList: View {
             let sale = sales[index]
             moc.delete(sale)
         }
-        
         moc.saveContext()
     }
 }

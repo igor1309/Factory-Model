@@ -11,26 +11,67 @@ import SwiftPI
 struct FactoryView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
-    
-    //    @FetchRequest private var bases: FetchedResults<Base>
-    
+        
     @ObservedObject var factory: Factory
     
     init(_ factory: Factory) {
         self.factory = factory
-        //        _bases = FetchRequest(
-        //            entity: Base.entity(),
-        //            sortDescriptors: [
-        //                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
-        //            ],
-        //            predicate: NSPredicate(
-        //                format: "%K == %@", #keyPath(Base.factory), factory
-        //            )
-        //        )
     }
     
     var body: some View {
         List {
+            Group {
+                NavigationLink(
+                    destination:
+                        List {
+                            GenericListSection(
+                                title: "all feedstocks in DB",
+                                type: Feedstock.self
+                            ) { feedstock in
+                                FeedstockView(feedstock: feedstock)
+                            }
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                ) {
+                    Text("all feedstocks in DB")
+                }
+                
+                NavigationLink(
+                    destination:
+                        List {
+                            GenericListSection(
+                                title: "factory feedstocks",
+                                type: Feedstock.self,
+                                predicate: NSPredicate(
+                                    format: "ANY %K.base.factory == %@", #keyPath(Feedstock.ingredients_), factory
+                                )
+                            ) { feedstock in
+                                FeedstockView(feedstock: feedstock)
+                            }
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                ) {
+                    Text("factory feedstocks")
+                }
+                
+                NavigationLink(
+                    destination:
+                        List {
+                            GenericListSection(
+                                title: "factory feedstocks",
+                                type: Feedstock.self,
+                                predicate: Feedstock.factoryPredicate(for: factory)
+                            ) { feedstock in
+                                FeedstockView(feedstock: feedstock)
+                            }
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                ) {
+                    Text("TBD: NEW: factory feedstocks")
+                }
+            }
+            .font(.subheadline)
+            
             Section(
                 header: Text("Production")
             ) {
@@ -83,19 +124,59 @@ struct FactoryView: View {
             }
             .foregroundColor(.systemOrange)
             
+            
             Section(
                 header: Text("Sales")
             ) {
-                NavigationLink(
-                    destination: AllSalesList(for: factory)
-                ) {
-                    LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                        .foregroundColor(.systemGreen)
+                Group {
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    title: "factory sales",
+                                    type: Sales.self,
+                                    predicate: Sales.factoryPredicate(for: factory)
+                                ) { sales in
+                                    SalesEditor(sales: sales)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                    ) {
+                        Text("factory sales")
+                    }
+                    
+                    NavigationLink(
+                        destination: AllSalesList(for: factory)
+                    ) {
+                        LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                            .foregroundColor(.systemGreen)
+                    }
                 }
                 .font(.subheadline)
             }
             
-            Section(header: Text("Expenses")) {
+            Section(
+                header: Text("Expenses")
+            ) {
+            
+                
+                NavigationLink(
+                    destination:
+                        List {
+                            GenericListSection(
+                                title: "factory staff",
+                                type: Staff.self,
+                                predicate: Staff.factoryPredicate(for: factory)
+                            ) { staff in
+                                StaffView(staff)
+                            }
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                ) {
+                    Text("factory staff")
+                }
+                
+                
                 NavigationLink(
                     destination: StaffList(at: factory)
                 ) {

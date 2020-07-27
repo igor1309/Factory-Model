@@ -11,11 +11,15 @@ import CoreData
 protocol Monikerable where Self: NSManagedObject {
     dynamic var name_: String? { get set }
     var name: String { get set }
+    static var defaultSortDescriptors: [NSSortDescriptor] { get }
 }
 extension Monikerable {
     var name: String {
         get { name_ ?? "Unknown"}
         set { name_ = newValue }
+    }
+    static var defaultSortDescriptors: [NSSortDescriptor] {
+        return [NSSortDescriptor(key: "name_", ascending: true)]
     }
 }
 

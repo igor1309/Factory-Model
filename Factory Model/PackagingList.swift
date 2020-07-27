@@ -14,7 +14,6 @@ struct PackagingList: View {
     @FetchRequest private var orphans: FetchedResults<Packaging>
     @FetchRequest private var allPackagings: FetchedResults<Packaging>
     
-    //    @ObservedObject
     var factory: Factory
     
     init(
@@ -22,35 +21,17 @@ struct PackagingList: View {
     ) {
         self.factory = factory
         
-        _packagings = FetchRequest(
-            entity: Packaging.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(
-                    keyPath: \Packaging.name_, ascending: true
-                )
-            ]
-            ,
-            predicate: NSPredicate(
-                format: "ANY %K.base.factory == %@", #keyPath(Packaging.products_), factory
-            )
-        )
+        let predicate1 = Packaging.factoryPredicate(for: factory)
+        _packagings = Packaging.defaultFetchRequest(with: predicate1)
         
-        _orphans = FetchRequest(
-            entity: Packaging.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
-            ]
-            ,
-            predicate: NSPredicate(
-                format: "ANY %K = nil", #keyPath(Packaging.products_)
-            )
+        let predicate2 = NSPredicate(
+            format: "ANY %K = nil", #keyPath(Packaging.products_)
         )
+        _orphans = Packaging.defaultFetchRequest(with: predicate2)
         
         _allPackagings = FetchRequest(
             entity: Packaging.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Packaging.name_, ascending: true)
-            ]
+            sortDescriptors: Packaging.defaultSortDescriptors
         )
     }
     
@@ -70,16 +51,16 @@ struct PackagingList: View {
                 .foregroundColor(.systemRed)
                 .font(.subheadline)
             
-            GenericSection("All Packagings", _allPackagings) { packaging in
+            GenericListSection("All Packagings", _allPackagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
-            GenericSection("Factory Packagings", _packagings) { packaging in
+            GenericListSection("Factory Packagings", _packagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
             //  MARK: - FINISH THIS NOT UPDATING!!!! (((
-            GenericSection("Orphans", _orphans) { packaging in
+            GenericListSection("Orphans", _orphans) { packaging in
                     PackagingView(packaging: packaging)
             }
         }
@@ -89,7 +70,7 @@ struct PackagingList: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: plusButton)
+        .navigationBarItems(trailing: CreateOrphanButton<Packaging>())
     }
     
     private func list(of packagings: FetchedResults<Packaging>) -> some View {
@@ -99,7 +80,6 @@ struct PackagingList: View {
                 let packaging = packagings[index]
                 moc.delete(packaging)
             }
-            
             moc.saveContext()
         }
         
@@ -111,20 +91,5 @@ struct PackagingList: View {
             }
         }
         .onDelete(perform: remove)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let packaging = Packaging(context: moc)
-            packaging.name = " New Packaging"
-            //            packaging.addToProducts(product)
-            //            factory.addToPackagings_(packaging)
-            packaging.objectWillChange.send()
-            moc.saveContext()
-            //  MARK: FINISH THIS: PROBLEM: VIEW NOT UPDATING!!!
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
     }
 }

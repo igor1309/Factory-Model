@@ -68,19 +68,7 @@ fileprivate struct BasePickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Base")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: plusButton)
-        }
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let base = Base(context: moc)
-            base.name = "New Base"
-            factory.addToBases_(base)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
+            .navigationBarItems(trailing: PlusEntityButton<Base>(factory: factory))
         }
     }
 }

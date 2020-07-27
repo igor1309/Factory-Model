@@ -11,6 +11,13 @@ protocol Summarable {
     var detail: String? { get }
     var icon: String { get }
 }
+extension Summarable where Self: Monikerable {
+    var title: String { name }
+}
+extension Summarable {
+    var subtitle: String { "" }
+    var detail: String? { "" }
+}
 
 extension Base: Summarable {
     var title: String {
@@ -37,29 +44,16 @@ extension Base: Summarable {
 }
 
 extension Buyer: Summarable {
-    var title: String { name }
-    var subtitle: String { "" }
-    var detail: String? { "" }
     var icon: String { "cart.fill" }
 }
 
 extension Department: Summarable {
-    var title: String {
-        name
-    }
-    var subtitle: String {
-        division
-    }
-    var detail: String? {
-        type.rawValue
-    }
-    var icon: String {
-        "person.2.circle"
-    }
+    var subtitle: String { division }
+    var detail: String? { type.rawValue }
+    var icon: String { "person.2.circle" }
 }
 
 extension Equipment: Summarable {
-    var title: String { name }
     var subtitle: String { note }
     
     var detail: String? {
@@ -70,14 +64,12 @@ extension Equipment: Summarable {
 }
 
 extension Expenses: Summarable {
-    var title: String { name }
     var subtitle: String { amount.formattedGrouped }
     var detail: String? { note }
     var icon: String { "dollarsign.circle" }
 }
 
 extension Factory: Summarable {
-    var title: String { name }
     var subtitle: String { note }
     
     var detail: String? {
@@ -87,7 +79,6 @@ extension Factory: Summarable {
 }
 
 extension Feedstock: Summarable {
-    var title: String { name }
     
     var subtitle: String {
         //  MARK: - FINISH THIS
@@ -115,7 +106,6 @@ extension Ingredient: Summarable {
 }
 
 extension Packaging: Summarable {
-    var title: String { name }
     var subtitle: String { type }
     
     var detail: String? {
@@ -168,8 +158,6 @@ extension Product: Summarable {
 }
 
 extension Sales: Summarable {
-    var title: String { name }
-    
     var subtitle: String {
         "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
@@ -179,7 +167,6 @@ extension Sales: Summarable {
 }
 
 extension Staff: Summarable {
-    var title: String { name }
     var subtitle: String { salary.formattedGrouped }
     
     var detail: String? {
@@ -192,7 +179,6 @@ extension Staff: Summarable {
 }
 
 extension Utility: Summarable {
-    var title: String { name }
     var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
     var detail: String? { vat.formattedPercentage }
     var icon: String { "lightbulb" }

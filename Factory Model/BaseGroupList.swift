@@ -18,19 +18,15 @@ struct BaseGroupList: View {
     init(group: String, at factory: Factory) {
         self.factory = factory
         self.group = group
-        _bases = FetchRequest(
-            entity: Base.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Base.name_, ascending: true)
-            ],
-            predicate: NSCompoundPredicate(
-                type: .and,
-                subpredicates: [
-                    NSPredicate(format: "%K == %@", #keyPath(Base.factory), factory),
-                    NSPredicate(format: "%K == %@", #keyPath(Base.group_), group)
-                ]
-            )
+        
+        let predicate = NSCompoundPredicate(
+            type: .and,
+            subpredicates: [
+                NSPredicate(format: "%K == %@", #keyPath(Base.factory), factory),
+                NSPredicate(format: "%K == %@", #keyPath(Base.group_), group)
+            ]
         )
+        _bases = Base.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
@@ -62,6 +58,7 @@ struct BaseGroupList: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: base.group = group
     private var plusButton: some View {
         Button {
             let base = Base(context: moc)
@@ -82,7 +79,6 @@ struct BaseGroupList: View {
             let base = bases[index]
             moc.delete(base)
         }
-        
         moc.saveContext()
     }
 }

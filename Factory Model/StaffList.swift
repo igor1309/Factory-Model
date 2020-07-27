@@ -22,9 +22,7 @@ struct StaffList: View {
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
             ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Staff.department.factory), factory
-            )
+            predicate: Staff.factoryPredicate(for: factory)
         )
     }
     
@@ -72,6 +70,7 @@ struct StaffList: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: linked entities
     private var plusButton: some View {
         Button {
             let staff = Staff(context: moc)
@@ -97,7 +96,6 @@ struct StaffList: View {
             let stafff = staff[index]
             moc.delete(stafff)
         }
-        
         moc.saveContext()
     }
 }

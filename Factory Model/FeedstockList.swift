@@ -12,24 +12,15 @@ struct FeedstockList: View {
     
     @FetchRequest private var feedstocks: FetchedResults<Feedstock>
     
-    //    var factory: Factory
-    //    let division: String
-//    @ObservedObject
     var base: Base
     
     init(for base: Base) {
         self.base = base
-        //        self.factory = factory
-        //        self.division = division
-        _feedstocks = FetchRequest(
-            entity: Feedstock.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Feedstock.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K.base == %@", #keyPath(Feedstock.ingredients_), base
-            )
+        
+        let predicate = NSPredicate(
+            format: "%K.base == %@", #keyPath(Feedstock.ingredients_), base
         )
+        _feedstocks = Feedstock.defaultFetchRequest(with: predicate)
     }
     
     
@@ -42,7 +33,7 @@ struct FeedstockList: View {
                 )
             }
             
-            GenericSection("Feedstocks", _feedstocks) { feedstock in
+            GenericListSection("Feedstocks", _feedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
@@ -69,24 +60,7 @@ struct FeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let feedstock = Feedstock(context: moc)
-            //feedstock.name = "New Feedstock"
-            //feedstock.note = "Some note regarding new feedstock"
-            //                    feedstock.division = division
-            //feedstock.department = "..."
-            //feedstock.position = "Worker"
-            feedstock.name = " ..."
-//            base.addToFeedstocks_(feedstock)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
     }
     
     private func removeFeedstock(at offsets: IndexSet) {
@@ -94,7 +68,6 @@ struct FeedstockList: View {
             let feedstockf = feedstocks[index]
             moc.delete(feedstockf)
         }
-        
         moc.saveContext()
     }
 }

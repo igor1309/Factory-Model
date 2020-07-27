@@ -18,15 +18,12 @@ struct BaseView: View {
 
     init(_ base: Base) {
         self.base = base
-        _products = FetchRequest(
-            entity: Product.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Product.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Product.base), base
-            )
+        
+        let predicate = NSPredicate(
+            format: "%K == %@", #keyPath(Product.base), base
         )
+        _products = Product.defaultFetchRequest(with: predicate)
+        
         _ingredients = FetchRequest(
             entity: Ingredient.entity(),
             sortDescriptors: [
@@ -50,7 +47,7 @@ struct BaseView: View {
                 }
             }
             
-            GenericSection("Ingredients", _ingredients) { ingredient in
+            GenericListSection("Ingredients", _ingredients) { ingredient in
                 IngredientView(ingredient: ingredient)
             }
             
@@ -122,6 +119,7 @@ struct BaseView: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: addToIngredients_
     private var plusButton: some View {
         Button {
             let ingredient = Ingredient(context: moc)

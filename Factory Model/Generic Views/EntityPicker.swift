@@ -51,7 +51,7 @@ struct EntityPickerList<T: PickableEntity>: View {
         self._selection = selection
         _entities = FetchRequest(
             entity: T.entity(),
-            sortDescriptors: [],
+            sortDescriptors: T.defaultSortDescriptors,
             predicate: predicate
         )
     }

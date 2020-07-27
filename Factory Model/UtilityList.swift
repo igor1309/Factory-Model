@@ -12,21 +12,11 @@ struct UtilityList: View {
     
     @FetchRequest private var utilities: FetchedResults<Utility>
     
-//    @ObservedObject
     var base: Base
     
-    init(for base: Base) {
+    init(for base: Base, predicate: NSPredicate? = nil) {
         self.base = base
-        _utilities = FetchRequest(
-            entity: Utility.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Utility.name_, ascending: true),
-                NSSortDescriptor(keyPath: \Utility.priceExVAT, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Utility.base), base
-            )
-        )
+        _utilities = Utility.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
@@ -56,6 +46,7 @@ struct UtilityList: View {
         .navigationBarItems(trailing: plusButton)
     }
     
+    //  MARK: - can't replace with PlusEntityButton: addToUtilities_
     private var plusButton: some View {
         Button {
             let utility = Utility(context: moc)
@@ -74,7 +65,6 @@ struct UtilityList: View {
             let util = utilities[index]
             moc.delete(util)
         }
-        
         moc.saveContext()
     }
 }

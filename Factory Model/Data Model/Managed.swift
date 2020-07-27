@@ -5,12 +5,15 @@
 //  Created by Igor Malyarov on 27.07.2020.
 //
 
-import Foundation
+import SwiftUI
 import CoreData
 
 /// https://stackoverflow.com/a/51197659
 protocol Managed: class, NSFetchRequestResult {
+    associatedtype ManagedType: NSManagedObject = Self
+    
     static var entityName: String { get }
+    static func defaultFetchRequest(with predicate: NSPredicate?) -> FetchRequest<ManagedType>
 }
 extension Managed where Self: NSManagedObject {
     static var entityName: String { return entity().name! }
@@ -27,6 +30,18 @@ extension Managed where Self: NSManagedObject {
         return unsafeDowncast(object, to: self)
     }
 }
+
+/// https://stackoverflow.com/a/46038865
+extension Managed where Self: Monikerable, ManagedType == Self {
+    static func defaultFetchRequest(with predicate: NSPredicate? = nil) -> FetchRequest<Self> {
+        let request = NSFetchRequest<ManagedType>(entityName: ManagedType.entityName)
+        request.sortDescriptors = defaultSortDescriptors
+        request.predicate = predicate
+        return FetchRequest(fetchRequest: request)
+    }
+}
+
+
 
 extension Base: Managed {}
 extension Buyer: Managed {}

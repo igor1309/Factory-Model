@@ -71,16 +71,7 @@ fileprivate struct FeedstockPickerTable: View {
     
     init(feedstock: Binding<Feedstock?>) {
         _feedstock = feedstock
-        
-        _feedstocks = FetchRequest(
-            entity: Feedstock.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(
-                    keyPath: \Feedstock.name_, ascending: true
-                )
-            ],
-            predicate: nil
-        )
+        _feedstocks = Feedstock.defaultFetchRequest()
     }
     
     @State private var showEditor = false
@@ -121,19 +112,7 @@ fileprivate struct FeedstockPickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Feedstock")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: plusButton)
-        }
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let feedstock = Feedstock(context: moc)
-            feedstock.name = " New Feedstock"
-            //            factory.addToFeedstocks_(feedstock)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
+            .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
         }
     }
 }

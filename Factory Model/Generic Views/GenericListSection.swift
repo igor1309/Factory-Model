@@ -8,7 +8,9 @@
 import SwiftUI
 import CoreData
 
-struct GenericSection<T: NSManagedObject & Summarable & Validatable, Editor: View>: View {
+typealias Listable = Monikerable & Summarable & Validatable
+
+struct GenericListSection<T: Listable, Editor: View>: View {
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
@@ -26,6 +28,21 @@ struct GenericSection<T: NSManagedObject & Summarable & Validatable, Editor: Vie
         self.editor = editor
     }
     
+    init(
+        title: String = "",
+        type: T.Type,
+        predicate: NSPredicate? = nil,
+        @ViewBuilder editor: @escaping (T) -> Editor
+    ) {
+        self.title = title
+        self.editor = editor
+        _fetchRequest = FetchRequest(
+            entity: T.entity(),
+            sortDescriptors: T.defaultSortDescriptors,
+            predicate: predicate
+        )
+    }
+    
     @State private var showDeleteAction = false
     
     var body: some View {
@@ -34,6 +51,8 @@ struct GenericSection<T: NSManagedObject & Summarable & Validatable, Editor: Vie
         ) {
             if fetchRequest.isEmpty {
                 Text("No data to list")
+                    .foregroundColor(.systemTeal)
+                    .font(.subheadline)
             } else {
                 ForEach(fetchRequest, id: \.objectID) { item in
                     NavigationLink(

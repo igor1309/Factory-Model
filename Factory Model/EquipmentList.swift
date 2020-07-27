@@ -12,20 +12,13 @@ struct EquipmentList: View {
     
     @FetchRequest private var equipments: FetchedResults<Equipment>
     
-//    @ObservedObject
     var factory: Factory
     
     init(at factory: Factory) {
         self.factory = factory
-        _equipments = FetchRequest(
-            entity: Equipment.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Equipment.name_, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Equipment.factory), factory
-            )
-        )
+        
+        let predicate = Equipment.factoryPredicate(for: factory)
+        _equipments = Equipment.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
@@ -59,21 +52,7 @@ struct EquipmentList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Equipment")
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let equipment = Equipment(context: moc)
-            equipment.name = "New Equipment"
-            equipment.lifetime = 7
-            equipment.price = 1_000_000
-            factory.addToEquipments_(equipment)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: PlusEntityButton<Equipment>(factory: factory))
     }
     
     private func removeEquipment(at offsets: IndexSet) {
@@ -81,13 +60,6 @@ struct EquipmentList: View {
             let expense = equipments[index]
             moc.delete(expense)
         }
-        
         moc.saveContext()
     }
 }
-
-//struct EquipmentList_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EquipmentList()
-//    }
-//}

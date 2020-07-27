@@ -39,7 +39,7 @@
 		2A8113CD24CEBFA600886C90 /* Monikerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8113CC24CEBFA600886C90 /* Monikerable.swift */; };
 		2A8113CF24CEC3A500886C90 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8113CE24CEC3A500886C90 /* Managed.swift */; };
 		2A81582B24CDB09A003A95C0 /* LabelWithDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A81582A24CDB09A003A95C0 /* LabelWithDetailView.swift */; };
-		2A81582D24CDB0E3003A95C0 /* GenericList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A81582C24CDB0E3003A95C0 /* GenericList.swift */; };
+		2A81582D24CDB0E3003A95C0 /* GenericListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */; };
 		2A85734124C5CFB3009FF51A /* Equipment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734024C5CFB3009FF51A /* Equipment.swift */; };
 		2A85734324C5D853009FF51A /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734224C5D853009FF51A /* Expenses.swift */; };
 		2A85734524C5D8B2009FF51A /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734424C5D8B2009FF51A /* Staff.swift */; };
@@ -73,6 +73,10 @@
 		2AC0B51524CB128100175819 /* ProductEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC0B51424CB128100175819 /* ProductEditor.swift */; };
 		2AC7952524C76E7500018817 /* StaffList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC7952424C76E7500018817 /* StaffList.swift */; };
 		2AF48D7224CA39A40009B672 /* BaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF48D7124CA39A40009B672 /* BaseUI.swift */; };
+		2AF8B0ED24CF1495005035FD /* FactoryTracable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */; };
+		2AF8EC8D24CF4FB200EDA2AE /* CreateOrphanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC8C24CF4FB200EDA2AE /* CreateOrphanButton.swift */; };
+		2AF8EC8F24CF5A5400EDA2AE /* PlusEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC8E24CF5A5400EDA2AE /* PlusEntityButton.swift */; };
+		2AF8EC9124CF5A8000EDA2AE /* Samplable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC9024CF5A8000EDA2AE /* Samplable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,7 +111,7 @@
 		2A8113CC24CEBFA600886C90 /* Monikerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monikerable.swift; sourceTree = "<group>"; };
 		2A8113CE24CEC3A500886C90 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		2A81582A24CDB09A003A95C0 /* LabelWithDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithDetailView.swift; sourceTree = "<group>"; };
-		2A81582C24CDB0E3003A95C0 /* GenericList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericList.swift; sourceTree = "<group>"; };
+		2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericListSection.swift; sourceTree = "<group>"; };
 		2A85734024C5CFB3009FF51A /* Equipment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Equipment.swift; sourceTree = "<group>"; };
 		2A85734224C5D853009FF51A /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		2A85734424C5D8B2009FF51A /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -144,6 +148,10 @@
 		2AC0B51424CB128100175819 /* ProductEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditor.swift; sourceTree = "<group>"; };
 		2AC7952424C76E7500018817 /* StaffList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaffList.swift; sourceTree = "<group>"; };
 		2AF48D7124CA39A40009B672 /* BaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUI.swift; sourceTree = "<group>"; };
+		2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryTracable.swift; sourceTree = "<group>"; };
+		2AF8EC8C24CF4FB200EDA2AE /* CreateOrphanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrphanButton.swift; sourceTree = "<group>"; };
+		2AF8EC8E24CF5A5400EDA2AE /* PlusEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusEntityButton.swift; sourceTree = "<group>"; };
+		2AF8EC9024CF5A8000EDA2AE /* Samplable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samplable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,11 +190,8 @@
 		2A30470F24C82FEE0002E5DD /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
-				2A85734824C5FDB1009FF51A /* ListRow.swift */,
 				2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */,
 				2A81582A24CDB09A003A95C0 /* LabelWithDetailView.swift */,
-				2A81582C24CDB0E3003A95C0 /* GenericList.swift */,
-				2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */,
 				2A30470824C7995B0002E5DD /* QtyPicker.swift */,
 				2A30471624C89C5F0002E5DD /* BasePicker.swift */,
 				2A31654724CCD1E400AF68A1 /* PackagingPicker.swift */,
@@ -201,9 +206,11 @@
 			children = (
 				2A30471424C87AB90002E5DD /* Something.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
+				2AF8EC9024CF5A8000EDA2AE /* Samplable.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A13E4D024C9EF5F00016CBC /* Summarable.swift */,
 				2A024CF524CD9419001A4B5C /* Validatable.swift */,
+				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 				2AADA09B24C4F4A8005F1E9F /* ContentView.swift */,
 				2A31654624CC6E4000AF68A1 /* WORK IN PROGRESS */,
 				2A30470F24C82FEE0002E5DD /* Supporting Views */,
+				2AF8EC8B24CF4F9B00EDA2AE /* Generic Views */,
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A02DF1D24CB066F00A6E35A /* ProductList.swift */,
@@ -294,6 +302,18 @@
 				2AADA0A024C4F4A9005F1E9F /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2AF8EC8B24CF4F9B00EDA2AE /* Generic Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A85734824C5FDB1009FF51A /* ListRow.swift */,
+				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
+				2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */,
+				2AF8EC8C24CF4FB200EDA2AE /* CreateOrphanButton.swift */,
+				2AF8EC8E24CF5A5400EDA2AE /* PlusEntityButton.swift */,
+			);
+			path = "Generic Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -388,6 +408,7 @@
 				2A936E7124C71EB800C34381 /* EquipmentList.swift in Sources */,
 				2A024CF624CD9419001A4B5C /* Validatable.swift in Sources */,
 				2A936E5524C6D5C200C34381 /* Feedstock.swift in Sources */,
+				2AF8EC9124CF5A8000EDA2AE /* Samplable.swift in Sources */,
 				2A30470524C77C3A0002E5DD /* AllSalesList.swift in Sources */,
 				2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */,
 				2A02DF1C24CAF30D00A6E35A /* ProductView.swift in Sources */,
@@ -407,8 +428,10 @@
 				2A85734524C5D8B2009FF51A /* Staff.swift in Sources */,
 				2A74038A24C8CB8200BA7999 /* test.swift in Sources */,
 				2A68121B24CD844000CBDD66 /* PackagingView.swift in Sources */,
+				2AF8EC8F24CF5A5400EDA2AE /* PlusEntityButton.swift in Sources */,
 				2A936E5724C6DB7500C34381 /* Product.swift in Sources */,
 				2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */,
+				2AF8B0ED24CF1495005035FD /* FactoryTracable.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
 				2A30471324C8734F0002E5DD /* AllFeedstockListTESTING.swift in Sources */,
 				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
@@ -424,6 +447,7 @@
 				2A30471524C87AB90002E5DD /* Something.swift in Sources */,
 				2AC7952524C76E7500018817 /* StaffList.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
+				2AF8EC8D24CF4FB200EDA2AE /* CreateOrphanButton.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
@@ -431,7 +455,7 @@
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,
 				2A8113CB24CEB4FA00886C90 /* EntityPicker.swift in Sources */,
 				2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */,
-				2A81582D24CDB0E3003A95C0 /* GenericList.swift in Sources */,
+				2A81582D24CDB0E3003A95C0 /* GenericListSection.swift in Sources */,
 				2A2F4BD224C5A84600B2F8D9 /* Base.swift in Sources */,
 				2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */,
 			);
