@@ -10,45 +10,14 @@ import SwiftUI
 struct FactoryList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest(
-        entity: Factory.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(keyPath: \Factory.name_, ascending: true),
-        ]
-    ) private var factories: FetchedResults<Factory>
-    
     @State private var showDeleteAction = false
     
     var body: some View {
         NavigationView {
             List {
-                //  MARK: FINISH THIS: CHANGE TO GENERIC
-                ForEach(factories, id: \.objectID) { factory in
-                    NavigationLink(
-                        destination: FactoryView(factory)
-                    ) {
-                        ListRow(factory, useSmallerFont: false)
-                            .contextMenu {
-                                Button {
-                                    showDeleteAction = true
-                                } label: {
-                                    Image(systemName: "trash.circle")
-                                    Text("Delete")
-                                }
-                            }
-                            .actionSheet(isPresented: $showDeleteAction) {
-                                ActionSheet(
-                                    title: Text("Delete?".uppercased()),
-                                    message: Text("Do you really want to delete '\(factory.name)'?\nThis cannot be undone."),
-                                    buttons: [
-                                        .destructive(Text("Yes, delete")) { delete(factory) },
-                                        .cancel()
-                                    ]
-                                )
-                            }
-                    }
+                GenericListSection("Factories", type: Factory.self) { factory in
+                    FactoryView(factory )
                 }
-                .onDelete(perform: removeFactories)
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Factories")
@@ -59,20 +28,6 @@ struct FactoryList: View {
                 }
             )
         }
-    }
-    
-    private func removeFactories(at offsets: IndexSet) {
-        for index in offsets {
-            let factory = factories[index]
-            moc.delete(factory)
-        }
-        
-        moc.saveContext()
-    }
-    
-    private func delete(_ factory: Factory) {
-        moc.delete(factory)
-        moc.saveContext()
     }
     
     private var plusButton: some View {
@@ -151,7 +106,7 @@ struct FactoryList: View {
             ingredient8.feedstock = water
             
             //  MARK: - Base Product 1_1
-
+            
             let base1_1 = Base(context: moc)
             base1_1.name = "Сулугуни"
             base1_1.note = "Первый продукт"
@@ -185,7 +140,7 @@ struct FactoryList: View {
             sales1_1.qty = 1_000
             sales1_1.product = product1_1
             sales1_1.buyer = buyer1_1
-
+            
             //  MARK: - Utility
             
             let utility1 = Utility(context: moc)
@@ -217,7 +172,7 @@ struct FactoryList: View {
             base2.group = "Сыры"
             base2.addToIngredients_(ingredient21)
             base2.factory = factory1
-
+            
             let base3 = Base(context: moc)
             base3.name = "Творог"
             base3.code = "2001"
