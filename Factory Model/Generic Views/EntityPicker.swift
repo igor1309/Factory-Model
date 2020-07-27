@@ -8,6 +8,8 @@
 import SwiftUI
 import CoreData
 
+typealias PickableEntity = Managed & Monikerable & Summarable & Validatable //& NSManagedObject
+
 struct EntityPicker<T: PickableEntity>: View {
     @Environment(\.managedObjectContext) var context
     
@@ -28,32 +30,25 @@ struct EntityPicker<T: PickableEntity>: View {
             }
         }
         .sheet(isPresented: $showList) {
-            EntityPickerTable(selection: $selection, predicate: predicate)
+            EntityPickerList(selection: $selection, predicate: predicate)
                 .environment(\.managedObjectContext, context)
         }
     }
 }
 
-typealias PickableEntity = Managed & Monikerable & Summarable & Validatable //& NSManagedObject
-
-struct EntityPickerTable<T: PickableEntity>: View {
+struct EntityPickerList<T: PickableEntity>: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.presentationMode) var presentation
     
     @Binding var selection: T?
-//    var context: NSManagedObjectContext
-    var predicate: NSPredicate?
     
     @FetchRequest private var entities: FetchedResults<T>
     
     init(
         selection: Binding<T?>,
-//        context: NSManagedObjectContext,
         predicate: NSPredicate?
     ) {
         self._selection = selection
-//        self.context = context
-        self.predicate = predicate
         _entities = FetchRequest(
             entity: T.entity(),
             sortDescriptors: [],
@@ -66,7 +61,7 @@ struct EntityPickerTable<T: PickableEntity>: View {
             List {
                 ForEach(entities, id: \.objectID) { entity in
                     Button {
-                        self.selection = entity
+                        selection = entity
                         presentation.wrappedValue.dismiss()
                     } label: {
                         ListRow(entity)
@@ -76,18 +71,8 @@ struct EntityPickerTable<T: PickableEntity>: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(T.entityName)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: plusButton)
-        }
-    }
-    
-    private var plusButton: some View {
-        Button {
-            let entity = T.create(in: context)
-            entity.name = " New"
-            context.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
+            .navigationBarItems(trailing: CreateOrphanButton<T>())
         }
     }
 }
+
