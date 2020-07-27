@@ -30,6 +30,9 @@ struct FeedstockView: View {
                 .font(.subheadline)
             }
         }
+        .onDisappear {
+            moc.saveContext()
+        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(feedstock.name)
         .navigationBarItems(trailing: saveButton)

@@ -17,5 +17,6 @@ extension Validatable where Self: Summarable {
 
 extension Base: Validatable {}
 extension Feedstock: Validatable {}
+extension Ingredient: Validatable {}
 extension Packaging: Validatable {}
 extension Product: Validatable {}

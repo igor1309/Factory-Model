@@ -167,9 +167,9 @@ struct FactoryView: View {
                     }
                     
                     NavigationLink(
-                        destination: Text("Baseion TBD")
+                        destination: Text("Production TBD")
                     ) {
-                        LabelWithDetail("bag.fill.badge.plus", "Baseion", "TBD")
+                        LabelWithDetail("bag.fill.badge.plus", "Production", "TBD")
                     }
                     
                     NavigationLink(

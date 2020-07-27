@@ -96,13 +96,72 @@ struct FactoryList: View {
             factory1.name = "Сыроварня"
             factory1.note = "Тестовый проект"
             
-            let base1_1 = createBase1_1()
+            //  MARK: - Feedstocks @ Factory 1
+            
+            let milk = Feedstock(context: moc)
+            milk.name = "Молоко натуральное"
+            milk.priceExVAT = 30.0
+            
+            let dryMilk = Feedstock(context: moc)
+            dryMilk.name = "Сухое молоко"
+            dryMilk.priceExVAT = 70
+            
+            let calciumChloride = Feedstock(context: moc)
+            calciumChloride.name = "Хлористый кальций"
+            
+            let bacterialRefueling = Feedstock(context: moc)
+            bacterialRefueling.name = "Бактериальная заправка"
+            
+            let rennetFilling = Feedstock(context: moc)
+            rennetFilling.name = "Сычужная заправка (?)"
+            rennetFilling.priceExVAT = 8000
+            
+            let pepsin = Feedstock(context: moc)
+            pepsin.name = "Пепсин"
+            
+            let salt = Feedstock(context: moc)
+            salt.name = "Соль"
+            salt.priceExVAT = 20
+            
+            let water = Feedstock(context: moc)
+            water.name = "Вода"
+            water.priceExVAT = 1
+            
+            //  MARK: - Ingredients for Base Product 1
+            
+            let ingredient1 = Ingredient(context: moc)
+            ingredient1.qty = 1
+            ingredient1.feedstock = milk
+            
+            let ingredient2 = Ingredient(context: moc)
+            ingredient2.qty = 1
+            ingredient2.feedstock = dryMilk
+            
+            let ingredient5 = Ingredient(context: moc)
+            ingredient5.qty = 0.5 / 1000
+            ingredient5.feedstock = rennetFilling
+            
+            let ingredient7 = Ingredient(context: moc)
+            ingredient7.qty = 1.5
+            ingredient7.feedstock = salt
+            
+            let ingredient8 = Ingredient(context: moc)
+            ingredient8.qty = 1
+            ingredient8.feedstock = water
+            
+            //  MARK: - Base Product 1_1
+
+            let base1_1 = Base(context: moc)
+            base1_1.name = "Сулугуни"
+            base1_1.note = "Первый продукт"
+            base1_1.code = "1001"
+            base1_1.group = "Сыры"
+            base1_1.unit = .weight
+            base1_1.weightNetto = 1_000
+            base1_1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
             base1_1.factory = factory1
             
-            let sales1_1 = Sales(context: moc)
-            sales1_1.buyer = "Speelo Group"
-            sales1_1.priceExVAT = 300
-            sales1_1.qty = 1_000
+            //  MARK: - Product 1_1
             
             let product1_1 = Product(context: moc)
             product1_1.code = "У001"
@@ -112,18 +171,25 @@ struct FactoryList: View {
             product1_1.base = base1_1
             product1_1.group = "Ведёрко"
             product1_1.vat = 10/100
-            
-            product1_1.addToSales_(sales1_1)
-            
-            //            factory1.addToBases_(base1_1)
-            
             product1_1.productionQty = 3_000
+            
+            //  MARK: - Sales 1_1
+            
+            let sales1_1 = Sales(context: moc)
+            sales1_1.buyer = "Speelo Group"
+            sales1_1.priceExVAT = 300
+            sales1_1.qty = 1_000
+            sales1_1.product = product1_1
+
+            //  MARK: - Utility
             
             let utility1 = Utility(context: moc)
             utility1.name = "Электроэнергия"
             utility1.priceExVAT = 10
             
             base1_1.utilities = [utility1]
+            
+            //  MARK: - Product 1_2
             
             let product1_2 = Product(context: moc)
             product1_2.code = "У002"
@@ -134,11 +200,19 @@ struct FactoryList: View {
             product1_2.group = "Вакуум"
             product1_2.vat = 10/100
             
-            //            factory1.addToProducts_(product1_2)
+            //  MARK: - Base 2
+            let ingredient21 = Ingredient(context: moc)
+            ingredient21.qty = 2
+            ingredient21.feedstock = water
             
-            let base2 = createBase1_2()
+            
+            let base2 = Base(context: moc)
+            base2.name = "Имеретинский"
+            base2.code = "1002"
+            base2.group = "Сыры"
+            base2.addToIngredients_(ingredient21)
             base2.factory = factory1
-            
+
             let base3 = Base(context: moc)
             base3.name = "Творог"
             base3.code = "2001"
@@ -169,10 +243,10 @@ struct FactoryList: View {
             let base2_1 = createBase2_1()
             base2_1.factory = factory2
             
-            let sales2_1_1 = Sales(context: moc)
-            sales2_1_1.buyer = "METRO"
-            sales2_1_1.qty = 1_000
-            sales2_1_1.priceExVAT = 230
+            let metro = Sales(context: moc)
+            metro.buyer = "METRO"
+            metro.qty = 1_000
+            metro.priceExVAT = 230
             
             let product2_1 = Product(context: moc)
             product2_1.name = "Настоящие"
@@ -180,98 +254,14 @@ struct FactoryList: View {
             product2_1.group = "Контейнер"
             product2_1.vat = 10/100
             
-            product2_1.sales = [sales2_1_1]
+            product2_1.sales = [metro]
             product2_1.base = base2_1
-            
-            //            factory2.addToProducts_(product2_1)
             
             moc.saveContext()
         } label: {
             Image(systemName: "plus.square")
                 .padding([.leading, .vertical])
         }
-    }
-    
-    private func createBase1_1() -> Base {
-        let base1 = Base(context: moc)
-        base1.name = "Сулугуни"
-        base1.note = "Первый продукт"
-        base1.code = "1001"
-        base1.group = "Сыры"
-        base1.unit = .weight
-        base1.weightNetto = 1_000
-        
-        let feedstock1 = Feedstock(context: moc)
-        feedstock1.name = "Молоко натуральное"
-        feedstock1.priceExVAT = 30.0
-        
-        let ingredient1 = Ingredient(context: moc)
-        ingredient1.qty = 1
-        ingredient1.feedstock = feedstock1
-        
-        let feedstock2 = Feedstock(context: moc)
-        feedstock2.name = "Сухое молоко"
-        feedstock2.priceExVAT = 70
-        
-        let ingredient2 = Ingredient(context: moc)
-        ingredient2.qty = 1
-        ingredient2.feedstock = feedstock2
-        
-        let feedstock3 = Feedstock(context: moc)
-        feedstock3.name = "Хлористый кальций"
-        
-        let feedstock4 = Feedstock(context: moc)
-        feedstock4.name = "Бактериальная заправка"
-        
-        let feedstock5 = Feedstock(context: moc)
-        feedstock5.name = "Сычужная заправка (?)"
-        feedstock5.priceExVAT = 8000
-        
-        let ingredient5 = Ingredient(context: moc)
-        ingredient5.qty = 0.5 / 1000
-        ingredient5.feedstock = feedstock5
-        
-        let feedstock6 = Feedstock(context: moc)
-        feedstock6.name = "Пепсин"
-        
-        let feedstock7 = Feedstock(context: moc)
-        feedstock7.name = "Соль"
-        feedstock7.priceExVAT = 20
-        
-        let ingredient7 = Ingredient(context: moc)
-        ingredient7.qty = 1.5
-        ingredient7.feedstock = feedstock7
-        
-        let feedstock8 = Feedstock(context: moc)
-        feedstock8.name = "Вода"
-        feedstock8.priceExVAT = 1
-        
-        let ingredient8 = Ingredient(context: moc)
-        ingredient8.qty = 1
-        ingredient8.feedstock = feedstock8
-        
-        base1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
-        
-        return base1
-    }
-    
-    private func createBase1_2() -> Base {
-        let base2 = Base(context: moc)
-        base2.name = "Имеретинский"
-        base2.code = "1002"
-        base2.group = "Сыры"
-        
-        let feedstock21 = Feedstock(context: moc)
-        feedstock21.name = "Вода"
-        feedstock21.priceExVAT = 1
-        
-        let ingredient21 = Ingredient(context: moc)
-        ingredient21.qty = 2
-        ingredient21.feedstock = feedstock21
-        
-        base2.ingredients = [ingredient21]
-        
-        return base2
     }
     
     private func createDepartments1() -> [Department] {

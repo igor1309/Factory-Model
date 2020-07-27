@@ -27,21 +27,6 @@ extension Department: Summarable {
     }
 }
 
-extension Factory: Summarable {
-    var title: String {
-        name
-    }
-    var subtitle: String {
-        note
-    }
-    var detail: String? {
-        "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
-    }
-    var icon: String {
-        "building.2"
-    }
-}
-
 extension Equipment: Summarable {
     var title: String { name }
     var subtitle: String { note }
@@ -60,27 +45,47 @@ extension Expenses: Summarable {
     var icon: String { "dollarsign.circle" }
 }
 
+extension Factory: Summarable {
+    var title: String { name }
+    var subtitle: String { note }
+    
+    var detail: String? {
+        "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
+    }
+    var icon: String { "building.2" }
+}
+
 extension Feedstock: Summarable {
     var title: String { name }
     
     var subtitle: String {
         //  MARK: - FINISH THIS
-//        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
-        "\(priceExVAT)"
+        //        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
+        "Price \(priceExVAT), VAT \(vat.formattedPercentage)"
     }
     
     var detail: String? { nil }
     var icon: String { "puzzlepiece" }
 }
 
-extension Packaging: Summarable {
-    var title: String {
-        name
+extension Ingredient: Summarable {
+    var title: String { feedstock?.name ?? "Error: no feedstock" }
+    var subtitle: String {
+        qty.formattedGrouped + " @ "
+            + (feedstock == nil ? 0: feedstock!.priceExVAT).formattedGrouped
+            + " = " + cost.formattedGrouped
     }
     
-    var subtitle: String {
-        type
+    var detail: String? {
+        qty >= 0 ? "" : "ERROR: negative Qty!"
     }
+    
+    var icon: String { "puzzlepiece.fill" }
+}
+
+extension Packaging: Summarable {
+    var title: String { name }
+    var subtitle: String { type }
     
     var detail: String? {
         if products_ == nil || products.isEmpty {
@@ -89,9 +94,7 @@ extension Packaging: Summarable {
         return products.map { $0.title }.joined(separator: ", ")
     }
     
-    var icon: String {
-        "shippingbox"
-    }
+    var icon: String { "shippingbox" }
 }
 
 extension Product: Summarable {
@@ -150,7 +153,7 @@ extension Base: Summarable {
         if revenueExVAT > 0 {
             return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
         } else {
-            return "Baseion \(productionQty.formattedGrouped)"
+            return "Production \(productionQty.formattedGrouped)"
         }
     }
     

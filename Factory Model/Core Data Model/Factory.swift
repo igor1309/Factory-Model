@@ -223,6 +223,25 @@ extension Factory {
             .reduce(0) { $0 + $1.totalCostExVAT }
     }
     
+    //  as in Stanford CS193p Lecture #12
+    static func withName(_ name: String, context: NSManagedObjectContext) -> Factory? {
+        // look up in Core Data
+        let request = fetchRequest(
+            NSPredicate(format: "name_ = %@", name)
+        )
+        let factories = (try? context.fetch(request)) ?? []
+        return factories.first
+    }
+    
+    static func fetchRequest(_ predicate: NSPredicate) -> NSFetchRequest<Factory> {
+        let request = NSFetchRequest<Factory>(entityName: "Factory")
+        request.sortDescriptors = [NSSortDescriptor(key: "name_", ascending: true)]
+        request.predicate = predicate
+        return request
+    }
+    
+
+    
 //    func feedstocksByGroups() -> [Something] {
 //        
 //        let feedstocksByGroups = Dictionary(grouping: feedstocks) { $0.name }

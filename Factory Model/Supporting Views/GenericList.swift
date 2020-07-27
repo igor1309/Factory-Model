@@ -63,7 +63,9 @@ struct GenericSection<T: NSManagedObject & Summarable & Validatable, Editor: Vie
         }
         //  MARK: - FINISH THIS удаление не-сиротских объектов лучше не допускать без подтверждения
         //        .onDelete(perform: remove)
-        .onDisappear { moc.saveContext() }
+        .onDisappear {
+            moc.saveContext()
+        }
     }
     
     private func delete(_ item: T) {

@@ -9,12 +9,13 @@ import SwiftUI
 
 struct BaseView: View {
     @Environment(\.managedObjectContext) var moc
-    @Environment(\.presentationMode) var presentation
+//    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
     
     @FetchRequest private var products: FetchedResults<Product>
-    
+    @FetchRequest private var ingredients: FetchedResults<Ingredient>
+
     init(_ base: Base) {
         self.base = base
         _products = FetchRequest(
@@ -26,24 +27,46 @@ struct BaseView: View {
                 format: "%K == %@", #keyPath(Product.base), base
             )
         )
+        _ingredients = FetchRequest(
+            entity: Ingredient.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Ingredient.qty, ascending: true)
+            ],
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Ingredient.base), base
+            )
+        )
     }
     
     var body: some View {
         List {
-            Section(header: Text("Base")) {
+            Section(
+                header: Text("Base")
+            ) {
+                NavigationLink(
+                    destination: BaseEditor(base)
+                ) {
+                    Text(base.title)
+                }
+            }
+            
+            GenericSection("Ingredients", _ingredients) { ingredient in
+                IngredientView(ingredient: ingredient)
+            }
+            
+            LabelWithDetail("puzzlepiece.fill", "Total Ingredient Cost", base.costExVAT.formattedGrouped)
+                .font(.subheadline)
+            
+            Section(
+                header: Text("Base")
+            ) {
                 Group {
-                    NavigationLink(
-                        destination: BaseEditor(base)
-                    ) {
-                        Text(base.title)
-                    }
-                    
                     if base.closingInventory < 0 {
-                        Text("Negative Closing Inventory - check Baseion and Sales Qty!")
+                        Text("Negative Closing Inventory - check Production and Sales Qty!")
                             .foregroundColor(.systemRed)
                     }
                     
-                    LabelWithDetail("MARK: CHANGE IN PACKAGING AND PRODUCTION!!! Baseion Qty", "base.baseQty.formattedGrouped")
+                    LabelWithDetail("MARK: CHANGE IN PACKAGING AND PRODUCTION!!! Production Qty", "base.baseQty.formattedGrouped")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -51,14 +74,17 @@ struct BaseView: View {
             
             Section(header: Text("Cost")) {
                 Group {
-                    LabelWithDetail("Baseion Cost", base.costExVAT.formattedGrouped)
-                    LabelWithDetail("Total Baseion Cost", base.totalCostExVAT.formattedGrouped)
+                    LabelWithDetail("Production Cost", base.costExVAT.formattedGrouped)
+                    LabelWithDetail("Total Production Cost", base.totalCostExVAT.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
             
             Section(header: Text("Sales")) {
+                Text("TBD: MOVE SALES TO PRODUCT!!")
+                    .foregroundColor(.systemRed)
+                
                 Group {
                     LabelWithDetail("bag", "Sales Qty", base.totalSalesQty.formattedGrouped)
                     
@@ -93,12 +119,18 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: saveButton)
+        .navigationBarItems(trailing: plusButton)
     }
     
-    private var saveButton: some View {
-        Button("Save") {
+    private var plusButton: some View {
+        Button {
+            let ingredient = Ingredient(context: moc)
+            ingredient.qty = 1_000
+            base.addToIngredients_(ingredient)
             moc.saveContext()
+        } label: {
+            Image(systemName: "plus")
+                .padding([.leading, .vertical])
         }
     }
 }

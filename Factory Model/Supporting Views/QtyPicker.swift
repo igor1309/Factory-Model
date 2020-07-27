@@ -9,15 +9,24 @@ import SwiftUI
 
 struct QtyPicker: View {
     
+    var title: String = ""
     @Binding var qty: Double
     
     @State private var showTable = false
     
     var body: some View {
-        Button("\(qty, specifier: "%.f")") {
+        Button {
             showTable = true
+        } label: {
+            HStack {
+                if !title.isEmpty {
+                    Text(title)
+                    Spacer()
+                }
+                Text("\(qty, specifier: "%.f")")
+            }
         }
-//        .buttonStyle(PlainButtonStyle())
+        //        .buttonStyle(PlainButtonStyle())
         .sheet(isPresented: $showTable) {
             QtyPickerTable(qty: $qty)
         }

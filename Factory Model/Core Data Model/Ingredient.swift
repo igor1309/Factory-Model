@@ -8,6 +8,10 @@
 import Foundation
 
 extension Ingredient: Comparable {
+    var cost: Double {
+        qty * (feedstock?.priceExVAT ?? 0)
+    }
+    
     public static func < (lhs: Ingredient, rhs: Ingredient) -> Bool {
         lhs.qty < rhs.qty
     }
