@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Samplable & Summarable & Validatable,
+    Child: Monikerable & Managed & Samplable & Summarable & Validatable & Samplable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -18,15 +18,21 @@ struct ListWithDashboard<
     
     @FetchRequest private var entities: FetchedResults<Child>
     
+    //  @State private var searchText = ""
+    
     let title: String
     let parent: Parent
+    var path: String
+    let keyPath: ReferenceWritableKeyPath<Child, Parent>
     let useSmallerFont: Bool
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
-
+    
     init(
         title: String,
         parent: Parent,
+        path: String,
+        keyPath: ReferenceWritableKeyPath<Child, Parent>,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -34,6 +40,8 @@ struct ListWithDashboard<
     ) {
         self.title = title
         self.parent = parent
+        self.path = path
+        self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
         self.dashboard = dashboard
         self.editor = editor
@@ -43,6 +51,8 @@ struct ListWithDashboard<
     var body: some View {
         
         List {
+            //  TextField("Search", text: $searchText)
+            
             dashboard()
             
             GenericListSection(
@@ -51,18 +61,9 @@ struct ListWithDashboard<
                 useSmallerFont: useSmallerFont,
                 editor: editor
             )
-            //  dashboard
-            
-            // GenericListSection
-            
-            Text("Hello, World!")
-            
         }
-        //  nav things
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        
-        //  generic plus button
-//        .navigationBarItems(trailing: PlusButton(parent: pa, path: "expenses_", keyPath: \Expenses.factory!))
+        .navigationBarItems(trailing: PlusButton(parent: parent, path: path, keyPath: keyPath))
     }
 }
