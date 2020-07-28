@@ -40,20 +40,21 @@ struct PlusButton<
         self.keyPath = keyPath
     }
     
+    /// use this init to create orphans (no parent entities)
+    /// - Parameter type: type of the Entity to be created
     init(type: Child.Type) {
         self.parent = nil
         self.path = nil
         self.keyPath = nil
     }
     
-    
     var body: some View {
         Button {
             let entity = Child.create(in: context)
             entity.makeSample()
                  
+            ///  if path is nil we create an orphan!!
             if let path = path, let parent = parent {
-                //  if path is nil we create an orphan!!
                 /// https://stackoverflow.com/a/55931101
                 parent.mutableSetValue(forKeyPath: path/*"bases_"*/).add(entity)
             }
