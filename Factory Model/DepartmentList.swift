@@ -19,14 +19,12 @@ struct DepartmentList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            pathFromParent: "departments_",
-            keyPath: \Department.factory!,
-            predicate: Department.factoryPredicate(for: factory),
-            useSmallerFont: true
+            keyPath: \Factory.departments_,
+            predicate: Department.factoryPredicate(for: factory)
         ) {
             Text("TBD: Departments")
                 .foregroundColor(.systemRed)
-        } editor: { department in
+        } editor: { (department: Department) in
             DepartmentView(for: department)
         }
     }

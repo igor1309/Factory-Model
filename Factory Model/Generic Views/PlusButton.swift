@@ -29,16 +29,21 @@ struct PlusButton<
     
     let keyPath: ReferenceWritableKeyPath<Child, Parent>?
     
-    init(
-        parent: Parent,
-        pathToParent: String,
-        keyPath: ReferenceWritableKeyPath<Child, Parent>
-    ) {
-        self.parent = parent
-        self.path = pathToParent
-        self.keyPath = keyPath
-    }
+//    init(
+//        parent: Parent,
+//        pathToParent: String,
+//        keyPath: ReferenceWritableKeyPath<Child, Parent>
+//    ) {
+//        self.parent = parent
+//        self.path = pathToParent
+//        self.keyPath = keyPath
+//    }
     
+    /// Prefered type-safe init. Needs more testing before becoming the main one. Create new Child entity with default values (protocol Sketchable) and set relationship to parent.
+    /// - Parameters:
+    ///   - childType: Entity type to create
+    ///   - parent: parent to set relationship to
+    ///   - keyPath: parent to child one-to many keyPath to set relationship
     init(
         childType: Child.Type,
         parent: Parent,
@@ -62,7 +67,7 @@ struct PlusButton<
             let entity = Child.create(in: context)
             entity.makeSketch()
             
-//            print("pathFromParent \(path ?? "")")
+            //  print("pathFromParent \(path ?? "")")
                  
             ///  if path is nil we create an orphan!!
             if let path = path, let parent = parent {

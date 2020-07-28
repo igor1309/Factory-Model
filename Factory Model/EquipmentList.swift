@@ -19,10 +19,8 @@ struct EquipmentList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            pathFromParent: "equipments_",
-            keyPath: \Equipment.factory!,
-            predicate: Equipment.factoryPredicate(for: factory),
-            useSmallerFont: true
+            keyPath: \Factory.equipments_,
+            predicate: Equipment.factoryPredicate(for: factory)
         ) {
             Section(header: Text("Total")) {
                 Group {
@@ -39,7 +37,7 @@ struct EquipmentList: View {
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
-        } editor: { equipment in
+        } editor: { (equipment: Equipment) in
             EquipmentView(equipment)
         }
     }

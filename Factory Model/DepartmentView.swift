@@ -19,8 +19,7 @@ struct DepartmentView: View {
     var body: some View {
         ListWithDashboard(
             parent: department,
-            pathFromParent: "staffs_",
-            keyPath: \Staff.department!,
+            keyPath: \Department.staffs_,
             
             //  MARK: - FINISH THIS
             //  should be `default` predicate
@@ -28,10 +27,10 @@ struct DepartmentView: View {
 
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Staff.department), department
-            ),
+            )
             
             
-            useSmallerFont: true
+            
         ) {
             Section(header: Text("Total")) {
                 LabelWithDetail("Total Salary incl taxes", "factory.totalSalaryWithTax")
@@ -42,7 +41,7 @@ struct DepartmentView: View {
             Text("MARK: NEED TO BE DONE IN A CORRECT WAY")
                 .foregroundColor(.systemRed)
                 .font(.headline)
-        } editor: { staff in
+        } editor: { (staff: Staff) in
             StaffView(staff)
         }
     }

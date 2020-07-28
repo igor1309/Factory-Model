@@ -19,17 +19,15 @@ struct ExpensesList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            pathFromParent: "expenses_",
-            keyPath: \Expenses.factory!,
-            predicate: Expenses.factoryPredicate(for: factory),
-            useSmallerFont: true
+            keyPath: \Factory.expenses_,
+            predicate: Expenses.factoryPredicate(for: factory)
         ) {            
             Section(header: Text("Total")) {
                 LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
-        } editor: { expenses in
+        } editor: { (expenses: Expenses) in
             ExpensesView(expenses)
         }
     }

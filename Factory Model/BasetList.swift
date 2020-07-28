@@ -19,10 +19,8 @@ struct BaseList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            pathFromParent: "bases_",
-            keyPath: \Base.factory!,
-            predicate: Base.factoryPredicate(for: factory),
-            useSmallerFont: true
+            keyPath: \Factory.bases_,
+            predicate: Base.factoryPredicate(for: factory)
         ) {
             Text("TBD: Ingredients")
                 .foregroundColor(.systemRed)
@@ -40,7 +38,7 @@ struct BaseList: View {
                 detail: "monthly",
                 icon: "dollarsign.circle"
             )
-        } editor: { base in
+        } editor: { (base: Base) in
             BaseView(base)
         }
     }

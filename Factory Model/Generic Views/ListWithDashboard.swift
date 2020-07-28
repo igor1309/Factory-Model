@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Sketchable & Summarable & Validatable & Sketchable,
+    Child: Monikerable & Managed & Summarable & Validatable & Sketchable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -21,23 +21,20 @@ struct ListWithDashboard<
     //  @State private var searchText = ""
     
     let parent: Parent
-    var pathFromParent: String
-    let keyPath: ReferenceWritableKeyPath<Child, Parent>
+    let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let useSmallerFont: Bool
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
     init(
         parent: Parent,
-        pathFromParent: String,
-        keyPath: ReferenceWritableKeyPath<Child, Parent>,
+        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.parent = parent
-        self.pathFromParent = pathFromParent
         self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
         self.dashboard = dashboard
@@ -60,6 +57,6 @@ struct ListWithDashboard<
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(Child.plural())
-        .navigationBarItems(trailing: PlusButton(parent: parent, pathToParent: pathFromParent, keyPath: keyPath))
+        .navigationBarItems(trailing: PlusButton(childType: Child.self, parent: parent, keyPath: keyPath))
     }
 }
