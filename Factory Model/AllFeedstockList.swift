@@ -43,15 +43,17 @@ struct AllFeedstockList: View {
                 ListRow(feedstocks.first!)
             }
             
-            GenericListSection(title: "Feedstocks", fetchRequest: _feedstocks) { feedstock in
+            GenericListSection(fetchRequest: _feedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
-            GenericListSection(title: "Orphans", fetchRequest: _orphans) { feedstock in
+            Text("Orphans")
+            GenericListSection(fetchRequest: _orphans) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
-            GenericListSection(title: "All Feedstocks @ all Factories", fetchRequest: _allFeedstocks) { feedstock in
+            Text("All Feedstocks @ all Factories")
+            GenericListSection(fetchRequest: _allFeedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
@@ -67,6 +69,6 @@ struct AllFeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Feedstock")
-        .navigationBarItems(trailing: PlusButton(type: Feedstock.self))
+        .navigationBarItems(trailing: PlusButton(childType: Feedstock.self))
     }
 }

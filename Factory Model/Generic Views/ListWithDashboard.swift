@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Samplable & Summarable & Validatable & Samplable,
+    Child: Monikerable & Managed & Sketchable & Summarable & Validatable & Sketchable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -20,27 +20,24 @@ struct ListWithDashboard<
     
     //  @State private var searchText = ""
     
-    let title: String
     let parent: Parent
-    var path: String
+    var pathFromParent: String
     let keyPath: ReferenceWritableKeyPath<Child, Parent>
     let useSmallerFont: Bool
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
     init(
-        title: String,
         parent: Parent,
-        path: String,
+        pathFromParent: String,
         keyPath: ReferenceWritableKeyPath<Child, Parent>,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
-        self.title = title
         self.parent = parent
-        self.path = path
+        self.pathFromParent = pathFromParent
         self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
         self.dashboard = dashboard
@@ -56,14 +53,13 @@ struct ListWithDashboard<
             dashboard()
             
             GenericListSection(
-                title: title,
                 fetchRequest: _entities,
                 useSmallerFont: useSmallerFont,
                 editor: editor
             )
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(title)
-        .navigationBarItems(trailing: PlusButton(parent: parent, path: path, keyPath: keyPath))
+        .navigationTitle(Child.plural())
+        .navigationBarItems(trailing: PlusButton(parent: parent, pathToParent: pathFromParent, keyPath: keyPath))
     }
 }

@@ -29,6 +29,44 @@ extension Managed where Self: NSManagedObject {
         let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context)
         return unsafeDowncast(object, to: self)
     }
+    
+    //  MARK: - FINISH THIS return plural forms
+    /// https://medium.com/@vitaliikuznetsov/plurals-localization-using-stringsdict-in-ios-a910aab8c28c
+    /// https://stackoverflow.com/questions/30207436/dynamic-strings-with-placeholders-and-plural-support-in-swift-ios
+    /// https://crunchybagel.com/localizing-plurals-in-ios-development/
+    
+    static func plural() -> String {
+        switch entityName {
+            case "Base":
+                return "Bases"
+            case "Buyer":
+                return "Buyers"
+            case "Department":
+                return "Departments"
+            case "Equipment":
+                return "Equipment"
+            case "Expenses":
+                return "Expenses"
+            case "Factory":
+                return "Factories"
+            case "Feedstock":
+                return "Feedstocks"
+            case "Ingredient":
+                return "Ingredients"
+            case "Packaging":
+                return "Packaging"
+            case "Product":
+                return "Products"
+            case "Sales":
+                return "Sales"
+            case "Staff":
+                return "Staff"
+            case "Utility":
+                return "Utilities"
+            default:
+                return entityName
+        }
+    }
 }
 
 /// https://stackoverflow.com/a/46038865

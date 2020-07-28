@@ -68,11 +68,11 @@ struct AllSalesList: View {
                 )
             }
             
-            GenericListSection(title: "Sales", fetchRequest: _sales) { sales in
+            GenericListSection(fetchRequest: _sales) { sales in
                 SalesEditor(sales: sales)
             }
             
-            GenericListSection(title: "Orphans", fetchRequest: _orphans) { sales in
+            GenericListSection(fetchRequest: _orphans) { sales in
                 SalesEditor(sales: sales)
             }
             

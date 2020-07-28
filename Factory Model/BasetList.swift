@@ -10,57 +10,39 @@ import SwiftUI
 struct BaseList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var bases: FetchedResults<Base>
-    
-    //    @ObservedObject
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
-        _bases = Base.defaultFetchRequest(for: factory)
     }
     
     var body: some View {
-        List {
-            
+        ListWithDashboard(
+            parent: factory,
+            pathFromParent: "bases_",
+            keyPath: \Base.factory!,
+            predicate: Base.factoryPredicate(for: factory),
+            useSmallerFont: true
+        ) {
             Text("TBD: Ingredients")
                 .foregroundColor(.systemRed)
             
-//            Section(
-//                header: Text("Base Groups"),
-//                footer: Text("TBD: How to change to fetch request?")
-//            ) {
-//                ForEach(factory.baseGroupsAsRows) { baseGroup in
-//                    NavigationLink(
-//                        destination: BaseGroupList(group: baseGroup.title, at: factory)
-//                    ) {
-//                        ListRow(baseGroup)
-//                    }
-//                }
-//            }
+            ListRow(
+                title: "Общий объем производства",
+                subtitle: "все продукты имеют вес нетто => общий вес",
+                detail: "плюс в штуках для того, что считатся в штуках и общий вес того что по весу",
+                icon: "scalemass"
+            )
             
-            Group {
-                ListRow(
-                    title: "Общий объем производства",
-                    subtitle: "все продукты имеют вес нетто => общий вес",
-                    detail: "плюс в штуках для того, что считатся в штуках и общий вес того что по весу",
-                    icon: "scalemass"
-                )
-                ListRow(
-                    title: "Производственные затраты",
-                    subtitle: "Сырье и материалы, работа, энергия, амортизация оборудования и др.",
-                    detail: "monthly",
-                    icon: "dollarsign.circle"
-                )
-            }
-            
-            GenericListSection(title: "Base Products", fetchRequest: _bases) { base in
-                BaseView(base)
-            }
+            ListRow(
+                title: "Производственные затраты",
+                subtitle: "Сырье и материалы, работа, энергия, амортизация оборудования и др.",
+                detail: "monthly",
+                icon: "dollarsign.circle"
+            )
+        } editor: { base in
+            BaseView(base)
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Bases")
-        .navigationBarItems(trailing: PlusButton(parent: factory, path: "bases_", keyPath: \Base.factory!))
     }
 }
 

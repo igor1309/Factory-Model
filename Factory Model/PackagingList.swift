@@ -50,16 +50,16 @@ struct PackagingList: View {
                 .foregroundColor(.systemRed)
                 .font(.subheadline)
             
-            GenericListSection(title: "All Packagings", fetchRequest: _allPackagings) { packaging in
+            GenericListSection(fetchRequest: _allPackagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
-            GenericListSection(title: "Factory Packagings", fetchRequest: _packagings) { packaging in
+            GenericListSection(fetchRequest: _packagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
             //  MARK: - FINISH THIS NOT UPDATING!!!! (((
-            GenericListSection(title: "Orphans", fetchRequest: _orphans) { packaging in
+            GenericListSection(fetchRequest: _orphans) { packaging in
                     PackagingView(packaging: packaging)
             }
         }
@@ -69,7 +69,7 @@ struct PackagingList: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: PlusButton(type: Packaging.self))
+        .navigationBarItems(trailing: PlusButton(childType: Packaging.self))
     }
     
     private func list(of packagings: FetchedResults<Packaging>) -> some View {

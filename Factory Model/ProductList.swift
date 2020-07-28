@@ -72,11 +72,13 @@ struct ProductList: View {
                 .font(.subheadline)
             }
             
-            GenericListSection(title: "ALL Products", fetchRequest: _allProducts) { product in
+            Text("ALL Products")
+            GenericListSection(fetchRequest: _allProducts) { product in
                 ProductView(product: product, factory: factory)
             }
             
-            GenericListSection(title: "Products", fetchRequest: _products) { product in
+            Text("Products")
+            GenericListSection(fetchRequest: _products) { product in
                 ProductView(product: product, factory: factory)
             }
         }
@@ -84,7 +86,7 @@ struct ProductList: View {
         .navigationTitle("Products")
         .navigationBarTitleDisplayMode(.inline)
 //        .navigationBarItems(trailing: CreateOrphanButton<Product>())
-        .navigationBarItems(trailing: PlusButton(type: Product.self))
+        .navigationBarItems(trailing: PlusButton(childType: Product.self))
     }
     
     private func removeProduct(at offsets: IndexSet) {

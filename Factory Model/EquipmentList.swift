@@ -10,18 +10,20 @@ import SwiftUI
 struct EquipmentList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var equipments: FetchedResults<Equipment>
+    @ObservedObject var factory: Factory
     
-    var factory: Factory
-    
-    init(at factory: Factory) {
+    init(for factory: Factory) {
         self.factory = factory
-        
-        _equipments = Equipment.defaultFetchRequest(for: factory)
     }
     
     var body: some View {
-        List {
+        ListWithDashboard(
+            parent: factory,
+            pathFromParent: "equipments_",
+            keyPath: \Equipment.factory!,
+            predicate: Equipment.factoryPredicate(for: factory),
+            useSmallerFont: true
+        ) {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
@@ -37,30 +39,8 @@ struct EquipmentList: View {
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
-            
-            Section(header: Text("Equipment")) {
-                ForEach(equipments, id: \.objectID) { equipment in
-                    NavigationLink(
-                        destination: EquipmentView(equipment)
-                    ) {
-                        ListRow(equipment)
-                    }
-                }
-                .onDelete(perform: removeEquipment)
-            }
+        } editor: { equipment in
+            EquipmentView(equipment)
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Equipment (OLD)")
-//        .navigationBarItems(trailing: PPlusEntityButton<Equipment>(factory: factory))
-        .navigationBarItems(trailing: PlusButton(parent: factory, path: "equipments_", keyPath: \Equipment.factory!))
-
-    }
-    
-    private func removeEquipment(at offsets: IndexSet) {
-        for index in offsets {
-            let expense = equipments[index]
-            moc.delete(expense)
-        }
-        moc.saveContext()
     }
 }

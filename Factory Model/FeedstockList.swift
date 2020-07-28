@@ -33,7 +33,7 @@ struct FeedstockList: View {
                 )
             }
             
-            GenericListSection(title: "Feedstocks", fetchRequest: _feedstocks) { feedstock in
+            GenericListSection(fetchRequest: _feedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
@@ -60,7 +60,7 @@ struct FeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: PlusButton(type: Feedstock.self))
+        .navigationBarItems(trailing: PlusButton(childType: Feedstock.self))
     }
     
     private func removeFeedstock(at offsets: IndexSet) {

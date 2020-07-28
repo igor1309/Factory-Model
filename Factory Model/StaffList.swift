@@ -26,7 +26,6 @@ struct StaffList: View {
         )
     }
     
-    
     var body: some View {
         List {
             Section(header: Text("Total")) {

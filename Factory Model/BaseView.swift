@@ -11,7 +11,8 @@ struct BaseView: View {
     @Environment(\.managedObjectContext) var moc
 //    @Environment(\.presentationMode) var presentation
     
-    @ObservedObject var base: Base
+//    @ObservedObject
+    var base: Base
     
     @FetchRequest private var products: FetchedResults<Product>
     @FetchRequest private var ingredients: FetchedResults<Ingredient>
@@ -37,6 +38,11 @@ struct BaseView: View {
     
     var body: some View {
         List {
+            
+            Text("PLUS BUTTON HERE")
+            PlusButton(childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_)
+
+            
             Section(
                 header: Text("Base")
             ) {
@@ -47,7 +53,7 @@ struct BaseView: View {
                 }
             }
             
-            GenericListSection(title: "Ingredients", fetchRequest: _ingredients) { ingredient in
+            GenericListSection(fetchRequest: _ingredients) { ingredient in
                 IngredientView(ingredient: ingredient)
             }
             

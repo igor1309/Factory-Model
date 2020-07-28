@@ -13,7 +13,7 @@ struct ExpensesView: View {
     
     @ObservedObject var expenses: Expenses
     
-    init(expenses: Expenses) {
+    init(_ expenses: Expenses) {
         self.expenses = expenses
     }
     

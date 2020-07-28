@@ -20,6 +20,59 @@ struct FactoryView: View {
     
     var body: some View {
         List {
+            Group {
+                NavigationLink(
+                    destination: BaseList(for: factory)
+                ) {
+                    ListRow(
+                        title: "Base Products",
+                        subtitle: ".................",
+                        detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
+                        icon: "bag.circle"
+                    )
+                    .foregroundColor(.systemTeal)
+                }
+                
+                Group {
+                    NavigationLink(
+                        destination: EquipmentList(for: factory)
+                    ) {
+                        //  MARK: more clever depreciation?
+                        LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                    }
+                    
+                    LabelWithDetail("wrench.and.screwdriver", "Cost basis", "TBD")
+                        .foregroundColor(.secondary)
+                        .padding(.trailing)
+                }
+                .foregroundColor(.systemTeal)
+                .font(.subheadline)
+                .padding(.vertical, 3)
+                
+                
+                NavigationLink(
+                    destination: ExpensesList(for: factory)
+                ) {
+                    //  MARK: more clever depreciation?
+                    LabelWithDetail("dollarsign.circle", "Other Expenses", "TBD")
+                }
+                .foregroundColor(.systemTeal)
+                .font(.subheadline)
+                .padding(.vertical, 3)
+
+                NavigationLink(
+                    destination: DepartmentList(for: factory)
+                ) {
+                    ListRow(
+                        title: "TBD: Departments",
+                        subtitle: ".................",
+                        icon: "person.2"
+                    )
+                    .foregroundColor(.systemTeal)
+                }
+
+            }
+
             Section(
                 header: Text("Production")
             ) {
@@ -35,8 +88,7 @@ struct FactoryView: View {
                         )
                     }
                     
-                    BaseRow(for: factory)
-                                      
+
                     NavigationLink(
                         destination: AllFeedstockList(for: factory)
                     ) {
@@ -72,7 +124,6 @@ struct FactoryView: View {
                         destination:
                             List {
                                 GenericListSection(
-                                    title: "factory sales",
                                     type: Sales.self,
                                     predicate: Sales.factoryPredicate(for: factory)
                                 ) { sales in
@@ -97,13 +148,11 @@ struct FactoryView: View {
             Section(
                 header: Text("Expenses")
             ) {
-                DepartmentRow(for: factory)
                 
                 NavigationLink(
                     destination:
                         List {
                             GenericListSection(
-                                title: "factory staff",
                                 type: Staff.self,
                                 predicate: Staff.factoryPredicate(for: factory)
                             ) { staff in
@@ -124,44 +173,19 @@ struct FactoryView: View {
                 
                 
                 
-                let factoryExpenses = ListWithDashboard(
-                    title: "Factory Expenses",
-                    parent: factory,
-                    path: "expenses_",
-                    keyPath: \Expenses.factory!,
-                    predicate: Expenses.factoryPredicate(for: factory),
-                    useSmallerFont: true
-                ) {
-                    Text("Dashboard")
-                        .font(.headline)
-                    Text("Dashboard elements...")
-                } editor: { (expenses: Expenses) in
-                    ExpensesView(expenses: expenses)
-                }
-                
                 NavigationLink(
-                    destination: factoryExpenses
-                ) {
-                    LabelWithDetail("dollarsign.circle", "NEW!!! Other Expenses", "TBD")
-                        .font(.subheadline)
-                        .foregroundColor(.systemOrange)
-                }
-                
-                
-                NavigationLink(
-                    destination: ExpensesList(at: factory)
+                    destination: ExpensesList(for: factory)
                 ) {
                     LabelWithDetail("dollarsign.circle", "Other Expenses", "TBD")
                         .font(.subheadline)
                 }
             }
             
-            EquipmentRow(for: factory)
             
             Section(header: Text("Equipment")) {
                 Group {
                     NavigationLink(
-                        destination: EquipmentList(at: factory)
+                        destination: EquipmentList(for: factory)
                     ) {
                         //  MARK: more clever depreciation?
                         LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")

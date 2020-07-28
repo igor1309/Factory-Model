@@ -10,45 +10,27 @@ import SwiftUI
 struct ExpensesList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var expenses: FetchedResults<Expenses>
+    @ObservedObject var factory: Factory
     
-    var factory: Factory
-    
-    init(at factory: Factory) {
+    init(for factory: Factory) {
         self.factory = factory
-        
-        _expenses = Expenses.defaultFetchRequest(for: factory)
     }
     
     var body: some View {
-        List {
+        ListWithDashboard(
+            parent: factory,
+            pathFromParent: "expenses_",
+            keyPath: \Expenses.factory!,
+            predicate: Expenses.factoryPredicate(for: factory),
+            useSmallerFont: true
+        ) {            
             Section(header: Text("Total")) {
                 LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
-            
-            Section(header: Text("Expenses")) {
-                ForEach(expenses, id: \.objectID) { expenses in
-                    NavigationLink(
-                        destination: ExpensesView(expenses: expenses)
-                    ) {
-                        ListRow(expenses)
-                    }
-                }
-                .onDelete(perform: removeExpenses)
-            }
+        } editor: { expenses in
+            ExpensesView(expenses)
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Expenses")
-        .navigationBarItems(trailing: PlusButton(parent: factory, path: "expenses_", keyPath: \Expenses.factory!))
-    }
-    
-    private func removeExpenses(at offsets: IndexSet) {
-        for index in offsets {
-            let expense = expenses[index]
-            moc.delete(expense)
-        }
-        moc.saveContext()
     }
 }

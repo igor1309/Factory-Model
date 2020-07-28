@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DepartmentRow: View {
+struct DepartmentList: View {
     @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var factory: Factory
@@ -17,31 +17,17 @@ struct DepartmentRow: View {
     }
     
     var body: some View {
-        
-        let departmentList = ListWithDashboard(
-            title: "Departments",
+        ListWithDashboard(
             parent: factory,
-            path: "departments_",
+            pathFromParent: "departments_",
             keyPath: \Department.factory!,
             predicate: Department.factoryPredicate(for: factory),
             useSmallerFont: true
         ) {
             Text("TBD: Departments")
                 .foregroundColor(.systemRed)
-            
-        } editor: { (department: Department) in
-            DepartmentView(department)
-        }
-        
-        NavigationLink(
-            destination: departmentList
-        ) {
-            ListRow(
-                title: "TBD: Departments",
-                subtitle: ".................",
-                icon: "person.2.circle"
-            )
-            .foregroundColor(.systemTeal)
+        } editor: { department in
+            DepartmentView(for: department)
         }
     }
 }

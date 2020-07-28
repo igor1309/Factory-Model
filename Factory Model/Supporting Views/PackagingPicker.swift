@@ -123,7 +123,7 @@ fileprivate struct PackagingPickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Packaging")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: PlusButton(type: Packaging.self))
+            .navigationBarItems(trailing: PlusButton(childType: Packaging.self))
         }
     }
     

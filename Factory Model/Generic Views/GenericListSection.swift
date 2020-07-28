@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias Listable = Monikerable & Summarable & Validatable
+typealias Listable = Monikerable & Summarable & Validatable & Managed
 
 struct GenericListSection<T: Listable, Editor: View>: View {
     @Environment(\.managedObjectContext) var moc
@@ -16,29 +16,24 @@ struct GenericListSection<T: Listable, Editor: View>: View {
     @FetchRequest private var fetchRequest: FetchedResults<T>
     
     let editor: (T) -> Editor
-    let title: String
     let useSmallerFont: Bool
     
     init(
-        title: String,
         fetchRequest: FetchRequest<T>,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.title = title
         _fetchRequest = fetchRequest
         self.editor = editor
         self.useSmallerFont = useSmallerFont
     }
     
     init(
-        title: String = "",
         type: T.Type,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.title = title
         self.editor = editor
         self.useSmallerFont = useSmallerFont
         _fetchRequest = FetchRequest(
@@ -52,7 +47,7 @@ struct GenericListSection<T: Listable, Editor: View>: View {
     
     var body: some View {
         Section(
-            header: Text(title)
+            header: Text(T.plural())
         ) {
             if fetchRequest.isEmpty {
                 Text("No data to list")

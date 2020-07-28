@@ -50,7 +50,7 @@ extension Buyer: Summarable {
 extension Department: Summarable {
     var subtitle: String { division }
     var detail: String? { type.rawValue }
-    var icon: String { "person.2.circle" }
+    var icon: String { "person.2" }
 }
 
 extension Equipment: Summarable {
