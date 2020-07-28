@@ -77,6 +77,8 @@
 		2AF8EC8D24CF4FB200EDA2AE /* CreateOrphanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC8C24CF4FB200EDA2AE /* CreateOrphanButton.swift */; };
 		2AF8EC8F24CF5A5400EDA2AE /* PlusEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC8E24CF5A5400EDA2AE /* PlusEntityButton.swift */; };
 		2AF8EC9124CF5A8000EDA2AE /* Samplable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC9024CF5A8000EDA2AE /* Samplable.swift */; };
+		2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */; };
+		2AF8EC9724CFFEEA00EDA2AE /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC9624CFFEEA00EDA2AE /* PlusButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +154,8 @@
 		2AF8EC8C24CF4FB200EDA2AE /* CreateOrphanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrphanButton.swift; sourceTree = "<group>"; };
 		2AF8EC8E24CF5A5400EDA2AE /* PlusEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusEntityButton.swift; sourceTree = "<group>"; };
 		2AF8EC9024CF5A8000EDA2AE /* Samplable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samplable.swift; sourceTree = "<group>"; };
+		2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWithDashboard.swift; sourceTree = "<group>"; };
+		2AF8EC9624CFFEEA00EDA2AE /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +230,7 @@
 		2A31654624CC6E4000AF68A1 /* WORK IN PROGRESS */ = {
 			isa = PBXGroup;
 			children = (
+				2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */,
 				2A74038924C8CB8200BA7999 /* test.swift */,
 				2AF48D7124CA39A40009B672 /* BaseUI.swift */,
 			);
@@ -307,6 +312,7 @@
 		2AF8EC8B24CF4F9B00EDA2AE /* Generic Views */ = {
 			isa = PBXGroup;
 			children = (
+				2AF8EC9624CFFEEA00EDA2AE /* PlusButton.swift */,
 				2A85734824C5FDB1009FF51A /* ListRow.swift */,
 				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
 				2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */,
@@ -393,6 +399,7 @@
 			files = (
 				2A30471724C89C5F0002E5DD /* BasePicker.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
+				2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
 				2A73358A24CE153C005C6C40 /* IngredientView.swift in Sources */,
 				2AF48D7224CA39A40009B672 /* BaseUI.swift in Sources */,
@@ -411,6 +418,7 @@
 				2AF8EC9124CF5A8000EDA2AE /* Samplable.swift in Sources */,
 				2A30470524C77C3A0002E5DD /* AllSalesList.swift in Sources */,
 				2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */,
+				2AF8EC9724CFFEEA00EDA2AE /* PlusButton.swift in Sources */,
 				2A02DF1C24CAF30D00A6E35A /* ProductView.swift in Sources */,
 				2AC0B51524CB128100175819 /* ProductEditor.swift in Sources */,
 				2A8113CD24CEBFA600886C90 /* Monikerable.swift in Sources */,

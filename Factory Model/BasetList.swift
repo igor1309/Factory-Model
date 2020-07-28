@@ -26,18 +26,18 @@ struct BaseList: View {
             Text("TBD: Ingredients")
                 .foregroundColor(.systemRed)
             
-            Section(
-                header: Text("Base Groups"),
-                footer: Text("TBD: How to change to fetch request?")
-            ) {
-                ForEach(factory.baseGroupsAsRows) { baseGroup in
-                    NavigationLink(
-                        destination: BaseGroupList(group: baseGroup.title, at: factory)
-                    ) {
-                        ListRow(baseGroup)
-                    }
-                }
-            }
+//            Section(
+//                header: Text("Base Groups"),
+//                footer: Text("TBD: How to change to fetch request?")
+//            ) {
+//                ForEach(factory.baseGroupsAsRows) { baseGroup in
+//                    NavigationLink(
+//                        destination: BaseGroupList(group: baseGroup.title, at: factory)
+//                    ) {
+//                        ListRow(baseGroup)
+//                    }
+//                }
+//            }
             
             Group {
                 ListRow(
@@ -54,13 +54,13 @@ struct BaseList: View {
                 )
             }
             
-            GenericListSection("Base Products", _bases) { base in
+            GenericListSection(title: "Base Products", fetchRequest: _bases) { base in
                 BaseView(base)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Bases")
-        .navigationBarItems(trailing: PlusEntityButton<Base>(factory: factory))
+        .navigationBarItems(trailing: PlusButton(parent: factory, path: "bases_", keyPath: \Base.factory!))
     }
 }
 

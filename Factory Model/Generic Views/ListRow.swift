@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ListRow: View {
     
-    var title: String
+    let title: String
     var subtitle: String? = nil
     var detail: String? = nil
-    var icon: String
-    var useSmallerFont: Bool
+    let icon: String
+    let useSmallerFont: Bool
     
     init(
         title: String,
@@ -55,8 +55,15 @@ struct ListRow: View {
     var body: some View {
         Label {
             VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(useSmallerFont ? .subheadline : .headline)
+                Group {
+                    if title.hasPrefix("ERROR") {
+                        Text(title)
+                            .foregroundColor(.systemRed)
+                    } else {
+                        Text(title)
+                    }
+                }
+                .font(useSmallerFont ? .subheadline : .headline)
                 
                 if subtitle != nil, !subtitle!.isEmpty {
                     Text(subtitle!)

@@ -50,16 +50,16 @@ struct PackagingList: View {
                 .foregroundColor(.systemRed)
                 .font(.subheadline)
             
-            GenericListSection("All Packagings", _allPackagings) { packaging in
+            GenericListSection(title: "All Packagings", fetchRequest: _allPackagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
-            GenericListSection("Factory Packagings", _packagings) { packaging in
+            GenericListSection(title: "Factory Packagings", fetchRequest: _packagings) { packaging in
                 PackagingView(packaging: packaging)
             }
             
             //  MARK: - FINISH THIS NOT UPDATING!!!! (((
-            GenericListSection("Orphans", _orphans) { packaging in
+            GenericListSection(title: "Orphans", fetchRequest: _orphans) { packaging in
                     PackagingView(packaging: packaging)
             }
         }

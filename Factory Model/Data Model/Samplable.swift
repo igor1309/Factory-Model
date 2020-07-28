@@ -8,34 +8,27 @@
 import CoreData
 
 protocol Samplable {
-    func makeSample(addTo factory: Factory, saveIn context: NSManagedObjectContext)
+    func makeSample()
 }
 
 extension Base: Samplable {
-    func makeSample(addTo factory: Factory, saveIn context: NSManagedObjectContext) {
+    func makeSample() {
         self.name = " ..."
-        factory.addToBases_(self)
-        context.saveContext()
     }
 }
 
 extension Equipment: Samplable {
-    func makeSample(addTo factory: Factory, saveIn context: NSManagedObjectContext) {
+    func makeSample() {
         self.name = " ..."
         self.lifetime = 7
         self.price = 1_000_000
-        
-        factory.addToEquipments_(self)
-        context.saveContext()
     }
 }
 
 extension Expenses: Samplable {
-    func makeSample(addTo factory: Factory, saveIn context: NSManagedObjectContext) {
+    func makeSample() {
         self.name = " ..."
         self.note = "..."
         self.amount = 10_000
-        factory.addToExpenses_(self)
-        context.saveContext()
     }
 }

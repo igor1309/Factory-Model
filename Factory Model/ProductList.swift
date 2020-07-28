@@ -72,11 +72,11 @@ struct ProductList: View {
                 .font(.subheadline)
             }
             
-            GenericListSection("ALL Products", _allProducts) { product in
+            GenericListSection(title: "ALL Products", fetchRequest: _allProducts) { product in
                 ProductView(product: product, factory: factory)
             }
             
-            GenericListSection("Products", _products) { product in
+            GenericListSection(title: "Products", fetchRequest: _products) { product in
                 ProductView(product: product, factory: factory)
             }
         }

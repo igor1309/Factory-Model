@@ -43,15 +43,15 @@ struct AllFeedstockList: View {
                 ListRow(feedstocks.first!)
             }
             
-            GenericListSection("Feedstocks", _feedstocks) { feedstock in
+            GenericListSection(title: "Feedstocks", fetchRequest: _feedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
-            GenericListSection("Orphans", _orphans) { feedstock in
+            GenericListSection(title: "Orphans", fetchRequest: _orphans) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             
-            GenericListSection("All Feedstocks @ all Factories", _allFeedstocks) { feedstock in
+            GenericListSection(title: "All Feedstocks @ all Factories", fetchRequest: _allFeedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             

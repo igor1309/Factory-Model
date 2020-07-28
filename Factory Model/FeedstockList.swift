@@ -33,7 +33,7 @@ struct FeedstockList: View {
                 )
             }
             
-            GenericListSection("Feedstocks", _feedstocks) { feedstock in
+            GenericListSection(title: "Feedstocks", fetchRequest: _feedstocks) { feedstock in
                 FeedstockView(feedstock: feedstock)
             }
             

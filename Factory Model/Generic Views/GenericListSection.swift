@@ -17,11 +17,11 @@ struct GenericListSection<T: Listable, Editor: View>: View {
     
     let editor: (T) -> Editor
     let title: String
-    var useSmallerFont: Bool
+    let useSmallerFont: Bool
     
     init(
-        _ title: String,
-        _ fetchRequest: FetchRequest<T>,
+        title: String,
+        fetchRequest: FetchRequest<T>,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {

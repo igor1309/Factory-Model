@@ -41,7 +41,7 @@ struct ExpensesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Expenses")
-        .navigationBarItems(trailing: PlusEntityButton<Expenses>(factory: factory))
+        .navigationBarItems(trailing: PlusButton(parent: factory, path: "expenses_", keyPath: \Expenses.factory!))
     }
     
     private func removeExpenses(at offsets: IndexSet) {

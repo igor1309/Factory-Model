@@ -68,7 +68,8 @@ fileprivate struct BasePickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Base")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: PlusEntityButton<Base>(factory: factory))
+            .navigationBarItems(trailing: PlusButton(parent: factory, path: "bases_", keyPath: \Base.factory!))
+
         }
     }
 }

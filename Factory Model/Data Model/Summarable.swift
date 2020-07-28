@@ -91,7 +91,7 @@ extension Feedstock: Summarable {
 }
 
 extension Ingredient: Summarable {
-    var title: String { feedstock?.name ?? "Error: no feedstock" }
+    var title: String { feedstock?.name ?? "ERROR: no feedstock" }
     var subtitle: String {
         qty.formattedGrouped + " @ "
             + (feedstock == nil ? 0: feedstock!.priceExVAT).formattedGrouped

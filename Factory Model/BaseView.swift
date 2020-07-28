@@ -47,7 +47,7 @@ struct BaseView: View {
                 }
             }
             
-            GenericListSection("Ingredients", _ingredients) { ingredient in
+            GenericListSection(title: "Ingredients", fetchRequest: _ingredients) { ingredient in
                 IngredientView(ingredient: ingredient)
             }
             

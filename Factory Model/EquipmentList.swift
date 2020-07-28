@@ -51,7 +51,9 @@ struct EquipmentList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Equipment")
-        .navigationBarItems(trailing: PlusEntityButton<Equipment>(factory: factory))
+//        .navigationBarItems(trailing: PPlusEntityButton<Equipment>(factory: factory))
+        .navigationBarItems(trailing: PlusButton(parent: factory, path: "equipments_", keyPath: \Equipment.factory!))
+
     }
     
     private func removeEquipment(at offsets: IndexSet) {

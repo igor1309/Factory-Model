@@ -163,8 +163,6 @@ struct FactoryView: View {
             Section(
                 header: Text("Expenses")
             ) {
-            
-                
                 NavigationLink(
                     destination:
                         List {
@@ -181,13 +179,44 @@ struct FactoryView: View {
                     Text("factory staff")
                 }
                 
-                
                 NavigationLink(
                     destination: StaffList(at: factory)
                 ) {
                     LabelWithDetail("person.2", "Salary, incl taxes", "TBD")
                         .font(.subheadline)
                 }
+                
+                
+                
+                NavigationLink(
+                    destination:
+                        
+//                        ListWithDashboard(
+//                            title: "Factory Expenses", parent: factory, predicate: Expenses.factoryPredicate(for: factory), useSmallerFont: true, dashboard: {
+//                                Text("Dashboard")
+//                            }, editor: { (expenses: Expenses) in
+//                                ExpensesView(expenses: expenses)
+//                            }
+//                            )
+                        
+                        ListWithDashboard(
+                            title: "Factory Expenses",
+                            parent: factory,
+                            predicate: Expenses.factoryPredicate(for: factory),
+                            useSmallerFont: true
+                        ) {
+                            Text("Dashboard")
+                                .font(.headline)
+                            Text("Dashboard elements...")
+                        } editor: { (expenses: Expenses) in
+                            ExpensesView(expenses: expenses)
+                        }
+                ) {
+                    LabelWithDetail("dollarsign.circle", "NEW!!! Other Expenses", "TBD")
+                        .font(.subheadline)
+                        .foregroundColor(.systemOrange)
+                }
+                
                 
                 NavigationLink(
                     destination: ExpensesList(at: factory)

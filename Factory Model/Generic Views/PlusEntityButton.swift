@@ -16,7 +16,7 @@ struct PlusEntityButton<T: NSManagedObject & Managed & Samplable>: View {
     var body: some View {
         Button {
             let entity = T.create(in: context)
-            entity.makeSample(addTo: factory, saveIn: context)
+            entity.makeSample()
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
