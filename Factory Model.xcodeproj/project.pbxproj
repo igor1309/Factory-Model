@@ -13,6 +13,10 @@
 		2A02DF1E24CB066F00A6E35A /* ProductList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02DF1D24CB066F00A6E35A /* ProductList.swift */; };
 		2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */; };
 		2A13E4D124C9EF5F00016CBC /* Summarable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4D024C9EF5F00016CBC /* Summarable.swift */; };
+		2A2B44B424D06B74003EF752 /* BaseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44B324D06B74003EF752 /* BaseRow.swift */; };
+		2A2B44B824D06CD4003EF752 /* DepartmentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44B724D06CD4003EF752 /* DepartmentRow.swift */; };
+		2A2B44BA24D06E34003EF752 /* DepartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44B924D06E34003EF752 /* DepartmentView.swift */; };
+		2A2B44BC24D0725C003EF752 /* EquipmentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44BB24D0725C003EF752 /* EquipmentRow.swift */; };
 		2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */; };
 		2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */; };
 		2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BCF24C5A72100B2F8D9 /* Factory.swift */; };
@@ -86,6 +90,10 @@
 		2A02DF1D24CB066F00A6E35A /* ProductList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductList.swift; sourceTree = "<group>"; };
 		2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPicker.swift; sourceTree = "<group>"; };
 		2A13E4D024C9EF5F00016CBC /* Summarable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarable.swift; sourceTree = "<group>"; };
+		2A2B44B324D06B74003EF752 /* BaseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRow.swift; sourceTree = "<group>"; };
+		2A2B44B724D06CD4003EF752 /* DepartmentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentRow.swift; sourceTree = "<group>"; };
+		2A2B44B924D06E34003EF752 /* DepartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentView.swift; sourceTree = "<group>"; };
+		2A2B44BB24D0725C003EF752 /* EquipmentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentRow.swift; sourceTree = "<group>"; };
 		2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
 		2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		2A2F4BCF24C5A72100B2F8D9 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
@@ -166,6 +174,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A2B44BD24D07317003EF752 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				2A2B44B324D06B74003EF752 /* BaseRow.swift */,
+				2A2B44B724D06CD4003EF752 /* DepartmentRow.swift */,
+				2A2B44BB24D0725C003EF752 /* EquipmentRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
 		2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +279,8 @@
 				2A02DF1D24CB066F00A6E35A /* ProductList.swift */,
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
 				2AC0B51424CB128100175819 /* ProductEditor.swift */,
+				2A2B44BD24D07317003EF752 /* Rows */,
+				2A2B44B924D06E34003EF752 /* DepartmentView.swift */,
 				2A30470224C778AD0002E5DD /* BasetList.swift */,
 				2A936E5A24C6E09F00C34381 /* BaseGroupList.swift */,
 				2A85734624C5DBCF009FF51A /* BaseView.swift */,
@@ -437,6 +457,7 @@
 				2A30471324C8734F0002E5DD /* AllFeedstockListTESTING.swift in Sources */,
 				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
+				2A2B44BA24D06E34003EF752 /* DepartmentView.swift in Sources */,
 				2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */,
 				2A936E5D24C6F07F00C34381 /* DivisionView.swift in Sources */,
 				2A30470724C78F260002E5DD /* BaseEditor.swift in Sources */,
@@ -450,6 +471,7 @@
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A936E5F24C6F9C200C34381 /* StaffView.swift in Sources */,
+				2A2B44BC24D0725C003EF752 /* EquipmentRow.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
 				2A30470324C778AD0002E5DD /* BasetList.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,
@@ -457,7 +479,9 @@
 				2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */,
 				2A81582D24CDB0E3003A95C0 /* GenericListSection.swift in Sources */,
 				2A2F4BD224C5A84600B2F8D9 /* Base.swift in Sources */,
+				2A2B44B824D06CD4003EF752 /* DepartmentRow.swift in Sources */,
 				2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */,
+				2A2B44B424D06B74003EF752 /* BaseRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

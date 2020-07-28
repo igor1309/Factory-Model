@@ -26,10 +26,10 @@ struct EquipmentList: View {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
                         .foregroundColor(.primary)
-
+                    
                     /// https://www.investopedia.com/terms/a/accumulated-depreciation.asp
                     LabelWithDetail("wrench.and.screwdriver", "Accumulated Depreciation", "TBD")
-
+                    
                     LabelWithDetail("wrench.and.screwdriver", "Cost basis", factory.equipmentTotal.formattedGrouped)
                     
                     LabelWithDetail("dollarsign.circle", "Amortization, monthly", factory.depreciationMonthly.formattedGrouped)
@@ -41,7 +41,7 @@ struct EquipmentList: View {
             Section(header: Text("Equipment")) {
                 ForEach(equipments, id: \.objectID) { equipment in
                     NavigationLink(
-                        destination: EquipmentView(equipment: equipment)
+                        destination: EquipmentView(equipment)
                     ) {
                         ListRow(equipment)
                     }
@@ -50,7 +50,7 @@ struct EquipmentList: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Equipment")
+        .navigationTitle("Equipment (OLD)")
 //        .navigationBarItems(trailing: PPlusEntityButton<Equipment>(factory: factory))
         .navigationBarItems(trailing: PlusButton(parent: factory, path: "equipments_", keyPath: \Equipment.factory!))
 

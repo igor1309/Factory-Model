@@ -10,8 +10,6 @@ import SwiftUI
 struct FactoryList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @State private var showDeleteAction = false
-    
     var body: some View {
         NavigationView {
             List {
@@ -338,14 +336,5 @@ struct FactoryList: View {
         base.ingredients = [ingredient1, ingredient2]
         
         return base
-    }
-}
-
-struct FactoryList_Previews: PreviewProvider {
-    static var previews: some View {
-        FactoryList()
-            //            .environmentObject(PersistenceManager())
-            .environment(\.managedObjectContext, PersistenceManager(containerName: "Preview").viewContext)
-            .preferredColorScheme(.dark)
     }
 }

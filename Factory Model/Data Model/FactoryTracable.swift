@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-protocol FactoryTracable {
+protocol FactoryTracable where Self: NSManagedObject {
     static func factoryPredicate(for factory: Factory) -> NSPredicate
     
     static var format: String { get }
@@ -28,6 +28,15 @@ extension Base: FactoryTracable {
     }
     static var factoryPath: String {
         "\(#keyPath(Base.factory))"
+    }
+}
+
+extension Department: FactoryTracable {
+    static var format: String {
+        "%K == %@"
+    }
+    static var factoryPath: String {
+        "\(#keyPath(Department.factory))"
     }
 }
 

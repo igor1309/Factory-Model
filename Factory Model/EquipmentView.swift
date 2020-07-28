@@ -13,6 +13,10 @@ struct EquipmentView: View {
     
     @ObservedObject var equipment: Equipment
     
+    init(_ equipment: Equipment) {
+        self.equipment = equipment
+    }
+    
     private let lifetimes: [Double] = [1, 2, 3, 4, 5, 6, 7, 10]
     
     var body: some View {

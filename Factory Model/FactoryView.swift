@@ -21,63 +21,6 @@ struct FactoryView: View {
     var body: some View {
         List {
             Section(
-                header: Text("TESTING")
-            ) {
-                Group {
-                    NavigationLink(
-                        destination:
-                            List {
-                                GenericListSection(
-                                    title: "all feedstocks in DB",
-                                    type: Feedstock.self
-                                ) { feedstock in
-                                    FeedstockView(feedstock: feedstock)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                    ) {
-                        Text("all feedstocks in DB")
-                    }
-                    
-                    NavigationLink(
-                        destination:
-                            List {
-                                GenericListSection(
-                                    title: "factory feedstocks",
-                                    type: Feedstock.self,
-                                    predicate: NSPredicate(
-                                        format: "ANY %K.base.factory == %@", #keyPath(Feedstock.ingredients_), factory
-                                    )
-                                ) { feedstock in
-                                    FeedstockView(feedstock: feedstock)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                    ) {
-                        Text("factory feedstocks")
-                    }
-                    
-                    NavigationLink(
-                        destination:
-                            List {
-                                GenericListSection(
-                                    title: "factory feedstocks",
-                                    type: Feedstock.self,
-                                    predicate: Feedstock.factoryPredicate(for: factory)
-                                ) { feedstock in
-                                    FeedstockView(feedstock: feedstock)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                    ) {
-                        Text("TBD: NEW: factory feedstocks")
-                    }
-                }
-                .font(.subheadline)
-                .foregroundColor(.systemPurple)
-            }
-            
-            Section(
                 header: Text("Production")
             ) {
                 Group {
@@ -92,17 +35,8 @@ struct FactoryView: View {
                         )
                     }
                     
-                    NavigationLink(
-                        destination: BaseList(for: factory)
-                    ) {
-                        ListRow(
-                            title: "Base Products",
-                            subtitle: ".................",
-                            detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
-                            icon: "bag.circle"
-                        )
-                    }
-                    
+                    BaseRow(for: factory)
+                                      
                     NavigationLink(
                         destination: AllFeedstockList(for: factory)
                     ) {
@@ -163,6 +97,8 @@ struct FactoryView: View {
             Section(
                 header: Text("Expenses")
             ) {
+                DepartmentRow(for: factory)
+                
                 NavigationLink(
                     destination:
                         List {
@@ -188,31 +124,23 @@ struct FactoryView: View {
                 
                 
                 
+                let factoryExpenses = ListWithDashboard(
+                    title: "Factory Expenses",
+                    parent: factory,
+                    path: "expenses_",
+                    keyPath: \Expenses.factory!,
+                    predicate: Expenses.factoryPredicate(for: factory),
+                    useSmallerFont: true
+                ) {
+                    Text("Dashboard")
+                        .font(.headline)
+                    Text("Dashboard elements...")
+                } editor: { (expenses: Expenses) in
+                    ExpensesView(expenses: expenses)
+                }
+                
                 NavigationLink(
-                    destination:
-                        
-//                        ListWithDashboard(
-//                            title: "Factory Expenses", parent: factory, predicate: Expenses.factoryPredicate(for: factory), useSmallerFont: true, dashboard: {
-//                                Text("Dashboard")
-//                            }, editor: { (expenses: Expenses) in
-//                                ExpensesView(expenses: expenses)
-//                            }
-//                            )
-                        
-                        ListWithDashboard(
-                            title: "Factory Expenses",
-                            parent: factory,
-                            path: "expenses_",
-                            keyPath: \Expenses.factory!,
-                            predicate: Expenses.factoryPredicate(for: factory),
-                            useSmallerFont: true
-                        ) {
-                            Text("Dashboard")
-                                .font(.headline)
-                            Text("Dashboard elements...")
-                        } editor: { (expenses: Expenses) in
-                            ExpensesView(expenses: expenses)
-                        }
+                    destination: factoryExpenses
                 ) {
                     LabelWithDetail("dollarsign.circle", "NEW!!! Other Expenses", "TBD")
                         .font(.subheadline)
@@ -227,6 +155,8 @@ struct FactoryView: View {
                         .font(.subheadline)
                 }
             }
+            
+            EquipmentRow(for: factory)
             
             Section(header: Text("Equipment")) {
                 Group {

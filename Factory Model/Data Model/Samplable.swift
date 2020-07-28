@@ -24,6 +24,7 @@ extension Base: Samplable {
 }
 
 extension Buyer: Samplable {}
+extension Department: Samplable {}
     
 extension Equipment: Samplable {
     func makeSample() {
