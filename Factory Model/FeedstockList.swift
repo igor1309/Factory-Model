@@ -60,7 +60,7 @@ struct FeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
+        .navigationBarItems(trailing: PlusButton(type: Feedstock.self))
     }
     
     private func removeFeedstock(at offsets: IndexSet) {

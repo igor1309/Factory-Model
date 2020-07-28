@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct PlusEntityButton<T: NSManagedObject & Managed & Samplable>: View {
+struct PlusEntityButton<T: Managed & Samplable>: View {
     @Environment(\.managedObjectContext) var context
     
     var factory: Factory

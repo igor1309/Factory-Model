@@ -10,7 +10,7 @@ import CoreData
 
 typealias PickableEntity = Managed & Monikerable & Summarable & Validatable //& NSManagedObject
 
-struct EntityPicker<T: PickableEntity>: View {
+struct EntityPicker<T: PickableEntity & Samplable>: View {
     @Environment(\.managedObjectContext) var context
     
     @Binding var selection: T?
@@ -36,7 +36,7 @@ struct EntityPicker<T: PickableEntity>: View {
     }
 }
 
-struct EntityPickerList<T: PickableEntity>: View {
+struct EntityPickerList<T: PickableEntity & Samplable>: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.presentationMode) var presentation
     
@@ -71,7 +71,7 @@ struct EntityPickerList<T: PickableEntity>: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(T.entityName)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: CreateOrphanButton<T>())
+            .navigationBarItems(trailing: PlusButton(type: T.self))
         }
     }
 }

@@ -7,8 +7,14 @@
 
 import CoreData
 
-protocol Samplable {
+protocol Samplable where Self: NSManagedObject {
     func makeSample()
+}
+
+extension Samplable where Self: Monikerable {
+    func makeSample() {
+        name = "..."
+    }
 }
 
 extension Base: Samplable {
@@ -17,6 +23,8 @@ extension Base: Samplable {
     }
 }
 
+extension Buyer: Samplable {}
+    
 extension Equipment: Samplable {
     func makeSample() {
         self.name = " ..."
@@ -30,5 +38,24 @@ extension Expenses: Samplable {
         self.name = " ..."
         self.note = "..."
         self.amount = 10_000
+    }
+}
+
+extension Feedstock: Samplable {
+    func makeSample() {
+        self.name = " ..."
+        self.priceExVAT = 70
+        self.vat = 10/100
+    }
+}
+
+extension Ingredient: Samplable {}
+extension Factory: Samplable {}
+extension Packaging: Samplable {}
+
+extension Product: Samplable {
+    func makeSample() {
+        self.name = " ..."
+        self.vat = 10/100
     }
 }

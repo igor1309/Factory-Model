@@ -202,6 +202,8 @@ struct FactoryView: View {
                         ListWithDashboard(
                             title: "Factory Expenses",
                             parent: factory,
+                            path: "expenses_",
+                            keyPath: \Expenses.factory!,
                             predicate: Expenses.factoryPredicate(for: factory),
                             useSmallerFont: true
                         ) {

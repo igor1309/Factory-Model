@@ -83,7 +83,8 @@ struct ProductList: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Products")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: CreateOrphanButton<Product>())
+//        .navigationBarItems(trailing: CreateOrphanButton<Product>())
+        .navigationBarItems(trailing: PlusButton(type: Product.self))
     }
     
     private func removeProduct(at offsets: IndexSet) {

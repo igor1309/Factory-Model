@@ -67,6 +67,6 @@ struct AllFeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Feedstock")
-        .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
+        .navigationBarItems(trailing: PlusButton(type: Feedstock.self))
     }
 }
