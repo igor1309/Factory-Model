@@ -77,7 +77,7 @@ struct ProductView: View {
                 header: Text("Production")
             ) {
                 Group {
-                    LabelWithDetailView("bag", "Production Qty", QtyPicker(qty: $product.productionQty))
+                    LabelWithDetailView("bag", "Production Qty", QtyPicker(scale: .medium, qty: $product.productionQty))
                 }
                 .font(.subheadline)
             }

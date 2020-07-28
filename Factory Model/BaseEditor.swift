@@ -30,9 +30,9 @@ struct BaseEditor: View {
                     TextField("Code", text: $base.code)
                     TextField("Note", text: $base.note)
                     
-                    LabelWithDetail("TBD: Weight Netto", base.weightNetto.formattedGroupedWith1Decimal)
+                    QtyPicker(systemName: "scalemass",title: "Weight Netto", scale: .small, qty: $base.weightNetto)
                     
-                    LabelWithDetail("TBD: Product", "TBD")
+                    LabelWithDetail("TBD: List of Products using \(base.name)", "TBD")
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

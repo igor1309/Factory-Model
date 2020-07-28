@@ -10,7 +10,7 @@ import CoreData
 
 typealias Listable = Monikerable & Summarable & Validatable & Managed
 
-struct GenericListSection<T: Listable, Editor: View>: View {
+struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
@@ -30,17 +30,13 @@ struct GenericListSection<T: Listable, Editor: View>: View {
     
     init(
         type: T.Type,
-        predicate: NSPredicate? = nil,
+        predicate: NSPredicate?,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.editor = editor
         self.useSmallerFont = useSmallerFont
-        _fetchRequest = FetchRequest(
-            entity: T.entity(),
-            sortDescriptors: T.defaultSortDescriptors,
-            predicate: predicate
-        )
+        _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
     
     @State private var showDeleteAction = false

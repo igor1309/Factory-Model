@@ -13,7 +13,11 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
-                GenericListSection(type: Factory.self, useSmallerFont: false) { factory in
+                GenericListSection(
+                    type: Factory.self,
+                    predicate: nil,
+                    useSmallerFont: false
+                ) { factory in
                     FactoryView(factory)
                 }
             }

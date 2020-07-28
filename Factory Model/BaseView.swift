@@ -9,51 +9,32 @@ import SwiftUI
 
 struct BaseView: View {
     @Environment(\.managedObjectContext) var moc
-//    @Environment(\.presentationMode) var presentation
     
-//    @ObservedObject
     var base: Base
     
-    @FetchRequest private var products: FetchedResults<Product>
-    @FetchRequest private var ingredients: FetchedResults<Ingredient>
-
     init(_ base: Base) {
         self.base = base
-        
-        let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Product.base), base
-        )
-        _products = Product.defaultFetchRequest(with: predicate)
-        
-        _ingredients = FetchRequest(
-            entity: Ingredient.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Ingredient.qty, ascending: true)
-            ],
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Ingredient.base), base
-            )
-        )
     }
     
     var body: some View {
         List {
-            
-            Text("PLUS BUTTON HERE")
-            PlusButton(childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_)
-
-            
             Section(
                 header: Text("Base")
             ) {
                 NavigationLink(
                     destination: BaseEditor(base)
                 ) {
-                    Text(base.title)
+                    Text("\(base.title), \(base.weightNetto.formattedGrouped)")
                 }
+                .foregroundColor(.accentColor)
             }
             
-            GenericListSection(fetchRequest: _ingredients) { ingredient in
+            GenericListSection(
+                type: Ingredient.self,
+                predicate: NSPredicate(
+                    format: "%K == %@", #keyPath(Ingredient.base), base
+                )
+            ) { ingredient in
                 IngredientView(ingredient: ingredient)
             }
             
@@ -122,25 +103,21 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    //  MARK: - can't replace with PlusEntityButton: addToIngredients_
-    private var plusButton: some View {
-        Button {
-            let ingredient = Ingredient(context: moc)
-            ingredient.qty = 1_000
-            base.addToIngredients_(ingredient)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
+        .navigationBarItems(trailing: PlusButton(childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
     }
 }
 
 struct BaseView_Previews: PreviewProvider {
     static var previews: some View {
-        BaseView(Base())
+        let persistence = PersistenceManager(containerName: "DataModel")
+        let context = persistence.viewContext
+        
+        let base = Base(context: context)
+        base.makeSketch()
+        
+//        context.saveContext()
+        
+        return BaseView(base)
+            .environment(\.managedObjectContext, persistence.viewContext)
     }
 }

@@ -18,7 +18,7 @@ struct FeedstockList: View {
         self.base = base
         
         let predicate = NSPredicate(
-            format: "%K.base == %@", #keyPath(Feedstock.ingredients_), base
+            format: "ANY %K.base == %@", #keyPath(Feedstock.ingredients_), base
         )
         _feedstocks = Feedstock.defaultFetchRequest(with: predicate)
     }

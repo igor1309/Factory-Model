@@ -22,9 +22,6 @@ struct BaseList: View {
             keyPath: \Factory.bases_,
             predicate: Base.factoryPredicate(for: factory)
         ) {
-            Text("TBD: Ingredients")
-                .foregroundColor(.systemRed)
-            
             ListRow(
                 title: "Общий объем производства",
                 subtitle: "все продукты имеют вес нетто => общий вес",
