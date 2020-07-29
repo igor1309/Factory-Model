@@ -18,7 +18,17 @@ extension Department: Comparable {
         set { staffs_ = Set(newValue) as NSSet }
     }
 
-    
+    var totalSalary: Double {
+        staffs
+            .map { $0.salary }
+            .reduce(0, +)
+    }
+    var totalSalaryWithTax: Double {
+        staffs
+            .map { $0.salaryWithTax }
+            .reduce(0, +)
+    }
+
     enum DepartmentType: String, CaseIterable {
         case production, sales, procurement, management
     }

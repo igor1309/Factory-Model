@@ -22,6 +22,8 @@ struct EquipmentList: View {
             keyPath: \Factory.equipments_,
             predicate: Equipment.factoryPredicate(for: factory)
         ) {
+            CreateChildButton(childType: Equipment.self, parent: factory, keyPath: \Factory.equipments_)
+        } dashboard: {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")

@@ -46,7 +46,6 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     
     @State private var showDeleteAction = false
     
-    
     var body: some View {
         Section(
             header: Text(T.plural())

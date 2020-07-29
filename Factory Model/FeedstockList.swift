@@ -11,8 +11,9 @@ struct FeedstockList: View {
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var feedstocks: FetchedResults<Feedstock>
-    
-    var base: Base
+//    @FetchRequest private var ingredients: FetchedResults<Ingredient>
+
+    @ObservedObject var base: Base
     
     init(for base: Base) {
         self.base = base
@@ -21,6 +22,11 @@ struct FeedstockList: View {
             format: "ANY %K.base == %@", #keyPath(Feedstock.ingredients_), base
         )
         _feedstocks = Feedstock.defaultFetchRequest(with: predicate)
+        
+//        let ingredientPredicate = NSPredicate(
+//            format: "ANY %K == %@", #keyPath(Base.ingredients_), base
+//        )
+//        _ingredients = Ingredient.defaultFetchRequest(with: ingredientPredicate)
     }
     
     
@@ -31,6 +37,10 @@ struct FeedstockList: View {
                 ListRow(
                     feedstocks.first!
                 )
+            }
+            
+            GenericListSection(fetchRequest: _feedstocks) { feedstock in
+                FeedstockView(feedstock: feedstock)
             }
             
             GenericListSection(fetchRequest: _feedstocks) { feedstock in
@@ -60,7 +70,10 @@ struct FeedstockList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
+//        .navigationBarItems(trailing: CreateOrphanButton<Feedstock>())
+//        .navigationBarItems(trailing: CreateChildButton(systemName: "plus.circle", childType: Feedstock.self, parent: base, keyPath: \Base.ingredients_.feedstock))
+        //  MARK: - FINISH THIS USE THIS COFE FOR INGREDIENTS LIST
+        //        .navigationBarItems(trailing: CreateChildButton(systemName: "plus.circle", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
     }
     
     private func removeFeedstock(at offsets: IndexSet) {

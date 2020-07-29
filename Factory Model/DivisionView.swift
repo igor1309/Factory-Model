@@ -43,7 +43,7 @@ struct DivisionView: View {
                 .font(.headline)
             
             Section(header: Text("Total")) {
-                LabelWithDetail("Total Salary incl taxes", factory.salaryForDivisionWithTax(division).formattedGrouped)
+                LabelWithDetail("Total Salary incl taxes", factory.totalSalaryWithTax(for: division).formattedGrouped)
                     .font(.subheadline)
             }
             

@@ -39,6 +39,13 @@ extension Equipment: Orphanable {
 extension Expenses: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
+//  MARK: - FINISH THIS только base == nil или "base == nil && feedstock == nil" ???
+extension Ingredient: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
+}
 extension Staff: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
+}
+extension Utility: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }

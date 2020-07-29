@@ -210,7 +210,7 @@ struct FactoryList: View {
             
             moc.saveContext()
         } label: {
-            Image(systemName: "plus.square")
+            Image(systemName: "text.badge.plus")
                 .padding([.leading, .vertical])
         }
     }

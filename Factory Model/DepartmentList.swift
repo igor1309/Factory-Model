@@ -22,8 +22,19 @@ struct DepartmentList: View {
             keyPath: \Factory.departments_,
             predicate: Department.factoryPredicate(for: factory)
         ) {
-            Text("TBD: Departments")
-                .foregroundColor(.systemRed)
+            CreateChildButton(
+                systemName: "person.crop.circle.badge.plus",
+                childType: Department.self,
+                parent: factory,
+                keyPath: \Factory.departments_
+            )
+        } dashboard: {
+            Section(
+                header: Text("Total")
+            ) {
+                LabelWithDetail("Total Salary incl taxes", "\(factory.totalSalaryWithTax.formattedGrouped)")
+                    .font(.subheadline)
+            }
         } editor: { (department: Department) in
             DepartmentView(for: department)
         }

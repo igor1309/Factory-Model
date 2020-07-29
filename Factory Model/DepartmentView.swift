@@ -24,23 +24,28 @@ struct DepartmentView: View {
             //  MARK: - FINISH THIS
             //  should be `default` predicate
             //            format: "%K == %@", #keyPath(Product.base.factory), factory
-
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Staff.department), department
-            )
+            
+            predicate: nil
+//                NSPredicate(
+//                    format: "%K == %@", #keyPath(Staff.department), department
+//                )
             
             
             
         ) {
-            Section(header: Text("Total")) {
-                LabelWithDetail("Total Salary incl taxes", "factory.totalSalaryWithTax")
-                    .foregroundColor(.secondary)
+            CreateChildButton(
+                systemName: "person.crop.circle.badge.plus",
+                childType: Staff.self,
+                parent: department,
+                keyPath: \Department.staffs_
+            )
+        } dashboard: {
+            Section(
+                header: Text("Total")
+            ) {
+                LabelWithDetail("Total Salary incl taxes", "\(department.totalSalaryWithTax.formattedGrouped)")
                     .font(.subheadline)
             }
-            
-            Text("MARK: NEED TO BE DONE IN A CORRECT WAY")
-                .foregroundColor(.systemRed)
-                .font(.headline)
         } editor: { (staff: Staff) in
             StaffView(staff)
         }

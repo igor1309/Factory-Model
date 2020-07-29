@@ -36,6 +36,12 @@ extension Factory {
         get { (departments_ as? Set<Department> ?? []).sorted() }
         set { departments_ = Set(newValue) as NSSet }
     }
+    var departmentNames: String {
+        departments
+            .map { $0.name }
+            .joined(separator: ", ")
+    }
+    
     var staffByDivision: [String: [Department]] {
         Dictionary(grouping: departments) { $0.name }
     }
@@ -44,13 +50,6 @@ extension Factory {
             .map { $0.division }
             .removingDuplicates()
             .sorted()
-    }
-    func totalSalary(for division: String) -> Double {
-        departments
-            .filter { $0.division == division }
-            .flatMap { $0.staffs }
-            .map { $0.salary }
-            .reduce(0, +)
     }
     func headcount(for division: String) -> Int {
         departments
@@ -66,17 +65,6 @@ extension Factory {
             .joined(separator: ", ")
     }
     
-    
-    func salaryForDivision(_ division: String) -> Double {
-        departments
-            .filter { $0.division == division }
-            .flatMap { $0.staffs }
-            .map { $0.salary }
-            .reduce(0, +)
-    }
-    func salaryForDivisionWithTax(_ division: String) -> Double {
-        salaryForDivision(division) * 1.302
-    }
     var totalSalary: Double {
         departments
             .flatMap { $0.staffs }
@@ -84,7 +72,24 @@ extension Factory {
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
-        totalSalary * 1.302
+        departments
+            .flatMap { $0.staffs }
+            .map { $0.salaryWithTax }
+            .reduce(0, +)
+    }
+    func totalSalary(for division: String) -> Double {
+        departments
+            .filter { $0.division == division }
+            .flatMap { $0.staffs }
+            .map { $0.salary }
+            .reduce(0, +)
+    }
+    func totalSalaryWithTax(for division: String) -> Double {
+        departments
+            .filter { $0.division == division }
+            .flatMap { $0.staffs }
+            .map { $0.salaryWithTax }
+            .reduce(0, +)
     }
     
     var equipmentTotal: Double {

@@ -21,7 +21,9 @@ struct ExpensesList: View {
             parent: factory,
             keyPath: \Factory.expenses_,
             predicate: Expenses.factoryPredicate(for: factory)
-        ) {            
+        ) {
+            CreateChildButton(systemName: "dollarsign.circle", childType: Expenses.self, parent: factory, keyPath: \Factory.expenses_)
+        } dashboard: {
             Section(header: Text("Total")) {
                 LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
                     .foregroundColor(.secondary)

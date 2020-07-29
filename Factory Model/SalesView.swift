@@ -40,6 +40,32 @@ struct SalesView: View {
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
+            
+            Section(header: Text("Sales")) {
+                Text("TBD: MOVE SALES TO PRODUCT!!")
+                    .foregroundColor(.systemRed)
+                
+                Group {
+                    LabelWithDetail("bag", "Sales Qty", "base.totalSalesQty")
+                    
+                    VStack(spacing: 4) {
+                        LabelWithDetail("dollarsign.circle", "Avg price, ex VAT", "base.avgPriceExVAT")
+                        
+                        LabelWithDetail("dollarsign.circle", "Avg price, incl VAT", "base.avgPriceWithVAT")
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.vertical, 3)
+                    
+                    LabelWithDetail("cart", "Sales, ex VAT", "base.revenueExVAT")
+                    
+                    LabelWithDetail("wrench.and.screwdriver", "COGS", "base.cogs")
+                    
+                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", "base.margin")
+                        .foregroundColor(.systemOrange)
+                    
+                }
+                .font(.subheadline)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(sales.buyerName)

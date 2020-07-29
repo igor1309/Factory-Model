@@ -11,6 +11,7 @@ import CoreData
 struct ListWithDashboard<
     Child: Monikerable & Managed & Summarable & Validatable & Sketchable & Orphanable,
     Parent: NSManagedObject,
+    PlusButton: View,
     Dashboard: View,
     Editor: View
 >: View where Child.ManagedType == Child {
@@ -24,6 +25,7 @@ struct ListWithDashboard<
     let parent: Parent
     let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let useSmallerFont: Bool
+    let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
@@ -32,12 +34,14 @@ struct ListWithDashboard<
         keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
+        plusButton: @escaping () -> PlusButton,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.parent = parent
         self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
+        self.plusButton = plusButton
         self.dashboard = dashboard
         self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
@@ -69,7 +73,6 @@ struct ListWithDashboard<
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(Child.plural())
-        //  MARK: - FINISH THIS SHOULD BE CREATE CHILD OR CREATEORPHAN BUTTON!!??
-        .navigationBarItems(trailing: CreateChildButton(childType: Child.self, parent: parent, keyPath: keyPath))
+        .navigationBarItems(trailing: plusButton())
     }
 }

@@ -102,7 +102,7 @@ extension Ingredient: Summarable {
         qty >= 0 ? "" : "ERROR: negative Qty!"
     }
     
-    var icon: String { "puzzlepiece.fill" }
+    var icon: String { "puzzlepiece" }
 }
 
 extension Packaging: Summarable {

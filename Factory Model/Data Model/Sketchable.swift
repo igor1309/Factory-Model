@@ -61,4 +61,12 @@ extension Product: Sketchable {
     }
 }
 
+extension Sales: Sketchable {}
 extension Staff: Sketchable {}
+
+extension Utility: Sketchable {
+    func makeSketch() {
+        name = " <name>"
+        priceExVAT = 10
+    }
+}

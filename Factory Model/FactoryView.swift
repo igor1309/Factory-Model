@@ -64,8 +64,9 @@ struct FactoryView: View {
                     destination: DepartmentList(for: factory)
                 ) {
                     ListRow(
-                        title: "TBD: Departments",
-                        subtitle: ".................",
+                        title: "Departments",
+                        subtitle: "Budget, incl tax \(factory.totalSalaryWithTax.formattedGrouped)",
+                        detail: factory.departmentNames,
                         icon: "person.2"
                     )
                     .foregroundColor(.systemTeal)

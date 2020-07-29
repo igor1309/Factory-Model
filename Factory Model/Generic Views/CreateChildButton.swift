@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct CreateChildButton<Child: Managed & Sketchable,
                          Parent: NSManagedObject>: View {
@@ -14,11 +15,11 @@ struct CreateChildButton<Child: Managed & Sketchable,
     @Environment(\.managedObjectContext) var context
     
     @ObservedObject var parent: Parent
+
     var path: String?
-    
+    let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let systemName: String
-    /// use this init to create orphans (no parent entities)
-    /// - Parameter type: type of the Entity to be created
+
     init(
         systemName: String? = nil,
         childType: Child.Type,
@@ -28,19 +29,26 @@ struct CreateChildButton<Child: Managed & Sketchable,
         self.systemName = systemName == nil ? "plus" : systemName!
         self.parent = parent
         self.path = keyPath?._kvcKeyPathString
+        self.keyPath = keyPath
     }
     
     var body: some View {
         Button {
             let entity = Child.create(in: context)
             entity.makeSketch()
+            entity.objectWillChange.send()
             
             if let path = path {
                 // https://stackoverflow.com/a/55931101
                 parent.mutableSetValue(forKeyPath: path /*"bases_"*/).add(entity)
+                parent.objectWillChange.send()
+                //  MARK: - FINISH THIS Enroute L12 @ CS193p ТАК НУЖНО?????? КАК ЭТО СДЕЛАТЬ???
+//                parent[keyPath: keyPath]?.forEach { $0.objectWillChange.send() }
+//                airport.flightsFrom.forEach { $0.objectWillChange.send() }
             }
             
-            //  do not save - using @ObservedObject
+            try? context.save()
+            //  context.saveContext() crashes while using @ObservedObject
             //  context.saveContext()
         } label: {
             Image(systemName: systemName)

@@ -22,6 +22,8 @@ struct BaseList: View {
             keyPath: \Factory.bases_,
             predicate: Base.factoryPredicate(for: factory)
         ) {
+            CreateChildButton(systemName: "bag.badge.plus", childType: Base.self, parent: factory, keyPath: \Factory.bases_)
+        } dashboard: {
             ListRow(
                 title: "Общий объем производства",
                 subtitle: "все продукты имеют вес нетто => общий вес",

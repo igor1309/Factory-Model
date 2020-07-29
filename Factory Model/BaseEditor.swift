@@ -7,22 +7,70 @@
 
 import SwiftUI
 
+struct IngredientRow/*<T: Managed>*/: View {
+    @Environment(\.managedObjectContext) var moc
+    
+    @ObservedObject var entity: Ingredient//T
+    //    let keyPath: ReferenceWritableKeyPath<>
+    
+    @State private var showDeleteAction = false
+    
+    var body: some View {
+        HStack {
+            EntityPicker(selection: $entity.feedstock)
+                .buttonStyle(PlainButtonStyle())
+            Spacer()
+            AmountPicker(navigationTitle: "Qty", scale: .small, qty: $entity.qty)
+                .buttonStyle(PlainButtonStyle())
+        }
+        .foregroundColor(.accentColor)
+        .font(.subheadline)
+        .contextMenu {
+            Button {
+                showDeleteAction = true
+            } label: {
+                Image(systemName: "trash.circle")
+                Text("Delete")
+            }
+        }
+        .actionSheet(isPresented: $showDeleteAction) {
+            ActionSheet(
+                title: Text("Delete?".uppercased()),
+                message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
+                buttons: [
+                    .destructive(Text("Yes, delete")) { delete(entity) },
+                    .cancel()
+                ]
+            )
+        }
+    }
+    
+    private func delete(_ item: Ingredient) {
+        withAnimation {
+            moc.delete(item)
+            moc.saveContext()
+        }
+    }
+}
+
 struct BaseEditor: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
-
+    
     init(_ base: Base) {
         self.base = base
+        let predicate = NSPredicate(
+            format: "%K == %@", #keyPath(Ingredient.base), base
+        )
+        _ingredients = Ingredient.defaultFetchRequest(with: predicate)
     }
+    
+    @FetchRequest var ingredients: FetchedResults<Ingredient>
     
     var body: some View {
         List {
-            Text("NEEDS TO BE COMPLETLY REDONE")
-                .foregroundColor(.systemRed)
-                .font(.headline)
-            
             Section(header: Text("Base")) {
                 Group {
                     TextField("Name", text: $base.name)
@@ -42,49 +90,22 @@ struct BaseEditor: View {
                     TextField("Note", text: $base.note)
                     
                     AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, qty: $base.weightNetto)
-                    
-                    LabelWithDetail("TBD: List of Products using \(base.name)", base.productList)
-                        .foregroundColor(.secondary)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
             
-            Section(header: Text("Feedstock")) {
-                NavigationLink(
-                    destination: FeedstockList(for: base)
-                ) {
-                    LabelWithDetail("puzzlepiece", "Feedstock Cost ex VAT", base.costExVAT.formattedGrouped)
-                        .font(.subheadline)
+            Section(
+                header: Text("Ingredients"),
+                footer: Text("Tap on Ingredient Name or Quantity to change.")
+            ) {
+                ForEach(ingredients, id: \.objectID) { ingredient in
+                    IngredientRow(entity: ingredient)
                 }
-                .foregroundColor(.accentColor)
-            }
-            
-            Section(header: Text("Utilities")) {
-                NavigationLink(
-                    destination: UtilityList(for: base)
-                ) {
-                    LabelWithDetail("lightbulb", "Total Utilities", "TBD")
-                        .font(.subheadline)
-                }
-                .foregroundColor(.accentColor)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-//        .navigationBarItems(trailing: saveButton)
-    }
-    
-    private var saveButton: some View {
-        Button("Save") {
-            moc.saveContext()
-            presentation.wrappedValue.dismiss()
-        }
+        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
     }
 }
-
-//struct BaseEditor_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BaseEditor()
-//    }
-//}
