@@ -30,7 +30,7 @@ struct BaseEditor: View {
                     TextField("Code", text: $base.code)
                     TextField("Note", text: $base.note)
                     
-                    QtyPicker(systemName: "scalemass",title: "Weight Netto", scale: .small, qty: $base.weightNetto)
+                    QtyPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, qty: $base.weightNetto)
                     
                     LabelWithDetail("TBD: List of Products using \(base.name)", "TBD")
                 }

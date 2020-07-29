@@ -42,7 +42,7 @@ struct SalesEditor: View {
                     
                     LabelWithDetail("Price", "TBD")
                     
-                    LabelWithDetailView("Qty", QtyPicker(scale: .large, qty: $sales.qty))
+                    LabelWithDetailView("Qty", QtyPicker(navigationTitle: "Select Qty", scale: .large, qty: $sales.qty))
                 }
                 //                .foregroundColor(.accentColor)
                 //                .font(.subheadline)

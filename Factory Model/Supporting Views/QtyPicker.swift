@@ -43,7 +43,7 @@ struct QtyPicker: View {
     
     var systemName: String = ""
     var title: String = ""
-    var navigationTitle: String = ""
+    var navigationTitle: String
     var scale: Scale = .large
     @Binding var qty: Double
     
@@ -87,7 +87,7 @@ fileprivate struct QtyPickerTable: View {
     
     init(qty: Binding<Double>, scale: QtyPicker.Scale, navigationTitle: String) {
         _qty = qty
-        self.navigationTitle = navigationTitle == "" ? "Select Qty" : "Select \(navigationTitle)"
+        self.navigationTitle = navigationTitle == "" ? "Select Qty" : navigationTitle
         _scale = State(initialValue: scale)
     }
     
@@ -162,9 +162,9 @@ struct QtyPicker_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack(spacing: 32) {
-                QtyPicker(systemName: "scalemass", title: "mass", scale: .small, qty: $qty)
-                QtyPicker(title: "mass", scale: .medium, qty: $qty)
-                QtyPicker(scale: .large, qty: $qty)
+                QtyPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, qty: $qty)
+                QtyPicker(title: "mass", navigationTitle: "", scale: .medium, qty: $qty)
+                QtyPicker(navigationTitle: "", scale: .large, qty: $qty)
             }
             .padding()
             .preferredColorScheme(.dark)

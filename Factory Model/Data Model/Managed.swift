@@ -14,6 +14,8 @@ protocol Managed: class, NSFetchRequestResult {
     
     static var entityName: String { get }
     static func defaultFetchRequest(with predicate: NSPredicate?) -> FetchRequest<ManagedType>
+    static func defaultNSFetchRequest(with predicate: NSPredicate?) -> NSFetchRequest<ManagedType>
+
 }
 extension Managed where Self: NSManagedObject {
     static var entityName: String { return entity().name! }
@@ -76,6 +78,12 @@ extension Managed where Self: Monikerable, ManagedType == Self {
         request.sortDescriptors = defaultSortDescriptors
         request.predicate = predicate
         return FetchRequest(fetchRequest: request)
+    }
+    static func defaultNSFetchRequest(with predicate: NSPredicate? = nil) -> NSFetchRequest<Self> {
+        let request = NSFetchRequest<ManagedType>(entityName: ManagedType.entityName)
+        request.sortDescriptors = defaultSortDescriptors
+        request.predicate = predicate
+        return request
     }
 }
 

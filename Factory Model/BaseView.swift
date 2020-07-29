@@ -112,12 +112,19 @@ struct BaseView_Previews: PreviewProvider {
         let persistence = PersistenceManager(containerName: "DataModel")
         let context = persistence.viewContext
         
-        let base = Base(context: context)
-        base.makeSketch()
+        let entity = Base(context: context)
+        entity.makeSketch()
         
-//        context.saveContext()
+        context.saveContext()
         
-        return BaseView(base)
-            .environment(\.managedObjectContext, persistence.viewContext)
+        return Group {
+            let request = Base.defaultNSFetchRequest(with: nil)
+            if let fetch = try? context.fetch(request), let first = fetch.first {
+                BaseView(first)
+                    .environment(\.managedObjectContext, persistence.viewContext)
+            } else {
+                Text("error fetching entity")
+            }
+        }
     }
 }
