@@ -12,9 +12,8 @@ import CoreData
 //  PlusButton(type: Feedstock.self)
 
 /// if path (and keyPath) is nil we create an orphan!!
-struct PlusButton<
-    Child: Managed & Sketchable,
-    Parent: NSManagedObject
+struct PlusButton<Child: Managed & Sketchable,
+                  Parent: NSManagedObject
 >: View {
     @Environment(\.managedObjectContext) var context
     
@@ -29,15 +28,16 @@ struct PlusButton<
     
     let keyPath: ReferenceWritableKeyPath<Child, Parent>?
     
-//    init(
-//        parent: Parent,
-//        pathToParent: String,
-//        keyPath: ReferenceWritableKeyPath<Child, Parent>
-//    ) {
-//        self.parent = parent
-//        self.path = pathToParent
-//        self.keyPath = keyPath
-//    }
+    var saveContext: Bool
+    //    init(
+    //        parent: Parent,
+    //        pathToParent: String,
+    //        keyPath: ReferenceWritableKeyPath<Child, Parent>
+    //    ) {
+    //        self.parent = parent
+    //        self.path = pathToParent
+    //        self.keyPath = keyPath
+    //    }
     
     /// Prefered type-safe init. Needs more testing before becoming the main one. Create new Child entity with default values (protocol Sketchable) and set relationship to parent.
     /// - Parameters:
@@ -47,19 +47,22 @@ struct PlusButton<
     init(
         childType: Child.Type,
         parent: Parent,
-        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
+        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?,
+        saveContext: Bool
     ) {
         self.parent = parent
         self.path = keyPath?._kvcKeyPathString
         self.keyPath = nil
+        self.saveContext = saveContext
     }
     
     /// use this init to create orphans (no parent entities)
     /// - Parameter type: type of the Entity to be created
     init(childType: Child.Type) {
-        self.parent = nil
-        self.path = nil
-        self.keyPath = nil
+        parent = nil
+        path = nil
+        keyPath = nil
+        saveContext = true
     }
     
     var body: some View {
@@ -68,14 +71,17 @@ struct PlusButton<
             entity.makeSketch()
             
             //  print("pathFromParent \(path ?? "")")
-                 
+            
             ///  if path is nil we create an orphan!!
             if let path = path, let parent = parent {
                 // https://stackoverflow.com/a/55931101
                 parent.mutableSetValue(forKeyPath: path /*"bases_"*/).add(entity)
             }
-
-            context.saveContext()
+            
+            //  MARK: - NOT SAVING TO USE @ObservedObject
+            if saveContext {
+                context.saveContext()
+            }
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
