@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QtyPicker: View {
     
-    enum Scale {
+    enum Scale: String, CaseIterable {
         case small
         case medium
         case large
@@ -43,19 +43,9 @@ struct QtyPicker: View {
     
     var systemName: String = ""
     var title: String = ""
+    var navigationTitle: String = ""
     var scale: Scale = .large
     @Binding var qty: Double
-
-//    init(
-//        title: String = "",
-//        scale: Scale = .large,
-//        qty: Binding<Double>
-//    ) {
-//        self.title = title
-//        self.scale = scale
-//        self._qty = qty
-//    }
-    
     
     @State private var showTable = false
     
@@ -64,7 +54,6 @@ struct QtyPicker: View {
             showTable = true
         } label: {
             HStack {
-                
                 switch (title.isEmpty, systemName.isEmpty) {
                     case (false, false):
                         Label(title, systemImage: systemName)
@@ -78,17 +67,12 @@ struct QtyPicker: View {
                     default:
                         EmptyView()
                 }
-                
-                
-//                if !title.isEmpty {
-//                    Text(title)
-                    Spacer()
-//                }
+                //                Spacer()
                 Text("\(qty, specifier: "%.f")")
             }
         }
         .sheet(isPresented: $showTable) {
-            QtyPickerTable(qty: $qty, values: scale.values)
+            QtyPickerTable(qty: $qty, scale: scale, navigationTitle: navigationTitle)
         }
     }
 }
@@ -97,27 +81,77 @@ fileprivate struct QtyPickerTable: View {
     @Environment(\.presentationMode) var presentation
     
     @Binding var qty: Double
+    var navigationTitle: String
     
-    let values: [Double]
+    @State private var scale: QtyPicker.Scale
+    
+    init(qty: Binding<Double>, scale: QtyPicker.Scale, navigationTitle: String) {
+        _qty = qty
+        self.navigationTitle = navigationTitle == "" ? "Select Qty" : "Select \(navigationTitle)"
+        _scale = State(initialValue: scale)
+    }
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(values, id: \.self) { value in
-                    Button {
-                        qty = value
-                        presentation.wrappedValue.dismiss()
-                    } label: {
-                        HStack {
-                            Spacer()
-                            Text(("\(value, specifier: "%.f")"))
+            VStack {
+                VStack(spacing: 12) {
+                    Stepper(
+                        value: $qty,
+                        in: scale.range,
+                        step: scale.step
+                    ) {
+                        Text(qty.formattedGrouped)
+                            .foregroundColor(.systemOrange)
+                    }
+                    
+                    HStack {
+                        Text("Scale")
+                            .font(.subheadline)
+                            .padding(.trailing)
+                        
+                        Picker("Scale", selection: $scale) {
+                            ForEach(QtyPicker.Scale.allCases, id: \.self) { scale in
+                                Text(scale.rawValue.capitalized).tag(scale)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                    }
+                    
+                    Slider(
+                        value: $qty,
+                        in: scale.range,
+                        minimumValueLabel: Text(scale.range.lowerBound.formattedGrouped).font(.caption2),
+                        maximumValueLabel: Text(scale.range.upperBound.formattedGrouped).font(.caption)
+                    ) { Text("\(qty)") }
+                }
+                .padding([.horizontal, .top])
+                
+                List {
+                    Section(
+                        header: Text("")
+                    ) {
+                        ForEach(scale.values, id: \.self) { value in
+                            Button {
+                                qty = value
+                                presentation.wrappedValue.dismiss()
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Text(("\(value, specifier: "%.f")"))
+                                }
+                            }
                         }
                     }
                 }
+                .listStyle(InsetGroupedListStyle())
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Select Qty")
+            .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                trailing: Button("Done") {
+                    presentation.wrappedValue.dismiss()
+                }
+            )
         }
     }
 }
@@ -126,12 +160,17 @@ struct QtyPicker_Previews: PreviewProvider {
     @State static var qty = 3000.0
     
     static var previews: some View {
-        VStack(spacing: 32) {
-            QtyPicker(systemName: "scalemass", title: "mass", scale: .small, qty: $qty)
-            QtyPicker(title: "mass", scale: .medium, qty: $qty)
-            QtyPicker(scale: .large, qty: $qty)
+        Group {
+            VStack(spacing: 32) {
+                QtyPicker(systemName: "scalemass", title: "mass", scale: .small, qty: $qty)
+                QtyPicker(title: "mass", scale: .medium, qty: $qty)
+                QtyPicker(scale: .large, qty: $qty)
+            }
+            .padding()
+            .preferredColorScheme(.dark)
+            
+            QtyPickerTable(qty: $qty, scale: QtyPicker.Scale.medium, navigationTitle: "Weight")
+                .preferredColorScheme(.dark)
         }
-        .padding()
-        .preferredColorScheme(.dark)
     }
 }
