@@ -30,35 +30,20 @@ struct UtilityList: View {
                 .font(.subheadline)
             }
             
-            Section(header: Text("Utilities")) {
-                ForEach(utilities, id: \.objectID) { utility in
-                    NavigationLink(
-                        destination: UtilityView(utility)
-                    ) {
-                        ListRow(utility)
-                    }
-                }
-                .onDelete(perform: removeUtility)
+            GenericListSection(
+                type: Utility.self,
+                //  MARK: - FINISH THIS WITH DEFAULT PREDICATE
+                predicate: NSPredicate(format: "%K == %@", "base", base)
+            ) { (utility: Utility) in
+                UtilityView(utility)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
         .navigationBarItems(trailing: plusButton)
+        .navigationBarItems(trailing: CreateChildButton(systemName: "gauge.badge.plus", childType: Utility.self, parent: base, keyPath: \Base.utilities_))
     }
     
-    //  MARK: - can't replace with PlusEntityButton: addToUtilities_
-    private var plusButton: some View {
-        Button {
-            let utility = Utility(context: moc)
-            utility.name = " ..."
-            utility.priceExVAT = 10
-            base.addToUtilities_(utility)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
-    }
     
     private func removeUtility(at offsets: IndexSet) {
         for index in offsets {
