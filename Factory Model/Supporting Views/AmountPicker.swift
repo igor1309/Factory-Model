@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct QtyPicker: View {
+struct AmountPicker: View {
     
     enum Scale: String, CaseIterable {
         case small
@@ -72,20 +72,20 @@ struct QtyPicker: View {
             }
         }
         .sheet(isPresented: $showTable) {
-            QtyPickerTable(qty: $qty, scale: scale, navigationTitle: navigationTitle)
+            AmountPickerSheet(qty: $qty, scale: scale, navigationTitle: navigationTitle)
         }
     }
 }
 
-fileprivate struct QtyPickerTable: View {
+fileprivate struct AmountPickerSheet: View {
     @Environment(\.presentationMode) var presentation
     
     @Binding var qty: Double
     var navigationTitle: String
     
-    @State private var scale: QtyPicker.Scale
+    @State private var scale: AmountPicker.Scale
     
-    init(qty: Binding<Double>, scale: QtyPicker.Scale, navigationTitle: String) {
+    init(qty: Binding<Double>, scale: AmountPicker.Scale, navigationTitle: String) {
         _qty = qty
         self.navigationTitle = navigationTitle == "" ? "Select Qty" : navigationTitle
         _scale = State(initialValue: scale)
@@ -110,7 +110,7 @@ fileprivate struct QtyPickerTable: View {
                             .padding(.trailing)
                         
                         Picker("Scale", selection: $scale) {
-                            ForEach(QtyPicker.Scale.allCases, id: \.self) { scale in
+                            ForEach(AmountPicker.Scale.allCases, id: \.self) { scale in
                                 Text(scale.rawValue.capitalized).tag(scale)
                             }
                         }
@@ -162,14 +162,14 @@ struct QtyPicker_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack(spacing: 32) {
-                QtyPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, qty: $qty)
-                QtyPicker(title: "mass", navigationTitle: "", scale: .medium, qty: $qty)
-                QtyPicker(navigationTitle: "", scale: .large, qty: $qty)
+                AmountPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, qty: $qty)
+                AmountPicker(title: "mass", navigationTitle: "", scale: .medium, qty: $qty)
+                AmountPicker(navigationTitle: "", scale: .large, qty: $qty)
             }
             .padding()
             .preferredColorScheme(.dark)
             
-            QtyPickerTable(qty: $qty, scale: QtyPicker.Scale.medium, navigationTitle: "Weight")
+            AmountPickerSheet(qty: $qty, scale: AmountPicker.Scale.medium, navigationTitle: "Weight")
                 .preferredColorScheme(.dark)
         }
     }

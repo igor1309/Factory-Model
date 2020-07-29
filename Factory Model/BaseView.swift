@@ -118,10 +118,12 @@ struct BaseView_Previews: PreviewProvider {
         context.saveContext()
         
         return Group {
-            let request = Base.defaultNSFetchRequest(with: nil)
-            if let fetch = try? context.fetch(request), let first = fetch.first {
+//            let request = Base.defaultNSFetchRequest(with: nil)
+            //            if let fetch = try? context.fetch(request), let first = fetch.first {
+            if let fetch = Base.fetch(in: context, configurationBlock: {_ in }), let first = fetch.first {
+//                 Text("entity fetched \(first)")
                 BaseView(first)
-                    .environment(\.managedObjectContext, persistence.viewContext)
+                    .environment(\.managedObjectContext, context)
             } else {
                 Text("error fetching entity")
             }

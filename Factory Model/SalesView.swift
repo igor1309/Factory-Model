@@ -35,7 +35,7 @@ struct SalesView: View {
                         }
                     }
                     
-                    LabelWithDetailView("Qty", QtyPicker(navigationTitle: "Select Qty", scale: .large, qty: $sales.qty))
+                    LabelWithDetailView("Qty", AmountPicker(navigationTitle: "Select Qty", scale: .large, qty: $sales.qty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

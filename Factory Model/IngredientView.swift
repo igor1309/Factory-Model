@@ -20,7 +20,7 @@ struct IngredientView: View {
             ) {
                 FeedstockPicker(feedstock: $ingredient.feedstock)
                 
-                QtyPicker(title: "Qty", navigationTitle: "Select Qty", scale: .large, qty: $ingredient.qty)
+                AmountPicker(title: "Qty", navigationTitle: "Select Qty", scale: .large, qty: $ingredient.qty)
             }
             
             
