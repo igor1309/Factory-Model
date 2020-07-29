@@ -26,7 +26,7 @@ struct FactoryList: View {
             .navigationBarItems(
                 trailing: HStack {
                     plusSampleButton
-                    PlusButton(childType: Factory.self)
+                    CreateOrphanButton<Factory>()
                 }
             )
         }

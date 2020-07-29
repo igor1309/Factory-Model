@@ -10,7 +10,7 @@ import SwiftUI
 struct BaseView: View {
     @Environment(\.managedObjectContext) var moc
     
-    var base: Base
+    @ObservedObject var base: Base
     
     init(_ base: Base) {
         self.base = base
@@ -28,6 +28,16 @@ struct BaseView: View {
                 }
                 .foregroundColor(.accentColor)
             }
+            
+            Section(
+                header: Text("Used in")
+            ) {
+                
+                Text(base.productList)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
+            
             
             GenericListSection(
                 type: Ingredient.self,
@@ -103,7 +113,7 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: PlusButton(childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
+        .navigationBarItems(trailing: CreateChildButton(childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
     }
 }
 

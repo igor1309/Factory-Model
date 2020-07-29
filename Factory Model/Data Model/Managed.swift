@@ -13,13 +13,14 @@ protocol Managed: class, NSFetchRequestResult {
     associatedtype ManagedType: NSManagedObject = Self
     
     static var entityName: String { get }
+    
     static func defaultFetchRequest(with predicate: NSPredicate?) -> FetchRequest<ManagedType>
     static func defaultNSFetchRequest(with predicate: NSPredicate?) -> NSFetchRequest<ManagedType>
-
 }
 extension Managed where Self: NSManagedObject {
     static var entityName: String { return entity().name! }
     
+    //  MARK: - FINISH THIS COULD BE MADE WITHOUT PASSING THE NSManagedObjectContext
     static func fetch(in context: NSManagedObjectContext, configurationBlock: (NSFetchRequest<Self>) -> ()) -> [Self] {
         let request = NSFetchRequest<Self>(entityName: Self.entityName)
         configurationBlock(request)

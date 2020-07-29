@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Summarable & Validatable & Sketchable,
+    Child: Monikerable & Managed & Summarable & Validatable & Sketchable & Orphanable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -17,7 +17,8 @@ struct ListWithDashboard<
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var entities: FetchedResults<Child>
-    
+    @FetchRequest private var childFetchRequest: FetchedResults<Child>
+
     //  @State private var searchText = ""
     
     let parent: Parent
@@ -40,6 +41,7 @@ struct ListWithDashboard<
         self.dashboard = dashboard
         self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
+        _childFetchRequest = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
     
     var body: some View {
@@ -49,6 +51,16 @@ struct ListWithDashboard<
             
             dashboard()
             
+            if !childFetchRequest.isEmpty {
+                GenericListSection(
+                    header: "Orphans",
+                    fetchRequest: _childFetchRequest,
+                    useSmallerFont: useSmallerFont,
+                    editor: editor
+                )
+                .foregroundColor(.systemRed)
+            }
+            
             GenericListSection(
                 fetchRequest: _entities,
                 useSmallerFont: useSmallerFont,
@@ -57,6 +69,7 @@ struct ListWithDashboard<
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(Child.plural())
-        .navigationBarItems(trailing: PlusButton(childType: Child.self, parent: parent, keyPath: keyPath))
+        //  MARK: - FINISH THIS SHOULD BE CREATE CHILD OR CREATEORPHAN BUTTON!!??
+        .navigationBarItems(trailing: CreateChildButton(childType: Child.self, parent: parent, keyPath: keyPath))
     }
 }

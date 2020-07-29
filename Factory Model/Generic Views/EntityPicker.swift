@@ -71,7 +71,7 @@ struct EntityPickerList<T: PickableEntity & Sketchable>: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(T.entityName)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: PlusButton(childType: T.self))
+            .navigationBarItems(trailing: CreateOrphanButton<T>())
         }
     }
 }

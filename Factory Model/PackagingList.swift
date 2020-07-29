@@ -69,7 +69,7 @@ struct PackagingList: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Packagings")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarItems(trailing: PlusButton(childType: Packaging.self))
+        .navigationBarItems(trailing: CreateOrphanButton<Packaging>())
     }
     
     private func list(of packagings: FetchedResults<Packaging>) -> some View {

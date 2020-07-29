@@ -55,6 +55,14 @@ extension Base {
         products.flatMap { $0.sales }
     }
     
+    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
+    var baseGroups: [String] {
+        factory?.bases.map { $0.group }.removingDuplicates() ?? []
+    }
+    var productList: String {
+        products.map { $0.title }.joined(separator: "\n")
+    }
+    
     var productionQty: Double {
         products
             /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)

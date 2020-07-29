@@ -26,13 +26,25 @@ struct BaseEditor: View {
             Section(header: Text("Base")) {
                 Group {
                     TextField("Name", text: $base.name)
-                    TextField("Group", text: $base.group)
+                    
+                    if base.baseGroups.isEmpty {
+                        HStack {
+                            Text("Group")
+                                .foregroundColor(.secondary)
+                            TextField("Group", text: $base.group)
+                                .foregroundColor(.accentColor)
+                        }
+                    } else {
+                        PickerWithTextField(selection: $base.group, name: "Group", values: base.baseGroups)
+                    }
+                    
                     TextField("Code", text: $base.code)
                     TextField("Note", text: $base.note)
                     
                     AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, qty: $base.weightNetto)
                     
-                    LabelWithDetail("TBD: List of Products using \(base.name)", "TBD")
+                    LabelWithDetail("TBD: List of Products using \(base.name)", base.productList)
+                        .foregroundColor(.secondary)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -60,7 +72,7 @@ struct BaseEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: saveButton)
+//        .navigationBarItems(trailing: saveButton)
     }
     
     private var saveButton: some View {

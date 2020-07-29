@@ -112,7 +112,7 @@ fileprivate struct FeedstockPickerTable: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Select Feedstock")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: PlusButton(childType: Ingredient.self))
+            .navigationBarItems(trailing: CreateOrphanButton<Ingredient>())
         }
     }
 }
