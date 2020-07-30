@@ -5,21 +5,21 @@
 //  Created by Igor Malyarov on 23.07.2020.
 //
 
-protocol Summarable {
+protocol Summarizable {
     var title: String { get }
     var subtitle: String { get }
     var detail: String? { get }
     var icon: String { get }
 }
-extension Summarable where Self: Monikerable {
+extension Summarizable where Self: Monikerable {
     var title: String { name }
 }
-extension Summarable {
+extension Summarizable {
     var subtitle: String { "" }
     var detail: String? { "" }
 }
 
-extension Base: Summarable {
+extension Base: Summarizable {
     var title: String {
         [name, code, group]
             .filter { !$0.isEmpty }
@@ -43,13 +43,13 @@ extension Base: Summarable {
     var icon: String { "bag" }
 }
 
-extension Buyer: Summarable {
+extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
     var icon: String { "cart.fill" }
 }
 
-extension Division: Summarable {
+extension Division: Summarizable {
     var title: String {
         "\(name), [\("TBD: headcount")]"
     }
@@ -58,12 +58,12 @@ extension Division: Summarable {
     var icon: String { "person.crop.rectangle" }
 }
 
-extension Department: Summarable {
+extension Department: Summarizable {
     var detail: String? { type.rawValue.capitalized }
     var icon: String { "person.2" }
 }
 
-extension Equipment: Summarable {
+extension Equipment: Summarizable {
     var subtitle: String { note }
     
     var detail: String? {
@@ -73,13 +73,13 @@ extension Equipment: Summarable {
     var icon: String { "wrench.and.screwdriver" }
 }
 
-extension Expenses: Summarable {
+extension Expenses: Summarizable {
     var subtitle: String { amount.formattedGrouped }
     var detail: String? { note }
     var icon: String { "dollarsign.circle" }
 }
 
-extension Factory: Summarable {
+extension Factory: Summarizable {
     var subtitle: String { note }
     
     var detail: String? {
@@ -88,7 +88,7 @@ extension Factory: Summarable {
     var icon: String { "building.2" }
 }
 
-extension Feedstock: Summarable {
+extension Feedstock: Summarizable {
     
     var subtitle: String {
         //  MARK: - FINISH THIS
@@ -100,7 +100,7 @@ extension Feedstock: Summarable {
     var icon: String { "puzzlepiece" }
 }
 
-extension Ingredient: Summarable {
+extension Ingredient: Summarizable {
     var title: String { feedstock?.name ?? "ERROR: feedstock unknown" }
     var subtitle: String {
         qty.formattedGrouped + " @ "
@@ -115,7 +115,7 @@ extension Ingredient: Summarable {
     var icon: String { "puzzlepiece" }
 }
 
-extension Packaging: Summarable {
+extension Packaging: Summarizable {
     var subtitle: String { type }
     
     var detail: String? {
@@ -128,7 +128,7 @@ extension Packaging: Summarable {
     var icon: String { "shippingbox" }
 }
 
-extension Product: Summarable {
+extension Product: Summarizable {
     var summary: String {
         "\(name)/\(code)/\(group)/\(note)"
     }
@@ -167,7 +167,7 @@ extension Product: Summarable {
     var icon: String { "bag.circle" }
 }
 
-extension Sales: Summarable {
+extension Sales: Summarizable {
     var title: String {
         buyer?.name ?? "ERROR no Buyer"
     }
@@ -183,13 +183,13 @@ extension Sales: Summarable {
     var icon: String { "creditcard.fill" }
 }
 
-extension Utility: Summarable {
+extension Utility: Summarizable {
     var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
     var detail: String? { vat.formattedPercentage }
     var icon: String { "lightbulb" }
 }
 
-extension Worker: Summarable {
+extension Worker: Summarizable {
     var subtitle: String { salary.formattedGrouped }
     
     var detail: String? {

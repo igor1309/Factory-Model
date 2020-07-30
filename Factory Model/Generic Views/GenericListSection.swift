@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias Listable = Monikerable & Summarable & Validatable & Managed
+typealias Listable = Monikerable & Summarizable & Validatable & Managed
 
 struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) var moc

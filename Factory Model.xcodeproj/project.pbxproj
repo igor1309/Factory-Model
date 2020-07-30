@@ -12,7 +12,7 @@
 		2A02DF1C24CAF30D00A6E35A /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02DF1B24CAF30D00A6E35A /* ProductView.swift */; };
 		2A02DF1E24CB066F00A6E35A /* ProductList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A02DF1D24CB066F00A6E35A /* ProductList.swift */; };
 		2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */; };
-		2A13E4D124C9EF5F00016CBC /* Summarable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4D024C9EF5F00016CBC /* Summarable.swift */; };
+		2A13E4D124C9EF5F00016CBC /* Summarizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4D024C9EF5F00016CBC /* Summarizable.swift */; };
 		2A2B44C124D09189003EF752 /* DepartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44C024D09189003EF752 /* DepartmentView.swift */; };
 		2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */; };
 		2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */; };
@@ -94,7 +94,7 @@
 		2A02DF1B24CAF30D00A6E35A /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		2A02DF1D24CB066F00A6E35A /* ProductList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductList.swift; sourceTree = "<group>"; };
 		2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPicker.swift; sourceTree = "<group>"; };
-		2A13E4D024C9EF5F00016CBC /* Summarable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarable.swift; sourceTree = "<group>"; };
+		2A13E4D024C9EF5F00016CBC /* Summarizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarizable.swift; sourceTree = "<group>"; };
 		2A2B44C024D09189003EF752 /* DepartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentView.swift; sourceTree = "<group>"; };
 		2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
 		2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
 				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
-				2A13E4D024C9EF5F00016CBC /* Summarable.swift */,
+				2A13E4D024C9EF5F00016CBC /* Summarizable.swift */,
 				2A024CF524CD9419001A4B5C /* Validatable.swift */,
 			);
 			path = "Data Model";
@@ -449,7 +449,7 @@
 				2A936E6D24C71CD700C34381 /* ExpensesList.swift in Sources */,
 				2A3746E824CDF97D008D40F1 /* Ingredient.swift in Sources */,
 				2A8113CF24CEC3A500886C90 /* Managed.swift in Sources */,
-				2A13E4D124C9EF5F00016CBC /* Summarable.swift in Sources */,
+				2A13E4D124C9EF5F00016CBC /* Summarizable.swift in Sources */,
 				2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */,
 				2A93D98224D227E000DF1A35 /* Division.swift in Sources */,
 				2A93D98C24D35FE000DF1A35 /* BuyerEditor.swift in Sources */,

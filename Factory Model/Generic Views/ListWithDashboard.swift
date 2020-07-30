@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Summarable & Validatable & Sketchable & Orphanable,
+    Child: Monikerable & Managed & Summarizable & Validatable & Sketchable & Orphanable,
     Parent: NSManagedObject,
     PlusButton: View,
     Dashboard: View,

@@ -23,7 +23,7 @@ extension Something: Comparable {
     }
 }
 
-extension Something: Summarable {
+extension Something: Summarizable {
     var subtitle: String {
         "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
     }

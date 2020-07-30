@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias PickableEntity = Managed & Monikerable & Summarable & Validatable //& NSManagedObject
+typealias PickableEntity = Managed & Monikerable & Summarizable & Validatable //& NSManagedObject
 
 struct EntityPicker<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) var context

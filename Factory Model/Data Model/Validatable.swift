@@ -8,7 +8,7 @@
 protocol Validatable {
     var isValid: Bool { get }
 }
-extension Validatable where Self: Summarable {
+extension Validatable where Self: Summarizable {
     var isValid: Bool {
         let hasError = self.detail?.hasPrefix("ERROR") ?? true
         return !hasError
