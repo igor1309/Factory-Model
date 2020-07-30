@@ -18,8 +18,6 @@ struct ExpensesList: View {
     
     var body: some View {
         ListWithDashboard(
-            parent: factory,
-//            keyPath: \Factory.expenses_,
             predicate: Expenses.factoryPredicate(for: factory)
         ) {
             CreateChildButton(systemName: "text.badge.plus", childType: Expenses.self, parent: factory, keyPath: \Factory.expenses_)

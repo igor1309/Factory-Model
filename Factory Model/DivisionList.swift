@@ -18,8 +18,6 @@ struct DivisionList: View {
     
     var body: some View {
         ListWithDashboard(
-            parent: factory,
-//            keyPath: \Factory.divisions_,
             predicate: Division.factoryPredicate(for: factory)
         ) {
             CreateChildButton(

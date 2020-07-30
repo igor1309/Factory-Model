@@ -16,7 +16,6 @@ struct AllFeedstockList: View {
     
     var body: some View {
         ListWithDashboard(
-            parent: factory,
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Feedstock.factory), factory
             )

@@ -19,7 +19,6 @@ struct AllWorkersList: View {
     var body: some View {
         ListWithDashboard(
             title: "All Workers",
-            parent: factory,
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Worker.factory), factory
             )
@@ -34,6 +33,5 @@ struct AllWorkersList: View {
         } editor: { (worker: Worker) in
             WorkerView(worker)
         }
-        
     }
 }

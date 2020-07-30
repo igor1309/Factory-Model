@@ -18,8 +18,6 @@ struct BaseList: View {
     
     var body: some View {
         ListWithDashboard(
-            parent: factory,
-//            keyPath: \Factory.bases_,
             predicate: Base.factoryPredicate(for: factory)
         ) {
             CreateChildButton(systemName: "bag.badge.plus", childType: Base.self, parent: factory, keyPath: \Factory.bases_)

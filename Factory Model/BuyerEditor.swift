@@ -9,7 +9,6 @@ import SwiftUI
 
 struct BuyerEditor: View {
     @Environment(\.managedObjectContext) var context
-    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var buyer: Buyer
     
@@ -20,7 +19,6 @@ struct BuyerEditor: View {
     var body: some View {
         ListWithDashboard(
             title: "Edit Buyer",
-            parent: buyer,
             predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
         ) {
             CreateChildButton(
@@ -39,6 +37,5 @@ struct BuyerEditor: View {
         } editor: { (sales: Sales) in
             SalesEditor(sales)
         }
-        
     }
 }

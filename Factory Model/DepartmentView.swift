@@ -19,8 +19,6 @@ struct DepartmentView: View {
     var body: some View {
         ListWithDashboard(
             title: department.name,
-            parent: department,
-//            keyPath: \Department.workers_,
             
             //  MARK: - FINISH THIS
             //  should be `default` predicate

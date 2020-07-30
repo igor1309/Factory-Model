@@ -18,8 +18,6 @@ struct EquipmentList: View {
     
     var body: some View {
         ListWithDashboard(
-            parent: factory,
-//            keyPath: \Factory.equipments_,
             predicate: Equipment.factoryPredicate(for: factory)
         ) {
             CreateChildButton(systemName: "plus.rectangle.on.rectangle", childType: Equipment.self, parent: factory, keyPath: \Factory.equipments_)

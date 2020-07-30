@@ -59,7 +59,6 @@ struct IngredientRow/*<T: Managed>*/: View {
 
 struct BaseEditor: View {
     @Environment(\.managedObjectContext) var moc
-    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
     

@@ -10,26 +10,17 @@ import SwiftUI
 struct WorkerList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var worker: FetchedResults<Worker>
-    
     @ObservedObject var department: Department
     
     init(at department: Department) {
         self.department = department
-        _worker = FetchRequest(
-            entity: Worker.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Worker.position_, ascending: true)
-            ],
-            predicate: NSPredicate(format: "%K == %@", #keyPath(Worker.department), department)
-        )
     }
     
     var body: some View {
         ListWithDashboard(
-            parent: department,
-//            keyPath: \Department.workers_,
-            predicate: NSPredicate(format: "%K == %@", #keyPath(Worker.department), department)
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Worker.department), department
+            )
         ) {
             CreateChildButton(
                 systemName: "person.2",

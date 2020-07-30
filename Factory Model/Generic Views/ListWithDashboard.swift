@@ -10,7 +10,6 @@ import CoreData
 
 struct ListWithDashboard<
     Child: Monikerable & Managed & Summarizable & Validatable & Sketchable & Orphanable,
-    Parent: NSManagedObject,
     PlusButton: View,
     Dashboard: View,
     Editor: View
@@ -23,8 +22,6 @@ struct ListWithDashboard<
     //  @State private var searchText = ""
     
     let title: String
-    let parent: Parent
-//    let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let useSmallerFont: Bool
     let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
@@ -32,8 +29,6 @@ struct ListWithDashboard<
     
     init(
         title: String? = nil,
-        parent: Parent,
-//        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
         plusButton: @escaping () -> PlusButton,
@@ -41,8 +36,6 @@ struct ListWithDashboard<
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.title = title == nil ? Child.plural() : title!
-        self.parent = parent
-//        self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
         self.plusButton = plusButton
         self.dashboard = dashboard

@@ -10,19 +10,14 @@ import SwiftUI
 struct UtilityList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var utilities: FetchedResults<Utility>
-    
     var base: Base
     
-    init(for base: Base, predicate: NSPredicate? = nil) {
+    init(for base: Base) {
         self.base = base
-        _utilities = Utility.defaultFetchRequest(with: predicate)
     }
     
     var body: some View {
         ListWithDashboard(
-            parent: base,
-//            keyPath: \Base.utilities_,
             predicate: NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
         ) {
             CreateChildButton(
