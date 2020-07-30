@@ -14,8 +14,7 @@ struct AllSalesList: View {
     @FetchRequest private var sales: FetchedResults<Sales>
     @FetchRequest private var orphans: FetchedResults<Sales>
 
-//    @ObservedObject
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
@@ -47,50 +46,40 @@ struct AllSalesList: View {
                     .font(.subheadline)
 
                 ListRow(
-                    title: "Общие Продажи",
-                    subtitle: "Деньги (выручка и маржа, маржинальность) и объемы",
-                    detail: "",
+                    title: "TBD: Общие Продажи",
+                    subtitle: "TBD: Деньги (выручка и маржа, маржинальность) и объемы",
+                    detail: "TBD: ",
                     icon: "creditcard"
                 )
                 
                 ListRow(
-                    title: "Продажи по покупателям",
-                    subtitle: "Деньги (выручка и маржа, маржинальность) и объемы",
-                    detail: "По Product и по Product",
+                    title: "TBD: Продажи по покупателям",
+                    subtitle: "TBD: Деньги (выручка и маржа, маржинальность) и объемы",
+                    detail: "TBD: По Product и по Product",
                     icon: "creditcard"
                 )
                 
                 ListRow(
-                    title: "Продажи по продуктам",
-                    subtitle: "Деньги (выручка и маржа, маржинальность), средние цены, объемы и штуки",
-                    detail: "По Product и по Product",
+                    title: "TBD: Продажи по продуктам",
+                    subtitle: "TBD: Деньги (выручка и маржа, маржинальность), средние цены, объемы и штуки",
+                    detail: "TBD: По Product и по Product Base",
                     icon: "creditcard"
                 )
             }
             
             GenericListSection(fetchRequest: _sales) { sales in
-                SalesEditor(sales: sales)
+                SalesEditor(sales)
             }
             
-            GenericListSection(fetchRequest: _orphans) { sales in
-                SalesEditor(sales: sales)
+            GenericListSection(header: "Sales and Orphans", fetchRequest: _orphans) { sales in
+                SalesEditor(sales)
             }
-            
-            Section(header: Text("Sales")) {
-                ForEach(sales, id: \.objectID) { sales in
-                    
-                    NavigationLink(
-                        destination: SalesEditor(sales: sales)
-                    ) {
-                        ListRow(sales)
-                    }
-                }
-                .onDelete(perform: removeSales)
-            }
+            .foregroundColor(.systemRed)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
-        .navigationBarItems(trailing: plusButton)
+//        .navigationBarItems(trailing: plusButton)
+        .navigationBarItems(trailing: CreateOrphanButton<Sales>(systemName: "cart.badge.plus"))
     }
     
     //  MARK: - can't replace with PlusEntityButton: linked entities
@@ -109,15 +98,6 @@ struct AllSalesList: View {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
         }
-    }
-
-    private func removeSales(at offsets: IndexSet) {
-        for index in offsets {
-            let sale = sales[index]
-            context.delete(sale)
-        }
-        
-        context.saveContext()
     }
 }
 

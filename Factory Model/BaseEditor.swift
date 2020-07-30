@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct IngredientRow/*<T: Managed>*/: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
     
     @ObservedObject var entity: Ingredient//T
     //    let keyPath: ReferenceWritableKeyPath<>
+    
+    init(_ entity: Ingredient) {
+        self.entity = entity
+    }
     
     @State private var showDeleteAction = false
     
@@ -20,7 +24,7 @@ struct IngredientRow/*<T: Managed>*/: View {
             EntityPicker(selection: $entity.feedstock)
                 .buttonStyle(PlainButtonStyle())
             Spacer()
-            AmountPicker(navigationTitle: "Qty", scale: .small, qty: $entity.qty)
+            AmountPicker(navigationTitle: "Qty", scale: .small, amount: $entity.qty)
                 .buttonStyle(PlainButtonStyle())
         }
         .foregroundColor(.accentColor)
@@ -47,8 +51,8 @@ struct IngredientRow/*<T: Managed>*/: View {
     
     private func delete(_ item: Ingredient) {
         withAnimation {
-            moc.delete(item)
-            moc.saveContext()
+            context.delete(item)
+            context.saveContext()
         }
     }
 }
@@ -89,7 +93,7 @@ struct BaseEditor: View {
                     TextField("Code", text: $base.code)
                     TextField("Note", text: $base.note)
                     
-                    AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, qty: $base.weightNetto)
+                    AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $base.weightNetto)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -100,7 +104,7 @@ struct BaseEditor: View {
                 footer: Text("Tap on Ingredient Name or Quantity to change.")
             ) {
                 ForEach(ingredients, id: \.objectID) { ingredient in
-                    IngredientRow(entity: ingredient)
+                    IngredientRow(ingredient)
                 }
             }
         }

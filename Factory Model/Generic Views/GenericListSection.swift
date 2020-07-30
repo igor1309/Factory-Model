@@ -48,7 +48,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     
     var body: some View {
         Section(
-            header: Text(T.plural())
+            header: Text(header)
         ) {
             if fetchRequest.isEmpty {
                 Text("No data to list")

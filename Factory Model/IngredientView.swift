@@ -20,7 +20,7 @@ struct IngredientView: View {
             ) {
                 FeedstockPicker(feedstock: $ingredient.feedstock)
                 
-                AmountPicker(title: "Qty", navigationTitle: "Select Qty", scale: .large, qty: $ingredient.qty)
+                AmountPicker(title: "Qty", navigationTitle: "Select Qty", scale: .large, amount: $ingredient.qty)
             }
             
             
@@ -100,7 +100,7 @@ fileprivate struct FeedstockPickerTable: View {
                                 }
                                 .sheet(isPresented: $showEditor) {
                                     NavigationView {
-                                        FeedstockView(feedstock: feedstock)
+                                        FeedstockView(feedstock)
                                             .navigationBarTitleDisplayMode(.inline)
                                             .environment(\.managedObjectContext, moc)
                                     }

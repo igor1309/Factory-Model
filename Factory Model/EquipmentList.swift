@@ -19,10 +19,10 @@ struct EquipmentList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            keyPath: \Factory.equipments_,
+//            keyPath: \Factory.equipments_,
             predicate: Equipment.factoryPredicate(for: factory)
         ) {
-            CreateChildButton(childType: Equipment.self, parent: factory, keyPath: \Factory.equipments_)
+            CreateChildButton(systemName: "plus.rectangle.on.rectangle", childType: Equipment.self, parent: factory, keyPath: \Factory.equipments_)
         } dashboard: {
             Section(header: Text("Total")) {
                 Group {

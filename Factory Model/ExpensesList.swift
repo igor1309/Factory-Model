@@ -19,12 +19,15 @@ struct ExpensesList: View {
     var body: some View {
         ListWithDashboard(
             parent: factory,
-            keyPath: \Factory.expenses_,
+//            keyPath: \Factory.expenses_,
             predicate: Expenses.factoryPredicate(for: factory)
         ) {
-            CreateChildButton(systemName: "dollarsign.circle", childType: Expenses.self, parent: factory, keyPath: \Factory.expenses_)
+            CreateChildButton(systemName: "text.badge.plus", childType: Expenses.self, parent: factory, keyPath: \Factory.expenses_)
         } dashboard: {
-            Section(header: Text("Total")) {
+            Section(
+                header: Text("Total"),
+                footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
+            ) {
                 LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)

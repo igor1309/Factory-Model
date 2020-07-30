@@ -15,7 +15,8 @@
     </entity>
     <entity name="Buyer" representedClassName="Buyer" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
-        <relationship name="sales" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sales" inverseName="buyer" inverseEntity="Sales"/>
+        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="buyers_" inverseEntity="Factory"/>
+        <relationship name="sales_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sales" inverseName="buyer" inverseEntity="Sales"/>
     </entity>
     <entity name="Department" representedClassName="Department" syncable="YES" codeGenerationType="class">
         <attribute name="division_" optional="YES" attributeType="String"/>
@@ -46,14 +47,18 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
         <relationship name="bases_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Base" inverseName="factory" inverseEntity="Base"/>
+        <relationship name="buyers_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Buyer" inverseName="factory" inverseEntity="Buyer"/>
         <relationship name="divisions_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Division" inverseName="factory" inverseEntity="Division"/>
         <relationship name="equipments_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Equipment" inverseName="factory" inverseEntity="Equipment"/>
         <relationship name="expenses_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expenses" inverseName="factory" inverseEntity="Expenses"/>
+        <relationship name="feedstocks_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="factory" inverseEntity="Feedstock"/>
+        <relationship name="packagings_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Packaging" inverseName="factory" inverseEntity="Packaging"/>
     </entity>
     <entity name="Feedstock" representedClassName="Feedstock" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="priceExVAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="vat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="feedstocks_" inverseEntity="Factory"/>
         <relationship name="ingredients_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="feedstock" inverseEntity="Ingredient"/>
     </entity>
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
@@ -65,6 +70,7 @@
     <entity name="Packaging" representedClassName="Packaging" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="type_" optional="YES" attributeType="String"/>
+        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="packagings_" inverseEntity="Factory"/>
         <relationship name="products_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="packaging" inverseEntity="Product"/>
     </entity>
     <entity name="Pricelist" representedClassName="Pricelist" syncable="YES" codeGenerationType="class">
@@ -90,7 +96,7 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="priceExVAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="buyer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Buyer" inverseName="sales" inverseEntity="Buyer"/>
+        <relationship name="buyer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Buyer" inverseName="sales_" inverseEntity="Buyer"/>
         <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="sales_" inverseEntity="Product"/>
     </entity>
     <entity name="Utility" representedClassName="Utility" syncable="YES" codeGenerationType="class">
@@ -108,20 +114,20 @@
     </entity>
     <elements>
         <element name="Base" positionX="-11111.8359375" positionY="-9251.57421875" width="128" height="208"/>
-        <element name="Buyer" positionX="-10695.91015625" positionY="-9124.21484375" width="128" height="73"/>
+        <element name="Buyer" positionX="-10695.91015625" positionY="-9124.21484375" width="128" height="88"/>
         <element name="Department" positionX="-11329.73046875" positionY="-9480.80078125" width="128" height="118"/>
+        <element name="Division" positionX="-11537.19921875" positionY="-9426.921875" width="128" height="88"/>
         <element name="Equipment" positionX="-11544.60546875" positionY="-9128.62109375" width="128" height="118"/>
         <element name="Expenses" positionX="-11503.14453125" positionY="-8990.92578125" width="128" height="103"/>
-        <element name="Factory" positionX="-11307.47265625" positionY="-9265.5390625" width="128" height="133"/>
-        <element name="Feedstock" positionX="-10697.82421875" positionY="-9405.25390625" width="128" height="103"/>
-        <element name="Ingredient" positionX="-10931.15234375" positionY="-9401.41796875" width="128" height="103"/>
-        <element name="Packaging" positionX="-10683.890625" positionY="-9245.625" width="128" height="88"/>
-        <element name="Pricelist" positionX="-11249.56640625" positionY="-9020.27734375" width="128" height="73"/>
+        <element name="Factory" positionX="-11307.47265625" positionY="-9265.5390625" width="128" height="148"/>
+        <element name="Feedstock" positionX="-10770.0859375" positionY="-9539.16015625" width="128" height="118"/>
+        <element name="Ingredient" positionX="-10926.4140625" positionY="-9372.4140625" width="128" height="103"/>
+        <element name="Packaging" positionX="-11115.77734375" positionY="-8932.97265625" width="128" height="103"/>
+        <element name="Pricelist" positionX="-11300.953125" positionY="-8936.8046875" width="128" height="73"/>
         <element name="Product" positionX="-10897.2421875" positionY="-9255.546875" width="128" height="193"/>
-        <element name="Production" positionX="-11539.4375" positionY="-9256.79296875" width="128" height="58"/>
+        <element name="Production" positionX="-11539.4375" positionY="-9256.79296875" width="128" height="28"/>
         <element name="Sales" positionX="-10698.3515625" positionY="-9014.265625" width="128" height="118"/>
+        <element name="Utility" positionX="-10941.68359375" positionY="-9035.0703125" width="128" height="103"/>
         <element name="Worker" positionX="-11129.98828125" positionY="-9462.25390625" width="128" height="118"/>
-        <element name="Utility" positionX="-10902.31640625" positionY="-9016.4140625" width="128" height="103"/>
-        <element name="Division" positionX="-11537.19921875" positionY="-9426.921875" width="128" height="88"/>
     </elements>
 </model>

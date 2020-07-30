@@ -85,7 +85,7 @@ struct WorkerView: View {
                         title: "Salary ex taxes",
                         navigationTitle: "Salary",
                         scale: .extraLarge,
-                        qty: $worker.salary
+                        amount: $worker.salary
                     )
                     .foregroundColor(.accentColor)
                     

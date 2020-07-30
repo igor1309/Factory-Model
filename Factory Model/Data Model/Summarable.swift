@@ -44,6 +44,8 @@ extension Base: Summarable {
 }
 
 extension Buyer: Summarable {
+    var subtitle: String { "TBD: объем выручки по покупателю" }
+    var detail: String? { "TBD: списк покупаемых продуктов" }
     var icon: String { "cart.fill" }
 }
 
@@ -166,8 +168,15 @@ extension Product: Summarable {
 }
 
 extension Sales: Summarable {
+    var title: String {
+        buyer?.name ?? "ERROR no Buyer"
+    }
+    
     var subtitle: String {
-        "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
+        guard qty > 0 else { return "ERROR qty" }
+        guard priceExVAT > 0 else { return "ERROR price" }
+
+        return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
     var detail: String? { nil }

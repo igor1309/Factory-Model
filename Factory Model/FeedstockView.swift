@@ -13,7 +13,7 @@ struct FeedstockView: View {
     
     @ObservedObject var feedstock: Feedstock
 
-    init(feedstock: Feedstock) {
+    init(_ feedstock: Feedstock) {
         self.feedstock = feedstock
     }
     

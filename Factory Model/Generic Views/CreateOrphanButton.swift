@@ -22,6 +22,7 @@ struct CreateOrphanButton<Child: Managed & Sketchable>: View {
         Button {
             let entity = Child.create(in: context)
             entity.makeSketch()
+            entity.objectWillChange.send()
             
             context.saveContext()
         } label: {

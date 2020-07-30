@@ -12,7 +12,16 @@ struct ProductView: View {
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var product: Product
-    @ObservedObject var factory: Factory
+
+    init(_ product: Product) {
+        self.product = product
+        let predicate = NSPredicate(
+            format: "%K == %@", #keyPath(Sales.product), product
+        )
+        _sales = Sales.defaultFetchRequest(with: predicate)
+    }
+    
+    @FetchRequest var sales: FetchedResults<Sales>
     
     var body: some View {
         List {
@@ -48,7 +57,7 @@ struct ProductView: View {
                     ///  MARK: если крэш будет здесь из-за optional unwrapping — значит product был где-то создан неправильно, без привязки к фабрике
                     //  MARK: не лучше ли в BasePicker вместо 'factory: Factory' сделать 'factory: Factory?'
                     BasePicker(base: $product.base, factory: product.base!.factory!)
-
+                    
                     Stepper(value: $product.baseQty) {
                         Text("Base Qty \(product.baseQty.formattedGrouped)")
                             .font(.subheadline)
@@ -77,7 +86,7 @@ struct ProductView: View {
                 header: Text("Production")
             ) {
                 Group {
-                    LabelWithDetailView("bag", "Production Qty", AmountPicker(navigationTitle: "Select Qty", scale: .medium, qty: $product.productionQty))
+                    LabelWithDetailView("bag", "Production Qty", AmountPicker(navigationTitle: "Select Qty", scale: .medium, amount: $product.productionQty))
                 }
                 .font(.subheadline)
             }
@@ -86,7 +95,8 @@ struct ProductView: View {
                 header: Text("Sales")
             ) {
                 Group {
-                    Text("VAT")
+                    AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .extraSmall, amount: $product.vat)
+                    
                     NavigationLink(
                         destination: SalesList(for: product)
                     ) {

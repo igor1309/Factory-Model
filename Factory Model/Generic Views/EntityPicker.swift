@@ -29,7 +29,12 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
                 Text(selection?.title ?? "...")
             }
         }
-        .sheet(isPresented: $showList) {
+        .sheet(isPresented: $showList, onDismiss: {
+            //  MARK: - а надо ли? ведь это @Binding
+            if selection != nil {
+                selection!.objectWillChange.send()
+            }
+        }) {
             EntityPickerList(selection: $selection, predicate: predicate)
                 .environment(\.managedObjectContext, context)
         }

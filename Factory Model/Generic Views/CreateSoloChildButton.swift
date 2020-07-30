@@ -23,7 +23,7 @@ struct CreateSoloChildButton<Child: Managed & Sketchable,
     /// - Parameter type: type of the Entity to be created
     init(
         systemName: String? = nil,
-//        childType: Child.Type,
+        //        childType: Child.Type,
         parent: Parent,
         keyPath: ReferenceWritableKeyPath<Parent, Child?>
     ) {
@@ -40,25 +40,13 @@ struct CreateSoloChildButton<Child: Managed & Sketchable,
             
             parent[keyPath: keyPath] = entity
             
+            entity.objectWillChange.send()
+            parent.objectWillChange.send()
             //  do not save - using @ObservedObject
             //  context.saveContext()
         } label: {
             Image(systemName: systemName)
                 .padding([.leading, .vertical])
         }
-    }
-}
-
-struct CreateSoloChildButton_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack(spacing: 32) {
-            CreateSoloChildButton(
-                //childType: Buyer.self,
-                parent: Sales(), keyPath: \Sales.buyer)
-            CreateSoloChildButton(systemName: "plus.circle",
-                                  //childType: Sales.self,
-                                  parent: Buyer(), keyPath: \Buyer.sales)
-        }
-        .preferredColorScheme(.dark)
     }
 }

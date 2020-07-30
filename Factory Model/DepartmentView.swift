@@ -20,7 +20,7 @@ struct DepartmentView: View {
         ListWithDashboard(
             title: department.name,
             parent: department,
-            keyPath: \Department.workers_,
+//            keyPath: \Department.workers_,
             
             //  MARK: - FINISH THIS
             //  should be `default` predicate

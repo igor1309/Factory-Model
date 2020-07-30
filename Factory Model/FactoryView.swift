@@ -11,7 +11,7 @@ import SwiftPI
 struct FactoryView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
-        
+    
     @ObservedObject var factory: Factory
     
     init(_ factory: Factory) {
@@ -21,45 +21,110 @@ struct FactoryView: View {
     var body: some View {
         List {
             Group {
-                NavigationLink(
-                    destination: BaseList(for: factory)
+                Section(
+                    header: Text("Packaging")
                 ) {
-                    ListRow(
-                        title: "Base Products",
-                        subtitle: ".................",
-                        detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
-                        icon: "bag.circle"
-                    )
-                    .foregroundColor(.systemTeal)
+                    Group {
+                        NavigationLink(
+                            destination: PackagingList(for: factory)
+                        ) {
+                            ListRow(
+                                title: "Packaging",
+                                subtitle: "TBD: .................",
+                                detail: "TBD: List of packaging types (??)",
+                                icon: "shippingbox"
+                            )
+                        }
+                    }
+                    .foregroundColor(.systemIndigo)
+                    .font(.subheadline)
                 }
+                
+                Section(
+                    header: Text("Buyers")
+                ) {
+                    Group {
+                        NavigationLink(
+                            destination: AllBuyersList(for: factory)
+                        ) {
+                            LabelWithDetail("cart.fill", "All Buyers", "")
+                        }
+                    }
+                    .foregroundColor(.systemPurple)
+                    .font(.subheadline)
+                }
+                
+                Section(
+                    header: Text("Sales")
+                ) {
+                    Group {
+                        NavigationLink(
+                            destination:
+                                List {
+                                    GenericListSection(
+                                        type: Sales.self,
+                                        predicate: Sales.factoryPredicate(for: factory)
+                                    ) { sales in
+                                        SalesEditor(sales)
+                                    }
+                                }
+                                .listStyle(InsetGroupedListStyle())
+                        ) {
+                            Text("factory sales")
+                        }
+                        
+                        NavigationLink(
+                            destination: AllSalesList(for: factory)
+                        ) {
+                            LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                                .foregroundColor(.systemGreen)
+                        }
+                    }
+                    .font(.subheadline)
+                }
+                
+                
                 
                 Group {
                     NavigationLink(
-                        destination: EquipmentList(for: factory)
+                        destination: BaseList(for: factory)
                     ) {
-                        //  MARK: more clever depreciation?
-                        LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                        ListRow(
+                            title: "Base Products",
+                            subtitle: ".................",
+                            detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
+                            icon: "bag.circle"
+                        )
+                        .foregroundColor(.systemTeal)
                     }
                     
-                    LabelWithDetail("wrench.and.screwdriver", "Cost basis", "TBD")
-                        .foregroundColor(.secondary)
-                        .padding(.trailing)
+                    Group {
+                        NavigationLink(
+                            destination: EquipmentList(for: factory)
+                        ) {
+                            //  MARK: more clever depreciation?
+                            LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                        }
+                        
+                        LabelWithDetail("wrench.and.screwdriver", "Cost basis", "TBD")
+                            .foregroundColor(.secondary)
+                            .padding(.trailing)
+                    }
+                    .foregroundColor(.systemTeal)
+                    .font(.subheadline)
+                    .padding(.vertical, 3)
+                    
+                    
+                    NavigationLink(
+                        destination: ExpensesList(for: factory)
+                    ) {
+                        //  MARK: more clever depreciation?
+                        LabelWithDetail("dollarsign.circle", "Other Expenses", "TBD")
+                    }
+                    .foregroundColor(.systemTeal)
+                    .font(.subheadline)
+                    .padding(.vertical, 3)
                 }
-                .foregroundColor(.systemTeal)
-                .font(.subheadline)
-                .padding(.vertical, 3)
-                
-                
-                NavigationLink(
-                    destination: ExpensesList(for: factory)
-                ) {
-                    //  MARK: more clever depreciation?
-                    LabelWithDetail("dollarsign.circle", "Other Expenses", "TBD")
-                }
-                .foregroundColor(.systemTeal)
-                .font(.subheadline)
-                .padding(.vertical, 3)
-                
             }
             
             Section(
@@ -77,7 +142,7 @@ struct FactoryView: View {
                 }
                 .foregroundColor(.systemTeal)
             }
-
+            
             Section(
                 header: Text("Production")
             ) {
@@ -93,7 +158,7 @@ struct FactoryView: View {
                         )
                     }
                     
-
+                    
                     NavigationLink(
                         destination: AllFeedstockList(for: factory)
                     ) {
@@ -104,51 +169,10 @@ struct FactoryView: View {
                             icon: "cart"
                         )
                     }
-                    
-                    NavigationLink(
-                        destination: PackagingList(for: factory)
-                    ) {
-                        ListRow(
-                            title: "Packaging",
-                            subtitle: "TBD: .................",
-                            detail: "TBD: List of packaging types (??)",
-                            icon: "shippingbox"
-                        )
-                    }
                 }
                 .font(.subheadline)
             }
             .foregroundColor(.systemOrange)
-            
-            
-            Section(
-                header: Text("Sales")
-            ) {
-                Group {
-                    NavigationLink(
-                        destination:
-                            List {
-                                GenericListSection(
-                                    type: Sales.self,
-                                    predicate: Sales.factoryPredicate(for: factory)
-                                ) { sales in
-                                    SalesEditor(sales: sales)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                    ) {
-                        Text("factory sales")
-                    }
-                    
-                    NavigationLink(
-                        destination: AllSalesList(for: factory)
-                    ) {
-                        LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                            .foregroundColor(.systemGreen)
-                    }
-                }
-                .font(.subheadline)
-            }
             
             Section(
                 header: Text("Expenses")
@@ -233,16 +257,6 @@ struct FactoryView: View {
                 }
                 .font(.subheadline)
             }
-            
-            Section(header: Text("TESTING")) {
-                NavigationLink(
-                    destination: AllFeedstockListTESTING(for: factory)
-                ) {
-                    LabelWithDetail("puzzlepiece", "TESTING!! Total Feedstocks", "TBD")
-                }
-                .font(.subheadline)
-            }
-            .foregroundColor(.orange)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(factory.name)

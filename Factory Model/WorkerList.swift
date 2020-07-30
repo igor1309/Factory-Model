@@ -28,7 +28,7 @@ struct WorkerList: View {
     var body: some View {
         ListWithDashboard(
             parent: department,
-            keyPath: \Department.workers_,
+//            keyPath: \Department.workers_,
             predicate: NSPredicate(format: "%K == %@", #keyPath(Worker.department), department)
         ) {
             CreateChildButton(

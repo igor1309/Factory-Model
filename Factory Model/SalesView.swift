@@ -12,11 +12,11 @@ struct SalesView: View {
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
-    @ObservedObject var factory: Factory
+//    @ObservedObject var factory: Factory
     
-    init(_ sales: Sales, for factory: Factory) {
+    init(_ sales: Sales/*, for factory: Factory*/) {
         self.sales = sales
-        self.factory = factory
+//        self.factory = factory
     }
     
     var body: some View {
@@ -29,13 +29,13 @@ struct SalesView: View {
                 Group {
                     EntityPicker(selection: $sales.buyer)
                     
-                    Picker("Select Existing Buyer", selection: $sales.buyer) {
-                        ForEach(factory.buyers, id: \.self) { buyer in
-                            Text(buyer)
-                        }
-                    }
+//                    Picker("Select Existing Buyer", selection: $sales.buyer) {
+//                        ForEach(factory.buyers, id: \.self) { buyer in
+//                            Text(buyer)
+//                        }
+//                    }
                     
-                    LabelWithDetailView("Qty", AmountPicker(navigationTitle: "Select Qty", scale: .large, qty: $sales.qty))
+                    LabelWithDetailView("Qty", AmountPicker(navigationTitle: "Select Qty", scale: .large, amount: $sales.qty))
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

@@ -12,7 +12,7 @@ struct SalesList: View {
     
     @FetchRequest private var sales: FetchedResults<Sales>
     
-//    @ObservedObject
+    //    @ObservedObject
     var product: Product
     
     init(for product: Product) {
@@ -31,6 +31,30 @@ struct SalesList: View {
     
     
     var body: some View {
+        ListWithDashboard(
+            parent: product
+//            keyPath: \Product.sales_
+        ) {
+            CreateChildButton(
+                systemName: "cart.badge.plus",
+                childType: Sales.self,
+                parent: product,
+                keyPath: \Product.sales_
+            )
+        } dashboard: {
+            ListRow(
+                title: "TBD: Продажи по продукту",
+                subtitle: "TBD: Деньги (выручка и маржа, маржинальность), средние цены, объемы и штуки",
+                detail: "TBD: По Product и по Product Base(?)",
+                icon: "creditcard"
+            )
+        } editor: { (sales: Sales) in
+//            SalesView(sales)
+            SalesEditor(sales)
+        }
+    }
+    
+    var oldList: some View {
         List {
             Section(header: Text("Total")) {
                 LabelWithDetail("creditcard", "Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
@@ -41,7 +65,7 @@ struct SalesList: View {
             Section(header: Text("Sales")) {
                 ForEach(sales, id: \.objectID) { sales in
                     NavigationLink(
-                        destination: SalesView(sales, for: product.base!.factory!)
+                        destination: SalesView(sales/*, for: product.base!.factory!*/)
                     ) {
                         ListRow(sales)
                     }
@@ -59,7 +83,7 @@ struct SalesList: View {
         Button {
             let buyer = Buyer(context: moc)
             buyer.name = " John"
-
+            
             let sales = Sales(context: moc)
             sales.qty = 1_000
             sales.priceExVAT = 300

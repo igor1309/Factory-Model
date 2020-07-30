@@ -74,12 +74,12 @@ struct ProductList: View {
             
             Text("ALL Products")
             GenericListSection(fetchRequest: _allProducts) { product in
-                ProductView(product: product, factory: factory)
+                ProductView(product)
             }
             
             Text("Products")
             GenericListSection(fetchRequest: _products) { product in
-                ProductView(product: product, factory: factory)
+                ProductView(product)
             }
         }
         .listStyle(InsetGroupedListStyle())

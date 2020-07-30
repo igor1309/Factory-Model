@@ -16,10 +16,13 @@ extension Sales {
     }
     
     var priceWithVAT: Double {
-        get { priceExVAT * (product?.vat ?? 0) }
+        get {
+            let vat = (product?.vat ?? 0)
+            return priceExVAT * (1 + vat)
+        }
         set {
             let vat = (product?.vat ?? 0)
-            priceExVAT = vat == 0 ? 0 : newValue / vat
+            priceExVAT = newValue / (1 + vat)
         }
     }
     

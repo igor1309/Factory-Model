@@ -40,11 +40,11 @@ struct FeedstockList: View {
             }
             
             GenericListSection(fetchRequest: _feedstocks) { feedstock in
-                FeedstockView(feedstock: feedstock)
+                FeedstockView(feedstock)
             }
             
             GenericListSection(fetchRequest: _feedstocks) { feedstock in
-                FeedstockView(feedstock: feedstock)
+                FeedstockView(feedstock)
             }
             
             
@@ -60,7 +60,7 @@ struct FeedstockList: View {
             ) {
                 ForEach(feedstocks, id: \.objectID) { feedstock in
                     NavigationLink(
-                        destination: FeedstockView(feedstock: feedstock)
+                        destination: FeedstockView(feedstock)
                     ) {
                         ListRow(feedstock)
                     }

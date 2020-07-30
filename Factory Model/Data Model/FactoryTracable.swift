@@ -69,7 +69,7 @@ extension Feedstock: FactoryTracable {
 
 extension Packaging: FactoryTracable {
     static var format: String {
-        "ANY %K.base.factory == %@"
+        "factory == %@"
     }
     
     static var factoryPath: String {

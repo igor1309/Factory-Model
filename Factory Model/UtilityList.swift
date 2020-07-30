@@ -22,7 +22,7 @@ struct UtilityList: View {
     var body: some View {
         ListWithDashboard(
             parent: base,
-            keyPath: \Base.utilities_,
+//            keyPath: \Base.utilities_,
             predicate: NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
         ) {
             CreateChildButton(

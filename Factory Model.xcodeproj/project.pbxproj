@@ -70,6 +70,8 @@
 		2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97D24D1BAF800DF1A35 /* CreateSoloChildButton.swift */; };
 		2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97F24D226D100DF1A35 /* DivisionList.swift */; };
 		2A93D98224D227E000DF1A35 /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98124D227E000DF1A35 /* Division.swift */; };
+		2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */; };
+		2A93D98C24D35FE000DF1A35 /* BuyerEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98B24D35FE000DF1A35 /* BuyerEditor.swift */; };
 		2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8D05C24CC2ED80058D48F /* Department.swift */; };
 		2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */; };
 		2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09B24C4F4A8005F1E9F /* ContentView.swift */; };
@@ -150,6 +152,8 @@
 		2A93D97D24D1BAF800DF1A35 /* CreateSoloChildButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSoloChildButton.swift; sourceTree = "<group>"; };
 		2A93D97F24D226D100DF1A35 /* DivisionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionList.swift; sourceTree = "<group>"; };
 		2A93D98124D227E000DF1A35 /* Division.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Division.swift; sourceTree = "<group>"; };
+		2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBuyersList.swift; sourceTree = "<group>"; };
+		2A93D98B24D35FE000DF1A35 /* BuyerEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerEditor.swift; sourceTree = "<group>"; };
 		2AA8D05C24CC2ED80058D48F /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		2AADA09624C4F4A8005F1E9F /* Factory Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Factory Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_ModelApp.swift; sourceTree = "<group>"; };
@@ -221,13 +225,13 @@
 			isa = PBXGroup;
 			children = (
 				2A30471424C87AB90002E5DD /* Something.swift */,
+				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
-				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
+				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
+				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
 				2A13E4D024C9EF5F00016CBC /* Summarable.swift */,
 				2A024CF524CD9419001A4B5C /* Validatable.swift */,
-				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
-				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -275,6 +279,9 @@
 				2AF8EC8B24CF4F9B00EDA2AE /* Generic Views */,
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
+				2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */,
+				2A30471024C836200002E5DD /* AllFeedstockList.swift */,
+				2A93D98B24D35FE000DF1A35 /* BuyerEditor.swift */,
 				2A02DF1D24CB066F00A6E35A /* ProductList.swift */,
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
 				2AC0B51424CB128100175819 /* ProductEditor.swift */,
@@ -292,7 +299,6 @@
 				2A2B44C024D09189003EF752 /* DepartmentView.swift */,
 				2AC7952424C76E7500018817 /* WorkerList.swift */,
 				2A936E5E24C6F9C200C34381 /* WorkerView.swift */,
-				2A30471024C836200002E5DD /* AllFeedstockList.swift */,
 				2A30471224C8734F0002E5DD /* AllFeedstockListTESTING.swift */,
 				2A936E6224C7112B00C34381 /* FeedstockList.swift */,
 				2A936E6024C7051500C34381 /* FeedstockView.swift */,
@@ -413,6 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A30471724C89C5F0002E5DD /* BasePicker.swift in Sources */,
+				2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
@@ -445,6 +452,7 @@
 				2A13E4D124C9EF5F00016CBC /* Summarable.swift in Sources */,
 				2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */,
 				2A93D98224D227E000DF1A35 /* Division.swift in Sources */,
+				2A93D98C24D35FE000DF1A35 /* BuyerEditor.swift in Sources */,
 				2AADA0AA24C4F4E2005F1E9F /* DataModel.xcdatamodeld in Sources */,
 				2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */,
 				2A2F4BCD24C5A26700B2F8D9 /* PersistenceManager.swift in Sources */,

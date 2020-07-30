@@ -30,6 +30,9 @@ extension Orphanable where Self: Managed, ManagedType == Self {
 extension Base: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
+extension Buyer: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+}
 extension Department: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "division == nil") }
 }
@@ -42,9 +45,18 @@ extension Equipment: Orphanable {
 extension Expenses: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
+extension Feedstock: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+}
 //  MARK: - FINISH THIS только base == nil или "base == nil && feedstock == nil" ???
 extension Ingredient: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
+}
+extension Packaging: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+}
+extension Sales: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil") }
 }
 extension Utility: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }

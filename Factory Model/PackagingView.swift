@@ -12,6 +12,10 @@ struct PackagingView: View {
         
     @ObservedObject var packaging: Packaging
     
+    init(_ packaging: Packaging) {
+        self.packaging = packaging
+    }
+    
     var body: some View {
         List {
             Text("NEEDS TO BE COMPLETLY REDONE")

@@ -85,7 +85,8 @@ struct AmountPicker: View {
     var title: String = ""
     var navigationTitle: String
     var scale: Scale = .large
-    @Binding var qty: Double
+    
+    @Binding var amount: Double
     
     @State private var showTable = false
     
@@ -108,11 +109,11 @@ struct AmountPicker: View {
                         EmptyView()
                 }
                 //                Spacer()
-                Text("\(qty, specifier: "%.f")")
+                Text("\(amount, specifier: "%.f")")
             }
         }
         .sheet(isPresented: $showTable) {
-            AmountPickerSheet(qty: $qty, scale: scale, navigationTitle: navigationTitle)
+            AmountPickerSheet(qty: $amount, scale: scale, navigationTitle: navigationTitle)
         }
     }
 }
@@ -138,7 +139,7 @@ fileprivate struct AmountPickerSheet: View {
                     Stepper(
                         value: $qty,
                         in: scale.range,
-                        step: scale.majorStep
+                        step: scale.minorStep
                     ) {
                         Text(qty.formattedGrouped)
                             .foregroundColor(.systemOrange)
@@ -203,9 +204,9 @@ struct QtyPicker_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             VStack(spacing: 32) {
-                AmountPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, qty: $qty)
-                AmountPicker(title: "mass", navigationTitle: "", scale: .medium, qty: $qty)
-                AmountPicker(navigationTitle: "", scale: .large, qty: $qty)
+                AmountPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, amount: $qty)
+                AmountPicker(title: "mass", navigationTitle: "", scale: .medium, amount: $qty)
+                AmountPicker(navigationTitle: "", scale: .large, amount: $qty)
             }
             .padding()
             .preferredColorScheme(.dark)

@@ -38,7 +38,7 @@ struct BaseView: View {
                     NavigationLink(
                         destination: ListWithDashboard(
                             parent: base,
-                            keyPath: \Base.ingredients_,
+//                            keyPath: \Base.ingredients_,
                             predicate: NSPredicate(format: "%K == %@", #keyPath(Ingredient.base), base)
                         ) {
                             CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_)
@@ -106,7 +106,7 @@ struct BaseView: View {
             
             Section(header: Text("Inventory")) {
                 Group {
-                    AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .medium, qty: $base.initialInventory)
+                    AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .medium, amount: $base.initialInventory)
                     
                     LabelWithDetail("building.2", "Closing Inventory", base.closingInventory.formattedGrouped)
                         .foregroundColor(base.closingInventory < 0 ? .systemRed : .secondary)
