@@ -133,9 +133,9 @@ extension Product: Summarizable {
         "\(name)/\(code)/\(group)/\(note)"
     }
     var title: String {
-//        [baseName, name]
-//            .filter { !$0.isEmpty }
-//            .joined(separator: ", ")
+        //        [baseName, name]
+        //            .filter { !$0.isEmpty }
+        //            .joined(separator: ", ")
         base == nil
             ? "\(name)"
             : "\(name) \(baseName), \(baseQty.formattedGrouped) \(base!.unit.idd), \(weightNetto.formattedGrouped)г"
@@ -173,9 +173,10 @@ extension Sales: Summarizable {
     }
     
     var subtitle: String {
+        guard buyer != nil else { return "ERROR no Buyer" }
         guard qty > 0 else { return "ERROR qty" }
         guard priceExVAT > 0 else { return "ERROR price" }
-
+        
         return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
@@ -190,10 +191,14 @@ extension Utility: Summarizable {
 }
 
 extension Worker: Summarizable {
-    var subtitle: String { salary.formattedGrouped }
+    var subtitle: String {
+        guard factory != nil else { return "ERROR no factory" }
+        guard department != nil else { return "ERROR no department" }
+        
+        return salary.formattedGrouped
+    }
     
-    var detail: String? {
-        [department?.name ?? "", position]
+    var detail: String? {[department?.name ?? "", position]
             .filter { !$0.isEmpty}
             .joined(separator: ": ")
     }

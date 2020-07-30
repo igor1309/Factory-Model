@@ -22,6 +22,25 @@ struct FactoryView: View {
         List {
             Group {
                 Section(
+                    header: Text("Personnel")
+                ) {
+                    Group {
+                        NavigationLink(
+                            destination: AllWorkersList(for: factory)
+                        ) {
+                            ListRow(
+                                title: "People (all)",
+                                subtitle: "TBD: total headcount",
+                                detail: "TBD: total salary",
+                                icon: "person.2"
+                            )
+                        }
+                    }
+                    .foregroundColor(.systemIndigo)
+                    .font(.subheadline)
+                }
+                
+                Section(
                     header: Text("Packaging")
                 ) {
                     Group {

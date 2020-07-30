@@ -17,6 +17,16 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     var icon: String? = nil
     var predicate: NSPredicate? = nil
     
+    init(
+        selection: Binding<T?>,
+        icon: String? = nil,
+        predicate: NSPredicate? = nil
+    ) {
+        self._selection = selection
+        self.icon = icon
+        self.predicate = predicate
+    }
+    
     @State private var showList = false
     
     var body: some View {
@@ -41,7 +51,7 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     }
 }
 
-struct EntityPickerList<T: PickableEntity & Sketchable>: View {
+fileprivate struct EntityPickerList<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.presentationMode) var presentation
     

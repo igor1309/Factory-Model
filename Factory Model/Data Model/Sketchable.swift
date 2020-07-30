@@ -13,15 +13,11 @@ protocol Sketchable where Self: NSManagedObject {
 
 extension Sketchable where Self: Monikerable {
     func makeSketch() {
-        name = " <name>"
+        name = ""
     }
 }
 
-extension Base: Sketchable {
-    func makeSketch() {
-        self.name = " <base name>"
-    }
-}
+extension Base: Sketchable {}
 
 extension Buyer: Sketchable {}
 extension Department: Sketchable {}
@@ -66,7 +62,7 @@ extension Sales: Sketchable {}
 
 extension Utility: Sketchable {
     func makeSketch() {
-        name = " <name>"
+        self.name = " ..."
         priceExVAT = 10
     }
 }

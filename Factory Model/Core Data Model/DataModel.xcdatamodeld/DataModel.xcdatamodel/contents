@@ -53,6 +53,7 @@
         <relationship name="expenses_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expenses" inverseName="factory" inverseEntity="Expenses"/>
         <relationship name="feedstocks_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="factory" inverseEntity="Feedstock"/>
         <relationship name="packagings_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Packaging" inverseName="factory" inverseEntity="Packaging"/>
+        <relationship name="workers_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Worker" inverseName="factory" inverseEntity="Worker"/>
     </entity>
     <entity name="Feedstock" representedClassName="Feedstock" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
@@ -111,23 +112,24 @@
         <attribute name="position_" optional="YES" attributeType="String"/>
         <attribute name="salary" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="workers_" inverseEntity="Department"/>
+        <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="workers_" inverseEntity="Factory"/>
     </entity>
     <elements>
-        <element name="Base" positionX="-11111.8359375" positionY="-9251.57421875" width="128" height="208"/>
-        <element name="Buyer" positionX="-10695.91015625" positionY="-9124.21484375" width="128" height="88"/>
-        <element name="Department" positionX="-11329.73046875" positionY="-9480.80078125" width="128" height="118"/>
-        <element name="Division" positionX="-11537.19921875" positionY="-9426.921875" width="128" height="88"/>
+        <element name="Base" positionX="-11050.53515625" positionY="-9597.046875" width="128" height="208"/>
+        <element name="Buyer" positionX="-11050.61328125" positionY="-9163.734375" width="128" height="88"/>
+        <element name="Department" positionX="-11519.64453125" positionY="-9570.1171875" width="128" height="118"/>
+        <element name="Division" positionX="-11527.48046875" positionY="-9373.140625" width="128" height="88"/>
         <element name="Equipment" positionX="-11544.60546875" positionY="-9128.62109375" width="128" height="118"/>
         <element name="Expenses" positionX="-11503.14453125" positionY="-8990.92578125" width="128" height="103"/>
-        <element name="Factory" positionX="-11307.47265625" positionY="-9265.5390625" width="128" height="148"/>
-        <element name="Feedstock" positionX="-10770.0859375" positionY="-9539.16015625" width="128" height="118"/>
-        <element name="Ingredient" positionX="-10926.4140625" positionY="-9372.4140625" width="128" height="103"/>
-        <element name="Packaging" positionX="-11115.77734375" positionY="-8932.97265625" width="128" height="103"/>
-        <element name="Pricelist" positionX="-11300.953125" positionY="-8936.8046875" width="128" height="73"/>
-        <element name="Product" positionX="-10897.2421875" positionY="-9255.546875" width="128" height="193"/>
-        <element name="Production" positionX="-11539.4375" positionY="-9256.79296875" width="128" height="28"/>
-        <element name="Sales" positionX="-10698.3515625" positionY="-9014.265625" width="128" height="118"/>
-        <element name="Utility" positionX="-10941.68359375" positionY="-9035.0703125" width="128" height="103"/>
-        <element name="Worker" positionX="-11129.98828125" positionY="-9462.25390625" width="128" height="118"/>
+        <element name="Factory" positionX="-11317.12890625" positionY="-9263.5703125" width="128" height="163"/>
+        <element name="Feedstock" positionX="-10998.1171875" positionY="-9363.41015625" width="128" height="118"/>
+        <element name="Ingredient" positionX="-10742.75" positionY="-9390.80859375" width="128" height="103"/>
+        <element name="Packaging" positionX="-11121.05078125" positionY="-8863.328125" width="128" height="103"/>
+        <element name="Pricelist" positionX="-11313.0234375" positionY="-8851.53125" width="128" height="73"/>
+        <element name="Product" positionX="-10690" positionY="-9142.93359375" width="128" height="193"/>
+        <element name="Production" positionX="-11539.4375" positionY="-9256.79296875" width="128" height="58"/>
+        <element name="Sales" positionX="-11014.81640625" positionY="-9004.01953125" width="128" height="118"/>
+        <element name="Utility" positionX="-10867.8671875" positionY="-9591.70703125" width="128" height="103"/>
+        <element name="Worker" positionX="-11308.6875" positionY="-9585.0625" width="128" height="133"/>
     </elements>
 </model>

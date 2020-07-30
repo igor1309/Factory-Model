@@ -50,6 +50,16 @@ struct WorkerView: View {
     
     var body: some View {
         List {
+            
+            if worker.factory == nil {
+                Section(
+                    header: Text("Factory")
+                ) {
+                    EntityPicker(selection: $worker.factory, icon: "building.2")
+                        .foregroundColor(.systemRed)
+                }
+            }
+            
             Section(
                 header: Text("Person")
             ) {
