@@ -31,7 +31,7 @@ struct AmountPicker: View {
             }
         }
         
-        var step: Double {
+        var majorStep: Double {
             switch self {
                 case .extraSmall:
                     return 1
@@ -43,6 +43,21 @@ struct AmountPicker: View {
                     return 100
                 case .extraLarge:
                     return 500
+            }
+        }
+        
+        var minorStep: Double {
+            switch self {
+                case .extraSmall:
+                    return 1
+                case .small:
+                    return 1
+                case .medium:
+                    return 5
+                case .large:
+                    return 10
+                case .extraLarge:
+                    return 50
             }
         }
         
@@ -62,7 +77,7 @@ struct AmountPicker: View {
         }
         
         var values: [Double] {
-            Array(stride(from: self.range.lowerBound, to: self.range.upperBound, by: self.step))
+            Array(stride(from: self.range.lowerBound, to: self.range.upperBound, by: self.majorStep))
         }
     }
     
@@ -123,7 +138,7 @@ fileprivate struct AmountPickerSheet: View {
                     Stepper(
                         value: $qty,
                         in: scale.range,
-                        step: scale.step
+                        step: scale.majorStep
                     ) {
                         Text(qty.formattedGrouped)
                             .foregroundColor(.systemOrange)
@@ -145,6 +160,7 @@ fileprivate struct AmountPickerSheet: View {
                     Slider(
                         value: $qty,
                         in: scale.range,
+                        step: scale.minorStep,
                         minimumValueLabel: Text(scale.range.lowerBound.formattedGrouped).font(.caption2),
                         maximumValueLabel: Text(scale.range.upperBound.formattedGrouped).font(.caption)
                     ) { Text("\(qty)") }

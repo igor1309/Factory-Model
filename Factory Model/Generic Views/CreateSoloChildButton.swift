@@ -23,7 +23,7 @@ struct CreateSoloChildButton<Child: Managed & Sketchable,
     /// - Parameter type: type of the Entity to be created
     init(
         systemName: String? = nil,
-        childType: Child.Type,
+//        childType: Child.Type,
         parent: Parent,
         keyPath: ReferenceWritableKeyPath<Parent, Child?>
     ) {
@@ -52,8 +52,12 @@ struct CreateSoloChildButton<Child: Managed & Sketchable,
 struct CreateSoloChildButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack(spacing: 32) {
-            CreateSoloChildButton(childType: Buyer.self, parent: Sales(), keyPath: \Sales.buyer)
-            CreateSoloChildButton(systemName: "plus.circle", childType: Sales.self, parent: Buyer(), keyPath: \Buyer.sales)
+            CreateSoloChildButton(
+                //childType: Buyer.self,
+                parent: Sales(), keyPath: \Sales.buyer)
+            CreateSoloChildButton(systemName: "plus.circle",
+                                  //childType: Sales.self,
+                                  parent: Buyer(), keyPath: \Buyer.sales)
         }
         .preferredColorScheme(.dark)
     }

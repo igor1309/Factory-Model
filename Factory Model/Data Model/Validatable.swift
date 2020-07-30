@@ -18,6 +18,7 @@ extension Validatable where Self: Summarable {
 extension Base: Validatable {}
 extension Buyer: Validatable {}
 extension Department: Validatable {}
+extension Division: Validatable {}
 extension Equipment: Validatable {}
 extension Expenses: Validatable {}
 extension Factory: Validatable {}
@@ -26,5 +27,5 @@ extension Ingredient: Validatable {}
 extension Packaging: Validatable {}
 extension Product: Validatable {}
 extension Sales: Validatable {}
-extension Staff: Validatable {}
 extension Utility: Validatable {}
+extension Worker: Validatable {}

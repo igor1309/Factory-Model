@@ -32,62 +32,69 @@ extension Factory {
             .compactMap { $0.buyerName }
             .removingDuplicates()
     }
-    var departments: [Department] {
-        get { (departments_ as? Set<Department> ?? []).sorted() }
-        set { departments_ = Set(newValue) as NSSet }
+    var divisions: [Division] {
+        get { (divisions_ as? Set<Division> ?? []).sorted() }
+        set { divisions_ = Set(newValue) as NSSet }
     }
-    var departmentNames: String {
-        departments
+    var divisionNames: String {
+        divisions
             .map { $0.name }
             .joined(separator: ", ")
     }
     
-    var staffByDivision: [String: [Department]] {
-        Dictionary(grouping: departments) { $0.name }
+    var workerByDivision: [String: [Division]] {
+        Dictionary(grouping: divisions) { $0.name }
     }
-    var divisions: [String] {
-        departments
-            .map { $0.division }
+    var departments: [String] {
+        divisions
+            .flatMap { $0.departments }
+            .map { $0.name }
             .removingDuplicates()
             .sorted()
     }
-    func headcount(for division: String) -> Int {
-        departments
-            .filter { $0.division == division }
-            .flatMap { $0.staffs }
+    func headcount(for division: Division) -> Int {
+        divisions
+            .filter { $0 == division }
+            .flatMap { $0.departments }
+            .flatMap { $0.workers }
             .count
     }
-    func departments(for division: String) -> String {
-        departments
-            .filter { $0.division == division }
+    func departmentNames(for division: Division) -> String {
+        divisions
+            .filter { $0 == division }
+            .flatMap { $0.departments }
             .map { $0.name }
             .removingDuplicates()
             .joined(separator: ", ")
     }
     
     var totalSalary: Double {
-        departments
-            .flatMap { $0.staffs }
+        divisions
+            .flatMap { $0.departments }
+            .flatMap { $0.workers }
             .map { $0.salary }
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
-        departments
-            .flatMap { $0.staffs }
+        divisions
+            .flatMap { $0.departments }
+            .flatMap { $0.workers }
             .map { $0.salaryWithTax }
             .reduce(0, +)
     }
-    func totalSalary(for division: String) -> Double {
-        departments
-            .filter { $0.division == division }
-            .flatMap { $0.staffs }
+    func totalSalary(for division: Division) -> Double {
+        divisions
+            .filter { $0 == division }
+            .flatMap { $0.departments }
+            .flatMap { $0.workers }
             .map { $0.salary }
             .reduce(0, +)
     }
-    func totalSalaryWithTax(for division: String) -> Double {
-        departments
-            .filter { $0.division == division }
-            .flatMap { $0.staffs }
+    func totalSalaryWithTax(for division: Division) -> Double {
+        divisions
+            .filter { $0 == division }
+            .flatMap { $0.departments }
+            .flatMap { $0.workers }
             .map { $0.salaryWithTax }
             .reduce(0, +)
     }

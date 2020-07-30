@@ -167,9 +167,9 @@ struct FactoryList: View {
             base3.group = "Твороги"
             base3.factory = factory1
             
-            let departments = createDepartments1()
-            for department in departments {
-                factory1.addToDepartments_(department)
+            let divisions = createDivisions()
+            for division in divisions {
+                factory1.addToDivisions_(division)
             }
             
             factory1.expenses = createExpenses1()
@@ -210,80 +210,93 @@ struct FactoryList: View {
             
             moc.saveContext()
         } label: {
-            Image(systemName: "text.badge.plus")
+            Image(systemName: "rectangle.stack.badge.plus")
                 .padding([.leading, .vertical])
         }
     }
     
-    private func createDepartments1() -> [Department] {
+    private func createDivisions() -> [Division] {
+        //  MARK: - Divisions
+        
+        let divisionProduction = Division(context: moc)
+        divisionProduction.name = "Производство"
+        
+        let divisionSales = Division(context: moc)
+        divisionSales.name = "Продажи"
+
+        let divisionHQ = Division(context: moc)
+        divisionHQ.name = "Администрация"
+
+        //  MARK: - Departments
+        
         let department1 = Department(context: moc)
         department1.name = "Технологии"
-        department1.division = "Производство"
+        department1.division = divisionProduction
         department1.type = .production
         
-        let staff1 = Staff(context: moc)
-        staff1.position = "Главный технолог"
-        staff1.name = "Гурам Галихадзе"
-        staff1.salary = 60_000
+        let worker1 = Worker(context: moc)
+        worker1.position = "Главный технолог"
+        worker1.name = "Гурам Галихадзе"
+        worker1.salary = 60_000
         
-        department1.addToStaffs_(staff1)
+        department1.addToWorkers_(worker1)
         
         let department2 = Department(context: moc)
         department1.name = "Производственный цех"
-        department1.division = "Производство"
+        department1.division = divisionProduction//"Производство"
         department2.type = .production
         
-        let staff2 = Staff(context: moc)
-        staff2.position = "Старший сыродел"
-        staff2.name = "Мамука Гелашвили"
-        staff2.salary = 45_000
+        let worker2 = Worker(context: moc)
+        worker2.position = "Старший сыродел"
+        worker2.name = "Мамука Гелашвили"
+        worker2.salary = 45_000
         
-        department2.addToStaffs_(staff2)
+        department2.addToWorkers_(worker2)
         
-        let staff3 = Staff(context: moc)
-        staff3.position = "Сыродел"
-        staff3.name = "Василий Васильев"
-        staff3.salary = 35_000
+        let worker3 = Worker(context: moc)
+        worker3.position = "Сыродел"
+        worker3.name = "Василий Васильев"
+        worker3.salary = 35_000
         
-        department2.addToStaffs_(staff3)
-        
+        department2.addToWorkers_(worker3)
+
         let department3 = Department(context: moc)
-        department3.division = "Продажи"
+        department3.division = divisionSales
         department3.name = "Отдел логистики"
         department3.type = .sales
         
-        let staff4 = Staff(context: moc)
-        staff4.position = "Водитель"
-        staff4.name = "Иван Иванов"
-        staff4.salary = 35_000
+        let worker4 = Worker(context: moc)
+        worker4.position = "Водитель"
+        worker4.name = "Иван Иванов"
+        worker4.salary = 35_000
         
-        department3.addToStaffs_(staff4)
+        department3.addToWorkers_(worker4)
         
         let department4 = Department(context: moc)
-        department4.division = "Администрация"
+        department4.division = divisionHQ
         department4.name = "Администрация"
         department4.type = .management
         
-        let staff5 = Staff(context: moc)
-        staff5.position = "Директор + закупки"
-        staff5.name = "Петр Петров"
-        staff5.salary = 60_000
+        let worker5 = Worker(context: moc)
+        worker5.position = "Директор + закупки"
+        worker5.name = "Петр Петров"
+        worker5.salary = 60_000
         
-        department4.addToStaffs_(staff5)
+        department4.addToWorkers_(worker5)
         
         let department5 = Department(context: moc)
-        department5.division = "Администрация"
+        department5.division = divisionHQ// "Администрация"
         department5.name = "Бухгалтерия"
         department5.type = .management
         
-        let staff6 = Staff(context: moc)
-        staff6.position = "Главный бухгалтер"
-        staff6.name = "Мальвина Петровна"
-        staff6.salary = 30_000
+        let worker6 = Worker(context: moc)
+        worker6.position = "Главный бухгалтер"
+        worker6.name = "Мальвина Петровна"
+        worker6.salary = 30_000
         
-        department5.addToStaffs_(staff6)
+        department5.addToWorkers_(worker6)
         
-        return [department1, department2, department3, department4, department5]
+        return [divisionProduction, divisionSales, divisionHQ]
     }
     
     private func createExpenses1() -> [Expenses] {

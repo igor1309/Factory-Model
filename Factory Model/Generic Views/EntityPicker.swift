@@ -65,6 +65,7 @@ struct EntityPickerList<T: PickableEntity & Sketchable>: View {
                         presentation.wrappedValue.dismiss()
                     } label: {
                         ListRow(entity)
+                            .foregroundColor(selection == entity ? .systemOrange : .accentColor)
                     }
                 }
             }

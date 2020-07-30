@@ -59,19 +59,23 @@ struct FactoryView: View {
                 .foregroundColor(.systemTeal)
                 .font(.subheadline)
                 .padding(.vertical, 3)
-
+                
+            }
+            
+            Section(
+                header: Text("Personnel")
+            ) {
                 NavigationLink(
-                    destination: DepartmentList(for: factory)
+                    destination: DivisionList(for: factory)
                 ) {
                     ListRow(
-                        title: "Departments",
+                        title: "Divisions, [TBD: Total headcount]",
                         subtitle: "Budget, incl tax \(factory.totalSalaryWithTax.formattedGrouped)",
-                        detail: factory.departmentNames,
-                        icon: "person.2"
+                        detail: factory.divisionNames,
+                        icon: "person.crop.rectangle"
                     )
-                    .foregroundColor(.systemTeal)
                 }
-
+                .foregroundColor(.systemTeal)
             }
 
             Section(
@@ -149,31 +153,6 @@ struct FactoryView: View {
             Section(
                 header: Text("Expenses")
             ) {
-                
-                NavigationLink(
-                    destination:
-                        List {
-                            GenericListSection(
-                                type: Staff.self,
-                                predicate: Staff.factoryPredicate(for: factory)
-                            ) { staff in
-                                StaffView(staff)
-                            }
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                ) {
-                    Text("factory staff")
-                }
-                
-                NavigationLink(
-                    destination: StaffList(at: factory)
-                ) {
-                    LabelWithDetail("person.2", "Salary, incl taxes", "TBD")
-                        .font(.subheadline)
-                }
-                
-                
-                
                 NavigationLink(
                     destination: ExpensesList(for: factory)
                 ) {

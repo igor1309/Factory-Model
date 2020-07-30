@@ -22,6 +22,7 @@ struct ListWithDashboard<
 
     //  @State private var searchText = ""
     
+    let title: String
     let parent: Parent
     let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let useSmallerFont: Bool
@@ -30,6 +31,7 @@ struct ListWithDashboard<
     let editor: (Child) -> Editor
     
     init(
+        title: String? = nil,
         parent: Parent,
         keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?,
         predicate: NSPredicate? = nil,
@@ -38,6 +40,7 @@ struct ListWithDashboard<
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
+        self.title = title == nil ? Child.plural() : title!
         self.parent = parent
         self.keyPath = keyPath
         self.useSmallerFont = useSmallerFont
@@ -72,7 +75,7 @@ struct ListWithDashboard<
             )
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(Child.plural())
+        .navigationTitle(title)
         .navigationBarItems(trailing: plusButton())
     }
 }

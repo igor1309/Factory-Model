@@ -8,29 +8,24 @@
 import Foundation
 
 extension Department: Comparable {
-    var division: String {
-        get { division_ ?? "No Division" }
-        set { division_ = newValue }
-    }
-    
-    var staffs: [Staff] {
-        get { (staffs_ as? Set<Staff> ?? []).sorted() }
-        set { staffs_ = Set(newValue) as NSSet }
+    var workers: [Worker] {
+        get { (workers_ as? Set<Worker> ?? []).sorted() }
+        set { workers_ = Set(newValue) as NSSet }
     }
 
     var totalSalary: Double {
-        staffs
+        workers
             .map { $0.salary }
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
-        staffs
+        workers
             .map { $0.salaryWithTax }
             .reduce(0, +)
     }
 
     enum DepartmentType: String, CaseIterable {
-        case production, sales, procurement, management
+        case procurement, production, sales, management
     }
     var type: DepartmentType {
         get { DepartmentType(rawValue: type_ ?? DepartmentType.production.rawValue) ?? .production }

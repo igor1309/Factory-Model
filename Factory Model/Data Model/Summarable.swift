@@ -47,9 +47,17 @@ extension Buyer: Summarable {
     var icon: String { "cart.fill" }
 }
 
+extension Division: Summarable {
+    var title: String {
+        "\(name), [\("TBD: headcount")]"
+    }
+    var subtitle: String { "TBD: Division Budget" }
+    var detail: String? { "TBD: list of departnemt names" }
+    var icon: String { "person.crop.rectangle" }
+}
+
 extension Department: Summarable {
-    var subtitle: String { division }
-    var detail: String? { type.rawValue }
+    var detail: String? { type.rawValue.capitalized }
     var icon: String { "person.2" }
 }
 
@@ -166,7 +174,13 @@ extension Sales: Summarable {
     var icon: String { "creditcard.fill" }
 }
 
-extension Staff: Summarable {
+extension Utility: Summarable {
+    var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
+    var detail: String? { vat.formattedPercentage }
+    var icon: String { "lightbulb" }
+}
+
+extension Worker: Summarable {
     var subtitle: String { salary.formattedGrouped }
     
     var detail: String? {
@@ -176,10 +190,4 @@ extension Staff: Summarable {
     }
     
     var icon: String { "person" }
-}
-
-extension Utility: Summarable {
-    var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
-    var detail: String? { vat.formattedPercentage }
-    var icon: String { "lightbulb" }
 }

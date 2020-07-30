@@ -16,8 +16,10 @@ struct PickerWithTextField: View {
         Picker(
             selection: $selection,
             label: HStack {
-                Text(name)
-                    .foregroundColor(.secondary)
+                if !name.isEmpty {
+                    Text(name)
+                        .foregroundColor(.secondary)
+                }
                 TextField(name, text: $selection)
                     .foregroundColor(.accentColor)
             }

@@ -31,6 +31,9 @@ extension Base: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
 extension Department: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "division == nil") }
+}
+extension Division: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
 extension Equipment: Orphanable {
@@ -43,9 +46,9 @@ extension Expenses: Orphanable {
 extension Ingredient: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
-extension Staff: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
-}
 extension Utility: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
+}
+extension Worker: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
 }

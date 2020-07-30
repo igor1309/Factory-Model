@@ -46,6 +46,8 @@ extension Managed where Self: NSManagedObject {
                 return "Buyers"
             case "Department":
                 return "Departments"
+            case "Division":
+                return "Divisions"
             case "Equipment":
                 return "Equipment"
             case "Expenses":
@@ -62,10 +64,10 @@ extension Managed where Self: NSManagedObject {
                 return "Products"
             case "Sales":
                 return "Sales"
-            case "Staff":
-                return "Staff"
             case "Utility":
                 return "Utilities"
+            case "Worker":
+                return "Personnel"
             default:
                 return entityName
         }
@@ -103,6 +105,7 @@ extension Managed where Self: Monikerable & FactoryTracable, ManagedType == Self
 extension Base: Managed {}
 extension Buyer: Managed {}
 extension Department: Managed {}
+extension Division: Managed {}
 extension Equipment: Managed {}
 extension Expenses: Managed {}
 extension Factory: Managed {}
@@ -111,5 +114,5 @@ extension Ingredient: Managed {}
 extension Packaging: Managed {}
 extension Product: Managed {}
 extension Sales: Managed {}
-extension Staff: Managed {}
 extension Utility: Managed {}
+extension Worker: Managed {}

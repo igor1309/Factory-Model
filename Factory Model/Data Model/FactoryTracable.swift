@@ -31,12 +31,12 @@ extension Base: FactoryTracable {
     }
 }
 
-extension Department: FactoryTracable {
+extension Division: FactoryTracable {
     static var format: String {
         "%K == %@"
     }
     static var factoryPath: String {
-        "\(#keyPath(Department.factory))"
+        "\(#keyPath(Division.factory))"
     }
 }
 
@@ -97,12 +97,12 @@ extension Sales: FactoryTracable {
     }
 }
 
-extension Staff: FactoryTracable {
+extension Worker: FactoryTracable {
     static var format: String {
         "%K == %@"
     }
     
     static var factoryPath: String {
-        "\(#keyPath(Staff.department.factory))"
+        "\(#keyPath(Worker.department.division.factory))"
     }
 }

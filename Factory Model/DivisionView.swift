@@ -1,5 +1,5 @@
 //
-//  StaffList.swift
+//  DivisionView.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 21.07.2020.
@@ -10,85 +10,50 @@ import SwiftUI
 struct DivisionView: View {
     @Environment(\.managedObjectContext) var moc
     
-    @FetchRequest private var staff: FetchedResults<Staff>
+    @ObservedObject var division: Division
     
-    @ObservedObject var factory: Factory
-    let division: String
-    
-    init(division: String, at factory: Factory) {
-        self.factory = factory
+    init(for division: Division) {
         self.division = division
-        _staff = FetchRequest(
-            entity: Staff.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Staff.position_, ascending: true)
-            ],
-            predicate: NSCompoundPredicate(
-                type: .and,
-                subpredicates: [
-                    Staff.factoryPredicate(for: factory),
-                    NSPredicate(
-                        format: "%K == %@", #keyPath(Staff.department.division_), division
-                    )
-                ]
-            )
-        )
     }
-    
     
     var body: some View {
-        List {
-            Text("MARK: NEED TO BE DONE IN A CORRECT WAY")
-                .foregroundColor(.systemRed)
-                .font(.headline)
+        ListWithDashboard(
+            title: division.name,
+            parent: division,
+            keyPath: \Division.departments_,
             
-            Section(header: Text("Total")) {
-                LabelWithDetail("Total Salary incl taxes", factory.totalSalaryWithTax(for: division).formattedGrouped)
-                    .font(.subheadline)
-            }
+            //  MARK: - FINISH THIS
+            //  should be `default` predicate
+            //            format: "%K == %@", #keyPath(Product.base.factory), factory
             
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Department.division), division
+            )
+            
+        ) {
+            CreateChildButton(
+                systemName: "rectangle.badge.plus",
+                childType: Department.self,
+                parent: division,
+                keyPath: \Division.departments_
+            )
+        } dashboard: {
             Section(
-                header: Text("Staff (\(factory.headcount(for: division)))")
+                header: Text("Division")
             ) {
-                ForEach(staff, id: \.objectID) { staff in
-                    NavigationLink(
-                        destination: StaffView(staff)
-                    ) {
-                        ListRow(staff)
-                    }
+                Group {
+                    TextField("Division Name", text: $division.name)
+                        .foregroundColor(.accentColor)
+
+                    LabelWithDetail("person.crop.rectangle", "Total Headcount", "TBD")
+
+                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(division.totalSalaryWithTax.formattedGrouped)")
                 }
-                .onDelete(perform: removeStaff)
+                .foregroundColor(.secondary)
+                .font(.subheadline)
             }
+        } editor: { (department: Department) in
+            DepartmentView(for: department)
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle(division)
-        .navigationBarItems(trailing: plusButton)
-    }
-    
-    //  MARK: - can't replace with PlusEntityButton: linked entities
-    private var plusButton: some View {
-        Button {
-            //  MARK: NEED TO BE DONE IN A CORRECT WAY
-            let staff = Staff(context: moc)
-            staff.name = " ..."
-            staff.salary = 10_000
-            
-            let department = Department(context: moc)
-            department.addToStaffs_(staff)
-            
-            factory.addToDepartments_(department)
-            moc.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
-    }
-    
-    private func removeStaff(at offsets: IndexSet) {
-        for index in offsets {
-            let stafff = staff[index]
-            moc.delete(stafff)
-        }
-        moc.saveContext()
     }
 }

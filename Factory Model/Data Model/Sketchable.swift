@@ -25,7 +25,8 @@ extension Base: Sketchable {
 
 extension Buyer: Sketchable {}
 extension Department: Sketchable {}
-    
+extension Division: Sketchable {}
+
 extension Equipment: Sketchable {
     func makeSketch() {
         self.name = " ..."
@@ -62,7 +63,6 @@ extension Product: Sketchable {
 }
 
 extension Sales: Sketchable {}
-extension Staff: Sketchable {}
 
 extension Utility: Sketchable {
     func makeSketch() {
@@ -70,3 +70,5 @@ extension Utility: Sketchable {
         priceExVAT = 10
     }
 }
+
+extension Worker: Sketchable {}

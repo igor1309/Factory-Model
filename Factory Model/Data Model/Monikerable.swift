@@ -26,6 +26,7 @@ extension Monikerable {
 extension Base: Monikerable {}
 extension Buyer: Monikerable {}
 extension Department: Monikerable {}
+extension Division: Monikerable {}
 extension Equipment: Monikerable {}
 extension Expenses: Monikerable {}
 extension Factory: Monikerable {}
@@ -34,5 +35,5 @@ extension Ingredient: Monikerable {}
 extension Packaging: Monikerable {}
 extension Product: Monikerable {}
 extension Sales: Monikerable {}
-extension Staff: Monikerable {}
 extension Utility: Monikerable {}
+extension Worker: Monikerable {}
