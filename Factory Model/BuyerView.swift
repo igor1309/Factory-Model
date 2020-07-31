@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BuyerEditor: View {
+struct BuyerView: View {
     @Environment(\.managedObjectContext) var context
     
     @ObservedObject var buyer: Buyer

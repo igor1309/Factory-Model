@@ -43,7 +43,7 @@ struct BaseView: View {
                         } dashboard: {
                             
                         } editor: { (ingredient: Ingredient) in
-                            IngredientView(ingredient: ingredient)
+                            IngredientView(ingredient)
                         }
                     ) {
                         LabelWithDetail("puzzlepiece", "Ingredients Cost", base.costExVAT.formattedGrouped)

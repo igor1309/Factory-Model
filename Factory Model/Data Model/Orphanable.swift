@@ -55,6 +55,9 @@ extension Ingredient: Orphanable {
 extension Packaging: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
+extension Product: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
+}
 extension Sales: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil") }
 }

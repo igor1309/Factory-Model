@@ -20,6 +20,27 @@ struct FactoryView: View {
     
     var body: some View {
         List {
+            //  MARK: - FINISH THIS hasIssues does not work - need to use fetch
+            //  if factory.hasIssues {
+                Section(
+                    header: Text("Issues")
+                ) {
+                    Group {
+                        NavigationLink(
+                            destination: IssuesList(for: factory)
+                        ) {
+                            ListRow(
+                                title: "Issues",
+                                subtitle: "Factory data has issues.",
+                                detail: "Please check and fix orphans.",
+                                icon: "exclamationmark.octagon.fill"
+                            )
+                            .foregroundColor(.systemRed)
+                        }
+                    }
+                }
+            //  }
+            
             Group {
                 Section(
                     header: Text("Personnel")

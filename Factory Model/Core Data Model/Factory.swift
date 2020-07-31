@@ -13,6 +13,14 @@ extension Factory {
         get { note_ ?? ""}
         set { note_ = newValue }
     }
+    var buyers: [Buyer] {
+        get { (buyers_ as? Set<Buyer> ?? []).sorted() }
+        set { buyers_ = Set(newValue) as NSSet }
+    }
+    var workers: [Worker] {
+        get { (workers_ as? Set<Worker> ?? []).sorted() }
+        set { workers_ = Set(newValue) as NSSet }
+    }
     var equipments: [Equipment] {
         get { (equipments_ as? Set<Equipment> ?? []).sorted() }
         set { equipments_ = Set(newValue) as NSSet }
@@ -21,11 +29,15 @@ extension Factory {
         get { (bases_ as? Set<Base> ?? []).sorted() }
         set { bases_ = Set(newValue) as NSSet }
     }
+    var packagings: [Packaging] {
+        get { (packagings_ as? Set<Packaging> ?? []).sorted() }
+        set { packagings_ = Set(newValue) as NSSet }
+    }
     var expenses: [Expenses] {
         get { (expenses_ as? Set<Expenses> ?? []).sorted() }
         set { expenses_ = Set(newValue) as NSSet }
     }
-    var buyers: [String] {
+    var buyerNames: [String] {
         bases
             .flatMap { $0.products }
             .flatMap { $0.sales }
@@ -211,9 +223,7 @@ extension Factory {
     }
     
     var sales: [Sales] {
-        bases
-            .flatMap { $0.products }
-            .compactMap { $0.base }
+        buyers
             .flatMap { $0.sales }
     }
     var feedstocks: [Feedstock] {

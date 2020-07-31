@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SalesEditor: View {
     @Environment(\.managedObjectContext) var moc
-//    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
     

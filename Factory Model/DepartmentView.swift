@@ -12,7 +12,7 @@ struct DepartmentView: View {
     
     @ObservedObject var department: Department
     
-    init(for department: Department) {
+    init(_ department: Department) {
         self.department = department
     }
     
@@ -58,7 +58,7 @@ struct DepartmentView: View {
             
             Section(
                 header: Text("Division"),
-                footer: Text("Division could be changed.")
+                footer: Text(department.division == nil ? "ERROR: no Division for Department" : "Division could be changed.")
             ) {
                 Group {
                     EntityPicker(
@@ -90,7 +90,7 @@ struct DepartmentView: View {
                     )
                 }
                 //  .foregroundColor(.secondary) not .foregroundColor(.accentColor) to hide (diminish possibility of changing Department
-                .foregroundColor(.secondary)
+                .foregroundColor(department.division == nil ? .systemRed : .secondary)
                 .font(.subheadline)
             }
             

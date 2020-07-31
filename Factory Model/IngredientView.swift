@@ -12,6 +12,10 @@ struct IngredientView: View {
     
     @ObservedObject var ingredient: Ingredient
     
+    init(_ ingredient: Ingredient) {
+        self.ingredient = ingredient
+    }
+    
     var body: some View {
         
         List {

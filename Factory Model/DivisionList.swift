@@ -60,7 +60,7 @@ struct DivisionList: View {
                 }
             }
         } editor: { (division: Division) in
-            DivisionView(for: division)
+            DivisionView(division)
         }
     }
 }

@@ -45,9 +45,3 @@ struct ExpensesView: View {
         }
     }
 }
-
-//struct ExpensesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExpensesView()
-//    }
-//}

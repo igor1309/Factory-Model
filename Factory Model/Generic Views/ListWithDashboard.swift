@@ -17,7 +17,7 @@ struct ListWithDashboard<
     @Environment(\.managedObjectContext) var moc
     
     @FetchRequest private var entities: FetchedResults<Child>
-    @FetchRequest private var childFetchRequest: FetchedResults<Child>
+    @FetchRequest private var orphansFetchRequest: FetchedResults<Child>
 
     //  @State private var searchText = ""
     
@@ -41,7 +41,7 @@ struct ListWithDashboard<
         self.dashboard = dashboard
         self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
-        _childFetchRequest = Child.defaultFetchRequest(with: Child.orphanPredicate)
+        _orphansFetchRequest = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
     
     var body: some View {
@@ -51,10 +51,10 @@ struct ListWithDashboard<
             
             dashboard()
             
-            if !childFetchRequest.isEmpty {
+            if !orphansFetchRequest.isEmpty {
                 GenericListSection(
                     header: "Orphans",
-                    fetchRequest: _childFetchRequest,
+                    fetchRequest: _orphansFetchRequest,
                     useSmallerFont: useSmallerFont,
                     editor: editor
                 )

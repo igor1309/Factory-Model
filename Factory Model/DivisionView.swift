@@ -12,7 +12,7 @@ struct DivisionView: View {
     
     @ObservedObject var division: Division
     
-    init(for division: Division) {
+    init(_ division: Division) {
         self.division = division
     }
     
@@ -51,7 +51,7 @@ struct DivisionView: View {
                 .font(.subheadline)
             }
         } editor: { (department: Department) in
-            DepartmentView(for: department)
+            DepartmentView(department)
         }
     }
 }
