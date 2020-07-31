@@ -59,11 +59,11 @@ extension Product: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
 extension Sales: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil AND buyer == nil") }
 }
 extension Utility: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
 extension Worker: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil OR factory == nil") }
 }

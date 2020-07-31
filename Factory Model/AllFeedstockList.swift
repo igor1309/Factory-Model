@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct AllFeedstockList: View {
     @ObservedObject var factory: Factory
@@ -15,6 +16,19 @@ struct AllFeedstockList: View {
     }
     
     var body: some View {
+        EntityListWithDashboard(
+            for: factory,
+            title: "All Feedstocks",
+            predicate: nil,// if nil use default!!
+            keyPathParentToChildren: \Factory.feedstocks_
+        ) {
+        } editor: { (feedstock: Feedstock) in
+            FeedstockView(feedstock)
+        }
+        
+    }
+    
+    var old: some View {
         ListWithDashboard(
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Feedstock.factory), factory

@@ -23,64 +23,63 @@ extension FactoryTracable where Self: NSManagedObject {
 }
 
 extension Base: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
+    
     static var factoryPath: String {
         "\(#keyPath(Base.factory))"
     }
 }
 
-extension Division: FactoryTracable {
-    static var format: String {
-        "%K == %@"
+extension Buyer: FactoryTracable {
+    static var format: String { "%K == %@" }
+    
+    static var factoryPath: String {
+        "\(#keyPath(Buyer.factory))"
     }
+}
+
+extension Division: FactoryTracable {
+    static var format: String { "%K == %@" }
+    
     static var factoryPath: String {
         "\(#keyPath(Division.factory))"
     }
 }
 
 extension Equipment: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
+    
     static var factoryPath: String {
         "\(#keyPath(Equipment.factory))"
     }
 }
 
 extension Expenses: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
+    
     static var factoryPath: String {
         "\(#keyPath(Expenses.factory))"
     }
 }
 
 extension Feedstock: FactoryTracable {
-    static var format: String {
-        "ANY %K.base.factory == %@"
-    }
+    static var format: String { "%K == %@" }
+    
     static var factoryPath: String {
-            "\(#keyPath(Feedstock.ingredients_))"
+        "\(#keyPath(Feedstock.factory))"
     }
 }
 
 extension Packaging: FactoryTracable {
-    static var format: String {
-        "factory == %@"
-    }
+    static var format: String { "%K == %@" }
     
     static var factoryPath: String {
-        "\(#keyPath(Packaging.products_))"
+        "\(#keyPath(Packaging.factory))"
     }
 }
 
 extension Product: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
     
     static var factoryPath: String {
         "\(#keyPath(Product.base.factory))"
@@ -88,9 +87,7 @@ extension Product: FactoryTracable {
 }
 
 extension Sales: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
     
     static var factoryPath: String {
         "\(#keyPath(Sales.product.base.factory))"
@@ -98,11 +95,9 @@ extension Sales: FactoryTracable {
 }
 
 extension Worker: FactoryTracable {
-    static var format: String {
-        "%K == %@"
-    }
+    static var format: String { "%K == %@" }
     
     static var factoryPath: String {
-        "\(#keyPath(Worker.department.division.factory))"
+        "\(#keyPath(Worker.factory))"
     }
 }

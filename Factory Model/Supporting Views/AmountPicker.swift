@@ -15,6 +15,7 @@ struct AmountPicker: View {
         case medium
         case large
         case extraLarge
+        case extraExtraLarge
         
         var range: ClosedRange<Double> {
             switch self {
@@ -28,6 +29,8 @@ struct AmountPicker: View {
                     return 1_000.0...10_000
                 case .extraLarge:
                     return 10_000.0...100_000
+                case .extraExtraLarge:
+                    return 100_000.0...10_000_000
             }
         }
         
@@ -43,6 +46,8 @@ struct AmountPicker: View {
                     return 100
                 case .extraLarge:
                     return 500
+                case .extraExtraLarge:
+                    return 50_000
             }
         }
         
@@ -58,6 +63,8 @@ struct AmountPicker: View {
                     return 10
                 case .extraLarge:
                     return 50
+                case .extraExtraLarge:
+                    return 5_000
             }
         }
         
@@ -73,6 +80,8 @@ struct AmountPicker: View {
                     return "L"
                 case .extraLarge:
                     return "XL"
+                case .extraExtraLarge:
+                    return "XXL"
             }
         }
         
@@ -161,7 +170,7 @@ fileprivate struct AmountPickerSheet: View {
                     Slider(
                         value: $qty,
                         in: scale.range,
-                        step: scale.minorStep,
+                        step: scale.majorStep,
                         minimumValueLabel: Text(scale.range.lowerBound.formattedGrouped).font(.caption2),
                         maximumValueLabel: Text(scale.range.upperBound.formattedGrouped).font(.caption)
                     ) { Text("\(qty)") }

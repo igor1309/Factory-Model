@@ -11,27 +11,19 @@ import SwiftPI
 struct AllSalesList: View {
     @Environment(\.managedObjectContext) var context
     
-    @FetchRequest private var sales: FetchedResults<Sales>
     @FetchRequest private var orphans: FetchedResults<Sales>
-
+    
     @ObservedObject var factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
-        _sales = FetchRequest(
-            entity: Sales.entity(),
-            sortDescriptors: [
-                NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
-                NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
-            ],
-            predicate: Sales.factoryPredicate(for: factory)
-        )
         _orphans = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \Sales.qty, ascending: true),
                 NSSortDescriptor(keyPath: \Sales.priceExVAT, ascending: true)
-            ]
+            ],
+            predicate: Sales.orphanPredicate
         )
     }
     
@@ -44,7 +36,7 @@ struct AllSalesList: View {
                 LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                     .foregroundColor(.systemGreen)
                     .font(.subheadline)
-
+                
                 ListRow(
                     title: "TBD: Общие Продажи",
                     subtitle: "TBD: Деньги (выручка и маржа, маржинальность) и объемы",
@@ -67,18 +59,26 @@ struct AllSalesList: View {
                 )
             }
             
-            GenericListSection(fetchRequest: _sales) { sales in
+            GenericListSection(
+                type: Sales.self,
+                predicate: Sales.factoryPredicate(for: factory)
+            ) { sales in
                 SalesEditor(sales)
             }
             
-            GenericListSection(header: "Sales and Orphans", fetchRequest: _orphans) { sales in
-                SalesEditor(sales)
+            if !orphans.isEmpty {
+                GenericListSection(
+                    header: "Sales and Orphans",
+                    fetchRequest: _orphans
+                ) { sales in
+                    SalesEditor(sales)
+                }
+                .foregroundColor(.systemRed)
             }
-            .foregroundColor(.systemRed)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
-//        .navigationBarItems(trailing: plusButton)
+        //        .navigationBarItems(trailing: plusButton)
         .navigationBarItems(trailing: CreateOrphanButton<Sales>(systemName: "cart.badge.plus"))
     }
     

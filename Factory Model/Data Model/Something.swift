@@ -9,7 +9,7 @@ import Foundation
 
 struct Something: Hashable, Identifiable {
     var id: UUID
-
+    
     var title: String
     var qty: Double
     var cost: Double

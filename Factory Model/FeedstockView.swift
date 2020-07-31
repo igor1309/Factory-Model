@@ -19,18 +19,42 @@ struct FeedstockView: View {
     
     var body: some View {
         List {
-            Text("NEEDS TO BE COMPLETLY REDONE")
-                .foregroundColor(.systemRed)
-                .font(.headline)
-            
-            Section(header: Text("Feedstock")) {
+            Section(
+                header: Text("Feedstock")
+            ) {
                 Group {
-//                    TextField("Name", text: $feedstock.name)
-                    Text("TBD: Qty:")
-                    Text("TBD: Price PRICE")
-                    Text("TBD: Total Cost")
+                    TextField("Name", text: $feedstock.name)
+                    
+                    AmountPicker(systemName: "puzzlepiece", title: "Price ex VAT", navigationTitle: "Price ex VAT", scale: .small, amount: $feedstock.priceExVAT)
+                    
+                    LabelWithDetail("scissors", "Price with VAT", feedstock.priceWithVAT.formattedGrouped)
+                        .foregroundColor(.secondary)
+
+                    //  MARK: - add .percent to AmountPicker
+                    AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .extraSmall, amount: $feedstock.vat)
                 }
                 .foregroundColor(.accentColor)
+                .font(.subheadline)
+            }
+            
+            if feedstock.factory == nil {
+                Section(
+                    header: Text("Factory")
+                ) {
+                    EntityPicker(selection: $feedstock.factory, icon: "building.2")
+                        .foregroundColor(.systemRed)
+                }
+            }
+                
+            Section(
+                header: Text("Feedstock")
+            ) {
+                Group {
+                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", feedstock.productionQty.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost ex VAT", feedstock.totalCostExVat.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost with VAT", feedstock.totalCostWithVat.formattedGrouped)
+                }
+                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
         }

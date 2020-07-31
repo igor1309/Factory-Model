@@ -17,16 +17,10 @@ struct DivisionList: View {
     }
     
     var body: some View {
-        ListWithDashboard(
-            predicate: Division.factoryPredicate(for: factory)
+        EntityListWithDashboard(
+            for: factory,
+            keyPathParentToChildren: \Factory.divisions_
         ) {
-            CreateChildButton(
-                systemName: "rectangle.badge.plus",
-                childType: Division.self,
-                parent: factory,
-                keyPath: \Factory.divisions_
-            )
-        } dashboard: {
             Section(
                 header: Text("Total")
             ) {
@@ -42,25 +36,19 @@ struct DivisionList: View {
             Section(
                 header: Text("Personnel")
             ) {
-                NavigationLink(
-                    destination:
-                        List {
-                            GenericListSection(
-                                type: Worker.self,
-                                predicate: Worker.factoryPredicate(for: factory)
-                            ) { worker in
-                                WorkerView(worker)
-                            }
-                        }
-                        .listStyle(InsetGroupedListStyle())
-                ) {
-                    Label("All Factory Personnel", systemImage: "person.2")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                Group {
+                    NavigationLink(
+                        destination: AllWorkersList(for: factory)
+                    ) {
+                        Label("All Factory Personnel", systemImage: "person.2")
+                    }
                 }
+                .font(.subheadline)
+                .foregroundColor(.secondary)
             }
         } editor: { (division: Division) in
             DivisionView(division)
         }
+        
     }
 }

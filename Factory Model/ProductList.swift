@@ -13,8 +13,7 @@ struct ProductList: View {
     @FetchRequest var products: FetchedResults<Product>
     @FetchRequest var allProducts: FetchedResults<Product>
     
-    //    @ObservedObject
-    var factory: Factory
+    @ObservedObject var factory: Factory
     
     init(for factory: Factory){
         self.factory = factory

@@ -31,6 +31,34 @@ struct FeedstockList: View {
     
     
     var body: some View {
+        EntityListWithDashboard(
+            for: base,
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Ingredient.feedstock), base
+            ),
+            keyPathParentToChildren: \Base.ingredients_
+        ) {
+            GenericListSection(fetchRequest: _feedstocks) { feedstock in
+                FeedstockView(feedstock)
+            }
+            
+            GenericListSection(fetchRequest: _feedstocks) { feedstock in
+                FeedstockView(feedstock)
+            }
+            
+            
+            Section(header: Text("Total")) {
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.costExVAT.formattedGrouped)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
+
+        } editor: { (feedstock: Feedstock) in
+            FeedstockView(feedstock)
+        }
+
+    }
+        var old: some View {
         List {
             
             if !feedstocks.isEmpty {

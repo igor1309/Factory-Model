@@ -10,14 +10,19 @@ protocol Summarizable {
     var subtitle: String { get }
     var detail: String? { get }
     var icon: String { get }
+    
+    static var plusButtonIcon: String { get }
 }
 extension Summarizable where Self: Monikerable {
-    var title: String { name }
+    var title: String { name.isEmpty ? "ERROR: no name" : name }
 }
 extension Summarizable {
     var subtitle: String { "" }
     var detail: String? { "" }
+    
+    static var plusButtonIcon: String { "plus" }
 }
+
 
 extension Base: Summarizable {
     var title: String {
@@ -47,6 +52,8 @@ extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
     var icon: String { "cart.fill" }
+
+    static var plusButtonIcon: String { "cart.badge.plus" }
 }
 
 extension Division: Summarizable {
@@ -56,6 +63,8 @@ extension Division: Summarizable {
     var subtitle: String { "TBD: Division Budget" }
     var detail: String? { "TBD: list of departnemt names" }
     var icon: String { "person.crop.rectangle" }
+    
+    static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Department: Summarizable {
@@ -71,12 +80,16 @@ extension Equipment: Summarizable {
     }
     
     var icon: String { "wrench.and.screwdriver" }
+    
+    static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
 
 extension Expenses: Summarizable {
     var subtitle: String { amount.formattedGrouped }
     var detail: String? { note }
     var icon: String { "dollarsign.circle" }
+    
+    static var plusButtonIcon: String { "text.badge.plus" }
 }
 
 extension Factory: Summarizable {
@@ -199,9 +212,11 @@ extension Worker: Summarizable {
     }
     
     var detail: String? {[department?.name ?? "", position]
-            .filter { !$0.isEmpty}
-            .joined(separator: ": ")
+        .filter { !$0.isEmpty}
+        .joined(separator: ": ")
     }
     
     var icon: String { "person" }
+    
+    static var plusButtonIcon: String { "cart.badge.plus" }
 }

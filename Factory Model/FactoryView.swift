@@ -24,6 +24,7 @@ struct FactoryView: View {
             //  if factory.hasIssues {
                 Section(
                     header: Text("Issues")
+                        .foregroundColor(.systemRed)
                 ) {
                     Group {
                         NavigationLink(
@@ -42,6 +43,22 @@ struct FactoryView: View {
             //  }
             
             Group {
+                
+                Section(
+                    header: Text("Sales")
+                ) {
+                    Group {
+                        NavigationLink(
+                            destination: AllSalesList(for: factory)
+                        ) {
+                            LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                                .foregroundColor(.systemGreen)
+                        }
+                    }
+                    .font(.subheadline)
+                }
+                
+
                 Section(
                     header: Text("Personnel")
                 ) {
@@ -91,35 +108,6 @@ struct FactoryView: View {
                         }
                     }
                     .foregroundColor(.systemPurple)
-                    .font(.subheadline)
-                }
-                
-                Section(
-                    header: Text("Sales")
-                ) {
-                    Group {
-                        NavigationLink(
-                            destination:
-                                List {
-                                    GenericListSection(
-                                        type: Sales.self,
-                                        predicate: Sales.factoryPredicate(for: factory)
-                                    ) { sales in
-                                        SalesEditor(sales)
-                                    }
-                                }
-                                .listStyle(InsetGroupedListStyle())
-                        ) {
-                            Text("factory sales")
-                        }
-                        
-                        NavigationLink(
-                            destination: AllSalesList(for: factory)
-                        ) {
-                            LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                                .foregroundColor(.systemGreen)
-                        }
-                    }
                     .font(.subheadline)
                 }
                 
@@ -309,11 +297,5 @@ struct FactoryView: View {
             moc.saveContext()
             presentation.wrappedValue.dismiss()
         }
-    }
-}
-
-struct FactoryView_Previews: PreviewProvider {
-    static var previews: some View {
-        FactoryView(Factory())
     }
 }

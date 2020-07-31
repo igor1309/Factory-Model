@@ -13,20 +13,19 @@ extension Feedstock {
         get { priceExVAT * (1 + vat) }
         set { priceExVAT = vat == 0 ? 0 : newValue / vat }
     }
-    //    var costExVAT: Double {
-    //        qty * priceExVAT
-    //    }
-    //    var baseName: String {
-    //        base?.name ?? "Unknown"
-    //    }
-    //    var productionQty: Double {
-    //        base?.productionQty ?? 0
-    //    }
-    //    var baseQty: Double {
-    //        base?.products
-    //            .compactMap { $0.baseQty }
-    //            .reduce(0) { $0 + $1 } ?? 0
-    //    }
+    var ingredients: [Ingredient] {
+        get { (ingredients_ as? Set<Ingredient> ?? []).sorted() }
+        set { ingredients_ = Set(newValue) as NSSet }
+    }
+
+    var productionQty: Double {
+        ingredients
+            .map { $0.qty * ($0.base?.productionQty ?? 0) }
+            .reduce(0, +)
+    }
+
+    var totalCostExVat: Double { priceExVAT * productionQty }
+    var totalCostWithVat: Double { priceWithVAT * productionQty }
 }
 
 extension Feedstock: Comparable {

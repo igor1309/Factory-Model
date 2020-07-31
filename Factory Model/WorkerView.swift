@@ -107,7 +107,7 @@ struct WorkerView: View {
             
             Section(
                 header: Text("Department"),
-                footer: Text("Department could be changed.")
+                footer: Text(worker.department == nil ? "ERROR: no department" : "Department could be changed.")
             ) {
                 Group {
                     EntityPicker(
@@ -115,7 +115,7 @@ struct WorkerView: View {
                     )
                 }
                 //  .foregroundColor(.secondary) not .foregroundColor(.accentColor) to hide (diminish possibility of changing Department
-                .foregroundColor(.secondary)
+                .foregroundColor(worker.department == nil ? .systemRed : .secondary)
                 .font(.subheadline)
             }
         }

@@ -43,7 +43,7 @@ struct SalesEditor: View {
             }
             
             Section(
-                header: Text("")
+                header: Text("Total Sales")
             ) {
                 Group {
                     LabelWithDetail("creditcard", "Total Sales ex VAT", sales.revenueExVAT.formattedGrouped)
@@ -54,7 +54,19 @@ struct SalesEditor: View {
                 .font(.subheadline)
             }
             
+            //  parent check
+            if sales.buyer == nil {
+                EntityPicker(selection: $sales.buyer, icon: "cart")
+                    .foregroundColor(.systemRed)
+            }
             
+            //  second parent check
+            if sales.product == nil {
+                EntityPicker(selection: $sales.product, icon: "bag")
+                    .foregroundColor(.systemRed)
+            }
+            
+
             Section(header: Text("Sales")) {
                 Text("TBD: MOVE SALES TO PRODUCT!!")
                     .foregroundColor(.systemRed)

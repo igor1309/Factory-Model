@@ -17,11 +17,9 @@ struct EquipmentList: View {
     }
     
     var body: some View {
-        ListWithDashboard(
-            predicate: Equipment.factoryPredicate(for: factory)
-        ) {
-            CreateChildButton(systemName: "plus.rectangle.on.rectangle", childType: Equipment.self, parent: factory, keyPath: \Factory.equipments_)
-        } dashboard: {
+        EntityListWithDashboard(
+            for: factory,
+            keyPathParentToChildren: \Factory.equipments_) {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")

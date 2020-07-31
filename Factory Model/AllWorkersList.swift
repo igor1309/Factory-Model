@@ -17,6 +17,18 @@ struct AllWorkersList: View {
     }
     
     var body: some View {
+        EntityListWithDashboard(
+            for: factory,
+            title: "All Workers",
+            keyPathParentToChildren: \Factory.workers_) {
+            
+        } editor: { (worker: Worker) in
+            WorkerView(worker)
+        }
+
+    }
+    
+    var old: some View {
         ListWithDashboard(
             title: "All Workers",
             predicate: NSPredicate(

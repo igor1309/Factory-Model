@@ -30,6 +30,17 @@ struct BaseView: View {
                 .foregroundColor(.accentColor)
             }
             
+            //  parent check
+            if base.factory == nil {
+                Section(
+                    header: Text("Factory")
+                ) {
+                    EntityPicker(selection: $base.factory, icon: "building.2")
+                        .foregroundColor(.systemRed)
+                }
+            }
+
+            
             Section(
                 header: Text("Cost"),
                 footer: Text("Including Labor and Utilities.")
