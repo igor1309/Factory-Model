@@ -76,6 +76,9 @@
 		2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */; };
 		2A93D98C24D35FE000DF1A35 /* BuyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98B24D35FE000DF1A35 /* BuyerView.swift */; };
 		2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94C3DC24D43182000C928E /* EquipmentList.swift */; };
+		2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */; };
+		2A9C8DAD24D4B8B000AD7C34 /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAC24D4B8B000AD7C34 /* BooksView.swift */; };
+		2A9C8DAF24D4BE3C00AD7C34 /* ProfitLossStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */; };
 		2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8D05C24CC2ED80058D48F /* Department.swift */; };
 		2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */; };
 		2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09B24C4F4A8005F1E9F /* ContentView.swift */; };
@@ -162,6 +165,9 @@
 		2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBuyersList.swift; sourceTree = "<group>"; };
 		2A93D98B24D35FE000DF1A35 /* BuyerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyerView.swift; sourceTree = "<group>"; };
 		2A94C3DC24D43182000C928E /* EquipmentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
+		2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Ext.swift"; sourceTree = "<group>"; };
+		2A9C8DAC24D4B8B000AD7C34 /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
+		2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitLossStatement.swift; sourceTree = "<group>"; };
 		2AA8D05C24CC2ED80058D48F /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		2AADA09624C4F4A8005F1E9F /* Factory Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Factory Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_ModelApp.swift; sourceTree = "<group>"; };
@@ -343,12 +349,15 @@
 				2A68121A24CD844000CBDD66 /* PackagingView.swift */,
 				2A936E6824C7182A00C34381 /* UtilityList.swift */,
 				2A936E6A24C7187700C34381 /* UtilityView.swift */,
+				2A9C8DAC24D4B8B000AD7C34 /* BooksView.swift */,
+				2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */,
 				2A7C3DAF24D42E94005A03B3 /* Expenses Views */,
 				2A7C3DB024D430F0005A03B3 /* Equipment Views */,
 				2A31654424CC6DFA00AF68A1 /* Data Model */,
 				2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */,
 				2A31654524CC6E1F00AF68A1 /* Playgrounds */,
 				2A936E5224C63DF100C34381 /* Array+Ext.swift */,
+				2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */,
 				2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */,
 				2AADA0A224C4F4A9005F1E9F /* Info.plist */,
 				2AADA09F24C4F4A9005F1E9F /* Preview Content */,
@@ -457,6 +466,7 @@
 				2A30471724C89C5F0002E5DD /* BasePicker.swift in Sources */,
 				2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
+				2A9C8DAD24D4B8B000AD7C34 /* BooksView.swift in Sources */,
 				2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
 				2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */,
@@ -469,6 +479,7 @@
 				2A31654824CCD1E400AF68A1 /* PackagingPicker.swift in Sources */,
 				2A93D97C24D1AB0C00DF1A35 /* CreateChildButton.swift in Sources */,
 				2A30471124C836200002E5DD /* AllFeedstockList.swift in Sources */,
+				2A9C8DAF24D4BE3C00AD7C34 /* ProfitLossStatement.swift in Sources */,
 				2A02DF1E24CB066F00A6E35A /* ProductList.swift in Sources */,
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
 				2A93D97624D17B8F00DF1A35 /* PickerWithTextField.swift in Sources */,
@@ -528,6 +539,7 @@
 				2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
 				2A30470324C778AD0002E5DD /* BasetList.swift in Sources */,
+				2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,
 				2A8113CB24CEB4FA00886C90 /* EntityPicker.swift in Sources */,
 				2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */,

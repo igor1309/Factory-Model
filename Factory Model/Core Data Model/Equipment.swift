@@ -13,6 +13,7 @@ extension Equipment {
         set { note_ = newValue }
     }
     
+    //  MARK: more clever depreciation?
     var depreciationMonthly: Double {
         price / (lifetime > 0 ? lifetime : 1) / 12
     }

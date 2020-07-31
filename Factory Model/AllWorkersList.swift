@@ -17,29 +17,20 @@ struct AllWorkersList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(
-            for: factory,
-            title: "All Workers",
-            keyPathParentToChildren: \Factory.workers_) {
-            
-        } editor: { (worker: Worker) in
-            WorkerView(worker)
-        }
-
-    }
-    
-    var old: some View {
         ListWithDashboard(
             title: "All Workers",
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Worker.factory), factory
+                format: "%K == %@", #keyPath(Worker.department.division.factory), factory
             )
         ) {
+            //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
+            EmptyView()
+            /*
             CreateChildButton(
                 systemName: "cart.badge.plus",
                 childType: Worker.self, parent: factory,
                 keyPath: \Factory.workers_
-            )
+            ) */
         } dashboard: {
             
         } editor: { (worker: Worker) in

@@ -130,14 +130,7 @@ extension Ingredient: Summarizable {
 
 extension Packaging: Summarizable {
     var subtitle: String { type }
-    
-    var detail: String? {
-        if products_ == nil || products.isEmpty {
-            return "ERROR: not used in products"
-        }
-        return products.map { $0.title }.joined(separator: ", ")
-    }
-    
+    var detail: String? { productList }    
     var icon: String { "shippingbox" }
 }
 
@@ -205,7 +198,6 @@ extension Utility: Summarizable {
 
 extension Worker: Summarizable {
     var subtitle: String {
-        guard factory != nil else { return "ERROR no factory" }
         guard department != nil else { return "ERROR no department" }
         
         return salary.formattedGrouped

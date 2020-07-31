@@ -71,14 +71,14 @@ struct FactoryList: View {
             water.name = "Вода"
             water.priceExVAT = 1
             
-            factory1.addToFeedstocks_(milk)
-            factory1.addToFeedstocks_(dryMilk)
-            factory1.addToFeedstocks_(calciumChloride)
-            factory1.addToFeedstocks_(bacterialRefueling)
-            factory1.addToFeedstocks_(rennetFilling)
-            factory1.addToFeedstocks_(pepsin)
-            factory1.addToFeedstocks_(salt)
-            factory1.addToFeedstocks_(water)
+//            factory1.addToFeedstocks_(milk)
+//            factory1.addToFeedstocks_(dryMilk)
+//            factory1.addToFeedstocks_(calciumChloride)
+//            factory1.addToFeedstocks_(bacterialRefueling)
+//            factory1.addToFeedstocks_(rennetFilling)
+//            factory1.addToFeedstocks_(pepsin)
+//            factory1.addToFeedstocks_(salt)
+//            factory1.addToFeedstocks_(water)
 
             //  MARK: - Ingredients for Base Product 1
             

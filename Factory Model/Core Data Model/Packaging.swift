@@ -17,7 +17,12 @@ extension Packaging: Comparable {
         set { products_ = Set(newValue) as NSSet }
     }
 
-    var productList: String { detail! }
+    var productList: String {
+        if products_ == nil || products.isEmpty {
+            return "ERROR: not used in products"
+        }
+        return products.map { $0.title }.joined(separator: "\n")
+    }
     
     public static func < (lhs: Packaging, rhs: Packaging) -> Bool {
         lhs.name < rhs.name

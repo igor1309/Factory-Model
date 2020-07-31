@@ -16,30 +16,19 @@ struct AllFeedstockList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(
-            for: factory,
-            title: "All Feedstocks",
-            predicate: nil,// if nil use default!!
-            keyPathParentToChildren: \Factory.feedstocks_
-        ) {
-        } editor: { (feedstock: Feedstock) in
-            FeedstockView(feedstock)
-        }
-        
-    }
-    
-    var old: some View {
         ListWithDashboard(
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Feedstock.factory), factory
+                format: "%K.base.factory == %@", #keyPath(Feedstock.ingredients_), factory
             )
         ) {
-            CreateChildButton(
+            //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
+            EmptyView()
+           /* CreateChildButton(
                 systemName: "plus.square",
                 childType: Feedstock.self,
                 parent: factory,
                 keyPath: \Factory.feedstocks_
-            )
+            ) */
         } dashboard: {
             Text("TBD: dashboard")
                 .font(.subheadline)

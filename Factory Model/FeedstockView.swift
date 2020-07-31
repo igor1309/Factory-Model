@@ -37,15 +37,6 @@ struct FeedstockView: View {
                 .font(.subheadline)
             }
             
-            if feedstock.factory == nil {
-                Section(
-                    header: Text("Factory")
-                ) {
-                    EntityPicker(selection: $feedstock.factory, icon: "building.2")
-                        .foregroundColor(.systemRed)
-                }
-            }
-                
             Section(
                 header: Text("Feedstock")
             ) {

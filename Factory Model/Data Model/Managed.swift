@@ -77,10 +77,7 @@ extension Managed where Self: NSManagedObject {
 /// https://stackoverflow.com/a/46038865
 extension Managed where Self: Monikerable, ManagedType == Self {
     static func defaultFetchRequest(with predicate: NSPredicate? = nil) -> FetchRequest<Self> {
-        let request = NSFetchRequest<ManagedType>(entityName: ManagedType.entityName)
-        request.sortDescriptors = defaultSortDescriptors
-        request.predicate = predicate
-        return FetchRequest(fetchRequest: request)
+        FetchRequest(fetchRequest: defaultNSFetchRequest(with: predicate))
     }
     static func defaultNSFetchRequest(with predicate: NSPredicate? = nil) -> NSFetchRequest<Self> {
         let request = NSFetchRequest<ManagedType>(entityName: ManagedType.entityName)

@@ -63,18 +63,18 @@ extension Expenses: FactoryTracable {
 }
 
 extension Feedstock: FactoryTracable {
-    static var format: String { "%K == %@" }
+    static var format: String { "ANY %K.base.factory == %@" }
     
     static var factoryPath: String {
-        "\(#keyPath(Feedstock.factory))"
+        "\(#keyPath(Feedstock.ingredients_))"
     }
 }
 
 extension Packaging: FactoryTracable {
-    static var format: String { "%K == %@" }
+    static var format: String { "ANY %K.base.factory == %@" }
     
     static var factoryPath: String {
-        "\(#keyPath(Packaging.factory))"
+        "\(#keyPath(Packaging.products_))"
     }
 }
 
@@ -98,6 +98,6 @@ extension Worker: FactoryTracable {
     static var format: String { "%K == %@" }
     
     static var factoryPath: String {
-        "\(#keyPath(Worker.factory))"
+        "\(#keyPath(Worker.department.division.factory))"
     }
 }

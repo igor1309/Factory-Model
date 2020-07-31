@@ -17,7 +17,7 @@ struct AllBuyersList: View {
     var body: some View {
         EntityListWithDashboard(
             for: factory,
-            title: "All Buyers!!!!",
+            title: "All Buyers",
             predicate: nil,// if nil use default!!
             keyPathParentToChildren: \Factory.buyers_
         ) {

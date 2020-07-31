@@ -18,8 +18,7 @@ extension Factory {
         set { buyers_ = Set(newValue) as NSSet }
     }
     var workers: [Worker] {
-        get { (workers_ as? Set<Worker> ?? []).sorted() }
-        set { workers_ = Set(newValue) as NSSet }
+        divisions.flatMap { $0.departments }.flatMap { $0.workers }
     }
     var equipments: [Equipment] {
         get { (equipments_ as? Set<Equipment> ?? []).sorted() }
@@ -30,8 +29,7 @@ extension Factory {
         set { bases_ = Set(newValue) as NSSet }
     }
     var packagings: [Packaging] {
-        get { (packagings_ as? Set<Packaging> ?? []).sorted() }
-        set { packagings_ = Set(newValue) as NSSet }
+        bases.flatMap { $0.products }.compactMap { $0.packaging }
     }
     var expenses: [Expenses] {
         get { (expenses_ as? Set<Expenses> ?? []).sorted() }

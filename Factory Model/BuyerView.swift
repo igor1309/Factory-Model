@@ -34,6 +34,15 @@ struct BuyerView: View {
                 TextField("Name", text: $buyer.name)
                     .foregroundColor(.accentColor)
             }
+            
+            if buyer.factory == nil {
+                Section(
+                    header: Text("Factory ERROR")
+                ) {
+                    EntityPicker(selection: $buyer.factory, icon: "building.2")
+                }
+                .foregroundColor(.systemRed)
+            }
         } editor: { (sales: Sales) in
             SalesEditor(sales)
         }

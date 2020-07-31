@@ -46,24 +46,27 @@ extension Expenses: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
 extension Feedstock: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "ANY ingredients_ == nil") }
 }
-//  MARK: - FINISH THIS только base == nil или "base == nil && feedstock == nil" ???
 extension Ingredient: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
+    static var orphanPredicate: NSPredicate {
+        .all//NSPredicate(format: "base == nil OR feedstock == nil")
+    }
 }
 extension Packaging: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
+    static var orphanPredicate: NSPredicate {
+        NSPredicate(format: "ANY products_ == nil")
+    }
 }
 extension Product: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
 extension Sales: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil AND buyer == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "product == nil OR buyer == nil") }
 }
 extension Utility: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
 extension Worker: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil OR factory == nil") }
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
 }
