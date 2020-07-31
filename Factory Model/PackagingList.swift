@@ -16,9 +16,7 @@ struct PackagingList: View {
     
     var body: some View {
         ListWithDashboard(
-            predicate: NSPredicate(
-                format: "ANY %K.base.factory == %@", #keyPath(Packaging.products_), factory
-            )
+            predicate: Packaging.factoryPredicate(for: factory)
         ) {
             //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
             EmptyView()

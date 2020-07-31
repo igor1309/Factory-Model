@@ -14,18 +14,13 @@ struct ProductEditor: View {
     
     var body: some View {
         List {
-            
-            Text("NEEDS TO BE COMPLETLY REDONE")
-                .foregroundColor(.systemRed)
-                .font(.headline)
-            
             VStack(alignment: .leading, spacing: 2) {
                 LabelWithDetail("title", product.title)
                 LabelWithDetail("subtitle", product.subtitle)
                 LabelWithDetail("detail", product.detail ?? "")
             }
             .foregroundColor(.tertiary)
-            .font(.footnote)
+            .font(.caption2)
             
             Section(
                 header: Text("Product Details")
@@ -67,18 +62,38 @@ struct ProductEditor: View {
             }
             
             Section(
-                header: Text("")
+                header: Text("Base Qty"),
+                footer: Text("TBD: на единицу продукта")
             ) {
                 Group {
-                    LabelWithDetail("baseQty", product.baseQty.formattedGrouped)
-                        .foregroundColor(.accentColor)
-                    LabelWithDetail("VAT", product.vat.formattedPercentage)
-                        .foregroundColor(.accentColor)
+                    AmountPicker(title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
+                        .font(.subheadline)
+                }
+            }
+            
+            Section(
+                header: Text("VAT")
+            ) {
+                Group {
+                    //  MARK: - FINISH THIS CHANGE SCALE TO PERCENT
+                    AmountPicker(title: "VAT", navigationTitle: "VAT", scale: .medium, amount: $product.vat)
+                }
+                .font(.subheadline)
+            }
+            
+            Section(
+                header: Text("Production Qty")
+            ) {
+                Group {
+                    AmountPicker(systemName: "scissors", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
                 }
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)
+        .onDisappear {
+            moc.saveContext()
+        }
     }
 }

@@ -160,8 +160,8 @@ extension Factory {
                     title: $0,
                     qty: 0,
                     cost: 0,
-                    detail: $1,
-                    icon: "bag"
+                    detail: $1//,
+                    //icon: "bag"
                 )
             }
             .sorted()

@@ -14,7 +14,8 @@ struct Something: Hashable, Identifiable {
     var qty: Double
     var cost: Double
     var detail: String?
-    var icon: String = "puzzlepiece"
+    
+    static var icon: String = "puzzlepiece"
 }
 
 extension Something: Comparable {

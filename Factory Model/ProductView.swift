@@ -30,7 +30,7 @@ struct ProductView: View {
                 LabelWithDetail("detail", product.detail ?? "")
             }
             .foregroundColor(.tertiary)
-            .font(.footnote)
+            .font(.caption2)
             
             Section(
                 header: Text("Product Details")
@@ -57,17 +57,13 @@ struct ProductView: View {
                     //  MARK: не лучше ли в BasePicker вместо 'factory: Factory' сделать 'factory: Factory?'
                     BasePicker(base: $product.base, factory: product.base!.factory!)
                     
-                    Stepper(value: $product.baseQty) {
-                        Text("Base Qty \(product.baseQty.formattedGrouped)")
-                            .font(.subheadline)
-                    }
+                    AmountPicker(title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
                     
-                    Group {
-                        LabelWithDetail("scalemass", "Вес продукта", product.weightNetto.formattedGrouped)
-                            .foregroundColor(.secondary)
-                    }
-                    .font(.subheadline)
+                    
+                    LabelWithDetail("scalemass", "Вес продукта", product.weightNetto.formattedGrouped)
+                        .foregroundColor(.secondary)
                 }
+                .font(.subheadline)
             }
             
             Section(
@@ -85,7 +81,7 @@ struct ProductView: View {
                 header: Text("Production")
             ) {
                 Group {
-                    LabelWithDetailView("bag", "Production Qty", AmountPicker(navigationTitle: "Select Qty", scale: .medium, amount: $product.productionQty))
+                    AmountPicker(systemName: "bag", title: "Production Qty", navigationTitle: "Qty", scale: .medium, amount: $product.productionQty)
                 }
                 .font(.subheadline)
             }
@@ -109,5 +105,8 @@ struct ProductView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)
+        .onDisappear {
+            moc.saveContext()
+        }
     }
 }

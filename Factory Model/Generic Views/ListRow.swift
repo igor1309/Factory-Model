@@ -36,7 +36,7 @@ struct ListRow: View {
         self.title = object.title
         self.subtitle = object.subtitle
         self.detail = object.detail
-        self.icon = object.icon
+        self.icon = T.icon
         self.useSmallerFont = useSmallerFont
         
     }
@@ -48,7 +48,7 @@ struct ListRow: View {
         self.title = row.title
         self.subtitle = row.subtitle
         self.detail = row.detail
-        self.icon = row.icon
+        self.icon = type(of: row).icon
         self.useSmallerFont = useSmallerFont
     }
     

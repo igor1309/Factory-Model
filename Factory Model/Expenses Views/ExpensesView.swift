@@ -36,7 +36,7 @@ struct ExpensesView: View {
                     TextField("Name", text: $expenses.name)
                     TextField("Note", text: $expenses.note)
                     
-                    AmountPicker(systemName: expenses.icon, title: "Amount", navigationTitle: "Amount", scale: .extraLarge, amount: $expenses.amount)
+                    AmountPicker(systemName: Expenses.icon, title: "Amount", navigationTitle: "Amount", scale: .extraLarge, amount: $expenses.amount)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)

@@ -9,8 +9,8 @@ protocol Summarizable {
     var title: String { get }
     var subtitle: String { get }
     var detail: String? { get }
-    var icon: String { get }
     
+    static var icon: String { get }
     static var plusButtonIcon: String { get }
 }
 extension Summarizable where Self: Monikerable {
@@ -45,13 +45,13 @@ extension Base: Summarizable {
         }
     }
     
-    var icon: String { "bag" }
+    static var icon: String { "bag" }
 }
 
 extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
-    var icon: String { "cart.fill" }
+    static var icon: String { "cart.fill" }
 
     static var plusButtonIcon: String { "cart.badge.plus" }
 }
@@ -62,14 +62,14 @@ extension Division: Summarizable {
     }
     var subtitle: String { "TBD: Division Budget" }
     var detail: String? { "TBD: list of departnemt names" }
-    var icon: String { "person.crop.rectangle" }
+    static var icon: String { "person.crop.rectangle" }
     
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Department: Summarizable {
     var detail: String? { type.rawValue.capitalized }
-    var icon: String { "person.2" }
+    static var icon: String { "person.2" }
 }
 
 extension Equipment: Summarizable {
@@ -79,7 +79,7 @@ extension Equipment: Summarizable {
         "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
     }
     
-    var icon: String { "wrench.and.screwdriver" }
+    static var icon: String { "wrench.and.screwdriver" }
     
     static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
@@ -87,7 +87,7 @@ extension Equipment: Summarizable {
 extension Expenses: Summarizable {
     var subtitle: String { amount.formattedGrouped }
     var detail: String? { note }
-    var icon: String { "dollarsign.circle" }
+    static var icon: String { "dollarsign.circle" }
     
     static var plusButtonIcon: String { "text.badge.plus" }
 }
@@ -98,7 +98,7 @@ extension Factory: Summarizable {
     var detail: String? {
         "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
     }
-    var icon: String { "building.2" }
+    static var icon: String { "building.2" }
 }
 
 extension Feedstock: Summarizable {
@@ -110,7 +110,7 @@ extension Feedstock: Summarizable {
     }
     
     var detail: String? { nil }
-    var icon: String { "puzzlepiece" }
+    static var icon: String { "puzzlepiece" }
 }
 
 extension Ingredient: Summarizable {
@@ -125,13 +125,13 @@ extension Ingredient: Summarizable {
         qty >= 0 ? "" : "ERROR: negative Qty!"
     }
     
-    var icon: String { "puzzlepiece" }
+    static var icon: String { "puzzlepiece" }
 }
 
 extension Packaging: Summarizable {
     var subtitle: String { type }
     var detail: String? { productList }    
-    var icon: String { "shippingbox" }
+    static var icon: String { "shippingbox" }
 }
 
 extension Product: Summarizable {
@@ -170,7 +170,7 @@ extension Product: Summarizable {
             .joined(separator: ", ")
     }
     
-    var icon: String { "bag.circle" }
+    static var icon: String { "bag.circle" }
 }
 
 extension Sales: Summarizable {
@@ -187,13 +187,13 @@ extension Sales: Summarizable {
     }
     
     var detail: String? { nil }
-    var icon: String { "creditcard.fill" }
+    static var icon: String { "creditcard.fill" }
 }
 
 extension Utility: Summarizable {
     var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
     var detail: String? { vat.formattedPercentage }
-    var icon: String { "lightbulb" }
+    static var icon: String { "lightbulb" }
 }
 
 extension Worker: Summarizable {
@@ -208,7 +208,7 @@ extension Worker: Summarizable {
         .joined(separator: ": ")
     }
     
-    var icon: String { "person" }
+    static var icon: String { "person" }
     
     static var plusButtonIcon: String { "cart.badge.plus" }
 }

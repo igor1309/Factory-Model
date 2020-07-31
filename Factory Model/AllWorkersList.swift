@@ -19,9 +19,7 @@ struct AllWorkersList: View {
     var body: some View {
         ListWithDashboard(
             title: "All Workers",
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Worker.department.division.factory), factory
-            )
+            predicate: Worker.factoryPredicate(for: factory)
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
             EmptyView()

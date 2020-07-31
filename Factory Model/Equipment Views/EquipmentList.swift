@@ -19,7 +19,8 @@ struct EquipmentList: View {
     var body: some View {
         EntityListWithDashboard(
             for: factory,
-            keyPathParentToChildren: \Factory.equipments_) {
+            keyPathParentToChildren: \Factory.equipments_
+        ) {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
