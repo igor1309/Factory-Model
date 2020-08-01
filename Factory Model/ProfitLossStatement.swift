@@ -10,88 +10,91 @@ import SwiftUI
 struct ProfitLossStatement: View {
     //    var factory: Factory
     
+    private func header(_ text: String) -> some View {
+        Text(text.uppercased())
+            .foregroundColor(.tertiary)
+            .font(.caption)
+            .padding(.top)
+    }
+    
     var body: some View {
         
-        List {
-            Group {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 6) {
                 Group {
                     Section(
-                        header: Text("Revenue")
+                        header: header("Revenue")
                     ) {
-                        LabelWithDetail("square", "Sales ex VAT", "TBD")
-                        LabelWithDetail("square", "Sales with VAT", "TBD")
+                        FinancialLabel("Sales ex VAT", value: "TBD", percentage: nil)
+                        FinancialLabel("Sales with VAT", value: "TBD", percentage: nil, font: .caption)
                             .foregroundColor(.secondary)
                     }
                     
                     Section(
-                        header: Text("Production Cost")
+                        header: header("Production Cost")
                     ) {
                         Group {
-                            LabelWithDetail("square", "Feedstock Cost ex VAT", "TBD")
-                            LabelWithDetail("square", "Labor incl taxes", "TBD")
-                            LabelWithDetail("square", "Utilities ex VAT", "TBD")
-                            LabelWithDetail("square", "Amortization", "TBD")
+                            FinancialLabel("Feedstock Cost ex VAT", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Labor incl taxes", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Utilities ex VAT", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Amortization", value: "TBD", percentage: "TBD")
                         }
                         .foregroundColor(.secondary)
-                        
-                        LabelWithDetail("square", "Total Productoin Cost", "TBD")
-                        LabelWithDetail("square", "Total Productoin Cost, %", "TBD")
-                            .foregroundColor(.secondary)
+
+                        FinancialLabel("Total Productoin Cost", value: "TBD", percentage: "TBD")
                     }
                     
                     Section(
-                        header: Text("Margin")
+                        header: header("Margin")
                     ) {
-                        LabelWithDetail("square", "Margin", "TBD")
-                        LabelWithDetail("square", "Margin, %", "TBD")
-                            .foregroundColor(.secondary)
+                        FinancialLabel("Margin", value: "TBD", percentage: "TBD")
+//                            .foregroundColor(.secondary)
                     }
                     
                     Section(
-                        header: Text("Expenses")
+                        header: header("Expenses")
                     ) {
-                        LabelWithDetail("square", "Expenses ex VAT", "TBD")
-                        LabelWithDetail("square", "Expenses ex VAT, %", "TBD")
+                        FinancialLabel("Expenses ex VAT", value: "TBD", percentage: "TBD")
                             .foregroundColor(.secondary)
                     }
                     
+                    Divider()
+                    
                     Section(
-                        header: Text("EBIT")
+                        header: header("EBIT")
                     ) {
-                        LabelWithDetail("square", "EBIT", "TBD")
-                        LabelWithDetail("square", "EBIT, %", "TBD")
-                            .foregroundColor(.secondary)
+                        FinancialLabel("EBIT", value: "TBD", percentage: "TBD")
+//                            .foregroundColor(.secondary)
                     }
                 }
-                .font(.subheadline)
                 
                 Group {
                     Section(
-                        header: Text("Taxes")
+                        header: header("Taxes")
                     ) {
-                        LabelWithDetail("square", "Profit Tax", "TBD")
+                        FinancialLabel("Profit Tax", value: "TBD", percentage: "TBD")
                     }
                     
-                    Section(
-                        header: Text("Net Profit")
-                    ) {
-                        LabelWithDetail("square", "Net Profit", "TBD")
-                        LabelWithDetail("square", "Net Profit, %", "TBD")
-                            .foregroundColor(.secondary)
-                    }
+                    Divider()
                     
                     Section(
-                        header: Text("EBITDA")
+                        header: header("Net Profit")
                     ) {
-                        LabelWithDetail("square", "EBITDA", "TBD")
-                        LabelWithDetail("square", "EBITDA, %", "TBD")
+                        FinancialLabel("Net Profit", value: "TBD", percentage: "TBD")
+                    }
+                    
+                    Divider()
+                    
+                    Section(
+                        header: header("EBITDA")
+                    ) {
+                        FinancialLabel("EBITDA", value: "TBD", percentage: "TBD")
                             .foregroundColor(.secondary)
                     }
                 }
-                .font(.subheadline)
             }
+            .padding()
         }
-        .listStyle(InsetGroupedListStyle())
     }
 }
 
@@ -99,6 +102,6 @@ struct ProfitLossStatement_Previews: PreviewProvider {
     static var previews: some View {
         ProfitLossStatement()
             .preferredColorScheme(.dark)
-            .previewLayout(.fixed(width: 375, height: 1300))
+//            .previewLayout(.fixed(width: 375, height: 1300))
     }
 }
