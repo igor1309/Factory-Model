@@ -13,6 +13,7 @@ struct FactoryList: View {
     
     @State private var showSheet1 = false
     @State private var showSheet2 = false
+    @State private var showSheet3 = false
 
     var body: some View {
         NavigationView {
@@ -27,6 +28,16 @@ struct FactoryList: View {
                         .environment(\.managedObjectContext, moc)
                 }
                 
+                Button("Create new Ingredient") {
+                    showSheet3 = true
+                }
+                .sheet(isPresented: $showSheet3) {
+                    NewEntityCreator(isPresented: $showSheet3) { (ingredient: Ingredient) in
+                        IngredientEditorCore(ingredient)
+                    }
+                    .environment(\.managedObjectContext, moc)
+                }
+                
                 Button("Create new Product") {
                     showSheet2 = true
                 }
@@ -34,7 +45,7 @@ struct FactoryList: View {
                     NewEntityCreator(isPresented: $showSheet2) { (product: Product) in
                         ProductEditorCore(product)
                     }
-                        .environment(\.managedObjectContext, moc)
+                    .environment(\.managedObjectContext, moc)
                 }
                 
                 GenericListSection(
