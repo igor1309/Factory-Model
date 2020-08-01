@@ -12,6 +12,8 @@ extension Department: Comparable {
         get { (workers_ as? Set<Worker> ?? []).sorted() }
         set { workers_ = Set(newValue) as NSSet }
     }
+    
+    var headcount: Int { workers.count }
 
     var totalSalary: Double {
         workers

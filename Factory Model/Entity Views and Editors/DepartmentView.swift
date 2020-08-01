@@ -65,7 +65,7 @@ struct DepartmentView: View {
                     EntityPicker(
                         //                        context: _moc,
                         selection: $department.division,
-                        //icon: <#T##String?#>,
+                        icon: Department.icon,
                         /// fetching all `Divisions` for factory starting search from department
                         /// department <<--> division <<--> factory
                         /// factory <-->> division <-->> department
@@ -97,9 +97,9 @@ struct DepartmentView: View {
             
             Section {
                 Group {
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", "TBD")
+                    LabelWithDetail("person.crop.rectangle", "Total Headcount", department.headcount.formattedGrouped)
                     
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "TBD")
+                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", department.totalSalaryWithTax.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

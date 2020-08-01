@@ -171,8 +171,8 @@ struct FactoryView: View {
                     destination: DivisionList(for: factory)
                 ) {
                     ListRow(
-                        title: "Divisions, [TBD: Total headcount]",
-                        subtitle: "Budget, incl tax \(factory.totalSalaryWithTax.formattedGrouped)",
+                        title: "Divisions",
+                        subtitle: "Total Salary incl taxes \(factory.totalSalaryWithTax.formattedGrouped) (\(factory.headcount) people)",
                         detail: factory.divisionNames,
                         icon: "person.crop.rectangle"
                     )
@@ -182,7 +182,7 @@ struct FactoryView: View {
                     destination: AllWorkersList(for: factory)
                 ) {
                     ListRow(
-                        title: "People (all)",
+                        title: "People (\(factory.headcount.formattedGrouped))",
                         icon: "person.2"
                     )
                 }

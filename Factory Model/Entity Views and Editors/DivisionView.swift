@@ -44,7 +44,7 @@ struct DivisionView: View {
                     TextField("Division Name", text: $division.name)
                         .foregroundColor(.accentColor)
 
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", "TBD")
+                    LabelWithDetail("person.crop.rectangle", "Total Headcount", division.headcount.formattedGrouped)
 
                     LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(division.totalSalaryWithTax.formattedGrouped)")
                 }

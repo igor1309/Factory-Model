@@ -22,7 +22,7 @@ struct DivisionList: View {
                 header: Text("Total")
             ) {
                 Group {
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", "TBD")
+                    LabelWithDetail("person.crop.rectangle", "Total Headcount", factory.headcount.formattedGrouped)
                     
                     LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(factory.totalSalaryWithTax.formattedGrouped)")
                 }

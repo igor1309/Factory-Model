@@ -14,6 +14,12 @@ extension Division: Comparable {
         set { departments_ = Set(newValue) as NSSet }
     }
     
+    var departmentNames: String {
+        departments.map { $0.name }.joined(separator: ", ")
+    }
+    
+    var headcount: Int { departments.reduce(0, { $0 + $1.headcount }) }
+    
     var totalSalary: Double {
         departments
             .flatMap { $0.workers }

@@ -52,6 +52,8 @@ extension Factory {
             .joined(separator: ", ")
     }
     
+    var headcount: Int { divisions.reduce(0, { $0 + $1.headcount }) }
+    
     var workerByDivision: [String: [Division]] {
         Dictionary(grouping: divisions) { $0.name }
     }

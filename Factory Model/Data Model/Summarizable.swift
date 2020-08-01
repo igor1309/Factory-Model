@@ -52,23 +52,31 @@ extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
     static var icon: String { "cart.fill" }
-
+    
     static var plusButtonIcon: String { "cart.badge.plus" }
 }
 
 extension Division: Summarizable {
     var title: String {
-        "\(name), [\("TBD: headcount")]"
+        guard headcount > 0 else { return "ERROR no people in Division" }
+        return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
     }
-    var subtitle: String { "TBD: Division Budget" }
-    var detail: String? { "TBD: list of departnemt names" }
+    var subtitle: String { "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)" }
+    var detail: String? { departmentNames }
     static var icon: String { "person.crop.rectangle" }
     
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Department: Summarizable {
-    var detail: String? { type.rawValue.capitalized }
+     var title: String {
+        guard headcount > 0 else { return "ERROR no people in Department" }
+        return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
+    }
+    var subtitle: String { "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)" }
+    var detail: String? {
+        "\(type.rawValue.capitalized)"
+    }
     static var icon: String { "person.2" }
 }
 
