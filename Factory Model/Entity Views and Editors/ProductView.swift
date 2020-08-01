@@ -65,9 +65,7 @@ struct ProductView: View {
                 header: Text("Packaging")
             ) {
                 Group {
-                    ///  MARK: если крэш будет здесь из-за optional unwrapping — значит product был где-то создан неправильно, без привязки к фабрике
-                    //  MARK: не лучше ли в BasePicker вместо 'factory: Factory' сделать 'factory: Factory?'
-                    PackagingPicker(packaging: $product.packaging, product: product, factory: product.base!.factory!)
+                    EntityPicker(selection: $product.packaging, icon: Packaging.icon, predicate: nil)
                 }
                 .font(.subheadline)
             }

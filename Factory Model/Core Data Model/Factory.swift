@@ -340,3 +340,196 @@ extension Factory {
 //        }
 //    }
 }
+
+
+extension Factory {
+    
+    static func createFactory1(in context: NSManagedObjectContext) -> Factory {
+        //  MARK: - Factory 1
+        
+        let factory1 = Factory(context: context)
+        factory1.name = "Сыроварня"
+        factory1.note = "Тестовый проект"
+        
+        //  MARK: - Feedstocks @ Factory 1
+        
+        let milk = Feedstock(context: context)
+        milk.name = "Молоко натуральное"
+        milk.priceExVAT = 30.0
+        
+        let dryMilk = Feedstock(context: context)
+        dryMilk.name = "Сухое молоко"
+        dryMilk.priceExVAT = 70
+        
+        let calciumChloride = Feedstock(context: context)
+        calciumChloride.name = "Хлористый кальций"
+        
+        let bacterialRefueling = Feedstock(context: context)
+        bacterialRefueling.name = "Бактериальная заправка"
+        
+        let rennetFilling = Feedstock(context: context)
+        rennetFilling.name = "Сычужная заправка (?)"
+        rennetFilling.priceExVAT = 8000
+        
+        let pepsin = Feedstock(context: context)
+        pepsin.name = "Пепсин"
+        
+        let salt = Feedstock(context: context)
+        salt.name = "Соль"
+        salt.priceExVAT = 20
+        
+        let water = Feedstock(context: context)
+        water.name = "Вода"
+        water.priceExVAT = 1
+        
+        //            factory1.addToFeedstocks_(milk)
+        //            factory1.addToFeedstocks_(dryMilk)
+        //            factory1.addToFeedstocks_(calciumChloride)
+        //            factory1.addToFeedstocks_(bacterialRefueling)
+        //            factory1.addToFeedstocks_(rennetFilling)
+        //            factory1.addToFeedstocks_(pepsin)
+        //            factory1.addToFeedstocks_(salt)
+        //            factory1.addToFeedstocks_(water)
+        
+        //  MARK: - Ingredients for Base Product 1
+        
+        let ingredient1 = Ingredient(context: context)
+        ingredient1.qty = 1
+        ingredient1.feedstock = milk
+        
+        let ingredient2 = Ingredient(context: context)
+        ingredient2.qty = 1
+        ingredient2.feedstock = dryMilk
+        
+        let ingredient5 = Ingredient(context: context)
+        ingredient5.qty = 0.5 / 1000
+        ingredient5.feedstock = rennetFilling
+        
+        let ingredient7 = Ingredient(context: context)
+        ingredient7.qty = 1.5
+        ingredient7.feedstock = salt
+        
+        let ingredient8 = Ingredient(context: context)
+        ingredient8.qty = 1
+        ingredient8.feedstock = water
+        
+        //  MARK: - Base Product 1_1
+        
+        let base1_1 = Base(context: context)
+        base1_1.name = "Сулугуни"
+        base1_1.note = "Первый продукт"
+        base1_1.code = "1001"
+        base1_1.group = "Сыры"
+        base1_1.unit = .weight
+        base1_1.weightNetto = 1_000
+        base1_1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
+        base1_1.factory = factory1
+        
+        //  MARK: - Product 1_1
+        
+        let product1_1 = Product(context: context)
+        product1_1.code = "У001"
+        product1_1.name = "Ведёрко 1 кг"
+        product1_1.note = "..."
+        product1_1.baseQty = 1_000
+        product1_1.base = base1_1
+        product1_1.group = "Ведёрко"
+        product1_1.vat = 10/100
+        product1_1.productionQty = 3_000
+        
+        //  MARK: - Buyer 1_1
+        let buyer1_1 = Buyer(context: context)
+        buyer1_1.name_ = "Speelo Group"
+        
+        //  MARK: - Sales 1_1
+        
+        let sales1_1 = Sales(context: context)
+        sales1_1.priceExVAT = 300
+        sales1_1.qty = 1_000
+        sales1_1.product = product1_1
+        sales1_1.buyer = buyer1_1
+        
+        //  MARK: - Utility
+        
+        let utility1 = Utility(context: context)
+        utility1.name = "Электроэнергия"
+        utility1.priceExVAT = 10
+        
+        base1_1.utilities = [utility1]
+        
+        //  MARK: - Product 1_2
+        
+        let product1_2 = Product(context: context)
+        product1_2.code = "У002"
+        product1_2.name = "Вакуум"
+        product1_2.note = "..."
+        product1_2.baseQty = 750
+        product1_2.base = base1_1
+        product1_2.group = "Вакуум"
+        product1_2.vat = 10/100
+        
+        //  MARK: - Base 2
+        let ingredient21 = Ingredient(context: context)
+        ingredient21.qty = 2
+        ingredient21.feedstock = water
+        
+        
+        let base2 = Base(context: context)
+        base2.name = "Имеретинский"
+        base2.code = "1002"
+        base2.group = "Сыры"
+        base2.addToIngredients_(ingredient21)
+        base2.factory = factory1
+        
+        let base3 = Base(context: context)
+        base3.name = "Творог"
+        base3.code = "2001"
+        base3.group = "Твороги"
+        base3.factory = factory1
+        
+        let divisions = Division.createDivisions(in: context)
+        for division in divisions {
+            factory1.addToDivisions_(division)
+        }
+        
+        factory1.expenses = Expenses.createExpenses1(in: context)
+        
+        let equipment = Equipment(context: context)
+        equipment.name = "Сырная линия"
+        equipment.note = "Основная производственная линия"
+        equipment.price = 7_000_000
+        equipment.lifetime = 7
+        
+        factory1.equipments = [equipment]
+        
+        return factory1
+    }
+    
+    static func createFactory2(in context: NSManagedObjectContext) -> Factory {
+        let factory2 = Factory(context: context)
+        factory2.name = "Полуфабрикаты"
+        factory2.note = "Фабрика Полуфабрикатов: заморозка и прочее"
+        
+        let base2_1 = Base.createBase2_1(in: context)
+        base2_1.factory = factory2
+        
+        let metro = Buyer(context: context)
+        metro.name_ = "METRO"
+        
+        let metroSales = Sales(context: context)
+        metroSales.buyer = metro
+        metroSales.qty = 1_000
+        metroSales.priceExVAT = 230
+        
+        let product2_1 = Product(context: context)
+        product2_1.name = "Настоящие"
+        product2_1.baseQty = 12
+        product2_1.group = "Контейнер"
+        product2_1.vat = 10/100
+        
+        product2_1.sales = [metroSales]
+        product2_1.base = base2_1
+
+        return factory2
+    }
+}

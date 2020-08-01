@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 extension Base {
     var note: String {
@@ -126,5 +127,29 @@ extension Base {
 extension Base: Comparable {
     public static func < (lhs: Base, rhs: Base) -> Bool {
         lhs.code < rhs.code
+    }
+    
+    static func createBase2_1(in context: NSManagedObjectContext) -> Base {
+        let base = Base(context: context)
+        base.name = "Хинкали"
+        base.group = "Заморозка"
+        base.unit_ = "piece"
+        base.weightNetto = 60
+        
+        let feedstock1 = Feedstock(context: context)
+        feedstock1.name = "Мука"
+        
+        let ingredient1 = Ingredient(context: context)
+        ingredient1.feedstock = feedstock1
+        
+        let feedstock2 = Feedstock(context: context)
+        feedstock2.name = "Мясо"
+        
+        let ingredient2 = Ingredient(context: context)
+        ingredient2.feedstock = feedstock2
+        
+        base.ingredients = [ingredient1, ingredient2]
+        
+        return base
     }
 }
