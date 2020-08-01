@@ -18,6 +18,7 @@ struct AllWorkersList: View {
     
     var body: some View {
         ListWithDashboard(
+            for: factory,
             title: "All Workers",
             predicate: Worker.factoryPredicate(for: factory)
         ) {

@@ -46,7 +46,7 @@ struct BaseGroupList: View {
                     NavigationLink(
                         destination: BaseView(base)
                     ) {
-                        ListRow(base)
+                        EntityRow(base)
                     }
                 }
                 .onDelete(perform: removeBase)

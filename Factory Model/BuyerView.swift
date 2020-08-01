@@ -18,6 +18,7 @@ struct BuyerView: View {
     
     var body: some View {
         ListWithDashboard(
+            for: buyer,
             title: "Edit Buyer",
             predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
         ) {

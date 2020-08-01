@@ -18,6 +18,7 @@ struct UtilityList: View {
     
     var body: some View {
         ListWithDashboard(
+            for: base,
             predicate: NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
         ) {
             CreateChildButton(

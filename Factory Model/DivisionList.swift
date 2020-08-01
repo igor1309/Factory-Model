@@ -17,10 +17,7 @@ struct DivisionList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(
-            for: factory,
-            keyPathParentToChildren: \Factory.divisions_
-        ) {
+        EntityListWithDashboard(for: factory) {
             Section(
                 header: Text("Total")
             ) {

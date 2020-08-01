@@ -18,30 +18,8 @@ struct AllBuyersList: View {
         EntityListWithDashboard(
             for: factory,
             title: "All Buyers",
-            predicate: nil,// if nil use default!!
-            keyPathParentToChildren: \Factory.buyers_
+            predicate: nil// if nil use default!!
         ) {
-            
-        } editor: { (buyer: Buyer) in
-            BuyerView(buyer)
-        }
-        
-    }
-    
-    var old: some View {
-        ListWithDashboard(
-            title: "All Buyers",
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Buyer.factory), factory
-            )
-        ) {
-            CreateChildButton(
-                systemName: "cart.badge.plus",
-                childType: Buyer.self,
-                parent: factory,
-                keyPath: \Factory.buyers_
-            )
-        } dashboard: {
             
         } editor: { (buyer: Buyer) in
             BuyerView(buyer)

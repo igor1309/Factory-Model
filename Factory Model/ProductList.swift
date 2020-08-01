@@ -16,6 +16,7 @@ struct ProductList: View {
     
     var body: some View {
         ListWithDashboard(
+            for: factory,
             predicate: Product.factoryPredicate(for: factory)
         ) {
             Button {

@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias Listable = Monikerable & Summarizable & Validatable & Managed
+typealias Listable = Monikerable & Summarizable & Managed
 
 struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) var moc
@@ -55,11 +55,11 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
                     .foregroundColor(.systemTeal)
                     .font(.subheadline)
             } else {
-                ForEach(fetchRequest, id: \.objectID) { item in
+                ForEach(fetchRequest, id: \.objectID) { entity in
                     NavigationLink(
-                        destination: editor(item)
+                        destination: editor(entity)
                     ) {
-                        ListRow(item, useSmallerFont: useSmallerFont)
+                        EntityRow(entity, useSmallerFont: useSmallerFont)
                             .contextMenu {
                                 Button {
                                     showDeleteAction = true
@@ -71,9 +71,9 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
                             .actionSheet(isPresented: $showDeleteAction) {
                                 ActionSheet(
                                     title: Text("Delete?".uppercased()),
-                                    message: Text("Do you really want to delete '\(item.title)'?\nThis cannot be undone."),
+                                    message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
                                     buttons: [
-                                        .destructive(Text("Yes, delete")) { delete(item) },
+                                        .destructive(Text("Yes, delete")) { delete(entity) },
                                         .cancel()
                                     ]
                                 )

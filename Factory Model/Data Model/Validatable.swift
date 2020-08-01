@@ -26,6 +26,16 @@ extension Feedstock: Validatable {}
 extension Ingredient: Validatable {}
 extension Packaging: Validatable {}
 extension Product: Validatable {}
-extension Sales: Validatable {}
+
+extension Sales: Validatable {
+    var isValid: Bool {
+        guard self.buyer != nil else { return false }
+        guard self.product != nil else { return false }
+        guard self.qty > 0 else { return false }
+        guard self.priceExVAT > 0 else { return false }
+        return true
+    }
+}
+
 extension Utility: Validatable {}
 extension Worker: Validatable {}

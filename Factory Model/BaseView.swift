@@ -48,6 +48,7 @@ struct BaseView: View {
                 Group {
                     NavigationLink(
                         destination: ListWithDashboard(
+                            for: base,
                             predicate: NSPredicate(format: "%K == %@", #keyPath(Ingredient.base), base)
                         ) {
                             CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_)

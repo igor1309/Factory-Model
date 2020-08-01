@@ -97,11 +97,11 @@ struct AmountPicker: View {
     
     @Binding var amount: Double
     
-    @State private var showTable = false
+    @State private var showSheet = false
     
     var body: some View {
         Button {
-            showTable = true
+            showSheet = true
         } label: {
             HStack {
                 switch (title.isEmpty, systemName.isEmpty) {
@@ -121,7 +121,7 @@ struct AmountPicker: View {
                 Text("\(amount, specifier: "%.f")")
             }
         }
-        .sheet(isPresented: $showTable) {
+        .sheet(isPresented: $showSheet) {
             AmountPickerSheet(qty: $amount, scale: scale, navigationTitle: navigationTitle)
         }
     }
@@ -135,7 +135,11 @@ fileprivate struct AmountPickerSheet: View {
     
     @State private var scale: AmountPicker.Scale
     
-    init(qty: Binding<Double>, scale: AmountPicker.Scale, navigationTitle: String) {
+    init(
+        qty: Binding<Double>,
+        scale: AmountPicker.Scale,
+        navigationTitle: String
+    ) {
         _qty = qty
         self.navigationTitle = navigationTitle == "" ? "Select Qty" : navigationTitle
         _scale = State(initialValue: scale)

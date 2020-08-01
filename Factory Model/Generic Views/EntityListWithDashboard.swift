@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct EntityListWithDashboard<
-    Child: Monikerable & Managed & Summarizable & Validatable & Sketchable & Orphanable & FactoryTracable,
+    Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable & FactoryTracable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -41,8 +41,8 @@ struct EntityListWithDashboard<
     init(
         for parent: Parent,
         title: String? = nil,
-        useSmallerFont: Bool = true,
         predicate: NSPredicate? = nil,
+        useSmallerFont: Bool = true,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -99,5 +99,27 @@ struct EntityListWithDashboard<
                     keyPath: keyPathParentToChildren
                 )
         )
+    }
+}
+
+
+extension EntityListWithDashboard where Child: Offspringable, Parent == Factory {
+    
+    init(
+        for parent: Parent,
+        title: String? = nil,
+        useSmallerFont: Bool = true,
+        predicate: NSPredicate? = nil,
+        @ViewBuilder dashboard: @escaping () -> Dashboard,
+        @ViewBuilder editor: @escaping (Child) -> Editor
+        
+    ) {
+        self.init(
+            for: parent,
+            title: title,
+            predicate: predicate, useSmallerFont: useSmallerFont,
+            keyPathParentToChildren: Child.offspringKeyPath,
+            dashboard: dashboard,
+            editor: editor)
     }
 }

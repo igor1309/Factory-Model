@@ -6,13 +6,152 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct FactoryList: View {
-    @Environment(\.managedObjectContext) var moc
+struct EntitySearch {
+//    @Environment(\.managedObjectContext) var context
+    var url: URL?
+    let context: NSManagedObjectContext
+    
+    var predicate: NSPredicate {
+        if let url = url,
+           let objectID =
+            context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url) {
+            return NSPredicate(
+                format: "%K == %@", "objectID", objectID
+            )
+        } else {
+            return .none
+        }
+    }
+}
+
+struct SalesRow: View {
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentation
+ 
+    @ObservedObject var sales: Sales
+    
+    @Binding var isPresented: Bool
+    
+    init(_ sales: Sales, isPresented: Binding<Bool>) {
+        self.sales = sales
+        _isPresented = isPresented
+    }
+    
+    var canSave: Bool {
+        sales.buyer != nil && sales.product != nil
+    }
+    
+    var body: some View {
+        Group {
+            SalesEditorCore(sales)
+            
+            HStack{
+                Spacer()
+                
+                Button("Discard") {
+                    //  MARK: - FINISH THIS
+                    context.delete(sales)
+                    isPresented = false
+//                    presentation.wrappedValue.dismiss()
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                
+                Button("Save") {
+                    //  MARK: - FINISH THIS
+                    context.saveContext()
+                    isPresented = false
+//                    presentation.wrappedValue.dismiss()
+                }
+                .buttonStyle(PlainButtonStyle())
+                .disabled(!sales.isValid)
+                
+                Spacer()
+            }
+        }
+        .foregroundColor(.accentColor)
+    }
+}
+
+struct NewSalesList: View {
+//    @Environment(\.managedObjectContext) var context
+    
+    @Binding var isPresented: Bool
+    
+    init(entitySearch: EntitySearch, isPresented: Binding<Bool>) {
+        _newSalesRequest = Sales.defaultFetchRequest(with: entitySearch.predicate)
+        _isPresented = isPresented
+    }
+    
+    @FetchRequest private var newSalesRequest: FetchedResults<Sales>
+    
+    var body: some View {
+//        Group {
+//            if !newSalesRequest.isEmpty {
+                ForEach(newSalesRequest, id: \.objectID) { sales in
+                    SalesRow(sales, isPresented: $isPresented)
+                }
+//            }
+//        }
+        .font(.subheadline)
+    }
+}
+
+struct CreateNewSales: View {
+    @Environment(\.managedObjectContext) var context
+    
+    @Binding var isPresented: Bool
+    
+    @State private var url: URL? = nil
     
     var body: some View {
         NavigationView {
             List {
+                if let url = url {
+                    Text(url.absoluteString)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }
+                
+                NewSalesList(
+                    entitySearch: EntitySearch(url: url, context: context),
+                    isPresented: $isPresented
+                )
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationTitle("Create new Sales")
+            .navigationBarTitleDisplayMode(.inline)
+        }
+        .onAppear {
+            let sales = Sales.create(in: context)
+            url = sales.objectID.uriRepresentation()
+        }
+        .onDisappear {
+            url = nil
+        }
+    }
+}
+
+
+struct FactoryList: View {
+    @Environment(\.managedObjectContext) var moc
+    
+    @State private var showSheet = false
+    
+    var body: some View {
+        NavigationView {
+            List {
+                Button("Create new Sales") {
+                    showSheet = true
+                }
+                .sheet(isPresented: $showSheet) {
+                    CreateNewSales(isPresented: $showSheet)
+                        .environment(\.managedObjectContext, moc)
+                }
+                
                 GenericListSection(
                     type: Factory.self,
                     predicate: nil,
@@ -71,15 +210,15 @@ struct FactoryList: View {
             water.name = "Вода"
             water.priceExVAT = 1
             
-//            factory1.addToFeedstocks_(milk)
-//            factory1.addToFeedstocks_(dryMilk)
-//            factory1.addToFeedstocks_(calciumChloride)
-//            factory1.addToFeedstocks_(bacterialRefueling)
-//            factory1.addToFeedstocks_(rennetFilling)
-//            factory1.addToFeedstocks_(pepsin)
-//            factory1.addToFeedstocks_(salt)
-//            factory1.addToFeedstocks_(water)
-
+            //            factory1.addToFeedstocks_(milk)
+            //            factory1.addToFeedstocks_(dryMilk)
+            //            factory1.addToFeedstocks_(calciumChloride)
+            //            factory1.addToFeedstocks_(bacterialRefueling)
+            //            factory1.addToFeedstocks_(rennetFilling)
+            //            factory1.addToFeedstocks_(pepsin)
+            //            factory1.addToFeedstocks_(salt)
+            //            factory1.addToFeedstocks_(water)
+            
             //  MARK: - Ingredients for Base Product 1
             
             let ingredient1 = Ingredient(context: moc)
@@ -232,10 +371,10 @@ struct FactoryList: View {
         
         let divisionSales = Division(context: moc)
         divisionSales.name = "Продажи"
-
+        
         let divisionHQ = Division(context: moc)
         divisionHQ.name = "Администрация"
-
+        
         //  MARK: - Departments
         
         let department1 = Department(context: moc)
@@ -268,7 +407,7 @@ struct FactoryList: View {
         worker3.salary = 35_000
         
         department2.addToWorkers_(worker3)
-
+        
         let department3 = Department(context: moc)
         department3.division = divisionSales
         department3.name = "Отдел логистики"

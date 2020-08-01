@@ -18,6 +18,7 @@ struct WorkerList: View {
     
     var body: some View {
         ListWithDashboard(
+            for: department,
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Worker.department), department
             )

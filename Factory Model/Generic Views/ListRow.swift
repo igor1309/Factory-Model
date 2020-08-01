@@ -7,6 +7,27 @@
 
 import SwiftUI
 
+struct EntityRow<T: ObservableObject & Summarizable>: View {
+    @ObservedObject var entity: T
+    
+    var useSmallerFont: Bool
+    
+    init(_ entity: T, useSmallerFont: Bool = true) {
+        self.entity = entity
+        self.useSmallerFont = useSmallerFont
+    }
+    
+    var body: some View {
+        ListRow(
+            title: entity.title,
+            subtitle: entity.subtitle,
+            detail: entity.detail,
+            icon: T.icon,
+            useSmallerFont: useSmallerFont
+        )
+    }
+}
+
 struct ListRow: View {
     
     let title: String
@@ -29,20 +50,19 @@ struct ListRow: View {
         self.useSmallerFont = useSmallerFont
     }
     
-    init<T: ObservableObject & Summarizable>(
-        _ object: T,
-        useSmallerFont: Bool = true
-    ) {
-        self.title = object.title
-        self.subtitle = object.subtitle
-        self.detail = object.detail
-        self.icon = T.icon
-        self.useSmallerFont = useSmallerFont
-        
-    }
+//    init<T: ObservableObject & Summarizable>(
+//        _ object: T,
+//        useSmallerFont: Bool = true
+//    ) {
+//        self.title = object.title
+//        self.subtitle = object.subtitle
+//        self.detail = object.detail
+//        self.icon = T.icon
+//        self.useSmallerFont = useSmallerFont
+//    }
 
     init(
-        _ row: Summarizable,
+        _ row: Something,
         useSmallerFont: Bool = true
     ) {
         self.title = row.title

@@ -93,7 +93,7 @@ fileprivate struct FeedstockPickerTable: View {
                             self.feedstock = feedstock
                             presentation.wrappedValue.dismiss()
                         } label: {
-                            ListRow(feedstock).tag(feedstock)
+                            EntityRow(feedstock).tag(feedstock)
                                 .contextMenu {
                                     Button {
                                         //  MARK: - FINISH THIS

@@ -18,6 +18,7 @@ struct DepartmentView: View {
     
     var body: some View {
         ListWithDashboard(
+            for: department,
             title: department.name,
             
             //  MARK: - FINISH THIS

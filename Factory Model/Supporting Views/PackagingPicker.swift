@@ -143,7 +143,7 @@ fileprivate struct PackagingPickerTable: View {
             self.packaging = packaging
             presentation.wrappedValue.dismiss()
         } label: {
-            ListRow(packaging).tag(packaging)
+            EntityRow(packaging).tag(packaging)
         }
     }
     

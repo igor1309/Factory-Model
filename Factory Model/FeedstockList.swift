@@ -62,9 +62,7 @@ struct FeedstockList: View {
         List {
             
             if !feedstocks.isEmpty {
-                ListRow(
-                    feedstocks.first!
-                )
+                EntityRow(feedstocks.first!)
             }
             
             GenericListSection(fetchRequest: _feedstocks) { feedstock in
@@ -90,7 +88,7 @@ struct FeedstockList: View {
                     NavigationLink(
                         destination: FeedstockView(feedstock)
                     ) {
-                        ListRow(feedstock)
+                        EntityRow(feedstock)
                     }
                 }
                 .onDelete(perform: removeFeedstock)

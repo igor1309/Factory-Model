@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias PickableEntity = Managed & Monikerable & Summarizable & Validatable //& NSManagedObject
+typealias PickableEntity = Managed & Monikerable & Summarizable //& NSManagedObject
 
 struct EntityPicker<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) var context
@@ -27,11 +27,11 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
         self.predicate = predicate
     }
     
-    @State private var showList = false
+    @State private var showSheet = false
     
     var body: some View {
         Button {
-            showList = true
+            showSheet = true
         } label: {
             if let icon = icon {
                 Label(selection?.title ?? "...", systemImage: icon)
@@ -39,19 +39,22 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
                 Text(selection?.title ?? "...")
             }
         }
-        .sheet(isPresented: $showList, onDismiss: {
+        .sheet(isPresented: $showSheet, onDismiss: {
             //  MARK: - а надо ли? ведь это @Binding
             if selection != nil {
                 selection!.objectWillChange.send()
             }
         }) {
-            EntityPickerList(selection: $selection, predicate: predicate)
-                .environment(\.managedObjectContext, context)
+            EntityPickerSheet(
+                selection: $selection,
+                predicate: predicate
+            )
+            .environment(\.managedObjectContext, context)
         }
     }
 }
 
-fileprivate struct EntityPickerList<T: PickableEntity & Sketchable>: View {
+fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.presentationMode) var presentation
     
@@ -63,7 +66,7 @@ fileprivate struct EntityPickerList<T: PickableEntity & Sketchable>: View {
         selection: Binding<T?>,
         predicate: NSPredicate?
     ) {
-        self._selection = selection
+        _selection = selection
         _entities = FetchRequest(
             entity: T.entity(),
             sortDescriptors: T.defaultSortDescriptors,
@@ -79,7 +82,7 @@ fileprivate struct EntityPickerList<T: PickableEntity & Sketchable>: View {
                         selection = entity
                         presentation.wrappedValue.dismiss()
                     } label: {
-                        ListRow(entity)
+                        EntityRow(entity)
                             .foregroundColor(selection == entity ? .systemOrange : .accentColor)
                     }
                 }

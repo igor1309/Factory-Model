@@ -18,6 +18,7 @@ struct DivisionView: View {
     
     var body: some View {
         ListWithDashboard(
+            for: division,
             title: division.name,
             
             //  MARK: - FINISH THIS

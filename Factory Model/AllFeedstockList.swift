@@ -17,6 +17,7 @@ struct AllFeedstockList: View {
     
     var body: some View {
         ListWithDashboard(
+            for: factory,
             predicate: Feedstock.factoryPredicate(for: factory)
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE

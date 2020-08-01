@@ -17,7 +17,7 @@ struct SalesList: View {
     }
     
     var body: some View {
-        ListWithDashboard {
+        ListWithDashboard(for: product) {
             CreateChildButton(
                 systemName: "cart.badge.plus",
                 childType: Sales.self,
