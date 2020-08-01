@@ -38,7 +38,7 @@ struct ProductView: View {
                 Group {
                     Group {
                         NavigationLink(
-                            destination: ProductEditor(product: product)
+                            destination: ProductEditor(product)
                         ) {
                             Text(product.summary)
                         }
@@ -53,16 +53,11 @@ struct ProductView: View {
                 header: Text("Base Product")
             ) {
                 Group {
-                    ///  MARK: если крэш будет здесь из-за optional unwrapping — значит product был где-то создан неправильно, без привязки к фабрике
-                    //  MARK: не лучше ли в BasePicker вместо 'factory: Factory' сделать 'factory: Factory?'
-                    BasePicker(base: $product.base, factory: product.base!.factory!)
-                    
-                    AmountPicker(title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
-                    
+                    Label(product.title, systemImage: "bag")
                     
                     LabelWithDetail("scalemass", "Вес продукта", product.weightNetto.formattedGrouped)
-                        .foregroundColor(.secondary)
                 }
+                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
             

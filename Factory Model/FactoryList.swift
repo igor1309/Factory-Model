@@ -8,147 +8,32 @@
 import SwiftUI
 import CoreData
 
-struct EntitySearch {
-//    @Environment(\.managedObjectContext) var context
-    var url: URL?
-    let context: NSManagedObjectContext
-    
-    var predicate: NSPredicate {
-        if let url = url,
-           let objectID =
-            context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url) {
-            return NSPredicate(
-                format: "%K == %@", "objectID", objectID
-            )
-        } else {
-            return .none
-        }
-    }
-}
-
-struct SalesRow: View {
-    @Environment(\.managedObjectContext) var context
-    @Environment(\.presentationMode) var presentation
- 
-    @ObservedObject var sales: Sales
-    
-    @Binding var isPresented: Bool
-    
-    init(_ sales: Sales, isPresented: Binding<Bool>) {
-        self.sales = sales
-        _isPresented = isPresented
-    }
-    
-    var canSave: Bool {
-        sales.buyer != nil && sales.product != nil
-    }
-    
-    var body: some View {
-        Group {
-            SalesEditorCore(sales)
-            
-            HStack{
-                Spacer()
-                
-                Button("Discard") {
-                    //  MARK: - FINISH THIS
-                    context.delete(sales)
-                    isPresented = false
-//                    presentation.wrappedValue.dismiss()
-                }
-                .buttonStyle(PlainButtonStyle())
-                
-                Spacer()
-                
-                Button("Save") {
-                    //  MARK: - FINISH THIS
-                    context.saveContext()
-                    isPresented = false
-//                    presentation.wrappedValue.dismiss()
-                }
-                .buttonStyle(PlainButtonStyle())
-                .disabled(!sales.isValid)
-                
-                Spacer()
-            }
-        }
-        .foregroundColor(.accentColor)
-    }
-}
-
-struct NewSalesList: View {
-//    @Environment(\.managedObjectContext) var context
-    
-    @Binding var isPresented: Bool
-    
-    init(entitySearch: EntitySearch, isPresented: Binding<Bool>) {
-        _newSalesRequest = Sales.defaultFetchRequest(with: entitySearch.predicate)
-        _isPresented = isPresented
-    }
-    
-    @FetchRequest private var newSalesRequest: FetchedResults<Sales>
-    
-    var body: some View {
-//        Group {
-//            if !newSalesRequest.isEmpty {
-                ForEach(newSalesRequest, id: \.objectID) { sales in
-                    SalesRow(sales, isPresented: $isPresented)
-                }
-//            }
-//        }
-        .font(.subheadline)
-    }
-}
-
-struct CreateNewSales: View {
-    @Environment(\.managedObjectContext) var context
-    
-    @Binding var isPresented: Bool
-    
-    @State private var url: URL? = nil
-    
-    var body: some View {
-        NavigationView {
-            List {
-                if let url = url {
-                    Text(url.absoluteString)
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                }
-                
-                NewSalesList(
-                    entitySearch: EntitySearch(url: url, context: context),
-                    isPresented: $isPresented
-                )
-            }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Create new Sales")
-            .navigationBarTitleDisplayMode(.inline)
-        }
-        .onAppear {
-            let sales = Sales.create(in: context)
-            url = sales.objectID.uriRepresentation()
-        }
-        .onDisappear {
-            url = nil
-        }
-    }
-}
-
-
 struct FactoryList: View {
     @Environment(\.managedObjectContext) var moc
     
-    @State private var showSheet = false
-    
+    @State private var showSheet1 = false
+    @State private var showSheet2 = false
+
     var body: some View {
         NavigationView {
             List {
                 Button("Create new Sales") {
-                    showSheet = true
+                    showSheet1 = true
                 }
-                .sheet(isPresented: $showSheet) {
-                    CreateNewSales(isPresented: $showSheet)
+                .sheet(isPresented: $showSheet1) {
+                    NewEntityCreator(isPresented: $showSheet1) { (sales: Sales) in
+                        SalesEditorCore(sales)
+                    }
+                        .environment(\.managedObjectContext, moc)
+                }
+                
+                Button("Create new Product") {
+                    showSheet2 = true
+                }
+                .sheet(isPresented: $showSheet2) {
+                    NewEntityCreator(isPresented: $showSheet2) { (product: Product) in
+                        ProductEditorCore(product)
+                    }
                         .environment(\.managedObjectContext, moc)
                 }
                 

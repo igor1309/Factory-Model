@@ -73,7 +73,7 @@ fileprivate struct NewEntityList<T: Managed & Validatable, Editor: View>: View w
     }
 }
 
-fileprivate struct EditorWrapper<T: NSManagedObject & Validatable, Editor: View>: View {
+fileprivate struct EditorWrapper<T: NSManagedObject & Managed & Validatable, Editor: View>: View {
     @Environment(\.managedObjectContext) var context
     
     @ObservedObject var entity: T
@@ -91,34 +91,48 @@ fileprivate struct EditorWrapper<T: NSManagedObject & Validatable, Editor: View>
         _isPresented = isPresented
         self.editor = editor
     }
+
+    @ViewBuilder var header: some View {
+        if entity.isValid {
+            Text("Can save new \(T.entityName)!")
+                .foregroundColor(.secondary)
+        } else {
+            Text("ERROR: Fill or choose all parameters.")
+                .foregroundColor(.systemRed)
+        }
+    }
     
     var body: some View {
         Group {
             editor(entity)//SalesEditorCore(entity)
             
-            HStack{
-                Spacer()
-                
-                Button("Discard") {
-                    context.delete(entity)
-                    isPresented = false
+            Section(
+                header: header
+            ) {
+                HStack {
+                    Spacer()
+                    
+                    Button("Discard") {
+                        context.delete(entity)
+                        isPresented = false
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Spacer()
+                    Spacer()
+                    
+                    Button("Save") {
+                        context.saveContext()
+                        isPresented = false
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(!entity.isValid)
+                    
+                    Spacer()
                 }
-                .buttonStyle(PlainButtonStyle())
-                
-                Spacer()
-                Spacer()
-                
-                Button("Save") {
-                    context.saveContext()
-                    isPresented = false
-                }
-                .buttonStyle(PlainButtonStyle())
-                .disabled(!entity.isValid)
-                
-                Spacer()
+                .foregroundColor(.accentColor)
             }
         }
-        .foregroundColor(.accentColor)
     }
 }
 

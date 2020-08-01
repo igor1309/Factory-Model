@@ -26,7 +26,7 @@ struct SalesEditorCore: View {
     
     var body: some View {
         Section(
-            footer: footer
+//            footer: footer
         ) {
             Group {
                 Group {

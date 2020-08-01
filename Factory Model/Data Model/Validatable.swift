@@ -25,7 +25,17 @@ extension Factory: Validatable {}
 extension Feedstock: Validatable {}
 extension Ingredient: Validatable {}
 extension Packaging: Validatable {}
-extension Product: Validatable {}
+
+extension Product: Validatable {
+    var isValid: Bool {
+        guard self.base != nil else { return false }
+        guard self.packaging != nil else { return false }
+        guard self.baseQty > 0 else { return false }
+        guard self.vat >= 0 else { return false }
+        return true
+    }
+
+}
 
 extension Sales: Validatable {
     var isValid: Bool {
