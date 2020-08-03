@@ -146,6 +146,17 @@ fileprivate struct AmountPickerSheet: View {
         _scale = State(initialValue: scale)
     }
     
+    var columnsCount: Int {
+        switch scale {
+            case .extraSmall: return 9
+            case .small: return 8
+            case .medium: return 6
+            case .large: return 5
+            case .extraLarge: return 4
+            case .extraExtraLarge: return 3
+        }
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -182,23 +193,50 @@ fileprivate struct AmountPickerSheet: View {
                 }
                 .padding([.horizontal, .top])
                 
-                List {
-                    Section(
-                        header: Text("")
+                ScrollView(.vertical) { // .vertical is the default, so it can be omitted
+                    LazyVGrid(
+                        columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columnsCount)
                     ) {
                         ForEach(scale.values, id: \.self) { value in
                             Button {
                                 qty = value
                                 presentation.wrappedValue.dismiss()
                             } label: {
-                                HStack {
-                                    Spacer()
-                                    Text(("\(value, specifier: "%.f")"))
+                                ZStack {
+                                    Text("\(scale.values.last ?? 0, specifier: "%.f")")
+                                        .lineLimit(1)
+                                        .fixedSize()
+                                        .opacity(0.2)
+                                    Text("\(value, specifier: "%.f")")
+                                    .lineLimit(1)
+                                    .fixedSize()
                                 }
+                                .font(.subheadline)
+//                                        .padding(3)
+                                .simpleCardify()
                             }
                         }
                     }
+                    .padding()
                 }
+                
+//                List {
+//                    Section(
+//                        header: Text("")
+//                    ) {
+//                        ForEach(scale.values, id: \.self) { value in
+//                            Button {
+//                                qty = value
+//                                presentation.wrappedValue.dismiss()
+//                            } label: {
+//                                HStack {
+//                                    Spacer()
+//                                    Text(("\(value, specifier: "%.f")"))
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
                 .listStyle(InsetGroupedListStyle())
             }
             .navigationTitle(navigationTitle)
