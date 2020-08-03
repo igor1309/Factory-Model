@@ -119,6 +119,7 @@ struct AmountPicker: View {
                 }
                 //                Spacer()
                 Text("\(amount, specifier: "%.f")")
+                    .padding(.leading)
             }
         }
         .sheet(isPresented: $showSheet) {
@@ -128,7 +129,7 @@ struct AmountPicker: View {
 }
 
 fileprivate struct AmountPickerSheet: View {
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     @Binding var qty: Double
     var navigationTitle: String
