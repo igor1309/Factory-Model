@@ -22,7 +22,7 @@ struct IngredientView: View {
             Section(
                 header: Text("Ingredient Detail")
             ) {
-                FeedstockPicker(feedstock: $ingredient.feedstock)
+                EntityPicker(selection: $ingredient.feedstock, icon: Feedstock.icon, predicate: nil)
                 
                 AmountPicker(title: "Qty", navigationTitle: "Select Qty", scale: .large, amount: $ingredient.qty)
             }
@@ -34,89 +34,5 @@ struct IngredientView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(ingredient.title)
-    }
-}
-
-import CoreData
-
-struct FeedstockPicker: View {
-    @Environment(\.managedObjectContext) var moc
-    
-    @Binding var feedstock: Feedstock?
-    
-    @State private var showPicker = false
-    
-    var body: some View {
-        Button {
-            showPicker = true
-        } label: {
-            if feedstock == nil {
-                Text("No Feedstock")
-                    .foregroundColor(.systemRed)
-            } else {
-                Text(feedstock!.title)
-            }
-        }
-        //        .buttonStyle(PlainButtonStyle())
-        .sheet(isPresented: $showPicker, onDismiss: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=On Dismiss@*/{ }/*@END_MENU_TOKEN@*/) {
-            FeedstockPickerTable(feedstock: $feedstock)
-                .environment(\.managedObjectContext, moc)
-        }
-    }
-}
-
-fileprivate struct FeedstockPickerTable: View {
-    @Environment(\.managedObjectContext) var moc
-    @Environment(\.presentationMode) var presentation
-    
-    @Binding var feedstock: Feedstock?
-    
-    @FetchRequest private var feedstocks: FetchedResults<Feedstock>
-    
-    init(feedstock: Binding<Feedstock?>) {
-        _feedstock = feedstock
-        _feedstocks = Feedstock.defaultFetchRequest()
-    }
-    
-    @State private var showEditor = false
-    
-    var body: some View {
-        NavigationView {
-            List {
-                Text("TBD: can't use GenericSection until ListRow as parameter")
-                    .foregroundColor(.systemRed)
-                    .font(.subheadline)
-                
-                Section {
-                    ForEach(feedstocks, id: \.objectID) { feedstock in
-                        Button {
-                            self.feedstock = feedstock
-                            presentation.wrappedValue.dismiss()
-                        } label: {
-                            EntityRow(feedstock).tag(feedstock)
-                                .contextMenu {
-                                    Button {
-                                        //  MARK: - FINISH THIS
-                                        showEditor = true
-                                    } label: {
-                                        Label("Edit", systemImage: "square.and.pencil")
-                                    }
-                                }
-                                .sheet(isPresented: $showEditor) {
-                                    NavigationView {
-                                        FeedstockView(feedstock)
-                                            .navigationBarTitleDisplayMode(.inline)
-                                            .environment(\.managedObjectContext, moc)
-                                    }
-                                }
-                        }
-                    }
-                }
-            }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Select Feedstock")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: CreateOrphanButton<Ingredient>())
-        }
     }
 }

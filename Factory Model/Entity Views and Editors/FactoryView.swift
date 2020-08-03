@@ -172,7 +172,7 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Divisions",
-                        subtitle: "Total Salary incl taxes \(factory.totalSalaryWithTax.formattedGrouped) (\(factory.headcount) people)",
+                        subtitle: "Total Salary incl taxes \(factory.totalSalaryWithTax.formattedGrouped)",
                         detail: factory.divisionNames,
                         icon: "person.crop.rectangle"
                     )

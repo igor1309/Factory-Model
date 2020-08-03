@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct CreateNewEntityButton: View {
     @Environment(\.managedObjectContext) var context
     
-    private enum Modal { case product, sales, ingredient }
+    private enum Modal: String { case product, sales, ingredient }
     @State private var modal: Modal = .product
     @State private var showSheet = false
     
@@ -53,6 +54,9 @@ struct CreateNewEntityButton: View {
                     .environment(\.managedObjectContext, context)
                     
                 case .sales:
+                    //  MARK: - FINISH THIS NSClassFromString
+                    //  NewEntityCreator(isPresented: $showSheet) { (sales: className) in
+                    //  NewEntityCreator(isPresented: $showSheet) { (sales: typeFromString("Sales")) in
                     NewEntityCreator(isPresented: $showSheet) { (sales: Sales) in
                         SalesEditorCore(sales)
                     }
@@ -66,4 +70,15 @@ struct CreateNewEntityButton: View {
             }
         }
     }
+    
+    //  MARK: - see FOR TESTING! in init() of class PersistenceManager
+    //  https://stackoverflow.com/a/35395441/11793043
+    //  https://stackoverflow.com/a/49328906/11793043
+    //  https://stackoverflow.com/a/31147194/11793043
+    //    var type: NSManagedObject.Type {
+    //        NSClassFromString(modal.rawValue.capitalized) as! NSManagedObject.Type
+    //    }
+    //    func typeFromString(_ string: String) -> NSManagedObject.Type {
+    //        NSClassFromString(string) as! NSManagedObject.Type
+    //    }
 }

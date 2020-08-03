@@ -9,6 +9,24 @@ import Foundation
 import CoreData
 
 extension Feedstock {
+    var unit: Unit? {
+        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
+        set { unit_ = newValue?.symbol }
+    }
+    
+//    var unitString: String {
+//        get { unit_ ?? "not set" }
+//        set { unit_ = newValue }
+//    }
+//    var unit: MassVolumeUnit {
+//        get {
+////            print("unit: MassVolumeUnit: get")
+//            return MassVolumeUnit(rawValue: unit_ ?? MassVolumeUnit.gramm.rawValue) ?? .gramm
+//        }
+//        set { print("unit: MassVolumeUnit: set")
+//            unit_ = newValue.rawValue }
+//    }
+    
     var priceWithVAT: Double {
         get { priceExVAT * (1 + vat) }
         set { priceExVAT = vat == 0 ? 0 : newValue / vat }

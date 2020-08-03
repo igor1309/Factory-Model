@@ -8,10 +8,11 @@
 import SwiftUI
 import CoreData
 
+
 class PersistenceManager: ObservableObject {
     
     private let containerName: String
-    var viewContext: NSManagedObjectContext { persistentContainer.viewContext }
+    var context: NSManagedObjectContext { persistentContainer.viewContext }
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
@@ -36,6 +37,17 @@ class PersistenceManager: ObservableObject {
                 try? self.persistentContainer.viewContext.save()
             }
         }
+        
+        //  MARK: - FOR TESTING!
+        //  print(persistentContainer.managedObjectModel.entitiesByName)
+//        for entity in persistentContainer.managedObjectModel.entitiesByName {
+//            if let name = entity.value.managedObjectClassName {
+//                print(name)
+//                if let className = NSClassFromString(name) {
+//                    print("className \(className)")
+//                }
+//            }
+//        }
     }
 }
 

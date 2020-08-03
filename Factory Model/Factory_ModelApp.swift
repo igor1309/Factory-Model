@@ -14,7 +14,7 @@ struct Factory_ModelApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistence.viewContext)
+                .environment(\.managedObjectContext, persistence.context)
         }
     }
 }

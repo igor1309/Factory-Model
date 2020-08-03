@@ -93,6 +93,8 @@
 		2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */; };
 		2AC0B51524CB128100175819 /* ProductEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC0B51424CB128100175819 /* ProductEditor.swift */; };
 		2AC7952524C76E7500018817 /* WorkerList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC7952424C76E7500018817 /* WorkerList.swift */; };
+		2AD6C9C324D6BD1E003B28EE /* MassVolumeUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6C9C224D6BD1E003B28EE /* MassVolumeUnit.swift */; };
+		2AD6C9C524D6BD51003B28EE /* MassVolumeUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6C9C424D6BD51003B28EE /* MassVolumeUnitPicker.swift */; };
 		2AF48D7224CA39A40009B672 /* BaseUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF48D7124CA39A40009B672 /* BaseUI.swift */; };
 		2AF8B0ED24CF1495005035FD /* FactoryTracable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */; };
 		2AF8EC9124CF5A8000EDA2AE /* Sketchable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */; };
@@ -188,6 +190,9 @@
 		2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryView.swift; sourceTree = "<group>"; };
 		2AC0B51424CB128100175819 /* ProductEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditor.swift; sourceTree = "<group>"; };
 		2AC7952424C76E7500018817 /* WorkerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerList.swift; sourceTree = "<group>"; };
+		2AD6C9C224D6BD1E003B28EE /* MassVolumeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnit.swift; sourceTree = "<group>"; };
+		2AD6C9C424D6BD51003B28EE /* MassVolumeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnitPicker.swift; sourceTree = "<group>"; };
+		2AD6C9C724D6E453003B28EE /* Measurements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Measurements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2AF48D7124CA39A40009B672 /* BaseUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUI.swift; sourceTree = "<group>"; };
 		2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryTracable.swift; sourceTree = "<group>"; };
 		2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sketchable.swift; sourceTree = "<group>"; };
@@ -246,6 +251,7 @@
 			children = (
 				2AADA0A824C4F4E2005F1E9F /* DataModel.xcdatamodeld */,
 				2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */,
+				2AD6C9C224D6BD1E003B28EE /* MassVolumeUnit.swift */,
 				2A2F4BD124C5A84600B2F8D9 /* Base.swift */,
 				2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */,
 				2AA8D05C24CC2ED80058D48F /* Department.swift */,
@@ -275,6 +281,7 @@
 				2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */,
 				2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */,
 				2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */,
+				2AD6C9C424D6BD51003B28EE /* MassVolumeUnitPicker.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -298,6 +305,7 @@
 		2A31654524CC6E1F00AF68A1 /* Playgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				2AD6C9C724D6E453003B28EE /* Measurements.playground */,
 				2A85734A24C62A6E009FF51A /* ReduceArrayIntoDictionary.playground */,
 			);
 			path = Playgrounds;
@@ -480,6 +488,7 @@
 				2A9C8DAD24D4B8B000AD7C34 /* BooksView.swift in Sources */,
 				2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
+				2AD6C9C524D6BD51003B28EE /* MassVolumeUnitPicker.swift in Sources */,
 				2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */,
 				2A73358A24CE153C005C6C40 /* IngredientView.swift in Sources */,
 				2AF48D7224CA39A40009B672 /* BaseUI.swift in Sources */,
@@ -542,6 +551,7 @@
 				2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */,
 				2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */,
 				2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */,
+				2AD6C9C324D6BD1E003B28EE /* MassVolumeUnit.swift in Sources */,
 				2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */,
 				2A30471524C87AB90002E5DD /* Something.swift in Sources */,
 				2AC7952524C76E7500018817 /* WorkerList.swift in Sources */,

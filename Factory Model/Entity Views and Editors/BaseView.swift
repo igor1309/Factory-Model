@@ -133,7 +133,7 @@ struct BaseView: View {
 struct BaseView_Previews: PreviewProvider {
     static var previews: some View {
         let persistence = PersistenceManager(containerName: "DataModel")
-        let context = persistence.viewContext
+        let context = persistence.context
         
         let entity = Base(context: context)
         entity.makeSketch()

@@ -8,6 +8,15 @@
 import Foundation
 
 extension Ingredient: Comparable {
+
+//    var measurement: Measurement<Unit> {
+//        let mvUnit = MassVolumeUnit(rawValue: unit_ ?? MassVolumeUnit.kilo.rawValue) ?? .kilo
+//        let unit = mvUnit.unit
+//        return Measurement(value: qty, unit: unit)
+//    }
+    
+
+    
     var cost: Double {
         qty * (feedstock?.priceExVAT ?? 0)
     }

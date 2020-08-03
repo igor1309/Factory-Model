@@ -358,31 +358,39 @@ extension Factory {
         let milk = Feedstock(context: context)
         milk.name = "Молоко натуральное"
         milk.priceExVAT = 30.0
+        milk.vat = 10/100
         
         let dryMilk = Feedstock(context: context)
         dryMilk.name = "Сухое молоко"
         dryMilk.priceExVAT = 70
+        dryMilk.vat = 10/100
         
         let calciumChloride = Feedstock(context: context)
         calciumChloride.name = "Хлористый кальций"
+        calciumChloride.vat = 10/100
         
         let bacterialRefueling = Feedstock(context: context)
         bacterialRefueling.name = "Бактериальная заправка"
+        bacterialRefueling.vat = 10/100
         
         let rennetFilling = Feedstock(context: context)
         rennetFilling.name = "Сычужная заправка (?)"
         rennetFilling.priceExVAT = 8000
+        rennetFilling.vat = 10/100
         
         let pepsin = Feedstock(context: context)
         pepsin.name = "Пепсин"
+        pepsin.vat = 10/100
         
         let salt = Feedstock(context: context)
         salt.name = "Соль"
         salt.priceExVAT = 20
+        salt.vat = 10/100
         
         let water = Feedstock(context: context)
         water.name = "Вода"
         water.priceExVAT = 1
+        water.vat = 10/100
         
         //            factory1.addToFeedstocks_(milk)
         //            factory1.addToFeedstocks_(dryMilk)
