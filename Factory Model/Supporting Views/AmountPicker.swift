@@ -10,6 +10,7 @@ import SwiftUI
 struct AmountPicker: View {
     
     enum Scale: String, CaseIterable {
+        case percent
         case extraSmall
         case small
         case medium
@@ -19,69 +20,49 @@ struct AmountPicker: View {
         
         var range: ClosedRange<Double> {
             switch self {
-                case .extraSmall:
-                    return 0.0...10
-                case .small:
-                    return 10.0...100
-                case .medium:
-                    return 100.0...1_000
-                case .large:
-                    return 1_000.0...10_000
-                case .extraLarge:
-                    return 10_000.0...100_000
-                case .extraExtraLarge:
-                    return 100_000.0...10_000_000
+                case .percent:         return 0.0...200
+                case .extraSmall:      return 0.0...10
+                case .small:           return 10.0...100
+                case .medium:          return 100.0...1_000
+                case .large:           return 1_000.0...10_000
+                case .extraLarge:      return 10_000.0...100_000
+                case .extraExtraLarge: return 100_000.0...10_000_000
             }
         }
         
         var majorStep: Double {
             switch self {
-                case .extraSmall:
-                    return 1
-                case .small:
-                    return 5
-                case .medium:
-                    return 10
-                case .large:
-                    return 100
-                case .extraLarge:
-                    return 500
-                case .extraExtraLarge:
-                    return 50_000
+                case .percent:         return 1
+                case .extraSmall:      return 1
+                case .small:           return 5
+                case .medium:          return 10
+                case .large:           return 100
+                case .extraLarge:      return 500
+                case .extraExtraLarge: return 50_000
             }
         }
         
         var minorStep: Double {
             switch self {
-                case .extraSmall:
-                    return 1
-                case .small:
-                    return 1
-                case .medium:
-                    return 5
-                case .large:
-                    return 10
-                case .extraLarge:
-                    return 50
-                case .extraExtraLarge:
-                    return 5_000
+                case .percent:         return 0.5
+                case .extraSmall:      return 1
+                case .small:           return 1
+                case .medium:          return 5
+                case .large:           return 10
+                case .extraLarge:      return 50
+                case .extraExtraLarge: return 5_000
             }
         }
         
         var code: String {
             switch self {
-                case .extraSmall:
-                    return "XS"
-                case .small:
-                    return "S"
-                case .medium:
-                    return "M"
-                case .large:
-                    return "L"
-                case .extraLarge:
-                    return "XL"
-                case .extraExtraLarge:
-                    return "XXL"
+                case .percent:         return "%%"
+                case .extraSmall:      return "XS"
+                case .small:           return "S"
+                case .medium:          return "M"
+                case .large:           return "L"
+                case .extraLarge:      return "XL"
+                case .extraExtraLarge: return "XXL"
             }
         }
         
@@ -118,8 +99,13 @@ struct AmountPicker: View {
                         EmptyView()
                 }
                 //                Spacer()
-                Text("\(amount, specifier: "%.f")")
-                    .padding(.leading)
+                if scale == .percent {
+                    Text(amount.formattedPercentageWith1Decimal)
+                        .padding(.leading)
+                } else {
+                    Text("\(amount, specifier: "%.f")")
+                        .padding(.leading)
+                }
             }
         }
         .sheet(isPresented: $showSheet) {
@@ -148,43 +134,52 @@ fileprivate struct AmountPickerSheet: View {
     
     var columnsCount: Int {
         switch scale {
-            case .extraSmall: return 9
-            case .small: return 8
-            case .medium: return 6
-            case .large: return 5
-            case .extraLarge: return 4
+            case .percent:         return 6
+            case .extraSmall:      return 9
+            case .small:           return 8
+            case .medium:          return 6
+            case .large:           return 5
+            case .extraLarge:      return 4
             case .extraExtraLarge: return 3
         }
     }
     
     var body: some View {
-        NavigationView {
+        let selection = Binding<Double>(
+            get: {
+                qty * (scale == .percent ? 100 : 1)
+            },
+            set: {
+                qty = $0 / (scale == .percent ? 100 : 1)
+            }
+        )
+        
+        return NavigationView {
             VStack {
                 VStack(spacing: 12) {
                     Stepper(
-                        value: $qty,
+                        value: selection,
                         in: scale.range,
                         step: scale.minorStep
                     ) {
-                        Text(qty.formattedGrouped)
-                            .foregroundColor(.systemOrange)
+                        if scale == .percent {
+                            Text(qty.formattedPercentageWith1Decimal)
+                                .foregroundColor(.systemOrange)
+                        } else {
+                            Text(qty.formattedGrouped)
+                                .foregroundColor(.systemOrange)
+                        }
                     }
                     
-                    HStack {
-                        Text("Scale")
-                            .font(.subheadline)
-                            .padding(.trailing)
-                        
-                        Picker("Scale", selection: $scale) {
-                            ForEach(AmountPicker.Scale.allCases, id: \.self) { scale in
-                                Text(scale.code).tag(scale)
-                            }
+                    Picker("Scale", selection: $scale) {
+                        ForEach(AmountPicker.Scale.allCases, id: \.self) { scale in
+                            Text(scale.code).tag(scale)
                         }
-                        .pickerStyle(SegmentedPickerStyle())
                     }
+                    .pickerStyle(SegmentedPickerStyle())
                     
                     Slider(
-                        value: $qty,
+                        value: selection,
                         in: scale.range,
                         step: scale.majorStep,
                         minimumValueLabel: Text(scale.range.lowerBound.formattedGrouped).font(.caption2),
@@ -193,20 +188,21 @@ fileprivate struct AmountPickerSheet: View {
                 }
                 .padding([.horizontal, .top])
                 
+                //  https://swiftui-lab.com/impossible-grids/
                 ScrollView(.vertical) { // .vertical is the default, so it can be omitted
                     LazyVGrid(
                         columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columnsCount)
                     ) {
                         ForEach(scale.values, id: \.self) { value in
                             Button {
-                                qty = value
+                                qty = value / (scale == .percent ? 100 : 1)
                                 presentation.wrappedValue.dismiss()
                             } label: {
                                 ZStack {
                                     Text("\(scale.values.last ?? 0, specifier: "%.f")")
                                         .lineLimit(1)
                                         .fixedSize()
-                                        .opacity(0.2)
+                                        .hidden()
                                     Text("\(value, specifier: "%.f")")
                                     .lineLimit(1)
                                     .fixedSize()
