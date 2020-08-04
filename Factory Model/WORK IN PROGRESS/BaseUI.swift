@@ -29,7 +29,7 @@ struct BaseUI: View {
                 .pickerStyle(SegmentedPickerStyle())
             
                 Picker("Base Unit", selection: $unit) {
-                    ForEach(Base.Unit.allCases, id: \.self) { unit in
+                    ForEach(Base.CustomUnit.allCases, id: \.self) { unit in
                         Text(unit.rawValue).tag(unit)
                     }
                 }
@@ -50,7 +50,7 @@ struct BaseUI: View {
         }
     }
     
-    @State private var unit: Base.Unit = .piece
+    @State private var unit: Base.CustomUnit = .piece
     @State private var unitPrice: Double = 300
     @State private var baseWeight: Double = 450
     

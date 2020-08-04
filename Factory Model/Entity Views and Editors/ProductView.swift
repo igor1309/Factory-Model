@@ -36,18 +36,15 @@ struct ProductView: View {
                 header: Text("Product Details")
             ) {
                 Group {
-                    Group {
-                        NavigationLink(
-                            destination: ProductEditor(product)
-                        ) {
-                            Text(product.summary)
-                        }
-                        
+                    NavigationLink(
+                        destination: ProductEditor(product)
+                    ) {
+                        Text(product.summary)
                     }
-                    .foregroundColor(.accentColor)
                 }
                 .font(.subheadline)
             }
+            .foregroundColor(product.isValid ? .accentColor : .systemRed)
             
             Section(
                 header: Text("Base Product")
@@ -66,6 +63,7 @@ struct ProductView: View {
             ) {
                 Group {
                     EntityPicker(selection: $product.packaging, icon: Packaging.icon, predicate: nil)
+                        .foregroundColor(product.packaging == nil ? .systemRed : .accentColor)
                 }
                 .font(.subheadline)
             }
@@ -75,6 +73,7 @@ struct ProductView: View {
             ) {
                 Group {
                     AmountPicker(systemName: "bag", title: "Production Qty", navigationTitle: "Qty", scale: .medium, amount: $product.productionQty)
+                        .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
                 }
                 .font(.subheadline)
             }
@@ -83,13 +82,26 @@ struct ProductView: View {
                 header: Text("Sales")
             ) {
                 Group {
-                    AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .extraSmall, amount: $product.vat)
+                    Group {
+                        LabelWithDetail("square", "Total Sales Product Qty", product.totalSalesQty.formattedGrouped)
+                        
+                        LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", product.avgPriceExVAT.formattedGrouped)
+                        
+                        LabelWithDetail(Sales.icon, "Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
+                    }
+                    .foregroundColor(.primary)
+                    
+                    Group {
+                        LabelWithDetail(Sales.icon, "Sales Total, with VAT", product.revenueWithVAT.formattedGrouped)
+                        
+                        AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
+                    }
+                    .foregroundColor(.secondary)
                     
                     NavigationLink(
                         destination: SalesList(for: product)
                     ) {
-                        LabelWithDetail("creditcard", "Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
-                            .font(.subheadline)
+                        LabelWithDetail("creditcard", "Sales List", "")
                     }
                     .foregroundColor(.accentColor)
                 }

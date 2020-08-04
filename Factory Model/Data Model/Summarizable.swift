@@ -130,7 +130,7 @@ extension Ingredient: Summarizable {
     }
     
     var detail: String? {
-        qty >= 0 ? "" : "ERROR: negative Qty!"
+        isValid ? nil : validationMessage
     }
     
     static var icon: String { "puzzlepiece" }
@@ -152,7 +152,7 @@ extension Product: Summarizable {
         //            .joined(separator: ", ")
         base == nil
             ? "\(name)"
-            : "\(name) \(baseName), \(baseQty.formattedGrouped) \(base!.unit.idd), \(weightNetto.formattedGrouped)г"
+            : "\(name) \(baseName), \(baseQty.formattedGrouped) \(base!.customUnit.idd), \(weightNetto.formattedGrouped)г"
     }
     
     var subtitle: String {
@@ -164,18 +164,13 @@ extension Product: Summarizable {
     }
     
     var detail: String? {
-        if base == nil {
-            return "ERROR: no base for product"
+        if isValid {
+            return [name, group, code]
+                .filter { !$0.isEmpty }
+                .joined(separator: ", ")
+        } else {
+            return validationMessage
         }
-        if productionQty == 0 {
-            return "ERROR: no production for product"
-        }
-        if sales.isEmpty {
-            return "ERROR: no sales for product"
-        }
-        return [name, group, code]
-            .filter { !$0.isEmpty }
-            .joined(separator: ", ")
     }
     
     static var icon: String { "bag.circle" }

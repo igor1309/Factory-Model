@@ -14,18 +14,15 @@ extension Feedstock {
         set { unit_ = newValue?.symbol }
     }
     
-//    var unitString: String {
-//        get { unit_ ?? "not set" }
-//        set { unit_ = newValue }
-//    }
-//    var unit: MassVolumeUnit {
-//        get {
-////            print("unit: MassVolumeUnit: get")
-//            return MassVolumeUnit(rawValue: unit_ ?? MassVolumeUnit.gramm.rawValue) ?? .gramm
+//    var allIngredients: Measurement<Dimension>? {
+//        if let unit = unit {
+//        let measures = ingredients
+//            .compactMap { $0.measure }
+//            .reduce(0) { $0 + $1.converted(to: unit).value }
 //        }
-//        set { print("unit: MassVolumeUnit: set")
-//            unit_ = newValue.rawValue }
+//        return nil
 //    }
+    
     
     var priceWithVAT: Double {
         get { priceExVAT * (1 + vat) }

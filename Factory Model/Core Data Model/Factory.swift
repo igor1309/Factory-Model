@@ -430,7 +430,7 @@ extension Factory {
         base1_1.note = "Первый продукт"
         base1_1.code = "1001"
         base1_1.group = "Сыры"
-        base1_1.unit = .weight
+        base1_1.customUnit = .weight
         base1_1.weightNetto = 1_000
         base1_1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
         base1_1.factory = factory1

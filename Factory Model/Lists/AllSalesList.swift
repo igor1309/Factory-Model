@@ -63,7 +63,7 @@ struct AllSalesList: View {
                 type: Sales.self,
                 predicate: Sales.factoryPredicate(for: factory)
             ) { sales in
-                SalesEditor(sales)
+                SalesView(sales)
             }
             
             if !orphans.isEmpty {
@@ -71,7 +71,7 @@ struct AllSalesList: View {
                     header: "Sales and Orphans",
                     fetchRequest: _orphans
                 ) { sales in
-                    SalesEditor(sales)
+                    SalesView(sales)
                 }
                 .foregroundColor(.systemRed)
             }

@@ -14,6 +14,51 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
+                
+                Section(
+                    header: Text("Ingredients. Temporary here")
+                        .foregroundColor(.systemRed)
+                ) {
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Base.self,
+                                    predicate: nil
+                                ) { (base: Base) in
+                                    BaseEditor(base)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Text("Bases")
+                    }
+
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Ingredient.self,
+                                    predicate: nil
+                                ) { (ingredient: Ingredient) in
+                                    List {
+                                        //  IngredientRow(ingredient)
+                                        IngredientEditorCore(ingredient)
+                                    }
+                                    .listStyle(InsetGroupedListStyle())
+                                    .navigationBarTitleDisplayMode(.inline)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Text("Ingredients")
+                    }
+                }
+                
+
+                
                 GenericListSection(
                     type: Factory.self,
                     predicate: nil,

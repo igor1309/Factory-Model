@@ -34,9 +34,9 @@ extension Base {
         set { utilities_ = Set(newValue) as NSSet }
     }
     
-    enum Unit: String, CaseIterable {
+    enum CustomUnit: String, CaseIterable {
         case weight, piece
-        
+
         var idd: String {
             switch self {
                 case .piece:
@@ -47,14 +47,19 @@ extension Base {
         }
     }
     
-    var unit: Unit {
-        get { Unit(rawValue: unit_ ?? "weight") ?? .weight }
+    var customUnit: CustomUnit {
+        get { CustomUnit(rawValue: unit_ ?? "weight") ?? .weight }
         set { unit_ = newValue.rawValue }
     }
     
-    var sales: [Sales] {
-        products.flatMap { $0.sales }
+    var unit: Unit? {
+        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
+        set { unit_ = newValue?.symbol }
     }
+    
+//    var sales: [Sales] {
+//        products.flatMap { $0.sales }
+//    }
     
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
     var baseGroups: [String] {
@@ -70,14 +75,21 @@ extension Base {
             .reduce(0) { $0 + $1.baseQty * $1.productionQty }
     }
     
+    var totalSalesVolume: Double {
+        weightNetto * totalSalesQty
+    }
+    var totalProductionVolume: Double {
+        weightNetto * productionQty
+    }
+    
     var totalSalesQty: Double {
-        sales.reduce(0) { $0 + $1.qty }
+        products.reduce(0) { $0 + $1.baseQty }
     }
     var revenueExVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueExVAT }
+        products.reduce(0) { $0 + $1.revenueExVAT }
     }
     var revenueWithVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueWithVAT }
+        products.reduce(0) { $0 + $1.revenueWithVAT }
     }
     var avgPriceExVAT: Double {
         if totalSalesQty > 0 {
@@ -87,27 +99,21 @@ extension Base {
         }
     }
     var avgPriceWithVAT: Double {
-        if totalSalesQty > 0 {
-            return revenueWithVAT / totalSalesQty
-        } else {
-            return 0
-        }
+        totalSalesQty > 0 ? revenueWithVAT / totalSalesQty : 0
     }
     
-    var costExVAT: Double {
+    var ingredientsCostExVAT: Double {
         ingredients
-            .map {
-                $0.qty * ($0.feedstock?.priceExVAT ?? 0)
-            }
+            .map { $0.qty * ($0.feedstock?.priceExVAT ?? 0) }
             .reduce(0, +)
     }
     var totalCostExVAT: Double {
-        costExVAT * productionQty
+        ingredientsCostExVAT * productionQty
     }
     var cogs: Double {
-        costExVAT * totalSalesQty
+        ingredientsCostExVAT * totalSalesQty
     }
-    //  MARK: NOT RAEALLY MARGIN???
+    //  MARK: NOT REALLY MARGIN???
     var margin: Double {
         revenueExVAT - cogs
     }

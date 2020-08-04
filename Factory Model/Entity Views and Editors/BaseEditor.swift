@@ -20,15 +20,29 @@ struct IngredientRow/*<T: Managed>*/: View {
     @State private var showDeleteAction = false
     
     var body: some View {
-        HStack {
-            EntityPicker(selection: $entity.feedstock)
-                .buttonStyle(PlainButtonStyle())
-            Spacer()
-            AmountPicker(navigationTitle: "Qty", scale: .small, amount: $entity.qty)
-                .buttonStyle(PlainButtonStyle())
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                EntityPicker(selection: $entity.feedstock, icon: Feedstock.icon)
+                    .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                
+                AmountPicker(navigationTitle: "Qty", scale: .small, amount: $entity.qty)
+                    .buttonStyle(PlainButtonStyle())
+                
+                UnitPicker(unit_: $entity.unit_)
+                    .buttonStyle(PlainButtonStyle())
+                //            MassVolumeUnitSubPicker(unit_: $entity.unit_)
+            }
+            .foregroundColor(.accentColor)
+            .font(.subheadline)
+            
+            if !entity.isValid {
+                Text(entity.validationMessage)
+                    .foregroundColor(.systemRed)
+                    .font(.caption2)
+            }
         }
-        .foregroundColor(.accentColor)
-        .font(.subheadline)
         .contextMenu {
             Button {
                 showDeleteAction = true
@@ -74,14 +88,20 @@ struct BaseEditor: View {
     
     var body: some View {
         List {
-            Section(header: Text("Base")) {
+            Section(
+                header: Text("Base")
+            ) {
                 Group {
-                    TextField("Name", text: $base.name)
+                    HStack {
+                        Text("Name")
+                            .foregroundColor(.tertiary)
+                        TextField("Name", text: $base.name)
+                    }
                     
                     if base.baseGroups.isEmpty {
                         HStack {
                             Text("Group")
-                                .foregroundColor(.secondary)
+                                .foregroundColor(.tertiary)
                             TextField("Group", text: $base.group)
                                 .foregroundColor(.accentColor)
                         }
@@ -89,21 +109,50 @@ struct BaseEditor: View {
                         PickerWithTextField(selection: $base.group, name: "Group", values: base.baseGroups)
                     }
                     
-                    TextField("Code", text: $base.code)
-                    TextField("Note", text: $base.note)
-                    
-                    AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $base.weightNetto)
+                    HStack {
+                        Text("Code")
+                            .foregroundColor(.tertiary)
+                        TextField("Code", text: $base.code)
+                    }
+                    HStack {
+                        Text("Note")
+                            .foregroundColor(.tertiary)
+                        TextField("Note", text: $base.note)
+                    }
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
             
             Section(
-                header: Text("Ingredients"),
-                footer: Text("Tap on Ingredient Name or Quantity to change.")
+                header: Text("Weight, Unit")
             ) {
-                ForEach(ingredients, id: \.objectID) { ingredient in
-                    IngredientRow(ingredient)
+                HStack {
+                    AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $base.weightNetto)
+                        .foregroundColor(base.weightNetto > 0 ? .accentColor : .systemRed)
+                        .buttonStyle(PlainButtonStyle())
+                    
+                    UnitPicker(unit_: $base.unit_)
+                        .foregroundColor(base.unit_ == nil ? .systemRed : .accentColor)
+                        .buttonStyle(PlainButtonStyle())
+                }
+                .foregroundColor(.accentColor)
+                .font(.subheadline)
+            }
+            
+            if !base.isValid {
+                Text(base.validationMessage)
+                    .foregroundColor(base.isValid ? .systemGreen : .systemRed)
+            }
+            
+            Section(
+                header: Text("Ingredients"),
+                footer: Text(!ingredients.isEmpty ? "Tap on Ingredient Name or Quantity to change." : "No ingredients")
+            ) {
+                if !ingredients.isEmpty {
+                    ForEach(ingredients, id: \.objectID) { ingredient in
+                        IngredientRow(ingredient)
+                    }
                 }
             }
         }

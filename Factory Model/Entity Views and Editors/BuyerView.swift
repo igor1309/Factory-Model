@@ -45,7 +45,7 @@ struct BuyerView: View {
                 .foregroundColor(.systemRed)
             }
         } editor: { (sales: Sales) in
-            SalesEditor(sales)
+            SalesView(sales)
         }
     }
 }

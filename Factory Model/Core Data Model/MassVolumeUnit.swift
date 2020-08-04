@@ -7,16 +7,17 @@
 
 import Foundation
 
+//  MARK: - change to array?? Array<Dimention>
 enum MassVolumeUnit: String, CaseIterable {
     case gram = "грамм"
     case kilo = "кило"
     case liter = "литр"
     
-    var unit: Unit {
+    var unit: Dimension {
         switch self {
-            case .gram:  return Unit(symbol: "g")//UnitMass.grams
-            case .kilo:  return Unit(symbol: "kg")//UnitMass.kilograms
-            case .liter: return Unit(symbol: "L")//UnitVolume.liters
+            case .gram:  return Dimension(symbol: "g")//UnitMass.grams
+            case .kilo:  return Dimension(symbol: "kg")//UnitMass.kilograms
+            case .liter: return Dimension(symbol: "L")//UnitVolume.liters
         }
     }
 }

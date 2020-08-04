@@ -54,6 +54,12 @@ struct ProductEditorCore: View {
             .font(.subheadline)
         }
         
+        if !product.isValid {
+            Text(product.validationMessage)
+                .foregroundColor(.systemRed)
+                .font(.subheadline)
+        }
+
         Section(
             header: Text("Base Product"),
             footer: Text("TBD: на единицу продукта")
@@ -79,8 +85,9 @@ struct ProductEditorCore: View {
             header: Text("VAT")
         ) {
             Group {
-                //  MARK: - FINISH THIS CHANGE SCALE TO PERCENT
-                AmountPicker(title: "VAT", navigationTitle: "VAT", scale: .medium, amount: $product.vat)
+                AmountPicker(title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
+                LabelWithDetail("VAT", product.vat.formattedPercentageWith1Decimal)
+                    .foregroundColor(.tertiary)
             }
             .font(.subheadline)
         }

@@ -25,8 +25,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Revenue")
                     ) {
-                        FinancialLabel("Sales ex VAT", value: "TBD", percentage: nil)
-                        FinancialLabel("Sales with VAT", value: "TBD", percentage: nil, font: .caption)
+                        FinancialLabel("Sales, ex VAT", value: "TBD", percentage: nil)
+                        FinancialLabel("Sales, with VAT", value: "TBD", percentage: nil, font: .caption)
                             .foregroundColor(.secondary)
                     }
                     
@@ -34,9 +34,9 @@ struct ProfitLossStatement: View {
                         header: header("Production Cost")
                     ) {
                         Group {
-                            FinancialLabel("Feedstock Cost ex VAT", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Feedstock Cost, ex VAT", value: "TBD", percentage: "TBD")
                             FinancialLabel("Labor incl taxes", value: "TBD", percentage: "TBD")
-                            FinancialLabel("Utilities ex VAT", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Utilities, ex VAT", value: "TBD", percentage: "TBD")
                             FinancialLabel("Amortization", value: "TBD", percentage: "TBD")
                         }
                         .foregroundColor(.secondary)
@@ -54,7 +54,7 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Expenses")
                     ) {
-                        FinancialLabel("Expenses ex VAT", value: "TBD", percentage: "TBD")
+                        FinancialLabel("Expenses, ex VAT", value: "TBD", percentage: "TBD")
                             .foregroundColor(.secondary)
                     }
                     

@@ -25,7 +25,7 @@ struct UtilityView: View {
 //            Section(header: Text("")) {
 //                Group {
 //                    TextField("Name", text: $utility.name)
-//                    Text("TBD: Price ex VAT: \(utility.priceExVAT, specifier: "%.f")")
+//                    Text("TBD: Price, ex VAT: \(utility.priceExVAT, specifier: "%.f")")
 //                    LabelWithDetail("incl VAT", utility.priceWithVAT.formattedGrouped)
 //                        .foregroundColor(.secondary)
 //                }

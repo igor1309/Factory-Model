@@ -14,7 +14,25 @@ struct IngredientEditorCore: View {
         self.ingredient = ingredient
     }
     
+    var unitHeader: some View {
+        let text: String = {
+            if let unit = ingredient.unit {
+                return "Unit (\(unit.symbol))"
+            } else {
+                return "Unit"
+            }
+        }()
+        
+        return Text(text)
+    }
+    
     var body: some View {
+        Section(
+            header: Text("Short version")
+        ) {
+            IngredientRow(ingredient)
+        }
+        
         Section(
             header: Text("Base product")
         ) {
@@ -35,5 +53,16 @@ struct IngredientEditorCore: View {
                 .font(.subheadline)
             
         }
+        
+        Section(
+            header: unitHeader
+        ) {
+            Group {
+                MassVolumeUnitSubPicker(unit_: $ingredient.unit_)
+            }
+        }
+        
+        Text(ingredient.validationMessage)
+            .foregroundColor(ingredient.isValid ? .systemGreen : .systemRed)
     }
 }

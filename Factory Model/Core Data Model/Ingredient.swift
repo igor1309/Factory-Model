@@ -8,14 +8,18 @@
 import Foundation
 
 extension Ingredient: Comparable {
-
-//    var measurement: Measurement<Unit> {
-//        let mvUnit = MassVolumeUnit(rawValue: unit_ ?? MassVolumeUnit.kilo.rawValue) ?? .kilo
-//        let unit = mvUnit.unit
-//        return Measurement(value: qty, unit: unit)
-//    }
     
+    var unit: Unit? {
+        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
+        set { unit_ = newValue?.symbol }
+    }
 
+//    var measure: Measurement<Dimension>? {
+//        if let unit = unit {
+//            return Measurement(value: qty * base.map { $0.products }.map { $.baseQty }, unit: unit)
+//        }
+//        return nil
+//    }
     
     var cost: Double {
         qty * (feedstock?.priceExVAT ?? 0)

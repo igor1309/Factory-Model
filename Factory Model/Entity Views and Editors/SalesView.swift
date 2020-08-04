@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SalesEditor: View {
+struct SalesView: View {
     @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var sales: Sales

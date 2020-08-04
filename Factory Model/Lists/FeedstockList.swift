@@ -48,7 +48,7 @@ struct FeedstockList: View {
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.costExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.ingredientsCostExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -75,7 +75,7 @@ struct FeedstockList: View {
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.costExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Feedstock Cost", base.ingredientsCostExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

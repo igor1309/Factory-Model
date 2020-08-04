@@ -114,7 +114,7 @@ struct IssuesList: View {
                     type: Sales.self,
                     predicate: Sales.orphanPredicate
                 ) { (sales: Sales) in
-                    SalesEditor(sales)
+                    SalesView(sales)
                 }
                 //            }
                 

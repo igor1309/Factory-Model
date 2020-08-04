@@ -26,36 +26,51 @@ struct SalesEditorCore: View {
     
     var body: some View {
         Section(
-//            footer: footer
+            header: Text("Buyer")
+        ) {
+            //  MARK: - FINISH THIS FIND SOLUTION TO FETCH BUYERS FOR FACTORY
+            EntityPicker(selection: $sales.buyer, icon: "cart", predicate: nil)
+                .foregroundColor(sales.buyer == nil ? .systemRed : .accentColor)
+                .font(.subheadline)
+        }
+
+        Section(
+            header: Text("Product, Price")
         ) {
             Group {
                 Group {
                     //  MARK: - FINISH THIS FIND SOLUTION TO FETCH PRODUCTS FOR FACTORY
-                    EntityPicker(selection: $sales.product, icon: "bag", predicate: nil)
+                    EntityPicker(selection: $sales.product, icon: Product.icon, predicate: nil)
+                        .foregroundColor(sales.product == nil ? .systemRed : .accentColor)
                     
-                    //  MARK: - FINISH THIS FIND SOLUTION TO FETCH BUYERS FOR FACTORY
-                    EntityPicker(selection: $sales.buyer, icon: "cart", predicate: nil)
+                    AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $sales.qty)
+                        .foregroundColor(sales.qty <= 0 ? .systemRed : .accentColor)
                     
-                    AmountPicker(systemName: "bag", title: "Qty", navigationTitle: "Qty", scale: .large, amount: $sales.qty)
-                    
-                    AmountPicker(systemName: "dollarsign.circle", title: "Price ex VAT", navigationTitle: "Price", scale: .small, amount: $sales.priceExVAT)
+                    AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price", scale: .small, amount: $sales.priceExVAT)
+                        .foregroundColor(sales.priceExVAT <= 0 ? .systemRed : .accentColor)
                 }
                 .foregroundColor(.accentColor)
                 
                 
-                LabelWithDetail("dollarsign.circle", "Price with VAT", sales.priceWithVAT.formattedGrouped)
+                LabelWithDetail("dollarsign.circle", "Price, with VAT", sales.priceWithVAT.formattedGrouped)
                     .foregroundColor(.secondary)
             }
             .font(.subheadline)
+        }
+
+        if !sales.isValid {
+            Text(sales.validationMessage)
+                .foregroundColor(.systemRed)
+                .font(.subheadline)
         }
         
         Section(
             header: Text("Total Sales")
         ) {
             Group {
-                LabelWithDetail("creditcard", "Total Sales ex VAT", sales.revenueExVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Total Sales, ex VAT", sales.revenueExVAT.formattedGrouped)
                 
-                LabelWithDetail("creditcard", "Total Sales with VAT", sales.revenueWithVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Total Sales, with VAT", sales.revenueWithVAT.formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

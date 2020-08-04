@@ -28,6 +28,11 @@ struct BaseView: View {
                     Text("\(base.title), \(base.weightNetto.formattedGrouped)")
                 }
                 .foregroundColor(.accentColor)
+                
+                if !base.isValid {
+                    Text(base.validationMessage)
+                        .foregroundColor(.systemRed)
+                }
             }
             
             //  parent check
@@ -40,10 +45,8 @@ struct BaseView: View {
                 }
             }
 
-            
             Section(
-                header: Text("Cost"),
-                footer: Text("Including Labor and Utilities.")
+                header: Text("Cost")
             ) {
                 Group {
                     NavigationLink(
@@ -58,7 +61,7 @@ struct BaseView: View {
                             IngredientView(ingredient)
                         }
                     ) {
-                        LabelWithDetail("puzzlepiece", "Ingredients Cost", base.costExVAT.formattedGrouped)
+                        LabelWithDetail("puzzlepiece", "Ingredients Cost", base.ingredientsCostExVAT.formattedGrouped)
                     }
 
                     NavigationLink(
@@ -73,7 +76,8 @@ struct BaseView: View {
                         LabelWithDetail("lightbulb", "Utility Cost", "TBD")
                     }
                     
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.costExVAT.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.ingredientsCostExVAT.formattedGrouped)
+                        .foregroundColor(.primary)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -87,10 +91,28 @@ struct BaseView: View {
                         destination: Text("TBD: List of Products using base product '\(base.title)'")
                     ) {
                         Text(base.productList)
-                            .foregroundColor(.secondary)
+//                            .foregroundColor(.secondary)
                             .font(.footnote)
                     }
                 }
+            }
+            
+            Section(
+                header: Text("Sales")
+            ) {
+                Group {
+                    LabelWithDetail("square", "Total Sales Qty", base.totalSalesQty.formattedGrouped)
+                    LabelWithDetail("scalemass", "TBD: Total Sales Volume - unit???", base.totalSalesVolume.formattedGrouped)
+                        .foregroundColor(.secondary)
+                    
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", base.revenueExVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, with VAT", base.revenueWithVAT.formattedGrouped)
+                        .foregroundColor(.secondary)
+                    
+                    LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", base.avgPriceExVAT.formattedGrouped)
+                    LabelWithDetail("square", "Margin", "TBD")
+                }
+                .font(.subheadline)
             }
             
             Section(
@@ -104,9 +126,13 @@ struct BaseView: View {
                             .foregroundColor(.systemRed)
                     }
                     
-                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", base.productionQty.formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", "TBD")
+                        .foregroundColor(.primary)
+                    
+                    LabelWithDetail("square", "TBD Production Volume - unit???", "TBD")
+                        .foregroundColor(.systemRed)
 
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.totalCostExVAT.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Production Cost", "TBD")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -114,9 +140,11 @@ struct BaseView: View {
             
 
             
-            Section(header: Text("Inventory")) {
+            Section(
+                header: Text("Inventory")
+            ) {
                 Group {
-                    AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .medium, amount: $base.initialInventory)
+                    AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $base.initialInventory)
                     
                     LabelWithDetail("building.2", "Closing Inventory", base.closingInventory.formattedGrouped)
                         .foregroundColor(base.closingInventory < 0 ? .systemRed : .secondary)

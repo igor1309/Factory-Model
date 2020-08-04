@@ -27,15 +27,6 @@ struct ProductEditor: View {
             .font(.caption2)
             
             ProductEditorCore(product)
-            
-            Section(
-                header: Text("Production Qty")
-            ) {
-                Group {
-                    AmountPicker(systemName: "scissors", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
-                }
-                .font(.subheadline)
-            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)

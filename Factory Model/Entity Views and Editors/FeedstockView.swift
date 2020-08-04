@@ -82,9 +82,9 @@ struct FeedstockView: View {
                 footer: Text("Price per Unit.")
             ) {
                 Group {
-                    AmountPicker(systemName: "dollarsign.circle", title: "Price ex VAT", navigationTitle: "Price ex VAT", scale: .small, amount: $feedstock.priceExVAT)
+                    AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price, ex VAT", scale: .small, amount: $feedstock.priceExVAT)
                     
-                    LabelWithDetail("scissors", "Price with VAT", feedstock.priceWithVAT.formattedGrouped)
+                    LabelWithDetail("scissors", "Price, with VAT", feedstock.priceWithVAT.formattedGrouped)
                         .foregroundColor(.secondary)
                 }
                 .foregroundColor(.accentColor)
@@ -94,8 +94,7 @@ struct FeedstockView: View {
             Section(
                 header: Text("VAT")
             ) {
-                //  MARK: - add .percent to AmountPicker
-                AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT TBD %%", scale: .extraSmall, amount: $feedstock.vat)
+                AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $feedstock.vat)
                     .foregroundColor(.accentColor)
                     .font(.subheadline)
             }
@@ -106,12 +105,15 @@ struct FeedstockView: View {
             ) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Production Qty", feedstock.productionQty.formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Total Cost ex VAT", feedstock.totalCostExVat.formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Total Cost with VAT", feedstock.totalCostWithVat.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost, ex VAT", feedstock.totalCostExVat.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost, with VAT", feedstock.totalCostWithVat.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
+            
+            Text(feedstock.validationMessage)
+                .foregroundColor(feedstock.isValid ? .systemGreen : .systemRed)
         }
         .onDisappear {
             moc.saveContext()
