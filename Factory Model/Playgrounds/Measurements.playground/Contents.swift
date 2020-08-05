@@ -1,5 +1,83 @@
 import Foundation
 
+class Ingredient {
+    var qty: Double
+    var unit: Dimension
+    
+    init(qty: Double, unit: Dimension) {
+        self.qty = qty
+        self.unit = unit
+    }
+    
+    var measure: Measurement<Dimension> {
+        Measurement(value: qty, unit: unit)
+    }
+}
+
+class Feedstock {
+    var unit: Dimension
+    var ingredients_: [Ingredient]
+    
+    init(unit: Dimension) {
+        self.unit = unit
+        self.ingredients_ = []
+    }
+    
+    var measure: Measurement<Dimension> {
+        ingredients_
+            .reduce(Measurement(value: 0, unit: unit)) {
+                $0 + $1.measure.converted(to: unit)
+            }
+    }
+}
+
+let ingredient1 = Ingredient(qty: 10_000, unit: UnitMass.kilograms)
+print(ingredient1.measure)
+//let ingredient2 = Ingredient(qty: 1_000, unit: UnitMass.grams)
+let feedstock1 = Feedstock(unit: UnitMass.metricTons)
+feedstock1.ingredients_.append(ingredient1)
+//feedstock1.ingredients_.append(ingredient2)
+print(feedstock1.measure)
+let ingredient3 = Ingredient(qty: 100, unit: UnitVolume.liters)
+feedstock1.ingredients_.append(ingredient3)
+print(feedstock1.measure)
+print(ingredient1.measure.converted(to: UnitVolume.liters))
+print(ingredient3.measure.converted(to: UnitMass.grams))
+
+//----------------------------------------------------------------------------------
+
+//  https://stackoverflow.com/a/61547403/11793043
+protocol Valued {
+    var value: Double { get }
+}
+
+extension Measurement: Valued { }
+extension Collection where Element: Valued {
+    func test() {
+        print(self)
+    }
+    // note that it is pointless to sum different types of units
+    var sum: Double {
+        reduce(0) { $0 + $1.value }
+    }
+    // you would need to cast every element to the appropriate unit type before calculating its sum
+    var totalLengthInMeters: Double {
+        reduce(0) {
+            $0 + (($1 as? Measurement<UnitLength>)?.converted(to: .meters).value ?? 0)
+        }
+    }
+}
+let measurement1: Measurement<Dimension> = Measurement(value: 10, unit: UnitLength.decimeters)
+let measurement2: Measurement<Dimension> = Measurement(value: 11, unit: UnitLength.centimeters)
+let measurement3: Measurement<Dimension> = Measurement(value: 100, unit: UnitMass.kilograms)
+let array: [Measurement<Dimension>] = [measurement1, measurement2, measurement3]
+let measurement1UnitLength = measurement1 //as? Measurement<UnitLength>
+print(array.totalLengthInMeters)
+//----------------------------------------------------------------------------------
+
+
+
+
 enum MassVolumeUnit: String, CaseIterable {
     case gram, kilo, liter
     

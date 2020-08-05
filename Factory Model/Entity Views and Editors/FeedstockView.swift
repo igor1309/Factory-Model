@@ -19,7 +19,7 @@ struct FeedstockView: View {
     
     var unitHeader: some View {
         let text: String = {
-            if let unit = feedstock.unit {
+            if let unit = feedstock.unitKinda {
                 return "Unit (\(unit.symbol))"
             } else {
                 return "Unit"
@@ -46,7 +46,7 @@ struct FeedstockView: View {
                 footer: Text("Usef to set Price per Unit.")
             ) {
                 Group {
-                    MassVolumeUnitSubPicker(unit_: $feedstock.unit_)
+                    MassVolumeUnitSubPicker(unit_: $feedstock.unitSymbol_)
                     //                    HStack {
                     //                        Text(feedstock.unit_ ?? "—")
                     //                            .foregroundColor(.secondary)

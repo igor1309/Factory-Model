@@ -58,7 +58,12 @@ struct IngredientEditorCore: View {
             header: unitHeader
         ) {
             Group {
-                MassVolumeUnitSubPicker(unit_: $ingredient.unit_)
+                LabelWithDetail("ingredient.unit", "\(ingredient.unit == nil ? "Unit not defined" : ingredient.unit!.symbol)")
+                MassVolumeUnitPicker<Ingredient>(unit: $ingredient.unit)
+                    .pickerStyle(SegmentedPickerStyle())
+                
+                Divider()
+                MassVolumeUnitSubPicker(unit_: $ingredient.unitSymbol_)
             }
         }
         

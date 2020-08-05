@@ -30,9 +30,9 @@ struct IngredientRow/*<T: Managed>*/: View {
                 AmountPicker(navigationTitle: "Qty", scale: .small, amount: $entity.qty)
                     .buttonStyle(PlainButtonStyle())
                 
-                UnitPicker(unit_: $entity.unit_)
+                UnitPicker(unit_: $entity.unitSymbol_)
                     .buttonStyle(PlainButtonStyle())
-                //            MassVolumeUnitSubPicker(unit_: $entity.unit_)
+                //            MassVolumeUnitSubPicker(unitSymbol_: $entity.unitSymbol_)
             }
             .foregroundColor(.accentColor)
             .font(.subheadline)
@@ -132,8 +132,8 @@ struct BaseEditor: View {
                         .foregroundColor(base.weightNetto > 0 ? .accentColor : .systemRed)
                         .buttonStyle(PlainButtonStyle())
                     
-                    UnitPicker(unit_: $base.unit_)
-                        .foregroundColor(base.unit_ == nil ? .systemRed : .accentColor)
+                    UnitPicker(unit_: $base.unitSymbol_)
+                        .foregroundColor(base.unitSymbol_ == nil ? .systemRed : .accentColor)
                         .buttonStyle(PlainButtonStyle())
                 }
                 .foregroundColor(.accentColor)

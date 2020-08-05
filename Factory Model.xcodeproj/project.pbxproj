@@ -194,6 +194,7 @@
 		2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryView.swift; sourceTree = "<group>"; };
 		2AC0B51424CB128100175819 /* ProductEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditor.swift; sourceTree = "<group>"; };
 		2AC7952424C76E7500018817 /* WorkerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerList.swift; sourceTree = "<group>"; };
+		2ACEE15124D9F37A0042EE08 /* myUnit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = myUnit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2AD6C9C224D6BD1E003B28EE /* MassVolumeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnit.swift; sourceTree = "<group>"; };
 		2AD6C9C424D6BD51003B28EE /* MassVolumeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnitPicker.swift; sourceTree = "<group>"; };
 		2AD6C9C724D6E453003B28EE /* Measurements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Measurements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -313,6 +314,7 @@
 			children = (
 				2AD6C9C724D6E453003B28EE /* Measurements.playground */,
 				2A85734A24C62A6E009FF51A /* ReduceArrayIntoDictionary.playground */,
+				2ACEE15124D9F37A0042EE08 /* myUnit.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";

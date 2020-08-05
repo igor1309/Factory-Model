@@ -20,36 +20,36 @@ struct AmountPicker: View {
         
         var range: ClosedRange<Double> {
             switch self {
-                case .percent:         return 0.0...200
-                case .extraSmall:      return 0.0...10
-                case .small:           return 10.0...100
-                case .medium:          return 100.0...1_000
-                case .large:           return 1_000.0...10_000
-                case .extraLarge:      return 10_000.0...100_000
+                case .percent:         return              0.0...200
+                case .extraSmall:      return               0.0...10
+                case .small:           return             10.0...100
+                case .medium:          return          100.0...1_000
+                case .large:           return       1_000.0...10_000
+                case .extraLarge:      return     10_000.0...100_000
                 case .extraExtraLarge: return 100_000.0...10_000_000
             }
         }
         
         var majorStep: Double {
             switch self {
-                case .percent:         return 1
-                case .extraSmall:      return 1
-                case .small:           return 5
-                case .medium:          return 10
-                case .large:           return 100
-                case .extraLarge:      return 500
+                case .percent:         return      1
+                case .extraSmall:      return      1
+                case .small:           return      5
+                case .medium:          return     10
+                case .large:           return    100
+                case .extraLarge:      return    500
                 case .extraExtraLarge: return 50_000
             }
         }
         
         var minorStep: Double {
             switch self {
-                case .percent:         return 0.5
-                case .extraSmall:      return 1
-                case .small:           return 1
-                case .medium:          return 5
-                case .large:           return 10
-                case .extraLarge:      return 50
+                case .percent:         return     0.5
+                case .extraSmall:      return     1
+                case .small:           return     1
+                case .medium:          return     5
+                case .large:           return    10
+                case .extraLarge:      return    50
                 case .extraExtraLarge: return 5_000
             }
         }

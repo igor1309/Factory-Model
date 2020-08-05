@@ -9,11 +9,11 @@ import Foundation
 import CoreData
 
 extension Feedstock {
-    var unit: Unit? {
-        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
-        set { unit_ = newValue?.symbol }
+    var unitKinda: Unit? {
+        get { unitSymbol_ == nil ? nil : Unit(symbol: unitSymbol_!) }
+        set { unitSymbol_ = newValue?.symbol }
     }
-    
+        
 //    var allIngredients: Measurement<Dimension>? {
 //        if let unit = unit {
 //        let measures = ingredients

@@ -48,13 +48,13 @@ extension Base {
     }
     
     var customUnit: CustomUnit {
-        get { CustomUnit(rawValue: unit_ ?? "weight") ?? .weight }
-        set { unit_ = newValue.rawValue }
+        get { CustomUnit(rawValue: unitSymbol_ ?? "weight") ?? .weight }
+        set { unitSymbol_ = newValue.rawValue }
     }
     
     var unit: Unit? {
-        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
-        set { unit_ = newValue?.symbol }
+        get { unitSymbol_ == nil ? nil : Unit(symbol: unitSymbol_!) }
+        set { unitSymbol_ = newValue?.symbol }
     }
     
 //    var sales: [Sales] {
@@ -139,7 +139,7 @@ extension Base: Comparable {
         let base = Base(context: context)
         base.name = "Хинкали"
         base.group = "Заморозка"
-        base.unit_ = "piece"
+        base.unitSymbol_ = "piece"
         base.weightNetto = 60
         
         let feedstock1 = Feedstock(context: context)

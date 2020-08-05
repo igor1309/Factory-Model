@@ -36,14 +36,14 @@ fileprivate struct UnitPickerTable: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(MassVolumeUnit.allCases, id: \.self) { mvUnit in
+                ForEach([UnitMass.grams, UnitMass.kilograms, UnitVolume.liters], id: \.self) { mvUnit in
                     Button {
-                        unitString = mvUnit.unit.symbol
+                        unitString = mvUnit.symbol
                         presentation.wrappedValue.dismiss()
                     } label: {
-                        Text(mvUnit.rawValue)
-                            .foregroundColor(mvUnit.unit.symbol == unitString ? .systemOrange : .accentColor)
-                            .tag(mvUnit.unit.symbol)
+                        Text(mvUnit.symbol)
+                            .foregroundColor(mvUnit.symbol == unitString ? .systemOrange : .accentColor)
+                            .tag(mvUnit.symbol)
                     }
                 }
             }

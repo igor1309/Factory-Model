@@ -9,10 +9,11 @@ import Foundation
 
 extension Ingredient: Comparable {
     
-    var unit: Unit? {
-        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
-        set { unit_ = newValue?.symbol }
-    }
+    
+//    var unit: Unit? {
+//        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
+//        set { unit_ = newValue?.symbol }
+//    }
 
 //    var measure: Measurement<Dimension>? {
 //        if let unit = unit {
