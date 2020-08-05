@@ -34,4 +34,4 @@ extension Expenses: Offspringable {
     }
 }
 
-//Feedstock
+//Ingredient

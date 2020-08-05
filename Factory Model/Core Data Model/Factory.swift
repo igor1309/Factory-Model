@@ -226,15 +226,15 @@ extension Factory {
         buyers
             .flatMap { $0.sales }
     }
-    var feedstocks: [Feedstock] {
+    var ingredients: [Ingredient] {
         bases
             .flatMap { $0.products }
             .compactMap { $0.base }
-            .flatMap { $0.ingredients }
+            .flatMap { $0.recipes }
             .filter { $0.qty > 0 }
-            .compactMap { $0.feedstock }
+            .compactMap { $0.ingredient }
     }
-    var totalFeedstockCostExVAT: Double {
+    var totalIngredientCostExVAT: Double {
         bases
             .flatMap { $0.products }
             .compactMap { $0.base }
@@ -260,17 +260,17 @@ extension Factory {
     
 
     
-//    func feedstocksByGroups() -> [Something] {
+//    func ingredientsByGroups() -> [Something] {
 //        
-//        let feedstocksByGroups = Dictionary(grouping: feedstocks) { $0.name }
+//        let ingredientsByGroups = Dictionary(grouping: ingredients) { $0.name }
 //        
-//        let somethings = feedstocksByGroups
-//            .mapValues { feedstocks -> (qty: Double, cost: Double, bases: [String]) in
+//        let somethings = ingredientsByGroups
+//            .mapValues { ingredients -> (qty: Double, cost: Double, bases: [String]) in
 //                
-//                let qty = feedstocks.reduce(0, { $0 + $1.qty * $1.baseQty })
-//                let costExVAT = feedstocks.reduce(0, { $0 + $1.costExVAT * $1.baseQty })
+//                let qty = ingredients.reduce(0, { $0 + $1.qty * $1.baseQty })
+//                let costExVAT = ingredients.reduce(0, { $0 + $1.costExVAT * $1.baseQty })
 //                
-//                let bases = feedstocks.reduce([String]()) { $0 + [$1.baseName]  }
+//                let bases = ingredients.reduce([String]()) { $0 + [$1.baseName]  }
 //                
 //                return (qty: qty, cost: costExVAT, bases: bases)
 //            }
@@ -300,11 +300,11 @@ extension Factory {
     //  MARK: NOT WORKING IDEALLY
     //  HOW TO FILTER ON FACTORY???
     ///https://www.alfianlosari.com/posts/building-expense-tracker-ios-app-with-core-data-and-swiftui/
-//    static func fetchFeedstocksTotalsGrouped(
+//    static func fetchIngredientsTotalsGrouped(
 //        context: NSManagedObjectContext,
 //        completion: @escaping ([Something]) -> ()
 //    ) {
-//        let keypathQty = NSExpression(forKeyPath: \Feedstock.ingredients_.qty)
+//        let keypathQty = NSExpression(forKeyPath: \Ingredient.recipes_.qty)
 //        let expression = NSExpression(forFunction: "sum:", arguments: [keypathQty])
 //        
 //        let sumDesc = NSExpressionDescription()
@@ -312,7 +312,7 @@ extension Factory {
 //        sumDesc.name = "sum"
 //        sumDesc.expressionResultType = .decimalAttributeType
 //        
-//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Feedstock.entity().name ?? "Feedstock")
+//        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Ingredient.entity().name ?? "Ingredient")
 //        request.predicate = NSPredicate(format: "qty > 0")
 //        request.returnsObjectsAsFaults = false
 //        request.propertiesToGroupBy = ["name_"]
@@ -353,75 +353,75 @@ extension Factory {
         factory1.name = "Сыроварня"
         factory1.note = "Тестовый проект"
         
-        //  MARK: - Feedstocks @ Factory 1
+        //  MARK: - Ingredients @ Factory 1
         
-        let milk = Feedstock(context: context)
+        let milk = Ingredient(context: context)
         milk.name = "Молоко натуральное"
         milk.priceExVAT = 30.0
         milk.vat = 10/100
         
-        let dryMilk = Feedstock(context: context)
+        let dryMilk = Ingredient(context: context)
         dryMilk.name = "Сухое молоко"
         dryMilk.priceExVAT = 70
         dryMilk.vat = 10/100
         
-        let calciumChloride = Feedstock(context: context)
+        let calciumChloride = Ingredient(context: context)
         calciumChloride.name = "Хлористый кальций"
         calciumChloride.vat = 10/100
         
-        let bacterialRefueling = Feedstock(context: context)
+        let bacterialRefueling = Ingredient(context: context)
         bacterialRefueling.name = "Бактериальная заправка"
         bacterialRefueling.vat = 10/100
         
-        let rennetFilling = Feedstock(context: context)
+        let rennetFilling = Ingredient(context: context)
         rennetFilling.name = "Сычужная заправка (?)"
         rennetFilling.priceExVAT = 8000
         rennetFilling.vat = 10/100
         
-        let pepsin = Feedstock(context: context)
+        let pepsin = Ingredient(context: context)
         pepsin.name = "Пепсин"
         pepsin.vat = 10/100
         
-        let salt = Feedstock(context: context)
+        let salt = Ingredient(context: context)
         salt.name = "Соль"
         salt.priceExVAT = 20
         salt.vat = 10/100
         
-        let water = Feedstock(context: context)
+        let water = Ingredient(context: context)
         water.name = "Вода"
         water.priceExVAT = 1
         water.vat = 10/100
         
-        //            factory1.addToFeedstocks_(milk)
-        //            factory1.addToFeedstocks_(dryMilk)
-        //            factory1.addToFeedstocks_(calciumChloride)
-        //            factory1.addToFeedstocks_(bacterialRefueling)
-        //            factory1.addToFeedstocks_(rennetFilling)
-        //            factory1.addToFeedstocks_(pepsin)
-        //            factory1.addToFeedstocks_(salt)
-        //            factory1.addToFeedstocks_(water)
+        //            factory1.addToIngredients_(milk)
+        //            factory1.addToIngredients_(dryMilk)
+        //            factory1.addToIngredients_(calciumChloride)
+        //            factory1.addToIngredients_(bacterialRefueling)
+        //            factory1.addToIngredients_(rennetFilling)
+        //            factory1.addToIngredients_(pepsin)
+        //            factory1.addToIngredients_(salt)
+        //            factory1.addToIngredients_(water)
         
-        //  MARK: - Ingredients for Base Product 1
+        //  MARK: - Recipes for Base Product 1
         
-        let ingredient1 = Ingredient(context: context)
-        ingredient1.qty = 1
-        ingredient1.feedstock = milk
+        let recipe1 = Recipe(context: context)
+        recipe1.qty = 1
+        recipe1.ingredient = milk
         
-        let ingredient2 = Ingredient(context: context)
-        ingredient2.qty = 1
-        ingredient2.feedstock = dryMilk
+        let recipe2 = Recipe(context: context)
+        recipe2.qty = 1
+        recipe2.ingredient = dryMilk
         
-        let ingredient5 = Ingredient(context: context)
-        ingredient5.qty = 0.5 / 1000
-        ingredient5.feedstock = rennetFilling
+        let recipe5 = Recipe(context: context)
+        recipe5.qty = 0.5 / 1000
+        recipe5.ingredient = rennetFilling
         
-        let ingredient7 = Ingredient(context: context)
-        ingredient7.qty = 1.5
-        ingredient7.feedstock = salt
+        let recipe7 = Recipe(context: context)
+        recipe7.qty = 1.5
+        recipe7.ingredient = salt
         
-        let ingredient8 = Ingredient(context: context)
-        ingredient8.qty = 1
-        ingredient8.feedstock = water
+        let recipe8 = Recipe(context: context)
+        recipe8.qty = 1
+        recipe8.ingredient = water
         
         //  MARK: - Base Product 1_1
         
@@ -432,7 +432,7 @@ extension Factory {
         base1_1.group = "Сыры"
         base1_1.customUnit = .weight
         base1_1.weightNetto = 1_000
-        base1_1.ingredients = [ingredient1, ingredient2, ingredient5, ingredient7, ingredient8]
+        base1_1.recipes = [recipe1, recipe2, recipe5, recipe7, recipe8]
         base1_1.factory = factory1
         
         //  MARK: - Product 1_1
@@ -479,16 +479,16 @@ extension Factory {
         product1_2.vat = 10/100
         
         //  MARK: - Base 2
-        let ingredient21 = Ingredient(context: context)
-        ingredient21.qty = 2
-        ingredient21.feedstock = water
+        let recipe21 = Recipe(context: context)
+        recipe21.qty = 2
+        recipe21.ingredient = water
         
         
         let base2 = Base(context: context)
         base2.name = "Имеретинский"
         base2.code = "1002"
         base2.group = "Сыры"
-        base2.addToIngredients_(ingredient21)
+        base2.addToRecipes_(recipe21)
         base2.factory = factory1
         
         let base3 = Base(context: context)

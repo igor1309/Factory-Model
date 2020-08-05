@@ -41,9 +41,9 @@ extension Expenses: FactoryTracable {
     static var factoryPath: String { "\(#keyPath(Expenses.factory))" }
 }
 
-extension Feedstock: FactoryTracable {
+extension Ingredient: FactoryTracable {
     static var format: String { "ANY %K.base.factory == %@" }
-    static var factoryPath: String { "\(#keyPath(Feedstock.ingredients_))" }
+    static var factoryPath: String { "\(#keyPath(Ingredient.recipes_))" }
 }
 
 extension Packaging: FactoryTracable {

@@ -13,8 +13,8 @@ protocol Unitable {
     var unitSymbol_: String? { get set }
 }
 
-extension Feedstock: Unitable {}
 extension Ingredient: Unitable {}
+extension Recipe: Unitable {}
 
 
 //  MARK: - MassVolumeUnitPicker not working, use MassVolumeUnitSubPicker

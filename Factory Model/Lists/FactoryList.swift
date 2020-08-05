@@ -16,7 +16,7 @@ struct FactoryList: View {
             List {
                 
                 Section(
-                    header: Text("Ingredients. Temporary here")
+                    header: Text("Recipes. Temporary here")
                         .foregroundColor(.systemRed)
                 ) {
                     NavigationLink(
@@ -39,12 +39,12 @@ struct FactoryList: View {
                         destination:
                             List {
                                 GenericListSection(
-                                    type: Ingredient.self,
+                                    type: Recipe.self,
                                     predicate: nil
-                                ) { (ingredient: Ingredient) in
+                                ) { (recipe: Recipe) in
                                     List {
-                                        //  IngredientRow(ingredient)
-                                        IngredientEditorCore(ingredient)
+                                        //  RecipeRow(recipe)
+                                        RecipeEditorCore(recipe)
                                     }
                                     .listStyle(InsetGroupedListStyle())
                                     .navigationBarTitleDisplayMode(.inline)
@@ -53,7 +53,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Text("Ingredients")
+                        Text("Recipes")
                     }
                 }
                 

@@ -11,7 +11,7 @@ import CoreData
 struct CreateNewEntityButton: View {
     @Environment(\.managedObjectContext) var context
     
-    private enum Modal: String { case product, sales, ingredient }
+    private enum Modal: String { case product, sales, recipe }
     @State private var modal: Modal = .product
     @State private var showSheet = false
     
@@ -37,8 +37,8 @@ struct CreateNewEntityButton: View {
                         modal = .sales
                         showSheet = true
                     },
-                    .default(Text("Ingredient")) {
-                        modal = .ingredient
+                    .default(Text("Recipe")) {
+                        modal = .recipe
                         showSheet = true
                     },
                     .cancel()
@@ -62,9 +62,9 @@ struct CreateNewEntityButton: View {
                     }
                     .environment(\.managedObjectContext, context)
                     
-                case .ingredient:
-                    NewEntityCreator(isPresented: $showSheet) { (ingredient: Ingredient) in
-                        IngredientEditorCore(ingredient)
+                case .recipe:
+                    NewEntityCreator(isPresented: $showSheet) { (recipe: Recipe) in
+                        RecipeEditorCore(recipe)
                     }
                     .environment(\.managedObjectContext, context)
             }

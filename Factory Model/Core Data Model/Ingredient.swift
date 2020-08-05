@@ -2,31 +2,49 @@
 //  Ingredient.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 26.07.2020.
+//  Created by Igor Malyarov on 21.07.2020.
 //
 
 import Foundation
+import CoreData
 
-extension Ingredient: Comparable {
-    
-    
-//    var unit: Unit? {
-//        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
-//        set { unit_ = newValue?.symbol }
-//    }
-
-//    var measure: Measurement<Dimension>? {
+extension Ingredient {
+    var unitKinda: Unit? {
+        get { unitSymbol_ == nil ? nil : Unit(symbol: unitSymbol_!) }
+        set { unitSymbol_ = newValue?.symbol }
+    }
+        
+//    var allRecipes: Measurement<Dimension>? {
 //        if let unit = unit {
-//            return Measurement(value: qty * base.map { $0.products }.map { $.baseQty }, unit: unit)
+//        let measures = recipes
+//            .compactMap { $0.measure }
+//            .reduce(0) { $0 + $1.converted(to: unit).value }
 //        }
 //        return nil
 //    }
     
-    var cost: Double {
-        qty * (feedstock?.priceExVAT ?? 0)
-    }
     
+    var priceWithVAT: Double {
+        get { priceExVAT * (1 + vat) }
+        set { priceExVAT = vat == 0 ? 0 : newValue / vat }
+    }
+    var recipes: [Recipe] {
+        get { (recipes_ as? Set<Recipe> ?? []).sorted() }
+        set { recipes_ = Set(newValue) as NSSet }
+    }
+
+    var productionQty: Double {
+        recipes
+            .map { $0.qty * ($0.base?.productionQty ?? 0) }
+            .reduce(0, +)
+    }
+
+    var totalCostExVat: Double { priceExVAT * productionQty }
+    var totalCostWithVat: Double { priceWithVAT * productionQty }
+}
+
+extension Ingredient: Comparable {
     public static func < (lhs: Ingredient, rhs: Ingredient) -> Bool {
-        lhs.qty < rhs.qty
+        lhs.name < rhs.name
     }
 }

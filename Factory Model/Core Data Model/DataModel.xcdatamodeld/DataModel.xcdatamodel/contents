@@ -9,8 +9,8 @@
         <attribute name="unitSymbol_" optional="YES" attributeType="String"/>
         <attribute name="weightNetto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="bases_" inverseEntity="Factory"/>
-        <relationship name="ingredients_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="base" inverseEntity="Ingredient"/>
         <relationship name="products_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="base" inverseEntity="Product"/>
+        <relationship name="recipes_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="base" inverseEntity="Recipe"/>
         <relationship name="utilities_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Utility" inverseName="base" inverseEntity="Utility"/>
     </entity>
     <entity name="Buyer" representedClassName="Buyer" syncable="YES" codeGenerationType="class">
@@ -52,21 +52,13 @@
         <relationship name="equipments_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Equipment" inverseName="factory" inverseEntity="Equipment"/>
         <relationship name="expenses_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expenses" inverseName="factory" inverseEntity="Expenses"/>
     </entity>
-    <entity name="Feedstock" representedClassName="Feedstock" syncable="YES" codeGenerationType="class">
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="priceExVAT" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="unit" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="Unit"/>
         <attribute name="unitSymbol_" optional="YES" attributeType="String"/>
         <attribute name="vat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <relationship name="ingredients_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="feedstock" inverseEntity="Ingredient"/>
-    </entity>
-    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
-        <attribute name="name_" optional="YES" attributeType="String"/>
-        <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="unit" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="Unit"/>
-        <attribute name="unitSymbol_" optional="YES" attributeType="String" customClassName="Unit"/>
-        <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="ingredients_" inverseEntity="Base"/>
-        <relationship name="feedstock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feedstock" inverseName="ingredients_" inverseEntity="Feedstock"/>
+        <relationship name="recipes_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="ingredient" inverseEntity="Recipe"/>
     </entity>
     <entity name="Packaging" representedClassName="Packaging" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
@@ -84,6 +76,14 @@
         <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="products_" inverseEntity="Base"/>
         <relationship name="packaging" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Packaging" inverseName="products_" inverseEntity="Packaging"/>
         <relationship name="sales_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sales" inverseName="product" inverseEntity="Sales"/>
+    </entity>
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES" codeGenerationType="class">
+        <attribute name="name_" optional="YES" attributeType="String"/>
+        <attribute name="qty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="unit" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="Unit"/>
+        <attribute name="unitSymbol_" optional="YES" attributeType="String" customClassName="Unit"/>
+        <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="recipes_" inverseEntity="Base"/>
+        <relationship name="ingredient" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="recipes_" inverseEntity="Ingredient"/>
     </entity>
     <entity name="Sales" representedClassName="Sales" syncable="YES" codeGenerationType="class">
         <attribute name="name_" optional="YES" attributeType="String"/>
@@ -106,15 +106,15 @@
         <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="workers_" inverseEntity="Department"/>
     </entity>
     <elements>
-        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="28"/>
+        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="208"/>
         <element name="Buyer" positionX="-11646.9921875" positionY="-9167.140625" width="128" height="88"/>
         <element name="Department" positionX="-11491.62109375" positionY="-8922.67578125" width="128" height="118"/>
         <element name="Division" positionX="-11693.03515625" positionY="-9062.26953125" width="128" height="88"/>
         <element name="Equipment" positionX="-11745.57421875" positionY="-8950.671875" width="128" height="118"/>
         <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="103"/>
         <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="148"/>
-        <element name="Feedstock" positionX="-11329.00390625" positionY="-9434.51171875" width="128" height="133"/>
-        <element name="Ingredient" positionX="-11510.2890625" positionY="-9393.48828125" width="128" height="133"/>
+        <element name="Ingredient" positionX="-11329.00390625" positionY="-9434.51171875" width="128" height="28"/>
+        <element name="Recipe" positionX="-11510.2890625" positionY="-9393.48828125" width="128" height="133"/>
         <element name="Packaging" positionX="-11002.6796875" positionY="-9216.125" width="128" height="88"/>
         <element name="Product" positionX="-11203.765625" positionY="-9250.89453125" width="128" height="193"/>
         <element name="Sales" positionX="-11409.40234375" positionY="-9061.64453125" width="128" height="118"/>

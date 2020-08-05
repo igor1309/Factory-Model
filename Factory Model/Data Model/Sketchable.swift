@@ -39,7 +39,7 @@ extension Expenses: Sketchable {
     }
 }
 
-extension Feedstock: Sketchable {
+extension Ingredient: Sketchable {
     func makeSketch() {
         self.name = " ..."
         self.priceExVAT = 70
@@ -47,7 +47,7 @@ extension Feedstock: Sketchable {
     }
 }
 
-extension Ingredient: Sketchable {}
+extension Recipe: Sketchable {}
 extension Factory: Sketchable {}
 extension Packaging: Sketchable {}
 

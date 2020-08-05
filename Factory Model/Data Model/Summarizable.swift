@@ -109,7 +109,7 @@ extension Factory: Summarizable {
     static var icon: String { "building.2" }
 }
 
-extension Feedstock: Summarizable {
+extension Ingredient: Summarizable {
     
     var subtitle: String {
         //  MARK: - FINISH THIS
@@ -121,11 +121,11 @@ extension Feedstock: Summarizable {
     static var icon: String { "puzzlepiece" }
 }
 
-extension Ingredient: Summarizable {
-    var title: String { feedstock?.name ?? "ERROR: feedstock unknown" }
+extension Recipe: Summarizable {
+    var title: String { ingredient?.name ?? "ERROR: ingredient unknown" }
     var subtitle: String {
         qty.formattedGrouped + " @ "
-            + (feedstock == nil ? 0: feedstock!.priceExVAT).formattedGrouped
+            + (ingredient == nil ? 0: ingredient!.priceExVAT).formattedGrouped
             + " = " + cost.formattedGrouped
     }
     

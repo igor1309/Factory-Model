@@ -54,14 +54,14 @@ extension Managed where Self: NSManagedObject {
                 return "Expenses"
             case "Factory":
                 return "Factories"
-            case "Feedstock":
-                return "Feedstocks"
             case "Ingredient":
                 return "Ingredients"
             case "Packaging":
                 return "Packaging"
             case "Product":
                 return "Products"
+            case "Recipe":
+                return "Recipes"
             case "Sales":
                 return "Sales"
             case "Utility":
@@ -106,8 +106,8 @@ extension Division: Managed {}
 extension Equipment: Managed {}
 extension Expenses: Managed {}
 extension Factory: Managed {}
-extension Feedstock: Managed {}
 extension Ingredient: Managed {}
+extension Recipe: Managed {}
 extension Packaging: Managed {}
 extension Product: Managed {}
 extension Sales: Managed {}

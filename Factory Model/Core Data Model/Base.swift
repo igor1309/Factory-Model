@@ -21,9 +21,9 @@ extension Base {
         get { group_ ?? " No group"}
         set { group_ = newValue }
     }
-    var ingredients: [Ingredient] {
-        get { (ingredients_ as? Set<Ingredient> ?? []).sorted() }
-        set { ingredients_ = Set(newValue) as NSSet }
+    var recipes: [Recipe] {
+        get { (recipes_ as? Set<Recipe> ?? []).sorted() }
+        set { recipes_ = Set(newValue) as NSSet }
     }
     var products: [Product] {
         get { (products_ as? Set<Product> ?? []).sorted() }
@@ -102,16 +102,16 @@ extension Base {
         totalSalesQty > 0 ? revenueWithVAT / totalSalesQty : 0
     }
     
-    var ingredientsCostExVAT: Double {
-        ingredients
-            .map { $0.qty * ($0.feedstock?.priceExVAT ?? 0) }
+    var recipesCostExVAT: Double {
+        recipes
+            .map { $0.qty * ($0.ingredient?.priceExVAT ?? 0) }
             .reduce(0, +)
     }
     var totalCostExVAT: Double {
-        ingredientsCostExVAT * productionQty
+        recipesCostExVAT * productionQty
     }
     var cogs: Double {
-        ingredientsCostExVAT * totalSalesQty
+        recipesCostExVAT * totalSalesQty
     }
     //  MARK: NOT REALLY MARGIN???
     var margin: Double {
@@ -142,19 +142,19 @@ extension Base: Comparable {
         base.unitSymbol_ = "piece"
         base.weightNetto = 60
         
-        let feedstock1 = Feedstock(context: context)
-        feedstock1.name = "Мука"
-        
         let ingredient1 = Ingredient(context: context)
-        ingredient1.feedstock = feedstock1
+        ingredient1.name = "Мука"
         
-        let feedstock2 = Feedstock(context: context)
-        feedstock2.name = "Мясо"
+        let recipe1 = Recipe(context: context)
+        recipe1.ingredient = ingredient1
         
         let ingredient2 = Ingredient(context: context)
-        ingredient2.feedstock = feedstock2
+        ingredient2.name = "Мясо"
         
-        base.ingredients = [ingredient1, ingredient2]
+        let recipe2 = Recipe(context: context)
+        recipe2.ingredient = ingredient2
+        
+        base.recipes = [recipe1, recipe2]
         
         return base
     }

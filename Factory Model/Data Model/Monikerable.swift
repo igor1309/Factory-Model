@@ -30,8 +30,8 @@ extension Division: Monikerable {}
 extension Equipment: Monikerable {}
 extension Expenses: Monikerable {}
 extension Factory: Monikerable {}
-extension Feedstock: Monikerable {}
 extension Ingredient: Monikerable {}
+extension Recipe: Monikerable {}
 extension Packaging: Monikerable {}
 extension Product: Monikerable {}
 extension Sales: Monikerable {}

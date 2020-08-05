@@ -52,16 +52,16 @@ struct BaseView: View {
                     NavigationLink(
                         destination: ListWithDashboard(
                             for: base,
-                            predicate: NSPredicate(format: "%K == %@", #keyPath(Ingredient.base), base)
+                            predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
                         ) {
-                            CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_)
+                            CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
                         } dashboard: {
                             
-                        } editor: { (ingredient: Ingredient) in
-                            IngredientView(ingredient)
+                        } editor: { (recipe: Recipe) in
+                            RecipeView(recipe)
                         }
                     ) {
-                        LabelWithDetail("puzzlepiece", "Ingredients Cost", base.ingredientsCostExVAT.formattedGrouped)
+                        LabelWithDetail("puzzlepiece", "Ingredients Cost", base.recipesCostExVAT.formattedGrouped)
                     }
 
                     NavigationLink(
@@ -76,7 +76,7 @@ struct BaseView: View {
                         LabelWithDetail("lightbulb", "Utility Cost", "TBD")
                     }
                     
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.ingredientsCostExVAT.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.recipesCostExVAT.formattedGrouped)
                         .foregroundColor(.primary)
                 }
                 .foregroundColor(.secondary)
@@ -154,7 +154,7 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
+        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
     }
 }
 

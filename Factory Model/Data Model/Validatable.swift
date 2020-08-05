@@ -27,7 +27,7 @@ extension Base: Validatable {
         guard unitSymbol_ != nil else { return false }
         guard weightNetto > 0 else { return false }
         guard factory != nil else { return false }
-        guard ingredients_ != nil else { return false }
+        guard recipes_ != nil else { return false }
         return true
     }
     var validationMessage: String {
@@ -37,7 +37,7 @@ extension Base: Validatable {
         guard unitSymbol_ != nil else { return "ERROR: no unit" }
         guard weightNetto > 0 else { return "ERROR: no Weight Netto" }
         guard factory != nil else { return "ERROR: no factory" }
-        guard ingredients_ != nil else { return "ERROR: no ingredients" }
+        guard recipes_ != nil else { return "ERROR: no recipes" }
         return "Base Product is OK"
     }
 }
@@ -49,7 +49,7 @@ extension Equipment: Validatable {}
 extension Expenses: Validatable {}
 extension Factory: Validatable {}
 
-extension Feedstock: Validatable {
+extension Ingredient: Validatable {
     var isValid: Bool {
         guard name_ != nil else { return false }
         guard priceExVAT > 0 else { return false }
@@ -58,28 +58,28 @@ extension Feedstock: Validatable {
         return true
     }
     var validationMessage: String {
-        guard name_ != nil else { return "ERROR: no feedstock name" }
+        guard name_ != nil else { return "ERROR: no ingredient name" }
         guard priceExVAT > 0 else { return "ERROR: no price" }
         guard unitSymbol_ != nil else { return "ERROR: no unit" }
         guard vat >= 0 else { return "ERROR: no VAT" }
-        return "Feedstock is OK"
+        return "Ingredient is OK"
     }
 }
 
-extension Ingredient: Validatable {
+extension Recipe: Validatable {
     var isValid: Bool {
         guard base != nil else { return false }
-        guard feedstock != nil else { return false }
+        guard ingredient != nil else { return false }
         guard qty > 0 else { return false }
         guard unitSymbol_ != nil else { return false }
         return true
     }
     var validationMessage: String {
         guard base != nil else { return "ERROR: no base product" }
-        guard feedstock != nil else { return "ERROR: feedstock" }
+        guard ingredient != nil else { return "ERROR: ingredient" }
         guard qty > 0 else { return "ERROR: no qty" }
         guard unitSymbol_ != nil else { return "ERROR: no unit" }
-        return "Ingredient is OK"
+        return "Recipe is OK"
     }
 }
 

@@ -12,7 +12,7 @@ extension Factory {
     //  MARK: - FINISH THIS TO WORK IT NEEDS FETCHING!!!!
     var hasIssues: Bool {
         //  MARK: - FINISH THIS
-        expensesHasIssues || equipmentsHasIssues || divisionsHasIssues || departmentsHasIssues || workersHasIssues || basesHasIssues || buyersHasIssues || feedstocksHasIssues || salesHasIssues || packagingsHasIssues
+        expensesHasIssues || equipmentsHasIssues || divisionsHasIssues || departmentsHasIssues || workersHasIssues || basesHasIssues || buyersHasIssues || ingredientsHasIssues || salesHasIssues || packagingsHasIssues
     }
     var expensesHasIssues: Bool {
         !expenses.allSatisfy { $0.isValid == true }
@@ -37,8 +37,8 @@ extension Factory {
     var buyersHasIssues: Bool {
         !buyers.allSatisfy { $0.isValid == true }
     }
-    var feedstocksHasIssues: Bool {
-        !feedstocks.allSatisfy { $0.isValid == true }
+    var ingredientsHasIssues: Bool {
+        !ingredients.allSatisfy { $0.isValid == true }
     }
     var salesHasIssues: Bool {
         !sales.allSatisfy { $0.isValid == true }

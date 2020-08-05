@@ -34,7 +34,7 @@ struct ProfitLossStatement: View {
                         header: header("Production Cost")
                     ) {
                         Group {
-                            FinancialLabel("Feedstock Cost, ex VAT", value: "TBD", percentage: "TBD")
+                            FinancialLabel("Ingredient Cost, ex VAT", value: "TBD", percentage: "TBD")
                             FinancialLabel("Labor incl taxes", value: "TBD", percentage: "TBD")
                             FinancialLabel("Utilities, ex VAT", value: "TBD", percentage: "TBD")
                             FinancialLabel("Amortization", value: "TBD", percentage: "TBD")

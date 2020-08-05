@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct IngredientRow/*<T: Managed>*/: View {
+struct RecipeRow/*<T: Managed>*/: View {
     @Environment(\.managedObjectContext) var context
     
-    @ObservedObject var entity: Ingredient//T
+    @ObservedObject var entity: Recipe//T
     //    let keyPath: ReferenceWritableKeyPath<>
     
-    init(_ entity: Ingredient) {
+    init(_ entity: Recipe) {
         self.entity = entity
     }
     
@@ -22,7 +22,7 @@ struct IngredientRow/*<T: Managed>*/: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                EntityPicker(selection: $entity.feedstock, icon: Feedstock.icon)
+                EntityPicker(selection: $entity.ingredient, icon: Ingredient.icon)
                     .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
@@ -63,7 +63,7 @@ struct IngredientRow/*<T: Managed>*/: View {
         }
     }
     
-    private func delete(_ item: Ingredient) {
+    private func delete(_ item: Recipe) {
         withAnimation {
             context.delete(item)
             context.saveContext()
@@ -79,12 +79,12 @@ struct BaseEditor: View {
     init(_ base: Base) {
         self.base = base
         let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Ingredient.base), base
+            format: "%K == %@", #keyPath(Recipe.base), base
         )
-        _ingredients = Ingredient.defaultFetchRequest(with: predicate)
+        _recipes = Recipe.defaultFetchRequest(with: predicate)
     }
     
-    @FetchRequest var ingredients: FetchedResults<Ingredient>
+    @FetchRequest var recipes: FetchedResults<Recipe>
     
     var body: some View {
         List {
@@ -146,18 +146,18 @@ struct BaseEditor: View {
             }
             
             Section(
-                header: Text("Ingredients"),
-                footer: Text(!ingredients.isEmpty ? "Tap on Ingredient Name or Quantity to change." : "No ingredients")
+                header: Text("Recipes"),
+                footer: Text(!recipes.isEmpty ? "Tap on Recipe Name or Quantity to change." : "No recipes")
             ) {
-                if !ingredients.isEmpty {
-                    ForEach(ingredients, id: \.objectID) { ingredient in
-                        IngredientRow(ingredient)
+                if !recipes.isEmpty {
+                    ForEach(recipes, id: \.objectID) { recipe in
+                        RecipeRow(recipe)
                     }
                 }
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Ingredient.self, parent: base, keyPath: \Base.ingredients_))
+        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
     }
 }

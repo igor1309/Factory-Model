@@ -45,12 +45,12 @@ extension Equipment: Orphanable {
 extension Expenses: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "factory == nil") }
 }
-extension Feedstock: Orphanable {
-    static var orphanPredicate: NSPredicate { NSPredicate(format: "ANY ingredients_ == nil") }
-}
 extension Ingredient: Orphanable {
+    static var orphanPredicate: NSPredicate { NSPredicate(format: "ANY recipes_ == nil") }
+}
+extension Recipe: Orphanable {
     static var orphanPredicate: NSPredicate {
-        .all//NSPredicate(format: "base == nil OR feedstock == nil")
+        .all//NSPredicate(format: "base == nil OR ingredient == nil")
     }
 }
 extension Packaging: Orphanable {

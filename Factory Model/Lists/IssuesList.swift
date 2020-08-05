@@ -72,23 +72,23 @@ struct IssuesList: View {
                 }
                 //            }
                 
-                //            if factory.feedstocksHasIssues {
-                GenericListSection(
-                    type: Feedstock.self,
-                    predicate: Feedstock.orphanPredicate
-                ) { (feedstock: Feedstock) in
-                    FeedstockView(feedstock)
-                }
-                //            }
-            }
-            
-            Group {
                 //            if factory.ingredientsHasIssues {
                 GenericListSection(
                     type: Ingredient.self,
                     predicate: Ingredient.orphanPredicate
                 ) { (ingredient: Ingredient) in
                     IngredientView(ingredient)
+                }
+                //            }
+            }
+            
+            Group {
+                //            if factory.recipesHasIssues {
+                GenericListSection(
+                    type: Recipe.self,
+                    predicate: Recipe.orphanPredicate
+                ) { (recipe: Recipe) in
+                    RecipeView(recipe)
                 }
                 //            }
                 

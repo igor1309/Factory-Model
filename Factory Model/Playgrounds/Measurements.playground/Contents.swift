@@ -1,6 +1,6 @@
 import Foundation
 
-class Ingredient {
+class Recipe {
     var qty: Double
     var unit: Dimension
     
@@ -14,35 +14,35 @@ class Ingredient {
     }
 }
 
-class Feedstock {
+class Ingredient {
     var unit: Dimension
-    var ingredients_: [Ingredient]
+    var recipes_: [Recipe]
     
     init(unit: Dimension) {
         self.unit = unit
-        self.ingredients_ = []
+        self.recipes_ = []
     }
     
     var measure: Measurement<Dimension> {
-        ingredients_
+        recipes_
             .reduce(Measurement(value: 0, unit: unit)) {
                 $0 + $1.measure.converted(to: unit)
             }
     }
 }
 
-let ingredient1 = Ingredient(qty: 10_000, unit: UnitMass.kilograms)
+let recipe1 = Recipe(qty: 10_000, unit: UnitMass.kilograms)
+print(recipe1.measure)
+//let recipe2 = Recipe(qty: 1_000, unit: UnitMass.grams)
+let ingredient1 = Ingredient(unit: UnitMass.metricTons)
+ingredient1.recipes_.append(recipe1)
+//ingredient1.recipes_.append(recipe2)
 print(ingredient1.measure)
-//let ingredient2 = Ingredient(qty: 1_000, unit: UnitMass.grams)
-let feedstock1 = Feedstock(unit: UnitMass.metricTons)
-feedstock1.ingredients_.append(ingredient1)
-//feedstock1.ingredients_.append(ingredient2)
-print(feedstock1.measure)
-let ingredient3 = Ingredient(qty: 100, unit: UnitVolume.liters)
-feedstock1.ingredients_.append(ingredient3)
-print(feedstock1.measure)
-print(ingredient1.measure.converted(to: UnitVolume.liters))
-print(ingredient3.measure.converted(to: UnitMass.grams))
+let recipe3 = Recipe(qty: 100, unit: UnitVolume.liters)
+ingredient1.recipes_.append(recipe3)
+print(ingredient1.measure)
+print(recipe1.measure.converted(to: UnitVolume.liters))
+print(recipe3.measure.converted(to: UnitMass.grams))
 
 //----------------------------------------------------------------------------------
 

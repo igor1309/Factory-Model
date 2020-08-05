@@ -153,9 +153,9 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: AllFeedstockList(for: factory)
+                    destination: AllIngredientList(for: factory)
                 ) {
-                    LabelWithDetail("puzzlepiece", "Feedstocks", factory.totalFeedstockCostExVAT.formattedGrouped)
+                    LabelWithDetail("puzzlepiece", "Ingredients", factory.totalIngredientCostExVAT.formattedGrouped)
                 }
             }
             .font(.subheadline)
@@ -221,10 +221,10 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: AllFeedstockList(for: factory)
+                    destination: AllIngredientList(for: factory)
                 ) {
                     ListRow(
-                        title: "Feedstocks",
+                        title: "Ingredients",
                         subtitle: "TBD: .................",
                         detail: "TBD: some extra top-level details(?)",
                         icon: "cart"
