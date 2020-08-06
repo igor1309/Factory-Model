@@ -1,3 +1,5 @@
+//: [Previous](@previous)
+
 import Foundation
 
 class UnitPiece: Dimension {
@@ -46,3 +48,6 @@ let what = myUnit2.unit
 print(myUnit2.unit.symbol)
 
 let dimensionTypes: [Dimension.Type] = [UnitMass.self, UnitVolume.self]
+
+
+//: [Next](@next)

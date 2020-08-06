@@ -35,6 +35,7 @@
 		2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31654924CCD32000AF68A1 /* Packaging.swift */; };
 		2A360C3C24D8077A00804C87 /* SimpleCardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */; };
 		2A3746E824CDF97D008D40F1 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3746E724CDF97D008D40F1 /* Recipe.swift */; };
+		2A59EAA824DB56830063D028 /* undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A59EAA724DB56830063D028 /* undefined.swift */; };
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
 		2A68121B24CD844000CBDD66 /* PackagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121A24CD844000CBDD66 /* PackagingView.swift */; };
 		2A686E2C24D616860078B069 /* CreateNewEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */; };
@@ -131,6 +132,7 @@
 		2A31654924CCD32000AF68A1 /* Packaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packaging.swift; sourceTree = "<group>"; };
 		2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCardViewModifier.swift; sourceTree = "<group>"; };
 		2A3746E724CDF97D008D40F1 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		2A59EAA724DB56830063D028 /* undefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = undefined.swift; sourceTree = "<group>"; };
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
 		2A68121A24CD844000CBDD66 /* PackagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingView.swift; sourceTree = "<group>"; };
 		2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityButton.swift; sourceTree = "<group>"; };
@@ -194,7 +196,6 @@
 		2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryView.swift; sourceTree = "<group>"; };
 		2AC0B51424CB128100175819 /* ProductEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditor.swift; sourceTree = "<group>"; };
 		2AC7952424C76E7500018817 /* WorkerList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkerList.swift; sourceTree = "<group>"; };
-		2ACEE15124D9F37A0042EE08 /* myUnit.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = myUnit.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2AD6C9C224D6BD1E003B28EE /* MassVolumeUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnit.swift; sourceTree = "<group>"; };
 		2AD6C9C424D6BD51003B28EE /* MassVolumeUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MassVolumeUnitPicker.swift; sourceTree = "<group>"; };
 		2AD6C9C724D6E453003B28EE /* Measurements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Measurements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -314,7 +315,6 @@
 			children = (
 				2AD6C9C724D6E453003B28EE /* Measurements.playground */,
 				2A85734A24C62A6E009FF51A /* ReduceArrayIntoDictionary.playground */,
-				2ACEE15124D9F37A0042EE08 /* myUnit.playground */,
 			);
 			path = Playgrounds;
 			sourceTree = "<group>";
@@ -385,6 +385,7 @@
 				2A31654524CC6E1F00AF68A1 /* Playgrounds */,
 				2A936E5224C63DF100C34381 /* Array+Ext.swift */,
 				2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */,
+				2A59EAA724DB56830063D028 /* undefined.swift */,
 				2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */,
 				2AADA0A224C4F4A9005F1E9F /* Info.plist */,
 				2AADA09F24C4F4A9005F1E9F /* Preview Content */,
@@ -515,6 +516,7 @@
 				2A024CF624CD9419001A4B5C /* Validatable.swift in Sources */,
 				2A936E5524C6D5C200C34381 /* Ingredient.swift in Sources */,
 				2AF8EC9124CF5A8000EDA2AE /* Sketchable.swift in Sources */,
+				2A59EAA824DB56830063D028 /* undefined.swift in Sources */,
 				2A30470524C77C3A0002E5DD /* AllSalesList.swift in Sources */,
 				2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */,
 				2A02DF1C24CAF30D00A6E35A /* ProductView.swift in Sources */,
