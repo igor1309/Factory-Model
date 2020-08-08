@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ProductEditor: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var product: Product
     
@@ -18,20 +19,18 @@ struct ProductEditor: View {
     
     var body: some View {
         List {
-            VStack(alignment: .leading, spacing: 2) {
-                LabelWithDetail("title", product.title)
-                LabelWithDetail("subtitle", product.subtitle)
-                LabelWithDetail("detail", product.detail ?? "")
-            }
-            .foregroundColor(.tertiary)
-            .font(.caption2)
-            
             ProductEditorCore(product)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)
+        .navigationBarItems(
+            trailing: Button("Save") {
+                context.saveContext()
+                presentation.wrappedValue.dismiss()
+            }
+        )
         .onDisappear {
-            moc.saveContext()
+            context.saveContext()
         }
     }
 }

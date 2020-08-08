@@ -13,7 +13,7 @@ struct RecipeRow/*<T: Managed>*/: View {
     @ObservedObject var entity: Recipe//T
     //    let keyPath: ReferenceWritableKeyPath<>
     
-    init(_ entity: Recipe) {
+    init(_ entity: Recipe/*T*/) {
         self.entity = entity
     }
     
@@ -30,18 +30,16 @@ struct RecipeRow/*<T: Managed>*/: View {
                 AmountPicker(navigationTitle: "Qty", scale: .small, amount: $entity.qty)
                     .buttonStyle(PlainButtonStyle())
                 
-                UnitPicker(unit_: $entity.unitSymbol_)
-                    .buttonStyle(PlainButtonStyle())
-                //            MassVolumeUnitSubPicker(unitSymbol_: $entity.unitSymbol_)
+                ChildUnitPicker(entity)
+                
             }
             .foregroundColor(.accentColor)
             .font(.subheadline)
             
-            if !entity.isValid {
-                Text(entity.validationMessage)
-                    .foregroundColor(.systemRed)
-                    .font(.caption2)
-            }
+            //            RecipeUnitPicker(entity)
+            
+            ValidationMessage(entity)
+                .font(.caption)
         }
         .contextMenu {
             Button {
@@ -73,6 +71,7 @@ struct RecipeRow/*<T: Managed>*/: View {
 
 struct BaseEditor: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base
     
@@ -125,28 +124,26 @@ struct BaseEditor: View {
             }
             
             Section(
-                header: Text("Weight, Unit")
+                header: Text("Unit")
             ) {
-                HStack {
-                    AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $base.weightNetto)
-                        .foregroundColor(base.weightNetto > 0 ? .accentColor : .systemRed)
-                        .buttonStyle(PlainButtonStyle())
-                    
-                    UnitPicker(unit_: $base.unitSymbol_)
-                        .foregroundColor(base.unitSymbol_ == nil ? .systemRed : .accentColor)
-                        .buttonStyle(PlainButtonStyle())
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
-            
-            if !base.isValid {
-                Text(base.validationMessage)
-                    .foregroundColor(base.isValid ? .systemGreen : .systemRed)
+                ParentUnitPicker(base)
+                    .foregroundColor(.accentColor)
+                    .font(.subheadline)
             }
             
             Section(
-                header: Text("Recipes"),
+                header: Text("Weight Netto")
+            ) {
+                AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $base.weightNetto)
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(base.weightNetto > 0 ? .accentColor : .systemRed)
+                    .font(.subheadline)
+            }
+            
+            ValidationMessage(base)
+            
+            Section(
+                header: Text("Ingredients"),
                 footer: Text(!recipes.isEmpty ? "Tap on Recipe Name or Quantity to change." : "No recipes")
             ) {
                 if !recipes.isEmpty {
@@ -154,10 +151,29 @@ struct BaseEditor: View {
                         RecipeRow(recipe)
                     }
                 }
+                
+                CreateChildButton(
+                    title: "Add Ingredient",
+                    childType: Recipe.self,
+                    parent: base,
+                    keyPath: \Base.recipes_)
+                    .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
+        .navigationBarItems(
+            trailing: HStack {
+//                CreateChildButton(
+//                    systemName: "rectangle.badge.plus",
+//                    childType: Recipe.self,
+//                    parent: base,
+//                    keyPath: \Base.recipes_)
+                Button("Save") {
+                    moc.saveContext()
+                    presentation.wrappedValue.dismiss()
+                }
+            }
+        )
     }
 }

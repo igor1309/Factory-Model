@@ -58,11 +58,7 @@ struct SalesEditorCore: View {
             .font(.subheadline)
         }
 
-        if !sales.isValid {
-            Text(sales.validationMessage)
-                .foregroundColor(.systemRed)
-                .font(.subheadline)
-        }
+        ValidationMessage(sales)
         
         Section(
             header: Text("Total Sales")

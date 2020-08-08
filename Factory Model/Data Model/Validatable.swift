@@ -24,7 +24,7 @@ extension Base: Validatable {
         guard code_ != nil else { return false }
         guard group_ != nil else { return false }
         guard name_ != nil else { return false }
-        guard unitSymbol_ != nil else { return false }
+        guard unitString_ != nil else { return false }
         guard weightNetto > 0 else { return false }
         guard factory != nil else { return false }
         guard recipes_ != nil else { return false }
@@ -34,7 +34,7 @@ extension Base: Validatable {
         guard code_ != nil else { return "ERROR: no code" }
         guard group_ != nil else { return "ERROR: no group" }
         guard name_ != nil else { return "ERROR: no name" }
-        guard unitSymbol_ != nil else { return "ERROR: no unit" }
+        guard unitString_ != nil else { return "ERROR: no unit" }
         guard weightNetto > 0 else { return "ERROR: no Weight Netto" }
         guard factory != nil else { return "ERROR: no factory" }
         guard recipes_ != nil else { return "ERROR: no recipes" }
@@ -53,14 +53,16 @@ extension Ingredient: Validatable {
     var isValid: Bool {
         guard name_ != nil else { return false }
         guard priceExVAT > 0 else { return false }
-        guard unitSymbol_ != nil else { return false }
+        guard unitString_ != nil else { return false }
+        guard !(unitString_ ?? "").isEmpty else { return false }
         guard vat >= 0 else { return false }
         return true
     }
     var validationMessage: String {
         guard name_ != nil else { return "ERROR: no ingredient name" }
         guard priceExVAT > 0 else { return "ERROR: no price" }
-        guard unitSymbol_ != nil else { return "ERROR: no unit" }
+        guard unitString_ != nil else { return "ERROR: no unit" }
+        guard !(unitString_ ?? "").isEmpty else { return "ERROR: no unit" }
         guard vat >= 0 else { return "ERROR: no VAT" }
         return "Ingredient is OK"
     }
@@ -71,14 +73,14 @@ extension Recipe: Validatable {
         guard base != nil else { return false }
         guard ingredient != nil else { return false }
         guard qty > 0 else { return false }
-        guard unitSymbol_ != nil else { return false }
+        guard ingredient?.unitString_ != nil else { return false }
         return true
     }
     var validationMessage: String {
         guard base != nil else { return "ERROR: no base product" }
         guard ingredient != nil else { return "ERROR: ingredient" }
         guard qty > 0 else { return "ERROR: no qty" }
-        guard unitSymbol_ != nil else { return "ERROR: no unit" }
+        guard ingredient?.unitString_ != nil else { return "ERROR: no ingredient unit" }
         return "Recipe is OK"
     }
 }

@@ -29,10 +29,7 @@ struct BaseView: View {
                 }
                 .foregroundColor(.accentColor)
                 
-                if !base.isValid {
-                    Text(base.validationMessage)
-                        .foregroundColor(.systemRed)
-                }
+                ValidationMessage(base)
             }
             
             //  parent check
@@ -101,10 +98,8 @@ struct BaseView: View {
                 header: Text("Sales")
             ) {
                 Group {
-                    LabelWithDetail("square", "Total Sales Qty", base.totalSalesQty.formattedGrouped)
-                    LabelWithDetail("scalemass", "TBD: Total Sales Volume - unit???", base.totalSalesVolume.formattedGrouped)
-                        .foregroundColor(.secondary)
-                    
+                    LabelWithDetail("square", "Total Sales Qty TBD: WHAT UNIT USED???", base.salesQty.formattedGrouped)
+
                     LabelWithDetail(Sales.icon, "Revenue, ex VAT", base.revenueExVAT.formattedGrouped)
                     LabelWithDetail(Sales.icon, "Revenue, with VAT", base.revenueWithVAT.formattedGrouped)
                         .foregroundColor(.secondary)

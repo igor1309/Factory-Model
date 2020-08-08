@@ -9,20 +9,10 @@ import Foundation
 import CoreData
 
 extension Ingredient {
-    var unitKinda: Unit? {
-        get { unitSymbol_ == nil ? nil : Unit(symbol: unitSymbol_!) }
-        set { unitSymbol_ = newValue?.symbol }
+    var customUnit: CustomUnit? {
+        get { CustomUnit(rawValue: unitString_ ?? "") }
+        set { unitString_ = newValue?.rawValue }
     }
-        
-//    var allRecipes: Measurement<Dimension>? {
-//        if let unit = unit {
-//        let measures = recipes
-//            .compactMap { $0.measure }
-//            .reduce(0) { $0 + $1.converted(to: unit).value }
-//        }
-//        return nil
-//    }
-    
     
     var priceWithVAT: Double {
         get { priceExVAT * (1 + vat) }
@@ -35,11 +25,10 @@ extension Ingredient {
 
     var productionQty: Double {
         recipes
-            .map { $0.qty * ($0.base?.productionQty ?? 0) }
-            .reduce(0, +)
+            .reduce(0) { $0 + $1.ingredientQtyInIngredientUnit * ($1.base?.productionQty ?? 0) }
     }
 
-    var totalCostExVat: Double { priceExVAT * productionQty }
+    var totalCostExVat:   Double { priceExVAT   * productionQty }
     var totalCostWithVat: Double { priceWithVAT * productionQty }
 }
 

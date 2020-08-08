@@ -19,6 +19,7 @@ struct CreateChildButton<Child: Managed & Sketchable,
     var path: String?
     let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     let systemName: String
+    let title: String
 
     init(
         systemName: String? = nil,
@@ -27,6 +28,20 @@ struct CreateChildButton<Child: Managed & Sketchable,
         keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     ) {
         self.systemName = systemName == nil ? "plus" : systemName!
+        self.title = ""
+        self.parent = parent
+        self.path = keyPath?._kvcKeyPathString
+        self.keyPath = keyPath
+    }
+    
+    init(
+        title: String,
+        childType: Child.Type,
+        parent: Parent,
+        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
+    ) {
+        self.systemName = ""
+        self.title = title
         self.parent = parent
         self.path = keyPath?._kvcKeyPathString
         self.keyPath = keyPath
@@ -51,8 +66,12 @@ struct CreateChildButton<Child: Managed & Sketchable,
             //  context.saveContext() crashes while using @ObservedObject
             //  context.saveContext()
         } label: {
-            Image(systemName: systemName)
-                .padding([.leading, .vertical])
+            if title.isEmpty {
+                Image(systemName: systemName)
+                    .padding([.leading, .vertical])
+            } else {
+                Text(title)
+            }
         }
     }
 }

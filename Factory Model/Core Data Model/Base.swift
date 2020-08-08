@@ -34,33 +34,17 @@ extension Base {
         set { utilities_ = Set(newValue) as NSSet }
     }
     
-    enum CustomUnit: String, CaseIterable {
-        case weight, piece
 
-        var idd: String {
-            switch self {
-                case .piece:
-                    return "шт"
-                case .weight:
-                    return "г"
-            }
-        }
+    
+    
+    var customUnit: CustomUnit? {
+        get { CustomUnit(rawValue: unitString_ ?? "") }
+        set { unitString_ = newValue?.rawValue }
     }
     
-    var customUnit: CustomUnit {
-        get { CustomUnit(rawValue: unitSymbol_ ?? "weight") ?? .weight }
-        set { unitSymbol_ = newValue.rawValue }
-    }
-    
-    var unit: Unit? {
-        get { unitSymbol_ == nil ? nil : Unit(symbol: unitSymbol_!) }
-        set { unitSymbol_ = newValue?.symbol }
-    }
-    
-//    var sales: [Sales] {
-//        products.flatMap { $0.sales }
-//    }
-    
+
+
+
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
     var baseGroups: [String] {
         factory?.bases.map { $0.group }.removingDuplicates() ?? []
@@ -69,22 +53,16 @@ extension Base {
         products.map { $0.title }.joined(separator: "\n")
     }
     
+    var salesQty: Double {
+        products
+            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.salesQty}
+    }
     var productionQty: Double {
         products
             /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
-            .reduce(0) { $0 + $1.baseQty * $1.productionQty }
+            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty }
     }
-    
-    var totalSalesVolume: Double {
-        weightNetto * totalSalesQty
-    }
-    var totalProductionVolume: Double {
-        weightNetto * productionQty
-    }
-    
-    var totalSalesQty: Double {
-        products.reduce(0) { $0 + $1.baseQty }
-    }
+        
     var revenueExVAT: Double {
         products.reduce(0) { $0 + $1.revenueExVAT }
     }
@@ -92,14 +70,14 @@ extension Base {
         products.reduce(0) { $0 + $1.revenueWithVAT }
     }
     var avgPriceExVAT: Double {
-        if totalSalesQty > 0 {
-            return revenueExVAT / totalSalesQty
+        if salesQty > 0 {
+            return revenueExVAT / salesQty
         } else {
             return 0
         }
     }
     var avgPriceWithVAT: Double {
-        totalSalesQty > 0 ? revenueWithVAT / totalSalesQty : 0
+        salesQty > 0 ? revenueWithVAT / salesQty : 0
     }
     
     var recipesCostExVAT: Double {
@@ -111,7 +89,7 @@ extension Base {
         recipesCostExVAT * productionQty
     }
     var cogs: Double {
-        recipesCostExVAT * totalSalesQty
+        recipesCostExVAT * salesQty
     }
     //  MARK: NOT REALLY MARGIN???
     var margin: Double {
@@ -119,7 +97,7 @@ extension Base {
     }
     
     var closingInventory: Double {
-        initialInventory + productionQty - totalSalesQty
+        initialInventory + productionQty - salesQty
     }
     
     var totalUtilitiesExVAT: Double {
@@ -139,7 +117,7 @@ extension Base: Comparable {
         let base = Base(context: context)
         base.name = "Хинкали"
         base.group = "Заморозка"
-        base.unitSymbol_ = "piece"
+        base.unitString_ = "piece"
         base.weightNetto = 60
         
         let ingredient1 = Ingredient(context: context)

@@ -23,31 +23,58 @@ extension Product {
     var sales: [Sales] {
         get { (sales_ as? Set<Sales> ?? []).sorted() }
         set { sales_ = Set(newValue) as NSSet }
+    }   
+    
+    var parentUnit: CustomUnit? { base?.customUnit }
+    
+    var customUnit: CustomUnit? {
+        get {
+            if let baseUnit = parentUnit {
+                let customUnit = CustomUnit.unit(from: baseUnit, with: coefficientToParentUnit)
+                return customUnit
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let baseUnit = parentUnit,
+               let newValue = newValue,
+               let coefficient = newValue.coefficient(to: baseUnit) {
+                coefficientToParentUnit = coefficient
+            }
+        }
     }
-
-    var weightNetto: Double {
-        (base?.weightNetto ?? 0) * baseQty
+    
+    var baseQtyInBaseUnit: Double {
+        baseQty * coefficientToParentUnit
     }
+    
         
     var baseName: String {
         base?.name ?? "ERROR: no base"
-
     }
-    var totalSalesQty: Double {
+    
+    var salesQty: Double {
         sales.reduce(0) { $0 + $1.qty }
     }
+    
     var revenueExVAT: Double {
         sales.reduce(0) { $0 + $1.revenueExVAT }
     }
     var revenueWithVAT: Double {
         sales.reduce(0) { $0 + $1.revenueWithVAT }
     }
-    var avgPriceExVAT: Double {
-        totalSalesQty > 0 ? revenueExVAT / totalSalesQty : 0
-    }
-    var avgPriceWithVAT: Double { avgPriceExVAT * (1 + vat) }
     
-    var cogs: Double { (base?.cogs ?? 0) * baseQty }
+    var avgPriceExVAT: Double {
+        salesQty > 0 ? revenueExVAT / salesQty : 0
+    }
+    var avgPriceWithVAT: Double {
+        avgPriceExVAT * (1 + vat)
+    }
+    
+    var cogs: Double {
+        (base?.cogs ?? 0) * baseQty
+    }
     
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     var productGroups: [String] {

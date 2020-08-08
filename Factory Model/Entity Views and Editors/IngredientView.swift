@@ -19,8 +19,8 @@ struct IngredientView: View {
     
     var unitHeader: some View {
         let text: String = {
-            if let unit = ingredient.unitKinda {
-                return "Unit (\(unit.symbol))"
+            if let unitString_ = ingredient.unitString_ {
+                return "Unit (\(unitString_))"
             } else {
                 return "Unit"
             }
@@ -32,57 +32,30 @@ struct IngredientView: View {
     var body: some View {
         List {
             Section(
-                header: Text("Ingredient")
+                header: Text("Ingredient Name")
             ) {
                 Group {
                     TextField("Name", text: $ingredient.name)
+                    
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
             
             Section(
-                header: unitHeader,
-                footer: Text("Usef to set Price per Unit.")
-            ) {
-                Group {
-                    MassVolumeUnitSubPicker(unit_: $ingredient.unitSymbol_)
-                    //                    HStack {
-                    //                        Text(ingredient.unit_ ?? "—")
-                    //                            .foregroundColor(.secondary)
-                    //                            .font(.subheadline)
-                    //
-                    //                    }
-                    
-                    //                Text("unit_: \(ingredient.unit_ ?? "no unit_")")
-                    //                Text("unit: \(ingredient.unit == nil ? "not set" : ingredient.unit!.symbol)")
-                    //                Text("unitString: \(ingredient.unitString)")
-                    
-                    //                HStack {
-                    //                    Spacer()
-                    //
-                    //                    ForEach(MassVolumeUnit.allCases, id: \.self) { mvUnit in
-                    //                        Button {
-                    //                            // ingredient.unit_ = unit.rawValue
-                    //                            ingredient.unit_ = mvUnit.unit.symbol
-                    //                        } label: {
-                    //                            Text(mvUnit.rawValue)
-                    //                                .foregroundColor(ingredient.unit == nil ? .accentColor : (ingredient.unit! == mvUnit.unit ? .systemOrange : .accentColor))
-                    //                        }
-                    //                        Spacer()
-                    //                    }
-                    //                }
-                    //                .font(.subheadline)
-                    //                .buttonStyle(PlainButtonStyle())
-                }
-            }
-            
-            Section(
                 header: Text("Price"),
-                footer: Text("Price per Unit.")
+                footer: Text("Price per Unit. Unit is also used to define Recipe unit type (mass, volume, etc).")
             ) {
                 Group {
-                    AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price, ex VAT", scale: .small, amount: $ingredient.priceExVAT)
+                    HStack {
+                        AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price, ex VAT", scale: .small, amount: $ingredient.priceExVAT)
+                            .buttonStyle(PlainButtonStyle())
+                        
+                        Text("/")
+                        
+                        ParentUnitPicker(ingredient)
+                            .buttonStyle(PlainButtonStyle())
+                    }
                     
                     LabelWithDetail("scissors", "Price, with VAT", ingredient.priceWithVAT.formattedGrouped)
                         .foregroundColor(.secondary)
@@ -90,6 +63,8 @@ struct IngredientView: View {
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
             }
+            
+            ValidationMessage(ingredient)
             
             Section(
                 header: Text("VAT")
@@ -101,7 +76,7 @@ struct IngredientView: View {
             
             Section(
                 header: Text("Usage"),
-                footer: Text("Total for the ingredient used in production.")
+                footer: Text("Total for the Ingredient used in production.")
             ) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty.formattedGrouped)
@@ -112,8 +87,13 @@ struct IngredientView: View {
                 .font(.subheadline)
             }
             
-            Text(ingredient.validationMessage)
-                .foregroundColor(ingredient.isValid ? .systemGreen : .systemRed)
+            GenericListSection(
+                header: "Base Products",
+                type: Base.self,
+                predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
+            ) { (base: Base) in
+                BaseEditor(base)
+            }
         }
         .onDisappear {
             moc.saveContext()

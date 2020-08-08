@@ -135,27 +135,9 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: ProductList(for: factory)
-                ) {
-                    LabelWithDetail("bag.circle", "Product/Bases", "TBD")
-                }
-                
-                NavigationLink(
-                    destination: BaseList(for: factory)
-                ) {
-                    LabelWithDetail("bag", "Bases", "TBD")
-                }
-                
-                NavigationLink(
                     destination: Text("Production TBD")
                 ) {
                     LabelWithDetail("bag.fill.badge.plus", "Production", "TBD")
-                }
-                
-                NavigationLink(
-                    destination: AllIngredientList(for: factory)
-                ) {
-                    LabelWithDetail("puzzlepiece", "Ingredients", factory.totalIngredientCostExVAT.formattedGrouped)
                 }
             }
             .font(.subheadline)

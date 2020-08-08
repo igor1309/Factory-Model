@@ -9,21 +9,37 @@ import Foundation
 
 extension Recipe: Comparable {
     
+    var parentUnit: CustomUnit? { ingredient?.customUnit }
     
-//    var unit: Unit? {
-//        get { unit_ == nil ? nil : Unit(symbol: unit_!) }
-//        set { unit_ = newValue?.symbol }
-//    }
-
-//    var measure: Measurement<Dimension>? {
-//        if let unit = unit {
-//            return Measurement(value: qty * base.map { $0.products }.map { $.baseQty }, unit: unit)
-//        }
-//        return nil
-//    }
+    var customUnit: CustomUnit? {
+        get {
+            if let ingredientUnit = parentUnit {
+                let customUnit = CustomUnit.unit(from: ingredientUnit, with: coefficientToParentUnit)
+                return customUnit
+            } else {
+                return nil
+            }
+        }
+        set {
+            if let ingredientUnit = parentUnit,
+               let newValue = newValue,
+               let coefficient = newValue.coefficient(to: ingredientUnit) {
+                coefficientToParentUnit = coefficient
+            }
+        }
+    }
+    var customUnitString: String { customUnit?.rawValue ?? "??" }
+    
+    var ingredientQtyInIngredientUnit: Double {
+        qty * coefficientToParentUnit
+    }
+    
+    var ingredientPriceExVAT: Double {
+        ingredient?.priceExVAT ?? 0
+    }
     
     var cost: Double {
-        qty * (ingredient?.priceExVAT ?? 0)
+        qty * coefficientToParentUnit * ingredientPriceExVAT
     }
     
     public static func < (lhs: Recipe, rhs: Recipe) -> Bool {

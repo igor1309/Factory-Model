@@ -24,47 +24,18 @@ struct ProductView: View {
     
     var body: some View {
         List {
-            VStack(alignment: .leading, spacing: 2) {
-                LabelWithDetail("title", product.title)
-                LabelWithDetail("subtitle", product.subtitle)
-                LabelWithDetail("detail", product.detail ?? "")
-            }
-            .foregroundColor(.tertiary)
-            .font(.caption2)
-            
             Section(
-                header: Text("Product Details")
+                header: Text("Product Details"),
+                footer: Text(product.summary)
             ) {
                 Group {
                     NavigationLink(
                         destination: ProductEditor(product)
                     ) {
-                        Text(product.summary)
+                        Text(product.title)
                     }
                 }
-                .font(.subheadline)
-            }
-            .foregroundColor(product.isValid ? .accentColor : .systemRed)
-            
-            Section(
-                header: Text("Base Product")
-            ) {
-                Group {
-                    Label(product.title, systemImage: "bag")
-                    
-                    LabelWithDetail("scalemass", "Вес продукта", product.weightNetto.formattedGrouped)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-            
-            Section(
-                header: Text("Packaging")
-            ) {
-                Group {
-                    EntityPicker(selection: $product.packaging, icon: Packaging.icon, predicate: nil)
-                        .foregroundColor(product.packaging == nil ? .systemRed : .accentColor)
-                }
+                .foregroundColor(product.isValid ? .accentColor : .systemRed)
                 .font(.subheadline)
             }
             
@@ -72,7 +43,7 @@ struct ProductView: View {
                 header: Text("Production")
             ) {
                 Group {
-                    AmountPicker(systemName: "bag", title: "Production Qty", navigationTitle: "Qty", scale: .medium, amount: $product.productionQty)
+                    AmountPicker(systemName: "bag", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
                         .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
                 }
                 .font(.subheadline)
@@ -83,7 +54,7 @@ struct ProductView: View {
             ) {
                 Group {
                     Group {
-                        LabelWithDetail("square", "Total Sales Product Qty", product.totalSalesQty.formattedGrouped)
+                        LabelWithDetail("square", "Total Sales Product Qty", product.salesQty.formattedGrouped)
                         
                         LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", product.avgPriceExVAT.formattedGrouped)
                         
@@ -92,9 +63,9 @@ struct ProductView: View {
                     .foregroundColor(.primary)
                     
                     Group {
-                        LabelWithDetail(Sales.icon, "Sales Total, with VAT", product.revenueWithVAT.formattedGrouped)
-                        
                         AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
+                        
+                        LabelWithDetail(Sales.icon, "Sales Total, with VAT", product.revenueWithVAT.formattedGrouped)
                     }
                     .foregroundColor(.secondary)
                     

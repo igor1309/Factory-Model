@@ -36,22 +36,8 @@ struct ProductList: View {
     
     @ViewBuilder
     private var dashboard: some View {
-        Text("""
-                TBD:
-                - How to select Base Product to create Product here?
-                - Fix Fetch Requests
-                """)
-            .foregroundColor(.systemRed)
-            .font(.footnote)
-        ListRow(
-            title: "SAMPLE: Название продукта, например, 'Хинкали, 12 шт'",
-            subtitle: "Базовый продукт (base) и упаковка (packaging)",
-            detail: "Объем производства (production), продажи (sales)",
-            icon: "bag.circle"
-        )
-        
         Section(
-            header: Text("Total"),
+            header: Text("TBD Total"),
             footer: Text("Go to Base to create New Product")
         ) {
             Group {
@@ -59,9 +45,9 @@ struct ProductList: View {
                     destination: Text("TBD")
                 ) {
                     ListRow(
-                        title: "Производство и продажи",
-                        subtitle: "Общие выручка и затраты, средние цены продаж, маржа",
-                        detail: "тут ли это показывать???",
+                        title: "TBD Производство и продажи",
+                        subtitle: "TBD Общие выручка и затраты, средние цены продаж, маржа",
+                        detail: "TBD тут ли это показывать???",
                         icon: "cart"
                     )
                 }
@@ -70,9 +56,9 @@ struct ProductList: View {
                     destination: Text("TBD")
                 ) {
                     ListRow(
-                        title: "Агрегированные данные по группам (Product Type)",
-                        subtitle: "Выручка и затраты, средние цены продаж, маржа",
-                        detail: "тут ли это показывать???",
+                        title: "TBD Агрегированные данные по группам (Product Type)",
+                        subtitle: "TBD Выручка и затраты, средние цены продаж, маржа",
+                        detail: "TBD тут ли это показывать???",
                         icon: "cart"
                     )
                 }

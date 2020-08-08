@@ -16,9 +16,16 @@ protocol Summarizable {
 extension Summarizable where Self: Monikerable {
     var title: String { name.isEmpty ? "ERROR: no name" : name }
 }
+
+extension Summarizable where Self: Validatable {
+    var detail: String? {
+        isValid ? nil : validationMessage
+    }
+}
+
 extension Summarizable {
     var subtitle: String { "" }
-    var detail: String? { "" }
+//    var detail: String? { "" }
     
     static var plusButtonIcon: String { "plus" }
 }
@@ -31,19 +38,17 @@ extension Base: Summarizable {
             .joined(separator: " : ")
     }
     
-    var subtitle: String { note }
-    
-    var detail: String? {
-        if closingInventory < 0 {
-            return "ERROR: Negative Closing Inventory"
-        }
+    var subtitle: String {
+        guard isValid else { return validationMessage }
         
         if revenueExVAT > 0 {
-            return "\(totalSalesQty.formattedGrouped) of \(productionQty.formattedGrouped) @ \(avgPriceExVAT) = \(revenueExVAT.formattedGrouped)"
+           return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
         } else {
             return "Production \(productionQty.formattedGrouped)"
         }
     }
+    
+    var detail: String? { note }
     
     static var icon: String { "bag" }
 }
@@ -114,23 +119,20 @@ extension Ingredient: Summarizable {
     var subtitle: String {
         //  MARK: - FINISH THIS
         //        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
-        "Price \(priceExVAT), VAT \(vat.formattedPercentage)"
+        guard let unitString_ = unitString_ else { return "ERROR no Unit" }
+        
+        return "Price \(priceExVAT.formattedGrouped)/\(unitString_), VAT \(vat.formattedPercentage)"
     }
-    
-    var detail: String? { nil }
+
     static var icon: String { "puzzlepiece" }
 }
 
 extension Recipe: Summarizable {
     var title: String { ingredient?.name ?? "ERROR: ingredient unknown" }
     var subtitle: String {
-        qty.formattedGrouped + " @ "
+        qty.formattedGrouped + " " + customUnitString + " @ "
             + (ingredient == nil ? 0: ingredient!.priceExVAT).formattedGrouped
             + " = " + cost.formattedGrouped
-    }
-    
-    var detail: String? {
-        isValid ? nil : validationMessage
     }
     
     static var icon: String { "puzzlepiece" }
@@ -152,24 +154,16 @@ extension Product: Summarizable {
         //            .joined(separator: ", ")
         base == nil
             ? "\(name)"
-            : "\(name) \(baseName), \(baseQty.formattedGrouped) \(base!.customUnit.idd), \(weightNetto.formattedGrouped)г"
+            : "\(name) \(baseName), \(baseQty.formattedGrouped) \(customUnitString)"
     }
     
     var subtitle: String {
-        base == nil
-            ? "ERROR: no base for product"
-            : [name, group, code]
-            .filter { !$0.isEmpty }
-            .joined(separator: ", ")
-    }
-    
-    var detail: String? {
-        if isValid {
-            return [name, group, code]
-                .filter { !$0.isEmpty }
-                .joined(separator: ", ")
+        guard isValid else { return validationMessage }
+        
+        if revenueExVAT > 0 {
+            return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
         } else {
-            return validationMessage
+            return "Production \(productionQty.formattedGrouped)"
         }
     }
     

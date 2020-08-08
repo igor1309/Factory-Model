@@ -16,6 +16,16 @@ struct ProductEditorCore: View {
     
     var body: some View {
         Section(
+            header: Text("Product Title"),
+            footer: Text("Product Title is autogenereated.")
+        ) {
+            Text(product.title)
+                .font(.footnote)
+        }
+        
+        ValidationMessage(product)
+        
+        Section(
             header: Text("Product Details")
         ) {
             Group {
@@ -54,22 +64,19 @@ struct ProductEditorCore: View {
             .font(.subheadline)
         }
         
-        if !product.isValid {
-            Text(product.validationMessage)
-                .foregroundColor(.systemRed)
-                .font(.subheadline)
-        }
-
         Section(
-            header: Text("Base Product"),
-            footer: Text("TBD: на единицу продукта")
-                .foregroundColor(.systemRed)
-                .font(.headline)
+            header: Text("Base Product & Qty")
         ) {
             Group {
                 EntityPicker(selection: $product.base, icon: Product.icon, predicate: nil)
                 
-                AmountPicker(title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
+                HStack {
+                    AmountPicker(systemName: "square.grid.3x3.middleright.fill", title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
+                        .buttonStyle(PlainButtonStyle())
+                    ChildUnitPicker(product)
+                        .buttonStyle(PlainButtonStyle())
+                }
+                .foregroundColor(.accentColor)
             }
             .font(.subheadline)
         }
@@ -78,16 +85,15 @@ struct ProductEditorCore: View {
             header: Text("Packaging")
         ) {
             EntityPicker(selection: $product.packaging, icon: "shippingbox", predicate: nil)
-            .font(.subheadline)
+                .font(.subheadline)
         }
+        .foregroundColor(product.packaging == nil ? .systemRed : .accentColor)
         
         Section(
-            header: Text("VAT")
+            header: Text("VAT (\(product.vat.formattedPercentageWith1Decimal))")
         ) {
             Group {
-                AmountPicker(title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
-                LabelWithDetail("VAT", product.vat.formattedPercentageWith1Decimal)
-                    .foregroundColor(.tertiary)
+                AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
             }
             .font(.subheadline)
         }

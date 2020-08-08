@@ -1,8 +1,13 @@
-//: [Previous](@previous)
+//
+//  CustomUnit.swift
+//  Factory Model
+//
+//  Created by Igor Malyarov on 07.08.2020.
+//
 
 import Foundation
 
-enum CustomUnit: String, CustomStringConvertible {
+enum CustomUnit: String, CaseIterable, CustomStringConvertible {
     case piece = "штук"
     case gram = "грамм"
     case kilogram = "кило"
@@ -13,7 +18,7 @@ enum CustomUnit: String, CustomStringConvertible {
         "unit: \(self.rawValue)"
     }
     
-    func availableCasesFor() -> [CustomUnit] {
+    var availableCasesFor: [CustomUnit] {
         switch self {
             case .piece:
                 return [.piece]
@@ -72,11 +77,3 @@ enum CustomUnit: String, CustomStringConvertible {
         }
     }
 }
-
-let gram = CustomUnit.kilogram
-print(gram.availableCasesFor())
-print(gram.coefficient(to: .gram) ?? "not convertible")
-print(gram.coefficient(to: .tonn) ?? "not convertible")
-print(gram.coefficient(to: .liter) ?? "not convertible")
-
-//: [Next](@next)

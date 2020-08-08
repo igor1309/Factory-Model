@@ -357,38 +357,46 @@ extension Factory {
         
         let milk = Ingredient(context: context)
         milk.name = "Молоко натуральное"
+        milk.unitString_ = "литр"
         milk.priceExVAT = 30.0
         milk.vat = 10/100
         
         let dryMilk = Ingredient(context: context)
         dryMilk.name = "Сухое молоко"
+        dryMilk.unitString_ = "кило"
         dryMilk.priceExVAT = 70
         dryMilk.vat = 10/100
         
         let calciumChloride = Ingredient(context: context)
         calciumChloride.name = "Хлористый кальций"
+        calciumChloride.unitString_ = "грамм"
         calciumChloride.vat = 10/100
         
         let bacterialRefueling = Ingredient(context: context)
         bacterialRefueling.name = "Бактериальная заправка"
+        bacterialRefueling.unitString_ = "грамм"
         bacterialRefueling.vat = 10/100
         
         let rennetFilling = Ingredient(context: context)
         rennetFilling.name = "Сычужная заправка (?)"
+        rennetFilling.unitString_ = "кило"
         rennetFilling.priceExVAT = 8000
         rennetFilling.vat = 10/100
         
         let pepsin = Ingredient(context: context)
         pepsin.name = "Пепсин"
+        pepsin.unitString_ = "грамм"
         pepsin.vat = 10/100
         
         let salt = Ingredient(context: context)
         salt.name = "Соль"
+        salt.unitString_ = "кило"
         salt.priceExVAT = 20
         salt.vat = 10/100
         
         let water = Ingredient(context: context)
         water.name = "Вода"
+        water.unitString_ = "литр"
         water.priceExVAT = 1
         water.vat = 10/100
         
@@ -430,7 +438,6 @@ extension Factory {
         base1_1.note = "Первый продукт"
         base1_1.code = "1001"
         base1_1.group = "Сыры"
-        base1_1.customUnit = .weight
         base1_1.weightNetto = 1_000
         base1_1.recipes = [recipe1, recipe2, recipe5, recipe7, recipe8]
         base1_1.factory = factory1

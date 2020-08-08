@@ -16,25 +16,25 @@ struct FactoryList: View {
             List {
                 
                 Section(
-                    header: Text("Recipes. Temporary here")
+                    header: Text("Temporary here")
                         .foregroundColor(.systemRed)
                 ) {
                     NavigationLink(
                         destination:
                             List {
                                 GenericListSection(
-                                    type: Base.self,
+                                    type: Ingredient.self,
                                     predicate: nil
-                                ) { (base: Base) in
-                                    BaseEditor(base)
+                                ) { (ingredient: Ingredient) in
+                                    IngredientView(ingredient)
                                 }
                             }
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Text("Bases")
+                        Text("Ingredients")
                     }
-
+                    
                     NavigationLink(
                         destination:
                             List {
@@ -55,9 +55,23 @@ struct FactoryList: View {
                     ) {
                         Text("Recipes")
                     }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Base.self,
+                                    predicate: nil
+                                ) { (base: Base) in
+                                    BaseEditor(base)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Text("Bases")
+                    }
                 }
-                
-
                 
                 GenericListSection(
                     type: Factory.self,
@@ -71,21 +85,31 @@ struct FactoryList: View {
             .navigationTitle("Factories")
             .navigationBarItems(
                 trailing: HStack {
-                    plusSampleButton
+                    plusSampleButton1
+                    plusSampleButton2
                     CreateOrphanButton<Factory>()
                     CreateNewEntityButton()
                 }
             )
         }
     }
-        
-    private var plusSampleButton: some View {
+    
+    private var plusSampleButton1: some View {
         Button {
             let _ = Factory.createFactory1(in: context)
+            context.saveContext()
+        } label: {
+            Image(systemName: "plus.circle")
+                .padding([.leading, .vertical])
+        }
+    }
+    
+    private var plusSampleButton2: some View {
+        Button {
             let _ = Factory.createFactory2(in: context)
             context.saveContext()
         } label: {
-            Image(systemName: "rectangle.stack.badge.plus")
+            Image(systemName: "plus.square")
                 .padding([.leading, .vertical])
         }
     }

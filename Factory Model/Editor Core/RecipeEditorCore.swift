@@ -14,60 +14,38 @@ struct RecipeEditorCore: View {
         self.recipe = recipe
     }
     
-    var unitHeader: some View {
-        let text: String = {
-            if let unit = recipe.unit {
-                return "Unit (\(unit.symbol))"
-            } else {
-                return "Unit"
-            }
-        }()
-        
-        return Text(text)
-    }
-    
     var body: some View {
-        Section(
-            header: Text("Short version")
-        ) {
-            RecipeRow(recipe)
-        }
-        
         Section(
             header: Text("Base product")
         ) {
             EntityPicker(selection: $recipe.base, icon: Base.icon, predicate: nil)
+                .font(.subheadline)
         }
         
         Section(
             header: Text("Ingredient")
         ) {
-            EntityPicker(selection: $recipe.ingredient, icon: Ingredient.icon, predicate: nil)
-                .font(.subheadline)
+            Group {
+                RecipeRow(recipe)
+                                
+                Group {
+                    LabelWithDetail("dollarsign.circle", "Cost", recipe.cost.formattedGrouped)
+                    
+                    LabelWithDetail("square.grid.3x3.middleright.fill", "Coefficient", "\(recipe.coefficientToParentUnit)")
+                }
+                .foregroundColor(.secondary)
+            }
+            .font(.subheadline)
         }
         
         Section(
-            header: Text("Ingredient Qty")
-        ) {
-            AmountPicker(systemName: "square", title: "Ingredient Qty", navigationTitle: "Qty", scale: .small, amount: $recipe.qty)
-                .font(.subheadline)
-            
-        }
-        
-        Section(
-            header: unitHeader
+            header: Text("Unit (\(recipe.customUnitString))")
         ) {
             Group {
-                LabelWithDetail("recipe.unit", "\(recipe.unit == nil ? "Unit not defined" : recipe.unit!.symbol)")
-                MassVolumeUnitPicker<Recipe>(unit: $recipe.unit)
-                    .pickerStyle(SegmentedPickerStyle())
-                
-                Divider()
-                MassVolumeUnitSubPicker(unit_: $recipe.unitSymbol_)
+                LabelWithDetail("recipe.unit", "\(recipe.parentUnitString)")
             }
         }
         
-        Text(recipe.validationMessage)
-            .foregroundColor(recipe.isValid ? .systemGreen : .systemRed)
+        ValidationMessage(recipe)
     }
 }

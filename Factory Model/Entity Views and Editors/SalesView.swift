@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SalesView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales
     
@@ -61,8 +62,14 @@ struct SalesView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales Editor")
+        .navigationBarItems(
+            trailing: Button("Save") {
+                context.saveContext()
+                presentation.wrappedValue.dismiss()
+            }
+        )
         .onDisappear {
-            moc.saveContext()
+            context.saveContext()
         }
     }
     
