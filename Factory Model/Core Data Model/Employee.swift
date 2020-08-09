@@ -1,5 +1,5 @@
 //
-//  Worker.swift
+//  Employee.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 20.07.2020.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Worker {
+extension Employee {
     var note: String {
         get { note_ ?? ""}
         set { note_ = newValue }
@@ -23,8 +23,8 @@ extension Worker {
     }
 }
 
-extension Worker: Comparable {
-    public static func < (lhs: Worker, rhs: Worker) -> Bool {
+extension Employee: Comparable {
+    public static func < (lhs: Employee, rhs: Employee) -> Bool {
         lhs.position < rhs.position
             && lhs.name < rhs.name
     }

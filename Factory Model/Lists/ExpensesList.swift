@@ -22,7 +22,7 @@ struct ExpensesList: View {
                 header: Text("Total"),
                 footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
             ) {
-                LabelWithDetail("Expenses Total", factory.expensesTotal.formattedGrouped)
+                LabelWithDetail("Expenses Total", factory.expensesExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

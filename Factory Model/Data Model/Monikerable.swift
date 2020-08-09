@@ -36,4 +36,4 @@ extension Packaging: Monikerable {}
 extension Product: Monikerable {}
 extension Sales: Monikerable {}
 extension Utility: Monikerable {}
-extension Worker: Monikerable {}
+extension Employee: Monikerable {}

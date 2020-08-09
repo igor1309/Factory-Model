@@ -67,6 +67,6 @@ extension Sales: Orphanable {
 extension Utility: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "base == nil") }
 }
-extension Worker: Orphanable {
+extension Employee: Orphanable {
     static var orphanPredicate: NSPredicate { NSPredicate(format: "department == nil") }
 }

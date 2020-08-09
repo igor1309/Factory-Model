@@ -24,7 +24,7 @@ struct DivisionList: View {
                 Group {
                     LabelWithDetail("person.crop.rectangle", "Total Headcount", factory.headcount.formattedGrouped)
                     
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(factory.totalSalaryWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(factory.salaryWithTax.formattedGrouped)")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -35,7 +35,7 @@ struct DivisionList: View {
             ) {
                 Group {
                     NavigationLink(
-                        destination: AllWorkersList(for: factory)
+                        destination: AllEmployeesList(for: factory)
                     ) {
                         Label("All Factory Personnel", systemImage: "person.2")
                     }

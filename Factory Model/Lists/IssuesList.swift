@@ -127,12 +127,12 @@ struct IssuesList: View {
                 }
                 //            }
                 
-                //            if factory.workersHasIssues {
+                //            if factory.employeesHasIssues {
                 GenericListSection(
-                    type: Worker.self,
-                    predicate: Worker.orphanPredicate
-                ) { (worker: Worker) in
-                    WorkerView(worker)
+                    type: Employee.self,
+                    predicate: Employee.orphanPredicate
+                ) { (employee: Employee) in
+                    EmployeeView(employee)
                 }
                 //            }
             }

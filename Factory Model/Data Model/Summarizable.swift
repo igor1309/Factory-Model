@@ -193,7 +193,7 @@ extension Utility: Summarizable {
     static var icon: String { "lightbulb" }
 }
 
-extension Worker: Summarizable {
+extension Employee: Summarizable {
     var subtitle: String {
         guard department != nil else { return "ERROR no department" }
         

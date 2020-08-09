@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct ProfitLossStatement: View {
-    //    var factory: Factory
+    var factory: Factory
+    
+    init(for factory: Factory) {
+        self.factory = factory
+    }
     
     private func header(_ text: String) -> some View {
         Text(text.uppercased())
@@ -25,37 +29,52 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Revenue")
                     ) {
-                        FinancialLabel("Sales, ex VAT", value: "TBD", percentage: nil)
-                        FinancialLabel("Sales, with VAT", value: "TBD", percentage: nil, font: .caption)
+                        FinancialLabel("Sales, ex VAT", value: factory.revenueExVAT, percentage: nil)
+                        FinancialLabel("Sales, with VAT", value: factory.revenueWithVAT, percentage: nil, font: .caption)
                             .foregroundColor(.secondary)
                     }
                     
                     Section(
-                        header: header("Production Cost")
+                        header: header("COGS")
                     ) {
                         Group {
-                            FinancialLabel("Ingredient Cost, ex VAT", value: "TBD", percentage: "TBD")
-                            FinancialLabel("Labor incl taxes", value: "TBD", percentage: "TBD")
-                            FinancialLabel("Utilities, ex VAT", value: "TBD", percentage: "TBD")
-                            FinancialLabel("Amortization", value: "TBD", percentage: "TBD")
+                            FinancialLabel(
+                                "Ingredient Cost, ex VAT",
+                                value:      factory.salesIngredientCostExVAT,
+                                percentage: factory.salesIngredientCostExVATPercentage
+                            )
+                            FinancialLabel(
+                                "Salary incl taxes",
+                                value: factory.productionSalaryWithTax,
+                                percentage: factory.productionSalaryWithTaxPercentage
+                            )
+                            FinancialLabel("Utilities, ex VAT", value: factory.utilitiesExVAT, percentage: factory.utilitiesExVATPercentage)
+                            FinancialLabel("Depreciation", value: factory.depreciationMonthly, percentage: factory.depreciationMonthlyPercentage)
                         }
                         .foregroundColor(.secondary)
-
-                        FinancialLabel("Total Productoin Cost", value: "TBD", percentage: "TBD")
+                        
+                        FinancialLabel(
+                            "COGS",
+                            value:      factory.cogsExVAT,
+                            percentage: factory.cogsExVATPercentage
+                        )
                     }
                     
                     Section(
                         header: header("Margin")
                     ) {
-                        FinancialLabel("Margin", value: "TBD", percentage: "TBD")
-//                            .foregroundColor(.secondary)
+                        FinancialLabel("Margin", value: factory.margin, percentage: factory.marginPercentage)
+                            .foregroundColor(factory.margin > 0 ? .primary : .systemRed)
                     }
                     
                     Section(
                         header: header("Expenses")
                     ) {
-                        FinancialLabel("Expenses, ex VAT", value: "TBD", percentage: "TBD")
-                            .foregroundColor(.secondary)
+                        Group {
+                            FinancialLabel("Non Production Salary incl taxes", value: factory.nonProductionSalaryWithTax, percentage: factory.nonProductionSalaryWithTaxPercentage)
+                            FinancialLabel("Expenses, ex VAT", value: factory.expensesExVAT, percentage: factory.expensesExVATPercentage)
+                        }
+                        .foregroundColor(.secondary)
                     }
                     
                     Divider()
@@ -63,8 +82,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("EBIT")
                     ) {
-                        FinancialLabel("EBIT", value: "TBD", percentage: "TBD")
-//                            .foregroundColor(.secondary)
+                        FinancialLabel("EBIT", value: factory.ebit, percentage: factory.ebitPercentage)
+                            .foregroundColor(factory.ebit > 0 ? .primary : .systemRed)
                     }
                 }
                 
@@ -72,7 +91,7 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Taxes")
                     ) {
-                        FinancialLabel("Profit Tax", value: "TBD", percentage: "TBD")
+                        FinancialLabel("Profit Tax", value: factory.profitTax, percentage: factory.profitTaxPercentage)
                     }
                     
                     Divider()
@@ -80,7 +99,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Net Profit")
                     ) {
-                        FinancialLabel("Net Profit", value: "TBD", percentage: "TBD")
+                        FinancialLabel("Net Profit", value: factory.netProfit, percentage: factory.netProfitPercentage)
+                            .foregroundColor(factory.netProfit > 0 ? .primary : .systemRed)
                     }
                     
                     Divider()
@@ -88,8 +108,22 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("EBITDA")
                     ) {
-                        FinancialLabel("EBITDA", value: "TBD", percentage: "TBD")
-                            .foregroundColor(.secondary)
+                        FinancialLabel("EBITDA", value: factory.ebitda, percentage: factory.ebitdaPercentage)
+                            .foregroundColor(factory.ebitda > 0 ? .primary : .systemRed)
+                    }
+                    
+                    Divider()
+                    
+                    Section(
+                        header: header("Salary")
+                    ) {
+                        Group {
+                            FinancialLabel("Production Salary", value: factory.productionSalaryWithTax, percentage: factory.productionSalaryWithTaxPercentage)
+                            FinancialLabel("Non Production Salary", value: factory.nonProductionSalaryWithTax, percentage: factory.nonProductionSalaryWithTaxPercentage)
+                        }
+                        .foregroundColor(.secondary)
+                        
+                        FinancialLabel("Total Salary incl taxes", value: factory.salaryWithTax, percentage: factory.salaryWithTaxPercentage)
                     }
                 }
             }
@@ -98,10 +132,10 @@ struct ProfitLossStatement: View {
     }
 }
 
-struct ProfitLossStatement_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfitLossStatement()
-            .preferredColorScheme(.dark)
-//            .previewLayout(.fixed(width: 375, height: 1300))
-    }
-}
+//struct ProfitLossStatement_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfitLossStatement)
+//            .preferredColorScheme(.dark)
+//        //            .previewLayout(.fixed(width: 375, height: 1300))
+//    }
+//}

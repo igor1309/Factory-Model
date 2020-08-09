@@ -1,5 +1,5 @@
 //
-//  WorkerList.swift
+//  EmployeeList.swift
 //  Department Model
 //
 //  Created by Igor Malyarov on 21.07.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WorkerList: View {
+struct EmployeeList: View {
     @Environment(\.managedObjectContext) var moc
     
     @ObservedObject var department: Department
@@ -20,14 +20,14 @@ struct WorkerList: View {
         ListWithDashboard(
             for: department,
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Worker.department), department
+                format: "%K == %@", #keyPath(Employee.department), department
             )
         ) {
             CreateChildButton(
                 systemName: "person.2",
-                childType: Worker.self,
+                childType: Employee.self,
                 parent: department,
-                keyPath: \Department.workers_
+                keyPath: \Department.employees_
             )
         } dashboard: {
             Section(header: Text("Total")) {
@@ -35,8 +35,8 @@ struct WorkerList: View {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
-        } editor: { (worker: Worker) in
-            WorkerView(worker)
+        } editor: { (employee: Employee) in
+            EmployeeView(employee)
         }
         
     }

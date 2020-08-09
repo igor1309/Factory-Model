@@ -1,5 +1,5 @@
 //
-//  AllWorkersList.swift
+//  AllEmployeesList.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 31.07.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AllWorkersList: View {
+struct AllEmployeesList: View {
     @Environment(\.managedObjectContext) var context
     
     @ObservedObject var factory: Factory
@@ -19,21 +19,21 @@ struct AllWorkersList: View {
     var body: some View {
         ListWithDashboard(
             for: factory,
-            title: "All Workers",
-            predicate: Worker.factoryPredicate(for: factory)
+            title: "All Employees",
+            predicate: Employee.factoryPredicate(for: factory)
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
             EmptyView()
             /*
             CreateChildButton(
                 systemName: "cart.badge.plus",
-                childType: Worker.self, parent: factory,
-                keyPath: \Factory.workers_
+                childType: Employee.self, parent: factory,
+                keyPath: \Factory.employees_
             ) */
         } dashboard: {
             
-        } editor: { (worker: Worker) in
-            WorkerView(worker)
+        } editor: { (employee: Employee) in
+            EmployeeView(employee)
         }
     }
 }

@@ -8,20 +8,20 @@
 import Foundation
 
 extension Department: Comparable {
-    var workers: [Worker] {
-        get { (workers_ as? Set<Worker> ?? []).sorted() }
-        set { workers_ = Set(newValue) as NSSet }
+    var employees: [Employee] {
+        get { (employees_ as? Set<Employee> ?? []).sorted() }
+        set { employees_ = Set(newValue) as NSSet }
     }
     
-    var headcount: Int { workers.count }
+    var headcount: Int { employees.count }
 
     var totalSalary: Double {
-        workers
+        employees
             .map { $0.salary }
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
-        workers
+        employees
             .map { $0.salaryWithTax }
             .reduce(0, +)
     }

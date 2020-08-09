@@ -1,5 +1,5 @@
 //
-//  WorkerView.swift
+//  EmployeeView.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 21.07.2020.
@@ -7,43 +7,43 @@
 
 import SwiftUI
 
-struct WorkerView: View {
+struct EmployeeView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentation
     
-    @ObservedObject var worker: Worker
+    @ObservedObject var employee: Employee
     
-    //    @FetchRequest private var factoryWorker: FetchedResults<Worker>
+    //    @FetchRequest private var factoryEmployee: FetchedResults<Employee>
     
-    init(_ worker: Worker) {
-        self.worker = worker
-        //        _factoryWorker = FetchRequest(
-        //            entity: Worker.entity(),
+    init(_ employee: Employee) {
+        self.employee = employee
+        //        _factoryEmployee = FetchRequest(
+        //            entity: Employee.entity(),
         //            sortDescriptors: [
-        //                //                NSSortDescriptor(keyPath: \Worker.division_, ascending: true),
-        //                //                NSSortDescriptor(keyPath: \Worker.department_, ascending: true),
-        //                //                NSSortDescriptor(keyPath: \Worker.position_, ascending: true)
+        //                //                NSSortDescriptor(keyPath: \Employee.division_, ascending: true),
+        //                //                NSSortDescriptor(keyPath: \Employee.department_, ascending: true),
+        //                //                NSSortDescriptor(keyPath: \Employee.position_, ascending: true)
         //            ],
         //            predicate: NSPredicate(
-        //                format: "ANY %K == %@", #keyPath(Worker.factory.worker_), worker
+        //                format: "ANY %K == %@", #keyPath(Employee.factory.employee_), employee
         //            )
         //        )
     }
     
     //    var positions: [String] {
-    //        factoryWorker
+    //        factoryEmployee
     //            .map { $0.position }
     //            .removingDuplicates()
     //    }
     //
     //    var departments: [String] {
-    //        factoryWorker
+    //        factoryEmployee
     //            .map { $0.department ??  }
     //            .removingDuplicates()
     //    }
     //
     //    var divisions: [String] {
-    //        factoryWorker
+    //        factoryEmployee
     //            .map { $0.division }
     //            .removingDuplicates()
     //    }
@@ -54,8 +54,8 @@ struct WorkerView: View {
                 header: Text("Person")
             ) {
                 Group {
-                    TextField("Name", text: $worker.name)
-                    TextField("Note", text: $worker.note)
+                    TextField("Name", text: $employee.name)
+                    TextField("Note", text: $employee.note)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -65,12 +65,12 @@ struct WorkerView: View {
                 header: Text("Position")
             ) {
                 Group {
-                    PickerWithTextField(selection: $worker.position, name: "", values: ["TBD"])
-                    //                    StringPicker(title: worker.position, items: positions, selection: $worker.position)
+                    PickerWithTextField(selection: $employee.position, name: "", values: ["TBD"])
+                    //                    StringPicker(title: employee.position, items: positions, selection: $employee.position)
                     //
-                    //                    StringPicker(title: worker.department, items: departments, selection: $worker.department)
+                    //                    StringPicker(title: employee.department, items: departments, selection: $employee.department)
                     //
-                    //                    StringPicker(title: worker.division, items: divisions, selection: $worker.division)
+                    //                    StringPicker(title: employee.division, items: divisions, selection: $employee.division)
                 }
                 .foregroundColor(.accentColor)
                 .font(.subheadline)
@@ -85,11 +85,11 @@ struct WorkerView: View {
                         title: "Salary ex taxes",
                         navigationTitle: "Salary",
                         scale: .extraLarge,
-                        amount: $worker.salary
+                        amount: $employee.salary
                     )
                     .foregroundColor(.accentColor)
                     
-                    LabelWithDetail("dollarsign.circle", "Salary with tax", worker.salaryWithTax.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Salary with tax", employee.salaryWithTax.formattedGrouped)
                         .foregroundColor(.secondary)
                 }
                 .font(.subheadline)
@@ -97,20 +97,20 @@ struct WorkerView: View {
             
             Section(
                 header: Text("Department"),
-                footer: Text(worker.department == nil ? "ERROR: no department" : "Department could be changed.")
+                footer: Text(employee.department == nil ? "ERROR: no department" : "Department could be changed.")
             ) {
                 Group {
                     EntityPicker(
-                        selection: $worker.department
+                        selection: $employee.department
                     )
                 }
                 //  .foregroundColor(.secondary) not .foregroundColor(.accentColor) to hide (diminish possibility of changing Department
-                .foregroundColor(worker.department == nil ? .systemRed : .secondary)
+                .foregroundColor(employee.department == nil ? .systemRed : .secondary)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(worker.name)
+        .navigationTitle(employee.name)
         .navigationBarItems(trailing: saveButton)
     }
     
@@ -122,8 +122,8 @@ struct WorkerView: View {
     }
 }
 
-//struct WorkerView_Previews: PreviewProvider {
+//struct EmployeeView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        WorkerView()
+//        EmployeeView()
 //    }
 //}

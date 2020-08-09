@@ -43,7 +43,8 @@ struct BaseView: View {
             }
 
             Section(
-                header: Text("Cost")
+                header: Text("Cost"),
+                footer: Text("Cost, ex VAT")
             ) {
                 Group {
                     NavigationLink(
@@ -58,11 +59,11 @@ struct BaseView: View {
                             RecipeView(recipe)
                         }
                     ) {
-                        LabelWithDetail("puzzlepiece", "Ingredients Cost", base.recipesCostExVAT.formattedGrouped)
+                        LabelWithDetail("puzzlepiece", "Ingredients Cost, ex VAT", base.ingredientsExVAT.formattedGrouped)
                     }
 
                     NavigationLink(
-                        destination: Text("TBD: Labor Cost")
+                        destination: Text("TBD: Labor Cost incl taxes")
                     ) {
                         LabelWithDetail("person.2", "Labor Cost", "TBD")
                     }
@@ -70,11 +71,12 @@ struct BaseView: View {
                     NavigationLink(
                         destination: UtilityList(for: base)
                     ) {
-                        LabelWithDetail("lightbulb", "Utility Cost", "TBD")
+                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", base.utilitiesExVAT.formattedGrouped)
                     }
-                    
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", base.recipesCostExVAT.formattedGrouped)
+                                        
+                    LabelWithDetail("dollarsign.square", "Unit Cost of Base Product", base.ingredientsExVAT.formattedGrouped)
                         .foregroundColor(.primary)
+                        .padding(.trailing)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

@@ -21,13 +21,13 @@ struct FactoryView: View {
     var body: some View {
         List {
             Group {
+                booksSection
+                
                 issuesSection
                 
                 salesSection
             
                 productionSection
-            
-                booksSection
             }
             
             Group {
@@ -42,6 +42,8 @@ struct FactoryView: View {
                 Group {
                     TextField("Name", text: $factory.name)
                     TextField("Note", text: $factory.note)
+                    
+                    AmountPicker(systemName: "scissors", title: "Profit Tax Rate", navigationTitle: "Profit Tax", scale: .percent, amount: $factory.profitTaxRate)
                 }
                 .foregroundColor(.accentColor)
             }
@@ -58,7 +60,7 @@ struct FactoryView: View {
             header: Text("Books")
         ) {
             NavigationLink(
-                destination: BooksView(factory: factory)
+                destination: BooksView(for: factory)
             ) {
                 ListRow(
                     title: "Reports",
@@ -81,7 +83,7 @@ struct FactoryView: View {
                 ListRow(
                     title: "Salvage Value [TBD amount]",
                     subtitle: "Cost basis [TBD amount]",
-                    detail: "TBD: amortization details",
+                    detail: "TBD: Depreciation details",
                     icon: "wrench.and.screwdriver"
                 )
             }
@@ -154,14 +156,14 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Divisions",
-                        subtitle: "Total Salary incl taxes \(factory.totalSalaryWithTax.formattedGrouped)",
+                        subtitle: "Total Salary incl taxes \(factory.salaryWithTax.formattedGrouped)",
                         detail: factory.divisionNames,
                         icon: "person.crop.rectangle"
                     )
                 }
                 
                 NavigationLink(
-                    destination: AllWorkersList(for: factory)
+                    destination: AllEmployeesList(for: factory)
                 ) {
                     ListRow(
                         title: "People (\(factory.headcount.formattedGrouped))",

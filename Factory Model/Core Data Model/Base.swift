@@ -45,13 +45,16 @@ extension Base {
 
 
 
-    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
+    //  MARK: FIX THIS: неоптимально —
+    //  нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
     var baseGroups: [String] {
         factory?.bases.map { $0.group }.removingDuplicates() ?? []
     }
     var productList: String {
         products.map { $0.title }.joined(separator: "\n")
     }
+    
+    //  MARK: - Qty
     
     var salesQty: Double {
         products
@@ -62,6 +65,8 @@ extension Base {
             /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
             .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty }
     }
+    
+    //  MARK: - Revenue & Avg Price
         
     var revenueExVAT: Double {
         products.reduce(0) { $0 + $1.revenueExVAT }
@@ -80,60 +85,100 @@ extension Base {
         salesQty > 0 ? revenueWithVAT / salesQty : 0
     }
     
-    var recipesCostExVAT: Double {
+
+    //  MARK: - Costs per Unit
+    
+    var ingredientsExVAT: Double {
         recipes
             .map { $0.qty * ($0.ingredient?.priceExVAT ?? 0) }
             .reduce(0, +)
     }
-    var totalCostExVAT: Double {
-        recipesCostExVAT * productionQty
+    
+    //  MARK: - FINISH THIS
+    var salaryWithTax: Double { 0 }
+    
+    //  MARK: - FINISH THIS
+    var depreciationWithTax: Double { 0 }
+    
+    //  MARK: Utilities per Unit
+    
+    var utilitiesExVAT: Double {
+        utilities
+            .reduce(0) { $0 + $1.priceExVAT }
     }
-    var cogs: Double {
-        recipesCostExVAT * salesQty
+    var utilitiesWithVAT: Double {
+        utilities
+            .reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
     }
-    //  MARK: NOT REALLY MARGIN???
+    
+    //  MARK: Full Unit Cost
+    
+    var cost: Double {
+        ingredientsExVAT + salaryWithTax + utilitiesExVAT
+    }
+    
+    //  MARK: - Costs for all sold Products
+    
+    var salesIngrediensExVAT: Double {
+        ingredientsExVAT * salesQty
+    }
+
+    var salesSalaryWithTax: Double {
+        salaryWithTax * salesQty
+    }
+    
+    var salesUtilitiesExVAT: Double {
+        utilitiesExVAT * salesQty
+    }
+    
+    var salesUtilitiesWithVAT: Double {
+        utilitiesWithVAT * salesQty
+    }
+    
+    var salesCostExVAT: Double {
+        cost * salesQty
+    }
+    
+    var cogs: Double { salesCostExVAT }
+    
+    //  MARK: - Costs for all produced Products
+    
+    var productionIngrediensExVAT: Double {
+        ingredientsExVAT * productionQty
+    }
+    
+    var productionSalaryWithTax: Double {
+        salaryWithTax * productionQty
+    }
+    
+    var productionUtilitiesExVAT: Double {
+        utilitiesExVAT * productionQty
+    }
+    
+    var productionUtilitiesWithVAT: Double {
+        utilitiesWithVAT * productionQty
+    }
+    
+    var productionCostExVAT: Double {
+        cost * productionQty
+    }
+    
+
+    
+    //  MARK: - NOT REALLY MARGIN???
     var margin: Double {
         revenueExVAT - cogs
     }
+
+    //  MARK: - Closing Inventory
     
     var closingInventory: Double {
         initialInventory + productionQty - salesQty
-    }
-    
-    var totalUtilitiesExVAT: Double {
-        utilities.reduce(0) { $0 + $1.priceExVAT }
-    }
-    var totalUtilitiesWithVAT: Double {
-        utilities.reduce(0) { $0 + $1.priceExVAT * $1.vat}
     }
 }
 
 extension Base: Comparable {
     public static func < (lhs: Base, rhs: Base) -> Bool {
         lhs.code < rhs.code
-    }
-    
-    static func createBase2_1(in context: NSManagedObjectContext) -> Base {
-        let base = Base(context: context)
-        base.name = "Хинкали"
-        base.group = "Заморозка"
-        base.unitString_ = "piece"
-        base.weightNetto = 60
-        
-        let ingredient1 = Ingredient(context: context)
-        ingredient1.name = "Мука"
-        
-        let recipe1 = Recipe(context: context)
-        recipe1.ingredient = ingredient1
-        
-        let ingredient2 = Ingredient(context: context)
-        ingredient2.name = "Мясо"
-        
-        let recipe2 = Recipe(context: context)
-        recipe2.ingredient = ingredient2
-        
-        base.recipes = [recipe1, recipe2]
-        
-        return base
     }
 }

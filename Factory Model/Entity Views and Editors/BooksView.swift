@@ -10,9 +10,13 @@ import SwiftUI
 struct BooksView: View {
     var factory: Factory
     
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
     var body: some View {
         TabView {
-            ProfitLossStatement()
+            ProfitLossStatement(for: factory)
             Text("TBD")
         }
 //        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))

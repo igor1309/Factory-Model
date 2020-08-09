@@ -28,7 +28,7 @@ struct EquipmentList: View {
                     
                     LabelWithDetail("wrench.and.screwdriver", "Cost basis", factory.equipmentTotal.formattedGrouped)
                     
-                    LabelWithDetail("dollarsign.circle", "Amortization, monthly", factory.depreciationMonthly.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Depreciation, monthly", factory.depreciationMonthly.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

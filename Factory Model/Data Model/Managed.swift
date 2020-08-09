@@ -66,7 +66,7 @@ extension Managed where Self: NSManagedObject {
                 return "Sales"
             case "Utility":
                 return "Utilities"
-            case "Worker":
+            case "Employee":
                 return "Personnel"
             default:
                 return entityName
@@ -112,4 +112,4 @@ extension Packaging: Managed {}
 extension Product: Managed {}
 extension Sales: Managed {}
 extension Utility: Managed {}
-extension Worker: Managed {}
+extension Employee: Managed {}

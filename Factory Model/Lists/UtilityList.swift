@@ -32,10 +32,10 @@ struct UtilityList: View {
                 header: Text("Total")
             ) {
                 Group {
-                    LabelWithDetail("Utility Total, ex VAT", base.totalUtilitiesExVAT.formattedGrouped)
-                    LabelWithDetail("Utility Total, incl VAT", base.totalUtilitiesWithVAT.formattedGrouped)
+                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT.formattedGrouped)
+                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT.formattedGrouped)
+                        .foregroundColor(.secondary)
                 }
-                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
         } editor: { (utility: Utility) in

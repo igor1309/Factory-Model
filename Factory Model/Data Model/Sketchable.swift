@@ -67,4 +67,4 @@ extension Utility: Sketchable {
     }
 }
 
-extension Worker: Sketchable {}
+extension Employee: Sketchable {}

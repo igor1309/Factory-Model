@@ -48,7 +48,7 @@ struct IngredientList: View {
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.recipesCostExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -75,7 +75,7 @@ struct IngredientList: View {
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.recipesCostExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

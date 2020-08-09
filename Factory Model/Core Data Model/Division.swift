@@ -22,13 +22,13 @@ extension Division: Comparable {
     
     var totalSalary: Double {
         departments
-            .flatMap { $0.workers }
+            .flatMap { $0.employees }
             .map { $0.salary}
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
         departments
-            .flatMap { $0.workers }
+            .flatMap { $0.employees }
             .map { $0.salaryWithTax}
             .reduce(0, +)
     }
@@ -38,6 +38,7 @@ extension Division: Comparable {
     }
     
     static func createDivisions(in context: NSManagedObjectContext) -> [Division] {
+        
         //  MARK: - Divisions
         
         let divisionProduction = Division(context: context)
@@ -56,67 +57,63 @@ extension Division: Comparable {
         department1.division = divisionProduction
         department1.type = .production
         
-        let worker1 = Worker(context: context)
-        worker1.position = "Главный технолог"
-        worker1.name = "Гурам Галихадзе"
-        worker1.salary = 60_000
-        
-        department1.addToWorkers_(worker1)
-        
         let department2 = Department(context: context)
-        department1.name = "Производственный цех"
-        department1.division = divisionProduction//"Производство"
+        department2.name = "Производственный цех"
+        department2.division = divisionProduction//"Производство"
         department2.type = .production
-        
-        let worker2 = Worker(context: context)
-        worker2.position = "Старший сыродел"
-        worker2.name = "Мамука Гелашвили"
-        worker2.salary = 45_000
-        
-        department2.addToWorkers_(worker2)
-        
-        let worker3 = Worker(context: context)
-        worker3.position = "Сыродел"
-        worker3.name = "Василий Васильев"
-        worker3.salary = 35_000
-        
-        department2.addToWorkers_(worker3)
         
         let department3 = Department(context: context)
         department3.division = divisionSales
         department3.name = "Отдел логистики"
         department3.type = .sales
         
-        let worker4 = Worker(context: context)
-        worker4.position = "Водитель"
-        worker4.name = "Иван Иванов"
-        worker4.salary = 35_000
-        
-        department3.addToWorkers_(worker4)
-        
         let department4 = Department(context: context)
         department4.division = divisionHQ
         department4.name = "Администрация"
         department4.type = .management
         
-        let worker5 = Worker(context: context)
-        worker5.position = "Директор + закупки"
-        worker5.name = "Петр Петров"
-        worker5.salary = 60_000
-        
-        department4.addToWorkers_(worker5)
-        
         let department5 = Department(context: context)
         department5.division = divisionHQ// "Администрация"
         department5.name = "Бухгалтерия"
         department5.type = .management
+
+        //  MARK: - Employees
         
-        let worker6 = Worker(context: context)
-        worker6.position = "Главный бухгалтер"
-        worker6.name = "Мальвина Петровна"
-        worker6.salary = 30_000
+        let employee1 = Employee(context: context)
+        employee1.position = "Главный технолог"
+        employee1.department = department1
+        employee1.name = "Гурам Галихадзе"
+        employee1.salary = 60_000
         
-        department5.addToWorkers_(worker6)
+        let employee2 = Employee(context: context)
+        employee2.position = "Старший сыродел"
+        employee2.department = department2
+        employee2.name = "Мамука Гелашвили"
+        employee2.salary = 45_000
+        
+        let employee3 = Employee(context: context)
+        employee3.position = "Сыродел"
+        employee3.department = department2
+        employee3.name = "Василий Васильев"
+        employee3.salary = 35_000
+        
+        let employee4 = Employee(context: context)
+        employee4.position = "Водитель"
+        employee4.department = department3
+        employee4.name = "Иван Иванов"
+        employee4.salary = 35_000
+        
+        let employee5 = Employee(context: context)
+        employee5.position = "Директор + закупки"
+        employee5.department = department4
+        employee5.name = "Петр Петров"
+        employee5.salary = 60_000
+        
+        let employee6 = Employee(context: context)
+        employee6.position = "Главный бухгалтер"
+        employee6.department = department5
+        employee6.name = "Мальвина Петровна"
+        employee6.salary = 30_000
         
         return [divisionProduction, divisionSales, divisionHQ]
     }

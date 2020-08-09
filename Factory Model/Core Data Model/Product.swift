@@ -49,7 +49,6 @@ extension Product {
         baseQty * coefficientToParentUnit
     }
     
-        
     var baseName: String {
         base?.name ?? "ERROR: no base"
     }

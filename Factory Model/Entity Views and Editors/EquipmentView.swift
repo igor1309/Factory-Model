@@ -46,7 +46,7 @@ struct EquipmentView: View {
             }
             
             Section(
-                header: Text("Amortization")
+                header: Text("Depreciation")
             ) {
                 LabelWithDetail("dollarsign.circle", "Monthly", equipment.depreciationMonthly.formattedGrouped)
                     .foregroundColor(.secondary)

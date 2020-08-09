@@ -1,5 +1,5 @@
 //
-//  WorkerRowWithList.swift
+//  EmployeeRowWithList.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 28.07.2020.
@@ -26,7 +26,7 @@ struct DepartmentView: View {
             //            format: "%K == %@", #keyPath(Product.base.factory), factory
             
             predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Worker.department), department
+                format: "%K == %@", #keyPath(Employee.department), department
                 )
             
             
@@ -34,9 +34,9 @@ struct DepartmentView: View {
         ) {
             CreateChildButton(
                 systemName: "person.badge.plus",
-                childType: Worker.self,
+                childType: Employee.self,
                 parent: department,
-                keyPath: \Department.workers_
+                keyPath: \Department.employees_
             )
         } dashboard: {
             Section(
@@ -105,8 +105,8 @@ struct DepartmentView: View {
                 .font(.subheadline)
             }
             
-        } editor: { (worker: Worker) in
-                WorkerView(worker)
+        } editor: { (employee: Employee) in
+                EmployeeView(employee)
             }
         }
 }

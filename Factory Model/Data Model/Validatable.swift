@@ -122,4 +122,4 @@ extension Sales: Validatable {
 }
 
 extension Utility: Validatable {}
-extension Worker: Validatable {}
+extension Employee: Validatable {}
