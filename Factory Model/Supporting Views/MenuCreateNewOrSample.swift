@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct CreateNewEntityButton: View {
+struct MenuCreateNewOrSample: View {
     @Environment(\.managedObjectContext) var context
     
     private enum Modal: String { case product, sales, recipe }
@@ -18,33 +18,63 @@ struct CreateNewEntityButton: View {
     @State private var showActionSheet = false
     
     var body: some View {
-        Button {
-            showActionSheet = true
+        
+        Menu {
+            Section(header: Text("Create New")) {
+                Button {
+                    modal = .product
+                    showSheet = true
+                } label: {
+                    Label("Create a Product", systemImage: Product.icon)
+                }
+                
+                Button {
+                    modal = .sales
+                    showSheet = true
+                } label: {
+                    Label("Create a Sale", systemImage: Sales.icon)
+                }
+                
+                Button {
+                    modal = .recipe
+                    showSheet = true
+                } label: {
+                    Label("Create a Recipe", systemImage: Recipe.icon)
+                }
+            }
+            
+            Section(header: Text("Create New Factory")) {
+                Button {
+                    let entity = Factory.create(in: context)
+                    entity.makeSketch()
+                    entity.objectWillChange.send()
+                    
+                    context.saveContext()
+                } label: {
+                    Label("Create a Factory", systemImage: Factory.icon)
+                }
+            }
+            
+            Section(header: Text("Sample Factory")) {
+                Button {
+                    let _ = Factory.createFactory1(in: context)
+                    context.saveContext()
+                } label: {
+                    Label("Сыроварня", systemImage: "plus")
+                }
+                
+                Button {
+                    let _ = Factory.createFactory2(in: context)
+                    context.saveContext()
+                } label: {
+                    Label("Полуфабрикаты", systemImage: "plus")
+                }
+            }
         } label: {
             Image(systemName: "ellipsis.circle")
-                .padding([.leading, .vertical])
         }
-        .actionSheet(isPresented: $showActionSheet) {
-            ActionSheet(
-                title: Text("Create new".uppercased()),
-                message: Text("Select what do you want to create:"),
-                buttons: [
-                    .default(Text("Product")) {
-                        modal = .product
-                        showSheet = true
-                    },
-                    .default(Text("Sales")) {
-                        modal = .sales
-                        showSheet = true
-                    },
-                    .default(Text("Recipe")) {
-                        modal = .recipe
-                        showSheet = true
-                    },
-                    .cancel()
-                ]
-            )
-        }
+
+        
         .sheet(isPresented: $showSheet) {
             switch modal {
                 case .product:

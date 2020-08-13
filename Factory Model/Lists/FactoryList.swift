@@ -83,34 +83,8 @@ struct FactoryList: View {
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Factories")
-            .navigationBarItems(
-                trailing: HStack {
-                    plusSampleButton1
-                    plusSampleButton2
-                    CreateOrphanButton<Factory>()
-                    CreateNewEntityButton()
-                }
-            )
+            .navigationBarItems(trailing: MenuCreateNewOrSample())
         }
     }
     
-    private var plusSampleButton1: some View {
-        Button {
-            let _ = Factory.createFactory1(in: context)
-            context.saveContext()
-        } label: {
-            Image(systemName: "plus.circle")
-                .padding([.leading, .vertical])
-        }
-    }
-    
-    private var plusSampleButton2: some View {
-        Button {
-            let _ = Factory.createFactory2(in: context)
-            context.saveContext()
-        } label: {
-            Image(systemName: "plus.square")
-                .padding([.leading, .vertical])
-        }
-    }
 }

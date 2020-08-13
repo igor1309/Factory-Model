@@ -44,12 +44,13 @@
 		2A65B11524DD50E600A3F5A6 /* ValidationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11424DD50E600A3F5A6 /* ValidationMessage.swift */; };
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
 		2A68121B24CD844000CBDD66 /* PackagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121A24CD844000CBDD66 /* PackagingView.swift */; };
-		2A686E2C24D616860078B069 /* CreateNewEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */; };
+		2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */; };
 		2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A624DFE342009B03F2 /* Factory+Employees.swift */; };
 		2A6979A924DFE51F009B03F2 /* Factories Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A824DFE51F009B03F2 /* Factories Sample.swift */; };
 		2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */; };
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
+		2A6979B224E4907D009B03F2 /* ButtonWithMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */; };
 		2A73358A24CE153C005C6C40 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A73358924CE153C005C6C40 /* RecipeView.swift */; };
 		2A74038A24C8CB8200BA7999 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* test.swift */; };
 		2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038D24C8D11F00BA7999 /* SalesView.swift */; };
@@ -148,12 +149,13 @@
 		2A65B11424DD50E600A3F5A6 /* ValidationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationMessage.swift; sourceTree = "<group>"; };
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
 		2A68121A24CD844000CBDD66 /* PackagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingView.swift; sourceTree = "<group>"; };
-		2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityButton.swift; sourceTree = "<group>"; };
+		2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCreateNewOrSample.swift; sourceTree = "<group>"; };
 		2A6979A624DFE342009B03F2 /* Factory+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Employees.swift"; sourceTree = "<group>"; };
 		2A6979A824DFE51F009B03F2 /* Factories Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factories Sample.swift"; sourceTree = "<group>"; };
 		2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Costs.swift"; sourceTree = "<group>"; };
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
+		2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithMenu.swift; sourceTree = "<group>"; };
 		2A73358924CE153C005C6C40 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		2A74038924C8CB8200BA7999 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		2A74038D24C8D11F00BA7999 /* SalesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesView.swift; sourceTree = "<group>"; };
@@ -304,7 +306,7 @@
 				2A30470824C7995B0002E5DD /* AmountPicker.swift */,
 				2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */,
 				2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */,
-				2A686E2B24D616860078B069 /* CreateNewEntityButton.swift */,
+				2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */,
 				2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */,
 				2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */,
 				2A65B11424DD50E600A3F5A6 /* ValidationMessage.swift */,
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				2A74038924C8CB8200BA7999 /* test.swift */,
+				2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */,
 			);
 			path = "WORK IN PROGRESS";
 			sourceTree = "<group>";
@@ -595,7 +598,7 @@
 				2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */,
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
 				2A936E6124C7051500C34381 /* IngredientView.swift in Sources */,
-				2A686E2C24D616860078B069 /* CreateNewEntityButton.swift in Sources */,
+				2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */,
 				2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */,
 				2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */,
 				2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */,
@@ -605,6 +608,7 @@
 				2A21714624D5F2F4000055F3 /* NewEntityCreator.swift in Sources */,
 				2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */,
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,
+				2A6979B224E4907D009B03F2 /* ButtonWithMenu.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A21714A24D5FBBB000055F3 /* RecipeEditorCore.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
