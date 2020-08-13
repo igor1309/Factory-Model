@@ -78,7 +78,7 @@ extension Department: Summarizable {
         guard headcount > 0 else { return "ERROR no people in Department" }
         return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
     }
-    var subtitle: String { "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)" }
+    var subtitle: String { "Total Salary incl taxes \(salaryWithTax.formattedGrouped)" }
     var detail: String? {
         "\(type.rawValue.capitalized)"
     }

@@ -15,14 +15,14 @@ extension Department: Comparable {
     
     var headcount: Int { employees.count }
 
-    var totalSalary: Double {
+    var salary: Double {
         employees
-            .map { $0.salary }
+            .map(\.salary)
             .reduce(0, +)
     }
-    var totalSalaryWithTax: Double {
+    var salaryWithTax: Double {
         employees
-            .map { $0.salaryWithTax }
+            .map(\.salaryWithTax)
             .reduce(0, +)
     }
 

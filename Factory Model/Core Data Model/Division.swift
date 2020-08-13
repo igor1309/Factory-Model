@@ -15,21 +15,23 @@ extension Division: Comparable {
     }
     
     var departmentNames: String {
-        departments.map { $0.name }.joined(separator: ", ")
+        departments.map(\.name).joined(separator: ", ")
     }
     
-    var headcount: Int { departments.reduce(0, { $0 + $1.headcount }) }
+    var headcount: Int {
+        departments.reduce(0) { $0 + $1.headcount }
+    }
     
     var totalSalary: Double {
         departments
-            .flatMap { $0.employees }
-            .map { $0.salary}
+            .flatMap(\.employees)
+            .map(\.salary)
             .reduce(0, +)
     }
     var totalSalaryWithTax: Double {
         departments
-            .flatMap { $0.employees }
-            .map { $0.salaryWithTax}
+            .flatMap(\.employees)
+            .map(\.salaryWithTax)
             .reduce(0, +)
     }
 

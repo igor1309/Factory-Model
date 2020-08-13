@@ -32,7 +32,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Text("Ingredients")
+                        Label("Ingredients", systemImage: Ingredient.icon)
                     }
                     
                     NavigationLink(
@@ -53,7 +53,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Text("Recipes")
+                        Label("Recipes", systemImage: Recipe.icon)
                     }
                     
                     NavigationLink(
@@ -69,7 +69,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Text("Bases")
+                        Label("Bases", systemImage: Base.icon)
                     }
                 }
                 

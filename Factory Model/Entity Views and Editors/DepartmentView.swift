@@ -99,7 +99,7 @@ struct DepartmentView: View {
                 Group {
                     LabelWithDetail("person.crop.rectangle", "Total Headcount", department.headcount.formattedGrouped)
                     
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", department.totalSalaryWithTax.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", department.salaryWithTax.formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
