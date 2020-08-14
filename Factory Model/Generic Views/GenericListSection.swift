@@ -44,8 +44,6 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
     
-    @State private var showDeleteAction = false
-    
     var body: some View {
         Section(
             header: Text(header)
@@ -59,25 +57,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
                     NavigationLink(
                         destination: editor(entity)
                     ) {
-                        EntityRow(entity, useSmallerFont: useSmallerFont)
-                            .contextMenu {
-                                Button {
-                                    showDeleteAction = true
-                                } label: {
-                                    Image(systemName: "trash.circle")
-                                    Text("Delete")
-                                }
-                            }
-                            .actionSheet(isPresented: $showDeleteAction) {
-                                ActionSheet(
-                                    title: Text("Delete?".uppercased()),
-                                    message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
-                                    buttons: [
-                                        .destructive(Text("Yes, delete")) { delete(entity) },
-                                        .cancel()
-                                    ]
-                                )
-                            }
+                        EntityRowWithAction(entity, useSmallerFont: useSmallerFont)
                     }
                 }
             }
@@ -89,13 +69,6 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         }
     }
     
-    private func delete(_ entity: T) {
-        withAnimation {
-            moc.delete(entity)
-            moc.saveContext()
-        }
-    }
-    
     private func remove(at offsets: IndexSet) {
         //  MARK: - FINISH THIS удаление не-сиротских объектов лучше не допускать без подтверждения
         for index in offsets {
@@ -103,5 +76,48 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
             moc.delete(item)
         }
         moc.saveContext()
+    }
+}
+
+fileprivate struct EntityRowWithAction<T: Listable>: View {
+    @Environment(\.managedObjectContext) var moc
+    @ObservedObject var entity: T
+    
+    var useSmallerFont: Bool
+    
+    init(_ entity: T, useSmallerFont: Bool = true) {
+        self.entity = entity
+        self.useSmallerFont = useSmallerFont
+    }
+    
+    @State private var showDeleteAction = false
+    
+    var body: some View {
+        EntityRow(entity, useSmallerFont: useSmallerFont)
+            .contextMenu {
+                Button {
+                    showDeleteAction = true
+                } label: {
+                    Image(systemName: "trash.circle")
+                    Text("Delete")
+                }
+            }
+            .actionSheet(isPresented: $showDeleteAction) {
+                ActionSheet(
+                    title: Text("Delete?".uppercased()),
+                    message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
+                    buttons: [
+                        .destructive(Text("Yes, delete")) { delete(entity) },
+                        .cancel()
+                    ]
+                )
+            }
+    }
+    
+    private func delete(_ entity: T) {
+        withAnimation {
+            moc.delete(entity)
+            moc.saveContext()
+        }
     }
 }
