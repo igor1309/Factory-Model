@@ -33,9 +33,9 @@ struct BaseGroupList: View {
         List {
             Section(header: Text("Group Totals")) {
                 Group {
-                    LabelWithDetail("bag", "Production", "TBD")
+                    LabelWithDetail("square", "Production", "TBD")
                     
-                    LabelWithDetail("dollarsign.circle", "Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGrouped)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)

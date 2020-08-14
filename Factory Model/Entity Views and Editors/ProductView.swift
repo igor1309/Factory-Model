@@ -9,9 +9,10 @@ import SwiftUI
 
 struct ProductView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.presentationMode) var presentation
     
     @ObservedObject var product: Product
-
+    
     init(_ product: Product) {
         self.product = product
         let predicate = NSPredicate(
@@ -39,11 +40,16 @@ struct ProductView: View {
                 .font(.subheadline)
             }
             
+            LabelWithDetail("baseQtyInBaseUnit", "\(product.baseQtyInBaseUnit)")
+            LabelWithDetail("baseQty", "\(product.baseQty)")
+            LabelWithDetail("coefficientToParentUnit", "\(product.coefficientToParentUnit)")
+                .foregroundColor(.red)
+            
             Section(
                 header: Text("Production")
             ) {
                 Group {
-                    AmountPicker(systemName: "bag", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
+                    AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
                         .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
                 }
                 .font(.subheadline)
@@ -78,9 +84,25 @@ struct ProductView: View {
                 }
                 .font(.subheadline)
             }
+            
+            Section(
+                header: Text("Inventory")
+            ) {
+                Group {
+                    LabelWithDetail("square", "TBD:Inventory", "TBD")
+                        .foregroundColor(.red)
+                }
+                .font(.subheadline)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)
+        .navigationBarItems(
+            trailing: Button("Save") {
+                moc.saveContext()
+                presentation.wrappedValue.dismiss()
+            }
+        )
         .onDisappear {
             moc.saveContext()
         }

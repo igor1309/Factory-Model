@@ -29,7 +29,7 @@ struct BaseView: View {
                 }
                 .foregroundColor(.accentColor)
                 
-                ValidationMessage(base)
+                ErrorMessage(base)
             }
             
             //  parent check
@@ -59,22 +59,22 @@ struct BaseView: View {
                             RecipeView(recipe)
                         }
                     ) {
-                        LabelWithDetail("puzzlepiece", "Ingredients Cost, ex VAT", base.ingredientsExVAT.formattedGrouped)
+                        LabelWithDetail(Ingredient.icon, "Ingredients Cost, ex VAT", base.ingredientsExVAT.formattedGroupedWith1Decimal)
                     }
 
                     NavigationLink(
                         destination: Text("TBD: Labor Cost incl taxes")
                     ) {
-                        LabelWithDetail("person.2", "Labor Cost", "TBD")
+                        LabelWithDetail(Department.icon, "Salary incl taxes", "TBD")
                     }
 
                     NavigationLink(
                         destination: UtilityList(for: base)
                     ) {
-                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", base.utilitiesExVAT.formattedGrouped)
+                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", base.utilitiesExVAT.formattedGroupedWith1Decimal)
                     }
                                         
-                    LabelWithDetail("dollarsign.square", "Unit Cost of Base Product", base.ingredientsExVAT.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Unit Cost of Base Product", base.ingredientsExVAT.formattedGroupedWith1Decimal)
                         .foregroundColor(.primary)
                         .padding(.trailing)
                 }
@@ -84,23 +84,47 @@ struct BaseView: View {
 
             if !base.productList.isEmpty {
                 Section(
-                    header: Text("Used in")
+                    header: Text("Used in Products")
                 ) {
                     NavigationLink(
                         destination: Text("TBD: List of Products using base product '\(base.title)'")
                     ) {
                         Text(base.productList)
 //                            .foregroundColor(.secondary)
-                            .font(.footnote)
+                            .font(.subheadline)
                     }
                 }
+                .foregroundColor(.red)
+            }
+            
+            Section(
+                header: Text("Production"),
+                footer: Text("Base Products Production Quantity depends on Products Production.")
+            ) {
+                Group {
+                    
+                    if base.closingInventory < 0 {
+                        Text("Negative Closing Inventory - check Production and Sales Qty of Products!")
+                            .foregroundColor(.systemRed)
+                    }
+                    
+                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", "\(base.productionQty)")
+                        .foregroundColor(.primary)
+                    
+                    LabelWithDetail("square", "TBD Production Volume - unit???", "TBD")
+                        .foregroundColor(.systemRed)
+                    
+                    LabelWithDetail("dollarsign.square", "Total Production Cost", "TBD")
+                }
+                .foregroundColor(.secondary)
+                .font(.subheadline)
             }
             
             Section(
                 header: Text("Sales")
             ) {
                 Group {
-                    LabelWithDetail("square", "Total Sales Qty TBD: WHAT UNIT USED???", base.salesQty.formattedGrouped)
+                    LabelWithDetail("square", "Total Sales Qty TBD: WHAT UNIT USED???", "\(base.salesQty)")
 
                     LabelWithDetail(Sales.icon, "Revenue, ex VAT", base.revenueExVAT.formattedGrouped)
                     LabelWithDetail(Sales.icon, "Revenue, with VAT", base.revenueWithVAT.formattedGrouped)
@@ -109,29 +133,6 @@ struct BaseView: View {
                     LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", base.avgPriceExVAT.formattedGrouped)
                     LabelWithDetail("square", "Margin", "TBD")
                 }
-                .font(.subheadline)
-            }
-            
-            Section(
-                header: Text("Production"),
-                footer: Text("Base Products Production Quantity depends on Products Production.")
-            ) {
-                Group {
-
-                    if base.closingInventory < 0 {
-                        Text("Negative Closing Inventory - check Production and Sales Qty!")
-                            .foregroundColor(.systemRed)
-                    }
-                    
-                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", "TBD")
-                        .foregroundColor(.primary)
-                    
-                    LabelWithDetail("square", "TBD Production Volume - unit???", "TBD")
-                        .foregroundColor(.systemRed)
-
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", "TBD")
-                }
-                .foregroundColor(.secondary)
                 .font(.subheadline)
             }
             

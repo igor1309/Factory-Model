@@ -92,6 +92,7 @@ struct ProfitLossStatement: View {
                         header: header("Taxes")
                     ) {
                         FinancialLabel("Profit Tax", value: factory.profitTax, percentage: factory.profitTaxPercentage)
+                            .foregroundColor(factory.profitTax > 0 ? .primary : .secondary)
                     }
                     
                     Divider()

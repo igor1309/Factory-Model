@@ -25,7 +25,7 @@ extension Ingredient {
 
     var productionQty: Double {
         recipes
-            .reduce(0) { $0 + $1.ingredientQtyInIngredientUnit * ($1.base?.productionQty ?? 0) }
+            .reduce(0) { $0 + $1.productionQty }
     }
 
     var totalCostExVat:   Double { priceExVAT   * productionQty }

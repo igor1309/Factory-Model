@@ -64,7 +64,7 @@ struct IngredientView: View {
                 .font(.subheadline)
             }
             
-            ValidationMessage(ingredient)
+            ErrorMessage(ingredient)
             
             Section(
                 header: Text("VAT")

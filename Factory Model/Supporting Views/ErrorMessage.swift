@@ -6,18 +6,20 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct ValidationMessage<T: Validatable>: View {
-    var entity: T
+struct ErrorMessage<T: NSManagedObject & Managed & Validatable>: View {
+    @ObservedObject var entity: T
     
     init(_ entity: T) {
         self.entity = entity
     }
     
     var body: some View {
-        if !entity.isValid {
-            Text(entity.validationMessage)
+        if let errorMessage = entity.errorMessage {
+            Text(errorMessage)
                 .foregroundColor(.systemRed)
+                .font(.subheadline)
         }
     }
 }

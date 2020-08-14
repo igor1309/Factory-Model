@@ -19,13 +19,7 @@ struct ProductList: View {
             for: factory,
             predicate: Product.factoryPredicate(for: factory)
         ) {
-            Button {
-                //  MARK: - FINISH THIS FIGURE OUT HOW TO CREATE PRODUCT HERE
-                
-            } label: {
-                Image(systemName: Product.icon)
-                    .padding([.leading, .vertical])
-            }
+            CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
         } dashboard: {
             dashboard
         } editor: { (product: Product) in

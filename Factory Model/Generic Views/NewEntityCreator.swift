@@ -35,7 +35,7 @@ struct NewEntityCreator<T: Managed & Validatable, Editor: View>: View where T.Ma
                 }
             }
             .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Create New")
+            .navigationTitle("New \(T.entityName)")
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear {

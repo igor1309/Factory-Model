@@ -58,7 +58,7 @@ struct SalesEditorCore: View {
             .font(.subheadline)
         }
 
-        ValidationMessage(sales)
+        ErrorMessage(sales)
         
         Section(
             header: Text("Total Sales")

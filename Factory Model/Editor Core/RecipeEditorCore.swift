@@ -29,7 +29,7 @@ struct RecipeEditorCore: View {
                 RecipeRow(recipe)
                                 
                 Group {
-                    LabelWithDetail("dollarsign.circle", "Cost", recipe.cost.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Cost", recipe.ingredientsExVAT.formattedGrouped)
                     
                     LabelWithDetail("square.grid.3x3.middleright.fill", "Coefficient", "\(recipe.coefficientToParentUnit)")
                 }
@@ -46,6 +46,6 @@ struct RecipeEditorCore: View {
             }
         }
         
-        ValidationMessage(recipe)
+        ErrorMessage(recipe)
     }
 }

@@ -38,7 +38,7 @@ struct RecipeRow/*<T: Managed>*/: View {
             
             //            RecipeUnitPicker(entity)
             
-            ValidationMessage(entity)
+            ErrorMessage(entity)
                 .font(.caption)
         }
         .contextMenu {
@@ -92,7 +92,10 @@ struct BaseEditor: View {
             ) {
                 Group {
                     HStack {
-                        Text("Name")
+                        ZStack {
+                            Text("Group").hidden()
+                            Text("Name")
+                        }
                             .foregroundColor(.tertiary)
                         TextField("Name", text: $base.name)
                     }
@@ -109,12 +112,18 @@ struct BaseEditor: View {
                     }
                     
                     HStack {
-                        Text("Code")
+                        ZStack {
+                            Text("Group").hidden()
+                            Text("Code")
+                        }
                             .foregroundColor(.tertiary)
                         TextField("Code", text: $base.code)
                     }
                     HStack {
-                        Text("Note")
+                        ZStack {
+                            Text("Group").hidden()
+                            Text("Note")
+                        }
                             .foregroundColor(.tertiary)
                         TextField("Note", text: $base.note)
                     }
@@ -140,7 +149,7 @@ struct BaseEditor: View {
                     .font(.subheadline)
             }
             
-            ValidationMessage(base)
+            ErrorMessage(base)
             
             Section(
                 header: Text("Ingredients"),

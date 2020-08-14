@@ -20,6 +20,7 @@ struct ChildUnitPicker<T: HavingParentUnit & CustomUnitable>: View {
         Button(entity.customUnitString) {
             showTable = true
         }
+        .foregroundColor(entity.customUnitString == "??" ? .systemRed : .accentColor)
         .sheet(isPresented: $showTable) {
             ChildUnitPickerTable(entity)
         }

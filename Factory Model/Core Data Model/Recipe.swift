@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Recipe: Comparable {
+extension Recipe {
     
     var parentUnit: CustomUnit? { ingredient?.customUnit }
     
@@ -30,18 +30,34 @@ extension Recipe: Comparable {
     }
     var customUnitString: String { customUnit?.rawValue ?? "??" }
     
-    var ingredientQtyInIngredientUnit: Double {
+    
+    //  MARK: - Ingredient Qty & Cost per Recipe (Unit)
+    
+    private var ingredientQtyInIngredientUnit: Double {
         qty * coefficientToParentUnit
     }
     
-    var ingredientPriceExVAT: Double {
+    private var ingredientPriceExVAT: Double {
         ingredient?.priceExVAT ?? 0
     }
     
-    var cost: Double {
-        qty * coefficientToParentUnit * ingredientPriceExVAT
+    var ingredientsExVAT: Double {
+        ingredientQtyInIngredientUnit * ingredientPriceExVAT
     }
     
+    //  MARK: - Production Totals
+    
+    private var baseProductionQty: Double {
+        base?.productionQty ?? 0
+    }
+    
+    var productionQty: Double {
+        ingredientQtyInIngredientUnit * baseProductionQty
+    }
+}
+
+
+extension Recipe: Comparable {
     public static func < (lhs: Recipe, rhs: Recipe) -> Bool {
         lhs.qty < rhs.qty
     }

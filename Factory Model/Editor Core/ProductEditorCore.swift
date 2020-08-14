@@ -16,21 +16,24 @@ struct ProductEditorCore: View {
     
     var body: some View {
         Section(
-            header: Text("Product Title"),
-            footer: Text("Product Title is autogenereated.")
+            header: Text("Product Title is autogenereated.")
         ) {
             Text(product.title)
                 .font(.footnote)
         }
         
-        ValidationMessage(product)
+        ErrorMessage(product)
         
         Section(
             header: Text("Product Details")
         ) {
             Group {
                 HStack {
-                    Text("Name")
+                    ZStack(alignment: .leading) {
+                        Text("Group")
+                            .hidden()
+                        Text("Name")
+                    }
                         .foregroundColor(.secondary)
                     TextField("Name", text: $product.name)
                         .foregroundColor(.accentColor)
@@ -48,14 +51,22 @@ struct ProductEditorCore: View {
                 }
                 
                 HStack {
-                    Text("Code")
+                    ZStack(alignment: .leading) {
+                        Text("Group")
+                            .hidden()
+                        Text("Code")
+                    }
                         .foregroundColor(.secondary)
                     TextField("Code", text: $product.code)
                         .foregroundColor(.accentColor)
                 }
                 
                 HStack {
-                    Text("Note")
+                    ZStack(alignment: .leading) {
+                        Text("Group")
+                            .hidden()
+                        Text("Note")
+                    }
                         .foregroundColor(.secondary)
                     TextField("Note", text: $product.note)
                         .foregroundColor(.accentColor)
@@ -72,6 +83,7 @@ struct ProductEditorCore: View {
                 
                 HStack {
                     AmountPicker(systemName: "square.grid.3x3.middleright.fill", title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $product.baseQty)
+                        .foregroundColor(product.baseQty <= 0 ? .systemRed : .accentColor)
                         .buttonStyle(PlainButtonStyle())
                     ChildUnitPicker(product)
                         .buttonStyle(PlainButtonStyle())

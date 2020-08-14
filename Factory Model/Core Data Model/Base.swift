@@ -48,10 +48,10 @@ extension Base {
     //  MARK: FIX THIS: неоптимально —
     //  нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
     var baseGroups: [String] {
-        factory?.bases.map { $0.group }.removingDuplicates() ?? []
+        factory?.bases.map(\.group).removingDuplicates() ?? []
     }
     var productList: String {
-        products.map { $0.title }.joined(separator: "\n")
+        products.map(\.title).joined(separator: "\n")
     }
     
     //  MARK: - Qty
@@ -90,7 +90,7 @@ extension Base {
     
     var ingredientsExVAT: Double {
         recipes
-            .map { $0.qty * ($0.ingredient?.priceExVAT ?? 0) }
+            .map(\.ingredientsExVAT)
             .reduce(0, +)
     }
     

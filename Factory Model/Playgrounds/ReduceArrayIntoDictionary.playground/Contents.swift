@@ -12,6 +12,11 @@ let products: [Product] = [
     Product(name: "product 3", group: "group 2")
 ]
 
-let groups = Dictionary(grouping: products) { $0.group }.mapValues { $0.map { $0.name}.joined(separator: ", ") }
+let groups =
+    Dictionary(grouping: products, by: \.group)
+    .mapValues {
+        $0.map(\.name).joined(separator: ", ")        
+    }
+
 let gr = groups.map { "\($0): \($1)" }.sorted()
 print(gr)

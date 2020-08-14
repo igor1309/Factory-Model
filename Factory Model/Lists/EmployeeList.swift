@@ -24,7 +24,7 @@ struct EmployeeList: View {
             )
         ) {
             CreateChildButton(
-                systemName: "person.2",
+                systemName: Department.icon,
                 childType: Employee.self,
                 parent: department,
                 keyPath: \Department.employees_

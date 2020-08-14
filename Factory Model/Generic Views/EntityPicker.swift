@@ -29,14 +29,23 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     
     @State private var showSheet = false
     
+    @ViewBuilder
+    private var label: some View {
+        if let icon = icon {
+            Label(selection?.title ?? "...", systemImage: icon)
+        } else {
+            Text(selection?.title ?? "...")
+        }
+    }
+    
     var body: some View {
         Button {
             showSheet = true
         } label: {
-            if let icon = icon {
-                Label(selection?.title ?? "...", systemImage: icon)
+            if selection == nil {
+                label.foregroundColor(.systemRed)
             } else {
-                Text(selection?.title ?? "...")
+                label
             }
         }
         .sheet(isPresented: $showSheet, onDismiss: {

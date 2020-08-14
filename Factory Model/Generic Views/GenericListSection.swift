@@ -89,9 +89,9 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         }
     }
     
-    private func delete(_ item: T) {
+    private func delete(_ entity: T) {
         withAnimation {
-            moc.delete(item)
+            moc.delete(entity)
             moc.saveContext()
         }
     }

@@ -17,7 +17,7 @@ extension Factory {
     }
     var divisionNames: String {
         divisions
-            .map { $0.name }
+            .map(\.name)
             .joined(separator: ", ")
     }
 
@@ -25,16 +25,16 @@ extension Factory {
     
     var departmentNames: [String] {
         divisions
-            .flatMap { $0.departments }
-            .map { $0.name }
+            .flatMap(\.departments)
+            .map(\.name)
             .removingDuplicates()
             .sorted()
     }
     func departmentNames(for division: Division) -> String {
         divisions
             .filter { $0 == division }
-            .flatMap { $0.departments }
-            .map { $0.name }
+            .flatMap(\.departments)
+            .map(\.name)
             .removingDuplicates()
             .joined(separator: ", ")
     }
@@ -43,11 +43,11 @@ extension Factory {
 
     var employees: [Employee] {
         divisions
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
     }
     var employeeByDivision: [String: [Division]] {
-        Dictionary(grouping: divisions) { $0.name }
+        Dictionary(grouping: divisions, by: \.name)
     }
     
     var headcount: Int {
@@ -58,8 +58,8 @@ extension Factory {
     func headcount(for division: Division) -> Int {
         divisions
             .filter { $0 == division }
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
             .count
     }
     
@@ -67,16 +67,16 @@ extension Factory {
     
     var salary: Double {
         divisions
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
-            .map { $0.salary }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
+            .map(\.salary)
             .reduce(0, +)
     }
     var salaryWithTax: Double {
         divisions
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
-            .map { $0.salaryWithTax }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
+            .map(\.salaryWithTax)
             .reduce(0, +)
     }
     var salaryWithTaxPercentage: Double? {
@@ -86,17 +86,17 @@ extension Factory {
     func salary(for division: Division) -> Double {
         divisions
             .filter { $0 == division }
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
-            .map { $0.salary }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
+            .map(\.salary)
             .reduce(0, +)
     }
     func salaryWithTax(for division: Division) -> Double {
         divisions
             .filter { $0 == division }
-            .flatMap { $0.departments }
-            .flatMap { $0.employees }
-            .map { $0.salaryWithTax }
+            .flatMap(\.departments)
+            .flatMap(\.employees)
+            .map(\.salaryWithTax)
             .reduce(0, +)
     }
 }

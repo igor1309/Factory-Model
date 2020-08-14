@@ -25,21 +25,21 @@ struct MenuCreateNewOrSample: View {
                     modal = .product
                     showSheet = true
                 } label: {
-                    Label("Create a Product", systemImage: Product.icon)
+                    Label("Create a Product", systemImage: Product.plusButtonIcon)
                 }
                 
                 Button {
                     modal = .sales
                     showSheet = true
                 } label: {
-                    Label("Create a Sale", systemImage: Sales.icon)
+                    Label("Create a Sale", systemImage: Sales.plusButtonIcon)
                 }
                 
                 Button {
                     modal = .recipe
                     showSheet = true
                 } label: {
-                    Label("Create a Recipe", systemImage: Recipe.icon)
+                    Label("Create a Recipe", systemImage: Recipe.plusButtonIcon)
                 }
             }
             

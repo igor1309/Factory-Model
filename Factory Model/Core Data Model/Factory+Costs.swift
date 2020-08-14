@@ -35,8 +35,8 @@ extension Factory {
     
     var ingredientCostExVAT: Double {
         bases
-            .flatMap { $0.products }
-            .compactMap { $0.base }
+            .flatMap(\.products)
+            .compactMap(\.base)
             .reduce(0) { $0 + $1.productionCostExVAT }
     }
     var ingredientCostExVATPercentage: Double? {
@@ -47,9 +47,9 @@ extension Factory {
     
     var productionSalaryWithTax: Double {
         divisions
-            .flatMap { $0.departments }
+            .flatMap(\.departments)
             .filter { $0.type == .production }
-            .flatMap { $0.employees }
+            .flatMap(\.employees)
             .reduce(0) { $0 + $1.salaryWithTax }
     }
     var productionSalaryWithTaxPercentage: Double? {

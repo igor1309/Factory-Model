@@ -23,13 +23,13 @@ struct SalesView: View {
             
             //  parent check
             if sales.buyer == nil {
-                EntityPicker(selection: $sales.buyer, icon: "cart")
+                EntityPicker(selection: $sales.buyer, icon: Buyer.icon)
                     .foregroundColor(.systemRed)
             }
             
             //  second parent check
             if sales.product == nil {
-                EntityPicker(selection: $sales.product, icon: "bag")
+                EntityPicker(selection: $sales.product, icon: Product.icon)
                     .foregroundColor(.systemRed)
             }
             
@@ -39,7 +39,7 @@ struct SalesView: View {
                     .foregroundColor(.systemRed)
                 
                 Group {
-                    LabelWithDetail("bag", "Sales Qty", "base.totalSalesQty")
+                    LabelWithDetail("square", "Sales Qty", "base.totalSalesQty")
                     
                     VStack(spacing: 4) {
                         LabelWithDetail("dollarsign.circle", "Avg price, ex VAT", "base.avgPriceExVAT")

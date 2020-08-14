@@ -17,7 +17,12 @@ struct SalesList: View {
     }
     
     var body: some View {
-        ListWithDashboard(for: product) {
+        ListWithDashboard(
+            for: product,
+            predicate: NSPredicate(
+                format: "%K == %@", #keyPath(Sales.product), product
+            )
+        ) {
             CreateChildButton(
                 systemName: "cart.badge.plus",
                 childType: Sales.self,

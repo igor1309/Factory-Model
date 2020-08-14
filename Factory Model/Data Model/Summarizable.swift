@@ -16,20 +16,14 @@ protocol Summarizable {
 extension Summarizable where Self: Monikerable {
     var title: String { name.isEmpty ? "ERROR: no name" : name }
 }
-
 extension Summarizable where Self: Validatable {
-    var detail: String? {
-        isValid ? nil : validationMessage
-    }
+    var detail: String? { errorMessage }
 }
-
 extension Summarizable {
     var subtitle: String { "" }
-//    var detail: String? { "" }
     
     static var plusButtonIcon: String { "plus" }
 }
-
 
 extension Base: Summarizable {
     var title: String {
@@ -39,69 +33,101 @@ extension Base: Summarizable {
     }
     
     var subtitle: String {
-        guard isValid else { return validationMessage }
-        
         if revenueExVAT > 0 {
-           return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
+            return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
         } else {
             return "Production \(productionQty.formattedGrouped)"
         }
     }
     
-    var detail: String? { note }
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return note
+    }
     
-    static var icon: String { "bag" }
+    static var icon: String { "bag.circle" }
 }
 
 extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
-    static var icon: String { "cart.fill" }
     
+    static var icon: String { "cart.fill" }
     static var plusButtonIcon: String { "cart.badge.plus" }
 }
 
 extension Division: Summarizable {
     var title: String {
         guard headcount > 0 else { return "ERROR no people in Division" }
-        return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
+        return [name, headcount.formattedGrouped]
+            .filter { !$0.isEmpty }
+            .joined(separator: ", ")
     }
-    var subtitle: String { "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)" }
-    var detail: String? { departmentNames }
-    static var icon: String { "person.crop.rectangle" }
+    var subtitle: String {
+        "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)"
+    }
     
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return departmentNames
+    }
+    
+    static var icon: String { "person.crop.rectangle" }
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Department: Summarizable {
-     var title: String {
+    var title: String {
         guard headcount > 0 else { return "ERROR no people in Department" }
         return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
     }
     var subtitle: String { "Total Salary incl taxes \(salaryWithTax.formattedGrouped)" }
+    
     var detail: String? {
-        "\(type.rawValue.capitalized)"
+        guard isValid else { return errorMessage! }
+        return "\(type.rawValue.capitalized)"
     }
+    
     static var icon: String { "person.2" }
+}
+
+extension Employee: Summarizable {
+    var subtitle: String {
+        salary.formattedGrouped
+    }
+    
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return [department?.name ?? "", position]
+            .filter { !$0.isEmpty}
+            .joined(separator: ": ")
+    }
+    
+    static var icon: String { "person" }
+    static var plusButtonIcon: String { "cart.badge.plus" }
 }
 
 extension Equipment: Summarizable {
     var subtitle: String { note }
     
     var detail: String? {
-        "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
+        guard isValid else { return errorMessage! }
+        return "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
     }
     
     static var icon: String { "wrench.and.screwdriver" }
-    
     static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
 
 extension Expenses: Summarizable {
     var subtitle: String { amount.formattedGrouped }
-    var detail: String? { note }
-    static var icon: String { "dollarsign.circle" }
     
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return note
+    }
+    
+    static var icon: String { "dollarsign.circle" }
     static var plusButtonIcon: String { "text.badge.plus" }
 }
 
@@ -111,6 +137,7 @@ extension Factory: Summarizable {
     var detail: String? {
         "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
     }
+    
     static var icon: String { "building.2" }
 }
 
@@ -123,24 +150,30 @@ extension Ingredient: Summarizable {
         
         return "Price \(priceExVAT.formattedGrouped)/\(unitString_), VAT \(vat.formattedPercentage)"
     }
-
+    
     static var icon: String { "puzzlepiece" }
 }
 
 extension Recipe: Summarizable {
     var title: String { ingredient?.name ?? "ERROR: ingredient unknown" }
+    
     var subtitle: String {
         qty.formattedGrouped + " " + customUnitString + " @ "
             + (ingredient == nil ? 0: ingredient!.priceExVAT).formattedGrouped
-            + " = " + cost.formattedGrouped
+            + " = " + ingredientsExVAT.formattedGrouped
     }
     
     static var icon: String { "puzzlepiece" }
+    static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
 
 extension Packaging: Summarizable {
     var subtitle: String { type }
-    var detail: String? { productList }    
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return productList
+    }
+    
     static var icon: String { "shippingbox" }
 }
 
@@ -158,7 +191,7 @@ extension Product: Summarizable {
     }
     
     var subtitle: String {
-        guard isValid else { return validationMessage }
+        guard isValid else { return errorMessage! }
         
         if revenueExVAT > 0 {
             return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
@@ -167,7 +200,8 @@ extension Product: Summarizable {
         }
     }
     
-    static var icon: String { "bag.circle" }
+    static var icon: String { "bag" }
+    static var plusButtonIcon: String { "bag.badge.plus" }
 }
 
 extension Sales: Summarizable {
@@ -183,29 +217,19 @@ extension Sales: Summarizable {
         return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
-    var detail: String? { nil }
     static var icon: String { "creditcard.fill" }
+    static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Utility: Summarizable {
-    var subtitle: String { priceExVAT.formattedGroupedWithMax2Decimals }
-    var detail: String? { vat.formattedPercentage }
-    static var icon: String { "lightbulb" }
-}
-
-extension Employee: Summarizable {
     var subtitle: String {
-        guard department != nil else { return "ERROR no department" }
-        
-        return salary.formattedGrouped
+        priceExVAT.formattedGroupedWithMax2Decimals
     }
     
-    var detail: String? {[department?.name ?? "", position]
-        .filter { !$0.isEmpty}
-        .joined(separator: ": ")
+    var detail: String? {
+        guard isValid else { return errorMessage! }
+        return vat.formattedPercentage
     }
     
-    static var icon: String { "person" }
-    
-    static var plusButtonIcon: String { "cart.badge.plus" }
+    static var icon: String { "lightbulb" }
 }

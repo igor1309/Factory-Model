@@ -45,12 +45,12 @@ extension Product {
         }
     }
     
-    var baseQtyInBaseUnit: Double {
-        baseQty * coefficientToParentUnit
-    }
-    
     var baseName: String {
         base?.name ?? "ERROR: no base"
+    }
+    
+    var baseQtyInBaseUnit: Double {
+        baseQty * coefficientToParentUnit
     }
     
     var salesQty: Double {

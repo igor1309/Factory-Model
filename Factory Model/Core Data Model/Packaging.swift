@@ -21,7 +21,7 @@ extension Packaging: Comparable {
         if products_ == nil || products.isEmpty {
             return "ERROR: not used in products"
         }
-        return products.map { $0.title }.joined(separator: "\n")
+        return products.map(\.title).joined(separator: "\n")
     }
     
     public static func < (lhs: Packaging, rhs: Packaging) -> Bool {

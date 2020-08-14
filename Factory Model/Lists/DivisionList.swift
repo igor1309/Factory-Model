@@ -37,7 +37,7 @@ struct DivisionList: View {
                     NavigationLink(
                         destination: AllEmployeesList(for: factory)
                     ) {
-                        Label("All Factory Personnel", systemImage: "person.2")
+                        Label("All Factory Personnel", systemImage: Department.icon)
                     }
                 }
                 .font(.subheadline)

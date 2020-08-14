@@ -26,7 +26,7 @@ struct FactoryView: View {
                 issuesSection
                 
                 salesSection
-            
+                
                 productionSection
             }
             
@@ -46,6 +46,7 @@ struct FactoryView: View {
                     AmountPicker(systemName: "scissors", title: "Profit Tax Rate", navigationTitle: "Profit Tax", scale: .percent, amount: $factory.profitTaxRate)
                 }
                 .foregroundColor(.accentColor)
+                .font(.subheadline)
             }
             
             oldSection
@@ -84,7 +85,7 @@ struct FactoryView: View {
                     title: "Salvage Value [TBD amount]",
                     subtitle: "Cost basis [TBD amount]",
                     detail: "TBD: Depreciation details",
-                    icon: "wrench.and.screwdriver"
+                    icon: Equipment.icon
                 )
             }
         }
@@ -100,7 +101,7 @@ struct FactoryView: View {
             ) {
                 ListRow(
                     title: "Other Expenses [TBD amount]",
-                    icon: "dollarsign.circle"
+                    icon: Expenses.icon
                 )
             }
         }
@@ -167,7 +168,7 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "People (\(factory.headcount.formattedGrouped))",
-                        icon: "person.2"
+                        icon: Department.icon
                     )
                 }
             }
@@ -187,7 +188,7 @@ struct FactoryView: View {
                         title: "Products",
                         subtitle: "TBD: .................",
                         detail: "TBD: Base products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
-                        icon: "bag"
+                        icon: Product.icon
                     )
                     .foregroundColor(.systemOrange)
                 }
@@ -199,7 +200,7 @@ struct FactoryView: View {
                         title: "Base Products",
                         subtitle: ".................",
                         detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
-                        icon: "bag.circle"
+                        icon: Base.icon
                     )
                     .foregroundColor(.systemTeal)
                 }
@@ -211,7 +212,7 @@ struct FactoryView: View {
                         title: "Ingredients",
                         subtitle: "TBD: .................",
                         detail: "TBD: some extra top-level details(?)",
-                        icon: "cart"
+                        icon: Ingredient.icon
                     )
                     .foregroundColor(.systemPurple)
                 }
@@ -223,7 +224,7 @@ struct FactoryView: View {
                         title: "Packaging",
                         subtitle: "TBD: .................",
                         detail: "TBD: List of packaging types (??)",
-                        icon: "shippingbox"
+                        icon: Packaging.icon
                     )
                     .foregroundColor(.systemIndigo)
                 }
@@ -239,14 +240,14 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: AllSalesList(for: factory)
                 ) {
-                    LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                         .foregroundColor(.systemGreen)
                 }
                 
                 NavigationLink(
                     destination: AllBuyersList(for: factory)
                 ) {
-                    LabelWithDetail("cart.fill", "All Buyers", "")
+                    LabelWithDetail(Buyer.icon, "All Buyers", "")
                 }
                 .foregroundColor(.systemPurple)
             }
