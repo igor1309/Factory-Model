@@ -8,6 +8,7 @@
 protocol Validatable {
     var isValid: Bool { get }
     var validationMessage: String { get }
+    var errorMessage: String? { get }
 }
 extension Validatable where Self: Summarizable {
     var isValid: Bool {
@@ -17,27 +18,32 @@ extension Validatable where Self: Summarizable {
     var validationMessage: String {
         ((detail?.hasPrefix("ERROR")) != nil) ? "ERROR" : "OK"
     }
+    var errorMessage: String? {
+        ((detail?.hasPrefix("ERROR")) != nil) ? "ERROR" : nil
+    }
 }
 
 extension Base: Validatable {
+    //  MARK: - УПРОСТИТЬ!
+    /// `isValid` можно радикально упростить и вообще вынести в `default implementation` в protocol extension если `validationMessage` переделать в `errorMessage: Optional<String>` который будет `nil` если нет ошибок
     var isValid: Bool {
-        guard code_ != nil else { return false }
-        guard group_ != nil else { return false }
         guard name_ != nil else { return false }
         guard unitString_ != nil else { return false }
-        guard weightNetto > 0 else { return false }
-        guard factory != nil else { return false }
         guard recipes_ != nil else { return false }
+        guard weightNetto > 0 else { return false }
+        guard code_ != nil else { return false }
+        guard group_ != nil else { return false }
+        guard factory != nil else { return false }
         return true
     }
     var validationMessage: String {
-        guard code_ != nil else { return "ERROR: no code" }
-        guard group_ != nil else { return "ERROR: no group" }
         guard name_ != nil else { return "ERROR: no name" }
         guard unitString_ != nil else { return "ERROR: no unit" }
-        guard weightNetto > 0 else { return "ERROR: no Weight Netto" }
-        guard factory != nil else { return "ERROR: no factory" }
         guard recipes_ != nil else { return "ERROR: no recipes" }
+        guard weightNetto > 0 else { return "ERROR: no Weight Netto" }
+        guard code_ != nil else { return "ERROR: no code" }
+        guard group_ != nil else { return "ERROR: no group" }
+        guard factory != nil else { return "ERROR: no factory" }
         return "Base Product is OK"
     }
 }
