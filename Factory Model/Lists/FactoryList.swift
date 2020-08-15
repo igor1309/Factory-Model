@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct FactoryList: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     var body: some View {
         NavigationView {

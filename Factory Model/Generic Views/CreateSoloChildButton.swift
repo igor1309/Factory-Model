@@ -11,7 +11,7 @@ import CoreData
 struct CreateSoloChildButton<Child: Managed & Sketchable,
                              Parent: NSManagedObject>: View {
     
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var parent: Parent
     

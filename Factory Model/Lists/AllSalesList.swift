@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftPI
 
 struct AllSalesList: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @FetchRequest private var orphans: FetchedResults<Sales>
     

@@ -11,7 +11,7 @@ import CoreData
 typealias Listable = Monikerable & Summarizable & Managed
 
 struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
     
@@ -80,7 +80,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
 }
 
 fileprivate struct EntityRowWithAction<T: Listable>: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @ObservedObject var entity: T
     

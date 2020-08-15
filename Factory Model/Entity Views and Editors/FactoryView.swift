@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftPI
 
 struct FactoryView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var factory: Factory

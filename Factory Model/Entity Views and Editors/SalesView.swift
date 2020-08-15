@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SalesView: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var sales: Sales

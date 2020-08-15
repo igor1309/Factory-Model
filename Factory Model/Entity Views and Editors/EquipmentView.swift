@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EquipmentView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var equipment: Equipment

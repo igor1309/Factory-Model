@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @ObservedObject var base: Base
     

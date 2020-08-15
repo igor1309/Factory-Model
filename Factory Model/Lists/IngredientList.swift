@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IngredientList: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @FetchRequest private var ingredients: FetchedResults<Ingredient>
 //    @FetchRequest private var recipes: FetchedResults<Recipe>

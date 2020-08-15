@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct MenuCreateNewOrSample: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     private enum Modal: String { case product, sales, recipe }
     @State private var modal: Modal = .product

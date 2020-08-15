@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BuyerView: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var buyer: Buyer
     

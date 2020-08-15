@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AllEmployeesList: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var factory: Factory
     

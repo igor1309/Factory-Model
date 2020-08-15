@@ -15,7 +15,7 @@ struct ListWithDashboard<
     Dashboard: View,
     Editor: View
 >: View where Child.ManagedType == Child {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @ObservedObject var parent: NSManagedObject
     

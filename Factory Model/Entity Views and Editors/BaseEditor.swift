@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipeRow/*<T: Managed>*/: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var entity: Recipe//T
     //    let keyPath: ReferenceWritableKeyPath<>
@@ -70,7 +70,7 @@ struct RecipeRow/*<T: Managed>*/: View {
 }
 
 struct BaseEditor: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) var presentation
     
     @ObservedObject var base: Base

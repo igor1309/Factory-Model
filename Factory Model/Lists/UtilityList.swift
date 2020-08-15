@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UtilityList: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     var base: Base
     

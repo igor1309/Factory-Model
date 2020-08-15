@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DivisionView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @ObservedObject var division: Division
     

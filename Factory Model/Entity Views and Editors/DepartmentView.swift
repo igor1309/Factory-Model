@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DepartmentView: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @ObservedObject var department: Department
     

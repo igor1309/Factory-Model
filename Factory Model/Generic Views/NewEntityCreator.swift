@@ -10,7 +10,7 @@ import CoreData
 
 struct NewEntityCreator<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
     
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @Binding var isPresented: Bool
     let editor: (T) -> Editor
@@ -76,7 +76,7 @@ fileprivate struct NewEntityList<T: Managed & Validatable, Editor: View>: View w
 }
 
 fileprivate struct EditorWrapper<T: NSManagedObject & Managed & Validatable, Editor: View>: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var entity: T
     

@@ -14,7 +14,7 @@ struct EntityListWithDashboard<
     Dashboard: View,
     Editor: View
 >: View where Child.ManagedType == Child {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var parent: Parent
     

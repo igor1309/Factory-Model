@@ -25,7 +25,7 @@ extension ProfileData {
 struct ProfileView: View {
     @State private var name: String = ""
     @State private var surname: String = ""
-    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext // it will need you to add new examples of youre entities and save all changes
+    @Environment(\.managedObjectContext) private var moc: NSManagedObjectContext // it will need you to add new examples of youre entities and save all changes
     @FetchRequest(
         entity: ProfileData.entity(),
         sortDescriptors: [

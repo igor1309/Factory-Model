@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BaseGroupList: View {
-    @Environment(\.managedObjectContext) var moc
+    @Environment(\.managedObjectContext) private var moc
     
     @FetchRequest private var bases: FetchedResults<Base>
     

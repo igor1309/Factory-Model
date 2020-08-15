@@ -11,7 +11,7 @@ import CoreData
 typealias PickableEntity = Managed & Monikerable & Summarizable //& NSManagedObject
 
 struct EntityPicker<T: PickableEntity & Sketchable>: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @Binding var selection: T?
     var icon: String? = nil
@@ -64,7 +64,7 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
 }
 
 fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) var presentation
     
     @Binding var selection: T?
