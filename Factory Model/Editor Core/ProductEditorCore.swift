@@ -23,6 +23,7 @@ struct ProductEditorCore: View {
         }
         
         ErrorMessage(product)
+        Text("product \(product.isValid ? "isValid" : "is NOT Valid")")
         
         Section(
             header: Text("Product Details")

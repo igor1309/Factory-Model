@@ -73,9 +73,9 @@ extension Packaging: Validatable {}
 extension Product: Validatable {
     var errorMessage: String? {
         guard base != nil else { return "ERROR: no base product" }
-        guard packaging != nil else { return "ERROR: no packaging" }
         guard baseQty > 0 else { return "ERROR: no base qty" }
         guard vat >= 0 else { return "ERROR: no VAT" }
+        guard packaging != nil else { return "ERROR: no packaging" }
         return nil
     }
 }

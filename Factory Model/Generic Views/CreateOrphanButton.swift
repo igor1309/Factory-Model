@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct CreateOrphanButton<Child: Managed & Sketchable>: View {
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     let systemName: String
     /// use this init to create orphans (no parent entities)
@@ -24,7 +24,7 @@ struct CreateOrphanButton<Child: Managed & Sketchable>: View {
             entity.makeSketch()
             entity.objectWillChange.send()
             
-            context.saveContext()
+//            context.saveContext()
         } label: {
             Image(systemName: systemName)
                 .padding([.leading, .vertical])

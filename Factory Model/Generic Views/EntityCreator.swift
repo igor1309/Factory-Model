@@ -10,7 +10,7 @@ import CoreData
 
 struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
     
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @Binding var isPresented: Bool
     let editor: (T) -> Editor
@@ -26,6 +26,11 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
     @State private var request = T.defaultNSFetchRequest(with: nil)
     
     var body: some View {
+        Text("Experimental View".uppercased())
+            .foregroundColor(.systemTeal)
+            .font(.headline)
+            .padding(.top)
+        
         EditorWrapper(
             request: request,
             isPresented: $isPresented
@@ -43,7 +48,7 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
 
 fileprivate struct EditorWrapper<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
     
-    @Environment(\.managedObjectContext) var context
+    @Environment(\.managedObjectContext) private var context
     
     @Binding var isPresented: Bool
     let editor: (T) -> Editor
@@ -63,30 +68,54 @@ fileprivate struct EditorWrapper<T: Managed & Validatable, Editor: View>: View w
     var body: some View {
         NavigationView {
             ForEach(request, id: \.objectID) { entity in
-                List {
-                    Text("entity \(entity.isValid ? "isValid" : "is NOT Valid")")
-                    editor(entity)
-                }
-                .listStyle(InsetGroupedListStyle())
-                .navigationTitle("New \(T.entityName)")
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Save") {
-                            context.saveContext()
-                            isPresented = false
-                        }
-                        .disabled(!entity.isValid)
-                    }
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Discard") {
-                            context.delete(entity)
-                            isPresented = false
-                        }
-                    }
-                }
-                .navigationBarTitleDisplayMode(.inline)
+                EditorWrapperRow(entity, isPresented: $isPresented, editor: editor)
             }
         }
+    }
+}
+
+
+fileprivate struct EditorWrapperRow<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
+    
+    @Environment(\.managedObjectContext) private var context
+    
+    @ObservedObject var entity: T
+    @Binding var isPresented: Bool
+    let editor: (T) -> Editor
+    
+    init(
+        _ entity: T,
+        isPresented: Binding<Bool>,
+        @ViewBuilder editor: @escaping (T) -> Editor
+    ) {
+        self.entity = entity
+        _isPresented = isPresented
+        self.editor = editor
+    }
+    
+    var body: some View {
+        List {
+            Text("entity \(entity.isValid ? "isValid" : "is NOT Valid")")
+            editor(entity)
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("New \(T.entityName)")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button(entity.isValid ? "Save" : "NO SAVE") {
+                    context.saveContext()
+                    isPresented = false
+                }
+                //  .disabled(!entity.isValid)
+            }
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Discard") {
+                    context.delete(entity)
+                    isPresented = false
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
