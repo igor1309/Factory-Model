@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct NewEntityCreator<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
+    
     @Environment(\.managedObjectContext) var context
     
     @Binding var isPresented: Bool
@@ -49,6 +50,7 @@ struct NewEntityCreator<T: Managed & Validatable, Editor: View>: View where T.Ma
 }
 
 fileprivate struct NewEntityList<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
+    
     @Binding var isPresented: Bool
     let editor: (T) -> Editor
     

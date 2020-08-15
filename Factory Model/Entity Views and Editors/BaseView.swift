@@ -156,26 +156,26 @@ struct BaseView: View {
     }
 }
 
-struct BaseView_Previews: PreviewProvider {
-    static var previews: some View {
-        let persistence = PersistenceManager(containerName: "DataModel")
-        let context = persistence.context
-        
-        let entity = Base(context: context)
-        entity.makeSketch()
-        
-        context.saveContext()
-        
-        return Group {
-//            let request = Base.defaultNSFetchRequest(with: nil)
-            //            if let fetch = try? context.fetch(request), let first = fetch.first {
-            if let fetch = Base.fetch(in: context, configurationBlock: {_ in }), let first = fetch.first {
-//                 Text("entity fetched \(first)")
-                BaseView(first)
-                    .environment(\.managedObjectContext, context)
-            } else {
-                Text("error fetching entity")
-            }
-        }
-    }
-}
+//struct BaseView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let persistence = PersistenceManager(containerName: "DataModel")
+//        let context = persistence.context
+//        
+//        let entity = Base(context: context)
+//        entity.makeSketch()
+//        
+//        context.saveContext()
+//        
+//        return Group {
+////            let request = Base.defaultNSFetchRequest(with: nil)
+//            //            if let fetch = try? context.fetch(request), let first = fetch.first {
+//            if let fetch = Base.fetch(in: context, configurationBlock: {_ in }), let first = fetch.first {
+////                 Text("entity fetched \(first)")
+//                BaseView(first)
+//                    .environment(\.managedObjectContext, context)
+//            } else {
+//                Text("error fetching entity")
+//            }
+//        }
+//    }
+//}

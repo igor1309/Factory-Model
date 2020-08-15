@@ -14,7 +14,6 @@ struct FactoryList: View {
     var body: some View {
         NavigationView {
             List {
-                
                 Section(
                     header: Text("Temporary here")
                         .foregroundColor(.systemRed)

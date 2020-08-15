@@ -78,7 +78,7 @@ struct MenuCreateNewOrSample: View {
         .sheet(isPresented: $showSheet) {
             switch modal {
                 case .product:
-                    NewEntityCreator(isPresented: $showSheet) { (product: Product) in
+                    EntityCreator(isPresented: $showSheet) { (product: Product) in
                         ProductEditorCore(product)
                     }
                     .environment(\.managedObjectContext, context)
