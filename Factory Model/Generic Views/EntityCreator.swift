@@ -31,18 +31,13 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
             .font(.headline)
             .padding(.top)
         
-        EditorWrapper(
-            request: request,
-            isPresented: $isPresented
-        ) { (entity: T) in
-            editor(entity)
-        }
-        .onAppear {
-            let entity = T.create(in: context)
-            let objectID = entity.objectID
-            let predicate = NSPredicate(format: "%K == %@", "objectID", objectID)
-            request = T.defaultNSFetchRequest(with: predicate)
-        }
+        EditorWrapper(request: request, isPresented: $isPresented, editor: editor)
+            .onAppear {
+                let entity = T.create(in: context)
+                let objectID = entity.objectID
+                let predicate = NSPredicate(format: "%K == %@", "objectID", objectID)
+                request = T.defaultNSFetchRequest(with: predicate)
+            }
     }
 }
 
@@ -106,6 +101,8 @@ fileprivate struct EditorWrapperRow<T: Managed & Validatable, Editor: View>: Vie
                     context.saveContext()
                     isPresented = false
                 }
+                //  MARK: - FINISH THIS
+                //  disabling of button should be working!!
                 //  .disabled(!entity.isValid)
             }
             ToolbarItem(placement: .cancellationAction) {
