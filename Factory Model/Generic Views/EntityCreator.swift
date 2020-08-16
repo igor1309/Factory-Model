@@ -1,8 +1,8 @@
 //
-//  EntityCreator.swift
+//  NewEntityCreator.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 15.08.2020.
+//  Created by Igor Malyarov on 01.08.2020.
 //
 
 import SwiftUI
@@ -13,6 +13,7 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
     @Environment(\.managedObjectContext) private var context
     
     @Binding var isPresented: Bool
+    
     let editor: (T) -> Editor
     
     init(
@@ -26,7 +27,7 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
     @State private var request = T.defaultNSFetchRequest(with: nil)
     
     var body: some View {
-        NewEntityList(request: request, isPresented: $isPresented, editor: editor)
+        EntityList(request: request, isPresented: $isPresented, editor: editor)
             .onAppear {
                 let entity = T.create(in: context)
                 let objectID = entity.objectID
@@ -36,9 +37,10 @@ struct EntityCreator<T: Managed & Validatable, Editor: View>: View where T.Manag
     }
 }
 
-fileprivate struct NewEntityList<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
+fileprivate struct EntityList<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
     
     @Binding var isPresented: Bool
+    
     let editor: (T) -> Editor
     
     init(
@@ -62,7 +64,6 @@ fileprivate struct NewEntityList<T: Managed & Validatable, Editor: View>: View w
     }
 }
 
-
 fileprivate struct EditorWrapper<T: Managed & Validatable, Editor: View>: View where T.ManagedType == T {
     
     @Environment(\.managedObjectContext) private var context
@@ -83,25 +84,8 @@ fileprivate struct EditorWrapper<T: Managed & Validatable, Editor: View>: View w
         self.editor = editor
     }
     
-    @ViewBuilder var header: some View {
-        if entity.isValid {
-            Text("Can save new \(T.entityName)!")
-                .foregroundColor(.secondary)
-        } else {
-            Text("ERROR: Fill or choose all parameters.")
-                .foregroundColor(.systemRed)
-        }
-    }
-    
     var body: some View {
         List {
-            Text("Experimental View".uppercased())
-                .foregroundColor(.systemTeal)
-                .font(.headline)
-            Text("entity \(entity.isValid ? "isValid" : "is NOT Valid")")
-            
-            header
-            
             editor(entity)
         }
         .listStyle(InsetGroupedListStyle())
@@ -126,4 +110,3 @@ fileprivate struct EditorWrapper<T: Managed & Validatable, Editor: View>: View w
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-

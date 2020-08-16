@@ -87,13 +87,13 @@ struct MenuCreateNewOrSample: View {
                     //  MARK: - FINISH THIS NSClassFromString
                     //  NewEntityCreator(isPresented: $showSheet) { (sales: className) in
                     //  NewEntityCreator(isPresented: $showSheet) { (sales: typeFromString("Sales")) in
-                    NewEntityCreator(isPresented: $showSheet) { (sales: Sales) in
+                    EntityCreator(isPresented: $showSheet) { (sales: Sales) in
                         SalesEditorCore(sales)
                     }
                     .environment(\.managedObjectContext, context)
                     
                 case .recipe:
-                    NewEntityCreator(isPresented: $showSheet) { (recipe: Recipe) in
+                    EntityCreator(isPresented: $showSheet) { (recipe: Recipe) in
                         RecipeEditorCore(recipe)
                     }
                     .environment(\.managedObjectContext, context)
