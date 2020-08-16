@@ -8,18 +8,6 @@
 import Foundation
 
 extension Product {
-    var code: String {
-        get { code_ ?? "No code"}
-        set { code_ = newValue }
-    }
-    var note: String {
-        get { note_ ?? "" }
-        set { note_ = newValue }
-    }
-    var group: String {
-        get { group_ ?? "No group" }
-        set { group_ = newValue }
-    }
     var sales: [Sales] {
         get { (sales_ as? Set<Sales> ?? []).sorted() }
         set { sales_ = Set(newValue) as NSSet }
@@ -76,7 +64,7 @@ extension Product {
     }
     
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
-    var productGroups: [String] {
+    var groups: [String] {
         base?.factory?.productGroups ?? []
     }
 }

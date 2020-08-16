@@ -72,10 +72,14 @@ extension Packaging: Validatable {}
 
 extension Product: Validatable {
     var errorMessage: String? {
+        guard name_ != nil else { return "ERROR: no name" }
+        guard coefficientToParentUnit > 0 else { return "ERROR: unit coefficient" }
         guard base != nil else { return "ERROR: no base product" }
         guard baseQty > 0 else { return "ERROR: no base qty" }
         guard vat >= 0 else { return "ERROR: no VAT" }
         guard packaging != nil else { return "ERROR: no packaging" }
+        guard code_ != nil else { return "ERROR: no code" }
+        guard group_ != nil else { return "ERROR: no group" }
         return nil
     }
 }

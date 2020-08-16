@@ -31,27 +31,27 @@ struct TestingCoreDataModel: View {
             ScrollView {
                 VStack(spacing: 16) {
                     Group {
-                        CreateNewEntityButton<Base>(headline: "Create base product with ingredients.")
-                        CreateNewEntityButton<Buyer>(headline: "Create \(Buyer.entityName.lowercased()).")
-                        CreateNewEntityButton<Department>(headline: "Create \(Department.entityName.lowercased()).")
-                        CreateNewEntityButton<Division>(headline: "Create \(Division.entityName.lowercased()).")
-                        CreateNewEntityButton<Employee>(headline: "Create \(Employee.entityName.lowercased()).")
-                        CreateNewEntityButton<Equipment>(headline: "Create \(Equipment.entityName.lowercased()).")
-                        CreateNewEntityButton<Expenses>(headline: "Create \(Expenses.entityName.lowercased()).")
+                        CreateNewEntityButton<Base>()
+                        CreateNewEntityButton<Buyer>()
+                        CreateNewEntityButton<Department>()
+                        CreateNewEntityButton<Division>()
+                        CreateNewEntityButton<Equipment>()
+                        CreateNewEntityButton<Employee>()
+                        CreateNewEntityButton<Expenses>()
                     }
                     Group {
-                        CreateNewEntityButton<Factory>(headline: "Create \(Factory.entityName.lowercased()).")
-                        CreateNewEntityButton<Ingredient>(headline: "Create \(Ingredient.entityName.lowercased()).")
-                        CreateNewEntityButton<Packaging>(headline: "Create \(Packaging.entityName.lowercased()).")
-                        CreateNewEntityButton<Product>(headline: "Create a product for sale with base product, base product quantity, packaging, VAT and other parameters.")
-                        CreateNewEntityButton<Recipe>(headline: "Create \(Recipe.entityName.lowercased()).")
-                        CreateNewEntityButton<Sales>(headline: "Create \(Sales.entityName.lowercased()).")
+                        CreateNewEntityButton<Factory>()
+                        CreateNewEntityButton<Ingredient>()
+                        CreateNewEntityButton<Packaging>()
+                        CreateNewEntityButton<Product>()
+                        CreateNewEntityButton<Recipe>()
+                        CreateNewEntityButton<Sales>()
+                        CreateNewEntityButton<Utility>()
                     }
-                    CreateNewEntityButton<Utility>(headline: "Create \(Utility.entityName.lowercased()).")
                 }
                 .padding()
             }
-            .navigationTitle("New Entity New Entity New Entity New Entity")
+            .navigationTitle("Create")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .cancellationAction) {
@@ -64,46 +64,10 @@ struct TestingCoreDataModel: View {
     }
 }
 
-struct NameEditor<T: Managed & Monikerable>: View {
-    @Environment(\.managedObjectContext) private var context
-    @Environment(\.presentationMode) private var presentation
-    
-    @ObservedObject var entity: T
-    
-    var body: some View {
-        List {
-            Section(header: Text("Name")) {
-                TextField("Name", text: $entity.name)
-            }
-        }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("New \(T.entityName)")
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    try? context.save()
-                    presentation.wrappedValue.dismiss()
-                }
-            }
-            //            ToolbarItem(placement: .cancellationAction) {
-            //                Button {
-            //                    //  MARK: - DELETE ENTITY FROM CONTEXT HERE??????
-            //                    presentation.wrappedValue.dismiss()
-            //                } label: {
-            //                    Label("Back", systemImage: "chevron.left")
-            //                }
-            //            }
-        }
-    }
-}
-
-
 struct CreateNewEntityButton<T: Managed & Monikerable & Summarizable>: View {
     //  MARK: - FINISH THIS
     //  DO NOT FORGET TO DELETE ENTITY FROM CONTEXT IF SAVE BUTTON WAS NOT TAPPED
     @Environment(\.managedObjectContext) private var context
-    
-    let headline: String
     
     @State private var isActive = false
     
@@ -113,7 +77,7 @@ struct CreateNewEntityButton<T: Managed & Monikerable & Summarizable>: View {
                 .foregroundColor(T.color)
                 .font(.system(size: 52, weight: .ultraLight, design: .default))
             
-            Text(headline)
+            Text(T.headline)
                 .font(.subheadline)
             
             NavigationLink(
@@ -134,3 +98,70 @@ struct CreateNewEntityButton<T: Managed & Monikerable & Summarizable>: View {
         .simpleCardify()
     }
 }
+
+struct NameEditor<T: Managed & Monikerable>: View {
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
+    
+    @ObservedObject var entity: T
+    
+    private var buttonName: String {
+        switch T.entityName {
+            case Packaging.entityName: return "Next"
+            default: return "Save"
+        }
+    }
+    
+    @ViewBuilder
+    private func editor() -> some View {
+        switch T.entityName {
+            case Base.entityName:       BaseEditor(entity as! Base)
+            case Buyer.entityName:      BuyerView(entity as! Buyer)
+            case Department.entityName: DepartmentView(entity as! Department)
+            case Division.entityName:   DivisionView(entity as! Division)
+            case Equipment.entityName:  EquipmentView(entity as! Equipment)
+            case Employee.entityName:   EmployeeView(entity as! Employee)
+            case Expenses.entityName:   ExpensesView(entity as! Expenses)
+            case Factory.entityName:    FactoryView(entity as! Factory)
+            case Ingredient.entityName: IngredientView(entity as! Ingredient)
+            case Packaging.entityName:  PackagingView(entity as! Packaging)
+            case Product.entityName:    ProductView(entity as! Product)
+            case Recipe.entityName:     RecipeView(entity as! Recipe)
+            case Sales.entityName:      SalesView(entity as! Sales)
+            case Utility.entityName:    UtilityView(entity as! Utility)
+            default: EmptyView()
+        }
+    }
+    
+    @State private var isActive = false
+    
+    var body: some View {
+        NavigationLink(destination: editor(), isActive: $isActive) { EmptyView() }
+        List {
+            Section(header: Text("Name")) {
+                TextField("Name", text: $entity.name)
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("New \(T.entityName)")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                    Button("Next") {//buttonName) {//"Save") {
+                        isActive = true
+                        //                    try? context.save()
+                        //                    presentation.wrappedValue.dismiss()
+                    }
+                    .disabled(entity.name.isEmpty)
+            }
+            //            ToolbarItem(placement: .cancellationAction) {
+            //                Button {
+            //                    //  MARK: - DELETE ENTITY FROM CONTEXT HERE??????
+            //                    presentation.wrappedValue.dismiss()
+            //                } label: {
+            //                    Label("Back", systemImage: "chevron.left")
+            //                }
+            //            }
+        }
+    }
+}
+

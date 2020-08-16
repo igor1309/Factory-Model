@@ -33,7 +33,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label("Ingredients", systemImage: Ingredient.icon)
+                        Label(Ingredient.plural(), systemImage: Ingredient.icon)
                     }
                     
                     NavigationLink(
@@ -54,7 +54,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label("Recipes", systemImage: Recipe.icon)
+                        Label(Recipe.plural(), systemImage: Recipe.icon)
                     }
                     
                     NavigationLink(
@@ -70,7 +70,23 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label("Bases", systemImage: Base.icon)
+                        Label(Base.plural(), systemImage: Base.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Packaging.self,
+                                    predicate: nil
+                                ) { (packaging: Packaging) in
+                                    PackagingView(packaging)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Packaging.plural(), systemImage: Packaging.icon)
                     }
                 }
                 

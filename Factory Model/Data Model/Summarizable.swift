@@ -15,9 +15,17 @@ protocol Summarizable {
     static var color: Color { get }
     static var icon: String { get }
     static var plusButtonIcon: String { get }
+    static var headline: String { get }
+}
+extension Summarizable where Self: Managed {
+    static var headline: String {
+        "Create \(Self.entityName.lowercased())."
+    }
 }
 extension Summarizable where Self: Monikerable {
-    var title: String { name.isEmpty ? "ERROR: no name" : name }
+    var title: String {
+        name.isEmpty ? "ERROR: no name" : name
+    }
 }
 extension Summarizable where Self: Validatable {
     var detail: String? { errorMessage }
@@ -51,6 +59,7 @@ extension Base: Summarizable {
     
     static var color: Color { .systemPurple }
     static var icon: String { "bag.circle" }
+    static var headline: String { "Create base product with ingredients." }
 }
 
 extension Buyer: Summarizable {
@@ -215,6 +224,9 @@ extension Product: Summarizable {
     
     static var icon: String { "bag" }
     static var plusButtonIcon: String { "bag.badge.plus" }
+    static var headline: String {
+        "Create a product for sale with base product, base product quantity, packaging, VAT and other parameters."
+    }
 }
 
 extension Sales: Summarizable {

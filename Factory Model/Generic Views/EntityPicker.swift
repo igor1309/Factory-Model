@@ -86,13 +86,17 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(entities, id: \.objectID) { entity in
-                    Button {
-                        selection = entity
-                        presentation.wrappedValue.dismiss()
-                    } label: {
-                        EntityRow(entity)
-                            .foregroundColor(selection == entity ? .systemOrange : .accentColor)
+                if entities.isEmpty {
+                    Text("No \(T.plural()) to select from. Tap + to add one.")
+                } else {
+                    ForEach(entities, id: \.objectID) { entity in
+                        Button {
+                            selection = entity
+                            presentation.wrappedValue.dismiss()
+                        } label: {
+                            EntityRow(entity)
+                                .foregroundColor(selection == entity ? .systemOrange : .accentColor)
+                        }
                     }
                 }
             }

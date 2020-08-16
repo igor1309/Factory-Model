@@ -87,50 +87,7 @@ struct BaseEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text("Base")
-            ) {
-                Group {
-                    HStack {
-                        ZStack {
-                            Text("Group").hidden()
-                            Text("Name")
-                        }
-                            .foregroundColor(.tertiary)
-                        TextField("Name", text: $base.name)
-                    }
-                    
-                    if base.baseGroups.isEmpty {
-                        HStack {
-                            Text("Group")
-                                .foregroundColor(.tertiary)
-                            TextField("Group", text: $base.group)
-                                .foregroundColor(.accentColor)
-                        }
-                    } else {
-                        PickerWithTextField(selection: $base.group, name: "Group", values: base.baseGroups)
-                    }
-                    
-                    HStack {
-                        ZStack {
-                            Text("Group").hidden()
-                            Text("Code")
-                        }
-                            .foregroundColor(.tertiary)
-                        TextField("Code", text: $base.code)
-                    }
-                    HStack {
-                        ZStack {
-                            Text("Group").hidden()
-                            Text("Note")
-                        }
-                            .foregroundColor(.tertiary)
-                        TextField("Note", text: $base.note)
-                    }
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+            NameGroupCodeNoteEditorSection(base)
             
             Section(
                 header: Text("Unit")

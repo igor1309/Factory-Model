@@ -15,7 +15,7 @@ protocol Monikerable where Self: NSManagedObject {
 }
 extension Monikerable {
     var name: String {
-        get { name_ ?? "Unknown"}
+        get { name_ ?? ""}
         set { name_ = newValue }
     }
     static var defaultSortDescriptors: [NSSortDescriptor] {

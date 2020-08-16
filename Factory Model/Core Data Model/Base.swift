@@ -6,21 +6,8 @@
 //
 
 import Foundation
-import CoreData
 
 extension Base {
-    var note: String {
-        get { note_ ?? ""}
-        set { note_ = newValue }
-    }
-    var code: String {
-        get { code_ ?? "No code"}
-        set { code_ = newValue }
-    }
-    var group: String {
-        get { group_ ?? " No group"}
-        set { group_ = newValue }
-    }
     var recipes: [Recipe] {
         get { (recipes_ as? Set<Recipe> ?? []).sorted() }
         set { recipes_ = Set(newValue) as NSSet }
@@ -47,7 +34,7 @@ extension Base {
 
     //  MARK: FIX THIS: неоптимально —
     //  нужно по FetchRequest вытащить список имеющихся групп базовых продуктов (для этой/выбранной фабрики! — возможно функция с параметром по умолчанию?)
-    var baseGroups: [String] {
+    var groups: [String] {
         factory?.bases.map(\.group).removingDuplicates() ?? []
     }
     var productList: String {

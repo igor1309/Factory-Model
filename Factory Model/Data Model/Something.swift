@@ -28,4 +28,5 @@ extension Something: Summarizable {
     var subtitle: String {
         "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
     }
+    static var headline: String { "Something" }
 }
