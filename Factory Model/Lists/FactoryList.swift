@@ -98,6 +98,7 @@ struct FactoryList: View {
         }
         .sheet(isPresented: $showModal) {
             TestingCoreDataModel()
+                .environment(\.managedObjectContext, context)
         }
     }
 }

@@ -46,12 +46,12 @@ struct TestingCoreDataModel: View {
                         CreateNewEntityButton<Product>(headline: "Create a product for sale with base product, base product quantity, packaging, VAT and other parameters.")
                         CreateNewEntityButton<Recipe>(headline: "Create \(Recipe.entityName.lowercased()).")
                         CreateNewEntityButton<Sales>(headline: "Create \(Sales.entityName.lowercased()).")
-                        CreateNewEntityButton<Utility>(headline: "Create \(Utility.entityName.lowercased()).")
                     }
+                    CreateNewEntityButton<Utility>(headline: "Create \(Utility.entityName.lowercased()).")
                 }
                 .padding()
             }
-            .navigationTitle("New Entity")
+            .navigationTitle("New Entity New Entity New Entity New Entity")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .cancellationAction) {
@@ -64,8 +64,48 @@ struct TestingCoreDataModel: View {
     }
 }
 
-struct CreateNewEntityButton<T: Managed & Summarizable>: View {
+struct NameEditor<T: Managed & Monikerable>: View {
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
+    
+    @ObservedObject var entity: T
+    
+    var body: some View {
+        List {
+            Section(header: Text("Name")) {
+                TextField("Name", text: $entity.name)
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("New \(T.entityName)")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    try? context.save()
+                    presentation.wrappedValue.dismiss()
+                }
+            }
+            //            ToolbarItem(placement: .cancellationAction) {
+            //                Button {
+            //                    //  MARK: - DELETE ENTITY FROM CONTEXT HERE??????
+            //                    presentation.wrappedValue.dismiss()
+            //                } label: {
+            //                    Label("Back", systemImage: "chevron.left")
+            //                }
+            //            }
+        }
+    }
+}
+
+
+struct CreateNewEntityButton<T: Managed & Monikerable & Summarizable>: View {
+    //  MARK: - FINISH THIS
+    //  DO NOT FORGET TO DELETE ENTITY FROM CONTEXT IF SAVE BUTTON WAS NOT TAPPED
+    @Environment(\.managedObjectContext) private var context
+    
     let headline: String
+    
+    @State private var isActive = false
     
     var body: some View {
         VStack(spacing: 16) {
@@ -76,14 +116,19 @@ struct CreateNewEntityButton<T: Managed & Summarizable>: View {
             Text(headline)
                 .font(.subheadline)
             
-            Button {
-                //  MARK: - FINISH THIS
-                
-            } label: {
-                Text("Create \(T.entityName)")
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.white)
-                    .simpleCardify(cornerRadius: 6, background: T.color)
+            NavigationLink(
+                destination: NameEditor(entity: T.create(in: context))
+                    .environment(\.managedObjectContext, context),
+                isActive: $isActive
+            ) {
+                Button {
+                    isActive = true
+                } label: {
+                    Text("Create \(T.entityName)")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.white)
+                        .simpleCardify(cornerRadius: 6, background: T.color)
+                }
             }
         }
         .simpleCardify()
