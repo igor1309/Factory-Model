@@ -89,7 +89,7 @@ struct FactoryView: View {
                 )
             }
         }
-        .foregroundColor(.purple)
+        .foregroundColor(Equipment.color)
     }
     
     private var expensesSection: some View {
@@ -105,7 +105,7 @@ struct FactoryView: View {
                 )
             }
         }
-        .foregroundColor(.systemTeal)
+        .foregroundColor(Expenses.color)
     }
     
     private var issuesSection: some View {
@@ -162,6 +162,7 @@ struct FactoryView: View {
                         icon: "person.crop.rectangle"
                     )
                 }
+                .foregroundColor(Division.color)
                 
                 NavigationLink(
                     destination: AllEmployeesList(for: factory)
@@ -171,9 +172,9 @@ struct FactoryView: View {
                         icon: Department.icon
                     )
                 }
+                .foregroundColor(Department.color)
             }
         }
-        .foregroundColor(.systemTeal)
     }
     
     private var productionSection: some View {
@@ -190,7 +191,7 @@ struct FactoryView: View {
                         detail: "TBD: Base products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
                         icon: Product.icon
                     )
-                    .foregroundColor(.systemOrange)
+                    .foregroundColor(Product.color)
                 }
                 
                 NavigationLink(
@@ -202,7 +203,7 @@ struct FactoryView: View {
                         detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
                         icon: Base.icon
                     )
-                    .foregroundColor(.systemTeal)
+                    .foregroundColor(Base.color)
                 }
                 
                 NavigationLink(
@@ -214,7 +215,7 @@ struct FactoryView: View {
                         detail: "TBD: some extra top-level details(?)",
                         icon: Ingredient.icon
                     )
-                    .foregroundColor(.systemPurple)
+                    .foregroundColor(Ingredient.color)
                 }
                 
                 NavigationLink(
@@ -226,7 +227,7 @@ struct FactoryView: View {
                         detail: "TBD: List of packaging types (??)",
                         icon: Packaging.icon
                     )
-                    .foregroundColor(.systemIndigo)
+                    .foregroundColor(Packaging.color)
                 }
             }
         }
@@ -241,15 +242,15 @@ struct FactoryView: View {
                     destination: AllSalesList(for: factory)
                 ) {
                     LabelWithDetail(Sales.icon, "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
-                        .foregroundColor(.systemGreen)
                 }
+                .foregroundColor(Sales.color)
                 
                 NavigationLink(
                     destination: AllBuyersList(for: factory)
                 ) {
                     LabelWithDetail(Buyer.icon, "All Buyers", "")
                 }
-                .foregroundColor(.systemPurple)
+                .foregroundColor(Buyer.color)
             }
             .font(.subheadline)
         }

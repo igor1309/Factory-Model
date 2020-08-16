@@ -32,9 +32,9 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     @ViewBuilder
     private var label: some View {
         if let icon = icon {
-            Label(selection?.title ?? "...", systemImage: icon)
+            Label(selection?.title ?? "Select \(T.entityName)", systemImage: icon)
         } else {
-            Text(selection?.title ?? "...")
+            Text(selection?.title ?? "Select \(T.entityName)")
         }
     }
     

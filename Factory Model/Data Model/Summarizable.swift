@@ -5,11 +5,14 @@
 //  Created by Igor Malyarov on 23.07.2020.
 //
 
+import SwiftUI
+
 protocol Summarizable {
     var title: String { get }
     var subtitle: String { get }
     var detail: String? { get }
     
+    static var color: Color { get }
     static var icon: String { get }
     static var plusButtonIcon: String { get }
 }
@@ -22,6 +25,7 @@ extension Summarizable where Self: Validatable {
 extension Summarizable {
     var subtitle: String { "" }
     
+    static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
 
@@ -45,6 +49,7 @@ extension Base: Summarizable {
         return note
     }
     
+    static var color: Color { .systemPurple }
     static var icon: String { "bag.circle" }
 }
 
@@ -52,6 +57,7 @@ extension Buyer: Summarizable {
     var subtitle: String { "TBD: объем выручки по покупателю" }
     var detail: String? { "TBD: списк покупаемых продуктов" }
     
+    static var color: Color { .systemPurple }
     static var icon: String { "cart.fill" }
     static var plusButtonIcon: String { "cart.badge.plus" }
 }
@@ -72,6 +78,7 @@ extension Division: Summarizable {
         return departmentNames
     }
     
+    static var color: Color { .systemTeal }
     static var icon: String { "person.crop.rectangle" }
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
@@ -88,6 +95,7 @@ extension Department: Summarizable {
         return "\(type.rawValue.capitalized)"
     }
     
+    static var color: Color { .systemTeal }
     static var icon: String { "person.2" }
 }
 
@@ -103,6 +111,7 @@ extension Employee: Summarizable {
             .joined(separator: ": ")
     }
     
+    static var color: Color { .systemTeal }
     static var icon: String { "person" }
     static var plusButtonIcon: String { "cart.badge.plus" }
 }
@@ -115,6 +124,7 @@ extension Equipment: Summarizable {
         return "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
     }
     
+    static var color: Color { .systemPurple }
     static var icon: String { "wrench.and.screwdriver" }
     static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
@@ -127,6 +137,7 @@ extension Expenses: Summarizable {
         return note
     }
     
+    static var color: Color { .systemTeal }
     static var icon: String { "dollarsign.circle" }
     static var plusButtonIcon: String { "text.badge.plus" }
 }
@@ -151,6 +162,7 @@ extension Ingredient: Summarizable {
         return "Price \(priceExVAT.formattedGrouped)/\(unitString_), VAT \(vat.formattedPercentage)"
     }
     
+    static var color: Color { .systemPurple }
     static var icon: String { "puzzlepiece" }
 }
 
@@ -174,6 +186,7 @@ extension Packaging: Summarizable {
         return productList
     }
     
+    static var color: Color { .systemIndigo }
     static var icon: String { "shippingbox" }
 }
 
@@ -217,6 +230,7 @@ extension Sales: Summarizable {
         return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped)"
     }
     
+    static var color: Color { .systemGreen }
     static var icon: String { "creditcard.fill" }
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }

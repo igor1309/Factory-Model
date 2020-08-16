@@ -11,6 +11,8 @@ import CoreData
 struct FactoryList: View {
     @Environment(\.managedObjectContext) private var context
     
+    @State private var showModal = false
+    
     var body: some View {
         NavigationView {
             List {
@@ -82,8 +84,20 @@ struct FactoryList: View {
             }
             .listStyle(InsetGroupedListStyle())
             .navigationTitle("Factories")
-            .navigationBarItems(trailing: MenuCreateNewOrSample())
+            .navigationBarItems(
+                leading: MenuCreateNewOrSample(),
+                trailing: modalButton()
+            )
         }
     }
-    
+    private func modalButton() -> some View {
+        Button {
+            showModal = true
+        } label: {
+            Image(systemName: "plus.circle")
+        }
+        .sheet(isPresented: $showModal) {
+            TestingCoreDataModel()
+        }
+    }
 }
