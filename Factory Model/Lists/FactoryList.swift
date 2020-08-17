@@ -113,7 +113,7 @@ struct FactoryList: View {
             Image(systemName: "plus.rectangle.on.rectangle")
         }
         .sheet(isPresented: $showModal) {
-            CreateEntityPicker()
+            CreateEntityPicker(isPresented: $showModal)
                 .environment(\.managedObjectContext, context)
         }
     }

@@ -1,49 +1,52 @@
 //
-//  ChildUnitPicker.swift
+//  ChildUnitStringPicker.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 07.08.2020.
+//  Created by Igor Malyarov on 18.08.2020.
 //
 
 import SwiftUI
 
-struct ChildUnitPicker<T: HavingParentUnit & CustomUnitable>: View {
-    @ObservedObject var entity: T
+struct ChildUnitStringPicker: View {
+    @Binding var coefficientToParentUnit: Double
     
-    init(_ entity: T) {
-        self.entity = entity
-    }
+    let parentUnit: CustomUnit?
     
     @State private var showTable = false
     
+    var buttonTitle: String {
+        guard let parentUnit = parentUnit else {
+            return "???"
+        }
+        
+        return CustomUnit.unit(from: parentUnit, with: coefficientToParentUnit).rawValue
+    }
+    
     var body: some View {
-        Button(entity.customUnitString) {
+        Button(buttonTitle) {
             showTable = true
         }
-        .foregroundColor(entity.customUnitString == "??" ? .systemRed : .accentColor)
+//        .foregroundColor(unitString.isEmpty ? .systemRed : .accentColor)
         .sheet(isPresented: $showTable) {
-            ChildUnitPickerTable(entity)
+            ChildUnitStringPickerTable(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: parentUnit)
         }
     }
 }
 
-fileprivate struct ChildUnitPickerTable<T: HavingParentUnit>: View {
+fileprivate struct ChildUnitStringPickerTable: View {
     @Environment(\.presentationMode) private var presentation
     
-    @ObservedObject var entity: T
+    @Binding var coefficientToParentUnit: Double
     
-    init(_ entity: T) {
-        self.entity = entity
-    }
+    let parentUnit: CustomUnit?
     
     var body: some View {
         NavigationView {
-            if let parentUnit = entity.parentUnit {
+            if let parentUnit = parentUnit {
                 List {
                     ForEach(parentUnit.availableCasesFor, id: \.self) { unit in
                         Button(unit.rawValue) {
-                            entity.coefficientToParentUnit = unit.coefficient(to: parentUnit) ?? 0
-                            entity.objectWillChange.send()
+                            coefficientToParentUnit = unit.coefficient(to: parentUnit) ?? 0
                             presentation.wrappedValue.dismiss()
                         }
                         .foregroundColor(.accentColor)

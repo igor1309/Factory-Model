@@ -9,33 +9,40 @@ import SwiftUI
 import CoreData
 
 struct CreateEntityPicker: View {
-    @Environment(\.presentationMode) private var presentation
+    @Binding var isPresented: Bool
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
-                    CreateNewEntityButton<Packaging>()
-
+                    Group {
+                        CreateNewEntityButton<Base>(isPresented: $isPresented)
+                        
+                        Divider()
+                        
+                        CreateNewEntityButton<Ingredient>(isPresented: $isPresented)
+                        CreateNewEntityButton<Recipe>(isPresented: $isPresented)
+                        CreateNewEntityButton<Packaging>(isPresented: $isPresented)
+                    }
                     Divider()
                     
                     Group {
-                        CreateNewEntityButton<Base>()
-                        CreateNewEntityButton<Buyer>()
-                        CreateNewEntityButton<Department>()
-                        CreateNewEntityButton<Division>()
-                        CreateNewEntityButton<Equipment>()
-                        CreateNewEntityButton<Employee>()
-                        CreateNewEntityButton<Expenses>()
+                        CreateNewEntityButton<Base>(isPresented: $isPresented)
+                        CreateNewEntityButton<Buyer>(isPresented: $isPresented)
+                        CreateNewEntityButton<Department>(isPresented: $isPresented)
+                        CreateNewEntityButton<Division>(isPresented: $isPresented)
+                        CreateNewEntityButton<Equipment>(isPresented: $isPresented)
+                        CreateNewEntityButton<Employee>(isPresented: $isPresented)
+                        CreateNewEntityButton<Expenses>(isPresented: $isPresented)
                     }
                     Group {
-                        CreateNewEntityButton<Factory>()
-                        CreateNewEntityButton<Ingredient>()
-                        CreateNewEntityButton<Packaging>()
-                        CreateNewEntityButton<Product>()
-                        CreateNewEntityButton<Recipe>()
-                        CreateNewEntityButton<Sales>()
-                        CreateNewEntityButton<Utility>()
+                        CreateNewEntityButton<Factory>(isPresented: $isPresented)
+                        CreateNewEntityButton<Ingredient>(isPresented: $isPresented)
+                        CreateNewEntityButton<Packaging>(isPresented: $isPresented)
+                        CreateNewEntityButton<Product>(isPresented: $isPresented)
+                        CreateNewEntityButton<Recipe>(isPresented: $isPresented)
+                        CreateNewEntityButton<Sales>(isPresented: $isPresented)
+                        CreateNewEntityButton<Utility>(isPresented: $isPresented)
                     }
                 }
                 .padding()
@@ -45,7 +52,7 @@ struct CreateEntityPicker: View {
             .toolbar{
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        presentation.wrappedValue.dismiss()
+                        isPresented = false
                     }
                 }
             }

@@ -24,7 +24,7 @@ struct StringPicker: View {
 }
 
 fileprivate struct StringPickerTable: View {
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     let items: [String]
     @Binding var selection: String

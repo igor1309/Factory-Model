@@ -65,7 +65,7 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
 
 fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) private var context
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     @Binding var selection: T?
     

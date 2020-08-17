@@ -1,18 +1,14 @@
 //
-//  ParentUnitPicker.swift
+//  ParentUnitStringPicker.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 08.08.2020.
+//  Created by Igor Malyarov on 18.08.2020.
 //
 
 import SwiftUI
 
-struct ParentUnitPicker<T: CustomUnitable>: View {
-    @ObservedObject var entity: T
-    
-    init(_ entity: T) {
-        self.entity = entity
-    }
+struct ParentUnitStringPicker: View {
+    @Binding var unitString: String
     
     @State private var showTable = false
     
@@ -20,31 +16,26 @@ struct ParentUnitPicker<T: CustomUnitable>: View {
         Button {
             showTable = true
         } label: {
-            Text(entity.customUnitString)
-                .foregroundColor(entity.customUnit == nil ? .systemRed : .accentColor)
+            Text(unitString.isEmpty ? "??" : unitString)
+                .foregroundColor(unitString.isEmpty ? .systemRed : .accentColor)
         }
         .sheet(isPresented: $showTable) {
-            UnitPickerTable(entity)
+            UnitStringPickerTable(unitString: $unitString)
         }
     }
 }
 
-fileprivate struct UnitPickerTable<T: CustomUnitable>: View {
+fileprivate struct UnitStringPickerTable: View {
     @Environment(\.presentationMode) private var presentation
     
-    @ObservedObject var entity: T
-    
-    init(_ entity: T) {
-        self.entity = entity
-    }
+    @Binding var unitString: String
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(CustomUnit.allCases, id: \.self) { unit in
                     Button(unit.rawValue) {
-                        entity.customUnit = unit
-                        entity.objectWillChange.send()
+                        unitString = unit.rawValue
                         presentation.wrappedValue.dismiss()
                     }
                 }

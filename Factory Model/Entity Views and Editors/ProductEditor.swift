@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductEditor: View {
     @Environment(\.managedObjectContext) private var context
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     @ObservedObject var product: Product
     

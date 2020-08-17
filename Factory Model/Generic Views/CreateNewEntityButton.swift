@@ -11,14 +11,6 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     
     @Binding var isPresented: Bool
     
-    init(isPresented: Binding<Bool>) {
-        _isPresented = isPresented
-    }
-    
-    init() {
-        _isPresented = .constant(true)
-    }
-    
     @State private var isActive = false
     
     var body: some View {
@@ -58,10 +50,10 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
 //            case Employee.entityName:   EmployeeView(isPresented: $isPresented)
 //            case Expenses.entityName:   ExpensesView(isPresented: $isPresented)
 //            case Factory.entityName:    FactoryView(isPresented: $isPresented)
-//            case Ingredient.entityName: IngredientView(isPresented: $isPresented)
+            case Ingredient.entityName: IngredientCreator(isPresented: $isPresented)
             case Packaging.entityName:  PackagingCreator(isPresented: $isPresented)
 //            case Product.entityName:    ProductView(isPresented: $isPresented)
-//            case Recipe.entityName:     RecipeView(isPresented: $isPresented)
+            case Recipe.entityName:     RecipeCreator(isPresented: $isPresented)
 //            case Sales.entityName:      SalesView(isPresented: $isPresented)
 //            case Utility.entityName:    UtilityView(isPresented: $isPresented)
             default: Text("TBD")

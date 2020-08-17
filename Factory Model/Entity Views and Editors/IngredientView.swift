@@ -9,7 +9,7 @@ import SwiftUI
 
 struct IngredientView: View {
     @Environment(\.managedObjectContext) private var moc
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     @ObservedObject var ingredient: Ingredient
     
