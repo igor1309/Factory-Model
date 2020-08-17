@@ -110,7 +110,7 @@ struct FactoryList: View {
         Button {
             showModal = true
         } label: {
-            Image(systemName: "plus.circle")
+            Image(systemName: "plus.rectangle.on.rectangle")
         }
         .sheet(isPresented: $showModal) {
             TestingCoreDataModel()

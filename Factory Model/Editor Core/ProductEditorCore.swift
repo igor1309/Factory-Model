@@ -26,56 +26,6 @@ struct ProductEditorCore: View {
         Text("product \(product.isValid ? "isValid" : "is NOT Valid")")
         
         NameGroupCodeNoteEditorSection(product)
-//        Section(
-//            header: Text("Product Details")
-//        ) {
-//            Group {
-//                HStack {
-//                    ZStack(alignment: .leading) {
-//                        Text("Group")
-//                            .hidden()
-//                        Text("Name")
-//                    }
-//                        .foregroundColor(.secondary)
-//                    TextField("Name", text: $product.name)
-//                        .foregroundColor(.accentColor)
-//                }
-//
-////                if product.groups.isEmpty {
-//                    HStack {
-//                        Text("Group")
-//                            .foregroundColor(.secondary)
-//                        TextField("Group", text: $product.group)
-//                            .foregroundColor(.accentColor)
-//                    }
-////                } else {
-////                    PickerWithTextField(selection: $product.group, name: "Group", values: product.productGroups)
-////                }
-//
-//                HStack {
-//                    ZStack(alignment: .leading) {
-//                        Text("Group")
-//                            .hidden()
-//                        Text("Code")
-//                    }
-//                        .foregroundColor(.secondary)
-//                    TextField("Code", text: $product.code)
-//                        .foregroundColor(.accentColor)
-//                }
-//
-//                HStack {
-//                    ZStack(alignment: .leading) {
-//                        Text("Group")
-//                            .hidden()
-//                        Text("Note")
-//                    }
-//                        .foregroundColor(.secondary)
-//                    TextField("Note", text: $product.note)
-//                        .foregroundColor(.accentColor)
-//                }
-//            }
-//            .font(.subheadline)
-//        }
         
         Section(
             header: Text("Base Product & Qty")

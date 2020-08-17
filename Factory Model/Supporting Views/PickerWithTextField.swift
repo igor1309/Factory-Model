@@ -9,23 +9,32 @@ import SwiftUI
 
 struct PickerWithTextField: View {
     @Binding var selection: String
+    
     let name: String
     let values: [String]
     
-    var body: some View {
-        Picker(
-            selection: $selection,
-            label: HStack {
-                if !name.isEmpty {
-                    Text(name)
-                        .foregroundColor(.secondary)
-                }
-                TextField(name, text: $selection)
-                    .foregroundColor(.accentColor)
+    private var labelWithTextField: some View {
+        HStack {
+            if !name.isEmpty {
+                Text(name)
+                    .foregroundColor(.tertiary)
             }
-        ) {
-            ForEach(values, id: \.self) { text in
-                Text(text)
+            TextField(name, text: $selection)
+                .foregroundColor(.accentColor)
+        }
+    }
+    
+    var body: some View {
+        if values.isEmpty {
+            labelWithTextField
+        } else {
+            Picker(
+                selection: $selection,
+                label: labelWithTextField
+            ) {
+                ForEach(values, id: \.self) { text in
+                    Text(text)
+                }
             }
         }
     }

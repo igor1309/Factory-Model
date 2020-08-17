@@ -58,18 +58,7 @@ struct NameGroupCodeNoteEditorSection<T: Managed & Monikerable & GroupCodeNotabl
                     TextField("Name", text: $entity.name)
                 }
                 
-                //  MARK: - FINISH THIS
-                //  как вернуть if к жизни????
-//                if entity.groups.isEmpty {
-                    HStack {
-                        Text("Group")
-                            .foregroundColor(.tertiary)
-                        TextField("Group", text: $entity.group)
-                            .foregroundColor(.accentColor)
-                    }
-//                } else {
-//                    PickerWithTextField(selection: $entity.group, name: "Group", values: entity.entityGroups)
-//                }
+                PickerWithTextField(selection: $entity.group, name: "Group", values: entity.groups)
                 
                 HStack {
                     ZStack(alignment: .leading) {

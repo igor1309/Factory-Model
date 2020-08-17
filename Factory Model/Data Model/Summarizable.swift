@@ -184,6 +184,7 @@ extension Recipe: Summarizable {
             + " = " + ingredientsExVAT.formattedGrouped
     }
     
+    static var color: Color { .systemPurple }
     static var icon: String { "puzzlepiece" }
     static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }
