@@ -50,9 +50,8 @@
 		2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */; };
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
-		2A6979B224E4907D009B03F2 /* ButtonWithMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */; };
 		2A73358A24CE153C005C6C40 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A73358924CE153C005C6C40 /* RecipeView.swift */; };
-		2A74038A24C8CB8200BA7999 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* test.swift */; };
+		2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* ProfileData.swift */; };
 		2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038D24C8D11F00BA7999 /* SalesView.swift */; };
 		2A7C3DA524D3795C005A03B3 /* AllEmployeesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */; };
 		2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA624D3F321005A03B3 /* IssuesList.swift */; };
@@ -60,6 +59,8 @@
 		2A7C3DAB24D3FD59005A03B3 /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAA24D3FD59005A03B3 /* Issues.swift */; };
 		2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */; };
 		2A7CC72524E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */; };
+		2A7CC72924EA735300B43E7F /* CreateNewEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */; };
+		2A7CC72B24EA765500B43E7F /* CreateEntityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */; };
 		2A8113CB24CEB4FA00886C90 /* EntityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */; };
 		2A8113CD24CEBFA600886C90 /* Monikerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8113CC24CEBFA600886C90 /* Monikerable.swift */; };
 		2A8113CF24CEC3A500886C90 /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8113CE24CEC3A500886C90 /* Managed.swift */; };
@@ -156,9 +157,8 @@
 		2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Costs.swift"; sourceTree = "<group>"; };
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
-		2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithMenu.swift; sourceTree = "<group>"; };
 		2A73358924CE153C005C6C40 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
-		2A74038924C8CB8200BA7999 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		2A74038924C8CB8200BA7999 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		2A74038D24C8D11F00BA7999 /* SalesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesView.swift; sourceTree = "<group>"; };
 		2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEmployeesList.swift; sourceTree = "<group>"; };
 		2A7C3DA624D3F321005A03B3 /* IssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesList.swift; sourceTree = "<group>"; };
@@ -166,6 +166,8 @@
 		2A7C3DAA24D3FD59005A03B3 /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
 		2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListWithDashboard.swift; sourceTree = "<group>"; };
 		2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameGroupCodeNoteEditorSection.swift; sourceTree = "<group>"; };
+		2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityButton.swift; sourceTree = "<group>"; };
+		2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntityPicker.swift; sourceTree = "<group>"; };
 		2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPicker.swift; sourceTree = "<group>"; };
 		2A8113CC24CEBFA600886C90 /* Monikerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monikerable.swift; sourceTree = "<group>"; };
 		2A8113CE24CEC3A500886C90 /* Managed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				2A936E6C24C71CD700C34381 /* ExpensesList.swift */,
 				2A94C3DC24D43182000C928E /* EquipmentList.swift */,
 				2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */,
+				2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */,
 				2A936E6224C7112B00C34381 /* IngredientList.swift */,
 				2A7C3DA624D3F321005A03B3 /* IssuesList.swift */,
 				2A68121824CD784500CBDD66 /* PackagingList.swift */,
@@ -347,8 +350,7 @@
 		2A31654624CC6E4000AF68A1 /* WORK IN PROGRESS */ = {
 			isa = PBXGroup;
 			children = (
-				2A74038924C8CB8200BA7999 /* test.swift */,
-				2A6979B124E4907D009B03F2 /* ButtonWithMenu.swift */,
+				2A74038924C8CB8200BA7999 /* ProfileData.swift */,
 			);
 			path = "WORK IN PROGRESS";
 			sourceTree = "<group>";
@@ -448,6 +450,7 @@
 				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
 				2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */,
 				2A21714524D5F2F4000055F3 /* EntityCreator.swift */,
+				2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */,
 			);
 			path = "Generic Views";
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2A9C8DAD24D4B8B000AD7C34 /* BooksView.swift in Sources */,
 				2AF8EC9524CFFE1B00EDA2AE /* ListWithDashboard.swift in Sources */,
+				2A7CC72B24EA765500B43E7F /* CreateEntityPicker.swift in Sources */,
 				2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */,
 				2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */,
 				2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */,
@@ -538,6 +542,7 @@
 				2A936E6324C7112B00C34381 /* IngredientList.swift in Sources */,
 				2AC07F9324C5AA4200BB23B1 /* FactoryList.swift in Sources */,
 				2A21714824D5F5D0000055F3 /* ProductEditorCore.swift in Sources */,
+				2A7CC72924EA735300B43E7F /* CreateNewEntityButton.swift in Sources */,
 				2A30470B24C81AD60002E5DD /* LabelWithDetail.swift in Sources */,
 				2A81582B24CDB09A003A95C0 /* LabelWithDetailView.swift in Sources */,
 				2A93D97C24D1AB0C00DF1A35 /* CreateChildButton.swift in Sources */,
@@ -576,7 +581,7 @@
 				2A360C3C24D8077A00804C87 /* SimpleCardViewModifier.swift in Sources */,
 				2A85734124C5CFB3009FF51A /* Equipment.swift in Sources */,
 				2A85734524C5D8B2009FF51A /* Employee.swift in Sources */,
-				2A74038A24C8CB8200BA7999 /* test.swift in Sources */,
+				2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */,
 				2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */,
 				2A68121B24CD844000CBDD66 /* PackagingView.swift in Sources */,
 				2A0FBA4924D5A4E000F963CE /* SalesEditorCore.swift in Sources */,
@@ -612,7 +617,6 @@
 				2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */,
 				2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */,
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,
-				2A6979B224E4907D009B03F2 /* ButtonWithMenu.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A21714A24D5FBBB000055F3 /* RecipeEditorCore.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,

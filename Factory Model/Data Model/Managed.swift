@@ -57,7 +57,7 @@ extension Managed where Self: NSManagedObject {
             case "Ingredient":
                 return "Ingredients"
             case "Packaging":
-                return "Packaging"
+                return "Packagings"
             case "Product":
                 return "Products"
             case "Recipe":

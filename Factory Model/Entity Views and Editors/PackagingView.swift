@@ -7,6 +7,21 @@
 
 import SwiftUI
 
+struct PackagingEditor: View {
+    @Binding var name: String
+    @Binding var type: String
+    
+    var body: some View {
+        Section(
+            header: Text(name.isEmpty ? "" : "Edit Packaging Name")
+        ) {
+            TextField("Packaging Name", text: $name)
+        }
+        
+        PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
+    }
+}
+
 struct PackagingView: View {
     @Environment(\.managedObjectContext) private var moc
     
@@ -18,22 +33,23 @@ struct PackagingView: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text("Packaging Details")
-            ) {
-                Group {
-                    HStack {
-                        Text("Name")
-                            .foregroundColor(.secondary)
-                        
-                        TextField("Name", text: $packaging.name)
-                    }
-                    
-                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
+            PackagingEditor(name: $packaging.name, type: $packaging.type)
+//            Section(
+//                header: Text("Packaging Details")
+//            ) {
+//                Group {
+//                    HStack {
+//                        Text("Name")
+//                            .foregroundColor(.tertiary)
+//
+//                        TextField("Name", text: $packaging.name)
+//                    }
+//
+//                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
+//                }
+//                .foregroundColor(.accentColor)
+//                .font(.subheadline)
+//            }
             
             Section(
                 header: Text("Used in Products")

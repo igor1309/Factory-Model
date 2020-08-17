@@ -19,7 +19,7 @@ extension Packaging: Comparable {
 
     var productList: String {
         if products_ == nil || products.isEmpty {
-            return "ERROR: not used in products"
+            return "This packaging is not used in any products."
         }
         return products.map(\.title).joined(separator: "\n")
     }

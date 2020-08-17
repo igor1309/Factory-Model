@@ -24,6 +24,22 @@ struct FactoryList: View {
                         destination:
                             List {
                                 GenericListSection(
+                                    type: Packaging.self,
+                                    predicate: nil
+                                ) { (packaging: Packaging) in
+                                    PackagingView(packaging)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Packaging.plural(), systemImage: Packaging.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
                                     type: Ingredient.self,
                                     predicate: nil
                                 ) { (ingredient: Ingredient) in
@@ -72,22 +88,6 @@ struct FactoryList: View {
                     ) {
                         Label(Base.plural(), systemImage: Base.icon)
                     }
-                    
-                    NavigationLink(
-                        destination:
-                            List {
-                                GenericListSection(
-                                    type: Packaging.self,
-                                    predicate: nil
-                                ) { (packaging: Packaging) in
-                                    PackagingView(packaging)
-                                }
-                            }
-                            .listStyle(InsetGroupedListStyle())
-                            .navigationBarTitleDisplayMode(.inline)
-                    ) {
-                        Label(Packaging.plural(), systemImage: Packaging.icon)
-                    }
                 }
                 
                 GenericListSection(
@@ -113,7 +113,7 @@ struct FactoryList: View {
             Image(systemName: "plus.rectangle.on.rectangle")
         }
         .sheet(isPresented: $showModal) {
-            TestingCoreDataModel()
+            CreateEntityPicker()
                 .environment(\.managedObjectContext, context)
         }
     }
