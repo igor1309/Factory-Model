@@ -50,82 +50,21 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     @ViewBuilder
     private func destination() -> some View {
         switch T.entityName {
-            case Packaging.entityName: PackagingCreator(isPresented: $isPresented)
+//            case Base.entityName:       BaseEditor(isPresented: $isPresented)
+//            case Buyer.entityName:      BuyerView(isPresented: $isPresented)
+//            case Department.entityName: DepartmentView(isPresented: $isPresented)
+//            case Division.entityName:   DivisionView(isPresented: $isPresented)
+//            case Equipment.entityName:  EquipmentView(isPresented: $isPresented)
+//            case Employee.entityName:   EmployeeView(isPresented: $isPresented)
+//            case Expenses.entityName:   ExpensesView(isPresented: $isPresented)
+//            case Factory.entityName:    FactoryView(isPresented: $isPresented)
+//            case Ingredient.entityName: IngredientView(isPresented: $isPresented)
+            case Packaging.entityName:  PackagingCreator(isPresented: $isPresented)
+//            case Product.entityName:    ProductView(isPresented: $isPresented)
+//            case Recipe.entityName:     RecipeView(isPresented: $isPresented)
+//            case Sales.entityName:      SalesView(isPresented: $isPresented)
+//            case Utility.entityName:    UtilityView(isPresented: $isPresented)
             default: Text("TBD")
         }
     }
 }
-
-
-struct NameEditor<T: Listable>: View where T.ManagedType == T {
-    @Environment(\.managedObjectContext) private var context
-    @Environment(\.presentationMode) private var presentation
-    
-    @ObservedObject var entity: T
-    
-    private var buttonName: String {
-        switch T.entityName {
-            case Packaging.entityName: return "Next"
-            default: return "Save"
-        }
-    }
-    
-    @ViewBuilder
-    private func editor() -> some View {
-        switch T.entityName {
-            case Base.entityName:       BaseEditor(entity as! Base)
-            case Buyer.entityName:      BuyerView(entity as! Buyer)
-            case Department.entityName: DepartmentView(entity as! Department)
-            case Division.entityName:   DivisionView(entity as! Division)
-            case Equipment.entityName:  EquipmentView(entity as! Equipment)
-            case Employee.entityName:   EmployeeView(entity as! Employee)
-            case Expenses.entityName:   ExpensesView(entity as! Expenses)
-            case Factory.entityName:    FactoryView(entity as! Factory)
-            case Ingredient.entityName: IngredientView(entity as! Ingredient)
-            case Packaging.entityName:  PackagingView(entity as! Packaging)
-            case Product.entityName:    ProductView(entity as! Product)
-            case Recipe.entityName:     RecipeView(entity as! Recipe)
-            case Sales.entityName:      SalesView(entity as! Sales)
-            case Utility.entityName:    UtilityView(entity as! Utility)
-            default: EmptyView()
-        }
-    }
-    
-    @State private var isActive = false
-    
-    var body: some View {
-        NavigationLink(destination: editor(), isActive: $isActive) { EmptyView() }
-        List {
-            Section(
-                header: Text(entity.name.isEmpty ? "" : "Edit \(T.entityName) Name")
-            ) {
-                TextField("\(T.entityName) Name", text: $entity.name)
-            }
-            
-            GenericListSection(header: "Existing \(T.plural())", type: T.self, predicate: nil) { (entity: T) in
-                editor()
-            }
-        }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("New \(T.entityName)")
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Next") {//buttonName) {//"Save") {
-                    isActive = true
-                    //                    try? context.save()
-                    //                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(entity.name.isEmpty)
-            }
-            //            ToolbarItem(placement: .cancellationAction) {
-            //                Button {
-            //                    //  MARK: - DELETE ENTITY FROM CONTEXT HERE??????
-            //                    presentation.wrappedValue.dismiss()
-            //                } label: {
-            //                    Label("Back", systemImage: "chevron.left")
-            //                }
-            //            }
-        }
-    }
-}
-
