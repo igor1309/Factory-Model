@@ -9,9 +9,15 @@ import SwiftUI
 
 struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     
-    //  MARK: - FINISH THIS
-    //  DO NOT FORGET TO DELETE ENTITY FROM CONTEXT IF SAVE BUTTON WAS NOT TAPPED
-    @Environment(\.managedObjectContext) private var context
+    @Binding var isPresented: Bool
+    
+    init(isPresented: Binding<Bool>) {
+        _isPresented = isPresented
+    }
+    
+    init() {
+        _isPresented = .constant(true)
+    }
     
     @State private var isActive = false
     
@@ -25,9 +31,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
                 .font(.subheadline)
             
             NavigationLink(
-                //  MARK: - CREATING NEW ENTITY IN CONTEXT
-                destination: NameEditor(entity: T.create(in: context))
-                    .environment(\.managedObjectContext, context),
+                destination: destination(),
                 isActive: $isActive
             ) {
                 Button {
@@ -42,7 +46,16 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
         }
         .simpleCardify()
     }
+    
+    @ViewBuilder
+    private func destination() -> some View {
+        switch T.entityName {
+            case Packaging.entityName: PackagingCreator(isPresented: $isPresented)
+            default: Text("TBD")
+        }
+    }
 }
+
 
 struct NameEditor<T: Listable>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) private var context

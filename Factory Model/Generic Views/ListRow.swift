@@ -23,6 +23,7 @@ struct EntityRow<T: ObservableObject & Summarizable>: View {
             subtitle: entity.subtitle,
             detail: entity.detail,
             icon: T.icon,
+            color: T.color,
             useSmallerFont: useSmallerFont
         )
     }
@@ -34,6 +35,7 @@ struct ListRow: View {
     var subtitle: String? = nil
     var detail: String? = nil
     let icon: String
+    var color: Color
     let useSmallerFont: Bool
     
     init(
@@ -41,12 +43,14 @@ struct ListRow: View {
         subtitle: String? = nil,
         detail: String? = nil,
         icon: String,
+        color: Color = .primary,
         useSmallerFont: Bool = true
     ) {
         self.title = title
         self.subtitle = subtitle
         self.detail = detail
         self.icon = icon
+        self.color = color
         self.useSmallerFont = useSmallerFont
     }
     
@@ -69,6 +73,7 @@ struct ListRow: View {
         self.subtitle = row.subtitle
         self.detail = row.detail
         self.icon = type(of: row).icon
+        self.color = .primary
         self.useSmallerFont = useSmallerFont
     }
     
@@ -100,6 +105,7 @@ struct ListRow: View {
             .padding(.vertical, 3)
         } icon: {
             Image(systemName: icon)
+                .foregroundColor(color)
         }
     }
 }

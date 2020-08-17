@@ -14,6 +14,8 @@
 		2A0FBA4924D5A4E000F963CE /* SalesEditorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0FBA4824D5A4E000F963CE /* SalesEditorCore.swift */; };
 		2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */; };
 		2A13E4D124C9EF5F00016CBC /* Summarizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A13E4D024C9EF5F00016CBC /* Summarizable.swift */; };
+		2A167EE524EB14C900A8E7DE /* PackagingEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EE424EB14C900A8E7DE /* PackagingEditor.swift */; };
+		2A167EE824EB151000A8E7DE /* PackagingCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EE724EB151000A8E7DE /* PackagingCreator.swift */; };
 		2A1CE59B24D546C9000D9621 /* FinancialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */; };
 		2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714524D5F2F4000055F3 /* EntityCreator.swift */; };
 		2A21714824D5F5D0000055F3 /* ProductEditorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */; };
@@ -122,6 +124,8 @@
 		2A0FBA4824D5A4E000F963CE /* SalesEditorCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesEditorCore.swift; sourceTree = "<group>"; };
 		2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringPicker.swift; sourceTree = "<group>"; };
 		2A13E4D024C9EF5F00016CBC /* Summarizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarizable.swift; sourceTree = "<group>"; };
+		2A167EE424EB14C900A8E7DE /* PackagingEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingEditor.swift; sourceTree = "<group>"; };
+		2A167EE724EB151000A8E7DE /* PackagingCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingCreator.swift; sourceTree = "<group>"; };
 		2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialLabel.swift; sourceTree = "<group>"; };
 		2A21714524D5F2F4000055F3 /* EntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreator.swift; sourceTree = "<group>"; };
 		2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditorCore.swift; sourceTree = "<group>"; };
@@ -237,6 +241,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A167EE624EB14EE00A8E7DE /* Editors */ = {
+			isa = PBXGroup;
+			children = (
+				2A167EE424EB14C900A8E7DE /* PackagingEditor.swift */,
+			);
+			path = Editors;
+			sourceTree = "<group>";
+		};
+		2A167EE924EB152F00A8E7DE /* Creators */ = {
+			isa = PBXGroup;
+			children = (
+				2A167EE724EB151000A8E7DE /* PackagingCreator.swift */,
+			);
+			path = Creators;
+			sourceTree = "<group>";
+		};
 		2A21714B24D60AEC000055F3 /* Editor Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +435,8 @@
 				2AF8EC8B24CF4F9B00EDA2AE /* Generic Views */,
 				2A21714D24D60BCA000055F3 /* Lists */,
 				2A21714B24D60AEC000055F3 /* Editor Core */,
+				2A167EE924EB152F00A8E7DE /* Creators */,
+				2A167EE624EB14EE00A8E7DE /* Editors */,
 				2A7C3DAE24D42E3A005A03B3 /* Entity Views and Editors */,
 				2A31654424CC6DFA00AF68A1 /* Data Model */,
 				2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */,
@@ -607,6 +629,8 @@
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
 				2A936E6124C7051500C34381 /* IngredientView.swift in Sources */,
 				2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */,
+				2A167EE524EB14C900A8E7DE /* PackagingEditor.swift in Sources */,
+				2A167EE824EB151000A8E7DE /* PackagingCreator.swift in Sources */,
 				2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */,
 				2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */,
 				2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */,

@@ -7,23 +7,9 @@
 
 import SwiftUI
 
-struct PackagingEditor: View {
-    @Binding var name: String
-    @Binding var type: String
-    
-    var body: some View {
-        Section(
-            header: Text(name.isEmpty ? "" : "Edit Packaging Name")
-        ) {
-            TextField("Packaging Name", text: $name)
-        }
-        
-        PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
-    }
-}
-
 struct PackagingView: View {
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
     
     @ObservedObject var packaging: Packaging
     
@@ -34,22 +20,6 @@ struct PackagingView: View {
     var body: some View {
         List {
             PackagingEditor(name: $packaging.name, type: $packaging.type)
-//            Section(
-//                header: Text("Packaging Details")
-//            ) {
-//                Group {
-//                    HStack {
-//                        Text("Name")
-//                            .foregroundColor(.tertiary)
-//
-//                        TextField("Name", text: $packaging.name)
-//                    }
-//
-//                    PickerWithTextField(selection: $packaging.type, name: "Type", values: ["TBD"])
-//                }
-//                .foregroundColor(.accentColor)
-//                .font(.subheadline)
-//            }
             
             Section(
                 header: Text("Used in Products")
@@ -69,12 +39,16 @@ struct PackagingView: View {
                 ProductView(product)
             }
         }
-        .onDisappear {
-            moc.saveContext()
-            print("onDisappear: moc.saveContext()")
-        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(packaging.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    context.saveContext()
+                    presentation.wrappedValue.dismiss()
+                }
+            }
+        }
     }
 }
