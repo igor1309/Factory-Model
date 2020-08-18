@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct BaseEditor: View {
     @Environment(\.managedObjectContext) private var context
@@ -32,12 +33,12 @@ struct BaseEditor: View {
         
         title = "New Base"
     }
-
+    
     init(base: Base) {
         _isPresented = .constant(true)
         
         baseToEdit = base
-
+        
         _factory = State(initialValue: base.factory)
         _name = State(initialValue: base.name)
         _unitString_ = State(initialValue: base.unitString_ ?? "")
@@ -49,7 +50,7 @@ struct BaseEditor: View {
         
         title = "Edit Base"
     }
-        
+    
     @State private var factory: Factory?
     @State private var name: String
     @State private var group: String
@@ -59,7 +60,18 @@ struct BaseEditor: View {
     @State private var initialInventory: Double
     @State private var weightNetto: Double
     
+    @State private var isCreateRecipeDraftsActive = false
+    @State private var recipeDrafts = [RecipeDraft]()
+    
     var body: some View {
+        NavigationLink(
+            destination: CreateRecipe(recipeDrafts: $recipeDrafts),
+            isActive: $isCreateRecipeDraftsActive
+        ) {
+            EmptyView()
+        }
+        .hidden()
+        
         List {
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
@@ -75,7 +87,6 @@ struct BaseEditor: View {
             ) {
                 AmountPicker(systemName: "building.2.crop.circle.fill", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $initialInventory)
                     .buttonStyle(PlainButtonStyle())
-                    .foregroundColor(initialInventory > 0 ? .accentColor : .systemRed)
             }
             
             Section(
@@ -87,14 +98,26 @@ struct BaseEditor: View {
             }
             
             EntityPickerSection(selection: $factory)
+            
+            Section(header: Text("Ingredients")) {
+                
+                Button {
+                    isCreateRecipeDraftsActive = true
+                } label: {
+                    Label("Add Ingredient", systemImage: Ingredient.plusButtonIcon)
+                }
+                
+                ForEach(recipeDrafts) { draft in
+                    //  MARK: - FINISH THIS
+                    //  make nice row, see ListRow for example
+                    Text("\(draft.title)")
+                }
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                //  MARK: - FINISH THIS
-                //  после создания base нужно перейти к списку base ingredients
-                //  Button("Next")
                 Button("Save") {
                     let base: Base
                     if let baseToEdit = baseToEdit {
@@ -113,15 +136,80 @@ struct BaseEditor: View {
                     base.initialInventory = initialInventory
                     base.weightNetto = weightNetto
                     
-                    //  MARK: - FINISH THIS
-                    //  после создания base нужно перейти к списку base ingredients
-
+                    for draft in recipeDrafts {
+                        let recipe = Recipe(context: context)
+                        recipe.ingredient = draft.ingredient
+                        recipe.qty = draft.qty
+                        recipe.coefficientToParentUnit = draft.coefficientToParentUnit
+                        base.addToRecipes_(recipe)
+                    }
+                                        
                     context.saveContext()
                     
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
                 .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0)
+            }
+        }
+    }
+}
+
+fileprivate struct RecipeDraft: Identifiable {
+    var ingredient: Ingredient
+    var qty: Double
+    var coefficientToParentUnit: Double
+    
+    var id: NSManagedObjectID { ingredient.objectID }
+    var title: String {
+        "\(ingredient.title) \(qty) \(coefficientToParentUnit)"
+    }
+}
+
+
+fileprivate struct CreateRecipe: View {
+    @Environment(\.presentationMode) private var presentation
+    
+    @Binding var recipeDrafts: [RecipeDraft]
+    
+    @State private var ingredient: Ingredient?
+    @State private var qty: Double = 0
+    @State private var coefficientToParentUnit: Double = 1
+    
+    var body: some View {
+        List {
+            HStack {
+                EntityPicker(selection: $ingredient, icon: Ingredient.icon)
+                    .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                
+                AmountPicker(navigationTitle: "Qty", scale: .small, amount: $qty)
+                    .buttonStyle(PlainButtonStyle())
+                
+                ChildUnitStringPicker(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: ingredient?.customUnit)
+                
+            }
+            .foregroundColor(.accentColor)
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Add Ingredient")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Done") {
+                    if let ingredient = ingredient {
+                        recipeDrafts.append(
+                            RecipeDraft(
+                                ingredient: ingredient,
+                                qty: qty,
+                                coefficientToParentUnit: coefficientToParentUnit
+                            )
+                        )
+                    }
+                    
+                    presentation.wrappedValue.dismiss()
+                }
+                .disabled(ingredient == nil || qty == 0)
             }
         }
     }

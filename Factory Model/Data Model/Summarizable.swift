@@ -122,7 +122,7 @@ extension Employee: Summarizable {
     
     static var color: Color { .systemTeal }
     static var icon: String { "person" }
-    static var plusButtonIcon: String { "cart.badge.plus" }
+    static var plusButtonIcon: String { "person.badge.plus" }
 }
 
 extension Equipment: Summarizable {

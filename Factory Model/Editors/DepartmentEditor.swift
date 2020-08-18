@@ -44,7 +44,17 @@ struct DepartmentEditor: View {
     @State private var type: Department.DepartmentType
     @State private var division: Division?
     
+    @State private var isEmployeeDraftActive = false
+    @State private var employeeDrafts = [EmployeeDraft]()
+    
     var body: some View {
+        NavigationLink(
+            destination: CreateEmployee(employeeDrafts: $employeeDrafts),
+            isActive: $isEmployeeDraftActive
+        ) {
+            EmptyView()
+        }
+        
         List {
             Section(
                 header: Text(name.isEmpty ? "" : "Edit Department Name")
@@ -59,7 +69,23 @@ struct DepartmentEditor: View {
                 //                    .pickerStyle(SegmentedPickerStyle())
             }
             
-            EntityPickerSection(selection: $division)            
+            EntityPickerSection(selection: $division)
+            
+            Section(
+                header: Text("Employees")
+            ) {
+                Button {
+                    isEmployeeDraftActive = true
+                } label: {
+                    Label("Add Employee", systemImage: Employee.plusButtonIcon)
+                }
+                
+                ForEach(employeeDrafts) { item in
+                    //  MARK: - FINISH THIS
+                    //  make nice row, see ListRow for example
+                    Text(item.title)
+                }
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
@@ -77,11 +103,95 @@ struct DepartmentEditor: View {
                     department.type = type
                     department.division = division
                     
+                    for draft in employeeDrafts {
+                        let employee = Employee(context: context)
+                        employee.name = draft.name
+                        employee.note = draft.note
+                        employee.position = draft.position
+                        employee.salary = draft.salary
+                        department.addToEmployees_(employee)
+                    }
+                    
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
                 .disabled(division == nil || name.isEmpty)
+            }
+        }
+    }
+}
+
+fileprivate struct EmployeeDraft: Identifiable {
+    var name: String
+    var note: String
+    var position: String
+    var salary: Double
+    
+    var id = UUID()
+    var title: String {
+        "\(name) \(position) \(salary)"
+    }
+}
+
+
+fileprivate struct CreateEmployee: View {
+    @Environment(\.presentationMode) private var presentation
+    
+    @Binding var employeeDrafts: [EmployeeDraft]
+    
+    @State private var name = ""
+    @State private var note = ""
+    @State private var position = ""
+    @State private var salary: Double = 0
+    
+    var body: some View {
+        List {
+            Section(
+                header: Text(name.isEmpty ? "" : "Edit Employee Name")
+            ) {
+                TextField("Employee Name", text: $name)
+            }
+            
+            TextField("Note", text: $note)
+            
+            Section(
+                header: Text("Position")
+            ) {
+                Group {
+                    PickerWithTextField(selection: $position, name: "", values: ["TBD"])
+                }
+                .foregroundColor(.accentColor)
+            }
+            
+            Section(
+                header: Text("Salary")
+            ) {
+                Group {
+                    AmountPicker(
+                        systemName: "dollarsign.circle",
+                        title: "Salary ex taxes",
+                        navigationTitle: "Salary",
+                        scale: .extraLarge,
+                        amount: $salary
+                    )
+                    .foregroundColor(.accentColor)
+                }
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Add Employee")
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Done") {
+                    employeeDrafts.append(
+                        EmployeeDraft(name: name, note: note, position: position, salary: salary)
+                    )
+                    
+                    presentation.wrappedValue.dismiss()
+                }
+                .disabled(name.isEmpty || position.isEmpty || salary == 0)
             }
         }
     }
