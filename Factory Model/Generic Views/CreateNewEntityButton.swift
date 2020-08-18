@@ -50,7 +50,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
 //            case Employee.entityName:   EmployeeView(isPresented: $isPresented)
 //            case Expenses.entityName:   ExpensesView(isPresented: $isPresented)
 //            case Factory.entityName:    FactoryView(isPresented: $isPresented)
-            case Ingredient.entityName: IngredientCreator(isPresented: $isPresented)
+            case Ingredient.entityName: IngredientEditor(isPresented: $isPresented)
             case Packaging.entityName:  PackagingEditor(isPresented: $isPresented)
 //            case Product.entityName:    ProductView(isPresented: $isPresented)
             case Recipe.entityName:     RecipeCreator(isPresented: $isPresented)
