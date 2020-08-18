@@ -18,38 +18,44 @@ struct BaseEditor: View {
     
     init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
-        baseToEdit = nil
-        _factory = State(initialValue: nil)
-
-        title = "New Base"
         
-        let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Recipe.base), baseToEdit
-        )
-        _recipes = Recipe.defaultFetchRequest(with: predicate)
+        baseToEdit = nil
+        
+        _factory = State(initialValue: nil)
+        _name = State(initialValue: "")
+        _unitString_ = State(initialValue: "")
+        _code = State(initialValue: "")
+        _group = State(initialValue: "")
+        _note = State(initialValue: "")
+        _initialInventory = State(initialValue: 0)
+        _weightNetto = State(initialValue: 0)
+        
+        title = "New Base"
     }
 
     init(base: Base) {
         _isPresented = .constant(true)
-        baseToEdit = base
-        _factory = State(initialValue: base.factory)
-
-        title = "Edit Base"
         
-        let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Recipe.base), base
-        )
-        _recipes = Recipe.defaultFetchRequest(with: predicate)
+        baseToEdit = base
+
+        _factory = State(initialValue: base.factory)
+        _name = State(initialValue: base.name)
+        _unitString_ = State(initialValue: base.unitString_ ?? "")
+        _code = State(initialValue: base.code)
+        _group = State(initialValue: base.group)
+        _note = State(initialValue: base.note)
+        _initialInventory = State(initialValue: base.initialInventory)
+        _weightNetto = State(initialValue: base.weightNetto)
+        
+        title = "Edit Base"
     }
-    
-    @FetchRequest var recipes: FetchedResults<Recipe>
-    
+        
     @State private var factory: Factory?
     @State private var name: String
-    @State private var unitString_: String
-    @State private var code: String
     @State private var group: String
+    @State private var code: String
     @State private var note: String
+    @State private var unitString_: String
     @State private var initialInventory: Double
     @State private var weightNetto: Double
     
@@ -65,35 +71,28 @@ struct BaseEditor: View {
             }
             
             Section(
+                header: Text("Initial Inventory")
+            ) {
+                AmountPicker(systemName: "building.2.crop.circle.fill", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $initialInventory)
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(initialInventory > 0 ? .accentColor : .systemRed)
+            }
+            
+            Section(
                 header: Text("Weight Netto")
             ) {
                 AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $weightNetto)
                     .buttonStyle(PlainButtonStyle())
                     .foregroundColor(weightNetto > 0 ? .accentColor : .systemRed)
             }
-            
-            Section(
-                header: Text("Ingredients"),
-                footer: Text(!recipes.isEmpty ? "Tap on Recipe Name or Quantity to change." : "No recipes")
-            ) {
-                if !recipes.isEmpty {
-                    ForEach(recipes, id: \.objectID) { recipe in
-                        RecipeRow(recipe)
-                    }
-                }
-                
-                CreateChildButton(
-                    title: "Add Ingredient",
-                    childType: Recipe.self,
-                    parent: base,
-                    keyPath: \Base.recipes_)
-                    .font(.subheadline)
-            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
+                //  MARK: - FINISH THIS
+                //  после создания base нужно перейти к списку base ingredients
+                //  Button("Next")
                 Button("Save") {
                     let base: Base
                     if let baseToEdit = baseToEdit {
@@ -112,7 +111,11 @@ struct BaseEditor: View {
                     base.initialInventory = initialInventory
                     base.weightNetto = weightNetto
                     
+                    //  MARK: - FINISH THIS
+                    //  после создания base нужно перейти к списку base ingredients
+
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

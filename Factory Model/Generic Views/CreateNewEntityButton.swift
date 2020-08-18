@@ -42,7 +42,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     @ViewBuilder
     private func destination() -> some View {
         switch T.entityName {
-//            case Base.entityName:       BaseEditor(isPresented: $isPresented)
+            case Base.entityName:       BaseEditor(isPresented: $isPresented)
 //            case Buyer.entityName:      BuyerView(isPresented: $isPresented)
 //            case Department.entityName: DepartmentView(isPresented: $isPresented)
 //            case Division.entityName:   DivisionView(isPresented: $isPresented)
@@ -53,7 +53,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
             case Ingredient.entityName: IngredientEditor(isPresented: $isPresented)
             case Packaging.entityName:  PackagingEditor(isPresented: $isPresented)
 //            case Product.entityName:    ProductView(isPresented: $isPresented)
-            case Recipe.entityName:     RecipeCreator(isPresented: $isPresented)
+            case Recipe.entityName:     RecipeEditor(isPresented: $isPresented)
 //            case Sales.entityName:      SalesView(isPresented: $isPresented)
 //            case Utility.entityName:    UtilityView(isPresented: $isPresented)
             default: Text("TBD")
