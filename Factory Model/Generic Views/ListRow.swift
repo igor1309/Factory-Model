@@ -86,6 +86,7 @@ struct ListRow: View {
                             .foregroundColor(.systemRed)
                     } else {
                         Text(title)
+                            .foregroundColor(color)
                     }
                 }
                 .font(useSmallerFont ? .subheadline : .headline)
