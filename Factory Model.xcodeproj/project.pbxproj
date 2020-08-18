@@ -22,6 +22,8 @@
 		2A167EF124EB1FA900A8E7DE /* IngredientEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EF024EB1FA900A8E7DE /* IngredientEditor.swift */; };
 		2A167EF324EB2B4200A8E7DE /* ParentUnitStringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EF224EB2B4200A8E7DE /* ParentUnitStringPicker.swift */; };
 		2A167EF524EB2DA200A8E7DE /* ChildUnitStringPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EF424EB2DA200A8E7DE /* ChildUnitStringPicker.swift */; };
+		2A167EF724EB341D00A8E7DE /* BaseCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EF624EB341D00A8E7DE /* BaseCreator.swift */; };
+		2A167EF924EB342F00A8E7DE /* BaseEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A167EF824EB342F00A8E7DE /* BaseEditor.swift */; };
 		2A1CE59B24D546C9000D9621 /* FinancialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */; };
 		2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714524D5F2F4000055F3 /* EntityCreator.swift */; };
 		2A21714824D5F5D0000055F3 /* ProductEditorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */; };
@@ -138,6 +140,8 @@
 		2A167EF024EB1FA900A8E7DE /* IngredientEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientEditor.swift; sourceTree = "<group>"; };
 		2A167EF224EB2B4200A8E7DE /* ParentUnitStringPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentUnitStringPicker.swift; sourceTree = "<group>"; };
 		2A167EF424EB2DA200A8E7DE /* ChildUnitStringPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildUnitStringPicker.swift; sourceTree = "<group>"; };
+		2A167EF624EB341D00A8E7DE /* BaseCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCreator.swift; sourceTree = "<group>"; };
+		2A167EF824EB342F00A8E7DE /* BaseEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseEditor.swift; sourceTree = "<group>"; };
 		2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialLabel.swift; sourceTree = "<group>"; };
 		2A21714524D5F2F4000055F3 /* EntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreator.swift; sourceTree = "<group>"; };
 		2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditorCore.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				2A167EF024EB1FA900A8E7DE /* IngredientEditor.swift */,
 				2A167EE424EB14C900A8E7DE /* PackagingEditor.swift */,
 				2A167EEC24EB1E0D00A8E7DE /* RecipeEditor.swift */,
+				2A167EF824EB342F00A8E7DE /* BaseEditor.swift */,
 			);
 			path = Editors;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 		2A167EE924EB152F00A8E7DE /* Creators */ = {
 			isa = PBXGroup;
 			children = (
+				2A167EF624EB341D00A8E7DE /* BaseCreator.swift */,
 				2A167EEE24EB1F9300A8E7DE /* IngredientCreator.swift */,
 				2A167EE724EB151000A8E7DE /* PackagingCreator.swift */,
 				2A167EEA24EB1B9E00A8E7DE /* RecipeCreator.swift */,
@@ -648,6 +654,7 @@
 				2A167EF524EB2DA200A8E7DE /* ChildUnitStringPicker.swift in Sources */,
 				2A30470724C78F260002E5DD /* BaseEditor.swift in Sources */,
 				2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */,
+				2A167EF724EB341D00A8E7DE /* BaseCreator.swift in Sources */,
 				2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */,
 				2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */,
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
@@ -662,6 +669,7 @@
 				2A30471524C87AB90002E5DD /* Something.swift in Sources */,
 				2AC7952524C76E7500018817 /* EmployeeList.swift in Sources */,
 				2A7CC72524E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift in Sources */,
+				2A167EF924EB342F00A8E7DE /* BaseEditor.swift in Sources */,
 				2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */,
 				2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */,
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,

@@ -92,7 +92,7 @@ struct IngredientView: View {
                 type: Base.self,
                 predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
             ) { (base: Base) in
-                BaseEditor(base)
+                BaseEditorOLD(base)
             }
         }
         .onDisappear {

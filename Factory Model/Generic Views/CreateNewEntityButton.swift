@@ -42,7 +42,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     @ViewBuilder
     private func destination() -> some View {
         switch T.entityName {
-//            case Base.entityName:       BaseEditor(isPresented: $isPresented)
+            case Base.entityName:       BaseEditor(isPresented: $isPresented)
 //            case Buyer.entityName:      BuyerView(isPresented: $isPresented)
 //            case Department.entityName: DepartmentView(isPresented: $isPresented)
 //            case Division.entityName:   DivisionView(isPresented: $isPresented)

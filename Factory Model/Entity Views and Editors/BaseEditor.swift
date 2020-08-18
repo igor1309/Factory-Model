@@ -69,7 +69,7 @@ struct RecipeRow/*<T: Managed>*/: View {
     }
 }
 
-struct BaseEditor: View {
+struct BaseEditorOLD: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentation
     

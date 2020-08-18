@@ -23,7 +23,7 @@ struct BaseView: View {
                 footer: Text("Tap link to edit Base Product.")
             ) {
                 NavigationLink(
-                    destination: BaseEditor(base)
+                    destination: BaseEditorOLD(base)
                 ) {
                     Text("\(base.title), \(base.weightNetto.formattedGrouped)")
                 }

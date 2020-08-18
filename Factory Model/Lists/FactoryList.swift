@@ -80,7 +80,7 @@ struct FactoryList: View {
                                     type: Base.self,
                                     predicate: nil
                                 ) { (base: Base) in
-                                    BaseEditor(base)
+                                    BaseEditorOLD(base)
                                 }
                             }
                             .listStyle(InsetGroupedListStyle())
