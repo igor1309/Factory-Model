@@ -31,7 +31,7 @@ struct ProductView: View {
             ) {
                 Group {
                     NavigationLink(
-                        destination: ProductEditor(product)
+                        destination: ProductEditorOLD(product)
                     ) {
                         Text(product.title)
                     }

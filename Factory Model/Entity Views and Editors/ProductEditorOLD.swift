@@ -1,5 +1,5 @@
 //
-//  ProductEditor.swift
+//  ProductEditorOLD.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 24.07.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProductEditor: View {
+struct ProductEditorOLD: View {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) private var presentation
     

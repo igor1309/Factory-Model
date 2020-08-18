@@ -17,17 +17,6 @@ struct CreateEntityPicker: View {
                 VStack(spacing: 16) {
                     Group {
                         CreateNewEntityButton<Base>(isPresented: $isPresented)
-                        
-                        Divider()
-                        
-                        CreateNewEntityButton<Ingredient>(isPresented: $isPresented)
-                        CreateNewEntityButton<Recipe>(isPresented: $isPresented)
-                        CreateNewEntityButton<Packaging>(isPresented: $isPresented)
-                    }
-                    Divider()
-                    
-                    Group {
-                        CreateNewEntityButton<Base>(isPresented: $isPresented)
                         CreateNewEntityButton<Buyer>(isPresented: $isPresented)
                         CreateNewEntityButton<Department>(isPresented: $isPresented)
                         CreateNewEntityButton<Division>(isPresented: $isPresented)

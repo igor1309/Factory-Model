@@ -17,21 +17,27 @@ struct IngredientEditor: View {
     
     init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
+        
         ingredientToEdit = nil
+        
         _name = State(initialValue: "")
         _unitString_ = State(initialValue: "")
         _priceExVAT = State(initialValue: 0)
         _vat = State(initialValue: 10/100)
+        
         title = "New Ingredient"
     }
     
     init(ingredient: Ingredient) {
         _isPresented = .constant(true)
+        
         ingredientToEdit = ingredient
+        
         _name = State(initialValue: ingredient.name)
         _unitString_ = State(initialValue: ingredient.unitString_ ?? "")
         _priceExVAT = State(initialValue: ingredient.priceExVAT)
         _vat = State(initialValue: ingredient.vat)
+        
         title = "Edit Ingredient"
     }
     

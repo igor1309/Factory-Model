@@ -10,22 +10,25 @@ import CoreData
 
 typealias PickableEntity = Managed & Monikerable & Summarizable //& NSManagedObject
 
+struct EntityPickerSection<T: PickableEntity & Sketchable>: View {
+    @Binding var selection: T?
+    var predicate: NSPredicate? = nil
+    
+    var body: some View {
+        Section(
+            header: Text(T.entityName)
+        ) {
+            EntityPicker(selection: $selection, icon: T.icon, predicate: predicate)
+        }
+    }
+}
+
 struct EntityPicker<T: PickableEntity & Sketchable>: View {
     @Environment(\.managedObjectContext) private var context
     
     @Binding var selection: T?
     var icon: String? = nil
     var predicate: NSPredicate? = nil
-    
-    init(
-        selection: Binding<T?>,
-        icon: String? = nil,
-        predicate: NSPredicate? = nil
-    ) {
-        self._selection = selection
-        self.icon = icon
-        self.predicate = predicate
-    }
     
     @State private var showSheet = false
     

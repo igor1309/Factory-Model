@@ -1,76 +1,76 @@
 //
-//  PackagingEditor.swift
+//  DivisionEditor.swift
 //  Factory Model
 //
-//  Created by Igor Malyarov on 17.08.2020.
+//  Created by Igor Malyarov on 18.08.2020.
 //
 
 import SwiftUI
 
-struct PackagingEditor: View {
+struct DivisionEditor: View {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) private var presentation
     
     @Binding var isPresented: Bool
     
-    let packagingToEdit: Packaging?
+    let divisionToEdit: Division?
     let title: String
     
     init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
         
-        packagingToEdit = nil
+        divisionToEdit = nil
         
         _name = State(initialValue: "")
-        _type = State(initialValue: "")
+        _factory = State(initialValue: nil)
         
-        title = "New Packaging"
+        title = "New Division"
     }
     
-    init(packaging: Packaging) {
+    init(division: Division) {
         _isPresented = .constant(true)
         
-        packagingToEdit = packaging
+        divisionToEdit = division
         
-        _name = State(initialValue: packaging.name)
-        _type = State(initialValue: packaging.type)
+        _name = State(initialValue: division.name)
+        _factory = State(initialValue: division.factory)
         
-        title = "Edit Packaging"
+        title = "Edit Division"
     }
     
     @State private var name: String
-    @State private var type: String
+    @State private var factory: Factory?
     
     var body: some View {
         List {
             Section(
-                header: Text(name.isEmpty ? "" : "Edit Packaging Name")
+                header: Text(name.isEmpty ? "" : "Edit Division Name")
             ) {
-                TextField("Packaging Name", text: $name)
+                TextField("Division Name", text: $name)
             }
             
-            PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
+            EntityPickerSection(selection: $factory)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
-                    let packaging: Packaging
-                    if let packagingToEdit = packagingToEdit {
-                        packaging = packagingToEdit
+                    let division: Division
+                    if let divisionToEdit = divisionToEdit {
+                        division = divisionToEdit
                     } else {
-                        packaging = Packaging(context: context)
+                        division = Division(context: context)
                     }
                     
-                    packaging.name = name
-                    packaging.type = type
+                    division.name = name
+                    division.factory = factory
                     
                     context.saveContext()
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
-                .disabled(name.isEmpty)
+                .disabled(factory == nil || name.isEmpty)
             }
         }
     }

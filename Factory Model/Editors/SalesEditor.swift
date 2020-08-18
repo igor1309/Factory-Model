@@ -1,0 +1,97 @@
+//
+//  SalesEditor.swift
+//  Factory Model
+//
+//  Created by Igor Malyarov on 18.08.2020.
+//
+
+import SwiftUI
+
+struct SalesEditor: View {
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
+    
+    @Binding var isPresented: Bool
+    
+    let salesToEdit: Sales?
+    let title: String
+    
+    init(isPresented: Binding<Bool>) {
+        _isPresented = isPresented
+        
+        salesToEdit = nil
+        
+        _name = State(initialValue: "")
+        _priceExVAT = State(initialValue: 0)
+        _qty = State(initialValue: 0)
+        _buyer = State(initialValue: nil)
+        _product = State(initialValue: nil)
+        
+        title = "New Sales"
+    }
+    
+    init(sales: Sales) {
+        _isPresented = .constant(true)
+        
+        salesToEdit = sales
+        
+        _name = State(initialValue: sales.name)
+        _priceExVAT = State(initialValue: sales.priceExVAT)
+        _qty = State(initialValue: sales.qty)
+        _buyer = State(initialValue: sales.buyer)
+        _product = State(initialValue: sales.product)
+        
+        title = "Edit Sales"
+    }
+    
+    @State private var name: String
+    @State private var priceExVAT: Double
+    @State private var qty: Double
+    @State private var buyer: Buyer?
+    @State private var product: Product?
+
+    var body: some View {
+        List {
+            Section(
+                header: Text(name.isEmpty ? "" : "Edit Sales Name")
+            ) {
+                TextField("Sales Name", text: $name)
+            }
+            
+            AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $qty)
+                .foregroundColor(qty <= 0 ? .systemRed : .accentColor)
+            
+            AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price", scale: .small, amount: $priceExVAT)
+                .foregroundColor(priceExVAT <= 0 ? .systemRed : .accentColor)
+
+            
+            EntityPickerSection(selection: $buyer)
+            EntityPickerSection(selection: $product)
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle(title)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    let sales: Sales
+                    if let salesToEdit = salesToEdit {
+                        sales = salesToEdit
+                    } else {
+                        sales = Sales(context: context)
+                    }
+                    
+                    sales.name = name
+                    sales.priceExVAT = priceExVAT
+                    sales.qty = qty
+                    sales.buyer = buyer
+                    sales.product = product
+                    
+                    context.saveContext()
+                    isPresented = false
+                    presentation.wrappedValue.dismiss()
+                }
+                .disabled(name.isEmpty || priceExVAT == 0 || qty == 0 || buyer == nil || product == nil)
+            }
+        }
+    }
+}

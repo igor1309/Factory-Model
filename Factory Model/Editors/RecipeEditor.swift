@@ -18,21 +18,27 @@ struct RecipeEditor: View {
     
     init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
+        
         recipeToEdit = nil
+        
         _base = State(initialValue: nil)
         _ingredient = State(initialValue: nil)
         _qty = State(initialValue: 0)
         _coefficientToParentUnit = State(initialValue: 1)
+        
         title = "New Recipe"
     }
     
     init(recipe: Recipe) {
         _isPresented = .constant(true)
+        
         recipeToEdit = recipe
+        
         _base = State(initialValue: recipe.base)
         _ingredient = State(initialValue: recipe.ingredient)
         _qty = State(initialValue: recipe.qty)
         _coefficientToParentUnit = State(initialValue: recipe.coefficientToParentUnit)
+        
         title = "Edit Recipe"
     }
     

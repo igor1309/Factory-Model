@@ -85,6 +85,8 @@ struct BaseEditor: View {
                     .buttonStyle(PlainButtonStyle())
                     .foregroundColor(weightNetto > 0 ? .accentColor : .systemRed)
             }
+            
+            EntityPickerSection(selection: $factory)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
