@@ -1,5 +1,5 @@
 //
-//  BaseEditor.swift
+//  BaseEditorOLD.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 22.07.2020.

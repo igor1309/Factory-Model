@@ -8,16 +8,64 @@
 import SwiftUI
 
 struct PackagingEditor: View {
-    @Binding var name: String
-    @Binding var type: String
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
+    
+    @Binding var isPresented: Bool
+    
+    let packagingToEdit: Packaging?
+    let title: String
+    
+    init(isPresented: Binding<Bool>) {
+        _isPresented = isPresented
+        packagingToEdit = nil
+        _name = State(initialValue: "")
+        _type = State(initialValue: "")
+        title = "New Packaging"
+    }
+    
+    init(packaging: Packaging) {
+        _isPresented = .constant(true)
+        packagingToEdit = packaging
+        _name = State(initialValue: packaging.name)
+        _type = State(initialValue: packaging.type)
+        title = "Edit Packaging"
+    }
+    
+    @State private var name: String
+    @State private var type: String
     
     var body: some View {
-        Section(
-            header: Text(name.isEmpty ? "" : "Edit Packaging Name")
-        ) {
-            TextField("Packaging Name", text: $name)
+        List {
+            Section(
+                header: Text(name.isEmpty ? "" : "Edit Packaging Name")
+            ) {
+                TextField("Packaging Name", text: $name)
+            }
+            
+            PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
         }
-        
-        PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle(title)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
+                    let packaging: Packaging
+                    if let packagingToEdit = packagingToEdit {
+                        packaging = packagingToEdit
+                    } else {
+                        packaging = Packaging(context: context)
+                    }
+                    
+                    packaging.name = name
+                    packaging.type = type
+                    
+                    context.saveContext()
+                    isPresented = false
+                    presentation.wrappedValue.dismiss()
+                }
+                .disabled(name.isEmpty)
+            }
+        }
     }
 }

@@ -19,7 +19,16 @@ struct PackagingView: View {
     
     var body: some View {
         List {
-            PackagingEditor(name: $packaging.name, type: $packaging.type)
+            Section(
+                header: Text("Packaging"),
+                footer: Text("Tap to Edit.")
+            ) {
+                NavigationLink(
+                    destination: PackagingEditor(packaging: packaging)
+                ) {
+                    Text(packaging.name)
+                }
+            }
             
             Section(
                 header: Text("Used in Products")
@@ -42,13 +51,13 @@ struct PackagingView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(packaging.name)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    context.saveContext()
-                    presentation.wrappedValue.dismiss()
-                }
-            }
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .confirmationAction) {
+//                Button("Save") {
+//                    context.saveContext()
+//                    presentation.wrappedValue.dismiss()
+//                }
+//            }
+//        }
     }
 }
