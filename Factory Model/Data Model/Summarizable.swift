@@ -272,7 +272,7 @@ extension Sales: Summarizable {
 
 extension SalesDraft: Summarizable {
     var title: String {
-        product?.name ?? "ERROR no Product"
+        product?.name ?? buyer?.name ?? "ERROR no Product no Buyer"
     }
     
     var subtitle: String {

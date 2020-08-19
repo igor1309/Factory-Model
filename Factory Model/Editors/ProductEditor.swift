@@ -99,6 +99,15 @@ struct ProductEditor: View {
             EntityPickerSection(selection: $packaging)            
             
             Section(
+                header: Text("Production Qty")
+            ) {
+                Group {
+                    AmountPicker(systemName: "scissors", title: "Production Qty", navigationTitle: "Production Qty", scale: .medium, amount: $productionQty)
+                        .foregroundColor(productionQty > 0 ? .accentColor : .systemRed)
+                }
+            }
+            
+            Section(
                 header: Text("VAT")
             ) {
                 Group {
