@@ -125,6 +125,15 @@ extension Employee: Summarizable {
     static var plusButtonIcon: String { "person.badge.plus" }
 }
 
+extension EmployeeDraft: Summarizable {
+    var title: String { "\(name)" }
+    var subtitle: String { "\(position) \(salary.formattedGrouped)" }
+    var detail: String? { nil }
+    
+    static var icon: String { "person" }
+    static var headline: String { "" }
+}
+
 extension Equipment: Summarizable {
     var subtitle: String { note }
     
@@ -226,6 +235,21 @@ extension Product: Summarizable {
     static var headline: String {
         "Create a product for sale with base product, base product quantity, packaging, VAT and other parameters."
     }
+}
+
+extension RecipeDraft: Summarizable {
+    var title: String { ingredient.name }
+    
+    var subtitle: String {
+        //  MARK: - FINISH THIS
+        //  как вытащить unitString в CustomUnit
+        "\(qty.formattedGrouped) @ \(ingredient.priceExVAT.formattedGrouped)"
+    }
+    var detail: String? { nil }
+    
+    static var color: Color { .systemPurple }
+    static var icon: String { "puzzlepiece" }
+    static var headline: String { "" }
 }
 
 extension Sales: Summarizable {

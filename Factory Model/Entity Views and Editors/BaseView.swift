@@ -19,11 +19,11 @@ struct BaseView: View {
     var body: some View {
         List {
             Section(
-                header: Text("Base"),
-                footer: Text("Tap link to edit Base Product.")
+                header: Text("Base Detail")
             ) {
                 NavigationLink(
-                    destination: BaseEditorOLD(base)
+                    //destination: BaseEditorOLD(base)
+                    destination: BaseEditor(base)
                 ) {
                     Text("\(base.title), \(base.weightNetto.formattedGrouped)")
                 }
@@ -34,12 +34,7 @@ struct BaseView: View {
             
             //  parent check
             if base.factory == nil {
-                Section(
-                    header: Text("Factory")
-                ) {
-                    EntityPicker(selection: $base.factory, icon: "building.2")
-                        .foregroundColor(.systemRed)
-                }
+                EntityPickerSection(selection: $base.factory)                
             }
 
             Section(

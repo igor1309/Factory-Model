@@ -38,7 +38,7 @@ extension Managed where Self: NSManagedObject {
     /// https://stackoverflow.com/questions/30207436/dynamic-strings-with-placeholders-and-plural-support-in-swift-ios
     /// https://crunchybagel.com/localizing-plurals-in-ios-development/
     
-    static func plural() -> String {
+    static var plural: String {
         switch entityName {
             case "Base":
                 return "Bases"

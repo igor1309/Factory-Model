@@ -41,13 +41,13 @@ struct BuyerEditor: View {
     @State private var name: String
     @State private var factory: Factory?
     
-    @State private var isSalesDraftActive = false
+    @State private var isNewDraftActive = false
     @State private var salesDrafts = [SalesDraft]()
     
     var body: some View {
         NavigationLink(
             destination: CreateSales(salesDrafts: $salesDrafts, kind: .forBuyer),
-            isActive: $isSalesDraftActive
+            isActive: $isNewDraftActive
         ) {
             EmptyView()
         }
@@ -61,21 +61,10 @@ struct BuyerEditor: View {
             
             EntityPickerSection(selection: $factory)
             
-            Section(
-                header: Text("New Sales")
-            ) {
-                Button {
-                    isSalesDraftActive = true
-                } label: {
-                    Label("Add Sales", systemImage: Sales.plusButtonIcon)
-                }
-                
-                ForEach(salesDrafts) { item in
-                    ListRow(item)
-                }
-            }
-            
-            if let buyer = buyerToEdit {
+            DraftSection<Sales, SalesDraft>(isNewDraftActive: $isNewDraftActive, drafts: $salesDrafts)
+
+            if let buyer = buyerToEdit,
+               !buyer.sales.isEmpty {
                 GenericListSection(
                     header: "Existing Sales",
                     type: Sales.self,

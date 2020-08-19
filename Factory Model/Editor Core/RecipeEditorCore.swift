@@ -15,12 +15,7 @@ struct RecipeEditorCore: View {
     }
     
     var body: some View {
-        Section(
-            header: Text("Base product")
-        ) {
-            EntityPicker(selection: $recipe.base, icon: Base.icon, predicate: nil)
-                .font(.subheadline)
-        }
+        EntityPickerSection(selection: $recipe.base)        
         
         Section(
             header: Text("Ingredient")

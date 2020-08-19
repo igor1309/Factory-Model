@@ -47,7 +47,8 @@ struct PackagingEditor: View {
             
             PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
             
-            if let packaging = packagingToEdit {
+            if let packaging = packagingToEdit,
+               !packaging.products.isEmpty {
                 Section(
                     header: Text("Used in Products")
                 ) {
@@ -59,7 +60,7 @@ struct PackagingEditor: View {
                 }
                 
                 GenericListSection(
-                    header: "Оставлять ли этот список?",
+                    //header: "Оставлять ли этот список?",
                     type: Product.self,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
                 ) { product in

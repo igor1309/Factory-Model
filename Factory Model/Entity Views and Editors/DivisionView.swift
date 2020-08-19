@@ -54,12 +54,7 @@ struct DivisionView: View {
             
             //  parent check
             if division.factory == nil {
-                Section(
-                    header: Text("Factory")
-                ) {
-                    EntityPicker(selection: $division.factory, icon: "building.2")
-                        .foregroundColor(.systemRed)
-                }
+                EntityPickerSection(selection: $division.factory)                
             }
         } editor: { (department: Department) in
             DepartmentView(department)

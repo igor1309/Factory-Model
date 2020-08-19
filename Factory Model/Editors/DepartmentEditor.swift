@@ -44,13 +44,13 @@ struct DepartmentEditor: View {
     @State private var type: Department.DepartmentType
     @State private var division: Division?
     
-    @State private var isEmployeeDraftActive = false
+    @State private var isNewDraftActive = false
     @State private var employeeDrafts = [EmployeeDraft]()
     
     var body: some View {
         NavigationLink(
             destination: CreateEmployee(employeeDrafts: $employeeDrafts),
-            isActive: $isEmployeeDraftActive
+            isActive: $isNewDraftActive
         ) {
             EmptyView()
         }
@@ -67,21 +67,10 @@ struct DepartmentEditor: View {
             
             EntityPickerSection(selection: $division)
             
-            Section(
-                header: Text("New Employees")
-            ) {
-                Button {
-                    isEmployeeDraftActive = true
-                } label: {
-                    Label("Add Employee", systemImage: Employee.plusButtonIcon)
-                }
-                
-                ForEach(employeeDrafts) { item in
-                    ListRow(item)
-                }
-            }
+            DraftSection<Employee, EmployeeDraft>(isNewDraftActive: $isNewDraftActive, drafts: $employeeDrafts)
             
-            if let department = departmentToEdit {
+            if let department = departmentToEdit,
+               !department.employees.isEmpty {
                 GenericListSection(
                     header: "Existing Employees",
                     type: Employee.self,
@@ -126,25 +115,6 @@ struct DepartmentEditor: View {
         }
     }
 }
-
-fileprivate struct EmployeeDraft: Identifiable {
-    var name: String
-    var note: String
-    var position: String
-    var salary: Double
-    
-    var id = UUID()
-}
-
-extension EmployeeDraft: Summarizable {
-    var title: String { "\(name)" }
-    var subtitle: String { "\(position) \(salary.formattedGrouped)" }    
-    var detail: String? { nil }
-    
-    static var icon: String { "person" }
-    static var headline: String { "" }
-}
-
 
 fileprivate struct CreateEmployee: View {
     @Environment(\.presentationMode) private var presentation

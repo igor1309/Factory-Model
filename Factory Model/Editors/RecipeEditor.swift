@@ -49,11 +49,9 @@ struct RecipeEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text("Ingredient")
-            ) {
-                EntityPicker(selection: $ingredient, icon: Ingredient.icon)
-                
+            EntityPickerSection(selection: $ingredient)
+            
+            Section {
                 AmountPicker(systemName: "square", title: "Ingredient Qty", navigationTitle: "Ingredient Qty", scale: .small, amount: $qty)
                     .foregroundColor(qty > 0 ? .accentColor : .systemRed)
                 
@@ -70,11 +68,7 @@ struct RecipeEditor: View {
                 .foregroundColor(.accentColor)
             }
             
-            Section(
-                header: Text("Base product")
-            ) {
-                EntityPicker(selection: $base, icon: Base.icon, predicate: nil)
-            }
+            EntityPickerSection(selection: $base)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

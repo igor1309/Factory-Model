@@ -45,13 +45,7 @@ struct ProductEditorCore: View {
             .font(.subheadline)
         }
         
-        Section(
-            header: Text("Packaging")
-        ) {
-            EntityPicker(selection: $product.packaging, icon: "shippingbox", predicate: nil)
-                .font(.subheadline)
-        }
-        .foregroundColor(product.packaging == nil ? .systemRed : .accentColor)
+        EntityPickerSection(selection: $product.packaging)
         
         Section(
             header: Text("VAT (\(product.vat.formattedPercentageWith1Decimal))")

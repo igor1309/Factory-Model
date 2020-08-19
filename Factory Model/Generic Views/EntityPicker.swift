@@ -19,6 +19,7 @@ struct EntityPickerSection<T: PickableEntity & Sketchable>: View {
             header: Text(T.entityName)
         ) {
             EntityPicker(selection: $selection, icon: T.icon, predicate: predicate)
+                .foregroundColor(selection == nil ? .systemRed : .accentColor)
         }
     }
 }
@@ -90,7 +91,7 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
         NavigationView {
             List {
                 if entities.isEmpty {
-                    Text("No \(T.plural()) to select from. Tap + to add one.")
+                    Text("No \(T.plural) to select from. Tap + to add one.")
                 } else {
                     ForEach(entities, id: \.objectID) { entity in
                         Button {

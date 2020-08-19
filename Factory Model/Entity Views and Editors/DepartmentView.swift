@@ -57,6 +57,7 @@ struct DepartmentView: View {
                 }
             }
             
+            //  MARK: - FINISH THIS
             Section(
                 header: Text("Division"),
                 footer: Text(department.division == nil ? "ERROR: no Division for Department" : "Division could be changed.")

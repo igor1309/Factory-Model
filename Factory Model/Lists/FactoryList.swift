@@ -33,7 +33,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Product.plural(), systemImage: Product.icon)
+                        Label(Product.plural, systemImage: Product.icon)
                     }
                     
                     NavigationLink(
@@ -49,7 +49,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Buyer.plural(), systemImage: Buyer.icon)
+                        Label(Buyer.plural, systemImage: Buyer.icon)
                     }
                     
                     NavigationLink(
@@ -66,7 +66,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Department.plural(), systemImage: Department.icon)
+                        Label(Department.plural, systemImage: Department.icon)
                     }
                     
                     NavigationLink(
@@ -83,7 +83,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Employee.plural(), systemImage: Employee.icon)
+                        Label(Employee.plural, systemImage: Employee.icon)
                     }
                     
                     NavigationLink(
@@ -100,7 +100,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Equipment.plural(), systemImage: Equipment.icon)
+                        Label(Equipment.plural, systemImage: Equipment.icon)
                     }
                     
                     NavigationLink(
@@ -116,7 +116,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Packaging.plural(), systemImage: Packaging.icon)
+                        Label(Packaging.plural, systemImage: Packaging.icon)
                     }
                     
                     NavigationLink(
@@ -132,7 +132,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Ingredient.plural(), systemImage: Ingredient.icon)
+                        Label(Ingredient.plural, systemImage: Ingredient.icon)
                     }
                     
                     NavigationLink(
@@ -153,7 +153,7 @@ struct FactoryList: View {
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Recipe.plural(), systemImage: Recipe.icon)
+                        Label(Recipe.plural, systemImage: Recipe.icon)
                     }
                     
                     NavigationLink(
@@ -163,13 +163,13 @@ struct FactoryList: View {
                                     type: Base.self,
                                     predicate: nil
                                 ) { (base: Base) in
-                                    BaseEditorOLD(base)
+                                    BaseView(base)
                                 }
                             }
                             .listStyle(InsetGroupedListStyle())
                             .navigationBarTitleDisplayMode(.inline)
                     ) {
-                        Label(Base.plural(), systemImage: Base.icon)
+                        Label(Base.plural, systemImage: Base.icon)
                     }
                 }
                 

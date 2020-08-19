@@ -34,7 +34,7 @@ struct BaseEditor: View {
         title = "New Base"
     }
     
-    init(base: Base) {
+    init(_ base: Base) {
         _isPresented = .constant(true)
         
         baseToEdit = base
@@ -60,13 +60,13 @@ struct BaseEditor: View {
     @State private var initialInventory: Double
     @State private var weightNetto: Double
     
-    @State private var isCreateRecipeDraftsActive = false
+    @State private var isNewDraftActive = false
     @State private var recipeDrafts = [RecipeDraft]()
     
     var body: some View {
         NavigationLink(
             destination: CreateRecipe(recipeDrafts: $recipeDrafts),
-            isActive: $isCreateRecipeDraftsActive
+            isActive: $isNewDraftActive
         ) {
             EmptyView()
         }
@@ -79,14 +79,12 @@ struct BaseEditor: View {
                 header: Text("Unit")
             ) {
                 ParentUnitStringPicker(unitString: $unitString_)
-                    .foregroundColor(.accentColor)
             }
             
             Section(
                 header: Text("Initial Inventory")
             ) {
                 AmountPicker(systemName: "building.2.crop.circle.fill", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $initialInventory)
-                    .buttonStyle(PlainButtonStyle())
             }
             
             Section(
@@ -99,16 +97,26 @@ struct BaseEditor: View {
             
             EntityPickerSection(selection: $factory)
             
-            Section(header: Text("Ingredients")) {
-                
-                Button {
-                    isCreateRecipeDraftsActive = true
-                } label: {
-                    Label("Add Ingredient", systemImage: Ingredient.plusButtonIcon)
+            DraftSection<Ingredient, RecipeDraft>(isNewDraftActive: $isNewDraftActive, drafts: $recipeDrafts)
+            
+            if let base = baseToEdit,
+               !base.products.isEmpty {
+                Section(
+                    header: Text("Used in Products")
+                ) {
+                    Group {
+                        Text(base.productList)
+                            .foregroundColor(base.isValid ? .secondary : .systemRed)
+                    }
+                    .font(.caption)
                 }
                 
-                ForEach(recipeDrafts) { draft in
-                    ListRow(draft)
+                GenericListSection(
+                    header: "Оставлять ли этот список?",
+                    type: Product.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+                ) { product in
+                    ProductView(product)
                 }
             }
         }
@@ -152,30 +160,6 @@ struct BaseEditor: View {
         }
     }
 }
-
-fileprivate struct RecipeDraft: Identifiable {
-    var ingredient: Ingredient
-    var qty: Double
-    var coefficientToParentUnit: Double
-    
-    var id: NSManagedObjectID { ingredient.objectID }
-}
-
-extension RecipeDraft: Summarizable {
-    var title: String { ingredient.name }
-    
-    var subtitle: String {
-        //  MARK: - FINISH THIS
-        //  как вытащить unitString в CustomUnit
-        "\(qty.formattedGrouped) @ \(ingredient.priceExVAT.formattedGrouped)"
-    }
-    var detail: String? { nil }
-    
-    static var color: Color { .systemPurple }
-    static var icon: String { "puzzlepiece" }
-    static var headline: String { "" }
-}
-
 
 fileprivate struct CreateRecipe: View {
     @Environment(\.presentationMode) private var presentation

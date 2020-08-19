@@ -23,14 +23,12 @@ struct SalesView: View {
             
             //  parent check
             if sales.buyer == nil {
-                EntityPicker(selection: $sales.buyer, icon: Buyer.icon)
-                    .foregroundColor(.systemRed)
+                EntityPickerSection(selection: $sales.buyer)
             }
             
             //  second parent check
             if sales.product == nil {
-                EntityPicker(selection: $sales.product, icon: Product.icon)
-                    .foregroundColor(.systemRed)
+                EntityPickerSection(selection: $sales.product)
             }
             
 

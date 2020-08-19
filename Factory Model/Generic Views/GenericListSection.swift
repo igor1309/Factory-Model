@@ -20,25 +20,25 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     let header: String
     
     init(
-        header: String? = T.plural(),
+        header: String? = T.plural,
         fetchRequest: FetchRequest<T>,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.header = header == nil ? T.plural() : header!
+        self.header = header == nil ? T.plural : header!
         _fetchRequest = fetchRequest
         self.editor = editor
         self.useSmallerFont = useSmallerFont
     }
     
     init(
-        header: String? = T.plural(),
+        header: String? = T.plural,
         type: T.Type,
         predicate: NSPredicate?,
         useSmallerFont: Bool = true,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.header = header == nil ? T.plural() : header!
+        self.header = header == nil ? T.plural : header!
         self.editor = editor
         self.useSmallerFont = useSmallerFont
         _fetchRequest = T.defaultFetchRequest(with: predicate)

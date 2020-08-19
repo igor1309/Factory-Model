@@ -65,13 +65,13 @@ struct ProductEditor: View {
     @State private var base: Base?
     @State private var packaging: Packaging?
     
-    @State private var isSalesDraftActive = false
+    @State private var isNewDraftActive = false
     @State private var salesDrafts = [SalesDraft]()
     
     var body: some View {
         NavigationLink(
             destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
-            isActive: $isSalesDraftActive
+            isActive: $isNewDraftActive
         ) {
             EmptyView()
         }
@@ -85,7 +85,6 @@ struct ProductEditor: View {
                 header: Text("Base Product Qty")
             ) {
                 Group {
-                    
                     HStack {
                         AmountPicker(systemName: "square.grid.3x3.middleright.fill", title: "Base Qty", navigationTitle: "Qty", scale: .medium, amount: $baseQty)
                             .foregroundColor(baseQty <= 0 ? .systemRed : .accentColor)
@@ -97,36 +96,20 @@ struct ProductEditor: View {
                 }
             }
             
-            Section(
-                header: Text("Packaging")
-            ) {
-                EntityPicker(selection: $packaging, icon: "shippingbox", predicate: nil)
-            }
-            .foregroundColor(packaging == nil ? .systemRed : .accentColor)
+            EntityPickerSection(selection: $packaging)            
             
             Section(
-                header: Text("VAT (\(vat.formattedPercentageWith1Decimal))")
+                header: Text("VAT")
             ) {
                 Group {
                     AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $vat)
                 }
             }
             
-            Section(
-                header: Text("New Sales")
-            ) {
-                Button {
-                    isSalesDraftActive = true
-                } label: {
-                    Label("Add Sales", systemImage: Sales.plusButtonIcon)
-                }
-                
-                ForEach(salesDrafts) { item in
-                    ListRow(item)
-                }
-            }
-            
-            if let product = productToEdit {
+            DraftSection<Sales, SalesDraft>(isNewDraftActive: $isNewDraftActive, drafts: $salesDrafts)
+
+            if let product = productToEdit,
+               !product.sales.isEmpty {
                 GenericListSection(
                     header: "Existing Sales",
                     type: Sales.self,

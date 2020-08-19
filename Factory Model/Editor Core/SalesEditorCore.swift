@@ -25,14 +25,8 @@ struct SalesEditorCore: View {
     }
     
     var body: some View {
-        Section(
-            header: Text("Buyer")
-        ) {
-            //  MARK: - FINISH THIS FIND SOLUTION TO FETCH BUYERS FOR FACTORY
-            EntityPicker(selection: $sales.buyer, icon: "cart", predicate: nil)
-                .foregroundColor(sales.buyer == nil ? .systemRed : .accentColor)
-                .font(.subheadline)
-        }
+        //  MARK: - FINISH THIS FIND SOLUTION TO FETCH BUYERS FOR FACTORY
+        EntityPickerSection(selection: $sales.buyer)        
 
         Section(
             header: Text("Product, Price")
