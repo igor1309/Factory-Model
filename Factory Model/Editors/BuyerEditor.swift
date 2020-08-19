@@ -71,8 +71,6 @@ struct BuyerEditor: View {
                 }
                 
                 ForEach(salesDrafts) { item in
-                    //  MARK: - FINISH THIS
-                    //  make nice row, see ListRow for example
                     ListRow(item)
                 }
             }
