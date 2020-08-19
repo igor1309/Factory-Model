@@ -46,6 +46,26 @@ struct PackagingEditor: View {
             NameSection<Packaging>(name: $name)
             
             PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
+            
+            if let packaging = packagingToEdit {
+                Section(
+                    header: Text("Used in Products")
+                ) {
+                    Group {
+                        Text(packaging.productList)
+                            .foregroundColor(packaging.isValid ? .secondary : .systemRed)
+                    }
+                    .font(.caption)
+                }
+                
+                GenericListSection(
+                    header: "Оставлять ли этот список?",
+                    type: Product.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
+                ) { product in
+                    ProductView(product)
+                }
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

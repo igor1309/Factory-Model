@@ -33,7 +33,7 @@ struct IssuesList: View {
                     type: Buyer.self,
                     predicate: Buyer.orphanPredicate
                 ) { (buyer: Buyer) in
-                    BuyerView(buyer)
+                    BuyerEditor(buyer)
                 }
                 //            }
                 //            if factory.departmentsHasIssues {

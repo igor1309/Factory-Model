@@ -22,7 +22,7 @@ struct AllBuyersList: View {
         ) {
             
         } editor: { (buyer: Buyer) in
-            BuyerView(buyer)
+            BuyerEditor(buyer)
         }
     }
 }
