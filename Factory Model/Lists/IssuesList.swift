@@ -59,7 +59,8 @@ struct IssuesList: View {
                     type: Equipment.self,
                     predicate: Equipment.orphanPredicate
                 ) { (equipment: Equipment) in
-                    EquipmentView(equipment)
+                    //EquipmentView(equipment)
+                    EquipmentEditor(equipment)
                 }
                 //            }
                 

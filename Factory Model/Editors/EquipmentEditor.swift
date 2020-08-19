@@ -22,6 +22,7 @@ struct EquipmentEditor: View {
         equipmentToEdit = nil
         
         _name = State(initialValue: "")
+        _note = State(initialValue: "")
         _factory = State(initialValue: nil)
         _lifetime = State(initialValue: 7)
         _price = State(initialValue: 0)
@@ -29,12 +30,13 @@ struct EquipmentEditor: View {
         title = "New Equipment"
     }
     
-    init(equipment: Equipment) {
+    init(_ equipment: Equipment) {
         _isPresented = .constant(true)
         
         equipmentToEdit = equipment
         
         _name = State(initialValue: equipment.name)
+        _note = State(initialValue: equipment.note)
         _factory = State(initialValue: equipment.factory)
         _lifetime = State(initialValue: equipment.lifetime)
         _price = State(initialValue: equipment.price)
@@ -43,21 +45,34 @@ struct EquipmentEditor: View {
     }
     
     @State private var name: String
+    @State private var note: String
     @State private var factory: Factory?
     @State private var lifetime: Double
     @State private var price: Double
     
+    private var depreciationMonthly: Double {
+        Equipment.depreciationMonthly(price: price, lifetime: lifetime)
+    }
+    
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Equipment Name")
-            ) {
-                TextField("Equipment Name", text: $name)
+            NameSection<Equipment>(name: $name)
+            
+            Section {
+                AmountPicker(systemName: "sparkles", title: "Lifetime, years", navigationTitle: "Lifetime", scale: .extraSmall, amount: $lifetime)
+                
+                AmountPicker(systemName: "dollarsign.circle", title: "Price", navigationTitle: "Price", scale: .extraExtraLarge, amount: $price)
             }
             
-            AmountPicker(systemName: "sparkles", title: "Lifetime", navigationTitle: "Lifetime", scale: .extraSmall, amount: $lifetime)
+            TextField("Note", text: $note)
+                .foregroundColor(.accentColor)
             
-            AmountPicker(systemName: "dollarsign.circle", title: "Price", navigationTitle: "Price", scale: .extraExtraLarge, amount: $price)
+            Section(
+                header: Text("Depreciation")
+            ) {
+                LabelWithDetail("dollarsign.circle", "Depreciation, monthly", depreciationMonthly.formattedGrouped)
+                    .foregroundColor(.secondary)
+            }
             
             EntityPickerSection(selection: $factory)
         }
@@ -74,15 +89,17 @@ struct EquipmentEditor: View {
                     }
                     
                     equipment.name = name
+                    equipment.note = note
                     equipment.factory = factory
                     equipment.lifetime = lifetime
                     equipment.price = price
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
-                .disabled(factory == nil || name.isEmpty)
+                .disabled(factory == nil || name.isEmpty || price == 0)
             }
         }
     }

@@ -13,8 +13,12 @@ extension Equipment {
         set { note_ = newValue }
     }
     
-    //  MARK: more clever depreciation?
     var depreciationMonthly: Double {
+        Equipment.depreciationMonthly(price: price, lifetime: lifetime)
+    }
+    
+    //  MARK: more clever/complex depreciation?
+    static func depreciationMonthly(price: Double, lifetime: Double) -> Double {
         price / (lifetime > 0 ? lifetime : 1) / 12
     }
 }

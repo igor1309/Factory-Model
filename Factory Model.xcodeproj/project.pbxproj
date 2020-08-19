@@ -87,6 +87,7 @@
 		2A85734524C5D8B2009FF51A /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734424C5D8B2009FF51A /* Employee.swift */; };
 		2A85734724C5DBCF009FF51A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734624C5DBCF009FF51A /* BaseView.swift */; };
 		2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85734824C5FDB1009FF51A /* ListRow.swift */; };
+		2A8CCF2E24ED0F4E00EFDADC /* NameSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8CCF2D24ED0F4E00EFDADC /* NameSection.swift */; };
 		2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5224C63DF100C34381 /* Array+Ext.swift */; };
 		2A936E5524C6D5C200C34381 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5424C6D5C200C34381 /* Ingredient.swift */; };
 		2A936E5724C6DB7500C34381 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5624C6DB7500C34381 /* Product.swift */; };
@@ -101,7 +102,6 @@
 		2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6A24C7187700C34381 /* UtilityView.swift */; };
 		2A936E6D24C71CD700C34381 /* ExpensesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6C24C71CD700C34381 /* ExpensesList.swift */; };
 		2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6E24C71CFC00C34381 /* ExpensesView.swift */; };
-		2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E7224C71EE200C34381 /* EquipmentView.swift */; };
 		2A93D97624D17B8F00DF1A35 /* PickerWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */; };
 		2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97724D1995E00DF1A35 /* Orphanable.swift */; };
 		2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */; };
@@ -211,6 +211,7 @@
 		2A85734624C5DBCF009FF51A /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2A85734824C5FDB1009FF51A /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
 		2A85734A24C62A6E009FF51A /* ReduceArrayIntoDictionary.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = ReduceArrayIntoDictionary.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2A8CCF2D24ED0F4E00EFDADC /* NameSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameSection.swift; sourceTree = "<group>"; };
 		2A936E5224C63DF100C34381 /* Array+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Ext.swift"; sourceTree = "<group>"; };
 		2A936E5424C6D5C200C34381 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		2A936E5624C6DB7500C34381 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -225,7 +226,6 @@
 		2A936E6A24C7187700C34381 /* UtilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityView.swift; sourceTree = "<group>"; };
 		2A936E6C24C71CD700C34381 /* ExpensesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesList.swift; sourceTree = "<group>"; };
 		2A936E6E24C71CFC00C34381 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
-		2A936E7224C71EE200C34381 /* EquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipmentView.swift; sourceTree = "<group>"; };
 		2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithTextField.swift; sourceTree = "<group>"; };
 		2A93D97724D1995E00DF1A35 /* Orphanable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orphanable.swift; sourceTree = "<group>"; };
 		2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrphanButton.swift; sourceTree = "<group>"; };
@@ -430,7 +430,6 @@
 				2A936E5C24C6F07F00C34381 /* DivisionView.swift */,
 				2A936E5E24C6F9C200C34381 /* EmployeeView.swift */,
 				2A936E6E24C71CFC00C34381 /* ExpensesView.swift */,
-				2A936E7224C71EE200C34381 /* EquipmentView.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A936E6024C7051500C34381 /* IngredientView.swift */,
 				2A68121A24CD844000CBDD66 /* PackagingView.swift */,
@@ -507,6 +506,7 @@
 				2A8113CA24CEB4FA00886C90 /* EntityPicker.swift */,
 				2A21714524D5F2F4000055F3 /* EntityCreator.swift */,
 				2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */,
+				2A8CCF2D24ED0F4E00EFDADC /* NameSection.swift */,
 			);
 			path = "Generic Views";
 			sourceTree = "<group>";
@@ -658,7 +658,6 @@
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
 				2A2B44C124D09189003EF752 /* DepartmentView.swift in Sources */,
 				2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */,
-				2A936E7324C71EE200C34381 /* EquipmentView.swift in Sources */,
 				2A167F0B24EC161700A8E7DE /* SalesEditor.swift in Sources */,
 				2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */,
 				2A255BC024DD21E700B4D89D /* CustomUnit.swift in Sources */,
@@ -673,6 +672,7 @@
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
 				2A936E6124C7051500C34381 /* IngredientView.swift in Sources */,
 				2A167F0724EC105600A8E7DE /* FactoryEditor.swift in Sources */,
+				2A8CCF2E24ED0F4E00EFDADC /* NameSection.swift in Sources */,
 				2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */,
 				2A167F0924EC118200A8E7DE /* ProductEditor.swift in Sources */,
 				2A167EE524EB14C900A8E7DE /* PackagingEditor.swift in Sources */,

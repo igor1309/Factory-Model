@@ -34,7 +34,8 @@ struct EquipmentList: View {
                 .font(.subheadline)
             }
         } editor: { (equipment: Equipment) in
-            EquipmentView(equipment)
+//            EquipmentView(equipment)
+            EquipmentEditor(equipment)
         }
     }
 }
