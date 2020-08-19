@@ -32,7 +32,7 @@ struct PackagingList: View {
 //                .font(.subheadline)
 //                .foregroundColor(.systemRed)
         } editor: { (packaging: Packaging) in
-            PackagingView(packaging)
+            PackagingEditor(packaging)
         }
     }
 }

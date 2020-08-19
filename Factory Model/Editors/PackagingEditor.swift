@@ -27,7 +27,7 @@ struct PackagingEditor: View {
         title = "New Packaging"
     }
     
-    init(packaging: Packaging) {
+    init(_ packaging: Packaging) {
         _isPresented = .constant(true)
         
         packagingToEdit = packaging
@@ -43,11 +43,7 @@ struct PackagingEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Packaging Name")
-            ) {
-                TextField("Packaging Name", text: $name)
-            }
+            NameSection<Packaging>(name: $name)
             
             PickerWithTextField(selection: $type, name: "Type", values: ["TBD"])
         }

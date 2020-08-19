@@ -98,7 +98,7 @@ struct IssuesList: View {
                     type: Packaging.self,
                     predicate: Packaging.orphanPredicate
                 ) { (packaging: Packaging) in
-                    PackagingView(packaging)
+                    PackagingEditor(packaging)
                 }
                 //            }
                 

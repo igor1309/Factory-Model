@@ -44,7 +44,7 @@ struct FactoryList: View {
                                     type: Packaging.self,
                                     predicate: nil
                                 ) { (packaging: Packaging) in
-                                    PackagingView(packaging)
+                                    PackagingEditor(packaging)
                                 }
                             }
                             .listStyle(InsetGroupedListStyle())
