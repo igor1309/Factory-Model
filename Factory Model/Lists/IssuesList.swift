@@ -89,7 +89,7 @@ struct IssuesList: View {
                     type: Recipe.self,
                     predicate: Recipe.orphanPredicate
                 ) { (recipe: Recipe) in
-                    RecipeView(recipe)
+                    RecipeEditor(recipe)
                 }
                 //            }
                 

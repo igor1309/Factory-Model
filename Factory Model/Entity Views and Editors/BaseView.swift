@@ -56,7 +56,7 @@ struct BaseView: View {
                         } dashboard: {
                             
                         } editor: { (recipe: Recipe) in
-                            RecipeView(recipe)
+                            RecipeEditor(recipe)
                         }
                     ) {
                         LabelWithDetail(Ingredient.icon, "Ingredients Cost, ex VAT", base.ingredientsExVAT.formattedGroupedWith1Decimal)

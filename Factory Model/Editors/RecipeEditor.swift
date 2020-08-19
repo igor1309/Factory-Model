@@ -29,7 +29,7 @@ struct RecipeEditor: View {
         title = "New Recipe"
     }
     
-    init(recipe: Recipe) {
+    init(_ recipe: Recipe) {
         _isPresented = .constant(true)
         
         recipeToEdit = recipe
@@ -50,24 +50,31 @@ struct RecipeEditor: View {
     var body: some View {
         List {
             Section(
+                header: Text("Ingredient")
+            ) {
+                EntityPicker(selection: $ingredient, icon: Ingredient.icon)
+                
+                AmountPicker(systemName: "square", title: "Ingredient Qty", navigationTitle: "Ingredient Qty", scale: .small, amount: $qty)
+                    .foregroundColor(qty > 0 ? .accentColor : .systemRed)
+                
+                ChildUnitStringPicker(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: ingredient?.customUnit)
+
+                
+                HStack {
+                    Label("Unit", systemImage: "rectangle.3.offgrid")
+                    
+                    Spacer()
+                    
+                    ChildUnitStringPicker(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: ingredient?.customUnit)
+                }
+                .foregroundColor(.accentColor)
+            }
+            
+            Section(
                 header: Text("Base product")
             ) {
                 EntityPicker(selection: $base, icon: Base.icon, predicate: nil)
             }
-            
-            HStack {
-                EntityPicker(selection: $ingredient, icon: Ingredient.icon)
-                    .buttonStyle(PlainButtonStyle())
-                
-                Spacer()
-                
-                AmountPicker(navigationTitle: "Qty", scale: .small, amount: $qty)
-                    .buttonStyle(PlainButtonStyle())
-                
-                ChildUnitStringPicker(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: ingredient?.customUnit)
-                
-            }
-            .foregroundColor(.accentColor)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
