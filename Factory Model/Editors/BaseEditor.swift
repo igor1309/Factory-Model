@@ -108,9 +108,7 @@ struct BaseEditor: View {
                 }
                 
                 ForEach(recipeDrafts) { draft in
-                    //  MARK: - FINISH THIS
-                    //  make nice row, see ListRow for example
-                    Text("\(draft.title)")
+                    ListRow(draft)
                 }
             }
         }
@@ -161,9 +159,21 @@ fileprivate struct RecipeDraft: Identifiable {
     var coefficientToParentUnit: Double
     
     var id: NSManagedObjectID { ingredient.objectID }
-    var title: String {
-        "\(ingredient.title) \(qty) \(coefficientToParentUnit)"
+}
+
+extension RecipeDraft: Summarizable {
+    var title: String { ingredient.name }
+    
+    var subtitle: String {
+        //  MARK: - FINISH THIS
+        //  как вытащить unitString в CustomUnit
+        "\(qty.formattedGrouped) @ \(ingredient.priceExVAT.formattedGrouped)"
     }
+    var detail: String? { nil }
+    
+    static var color: Color { .systemPurple }
+    static var icon: String { "puzzlepiece" }
+    static var headline: String { "" }
 }
 
 

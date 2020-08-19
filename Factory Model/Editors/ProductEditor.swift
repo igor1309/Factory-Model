@@ -35,7 +35,7 @@ struct ProductEditor: View {
         title = "New Product"
     }
     
-    init(product: Product) {
+    init(_ product: Product) {
         _isPresented = .constant(true)
         
         productToEdit = product
@@ -65,7 +65,17 @@ struct ProductEditor: View {
     @State private var base: Base?
     @State private var packaging: Packaging?
     
+    @State private var isSalesDraftActive = false
+    @State private var salesDrafts = [SalesDraft]()
+    
     var body: some View {
+        NavigationLink(
+            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
+            isActive: $isSalesDraftActive
+        ) {
+            EmptyView()
+        }
+        
         List {
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
@@ -91,7 +101,7 @@ struct ProductEditor: View {
                 header: Text("Packaging")
             ) {
                 EntityPicker(selection: $packaging, icon: "shippingbox", predicate: nil)
-                }
+            }
             .foregroundColor(packaging == nil ? .systemRed : .accentColor)
             
             Section(
@@ -99,6 +109,30 @@ struct ProductEditor: View {
             ) {
                 Group {
                     AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $vat)
+                }
+            }
+            
+            Section(
+                header: Text("New Sales")
+            ) {
+                Button {
+                    isSalesDraftActive = true
+                } label: {
+                    Label("Add Sales", systemImage: Sales.plusButtonIcon)
+                }
+                
+                ForEach(salesDrafts) { item in
+                    ListRow(item)
+                }
+            }
+            
+            if let product = productToEdit {
+                GenericListSection(
+                    header: "Existing Sales",
+                    type: Sales.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
+                ) { (sales: Sales) in
+                    SalesEditor(sales)
                 }
             }
         }
@@ -125,7 +159,16 @@ struct ProductEditor: View {
                     product.base = base
                     product.packaging = packaging
                     
+                    for draft in salesDrafts {
+                        let sales = Sales(context: context)
+                        sales.priceExVAT = draft.priceExVAT
+                        sales.qty = draft.qty
+                        sales.buyer = draft.buyer
+                        product.addToSales_(sales)
+                    }
+                    
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

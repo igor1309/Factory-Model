@@ -28,7 +28,7 @@ struct DepartmentEditor: View {
         title = "New Department"
     }
     
-    init(department: Department) {
+    init(_ department: Department) {
         _isPresented = .constant(true)
         
         departmentToEdit = department
@@ -56,11 +56,7 @@ struct DepartmentEditor: View {
         }
         
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Department Name")
-            ) {
-                TextField("Department Name", text: $name)
-            }
+            NameSection<Department>(name: $name)
             
             Picker("Type", selection: $type) {
                 ForEach(Department.DepartmentType.allCases, id: \.self) { type in
@@ -72,7 +68,7 @@ struct DepartmentEditor: View {
             EntityPickerSection(selection: $division)
             
             Section(
-                header: Text("Employees")
+                header: Text("New Employees")
             ) {
                 Button {
                     isEmployeeDraftActive = true
@@ -81,9 +77,17 @@ struct DepartmentEditor: View {
                 }
                 
                 ForEach(employeeDrafts) { item in
-                    //  MARK: - FINISH THIS
-                    //  make nice row, see ListRow for example
-                    Text(item.title)
+                    ListRow(item)
+                }
+            }
+            
+            if let department = departmentToEdit {
+                GenericListSection(
+                    header: "Existing Employees",
+                    type: Employee.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
+                ) { (employee: Employee) in
+                    EmployeeEditor(employee)
                 }
             }
         }
@@ -130,9 +134,15 @@ fileprivate struct EmployeeDraft: Identifiable {
     var salary: Double
     
     var id = UUID()
-    var title: String {
-        "\(name) \(position) \(salary)"
-    }
+}
+
+extension EmployeeDraft: Summarizable {
+    var title: String { "\(name)" }
+    var subtitle: String { "\(position) \(salary.formattedGrouped)" }    
+    var detail: String? { nil }
+    
+    static var icon: String { "person" }
+    static var headline: String { "" }
 }
 
 

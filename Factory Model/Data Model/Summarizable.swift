@@ -248,6 +248,23 @@ extension Sales: Summarizable {
     static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
+extension SalesDraft: Summarizable {
+    var title: String {
+        product?.name ?? "ERROR no Product"
+    }
+    
+    var subtitle: String {
+        "\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped)"
+    }
+    
+    var detail: String? { nil }
+    
+    static var headline: String { "" }
+    static var color: Color { .systemGreen }
+    static var icon: String { "creditcard.fill" }
+    static var plusButtonIcon: String { "rectangle.badge.plus" }
+}
+
 extension Utility: Summarizable {
     var subtitle: String {
         priceExVAT.formattedGroupedWithMax2Decimals

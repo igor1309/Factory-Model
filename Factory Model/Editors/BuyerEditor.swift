@@ -27,7 +27,7 @@ struct BuyerEditor: View {
         title = "New Buyer"
     }
     
-    init(buyer: Buyer) {
+    init(_ buyer: Buyer) {
         _isPresented = .constant(true)
         
         buyerToEdit = buyer
@@ -46,7 +46,7 @@ struct BuyerEditor: View {
     
     var body: some View {
         NavigationLink(
-            destination: CreateSales(salesDrafts: $salesDrafts),
+            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forBuyer),
             isActive: $isSalesDraftActive
         ) {
             EmptyView()
@@ -62,7 +62,7 @@ struct BuyerEditor: View {
             EntityPickerSection(selection: $factory)
             
             Section(
-                header: Text("Sales")
+                header: Text("New Sales")
             ) {
                 Button {
                     isSalesDraftActive = true
@@ -73,7 +73,17 @@ struct BuyerEditor: View {
                 ForEach(salesDrafts) { item in
                     //  MARK: - FINISH THIS
                     //  make nice row, see ListRow for example
-                    Text(item.title)
+                    ListRow(item)
+                }
+            }
+            
+            if let buyer = buyerToEdit {
+                GenericListSection(
+                    header: "Existing Sales",
+                    type: Sales.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
+                ) { (sales: Sales) in
+                    SalesEditor(sales)
                 }
             }
         }
@@ -100,66 +110,12 @@ struct BuyerEditor: View {
                         buyer.addToSales_(sales)
                     }
                     
-                    
-                    
                     context.saveContext()
                     
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
                 .disabled(factory == nil || name.isEmpty)
-            }
-        }
-    }
-}
-
-fileprivate struct SalesDraft: Identifiable {
-    var priceExVAT: Double
-    var qty: Double
-    var product: Product?
-    
-    var id = UUID()
-    var title: String {
-        "\(product?.name ?? "") \(qty) \(priceExVAT)"
-    }
-}
-
-
-fileprivate struct CreateSales: View {
-    @Environment(\.presentationMode) private var presentation
-    
-    @Binding var salesDrafts: [SalesDraft]
-    
-    @State private var priceExVAT: Double = 0
-    @State private var qty: Double = 0
-    @State private var product: Product?
-    
-    var body: some View {
-        List {
-            EntityPickerSection(selection: $product)
-            
-            AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $qty)
-                .foregroundColor(qty <= 0 ? .systemRed : .accentColor)
-            
-            AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price", scale: .small, amount: $priceExVAT)
-                .foregroundColor(priceExVAT <= 0 ? .systemRed : .accentColor)
-        }
-        .listStyle(InsetGroupedListStyle())
-        .navigationTitle("Add Sales")
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Done") {
-                    salesDrafts.append(
-                        SalesDraft(
-                            priceExVAT: priceExVAT,
-                            qty: qty,
-                            product: product
-                        )
-                    )
-                    
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(priceExVAT == 0 || qty == 0 || product == nil)
             }
         }
     }

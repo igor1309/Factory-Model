@@ -29,7 +29,7 @@ struct SalesEditor: View {
         title = "New Sales"
     }
     
-    init(sales: Sales) {
+    init(_ sales: Sales) {
         _isPresented = .constant(true)
         
         salesToEdit = sales

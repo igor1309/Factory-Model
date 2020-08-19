@@ -54,16 +54,17 @@ struct ListRow: View {
         self.useSmallerFont = useSmallerFont
     }
     
-//    init<T: ObservableObject & Summarizable>(
-//        _ object: T,
-//        useSmallerFont: Bool = true
-//    ) {
-//        self.title = object.title
-//        self.subtitle = object.subtitle
-//        self.detail = object.detail
-//        self.icon = T.icon
-//        self.useSmallerFont = useSmallerFont
-//    }
+    init<T: Summarizable>(
+        _ item: T,
+        useSmallerFont: Bool = true
+    ) {
+        self.title = item.title
+        self.subtitle = item.subtitle
+        self.detail = item.detail
+        self.icon = T.icon
+        self.color = T.color
+        self.useSmallerFont = useSmallerFont
+    }
 
     init(
         _ row: Something,

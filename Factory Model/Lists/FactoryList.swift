@@ -24,6 +24,55 @@ struct FactoryList: View {
                         destination:
                             List {
                                 GenericListSection(
+                                    type: Product.self,
+                                    predicate: nil
+                                ) { (product: Product) in
+                                    ProductEditor(product)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Product.plural(), systemImage: Product.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Buyer.self,
+                                    predicate: nil
+                                ) { (buyer: Buyer) in
+                                    BuyerEditor(buyer)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Buyer.plural(), systemImage: Buyer.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
+                                    type: Department.self,
+                                    predicate: nil
+                                ) { (department: Department) in
+                                    //EquipmentView(equipment)
+                                    DepartmentEditor(department)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Department.plural(), systemImage: Department.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
                                     type: Employee.self,
                                     predicate: nil
                                 ) { (employee: Employee) in
