@@ -75,6 +75,7 @@ struct ExpensesEditor: View {
                     expenses.note = note
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

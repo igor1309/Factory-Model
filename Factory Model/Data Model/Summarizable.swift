@@ -164,9 +164,7 @@ extension Factory: Summarizable {
 extension Ingredient: Summarizable {
     
     var subtitle: String {
-        //  MARK: - FINISH THIS
-        //        "\(qty.formattedGrouped) @ \(priceExVAT) = \(costExVAT.formattedGrouped)"
-        guard let unitString_ = unitString_ else { return "ERROR no Unit" }
+        guard let unitString_ = unitString_ else { return "" }
         
         return "Price \(priceExVAT.formattedGrouped)/\(unitString_), VAT \(vat.formattedPercentage)"
     }

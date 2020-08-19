@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IngredientEditor: View {
     @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
     
     @Binding var isPresented: Bool
     
@@ -28,7 +29,7 @@ struct IngredientEditor: View {
         title = "New Ingredient"
     }
     
-    init(ingredient: Ingredient) {
+    init(_ ingredient: Ingredient) {
         _isPresented = .constant(true)
         
         ingredientToEdit = ingredient
@@ -94,7 +95,9 @@ struct IngredientEditor: View {
                     ingredient.vat = vat
                     
                     context.saveContext()
+                    
                     isPresented = false
+                    presentation.wrappedValue.dismiss()
                 }
                 .disabled(name.isEmpty || unitString_.isEmpty || priceExVAT == 0)
             }

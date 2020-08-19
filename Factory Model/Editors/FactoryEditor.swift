@@ -77,6 +77,7 @@ struct FactoryEditor: View {
                     factory.profitTaxRate = profitTaxRate
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

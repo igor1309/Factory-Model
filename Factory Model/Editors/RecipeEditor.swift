@@ -94,6 +94,7 @@ struct RecipeEditor: View {
                     recipe.coefficientToParentUnit = coefficientToParentUnit
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

@@ -78,6 +78,7 @@ struct SalesEditor: View {
                     sales.product = product
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

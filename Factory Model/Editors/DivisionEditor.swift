@@ -67,6 +67,7 @@ struct DivisionEditor: View {
                     division.factory = factory
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

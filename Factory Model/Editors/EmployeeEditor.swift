@@ -101,6 +101,7 @@ struct EmployeeEditor: View {
                     employee.department = department
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

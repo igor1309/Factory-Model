@@ -80,6 +80,7 @@ struct UtilityEditor: View {
                     utility.base = base
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }

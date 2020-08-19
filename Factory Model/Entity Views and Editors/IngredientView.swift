@@ -32,47 +32,16 @@ struct IngredientView: View {
     var body: some View {
         List {
             Section(
-                header: Text("Ingredient Name")
+                header: Text("Ingredient Detail")
             ) {
-                Group {
-                    TextField("Name", text: $ingredient.name)
-                    
+                NavigationLink(
+                    destination: IngredientEditor(ingredient)
+                ) {
+                    ListRow(ingredient)
                 }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
-            }
-            
-            Section(
-                header: Text("Price"),
-                footer: Text("Price per Unit. Unit is also used to define Recipe unit type (mass, volume, etc).")
-            ) {
-                Group {
-                    HStack {
-                        AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price, ex VAT", scale: .small, amount: $ingredient.priceExVAT)
-                            .buttonStyle(PlainButtonStyle())
-                        
-                        Text("/")
-                        
-                        ParentUnitPicker(ingredient)
-                            .buttonStyle(PlainButtonStyle())
-                    }
-                    
-                    LabelWithDetail("scissors", "Price, with VAT", ingredient.priceWithVAT.formattedGrouped)
-                        .foregroundColor(.secondary)
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
             }
             
             ErrorMessage(ingredient)
-            
-            Section(
-                header: Text("VAT")
-            ) {
-                AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $ingredient.vat)
-                    .foregroundColor(.accentColor)
-                    .font(.subheadline)
-            }
             
             Section(
                 header: Text("Usage"),
@@ -95,18 +64,7 @@ struct IngredientView: View {
                 BaseEditorOLD(base)
             }
         }
-        .onDisappear {
-            moc.saveContext()
-        }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(ingredient.name)
-        .navigationBarItems(trailing: saveButton)
-    }
-    
-    private var saveButton: some View {
-        Button("Save") {
-            moc.saveContext()
-            presentation.wrappedValue.dismiss()
-        }
     }
 }

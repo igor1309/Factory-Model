@@ -103,8 +103,5 @@ struct ProductView: View {
                 presentation.wrappedValue.dismiss()
             }
         )
-        .onDisappear {
-            moc.saveContext()
-        }
     }
 }

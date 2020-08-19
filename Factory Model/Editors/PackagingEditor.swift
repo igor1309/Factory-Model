@@ -83,6 +83,7 @@ struct PackagingEditor: View {
                     packaging.type = type
                     
                     context.saveContext()
+                    
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
