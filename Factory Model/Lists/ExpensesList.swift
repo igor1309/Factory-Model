@@ -27,7 +27,7 @@ struct ExpensesList: View {
                     .font(.subheadline)
             }
         } editor: { (expenses: Expenses) in
-            ExpensesView(expenses)
+            ExpensesEditor(expenses)
         }
     }
 }

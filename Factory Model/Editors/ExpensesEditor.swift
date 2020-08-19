@@ -29,7 +29,7 @@ struct ExpensesEditor: View {
         title = "New Expenses"
     }
     
-    init(expenses: Expenses) {
+    init(_ expenses: Expenses) {
         _isPresented = .constant(true)
         
         expensesToEdit = expenses
@@ -49,17 +49,13 @@ struct ExpensesEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Expenses Name")
-            ) {
-                TextField("Expenses Name", text: $name)
-            }
-            
-            TextField("Expenses Note", text: $note)
+            NameSection<Expenses>(name: $name)
             
             AmountPicker(systemName: Expenses.icon, title: "Amount", navigationTitle: "Amount", scale: .extraLarge, amount: $amount)
             
             EntityPickerSection(selection: $factory)
+            
+            TextField("Expenses Note", text: $note)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

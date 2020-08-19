@@ -69,7 +69,7 @@ struct IssuesList: View {
                     type: Expenses.self,
                     predicate: Expenses.orphanPredicate
                 ) { (expenses: Expenses) in
-                    ExpensesView(expenses)
+                    ExpensesEditor(expenses)
                 }
                 //            }
                 

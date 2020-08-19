@@ -99,7 +99,6 @@
 		2A936E6924C7182A00C34381 /* UtilityList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6824C7182A00C34381 /* UtilityList.swift */; };
 		2A936E6B24C7187700C34381 /* UtilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6A24C7187700C34381 /* UtilityView.swift */; };
 		2A936E6D24C71CD700C34381 /* ExpensesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6C24C71CD700C34381 /* ExpensesList.swift */; };
-		2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6E24C71CFC00C34381 /* ExpensesView.swift */; };
 		2A93D97624D17B8F00DF1A35 /* PickerWithTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */; };
 		2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97724D1995E00DF1A35 /* Orphanable.swift */; };
 		2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */; };
@@ -221,7 +220,6 @@
 		2A936E6824C7182A00C34381 /* UtilityList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityList.swift; sourceTree = "<group>"; };
 		2A936E6A24C7187700C34381 /* UtilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityView.swift; sourceTree = "<group>"; };
 		2A936E6C24C71CD700C34381 /* ExpensesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesList.swift; sourceTree = "<group>"; };
-		2A936E6E24C71CFC00C34381 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
 		2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWithTextField.swift; sourceTree = "<group>"; };
 		2A93D97724D1995E00DF1A35 /* Orphanable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orphanable.swift; sourceTree = "<group>"; };
 		2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrphanButton.swift; sourceTree = "<group>"; };
@@ -424,7 +422,6 @@
 				2A93D98B24D35FE000DF1A35 /* BuyerView.swift */,
 				2A2B44C024D09189003EF752 /* DepartmentView.swift */,
 				2A936E5C24C6F07F00C34381 /* DivisionView.swift */,
-				2A936E6E24C71CFC00C34381 /* ExpensesView.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A936E6024C7051500C34381 /* IngredientView.swift */,
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
@@ -661,7 +658,6 @@
 				2A30470724C78F260002E5DD /* BaseEditorOLD.swift in Sources */,
 				2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */,
 				2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */,
-				2A936E6F24C71CFD00C34381 /* ExpensesView.swift in Sources */,
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
 				2A936E6124C7051500C34381 /* IngredientView.swift in Sources */,
 				2A167F0724EC105600A8E7DE /* FactoryEditor.swift in Sources */,
