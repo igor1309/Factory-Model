@@ -9,10 +9,10 @@ import Foundation
 
 extension Sales {
     var buyerName: String {
-        buyer?.name_ ?? "Unknown"
+        buyer?.name_ ?? ""
     }
     var productName: String {
-        product?.title ?? "Unknown"
+        product?.title ?? ""
     }
     
     var priceWithVAT: Double {

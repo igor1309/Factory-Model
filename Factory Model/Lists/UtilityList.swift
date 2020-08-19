@@ -39,7 +39,7 @@ struct UtilityList: View {
                 .font(.subheadline)
             }
         } editor: { (utility: Utility) in
-            UtilityView(utility)
+            UtilityEditor(utility)
         }
     }
 }

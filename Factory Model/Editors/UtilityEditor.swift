@@ -29,7 +29,7 @@ struct UtilityEditor: View {
         title = "New Utility"
     }
     
-    init(utility: Utility) {
+    init(_ utility: Utility) {
         _isPresented = .constant(true)
         
         utilityToEdit = utility
@@ -49,17 +49,18 @@ struct UtilityEditor: View {
     
     var body: some View {
         List {
+            NameSection<Utility>(name: $name)
+            
             Section(
-                header: Text(name.isEmpty ? "" : "Edit Utility Name")
+                header: Text("Price"),
+                footer: Text("Price per Unit of Base Product")
             ) {
-                TextField("Utility Name", text: $name)
+                AmountPicker(systemName: "dollarsign.circle", title: "Utility Price, ex VAT", navigationTitle: "Utility Price", scale: .small, amount: $priceExVAT)
+                
+                AmountPicker(systemName: "scissors", title: "Utility VAT", navigationTitle: "Utility VAT", scale: .percent, amount: $vat)
             }
             
             EntityPickerSection(selection: $base)
-            
-            AmountPicker(systemName: "dollarsign.circle", title: "Utility Price, ex VAT", navigationTitle: "Utility Price", scale: .small, amount: $priceExVAT)
-            
-            AmountPicker(systemName: "scissors", title: "Utility VAT", navigationTitle: "Utility VAT", scale: .percent, amount: $vat)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

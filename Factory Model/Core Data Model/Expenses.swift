@@ -10,7 +10,7 @@ import CoreData
 
 extension Expenses {
     var note: String {
-        get { note_ ?? "Unknown"}
+        get { note_ ?? ""}
         set { note_ = newValue }
     }
 }

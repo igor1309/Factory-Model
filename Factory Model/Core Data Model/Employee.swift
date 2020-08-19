@@ -14,7 +14,7 @@ extension Employee {
     }
     
     var position: String {
-        get { position_ ?? "Unknown"}
+        get { position_ ?? ""}
         set { position_ = newValue }
     }
     

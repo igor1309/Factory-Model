@@ -124,7 +124,7 @@ struct IssuesList: View {
                     type: Utility.self,
                     predicate: Utility.orphanPredicate
                 ) { (utility: Utility) in
-                    UtilityView(utility)
+                    UtilityEditor(utility)
                 }
                 //            }
                 
