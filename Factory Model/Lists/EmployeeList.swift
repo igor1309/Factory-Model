@@ -36,7 +36,7 @@ struct EmployeeList: View {
                     .font(.subheadline)
             }
         } editor: { (employee: Employee) in
-            EmployeeView(employee)
+            EmployeeEditor(employee)
         }
         
     }

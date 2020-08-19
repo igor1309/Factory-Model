@@ -133,7 +133,7 @@ struct IssuesList: View {
                     type: Employee.self,
                     predicate: Employee.orphanPredicate
                 ) { (employee: Employee) in
-                    EmployeeView(employee)
+                    EmployeeEditor(employee)
                 }
                 //            }
             }

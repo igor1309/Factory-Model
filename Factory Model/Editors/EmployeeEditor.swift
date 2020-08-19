@@ -30,7 +30,7 @@ struct EmployeeEditor: View {
         title = "New Employee"
     }
     
-    init(employee: Employee) {
+    init(_ employee: Employee) {
         _isPresented = .constant(true)
         
         employeeToEdit = employee
@@ -52,13 +52,7 @@ struct EmployeeEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Employee Name")
-            ) {
-                TextField("Employee Name", text: $name)
-            }
-            
-            TextField("Note", text: $note)
+            NameSection<Employee>(name: $name)
             
             Section(
                 header: Text("Position")
@@ -85,6 +79,8 @@ struct EmployeeEditor: View {
             }
             
             EntityPickerSection(selection: $department)
+            
+            TextField("Note", text: $note)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

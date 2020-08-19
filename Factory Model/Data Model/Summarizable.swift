@@ -110,14 +110,14 @@ extension Department: Summarizable {
 
 extension Employee: Summarizable {
     var subtitle: String {
-        salary.formattedGrouped
+        guard isValid else { return errorMessage! }
+        return [position, department?.name ?? ""]
+            .filter { !$0.isEmpty}
+            .joined(separator: ": ")
     }
     
     var detail: String? {
-        guard isValid else { return errorMessage! }
-        return [department?.name ?? "", position]
-            .filter { !$0.isEmpty}
-            .joined(separator: ": ")
+        "\(salaryWithTax.formattedGrouped) (\(salary.formattedGrouped))"
     }
     
     static var color: Color { .systemTeal }

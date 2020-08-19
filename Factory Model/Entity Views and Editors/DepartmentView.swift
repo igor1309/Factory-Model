@@ -106,7 +106,7 @@ struct DepartmentView: View {
             }
             
         } editor: { (employee: Employee) in
-                EmployeeView(employee)
+                EmployeeEditor(employee)
             }
         }
 }

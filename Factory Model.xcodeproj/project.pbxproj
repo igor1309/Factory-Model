@@ -93,7 +93,6 @@
 		2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5824C6DDDF00C34381 /* Utility.swift */; };
 		2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5A24C6E09F00C34381 /* BaseGroupList.swift */; };
 		2A936E5D24C6F07F00C34381 /* DivisionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5C24C6F07F00C34381 /* DivisionView.swift */; };
-		2A936E5F24C6F9C200C34381 /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E5E24C6F9C200C34381 /* EmployeeView.swift */; };
 		2A936E6124C7051500C34381 /* IngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6024C7051500C34381 /* IngredientView.swift */; };
 		2A936E6324C7112B00C34381 /* IngredientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6224C7112B00C34381 /* IngredientList.swift */; };
 		2A936E6524C7147100C34381 /* SalesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A936E6424C7147100C34381 /* SalesList.swift */; };
@@ -216,7 +215,6 @@
 		2A936E5824C6DDDF00C34381 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		2A936E5A24C6E09F00C34381 /* BaseGroupList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGroupList.swift; sourceTree = "<group>"; };
 		2A936E5C24C6F07F00C34381 /* DivisionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionView.swift; sourceTree = "<group>"; };
-		2A936E5E24C6F9C200C34381 /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
 		2A936E6024C7051500C34381 /* IngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientView.swift; sourceTree = "<group>"; };
 		2A936E6224C7112B00C34381 /* IngredientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientList.swift; sourceTree = "<group>"; };
 		2A936E6424C7147100C34381 /* SalesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesList.swift; sourceTree = "<group>"; };
@@ -426,7 +424,6 @@
 				2A93D98B24D35FE000DF1A35 /* BuyerView.swift */,
 				2A2B44C024D09189003EF752 /* DepartmentView.swift */,
 				2A936E5C24C6F07F00C34381 /* DivisionView.swift */,
-				2A936E5E24C6F9C200C34381 /* EmployeeView.swift */,
 				2A936E6E24C71CFC00C34381 /* ExpensesView.swift */,
 				2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */,
 				2A936E6024C7051500C34381 /* IngredientView.swift */,
@@ -686,7 +683,6 @@
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A21714A24D5FBBB000055F3 /* RecipeEditorCore.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
-				2A936E5F24C6F9C200C34381 /* EmployeeView.swift in Sources */,
 				2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */,
 				2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,

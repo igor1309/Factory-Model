@@ -24,6 +24,23 @@ struct FactoryList: View {
                         destination:
                             List {
                                 GenericListSection(
+                                    type: Employee.self,
+                                    predicate: nil
+                                ) { (employee: Employee) in
+                                    //EquipmentView(equipment)
+                                    EmployeeEditor(employee)
+                                }
+                            }
+                            .listStyle(InsetGroupedListStyle())
+                            .navigationBarTitleDisplayMode(.inline)
+                    ) {
+                        Label(Employee.plural(), systemImage: Employee.icon)
+                    }
+                    
+                    NavigationLink(
+                        destination:
+                            List {
+                                GenericListSection(
                                     type: Equipment.self,
                                     predicate: nil
                                 ) { (equipment: Equipment) in

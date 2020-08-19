@@ -33,7 +33,7 @@ struct AllEmployeesList: View {
         } dashboard: {
             
         } editor: { (employee: Employee) in
-            EmployeeView(employee)
+            EmployeeEditor(employee)
         }
     }
 }
