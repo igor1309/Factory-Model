@@ -61,7 +61,7 @@ struct IngredientView: View {
                 type: Base.self,
                 predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
             ) { (base: Base) in
-                BaseEditorOLD(base)
+                BaseEditor(base)
             }
         }
         .listStyle(InsetGroupedListStyle())

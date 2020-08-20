@@ -35,10 +35,6 @@ struct Testing: View {
                     EntityLinkToList { (base: Base) in
                         BaseView(base)
                     }
-                    
-                    EntityLinkToList { (base: Base) in
-                        BaseEditor(base)
-                    }
                 }
                 
                 Section(
