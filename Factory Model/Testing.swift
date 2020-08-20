@@ -15,27 +15,35 @@ struct Testing: View {
                     FactoryEditor(factory)
                 }
                 
-                Section {
-                    EntityLinkToList { (product: Product) in
-                        ProductEditor(product)
+                Section(
+                    //header: Text(""),
+                    footer: Text("Using View + Editor (via View).")
+
+                ) {
+                    EntityLinkToList { (department: Department) in
+                        DepartmentView(department)
                     }
                     
                     EntityLinkToList { (buyer: Buyer) in
-                        BuyerEditor(buyer)
+                        BuyerView(buyer)
                     }
                     
-                    EntityLinkToList { (department: Department) in
-                        DepartmentEditor(department)
+                    EntityLinkToList { (product: Product) in
+                        ProductView(product)
                     }
                     
                     EntityLinkToList { (base: Base) in
                         BaseView(base)
                     }
+                    
+                    EntityLinkToList { (base: Base) in
+                        BaseEditor(base)
+                    }
                 }
                 
                 Section(
                     header: Text("Many-to-many"),
-                    footer: Text("Subordinate. Not intended to direct use.")
+                    footer: Text("Subordinate. Not intended to direct use. No Entity View, using Editor.")
                 ) {
                     EntityLinkToList { (sales: Sales) in
                         SalesEditor(sales)

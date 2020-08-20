@@ -30,6 +30,7 @@ struct EntityLinkToList<T: Managed & Monikerable & Summarizable, Editor: View>: 
                 .navigationBarTitleDisplayMode(.inline)
         ) {
             Label(T.plural, systemImage: T.icon)
+                .foregroundColor(T.color)
         }
     }
 }

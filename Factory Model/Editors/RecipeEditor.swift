@@ -55,9 +55,6 @@ struct RecipeEditor: View {
                 AmountPicker(systemName: "square", title: "Ingredient Qty", navigationTitle: "Ingredient Qty", scale: .small, amount: $qty)
                     .foregroundColor(qty > 0 ? .accentColor : .systemRed)
                 
-                ChildUnitStringPicker(coefficientToParentUnit: $coefficientToParentUnit, parentUnit: ingredient?.customUnit)
-
-                
                 HStack {
                     Label("Unit", systemImage: "rectangle.3.offgrid")
                     

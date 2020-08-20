@@ -26,24 +26,16 @@ struct ProductView: View {
     var body: some View {
         List {
             Section(
-                header: Text("Product Details"),
-                footer: Text(product.summary)
+                header: Text("Product Detail")
             ) {
-                Group {
-                    NavigationLink(
-                        destination: ProductEditorOLD(product)
-                    ) {
-                        Text(product.title)
-                    }
+                NavigationLink(
+                    destination: ProductEditor(product)
+                ) {
+                    ListRow(product)
                 }
-                .foregroundColor(product.isValid ? .accentColor : .systemRed)
-                .font(.subheadline)
             }
             
-            LabelWithDetail("baseQtyInBaseUnit", "\(product.baseQtyInBaseUnit)")
-            LabelWithDetail("baseQty", "\(product.baseQty)")
-            LabelWithDetail("coefficientToParentUnit", "\(product.coefficientToParentUnit)")
-                .foregroundColor(.red)
+            ErrorMessage(product)
             
             Section(
                 header: Text("Production")
@@ -97,9 +89,6 @@ struct ProductView: View {
             
             
             Section(header: Text("Sales")) {
-                Text("TBD: MOVE SALES TO PRODUCT!!")
-                    .foregroundColor(.systemRed)
-                
                 Group {
                     LabelWithDetail("square", "Sales Qty", "base.totalSalesQty")
                     
