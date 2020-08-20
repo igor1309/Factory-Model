@@ -20,28 +20,19 @@ struct PackagingView: View {
     var body: some View {
         List {
             Section(
-                header: Text("Packaging"),
-                footer: Text("Tap to Edit.")
+                header: Text("Packaging Detail")
             ) {
                 NavigationLink(
                     destination: PackagingEditor(packaging)
                 ) {
-                    Text(packaging.name)
+                    ListRow(packaging)
                 }
             }
             
-            Section(
-                header: Text("Used in Products")
-            ) {
-                Group {
-                    Text(packaging.productList)
-                        .foregroundColor(packaging.isValid ? .secondary : .systemRed)
-                }
-                .font(.caption)
-            }
+            ErrorMessage(packaging)
             
             GenericListSection(
-                header: "Оставлять ли этот список?",
+                header: "Used in Products",
                 type: Product.self,
                 predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
             ) { product in
@@ -51,13 +42,5 @@ struct PackagingView: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(packaging.name)
         .navigationBarTitleDisplayMode(.inline)
-//        .toolbar {
-//            ToolbarItem(placement: .confirmationAction) {
-//                Button("Save") {
-//                    context.saveContext()
-//                    presentation.wrappedValue.dismiss()
-//                }
-//            }
-//        }
     }
 }

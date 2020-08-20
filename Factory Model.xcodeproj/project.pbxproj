@@ -33,7 +33,6 @@
 		2A1CE59B24D546C9000D9621 /* FinancialLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */; };
 		2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714524D5F2F4000055F3 /* EntityCreator.swift */; };
 		2A21714824D5F5D0000055F3 /* ProductEditorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */; };
-		2A21714A24D5FBBB000055F3 /* RecipeEditorCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A21714924D5FBBB000055F3 /* RecipeEditorCore.swift */; };
 		2A255BC024DD21E700B4D89D /* CustomUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A255BBF24DD21E700B4D89D /* CustomUnit.swift */; };
 		2A2B44C124D09189003EF752 /* DepartmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B44C024D09189003EF752 /* DepartmentView.swift */; };
 		2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */; };
@@ -66,7 +65,6 @@
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
 		2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* ProfileData.swift */; };
-		2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038D24C8D11F00BA7999 /* SalesView.swift */; };
 		2A7C3DA524D3795C005A03B3 /* AllEmployeesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */; };
 		2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA624D3F321005A03B3 /* IssuesList.swift */; };
 		2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */; };
@@ -161,7 +159,6 @@
 		2A1CE59A24D546C9000D9621 /* FinancialLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinancialLabel.swift; sourceTree = "<group>"; };
 		2A21714524D5F2F4000055F3 /* EntityCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityCreator.swift; sourceTree = "<group>"; };
 		2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEditorCore.swift; sourceTree = "<group>"; };
-		2A21714924D5FBBB000055F3 /* RecipeEditorCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeEditorCore.swift; sourceTree = "<group>"; };
 		2A255BBF24DD21E700B4D89D /* CustomUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnit.swift; sourceTree = "<group>"; };
 		2A2B44C024D09189003EF752 /* DepartmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentView.swift; sourceTree = "<group>"; };
 		2A2F4BA224C4FC1600B2F8D9 /* Sales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
@@ -193,7 +190,6 @@
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
 		2A74038924C8CB8200BA7999 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
-		2A74038D24C8D11F00BA7999 /* SalesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesView.swift; sourceTree = "<group>"; };
 		2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEmployeesList.swift; sourceTree = "<group>"; };
 		2A7C3DA624D3F321005A03B3 /* IssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesList.swift; sourceTree = "<group>"; };
 		2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buyer.swift; sourceTree = "<group>"; };
@@ -303,7 +299,6 @@
 			isa = PBXGroup;
 			children = (
 				2A21714724D5F5D0000055F3 /* ProductEditorCore.swift */,
-				2A21714924D5FBBB000055F3 /* RecipeEditorCore.swift */,
 				2A0FBA4824D5A4E000F963CE /* SalesEditorCore.swift */,
 				2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */,
 			);
@@ -444,7 +439,6 @@
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
 				2AC0B51424CB128100175819 /* ProductEditorOLD.swift */,
 				2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */,
-				2A74038D24C8D11F00BA7999 /* SalesView.swift */,
 			);
 			path = "Entity Views and Editors";
 			sourceTree = "<group>";
@@ -687,7 +681,6 @@
 				2A167EF524EB2DA200A8E7DE /* ChildUnitStringPicker.swift in Sources */,
 				2A167EFF24EC0C3100A8E7DE /* DivisionEditor.swift in Sources */,
 				2A30470724C78F260002E5DD /* BaseEditorOLD.swift in Sources */,
-				2A74038E24C8D11F00BA7999 /* SalesView.swift in Sources */,
 				2A7F4AAF24EDBAE2002A315F /* RecipeDraft.swift in Sources */,
 				2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */,
 				2A7F4AAD24EDBAC4002A315F /* EmployeeDraft.swift in Sources */,
@@ -710,7 +703,6 @@
 				2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */,
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
-				2A21714A24D5FBBB000055F3 /* RecipeEditorCore.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */,
 				2A7F4AA724ED6164002A315F /* CreateSales.swift in Sources */,

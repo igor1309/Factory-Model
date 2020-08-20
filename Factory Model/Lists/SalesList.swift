@@ -37,7 +37,7 @@ struct SalesList: View {
                 icon: "creditcard"
             )
         } editor: { (sales: Sales) in
-            SalesView(sales)
+            SalesEditor(sales)
         }
     }
 }

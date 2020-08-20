@@ -94,7 +94,7 @@ struct MenuCreateNewOrSample: View {
                     
                 case .recipe:
                     EntityCreator(isPresented: $showSheet) { (recipe: Recipe) in
-                        RecipeEditorCore(recipe)
+                        RecipeEditor(recipe)
                     }
                     .environment(\.managedObjectContext, context)
             }

@@ -58,6 +58,13 @@ struct SalesEditor: View {
             
             AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price", scale: .small, amount: $priceExVAT)
                 .foregroundColor(priceExVAT <= 0 ? .systemRed : .accentColor)
+            
+            Section(
+                header: Text("Total Sales")
+            ) {
+                LabelWithDetail(Sales.icon, "Total Sales, ex VAT", (qty * priceExVAT).formattedGrouped)                    
+                .foregroundColor(.secondary)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
