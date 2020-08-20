@@ -36,9 +36,9 @@ extension Buyer: Validatable {}
 
 extension Department: Validatable {
     var errorMessage: String? {
-        guard name_ != nil else { return "ERROR: no name" }
-        guard division_ != nil else { return "ERROR: no division" }
-        guard type_ != nil else { return "ERROR: no type" }
+        guard name_ != nil else { return "ERROR: no Name" }
+        guard division_ != nil else { return "ERROR: no Division" }
+        guard type_ != nil else { return "ERROR: no Type" }
         return nil
     }
 }

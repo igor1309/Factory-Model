@@ -28,7 +28,7 @@ struct FactoryEditor: View {
         title = "New Factory"
     }
     
-    init(factory: Factory) {
+    init(_ factory: Factory) {
         _isPresented = .constant(true)
         
         factoryToEdit = factory
