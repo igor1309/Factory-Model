@@ -22,7 +22,6 @@ struct BaseView: View {
                 header: Text("Base Detail")
             ) {
                 NavigationLink(
-                    //destination: BaseEditorOLD(base)
                     destination: BaseEditor(base)
                 ) {
                     Text("\(base.title), \(base.weightNetto.formattedGrouped)")
@@ -32,106 +31,39 @@ struct BaseView: View {
                 ErrorMessage(base)
             }
             
+            if !base.products.isEmpty {
+                GenericListSection(
+                    header: "Used in Products",
+                    type: Product.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+                ) { product in
+                    ProductView(product)
+                }
+            }
+            
             //  parent check
             if base.factory == nil {
-                EntityPickerSection(selection: $base.factory)                
+                EntityPickerSection(selection: $base.factory)
             }
-
-            Section(
-                header: Text("Cost"),
-                footer: Text("Cost, ex VAT")
-            ) {
-                Group {
-                    NavigationLink(
-                        destination: ListWithDashboard(
-                            for: base,
-                            predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
-                        ) {
-                            CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
-                        } dashboard: {
-                            
-                        } editor: { (recipe: Recipe) in
-                            RecipeEditor(recipe)
-                        }
-                    ) {
-                        LabelWithDetail(Ingredient.icon, "Ingredients Cost, ex VAT", base.ingredientsExVAT.formattedGroupedWith1Decimal)
-                    }
-
-                    NavigationLink(
-                        destination: Text("TBD: Labor Cost incl taxes")
-                    ) {
-                        LabelWithDetail(Department.icon, "Salary incl taxes", "TBD")
-                    }
-
-                    NavigationLink(
-                        destination: UtilityList(for: base)
-                    ) {
-                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", base.utilitiesExVAT.formattedGroupedWith1Decimal)
-                    }
-                                        
-                    LabelWithDetail("dollarsign.square", "Unit Cost of Base Product", base.ingredientsExVAT.formattedGroupedWith1Decimal)
-                        .foregroundColor(.primary)
-                        .padding(.trailing)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-
-            if !base.productList.isEmpty {
-                Section(
-                    header: Text("Used in Products")
+            
+            ProductData(base) {
+                ListWithDashboard(
+                    for: base,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
                 ) {
-                    NavigationLink(
-                        destination: Text("TBD: List of Products using base product '\(base.title)'")
-                    ) {
-                        Text(base.productList)
-//                            .foregroundColor(.secondary)
-                            .font(.subheadline)
-                    }
+                    CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
+                } dashboard: {
+                    
+                } editor: { (recipe: Recipe) in
+                    RecipeEditor(recipe)
                 }
-                .foregroundColor(.red)
+            } employeeDestination: {
+                Text("TBD: Labor Cost incl taxes")
+            } equipmentDestination: {
+                Text("TBD: Depreciation")
+            } utilityDestination: {
+                UtilityList(for: base)
             }
-            
-            Section(
-                header: Text("Production"),
-                footer: Text("Base Products Production Quantity depends on Products Production.")
-            ) {
-                Group {
-                    
-                    if base.closingInventory < 0 {
-                        Text("Negative Closing Inventory - check Production and Sales Qty of Products!")
-                            .foregroundColor(.systemRed)
-                    }
-                    
-                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", "\(base.productionQty)")
-                        .foregroundColor(.primary)
-                    
-                    LabelWithDetail("square", "TBD Production Volume - unit???", "TBD")
-                        .foregroundColor(.systemRed)
-                    
-                    LabelWithDetail("dollarsign.square", "Total Production Cost", "TBD")
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-            
-            Section(
-                header: Text("Sales")
-            ) {
-                Group {
-                    LabelWithDetail("square", "Total Sales Qty TBD: WHAT UNIT USED???", "\(base.salesQty)")
-
-                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", base.revenueExVAT.formattedGrouped)
-                    LabelWithDetail(Sales.icon, "Revenue, with VAT", base.revenueWithVAT.formattedGrouped)
-                        .foregroundColor(.secondary)
-                    
-                    LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", base.avgPriceExVAT.formattedGrouped)
-                    LabelWithDetail("square", "Margin", "TBD")
-                }
-                .font(.subheadline)
-            }
-            
-
             
             Section(
                 header: Text("Inventory")
@@ -139,8 +71,6 @@ struct BaseView: View {
                 Group {
                     AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $base.initialInventory)
                     
-                    LabelWithDetail("building.2", "Closing Inventory", base.closingInventory.formattedGrouped)
-                        .foregroundColor(base.closingInventory < 0 ? .systemRed : .secondary)
                 }
                 .font(.subheadline)
             }
@@ -150,27 +80,3 @@ struct BaseView: View {
         .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
     }
 }
-
-//struct BaseView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let persistence = PersistenceManager(containerName: "DataModel")
-//        let context = persistence.context
-//        
-//        let entity = Base(context: context)
-//        entity.makeSketch()
-//        
-//        context.saveContext()
-//        
-//        return Group {
-////            let request = Base.defaultNSFetchRequest(with: nil)
-//            //            if let fetch = try? context.fetch(request), let first = fetch.first {
-//            if let fetch = Base.fetch(in: context, configurationBlock: {_ in }), let first = fetch.first {
-////                 Text("entity fetched \(first)")
-//                BaseView(first)
-//                    .environment(\.managedObjectContext, context)
-//            } else {
-//                Text("error fetching entity")
-//            }
-//        }
-//    }
-//}

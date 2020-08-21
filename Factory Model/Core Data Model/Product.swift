@@ -41,27 +41,6 @@ extension Product {
         baseQty * coefficientToParentUnit
     }
     
-    var salesQty: Double {
-        sales.reduce(0) { $0 + $1.qty }
-    }
-    
-    var revenueExVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueExVAT }
-    }
-    var revenueWithVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueWithVAT }
-    }
-    
-    var avgPriceExVAT: Double {
-        salesQty > 0 ? revenueExVAT / salesQty : 0
-    }
-    var avgPriceWithVAT: Double {
-        avgPriceExVAT * (1 + vat)
-    }
-    
-    var cogs: Double {
-        (base?.cogs ?? 0) * baseQty
-    }
     
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     var groups: [String] {

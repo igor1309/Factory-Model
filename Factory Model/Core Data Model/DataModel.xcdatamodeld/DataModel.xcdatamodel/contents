@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17183" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Base" representedClassName="Base" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
@@ -77,6 +77,7 @@
         <attribute name="code_" optional="YES" attributeType="String"/>
         <attribute name="coefficientToParentUnit" optional="YES" attributeType="Double" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
+        <attribute name="initialInventory" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="productionQty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -116,8 +117,8 @@
         <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="163"/>
         <element name="Ingredient" positionX="-11329.00390625" positionY="-9434.51171875" width="128" height="118"/>
         <element name="Packaging" positionX="-11002.6796875" positionY="-9216.125" width="128" height="88"/>
-        <element name="Product" positionX="-11203.765625" positionY="-9250.89453125" width="128" height="208"/>
-        <element name="Recipe" positionX="-11510.2890625" positionY="-9393.48828125" width="128" height="28"/>
+        <element name="Product" positionX="-11203.765625" positionY="-9250.89453125" width="128" height="223"/>
+        <element name="Recipe" positionX="-11510.2890625" positionY="-9393.48828125" width="128" height="118"/>
         <element name="Sales" positionX="-11409.40234375" positionY="-9061.64453125" width="128" height="118"/>
         <element name="Utility" positionX="-11057.5625" positionY="-9389.8125" width="128" height="103"/>
     </elements>

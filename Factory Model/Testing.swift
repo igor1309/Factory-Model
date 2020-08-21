@@ -11,8 +11,20 @@ struct Testing: View {
     var body: some View {
         NavigationView {
             List {
-                EntityLinkToList { (factory: Factory) in
-                    FactoryEditor(factory)
+                EntityLinkToList { (base: Base) in
+                    BaseView(base)
+                }
+
+                Section {
+                    NavigationLink(
+                        destination: FactoryList()
+                    ) {
+                        Text("Factories")
+                    }
+                    
+                    EntityLinkToList { (factory: Factory) in
+                        FactoryView(factory)
+                    }
                 }
                 
                 Section(

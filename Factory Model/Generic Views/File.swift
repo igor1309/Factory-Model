@@ -20,6 +20,7 @@ struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summ
                 isNewDraftActive = true
             } label: {
                 Label("Add \(T.entityName)", systemImage: T.plusButtonIcon)
+                    .foregroundColor(T.color)
             }
             
             ForEach(drafts) { draft in

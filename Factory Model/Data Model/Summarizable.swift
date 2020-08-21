@@ -142,7 +142,7 @@ extension Equipment: Summarizable {
         return "\(depreciationMonthly.formattedGrouped) per month for \(lifetime) years = \(price.formattedGrouped)"
     }
     
-    static var color: Color { .systemPurple }
+    static var color: Color { .systemIndigo }
     static var icon: String { "wrench.and.screwdriver" }
     static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
 }

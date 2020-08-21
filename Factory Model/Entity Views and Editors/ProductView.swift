@@ -15,13 +15,7 @@ struct ProductView: View {
     
     init(_ product: Product) {
         self.product = product
-        let predicate = NSPredicate(
-            format: "%K == %@", #keyPath(Sales.product), product
-        )
-        _sales = Sales.defaultFetchRequest(with: predicate)
     }
-    
-    @FetchRequest var sales: FetchedResults<Sales>
     
     var body: some View {
         List {
@@ -37,6 +31,9 @@ struct ProductView: View {
             
             ErrorMessage(product)
             
+                            AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $product.initialInventory)
+
+            
             Section(
                 header: Text("Production")
             ) {
@@ -44,80 +41,43 @@ struct ProductView: View {
                     AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
                         .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
                 }
-                .font(.subheadline)
+            }
+            
+            ProductData(product) {
+                Text("TBD: Ingredient cost")
+            } employeeDestination: {
+                Text("TBD: Labor Cost incl taxes")
+            } equipmentDestination: {
+                Text("TBD: Depreciation")
+            } utilityDestination: {
+                Text("TBD: Utility")
             }
             
             Section(
                 header: Text("Sales")
             ) {
-                Group {
-                    Group {
-                        LabelWithDetail("square", "Total Sales Product Qty", product.salesQty.formattedGrouped)
-                        
-                        LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", product.avgPriceExVAT.formattedGrouped)
-                        
-                        LabelWithDetail(Sales.icon, "Sales Total, ex VAT", product.revenueExVAT.formattedGrouped)
-                    }
-                    .foregroundColor(.primary)
-                    
-                    Group {
-                        AmountPicker(systemName: "scissors", title: "VAT", navigationTitle: "VAT", scale: .percent, amount: $product.vat)
-                        
-                        LabelWithDetail(Sales.icon, "Sales Total, with VAT", product.revenueWithVAT.formattedGrouped)
-                    }
-                    .foregroundColor(.secondary)
-                    
-                    NavigationLink(
-                        destination: SalesList(for: product)
-                    ) {
-                        LabelWithDetail("creditcard", "Sales List", "")
-                    }
-                    .foregroundColor(.accentColor)
+                NavigationLink(
+                    destination: SalesList(for: product)
+                ) {
+                    LabelWithDetail("creditcard", "Sales List", "")
                 }
-                .font(.subheadline)
+                .foregroundColor(.accentColor)
+                
             }
             
             Section(
                 header: Text("Inventory")
             ) {
                 Group {
-                    LabelWithDetail("square", "TBD:Inventory", "TBD")
-                        .foregroundColor(.red)
+                    LabelWithDetail("square", "TBD: Initial Inventory", "TBD")
+                    
+                    LabelWithDetail("square", "TBD: Closing Inventory", "TBD")
                 }
-                .font(.subheadline)
-            }
-            
-            
-            Section(header: Text("Sales")) {
-                Group {
-                    LabelWithDetail("square", "Sales Qty", "base.totalSalesQty")
-                    
-                    VStack(spacing: 4) {
-                        LabelWithDetail("dollarsign.circle", "Avg price, ex VAT", "base.avgPriceExVAT")
-                        
-                        LabelWithDetail("dollarsign.circle", "Avg price, incl VAT", "base.avgPriceWithVAT")
-                            .foregroundColor(.secondary)
-                    }
-                    .padding(.vertical, 3)
-                    
-                    LabelWithDetail("cart", "Sales, ex VAT", "base.revenueExVAT")
-                    
-                    LabelWithDetail("wrench.and.screwdriver", "COGS", "base.cogs")
-                    
-                    LabelWithDetail("rectangle.rightthird.inset.fill", "Margin****", "base.margin")
-                        .foregroundColor(.systemOrange)
-                    
-                }
+                .foregroundColor(.red)
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(product.title)
-        .navigationBarItems(
-            trailing: Button("Save") {
-                moc.saveContext()
-                presentation.wrappedValue.dismiss()
-            }
-        )
     }
 }

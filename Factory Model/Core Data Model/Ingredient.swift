@@ -23,13 +23,25 @@ extension Ingredient {
         set { recipes_ = Set(newValue) as NSSet }
     }
 
-    var productionQty: Double {
+    /// if Factory is nill sum for all factories
+    func productionQty(for factory: Factory? = nil) -> Double {
         recipes
+            .filter {
+                if let factory = factory {
+                    return $0.base?.factory == factory
+                } else {
+                    return true
+                }
+            }
             .reduce(0) { $0 + $1.productionQty }
     }
 
-    var totalCostExVat:   Double { priceExVAT   * productionQty }
-    var totalCostWithVat: Double { priceWithVAT * productionQty }
+    func totalCostExVat(for factory: Factory? = nil) -> Double {
+        priceExVAT * productionQty(for: factory)
+    }
+    func totalCostWithVat(for factory: Factory? = nil) -> Double {
+        priceWithVAT * productionQty(for: factory)
+    }
 }
 
 extension Ingredient: Comparable {

@@ -100,19 +100,20 @@ struct BaseEditor: View {
             DraftSection<Ingredient, RecipeDraft>(isNewDraftActive: $isNewDraftActive, drafts: $recipeDrafts)
             
             if let base = baseToEdit,
-               !base.products.isEmpty {
-                Section(
-                    header: Text("Used in Products")
-                ) {
-                    Group {
-                        Text(base.productList)
-                            .foregroundColor(base.isValid ? .secondary : .systemRed)
-                    }
-                    .font(.caption)
-                }
-                
+               !base.recipes.isEmpty {
                 GenericListSection(
-                    header: "Оставлять ли этот список?",
+                    header: "Existing Ingredients",
+                    type: Recipe.self,
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
+                ) { (recipe: Recipe) in
+                    RecipeEditor(recipe)
+                }
+            }
+            
+            if let base = baseToEdit,
+               !base.products.isEmpty {
+                GenericListSection(
+                    header: "Used in Products",
                     type: Product.self,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
                 ) { product in
@@ -149,7 +150,7 @@ struct BaseEditor: View {
                         recipe.coefficientToParentUnit = draft.coefficientToParentUnit
                         base.addToRecipes_(recipe)
                     }
-                                        
+                    
                     context.saveContext()
                     
                     isPresented = false

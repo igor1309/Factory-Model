@@ -48,9 +48,9 @@ struct IngredientView: View {
                 footer: Text("Total for the Ingredient used in production.")
             ) {
                 Group {
-                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty.formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Total Cost, ex VAT", ingredient.totalCostExVat.formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Total Cost, with VAT", ingredient.totalCostWithVat.formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty().formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost, ex VAT", ingredient.totalCostExVat().formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Total Cost, with VAT", ingredient.totalCostWithVat().formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

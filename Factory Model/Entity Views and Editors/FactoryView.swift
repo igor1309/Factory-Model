@@ -20,6 +20,16 @@ struct FactoryView: View {
     
     var body: some View {
         List {
+            Section(
+                header: Text("Factory Detail")
+            ) {
+                NavigationLink(
+                    destination: FactoryEditor(factory)
+                ) {
+                    ListRow(factory)
+                }
+            }
+            
             Group {
                 booksSection
                 
@@ -36,17 +46,6 @@ struct FactoryView: View {
                 expensesSection
                 
                 equipmentSection
-            }
-            
-            Section(header: Text("Factory Details")) {
-                Group {
-                    TextField("Name", text: $factory.name)
-                    TextField("Note", text: $factory.note)
-                    
-                    AmountPicker(systemName: "scissors", title: "Profit Tax Rate", navigationTitle: "Profit Tax", scale: .percent, amount: $factory.profitTaxRate)
-                }
-                .foregroundColor(.accentColor)
-                .font(.subheadline)
             }
             
             oldSection
