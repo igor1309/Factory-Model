@@ -38,13 +38,12 @@ struct FinancialLabel: View {
         self.font = font
     }
     
-
     var body: some View {
-        HStack {
+        HStack(alignment: .lastTextBaseline) {
             Text(title)
             
             Spacer()
-         
+            
             Text(value)
             
             ZStack(alignment: .trailing) {

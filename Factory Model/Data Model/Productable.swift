@@ -27,14 +27,22 @@ protocol Productable {
     //  MARK: Costs per Unit
     
     var ingredientsExVAT: Double { get }
-    
+    var ingredientsExVATPercentage: Double { get }
+    var ingredientsExVATPercentageStr: String { get }
+
     //  MARK: FINISH THIS
     var salaryWithTax: Double { get }
-    
+    var salaryWithTaxPercentage: Double { get }
+    var salaryWithTaxPercentageStr: String { get }
+
     //  MARK: FINISH THIS
     var depreciationWithTax: Double { get }
-    
+    var depreciationWithTaxPercentage: Double { get }
+    var depreciationWithTaxPercentageStr: String { get }
+
     var utilitiesExVAT: Double { get }
+    var utilitiesExVATPercentage: Double { get }
+    var utilitiesExVATPercentageStr: String { get }
     var utilitiesWithVAT: Double { get }
     
     ///  Full Unit Cost
@@ -97,7 +105,34 @@ extension Productable {
     }
     
     
-    //  MARK: Full Unit Cost
+    //  MARK: Costs per Unit
+    
+    var ingredientsExVATPercentage: Double {
+        cost > 0 ? ingredientsExVAT / cost : 0
+    }
+    var ingredientsExVATPercentageStr: String {
+        ingredientsExVATPercentage.formattedPercentage
+    }
+    var salaryWithTaxPercentage: Double {
+        cost > 0 ? salaryWithTax / cost : 0
+    }
+    var salaryWithTaxPercentageStr: String {
+        salaryWithTaxPercentage.formattedPercentage
+    }
+    var depreciationWithTaxPercentage: Double {
+        cost > 0 ? depreciationWithTax / cost : 0
+    }
+    var depreciationWithTaxPercentageStr: String {
+        depreciationWithTaxPercentage.formattedPercentage
+    }
+    var utilitiesExVATPercentage: Double {
+        cost > 0 ? utilitiesExVAT / cost : 0
+    }
+    var utilitiesExVATPercentageStr: String {
+        utilitiesExVATPercentage.formattedPercentage
+    }
+    
+    ///  MARK: Full Unit Cost
     
     var cost: Double {
         ingredientsExVAT + salaryWithTax + depreciationWithTax + utilitiesExVAT

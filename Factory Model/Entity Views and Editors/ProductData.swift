@@ -39,41 +39,80 @@ struct ProductData<
     
     var body: some View {
         Section(
-            header: Text("Cost"),
+            header: Text("Cost // TBD: Percentage"),
             footer: Text("Cost, ex VAT")
         ) {
             Group {
+                
                 NavigationLink(
                     destination: ingredientDestination()
                 ) {
-                    LabelWithDetail(Ingredient.icon, "Ingredients Cost, ex VAT", entity.ingredientsExVAT.formattedGroupedWith1Decimal)
-                        .foregroundColor(Ingredient.color)
+                    HStack(spacing: 0) {
+                        LabelWithDetail(Ingredient.icon, "Ingredients, ex VAT", entity.ingredientsExVAT.formattedGroupedWith1Decimal)
+                        
+                        ZStack(alignment: .trailing) {
+                            Text("100%").hidden()
+                            Text(entity.ingredientsExVATPercentageStr)
+                        }
+                    }
+                    .foregroundColor(Ingredient.color)
                 }
                 
                 NavigationLink(
                     destination: employeeDestination()
                 ) {
-                    LabelWithDetail(Department.icon, "Salary incl taxes", entity.salaryWithTax.formattedGroupedWith1Decimal)
-                        .foregroundColor(Employee.color)
+                    HStack(spacing: 0) {
+                        LabelWithDetail(Department.icon, "Salary incl taxes", entity.salaryWithTax.formattedGroupedWith1Decimal)
+                        
+                        ZStack(alignment: .trailing) {
+                            Text("100%").hidden()
+                            Text(entity.salaryWithTaxPercentageStr)
+                        }
+                    }
+                    .foregroundColor(Employee.color)
                 }
                 
                 NavigationLink(
                     destination: equipmentDestination()
                 ) {
-                    LabelWithDetail(Equipment.icon, "Depreciation", entity.depreciationWithTax.formattedGroupedWith1Decimal)
-                        .foregroundColor(Equipment.color)
+                    HStack(spacing: 0) {
+                        LabelWithDetail(Equipment.icon, "Depreciation", entity.depreciationWithTax.formattedGroupedWith1Decimal)
+                        
+                        ZStack(alignment: .trailing) {
+                            Text("100%").hidden()
+                            Text(entity.depreciationWithTaxPercentageStr)
+                        }
+                    }
+                    .foregroundColor(Equipment.color)
                 }
                 
                 NavigationLink(
                     destination: utilityDestination()
                 ) {
-                    LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", entity.utilitiesExVAT.formattedGroupedWith1Decimal)
-                        .foregroundColor(Utility.color)
+                    HStack(spacing: 0) {
+                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", entity.utilitiesExVAT.formattedGroupedWith1Decimal)
+                        
+                        ZStack(alignment: .trailing) {
+                            Text("100%").hidden()
+                            Text(entity.utilitiesExVATPercentageStr)
+                        }
+                    }
+                    .foregroundColor(Utility.color)
                 }
                 
-                LabelWithDetail("dollarsign.square", "Cost of Base Product", entity.cost.formattedGroupedWith1Decimal)
-                    .foregroundColor(.primary)
-                    .padding(.trailing)
+                HBar([
+                    ColorPercentage(Ingredient.color, entity.ingredientsExVATPercentage),
+                    ColorPercentage(Employee.color, entity.salaryWithTaxPercentage),
+                    ColorPercentage(Equipment.color, entity.depreciationWithTaxPercentage),
+                    ColorPercentage(Utility.color, entity.utilitiesExVATPercentage)
+                ])
+                
+                HStack(spacing: 0) {
+                    LabelWithDetail("dollarsign.square", "Cost of Base Product", entity.cost.formattedGroupedWith1Decimal)
+                        .foregroundColor(.primary)
+                    Text("100%").hidden()
+                }
+                .padding(.trailing)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -99,12 +138,13 @@ struct ProductData<
                 LabelWithDetail("square", "Total Qty", "\(entity.salesQty.formattedGrouped)")
                 
                 LabelWithDetail(Sales.icon, "Revenue, ex VAT", entity.revenueExVAT.formattedGrouped)
+                    .foregroundColor(.systemGreen)
                 
                 LabelWithDetail(Sales.icon, "Revenue, with VAT", entity.revenueWithVAT.formattedGrouped)
                     .foregroundColor(.secondary)
-
+                
                 LabelWithDetail("dollarsign.square", "COGS", entity.cogs.formattedGrouped)
-
+                
                 LabelWithDetail("dollarsign.square", "Margin", entity.totalMargin.formattedGrouped)
                     .foregroundColor(entity.totalMargin > 0 ? .systemGreen : .systemRed)
                 
