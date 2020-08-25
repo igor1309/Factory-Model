@@ -45,10 +45,10 @@ extension Base: Summarizable {
     }
     
     var subtitle: String {
-        if revenueExVAT > 0 {
+        if revenueExVAT > 0, productionQty > 0 {
             return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
         } else {
-            return "Production \(productionQty.formattedGrouped)"
+            return ""
         }
     }
     
@@ -74,12 +74,14 @@ extension Buyer: Summarizable {
 extension Division: Summarizable {
     var title: String {
         guard headcount > 0 else { return "ERROR no people in Division" }
+        
         return [name, headcount.formattedGrouped]
             .filter { !$0.isEmpty }
             .joined(separator: ", ")
     }
+    
     var subtitle: String {
-        "Total Salary incl taxes \(totalSalaryWithTax.formattedGrouped)"
+        "Total Salary incl taxes \(salaryWithTax.formattedGrouped)"
     }
     
     var detail: String? {
@@ -95,12 +97,15 @@ extension Division: Summarizable {
 extension Department: Summarizable {
     var title: String {
         guard headcount > 0 else { return "ERROR no people in Department" }
+        
         return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
     }
-    var subtitle: String { "Total Salary incl taxes \(salaryWithTax.formattedGrouped)" }
+    
+    var subtitle: String { "Salary incl taxes \(salaryWithTax.formattedGrouped)" }
     
     var detail: String? {
         guard isValid else { return errorMessage! }
+        
         return "\(type.rawValue.capitalized)"
     }
     
@@ -111,6 +116,7 @@ extension Department: Summarizable {
 extension Employee: Summarizable {
     var subtitle: String {
         guard isValid else { return errorMessage! }
+        
         return [position, department?.name ?? ""]
             .filter { !$0.isEmpty}
             .joined(separator: ": ")
@@ -221,8 +227,6 @@ extension Product: Summarizable {
     }
     
     var subtitle: String {
-        guard isValid else { return errorMessage! }
-        
         if revenueExVAT > 0 {
             return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
         } else {

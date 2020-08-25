@@ -24,7 +24,8 @@ struct EmployeeEditor: View {
         _name = State(initialValue: "")
         _note = State(initialValue: "")
         _position = State(initialValue: "")
-        _salary = State(initialValue: 0 )
+        _salary = State(initialValue: 0)
+        _workHours = State(initialValue: 0)
         _department = State(initialValue: nil)
         
         title = "New Employee"
@@ -39,6 +40,7 @@ struct EmployeeEditor: View {
         _note = State(initialValue: employee.note)
         _position = State(initialValue: employee.position)
         _salary = State(initialValue: employee.salary)
+        _workHours = State(initialValue: employee.workHours)
         _department = State(initialValue: employee.department)
         
         title = "Edit Employee"
@@ -48,6 +50,7 @@ struct EmployeeEditor: View {
     @State private var note: String
     @State private var position: String
     @State private var salary: Double
+    @State private var workHours: Double
     @State private var department: Department?
     
     var body: some View {
@@ -64,7 +67,8 @@ struct EmployeeEditor: View {
             }
             
             Section(
-                header: Text("Salary")
+                header: Text("Salary"),
+                footer: Text("Standart work week 40 hours, standart month 168 hours.")
             ) {
                 Group {
                     AmountPicker(
@@ -74,8 +78,23 @@ struct EmployeeEditor: View {
                         scale: .extraLarge,
                         amount: $salary
                     )
-                    .foregroundColor(.accentColor)
+                    
+                    AmountPicker(
+                        systemName: "clock.arrow.circlepath",
+                        title: "Work Hours",
+                        navigationTitle: "Work Hours",
+                        scale: .extraSmall,
+                        amount: $workHours
+                    )
+                    
+                    Picker("Work Hours", selection: $workHours) {
+                        ForEach([40.0, 168], id: \.self) { item in
+                            Text("\(item.formattedGrouped)h")
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
+                .foregroundColor(.accentColor)
             }
             
             EntityPickerSection(selection: $department)
@@ -98,6 +117,7 @@ struct EmployeeEditor: View {
                     employee.note = note
                     employee.position = position
                     employee.salary = salary
+                    employee.workHours = workHours
                     employee.department = department
                     
                     context.saveContext()
@@ -105,7 +125,7 @@ struct EmployeeEditor: View {
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
-                .disabled(department == nil || name.isEmpty || position.isEmpty || salary == 0)
+                .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0 || workHours <= 0)
             }
         }
     }

@@ -246,7 +246,13 @@ extension Base: Productable {
     }
     
     //  MARK: - FINISH THIS
-    var salaryWithTax: Double { 1 }
+    var salaryWithTax: Double {
+        
+        workHours * (factory?.productionSalaryPerHourWithTax ?? 0)
+        
+        
+        
+    }
     
     //  MARK: - FINISH THIS
     var depreciationWithTax: Double { 0.5 }

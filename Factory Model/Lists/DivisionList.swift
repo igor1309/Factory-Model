@@ -22,9 +22,29 @@ struct DivisionList: View {
                 header: Text("Total")
             ) {
                 Group {
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", factory.headcount.formattedGrouped)
+                    LabelWithDetail("person.crop.rectangle", "Headcount", factory.headcount.formattedGrouped)
                     
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(factory.salaryWithTax.formattedGrouped)")
+                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(factory.workHours.formattedGrouped)")
+                    
+                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(factory.salaryWithTax.formattedGrouped)")
+                    
+                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(factory.salaryPerHourWithTax.formattedGrouped)")
+                }
+                .foregroundColor(.secondary)
+                .font(.subheadline)
+            }
+
+            Section(
+                header: Text("Production")
+            ) {
+                Group {
+                    LabelWithDetail("person.crop.rectangle", "Headcount", factory.productionHeadcount.formattedGrouped)
+                    
+                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(factory.productionWorkHours.formattedGrouped)")
+                    
+                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(factory.productionSalaryWithTax.formattedGrouped)")
+                    
+                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(factory.productionSalaryPerHourWithTax.formattedGrouped)")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

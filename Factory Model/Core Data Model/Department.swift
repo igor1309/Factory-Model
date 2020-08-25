@@ -16,14 +16,10 @@ extension Department: Comparable {
     var headcount: Int { employees.count }
 
     var salary: Double {
-        employees
-            .map(\.salary)
-            .reduce(0, +)
+        employees.reduce(0) { $0 + $1.salary}
     }
     var salaryWithTax: Double {
-        employees
-            .map(\.salaryWithTax)
-            .reduce(0, +)
+        employees.reduce(0) { $0 + $1.salaryWithTax}
     }
 
     enum DepartmentType: String, CaseIterable {

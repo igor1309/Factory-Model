@@ -46,7 +46,7 @@ struct DivisionView: View {
 
                     LabelWithDetail("person.crop.rectangle", "Total Headcount", division.headcount.formattedGrouped)
 
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(division.totalSalaryWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(division.salaryWithTax.formattedGrouped)")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

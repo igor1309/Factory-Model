@@ -50,53 +50,43 @@ extension Factory {
         Dictionary(grouping: divisions, by: \.name)
     }
     
+    
+    //  MARK: - Headcount
+    
     var headcount: Int {
         divisions
             .reduce(0) { $0 + $1.headcount }
     }
     
-    func headcount(for division: Division) -> Int {
+    var productionHeadcount: Int {
         divisions
-            .filter { $0 == division }
             .flatMap(\.departments)
-            .flatMap(\.employees)
-            .count
+            .filter { $0.type == .production }
+            .reduce(0) { $0 + $1.headcount }
     }
+    
+    var nonProductionHeadcount: Int {
+        headcount - productionHeadcount
+    }
+
     
     //  MARK: - Salary
     
     var salary: Double {
         divisions
-            .flatMap(\.departments)
-            .flatMap(\.employees)
+//            .flatMap(\.departments)
+//            .flatMap(\.employees)
             .map(\.salary)
             .reduce(0, +)
     }
     var salaryWithTax: Double {
         divisions
-            .flatMap(\.departments)
-            .flatMap(\.employees)
+//            .flatMap(\.departments)
+//            .flatMap(\.employees)
             .map(\.salaryWithTax)
             .reduce(0, +)
     }
     var salaryWithTaxPercentage: Double? {
         revenueExVAT > 0 ? salaryWithTax / revenueExVAT : nil
-    }
-
-    func salary(for division: Division) -> Double {
-        divisions
-            .filter { $0 == division }
-            .flatMap(\.departments)
-            .flatMap(\.employees)
-            .map(\.salary)
-            .reduce(0, +)
-    }
-    func salaryWithTax(for division: Division) -> Double {
-        divisions
-            .filter { $0 == division }
-            .flatMap(\.departments)
-            .flatMap(\.employees)
-            .map(\.salaryWithTax)
-            .reduce(0, +)
     }
 }

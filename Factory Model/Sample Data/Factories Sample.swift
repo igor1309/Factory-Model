@@ -97,6 +97,7 @@ extension Factory {
         base1_1.group = "Сыры"
         base1_1.unitString_ = "кило"
         base1_1.weightNetto = 1_000
+        base1_1.workHours = 2
         base1_1.recipes = [recipe1, recipe2, recipe5, recipe7, recipe8]
         base1_1.factory = factory1
         
@@ -141,6 +142,7 @@ extension Factory {
         product1_2.note = "..."
         product1_2.baseQty = 750
         product1_2.base = base1_1
+        product1_2.coefficientToParentUnit = 1/1_000
         product1_2.group = "Вакуум"
         product1_2.vat = 10/100
         
@@ -155,6 +157,7 @@ extension Factory {
         base2.group = "Сыры"
         base2.unitString_ = "кило"
         base2.weightNetto = 1_000
+        base2.workHours = 1
         base2.addToRecipes_(recipe21)
         base2.factory = factory1
         
@@ -164,9 +167,10 @@ extension Factory {
         base3.group = "Твороги"
         base3.unitString_ = "кило"
         base3.weightNetto = 1_000
+        base3.workHours = 3
         base3.factory = factory1
         
-        let divisions = Division.createDivisions(in: context)
+        let divisions = Division.createSampleDivisions(in: context)
         for division in divisions {
             factory1.addToDivisions_(division)
         }

@@ -26,8 +26,7 @@ extension Factory {
     }
     
     var salesIngredientCostExVAT: Double {
-        bases
-            .reduce(0) { $0 + $1.salesIngrediensExVAT }
+        bases.reduce(0) { $0 + $1.salesIngrediensExVAT }
     }
     var salesIngredientCostExVATPercentage: Double? {
         revenueExVAT > 0 ? salesIngredientCostExVAT / revenueExVAT : nil
@@ -61,7 +60,40 @@ extension Factory {
     var nonProductionSalaryWithTaxPercentage: Double? {
         revenueExVAT > 0 ? nonProductionSalaryWithTax / revenueExVAT : nil
     }
+    
+    
+    //  MARK: Work Hours
+    
+    var workHours: Double {
+        divisions
+            .flatMap(\.departments)
+            .flatMap(\.employees)
+            .reduce(0) { $0 + $1.workHours }
+    }
+    var productionWorkHours: Double {
+        divisions
+            .flatMap(\.departments)
+            .filter { $0.type == .production }
+            .flatMap(\.employees)
+            .reduce(0) { $0 + $1.workHours }
+    }
+    var nonProductionWorkHours: Double {
+        workHours - productionWorkHours
+    }
+    
 
+    //  MARK: per Hour
+    
+    var salaryPerHourWithTax: Double {
+        workHours == 0 ? 0 : salaryWithTax / workHours
+    }
+    var productionSalaryPerHourWithTax: Double {
+        productionWorkHours == 0 ? 0 : productionSalaryWithTax / productionWorkHours
+    }
+    var nonProductionSalaryPerHourWithTax: Double {
+        nonProductionWorkHours == 0 ? 0 : nonProductionSalaryWithTax / nonProductionWorkHours
+    }
+    
     //  MARK: - Utilities
     
     var utilitiesExVAT: Double {

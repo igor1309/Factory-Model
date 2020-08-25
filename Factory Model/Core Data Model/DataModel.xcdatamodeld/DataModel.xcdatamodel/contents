@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Base" representedClassName="Base" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
@@ -8,6 +8,7 @@
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="unitString_" optional="YES" attributeType="String"/>
         <attribute name="weightNetto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="workHours" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="bases_" inverseEntity="Factory"/>
         <relationship name="products_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="base" inverseEntity="Product"/>
         <relationship name="recipes_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Recipe" inverseName="base" inverseEntity="Recipe"/>
@@ -19,7 +20,6 @@
         <relationship name="sales_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sales" inverseName="buyer" inverseEntity="Sales"/>
     </entity>
     <entity name="Department" representedClassName="Department" syncable="YES" codeGenerationType="class">
-        <attribute name="division_" optional="YES" attributeType="String"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="type_" optional="YES" attributeType="String"/>
         <relationship name="division" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Division" inverseName="departments_" inverseEntity="Division"/>
@@ -35,6 +35,7 @@
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="position_" optional="YES" attributeType="String"/>
         <attribute name="salary" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="workHours" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="employees_" inverseEntity="Department"/>
     </entity>
     <entity name="Equipment" representedClassName="Equipment" syncable="YES" codeGenerationType="class">
@@ -107,11 +108,11 @@
         <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="utilities_" inverseEntity="Base"/>
     </entity>
     <elements>
-        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="208"/>
+        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="223"/>
         <element name="Buyer" positionX="-11646.9921875" positionY="-9167.140625" width="128" height="88"/>
-        <element name="Department" positionX="-11491.62109375" positionY="-8922.67578125" width="128" height="118"/>
+        <element name="Department" positionX="-11491.62109375" positionY="-8922.67578125" width="128" height="103"/>
         <element name="Division" positionX="-11693.03515625" positionY="-9062.26953125" width="128" height="88"/>
-        <element name="Employee" positionX="-11286.98046875" positionY="-8781.48828125" width="128" height="118"/>
+        <element name="Employee" positionX="-11286.98046875" positionY="-8781.48828125" width="128" height="133"/>
         <element name="Equipment" positionX="-11745.57421875" positionY="-8950.671875" width="128" height="118"/>
         <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="103"/>
         <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="163"/>

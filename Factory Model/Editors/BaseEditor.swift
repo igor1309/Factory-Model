@@ -30,6 +30,7 @@ struct BaseEditor: View {
         _note = State(initialValue: "")
         _initialInventory = State(initialValue: 0)
         _weightNetto = State(initialValue: 0)
+        _workHours = State(initialValue: 0)
         
         title = "New Base"
     }
@@ -47,7 +48,8 @@ struct BaseEditor: View {
         _note = State(initialValue: base.note)
         _initialInventory = State(initialValue: base.initialInventory)
         _weightNetto = State(initialValue: base.weightNetto)
-        
+        _workHours = State(initialValue: base.workHours)
+
         title = "Edit Base"
     }
     
@@ -59,7 +61,8 @@ struct BaseEditor: View {
     @State private var unitString_: String
     @State private var initialInventory: Double
     @State private var weightNetto: Double
-    
+    @State private var workHours: Double
+
     @State private var isNewDraftActive = false
     @State private var recipeDrafts = [RecipeDraft]()
     
@@ -82,13 +85,22 @@ struct BaseEditor: View {
             }
             
             Section(
-                header: Text("Initial Inventory")
+                header: Text("Work"),
+                footer: Text("Work Hours needed to produce 1 unit of Base Product.")
+            ) {
+                AmountPicker(systemName: Employee.icon, title: "Work Hours", navigationTitle: "Work Hours", scale: .extraSmall, amount: $workHours)
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(workHours > 0 ? .accentColor : .systemRed)
+            }
+            
+            Section(
+                // header: Text("Initial Inventory")
             ) {
                 AmountPicker(systemName: "building.2.crop.circle.fill", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $initialInventory)
             }
             
             Section(
-                header: Text("Weight Netto")
+                // header: Text("Weight Netto")
             ) {
                 AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $weightNetto)
                     .buttonStyle(PlainButtonStyle())
@@ -142,6 +154,7 @@ struct BaseEditor: View {
                     base.note = note
                     base.initialInventory = initialInventory
                     base.weightNetto = weightNetto
+                    base.workHours = workHours
                     
                     for draft in recipeDrafts {
                         let recipe = Recipe(context: context)
@@ -156,7 +169,7 @@ struct BaseEditor: View {
                     isPresented = false
                     presentation.wrappedValue.dismiss()
                 }
-                .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0)
+                .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0 || workHours == 0)
             }
         }
     }

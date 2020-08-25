@@ -27,6 +27,10 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
                 
             ) {
+                EntityLinkToList { (division: Division) in
+                    DivisionView(division)
+                }
+                
                 EntityLinkToList { (department: Department) in
                     DepartmentView(department)
                 }

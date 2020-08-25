@@ -125,7 +125,8 @@ fileprivate struct CreateEmployee: View {
     @State private var note = ""
     @State private var position = ""
     @State private var salary: Double = 0
-    
+    @State private var workHours: Double = 0
+
     var body: some View {
         List {
             Section(
@@ -156,8 +157,23 @@ fileprivate struct CreateEmployee: View {
                         scale: .extraLarge,
                         amount: $salary
                     )
-                    .foregroundColor(.accentColor)
+                    
+                    AmountPicker(
+                        systemName: "clock.arrow.circlepath",
+                        title: "Work Hours",
+                        navigationTitle: "Work Hours",
+                        scale: .extraSmall,
+                        amount: $workHours
+                    )
+                    
+                    Picker("Work Hours", selection: $workHours) {
+                        ForEach([40.0, 168], id: \.self) { item in
+                            Text("\(item.formattedGrouped)h")
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                 }
+                .foregroundColor(.accentColor)
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -166,7 +182,7 @@ fileprivate struct CreateEmployee: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Done") {
                     employeeDrafts.append(
-                        EmployeeDraft(name: name, note: note, position: position, salary: salary)
+                        EmployeeDraft(name: name, note: note, position: position, salary: salary, workHours: workHours)
                     )
                     
                     presentation.wrappedValue.dismiss()

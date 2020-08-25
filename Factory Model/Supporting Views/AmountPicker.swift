@@ -107,6 +107,7 @@ struct AmountPicker: View {
                         .padding(.leading)
                 }
             }
+            .contentShape(Rectangle())
         }
         .sheet(isPresented: $showSheet) {
             AmountPickerSheet(qty: $amount, scale: scale, navigationTitle: navigationTitle)
