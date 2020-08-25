@@ -10,22 +10,24 @@ import CoreData
 
 struct FactoryList: View {    
     var body: some View {
-        NavigationView {
-            List {
-                GenericListSection(
-                    type: Factory.self,
-                    predicate: nil,
-                    useSmallerFont: false
-                ) { factory in
-                    FactoryView(factory)
-                }
+        List {
+            GenericListSection(
+                type: Factory.self,
+                predicate: nil,
+                useSmallerFont: false
+            ) { factory in
+                FactoryView(factory)
             }
-            .listStyle(InsetGroupedListStyle())
-            .navigationTitle("Factories")
-            .navigationBarItems(
-                leading: MenuCreateNewOrSample(),
-                trailing: CreateEntityPickerButton()
-            )
         }
+        .listStyle(InsetGroupedListStyle())
+        .navigationTitle("Factories")
+        .navigationBarItems(
+            trailing:
+                HStack(spacing: 16) {
+                    MenuCreateNewOrSample()
+                    CreateEntityPickerButton()
+                }
+        )
     }
 }
+

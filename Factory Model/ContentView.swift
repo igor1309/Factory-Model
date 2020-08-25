@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Testing()
+        NavigationView {
+            Testing()
+        }
         
-        //FactoryList()
+//        NavigationView {
+//            FactoryList()
+//        }
     }
 }
 
