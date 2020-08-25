@@ -18,37 +18,7 @@ struct DivisionList: View {
     
     var body: some View {
         EntityListWithDashboard(for: factory) {
-            Section(
-                header: Text("Total")
-            ) {
-                Group {
-                    LabelWithDetail("person.crop.rectangle", "Headcount", factory.headcount.formattedGrouped)
-                    
-                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(factory.workHours.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(factory.salaryWithTax.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(factory.salaryPerHourWithTax.formattedGrouped)")
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-
-            Section(
-                header: Text("Production")
-            ) {
-                Group {
-                    LabelWithDetail("person.crop.rectangle", "Headcount", factory.productionHeadcount.formattedGrouped)
-                    
-                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(factory.productionWorkHours.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(factory.productionSalaryWithTax.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(factory.productionSalaryPerHourWithTax.formattedGrouped)")
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
+            LaborView(for: factory)
             
             Section(
                 header: Text("Personnel")

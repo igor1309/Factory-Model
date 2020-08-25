@@ -48,18 +48,8 @@ struct DepartmentView: View {
             }
             
             ErrorMessage(department)
-            
-            Section(
-                header: Text("Headcount and Salary")
-            ) {
-                Group {
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", department.headcount.formattedGrouped)
-                    
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", department.salaryWithTax.formattedGrouped)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
+                        
+            LaborView(for: department)            
             
         } editor: { (employee: Employee) in
             EmployeeEditor(employee)

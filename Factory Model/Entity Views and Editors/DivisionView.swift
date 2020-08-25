@@ -37,20 +37,9 @@ struct DivisionView: View {
                 keyPath: \Division.departments_
             )
         } dashboard: {
-            Section(
-                header: Text("Division")
-            ) {
-                Group {
-                    TextField("Division Name", text: $division.name)
-                        .foregroundColor(.accentColor)
-
-                    LabelWithDetail("person.crop.rectangle", "Total Headcount", division.headcount.formattedGrouped)
-
-                    LabelWithDetail("dollarsign.square", "Total Salary incl taxes", "\(division.salaryWithTax.formattedGrouped)")
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
+            NameSection<Division>(name: $division.name)
+            
+            LaborView(for: division)
             
             //  parent check
             if division.factory == nil {

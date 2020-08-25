@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  DraftSection.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 19.08.2020.
