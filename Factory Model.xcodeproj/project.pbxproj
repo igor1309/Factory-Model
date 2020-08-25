@@ -51,6 +51,7 @@
 		2A33A47D24F29725001DAE71 /* FinLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33A47C24F29725001DAE71 /* FinLabel.swift */; };
 		2A360C3C24D8077A00804C87 /* SimpleCardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */; };
 		2A3746E824CDF97D008D40F1 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3746E724CDF97D008D40F1 /* Recipe.swift */; };
+		2A43472D24F56A1200ADCB23 /* Laborable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43472C24F56A1200ADCB23 /* Laborable.swift */; };
 		2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */; };
 		2A52688624DE993300DDF4DE /* CustomUnitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688524DE993300DDF4DE /* CustomUnitable.swift */; };
 		2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */; };
@@ -179,6 +180,7 @@
 		2A33A47C24F29725001DAE71 /* FinLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinLabel.swift; sourceTree = "<group>"; };
 		2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCardViewModifier.swift; sourceTree = "<group>"; };
 		2A3746E724CDF97D008D40F1 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		2A43472C24F56A1200ADCB23 /* Laborable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laborable.swift; sourceTree = "<group>"; };
 		2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentUnitPicker.swift; sourceTree = "<group>"; };
 		2A52688524DE993300DDF4DE /* CustomUnitable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnitable.swift; sourceTree = "<group>"; };
 		2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavingParentUnit.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				2A7F4AAA24EDBAA2002A315F /* Draft.swift */,
 				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
 				2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */,
+				2A43472C24F56A1200ADCB23 /* Laborable.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A0FBA4024D5597900F963CE /* Offspringable.swift */,
@@ -671,6 +674,7 @@
 				2A167EF124EB1FA900A8E7DE /* IngredientEditor.swift in Sources */,
 				2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */,
 				2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */,
+				2A43472D24F56A1200ADCB23 /* Laborable.swift in Sources */,
 				2A0FBA4924D5A4E000F963CE /* SalesEditorCore.swift in Sources */,
 				2A7C3DA524D3795C005A03B3 /* AllEmployeesList.swift in Sources */,
 				2A936E5724C6DB7500C34381 /* Product.swift in Sources */,

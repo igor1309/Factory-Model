@@ -51,41 +51,8 @@ extension Factory {
     }
     
     
-    //  MARK: - Headcount
-    
-    var headcount: Int {
-        divisions
-            .reduce(0) { $0 + $1.headcount }
-    }
-    
-    var productionHeadcount: Int {
-        divisions
-            .flatMap(\.departments)
-            .filter { $0.type == .production }
-            .reduce(0) { $0 + $1.headcount }
-    }
-    
-    var nonProductionHeadcount: Int {
-        headcount - productionHeadcount
-    }
-
-    
     //  MARK: - Salary
     
-    var salary: Double {
-        divisions
-//            .flatMap(\.departments)
-//            .flatMap(\.employees)
-            .map(\.salary)
-            .reduce(0, +)
-    }
-    var salaryWithTax: Double {
-        divisions
-//            .flatMap(\.departments)
-//            .flatMap(\.employees)
-            .map(\.salaryWithTax)
-            .reduce(0, +)
-    }
     var salaryWithTaxPercentage: Double? {
         revenueExVAT > 0 ? salaryWithTax / revenueExVAT : nil
     }

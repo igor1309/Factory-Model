@@ -42,57 +42,17 @@ extension Factory {
         revenueExVAT > 0 ? ingredientCostExVAT / revenueExVAT : nil
     }
     
+    
     //  MARK: - Salary
     
-    var productionSalaryWithTax: Double {
-        divisions
-            .flatMap(\.departments)
-            .filter { $0.type == .production }
-            .flatMap(\.employees)
-            .reduce(0) { $0 + $1.salaryWithTax }
-    }
     var productionSalaryWithTaxPercentage: Double? {
         revenueExVAT > 0 ? productionSalaryWithTax / revenueExVAT : nil
     }
-    var nonProductionSalaryWithTax: Double {
-        salaryWithTax - productionSalaryWithTax
-    }
+
     var nonProductionSalaryWithTaxPercentage: Double? {
         revenueExVAT > 0 ? nonProductionSalaryWithTax / revenueExVAT : nil
     }
-    
-    
-    //  MARK: Work Hours
-    
-    var workHours: Double {
-        divisions
-            .flatMap(\.departments)
-            .flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
-    }
-    var productionWorkHours: Double {
-        divisions
-            .flatMap(\.departments)
-            .filter { $0.type == .production }
-            .flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
-    }
-    var nonProductionWorkHours: Double {
-        workHours - productionWorkHours
-    }
-    
 
-    //  MARK: per Hour
-    
-    var salaryPerHourWithTax: Double {
-        workHours == 0 ? 0 : salaryWithTax / workHours
-    }
-    var productionSalaryPerHourWithTax: Double {
-        productionWorkHours == 0 ? 0 : productionSalaryWithTax / productionWorkHours
-    }
-    var nonProductionSalaryPerHourWithTax: Double {
-        nonProductionWorkHours == 0 ? 0 : nonProductionSalaryWithTax / nonProductionWorkHours
-    }
     
     //  MARK: - Utilities
     
