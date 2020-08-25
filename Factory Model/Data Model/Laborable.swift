@@ -92,68 +92,118 @@ extension Factory: Laborable {
             .reduce(0) { $0 + $1.headcount }
     }
     
-    //    var nonProductionHeadcount: Int {
-    //        headcount - productionHeadcount
-    //    }
-    
     
     //  MARK: - Salary
     
     var salary: Double {
-        divisions
-            //            .flatMap(\.departments)
-            //            .flatMap(\.employees)
-            .map(\.salary)
-            .reduce(0, +)
+        divisions.reduce(0) { $0 + $1.salary }
     }
     var salaryWithTax: Double {
-        divisions
-            //            .flatMap(\.departments)
-            //            .flatMap(\.employees)
-            .map(\.salaryWithTax)
-            .reduce(0, +)
+        divisions.reduce(0) { $0 + $1.salaryWithTax }
     }
     var productionSalaryWithTax: Double {
         divisions
             .flatMap(\.departments)
             .filter { $0.type == .production }
-            .flatMap(\.employees)
             .reduce(0) { $0 + $1.salaryWithTax }
     }
-    //    var nonProductionSalaryWithTax: Double {
-    //        salaryWithTax - productionSalaryWithTax
-    //    }
     
     
-    //  MARK: Work Hours
+    //  MARK: - Work Hours
     
     var workHours: Double {
         divisions
             .flatMap(\.departments)
-            .flatMap(\.employees)
+            //.flatMap(\.employees)
             .reduce(0) { $0 + $1.workHours }
     }
     var productionWorkHours: Double {
         divisions
             .flatMap(\.departments)
             .filter { $0.type == .production }
+            //.flatMap(\.employees)
+            .reduce(0) { $0 + $1.workHours }
+    }
+}
+
+
+extension Division: Laborable {
+    
+    //  MARK: - Headcount
+    
+    var headcount: Int {
+        departments.reduce(0) { $0 + $1.headcount }
+    }
+    
+    var productionHeadcount: Int {
+        departments
+            .filter { $0.type == .production }
+            .reduce(0) { $0 + $1.headcount }
+    }
+    
+    
+    //  MARK: - Salary
+    
+    var salary: Double {
+        departments.reduce(0) { $0 + $1.salary }
+    }
+    var salaryWithTax: Double {
+        departments.reduce(0) { $0 + $1.salaryWithTax }
+    }
+    var productionSalaryWithTax: Double {
+        departments
+            .filter { $0.type == .production }
+            .flatMap(\.employees)
+            .reduce(0) { $0 + $1.salaryWithTax }
+    }
+    
+    
+    //  MARK: - Work Hours
+    
+    var workHours: Double {
+        departments
             .flatMap(\.employees)
             .reduce(0) { $0 + $1.workHours }
     }
-    //    var nonProductionWorkHours: Double {
-    //        workHours - productionWorkHours
-    //    }
+    var productionWorkHours: Double {
+        departments
+            .filter { $0.type == .production }
+            .flatMap(\.employees)
+            .reduce(0) { $0 + $1.workHours }
+    }
+}
+
+
+extension Department: Laborable {
+    
+    //  MARK: - Headcount
+    
+    var headcount: Int { employees.count }
+    
+    var productionHeadcount: Int {
+        type == .production ? headcount : 0
+    }
     
     
-    //  MARK: per Hour
+    //  MARK: - Salary
     
-    //    var salaryPerHourWithTax: Double {
-    //        workHours == 0 ? 0 : salaryWithTax / workHours
-    //    }
-    //    var productionSalaryPerHourWithTax: Double {
-    //        productionWorkHours == 0 ? 0 : productionSalaryWithTax / productionWorkHours
-    //    }
-    //    var nonProductionSalaryPerHourWithTax: Double {
-    //        nonProductionWorkHours == 0 ? 0 : nonProductionSalaryWithTax / nonProductionWorkHours
-    //    }
+    var salary: Double {
+        employees.reduce(0) { $0 + $1.salary}
+    }
+    var salaryWithTax: Double {
+        employees.reduce(0) { $0 + $1.salaryWithTax }
+    }
+    var productionSalaryWithTax: Double {
+        type == .production ? salaryWithTax : 0
+    }
+    
+    
+    //  MARK: - Work Hours
+    
+    var workHours: Double {
+        employees.reduce(0) { $0 + $1.workHours }
+    }
+    var productionWorkHours: Double {
+        type == .production ? workHours : 0
+    }
 }

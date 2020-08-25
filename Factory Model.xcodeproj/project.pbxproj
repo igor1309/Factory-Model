@@ -52,6 +52,7 @@
 		2A360C3C24D8077A00804C87 /* SimpleCardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */; };
 		2A3746E824CDF97D008D40F1 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3746E724CDF97D008D40F1 /* Recipe.swift */; };
 		2A43472D24F56A1200ADCB23 /* Laborable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43472C24F56A1200ADCB23 /* Laborable.swift */; };
+		2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43472E24F56E1800ADCB23 /* Division Sample.swift */; };
 		2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */; };
 		2A52688624DE993300DDF4DE /* CustomUnitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688524DE993300DDF4DE /* CustomUnitable.swift */; };
 		2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */; };
@@ -181,6 +182,7 @@
 		2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCardViewModifier.swift; sourceTree = "<group>"; };
 		2A3746E724CDF97D008D40F1 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		2A43472C24F56A1200ADCB23 /* Laborable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laborable.swift; sourceTree = "<group>"; };
+		2A43472E24F56E1800ADCB23 /* Division Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Division Sample.swift"; sourceTree = "<group>"; };
 		2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentUnitPicker.swift; sourceTree = "<group>"; };
 		2A52688524DE993300DDF4DE /* CustomUnitable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnitable.swift; sourceTree = "<group>"; };
 		2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavingParentUnit.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			children = (
 				2A6979A824DFE51F009B03F2 /* Factories Sample.swift */,
 				2A6979AF24DFF95B009B03F2 /* Base Sample.swift */,
+				2A43472E24F56E1800ADCB23 /* Division Sample.swift */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 			files = (
 				2A7F4AB524EE537C002A315F /* EntityLinkToList.swift in Sources */,
 				2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */,
+				2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */,
 				2A8B35F524EE5DD300A829DD /* PackagingView.swift in Sources */,
 				2A167F0D24EC181F00A8E7DE /* UtilityEditor.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,

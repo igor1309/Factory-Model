@@ -13,15 +13,6 @@ extension Department: Comparable {
         set { employees_ = Set(newValue) as NSSet }
     }
     
-    var headcount: Int { employees.count }
-
-    var salary: Double {
-        employees.reduce(0) { $0 + $1.salary}
-    }
-    var salaryWithTax: Double {
-        employees.reduce(0) { $0 + $1.salaryWithTax}
-    }
-
     enum DepartmentType: String, CaseIterable {
         case procurement, production, sales, management
     }
