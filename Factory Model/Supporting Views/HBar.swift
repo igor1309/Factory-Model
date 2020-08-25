@@ -28,8 +28,8 @@ struct HBar: View {
         GeometryReader { geo in
             HStack(spacing: 0) {
                 ForEach(items, id: \.self) { item in
-                    RoundedRectangle(cornerRadius: 4)
-                        .frame(width: geo.size.width * CGFloat(item.percentage), height: 12)
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(width: geo.size.width * CGFloat(item.percentage), height: 10)
                         .foregroundColor(item.color)
                 }
             }

@@ -111,25 +111,25 @@ extension Productable {
         cost > 0 ? ingredientsExVAT / cost : 0
     }
     var ingredientsExVATPercentageStr: String {
-        ingredientsExVATPercentage.formattedPercentage
+        ingredientsExVATPercentage.formattedPercentageWith1Decimal
     }
     var salaryWithTaxPercentage: Double {
         cost > 0 ? salaryWithTax / cost : 0
     }
     var salaryWithTaxPercentageStr: String {
-        salaryWithTaxPercentage.formattedPercentage
+        salaryWithTaxPercentage.formattedPercentageWith1Decimal
     }
     var depreciationWithTaxPercentage: Double {
         cost > 0 ? depreciationWithTax / cost : 0
     }
     var depreciationWithTaxPercentageStr: String {
-        depreciationWithTaxPercentage.formattedPercentage
+        depreciationWithTaxPercentage.formattedPercentageWith1Decimal
     }
     var utilitiesExVATPercentage: Double {
         cost > 0 ? utilitiesExVAT / cost : 0
     }
     var utilitiesExVATPercentageStr: String {
-        utilitiesExVATPercentage.formattedPercentage
+        utilitiesExVATPercentage.formattedPercentageWith1Decimal
     }
     
     ///  MARK: Full Unit Cost

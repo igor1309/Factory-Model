@@ -39,72 +39,59 @@ struct ProductData<
     
     var body: some View {
         Section(
-            header: Text("Cost // TBD: Percentage"),
+            header: Text("Cost"),
             footer: Text("Cost, ex VAT")
         ) {
             Group {
-                
                 NavigationLink(
                     destination: ingredientDestination()
                 ) {
-                    HStack(spacing: 0) {
-                        LabelWithDetail(Ingredient.icon, "Ingredients, ex VAT", entity.ingredientsExVAT.formattedGroupedWith1Decimal)
-                        
-                        ZStack(alignment: .trailing) {
-                            Text("100%").hidden()
-                            Text(entity.ingredientsExVATPercentageStr)
-                        }
-                    }
-                    .foregroundColor(Ingredient.color)
+                    FinLabel(
+                        type: Ingredient.self,
+                        title: "Ingredients, ex VAT",
+                        detail: entity.ingredientsExVAT.formattedGroupedWith1Decimal,
+                        percentage: entity.ingredientsExVATPercentageStr
+                    )
                 }
                 
                 NavigationLink(
                     destination: employeeDestination()
                 ) {
-                    HStack(spacing: 0) {
-                        LabelWithDetail(Department.icon, "Salary incl taxes", entity.salaryWithTax.formattedGroupedWith1Decimal)
-                        
-                        ZStack(alignment: .trailing) {
-                            Text("100%").hidden()
-                            Text(entity.salaryWithTaxPercentageStr)
-                        }
-                    }
-                    .foregroundColor(Employee.color)
+                    FinLabel(
+                        type: Department.self,
+                        title: "Salary incl taxes",
+                        detail: entity.salaryWithTax.formattedGroupedWith1Decimal,
+                        percentage: entity.salaryWithTaxPercentageStr
+                    )
                 }
                 
                 NavigationLink(
                     destination: equipmentDestination()
                 ) {
-                    HStack(spacing: 0) {
-                        LabelWithDetail(Equipment.icon, "Depreciation", entity.depreciationWithTax.formattedGroupedWith1Decimal)
-                        
-                        ZStack(alignment: .trailing) {
-                            Text("100%").hidden()
-                            Text(entity.depreciationWithTaxPercentageStr)
-                        }
-                    }
-                    .foregroundColor(Equipment.color)
+                    FinLabel(
+                        type: Equipment.self,
+                        title: "Depreciation",
+                        detail: entity.depreciationWithTax.formattedGroupedWith1Decimal,
+                        percentage: entity.depreciationWithTaxPercentageStr
+                    )
                 }
                 
                 NavigationLink(
                     destination: utilityDestination()
                 ) {
-                    HStack(spacing: 0) {
-                        LabelWithDetail(Utility.icon, "Utility Cost, ex VAT", entity.utilitiesExVAT.formattedGroupedWith1Decimal)
-                        
-                        ZStack(alignment: .trailing) {
-                            Text("100%").hidden()
-                            Text(entity.utilitiesExVATPercentageStr)
-                        }
-                    }
-                    .foregroundColor(Utility.color)
+                    FinLabel(
+                        type: Utility.self,
+                        title: "Utility Cost, ex VAT",
+                        detail: entity.utilitiesExVAT.formattedGroupedWith1Decimal,
+                        percentage: entity.utilitiesExVATPercentageStr
+                    )
                 }
                 
                 HBar([
                     ColorPercentage(Ingredient.color, entity.ingredientsExVATPercentage),
-                    ColorPercentage(Employee.color, entity.salaryWithTaxPercentage),
-                    ColorPercentage(Equipment.color, entity.depreciationWithTaxPercentage),
-                    ColorPercentage(Utility.color, entity.utilitiesExVATPercentage)
+                    ColorPercentage(Employee.color,   entity.salaryWithTaxPercentage),
+                    ColorPercentage(Equipment.color,  entity.depreciationWithTaxPercentage),
+                    ColorPercentage(Utility.color,    entity.utilitiesExVATPercentage)
                 ])
                 
                 HStack(spacing: 0) {
