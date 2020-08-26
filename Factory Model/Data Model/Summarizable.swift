@@ -17,25 +17,39 @@ protocol Summarizable {
     static var plusButtonIcon: String { get }
     static var headline: String { get }
 }
-extension Summarizable where Self: Managed {
-    static var headline: String {
-        "Create \(Self.entityName.lowercased())."
-    }
-}
 extension Summarizable where Self: Monikerable {
     var title: String {
         name.isEmpty ? "ERROR: no name" : name
     }
 }
-extension Summarizable where Self: Validatable {
-    var detail: String? { errorMessage }
-}
 extension Summarizable {
-    var subtitle: String { "" }
-    
     static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
+extension Summarizable where Self: Laborable & Productable {
+    var subtitle: String {
+        guard revenueExVAT > 0, productionQty > 0 else {
+            return "No Sales or/and Production"
+        }
+
+        return """
+Sales / Production, t: \(salesWeightNetto.formattedGroupedWith1Decimal) / \(productionWeightNetto.formattedGroupedWith1Decimal)
+Work Hours: \(productionWorkHours.formattedGrouped) (\(workHours.formattedGrouped))
+Revenue: \(revenueExVAT.formattedGrouped)
+
+\nTBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
+"""
+    }
+}
+extension Summarizable where Self: Validatable {
+    var detail: String? { errorMessage }
+}
+extension Summarizable where Self: Managed {
+    static var headline: String {
+        "Create \(Self.entityName.lowercased())."
+    }
+}
+
 
 extension Base: Summarizable {
     var title: String {
@@ -45,11 +59,11 @@ extension Base: Summarizable {
     }
     
     var subtitle: String {
-        if revenueExVAT > 0, productionQty > 0 {
-            return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
-        } else {
-            return ""
+        guard revenueExVAT > 0, productionQty > 0 else {
+            return "No Sales or/and Production"
         }
+
+        return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
     }
     
     var detail: String? {
@@ -63,8 +77,7 @@ extension Base: Summarizable {
 }
 
 extension Buyer: Summarizable {
-    var subtitle: String { "TBD: объем выручки по покупателю" }
-    var detail: String? { "TBD: списк покупаемых продуктов" }
+    var subtitle: String { "TBD: объем выручки по покупателю\nTBD: списк покупаемых продуктов" }
     
     static var color: Color { .systemPurple }
     static var icon: String { "cart.fill" }
@@ -81,7 +94,7 @@ extension Division: Summarizable {
     }
     
     var subtitle: String {
-        "Total Salary incl taxes \(salaryWithTax.formattedGrouped)"
+        "Salary incl taxes \(salaryWithTax.formattedGrouped)"
     }
     
     var detail: String? {
@@ -105,7 +118,6 @@ extension Department: Summarizable {
     
     var detail: String? {
         guard isValid else { return errorMessage! }
-        
         return "\(type.rawValue.capitalized)"
     }
     
@@ -123,7 +135,8 @@ extension Employee: Summarizable {
     }
     
     var detail: String? {
-        "\(salaryWithTax.formattedGrouped) (\(salary.formattedGrouped))"
+        guard isValid else { return errorMessage! }
+        return "\(salaryWithTax.formattedGrouped) (\(salary.formattedGrouped))"
     }
     
     static var color: Color { .systemTeal }
@@ -167,10 +180,24 @@ extension Expenses: Summarizable {
 }
 
 extension Factory: Summarizable {
-    var subtitle: String { note }
     
+    var subtitle: String {
+        guard revenueExVAT > 0 else {
+            return "No Sales or/and Production"
+        }
+        
+        return """
+Sales / Production, t: \(salesWeightNetto.formattedGroupedWith1Decimal) / \(productionWeightNetto.formattedGroupedWith1Decimal)
+Work Hours: \(productionWorkHours.formattedGrouped) (\(workHours.formattedGrouped))
+Revenue: \(revenueExVAT.formattedGrouped)
+        
+\nTBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
+"""
+    }
+
     var detail: String? {
-        "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)"
+        guard isValid else { return errorMessage! }
+        return note
     }
     
     static var icon: String { "building.2" }
@@ -204,6 +231,7 @@ extension Recipe: Summarizable {
 
 extension Packaging: Summarizable {
     var subtitle: String { type }
+    
     var detail: String? {
         guard isValid else { return errorMessage! }
         return productList
@@ -227,13 +255,13 @@ extension Product: Summarizable {
     }
     
     var subtitle: String {
-        if revenueExVAT > 0 {
-            return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
-        } else {
-            return "Production \(productionQty.formattedGrouped)"
+        guard revenueExVAT > 0, productionQty > 0 else {
+            return "No Sales or/and Production"
         }
+        
+        return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
     }
-    
+
     static var icon: String { "bag" }
     static var plusButtonIcon: String { "bag.badge.plus" }
     static var headline: String {
