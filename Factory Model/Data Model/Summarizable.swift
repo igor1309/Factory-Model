@@ -26,18 +26,15 @@ extension Summarizable {
     static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
-extension Summarizable where Self: Laborable & Productable {
+extension Summarizable where Self: Productable {
     var subtitle: String {
         guard revenueExVAT > 0, productionQty > 0 else {
             return "No Sales or/and Production"
         }
-
+        
         return """
-Sales / Production, t: \(salesWeightNetto.formattedGroupedWith1Decimal) / \(productionWeightNetto.formattedGroupedWith1Decimal)
-Work Hours: \(productionWorkHours.formattedGrouped) (\(workHours.formattedGrouped))
-Revenue: \(revenueExVAT.formattedGrouped)
-
-\nTBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
+Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production, \(salesWeightNetto.formattedGroupedWith1Decimal) of \(productionWeightNetto.formattedGroupedWith1Decimal)t
+x\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT
 """
     }
 }
@@ -56,14 +53,6 @@ extension Base: Summarizable {
         [name, code, group]
             .filter { !$0.isEmpty }
             .joined(separator: " : ")
-    }
-    
-    var subtitle: String {
-        guard revenueExVAT > 0, productionQty > 0 else {
-            return "No Sales or/and Production"
-        }
-
-        return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
     }
     
     var detail: String? {
@@ -245,6 +234,7 @@ extension Product: Summarizable {
     var summary: String {
         "\(name)/\(code)/\(group)/\(note)"
     }
+    
     var title: String {
         //        [baseName, name]
         //            .filter { !$0.isEmpty }
@@ -254,14 +244,6 @@ extension Product: Summarizable {
             : "\(name) \(baseName), \(baseQty.formattedGrouped) \(customUnitString)"
     }
     
-    var subtitle: String {
-        guard revenueExVAT > 0, productionQty > 0 else {
-            return "No Sales or/and Production"
-        }
-        
-        return "Sales \(salesQty.formattedGrouped) of \(productionQty.formattedGrouped) production\nx\(avgPriceExVAT.formattedGrouped) = \(revenueExVAT.formattedGrouped) ex VAT"
-    }
-
     static var icon: String { "bag" }
     static var plusButtonIcon: String { "bag.badge.plus" }
     static var headline: String {
@@ -277,6 +259,7 @@ extension RecipeDraft: Summarizable {
         //  как вытащить unitString в CustomUnit
         "\(qty.formattedGrouped) @ \(ingredient.priceExVAT.formattedGrouped)"
     }
+    
     var detail: String? { nil }
     
     static var color: Color { .systemPurple }
