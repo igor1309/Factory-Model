@@ -130,8 +130,8 @@ struct BaseEditor: View {
             }
             
             Section(
-                header: Text("Work Hours (\(String(format: "%g", workHours)) hours per unit)"),
-                footer: Text(unitsHours.headline).lineLimit(nil)
+                header: Text("Work Hours"),
+                footer: Text("\(unitsHours.headline) \(String(format: "%g", workHours)) hours per unit.").lineLimit(nil)
             ) {
                 Picker(
                     selection: $unitsHours,
@@ -141,14 +141,6 @@ struct BaseEditor: View {
                         Text(item.rawValue)
                     }
                 }
-
-//                HStack {
-//                    Text("unitsHours \(unitsHoursValue.wrappedValue)")
-//                    Spacer()
-//                    Text("workHours \(workHours)")
-//                }
-//                .foregroundColor(.secondary)
-//                .font(.footnote)
             }
             
             Section(
@@ -160,7 +152,7 @@ struct BaseEditor: View {
             Section(
                 // header: Text("Weight Netto")
             ) {
-                AmountPicker(systemName: "scalemass", title: "Weight Netto", navigationTitle: "Weight", scale: .small, amount: $weightNetto)
+                AmountPicker(systemName: "scalemass", title: "Weight Netto, g", navigationTitle: "Weight", scale: .small, amount: $weightNetto)
                     .buttonStyle(PlainButtonStyle())
                     .foregroundColor(weightNetto > 0 ? .accentColor : .systemRed)
             }

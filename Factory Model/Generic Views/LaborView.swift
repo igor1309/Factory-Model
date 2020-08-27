@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct LaborView<T: NSManagedObject & Laborable>: View {
-    var entity: T
+    @ObservedObject var entity: T
     
     init(for entity: T) {
         self.entity = entity

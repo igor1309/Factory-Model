@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import CoreData
 
-struct ProductionOutputSection<T: ProductionOutput>: View {
-    var entity: T
+struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
+    @ObservedObject var entity: T
     
     init(for entity: T) {
         self.entity = entity
