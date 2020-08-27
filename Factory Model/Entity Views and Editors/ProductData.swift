@@ -40,7 +40,7 @@ struct ProductData<
     var body: some View {
         Section(
             header: Text("Cost"),
-            footer: Text("Cost, ex VAT")
+            footer: Text("Cost ex VAT, Salary incl taxes.")
         ) {
             Group {
                 NavigationLink(
@@ -48,7 +48,7 @@ struct ProductData<
                 ) {
                     FinLabel(
                         type: Ingredient.self,
-                        title: "Ingredients, ex VAT",
+                        title: "Ingredients",
                         detail: entity.ingredientsExVAT.formattedGroupedWith1Decimal,
                         percentage: entity.ingredientsExVATPercentageStr
                     )
@@ -59,7 +59,7 @@ struct ProductData<
                 ) {
                     FinLabel(
                         type: Department.self,
-                        title: "Salary incl taxes",
+                        title: "Salary",
                         detail: entity.salaryWithTax.formattedGroupedWith1Decimal,
                         percentage: entity.salaryWithTaxPercentageStr
                     )
@@ -81,7 +81,7 @@ struct ProductData<
                 ) {
                     FinLabel(
                         type: Utility.self,
-                        title: "Utility Cost, ex VAT",
+                        title: "Utility",
                         detail: entity.utilitiesExVAT.formattedGroupedWith1Decimal,
                         percentage: entity.utilitiesExVATPercentageStr
                     )
@@ -95,7 +95,7 @@ struct ProductData<
                 ])
                 
                 HStack(spacing: 0) {
-                    LabelWithDetail("dollarsign.square", "Cost of Base Product", entity.cost.formattedGroupedWith1Decimal)
+                    LabelWithDetail("dollarsign.square", "Base Product", entity.cost.formattedGroupedWith1Decimal)
                         .foregroundColor(.primary)
                     Text("100%").hidden()
                 }
@@ -122,7 +122,7 @@ struct ProductData<
             header: Text("Sales")
         ) {
             Group {
-                LabelWithDetail("square", "Total Qty", "\(entity.salesQty.formattedGrouped)")
+                LabelWithDetail("square", "Qty", "\(entity.salesQty.formattedGrouped)")
                 
                 LabelWithDetail(Sales.icon, "Revenue, ex VAT", entity.revenueExVAT.formattedGrouped)
                     .foregroundColor(.systemGreen)
@@ -151,13 +151,12 @@ struct ProductData<
                         .foregroundColor(.systemRed)
                 }
                 
-                LabelWithDetail("wrench.and.screwdriver", "Total Qty", "\(entity.productionQty.formattedGrouped)")
-                //.foregroundColor(.primary)
+                LabelWithDetail("wrench.and.screwdriver", "Qty", entity.productionQty.formattedGrouped)
                 
-                LabelWithDetail("square", "TBD Production Volume - unit???", "TBD")
+                LabelWithDetail("scalemass", "Weight Netto, t", entity.productionWeightNetto.formattedGroupedWith1Decimal)
                     .foregroundColor(.systemRed)
                 
-                LabelWithDetail("dollarsign.square", "Total Cost", entity.productionCostExVAT.formattedGrouped)
+                LabelWithDetail("dollarsign.square", "Cost", entity.productionCostExVAT.formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

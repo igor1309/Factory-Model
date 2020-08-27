@@ -76,34 +76,34 @@ struct BuyerEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let buyer: Buyer
-                    if let buyerToEdit = buyerToEdit {
-                        buyer = buyerToEdit
-                    } else {
-                        buyer = Buyer(context: context)
-                    }
-                    
-                    buyer.name = name
-                    buyer.factory = factory
-                    
-                    for draft in salesDrafts {
-                        let sales = Sales(context: context)
-                        sales.priceExVAT = draft.priceExVAT
-                        sales.qty = draft.qty
-                        sales.product = draft.product
-                        buyer.addToSales_(sales)
-                    }
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(factory == nil || name.isEmpty)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let buyer: Buyer
+            if let buyerToEdit = buyerToEdit {
+                buyer = buyerToEdit
+            } else {
+                buyer = Buyer(context: context)
             }
+            
+            buyer.name = name
+            buyer.factory = factory
+            
+            for draft in salesDrafts {
+                let sales = Sales(context: context)
+                sales.priceExVAT = draft.priceExVAT
+                sales.qty = draft.qty
+                sales.product = draft.product
+                buyer.addToSales_(sales)
+            }
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(factory == nil || name.isEmpty)
     }
 }

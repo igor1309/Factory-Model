@@ -31,7 +31,7 @@ struct EmployeeList: View {
             )
         } dashboard: {
             Section(header: Text("Total")) {
-                LabelWithDetail("Total Salary incl taxes", department.salaryWithTax.formattedGrouped)
+                LabelWithDetail("Salary incl taxes", department.salaryWithTax.formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

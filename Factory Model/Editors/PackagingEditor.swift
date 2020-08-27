@@ -70,26 +70,26 @@ struct PackagingEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let packaging: Packaging
-                    if let packagingToEdit = packagingToEdit {
-                        packaging = packagingToEdit
-                    } else {
-                        packaging = Packaging(context: context)
-                    }
-                    
-                    packaging.name = name
-                    packaging.type = type
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(name.isEmpty)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let packaging: Packaging
+            if let packagingToEdit = packagingToEdit {
+                packaging = packagingToEdit
+            } else {
+                packaging = Packaging(context: context)
             }
+            
+            packaging.name = name
+            packaging.type = type
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(name.isEmpty)
     }
 }

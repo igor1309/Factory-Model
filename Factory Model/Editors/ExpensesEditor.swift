@@ -59,28 +59,28 @@ struct ExpensesEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let expenses: Expenses
-                    if let expensesToEdit = expensesToEdit {
-                        expenses = expensesToEdit
-                    } else {
-                        expenses = Expenses(context: context)
-                    }
-                    
-                    expenses.name = name
-                    expenses.factory = factory
-                    expenses.amount = amount
-                    expenses.note = note
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(factory == nil || name.isEmpty || amount == 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let expenses: Expenses
+            if let expensesToEdit = expensesToEdit {
+                expenses = expensesToEdit
+            } else {
+                expenses = Expenses(context: context)
             }
+            
+            expenses.name = name
+            expenses.factory = factory
+            expenses.amount = amount
+            expenses.note = note
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(factory == nil || name.isEmpty || amount == 0)
     }
 }

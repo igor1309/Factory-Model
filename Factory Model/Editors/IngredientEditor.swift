@@ -79,28 +79,28 @@ struct IngredientEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(name.isEmpty ? "New Ingredient" : name)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let ingredient: Ingredient
-                    if let ingredientToEdit = ingredientToEdit {
-                        ingredient = ingredientToEdit
-                    } else {
-                        ingredient = Ingredient(context: context)
-                    }
-                    
-                    ingredient.name = name
-                    ingredient.unitString_ = unitString_
-                    ingredient.priceExVAT = priceExVAT
-                    ingredient.vat = vat
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(name.isEmpty || unitString_.isEmpty || priceExVAT == 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let ingredient: Ingredient
+            if let ingredientToEdit = ingredientToEdit {
+                ingredient = ingredientToEdit
+            } else {
+                ingredient = Ingredient(context: context)
             }
+            
+            ingredient.name = name
+            ingredient.unitString_ = unitString_
+            ingredient.priceExVAT = priceExVAT
+            ingredient.vat = vat
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(name.isEmpty || unitString_.isEmpty || priceExVAT == 0)
     }
 }

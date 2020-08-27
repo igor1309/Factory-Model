@@ -58,9 +58,9 @@ struct SalesEditorCore: View {
             header: Text("Total Sales")
         ) {
             Group {
-                LabelWithDetail("creditcard", "Total Sales, ex VAT", sales.revenueExVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Sales, ex VAT", sales.revenueExVAT.formattedGrouped)
                 
-                LabelWithDetail("creditcard", "Total Sales, with VAT", sales.revenueWithVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Sales, with VAT", sales.revenueWithVAT.formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

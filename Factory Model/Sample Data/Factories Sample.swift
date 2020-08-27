@@ -107,11 +107,15 @@ extension Factory {
         product1_1.code = "У001"
         product1_1.name = "Ведёрко 1 кг"
         product1_1.note = "..."
-        product1_1.baseQty = 1_000
+        product1_1.baseQty = 1
         product1_1.base = base1_1
         product1_1.group = "Ведёрко"
         product1_1.vat = 10/100
         product1_1.productionQty = 3_000
+        
+        product1_1.packaging = Packaging(context: context)
+        product1_1.packaging?.name = "P1"
+        product1_1.packaging?.type = "p01"
         
         //  MARK: - Buyer 1_1
         let buyer1_1 = Buyer(context: context)
@@ -145,6 +149,10 @@ extension Factory {
         product1_2.coefficientToParentUnit = 1/1_000
         product1_2.group = "Вакуум"
         product1_2.vat = 10/100
+        
+        product1_2.packaging = Packaging(context: context)
+        product1_2.packaging?.name = "P2"
+        product1_2.packaging?.type = "p02"
         
         //  MARK: - Base 2
         let recipe21 = Recipe(context: context)
@@ -207,9 +215,14 @@ extension Factory {
         
         let product2_1 = Product(context: context)
         product2_1.name = "Настоящие"
+        product2_1.code = "2001"
         product2_1.baseQty = 12
         product2_1.group = "Контейнер"
         product2_1.vat = 10/100
+                
+        product2_1.packaging = Packaging(context: context)
+        product2_1.packaging?.name = "P3"
+        product2_1.packaging?.type = "p03"
         
         product2_1.sales = [metroSales]
         product2_1.base = base2_1

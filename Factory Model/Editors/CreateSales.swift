@@ -47,22 +47,22 @@ struct CreateSales: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Add Sales")
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Done") {
-                    salesDrafts.append(
-                        SalesDraft(
-                            priceExVAT: priceExVAT,
-                            qty: qty,
-                            buyer: buyer,
-                            product: product
-                        )
-                    )
-                    
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(priceExVAT == 0 || qty == 0 || checkBuyerOrProduct)
-            }
+        .navigationBarItems(trailing: doneButton)
+    }
+    
+    private var doneButton: some View {
+        Button("Done") {
+            salesDrafts.append(
+                SalesDraft(
+                    priceExVAT: priceExVAT,
+                    qty: qty,
+                    buyer: buyer,
+                    product: product
+                )
+            )
+            
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(priceExVAT == 0 || qty == 0 || checkBuyerOrProduct)
     }
 }

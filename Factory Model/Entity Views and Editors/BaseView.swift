@@ -46,6 +46,8 @@ struct BaseView: View {
                 EntityPickerSection(selection: $base.factory)
             }
             
+            ProductionOutputSection(for: base)
+            
             ProductData(base) {
                 ListWithDashboard(
                     for: base,

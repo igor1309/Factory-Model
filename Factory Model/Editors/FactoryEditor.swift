@@ -62,27 +62,27 @@ struct FactoryEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let factory: Factory
-                    if let factoryToEdit = factoryToEdit {
-                        factory = factoryToEdit
-                    } else {
-                        factory = Factory(context: context)
-                    }
-                    
-                    factory.name = name
-                    factory.note = note
-                    factory.profitTaxRate = profitTaxRate
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(name.isEmpty || profitTaxRate == 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let factory: Factory
+            if let factoryToEdit = factoryToEdit {
+                factory = factoryToEdit
+            } else {
+                factory = Factory(context: context)
             }
+            
+            factory.name = name
+            factory.note = note
+            factory.profitTaxRate = profitTaxRate
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(name.isEmpty || profitTaxRate == 0)
     }
 }

@@ -62,35 +62,35 @@ struct SalesEditor: View {
             Section(
                 header: Text("Total Sales")
             ) {
-                LabelWithDetail(Sales.icon, "Total Sales, ex VAT", (qty * priceExVAT).formattedGrouped)                    
+                LabelWithDetail(Sales.icon, "Sales, ex VAT", (qty * priceExVAT).formattedGrouped)                    
                 .foregroundColor(.secondary)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let sales: Sales
-                    if let salesToEdit = salesToEdit {
-                        sales = salesToEdit
-                    } else {
-                        sales = Sales(context: context)
-                    }
-                    
-                    sales.name = ""
-                    sales.priceExVAT = priceExVAT
-                    sales.qty = qty
-                    sales.buyer = buyer
-                    sales.product = product
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(priceExVAT == 0 || qty == 0 || buyer == nil || product == nil)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let sales: Sales
+            if let salesToEdit = salesToEdit {
+                sales = salesToEdit
+            } else {
+                sales = Sales(context: context)
             }
+            
+            sales.name = ""
+            sales.priceExVAT = priceExVAT
+            sales.qty = qty
+            sales.buyer = buyer
+            sales.product = product
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(priceExVAT == 0 || qty == 0 || buyer == nil || product == nil)
     }
 }

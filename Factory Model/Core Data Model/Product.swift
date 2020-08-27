@@ -33,6 +33,15 @@ extension Product {
         }
     }
     
+    
+    
+    var workHours: Double {
+        (base?.workHours ?? 0) * baseQtyInBaseUnit
+    }
+    var productionWorkHours: Double { workHours * productionQty }
+    
+    
+    
     var baseName: String {
         base?.name ?? "ERROR: no base"
     }

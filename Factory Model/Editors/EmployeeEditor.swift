@@ -103,30 +103,30 @@ struct EmployeeEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let employee: Employee
-                    if let employeeToEdit = employeeToEdit {
-                        employee = employeeToEdit
-                    } else {
-                        employee = Employee(context: context)
-                    }
-                    
-                    employee.name = name
-                    employee.note = note
-                    employee.position = position
-                    employee.salary = salary
-                    employee.workHours = workHours
-                    employee.department = department
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0 || workHours <= 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let employee: Employee
+            if let employeeToEdit = employeeToEdit {
+                employee = employeeToEdit
+            } else {
+                employee = Employee(context: context)
             }
+            
+            employee.name = name
+            employee.note = note
+            employee.position = position
+            employee.salary = salary
+            employee.workHours = workHours
+            employee.department = department
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0 || workHours <= 0)
     }
 }

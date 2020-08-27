@@ -43,6 +43,8 @@ struct ProductView: View {
                 }
             }
             
+            ProductionOutputSection(for: product)
+            
             ProductData(product) {
                 Text("TBD: Ingredient cost")
             } employeeDestination: {

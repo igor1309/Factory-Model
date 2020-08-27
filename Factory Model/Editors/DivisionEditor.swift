@@ -53,26 +53,26 @@ struct DivisionEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let division: Division
-                    if let divisionToEdit = divisionToEdit {
-                        division = divisionToEdit
-                    } else {
-                        division = Division(context: context)
-                    }
-                    
-                    division.name = name
-                    division.factory = factory
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(factory == nil || name.isEmpty)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let division: Division
+            if let divisionToEdit = divisionToEdit {
+                division = divisionToEdit
+            } else {
+                division = Division(context: context)
             }
+            
+            division.name = name
+            division.factory = factory
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(factory == nil || name.isEmpty)
     }
 }

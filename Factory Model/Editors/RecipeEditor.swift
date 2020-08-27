@@ -69,28 +69,28 @@ struct RecipeEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let recipe: Recipe
-                    if let recipeToEdit = recipeToEdit {
-                        recipe = recipeToEdit
-                    } else {
-                        recipe = Recipe(context: context)
-                    }
-                    
-                    recipe.base = base
-                    recipe.ingredient = ingredient
-                    recipe.qty = qty
-                    recipe.coefficientToParentUnit = coefficientToParentUnit
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(base == nil || ingredient == nil || qty == 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let recipe: Recipe
+            if let recipeToEdit = recipeToEdit {
+                recipe = recipeToEdit
+            } else {
+                recipe = Recipe(context: context)
             }
+            
+            recipe.base = base
+            recipe.ingredient = ingredient
+            recipe.qty = qty
+            recipe.coefficientToParentUnit = coefficientToParentUnit
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(base == nil || ingredient == nil || qty == 0)
     }
 }

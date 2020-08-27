@@ -9,6 +9,32 @@ import Foundation
 
 extension Factory {
     
+    //  MARK: - Revenue
+    
+    ///  reducing by buyers is not correct - Buyer could not be exclusively linked to factory
+    ///  reducing via bases is a right way to go
+    var revenueExVAT: Double {
+        bases
+            .flatMap(\.products)
+            .reduce(0) { $0 + $1.revenueExVAT }
+    }
+    
+    var revenueWithVAT: Double {
+        bases
+            .flatMap(\.products)
+            .reduce(0) { $0 + $1.revenueWithVAT }
+    }
+    
+    func revenueExVAT(for group: String) -> Double {
+        bases
+            .flatMap(\.products)
+            .compactMap(\.base)
+            .filter { $0.group == group }
+            .map(\.revenueExVAT)
+            .reduce(0, +)
+    }
+    
+    
     //  MARK: - Margin, EBIT, EBITDA
     
     var margin: Double {
@@ -31,6 +57,7 @@ extension Factory {
     var ebitdaPercentage: Double? {
         revenueExVAT > 0 ? ebitda / revenueExVAT : nil
     }
+
     
     //  MARK: - Profit Tax
     var profitTax: Double {
@@ -39,6 +66,7 @@ extension Factory {
     var profitTaxPercentage: Double? {
         revenueExVAT > 0 ? profitTax / revenueExVAT : nil
     }
+    
     
     //  MARK: - Net Profit
     var netProfit: Double {

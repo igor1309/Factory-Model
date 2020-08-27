@@ -42,7 +42,18 @@ extension Factory {
             .flatMap(\.products)
             .compactMap(\.packaging)
     }
-
+    
+    
+    //  MARK: - Weight Netto
+    
+    var salesWeightNetto: Double {
+        bases.reduce(0) { $0 + $1.salesWeightNetto }
+    }
+    var productionWeightNetto: Double {
+        bases.reduce(0) { $0 + $1.productionWeightNetto }
+    }
+    
+    
     //  MARK: - Equipment
     
     var equipmentTotal: Double {
@@ -72,32 +83,9 @@ extension Factory {
         revenueExVAT > 0 ? expensesExVAT / revenueExVAT : nil
     }
     
-    //  MARK: - Revenue
-    
-    ///  reducing by buyers is not correct - Buyer could not be exclusively linked to factory
-    ///  reducing via bases is a right way to go
-    var revenueExVAT: Double {
-        bases
-            .flatMap(\.products)
-            .reduce(0) { $0 + $1.revenueExVAT }
-    }
-    
-    var revenueWithVAT: Double {
-        bases
-            .flatMap(\.products)
-            .reduce(0) { $0 + $1.revenueWithVAT }
-    }
-    
-    func revenueExVAT(for group: String) -> Double {
-        bases
-            .flatMap(\.products)
-            .compactMap(\.base)
-            .filter { $0.group == group }
-            .map(\.revenueExVAT)
-            .reduce(0, +)
-    }
-    
-    
+
+
+
     var baseGroupsAsRows: [Something] {
         Dictionary(grouping: bases) { $0.group }
             .mapValues {
@@ -115,6 +103,8 @@ extension Factory {
             }
             .sorted()
     }
+    
+    
     
     //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     var baseGroups: [String] {

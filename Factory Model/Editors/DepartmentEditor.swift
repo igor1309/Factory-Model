@@ -82,37 +82,37 @@ struct DepartmentEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let department: Department
-                    if let departmentToEdit = departmentToEdit {
-                        department = departmentToEdit
-                    } else {
-                        department = Department(context: context)
-                    }
-                    
-                    department.name = name
-                    department.type = type
-                    department.division = division
-                    
-                    for draft in employeeDrafts {
-                        let employee = Employee(context: context)
-                        employee.name = draft.name
-                        employee.note = draft.note
-                        employee.position = draft.position
-                        employee.salary = draft.salary
-                        department.addToEmployees_(employee)
-                    }
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(division == nil || name.isEmpty)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let department: Department
+            if let departmentToEdit = departmentToEdit {
+                department = departmentToEdit
+            } else {
+                department = Department(context: context)
             }
+            
+            department.name = name
+            department.type = type
+            department.division = division
+            
+            for draft in employeeDrafts {
+                let employee = Employee(context: context)
+                employee.name = draft.name
+                employee.note = draft.note
+                employee.position = draft.position
+                employee.salary = draft.salary
+                department.addToEmployees_(employee)
+            }
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(division == nil || name.isEmpty)
     }
 }
 

@@ -29,6 +29,10 @@ extension Base {
         set { unitString_ = newValue?.rawValue }
     }
     
+    
+    
+    
+    var productionWorkHours: Double { workHours * productionQty }
 
 
 

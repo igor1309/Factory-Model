@@ -9,13 +9,20 @@ import Foundation
 
 protocol Productable {
     
-    //  MARK: Qty
+    //  MARK: - Qty
     
     var salesQty: Double { get }
     var productionQty: Double { get }
     
     
-    //  MARK: Revenue & Avg Price
+    //  MARK: - WeightNetto
+    
+    var weightNetto: Double { get }
+    var salesWeightNetto: Double { get }
+    var productionWeightNetto: Double { get }
+    
+    
+    //  MARK: - Revenue & Avg Price
     
     var revenueExVAT: Double { get }
     var revenueWithVAT: Double { get }
@@ -24,13 +31,12 @@ protocol Productable {
     var avgPriceWithVAT: Double { get }
     
     
-    //  MARK: Costs per Unit
+    //  MARK: - Costs per Unit
     
     var ingredientsExVAT: Double { get }
     var ingredientsExVATPercentage: Double { get }
     var ingredientsExVATPercentageStr: String { get }
 
-    //  MARK: FINISH THIS
     var salaryWithTax: Double { get }
     var salaryWithTaxPercentage: Double { get }
     var salaryWithTaxPercentageStr: String { get }
@@ -49,35 +55,26 @@ protocol Productable {
     var cost: Double { get }
     
     
-    //  MARK: Costs for all sold Products
+    //  MARK: - Costs for all sold Products
     
     var salesIngrediensExVAT: Double { get }
-    
     var salesSalaryWithTax: Double { get }
-    
     var salesUtilitiesExVAT: Double { get }
-    
     var salesUtilitiesWithVAT: Double { get }
-    
     var salesCostExVAT: Double { get }
-    
     var cogs: Double { get }
     
     
-    //  MARK: Costs for all produced Products
+    //  MARK: - Costs for all produced Products
     
     var productionIngrediensExVAT: Double { get }
-    
     var productionSalaryWithTax: Double { get }
-    
     var productionUtilitiesExVAT: Double { get }
-    
     var productionUtilitiesWithVAT: Double { get }
-    
     var productionCostExVAT: Double { get }
     
     
-    //  MARK: Margin
+    //  MARK: - Margin
     // NOT REALLY MARGIN???
     var margin: Double { get }
     
@@ -86,7 +83,7 @@ protocol Productable {
     var marginPercentage: Double { get }
     
     
-    //  MARK: Inventory
+    //  MARK: - Inventory
     
     var initialInventory: Double { get set }
     var closingInventory: Double { get }
@@ -95,7 +92,17 @@ protocol Productable {
 
 extension Productable {
     
-    //  MARK: Avg Price
+    //  MARK: - WeightNetto
+    
+    var salesWeightNetto: Double {
+        salesQty * weightNetto / 1_000 / 1_000
+    }
+    var productionWeightNetto: Double {
+        productionQty * weightNetto / 1_000 / 1_000
+    }
+    
+    
+    //  MARK: - Avg Price
     
     var avgPriceExVAT: Double {
         salesQty > 0 ? revenueExVAT / salesQty : 0
@@ -105,7 +112,7 @@ extension Productable {
     }
     
     
-    //  MARK: Costs per Unit
+    //  MARK: - Costs per Unit
     
     var ingredientsExVATPercentage: Double {
         cost > 0 ? ingredientsExVAT / cost : 0
@@ -139,7 +146,7 @@ extension Productable {
     }
     
     
-    //  MARK: Costs for all sold Products
+    //  MARK: - Costs for all sold Products
     
     var salesIngrediensExVAT: Double {
         salesQty * ingredientsExVAT
@@ -166,7 +173,7 @@ extension Productable {
     }
     
     
-    //  MARK: Costs for all produced Products
+    //  MARK: - Costs for all produced Products
     
     var productionIngrediensExVAT: Double {
         productionQty * ingredientsExVAT
@@ -189,7 +196,7 @@ extension Productable {
     }
     
     
-    //  MARK: Margin
+    //  MARK: - Margin
     // NOT REALLY MARGIN???
     var margin: Double {
         avgPriceExVAT - cost
@@ -214,7 +221,7 @@ extension Productable {
 
 extension Base: Productable {
     
-    //  MARK: Qty
+    //  MARK: - Qty
     
     var salesQty: Double {
         products
@@ -227,7 +234,7 @@ extension Base: Productable {
     }
     
     
-    //  MARK: Revenue
+    //  MARK: - Revenue
     
     var revenueExVAT: Double {
         products.reduce(0) { $0 + $1.revenueExVAT }
@@ -237,50 +244,48 @@ extension Base: Productable {
     }
     
     
-    //  MARK: Costs per Unit
+    //  MARK: - Costs per Unit
     
     var ingredientsExVAT: Double {
-        recipes
-            .map(\.ingredientsExVAT)
-            .reduce(0, +)
+        recipes.reduce(0) { $0 + $1.ingredientsExVAT }
     }
     
-    //  MARK: - FINISH THIS
     var salaryWithTax: Double {
-        
         workHours * (factory?.productionSalaryPerHourWithTax ?? 0)
-        
-        
-        
     }
     
     //  MARK: - FINISH THIS
     var depreciationWithTax: Double { 0.5 }
     
-    //  MARK: Utilities per Unit
+    
+    //  MARK: - Utilities per Unit
     
     var utilitiesExVAT: Double {
-        utilities
-            .reduce(0) { $0 + $1.priceExVAT }
+        utilities.reduce(0) { $0 + $1.priceExVAT }
     }
     var utilitiesWithVAT: Double {
-        utilities
-            .reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
+        utilities.reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
     }
-    
 }
 
 
 extension Product: Productable {
     
-    //  MARK: Qty
+    //  MARK: - Qty
     
     var salesQty: Double {
         sales.reduce(0) { $0 + $1.qty }
     }
     
     
-    //  MARK: Revenue
+    //  MARK: - WeightNetto
+    
+    var weightNetto: Double {
+        (base?.weightNetto ?? 0) * baseQty
+    }
+    
+    
+    //  MARK: - Revenue
     
     var revenueExVAT: Double {
         sales.reduce(0) { $0 + $1.revenueExVAT }
@@ -290,7 +295,7 @@ extension Product: Productable {
     }
 
     
-    //  MARK: Costs per Unit
+    //  MARK: - Costs per Unit
     
     var ingredientsExVAT: Double {
         (base?.ingredientsExVAT ?? 0) * baseQtyInBaseUnit
@@ -309,6 +314,7 @@ extension Product: Productable {
     }
 
 
+    //  MARK: - Inventory
     //  MARK: - FINISH THIS
     var closingInventory: Double { 0 }
 }

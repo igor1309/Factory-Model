@@ -119,6 +119,8 @@
 		2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */; };
 		2A9C8DAD24D4B8B000AD7C34 /* BooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAC24D4B8B000AD7C34 /* BooksView.swift */; };
 		2A9C8DAF24D4BE3C00AD7C34 /* ProfitLossStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */; };
+		2A9F591F24F66A3000E0EDAB /* ProductionOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */; };
+		2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */; };
 		2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8D05C24CC2ED80058D48F /* Department.swift */; };
 		2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */; };
 		2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09B24C4F4A8005F1E9F /* ContentView.swift */; };
@@ -251,6 +253,8 @@
 		2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Ext.swift"; sourceTree = "<group>"; };
 		2A9C8DAC24D4B8B000AD7C34 /* BooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksView.swift; sourceTree = "<group>"; };
 		2A9C8DAE24D4BE3C00AD7C34 /* ProfitLossStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitLossStatement.swift; sourceTree = "<group>"; };
+		2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionOutput.swift; sourceTree = "<group>"; };
+		2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionOutputSection.swift; sourceTree = "<group>"; };
 		2AA8D05C24CC2ED80058D48F /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		2AADA09624C4F4A8005F1E9F /* Factory Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Factory Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_ModelApp.swift; sourceTree = "<group>"; };
@@ -406,6 +410,7 @@
 				2A0FBA4024D5597900F963CE /* Offspringable.swift */,
 				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
 				2ABB436424EFEC3C0036F42F /* Productable.swift */,
+				2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */,
 				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
 				2A13E4D024C9EF5F00016CBC /* Summarizable.swift */,
 				2A52688524DE993300DDF4DE /* CustomUnitable.swift */,
@@ -539,6 +544,7 @@
 				2A8CCF2D24ED0F4E00EFDADC /* NameSection.swift */,
 				2A7F4AB424EE537C002A315F /* EntityLinkToList.swift */,
 				2A43473024F5701400ADCB23 /* LaborView.swift */,
+				2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */,
 			);
 			path = "Generic Views";
 			sourceTree = "<group>";
@@ -623,6 +629,7 @@
 				2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */,
 				2A8B35F524EE5DD300A829DD /* PackagingView.swift in Sources */,
 				2A167F0D24EC181F00A8E7DE /* UtilityEditor.swift in Sources */,
+				2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2A167EF324EB2B4200A8E7DE /* ParentUnitStringPicker.swift in Sources */,
 				2A167EED24EB1E0D00A8E7DE /* RecipeEditor.swift in Sources */,
@@ -683,6 +690,7 @@
 				2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */,
 				2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */,
 				2A43472D24F56A1200ADCB23 /* Laborable.swift in Sources */,
+				2A9F591F24F66A3000E0EDAB /* ProductionOutput.swift in Sources */,
 				2A0FBA4924D5A4E000F963CE /* SalesEditorCore.swift in Sources */,
 				2A7C3DA524D3795C005A03B3 /* AllEmployeesList.swift in Sources */,
 				2A936E5724C6DB7500C34381 /* Product.swift in Sources */,

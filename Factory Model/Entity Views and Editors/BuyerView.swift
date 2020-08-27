@@ -44,7 +44,7 @@ struct BuyerView: View {
             Section(
                 header: Text("Total Sales")
             ) {
-                Text("TBD: Total Sales volumes and amount for the Buyer, list of Products")
+                Text("TBD: Sales volumes and amount for the Buyer, list of Products")
                     .foregroundColor(.systemRed)
             }
         } editor: { (sales: Sales) in

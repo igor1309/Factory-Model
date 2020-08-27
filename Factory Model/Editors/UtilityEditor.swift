@@ -64,28 +64,28 @@ struct UtilityEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let utility: Utility
-                    if let utilityToEdit = utilityToEdit {
-                        utility = utilityToEdit
-                    } else {
-                        utility = Utility(context: context)
-                    }
-                    
-                    utility.name = name
-                    utility.priceExVAT = priceExVAT
-                    utility.vat = vat
-                    utility.base = base
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(name.isEmpty || priceExVAT == 0 || vat == 0 || base == nil)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let utility: Utility
+            if let utilityToEdit = utilityToEdit {
+                utility = utilityToEdit
+            } else {
+                utility = Utility(context: context)
             }
+            
+            utility.name = name
+            utility.priceExVAT = priceExVAT
+            utility.vat = vat
+            utility.base = base
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(name.isEmpty || priceExVAT == 0 || vat == 0 || base == nil)
     }
 }

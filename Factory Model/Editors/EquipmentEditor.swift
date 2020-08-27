@@ -78,29 +78,29 @@ struct EquipmentEditor: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    let equipment: Equipment
-                    if let equipmentToEdit = equipmentToEdit {
-                        equipment = equipmentToEdit
-                    } else {
-                        equipment = Equipment(context: context)
-                    }
-                    
-                    equipment.name = name
-                    equipment.note = note
-                    equipment.factory = factory
-                    equipment.lifetime = lifetime
-                    equipment.price = price
-                    
-                    context.saveContext()
-                    
-                    isPresented = false
-                    presentation.wrappedValue.dismiss()
-                }
-                .disabled(factory == nil || name.isEmpty || price == 0)
+        .navigationBarItems(trailing: saveButton)
+    }
+    
+    private var saveButton: some View {
+        Button("Save") {
+            let equipment: Equipment
+            if let equipmentToEdit = equipmentToEdit {
+                equipment = equipmentToEdit
+            } else {
+                equipment = Equipment(context: context)
             }
+            
+            equipment.name = name
+            equipment.note = note
+            equipment.factory = factory
+            equipment.lifetime = lifetime
+            equipment.price = price
+            
+            context.saveContext()
+            
+            isPresented = false
+            presentation.wrappedValue.dismiss()
         }
+        .disabled(factory == nil || name.isEmpty || price == 0)
     }
 }

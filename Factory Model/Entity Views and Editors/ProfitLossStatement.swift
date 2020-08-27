@@ -22,7 +22,6 @@ struct ProfitLossStatement: View {
     }
     
     var body: some View {
-        
         ScrollView {
             VStack(alignment: .leading, spacing: 6) {
                 Group {
@@ -124,19 +123,13 @@ struct ProfitLossStatement: View {
                         }
                         .foregroundColor(.secondary)
                         
-                        FinancialLabel("Total Salary incl taxes", value: factory.salaryWithTax, percentage: factory.salaryWithTaxPercentage)
+                        FinancialLabel("Salary incl taxes", value: factory.salaryWithTax, percentage: factory.salaryWithTaxPercentage)
                     }
                 }
             }
             .padding()
+            .padding(.bottom)
+            .padding(.bottom)
         }
     }
 }
-
-//struct ProfitLossStatement_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfitLossStatement)
-//            .preferredColorScheme(.dark)
-//        //            .previewLayout(.fixed(width: 375, height: 1300))
-//    }
-//}

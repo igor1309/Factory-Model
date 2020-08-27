@@ -90,15 +90,17 @@ struct AmountPicker: View {
                         Label(title, systemImage: systemName)
                         Spacer()
                     case (false, true):
-                        Text(title)
+                        Label(title, systemImage: systemName)
+                            .labelStyle(TitleOnlyLabelStyle())
                         Spacer()
                     case (true, false):
-                        Image(systemName: systemName)
+                        Label(title, systemImage: systemName)
+//                            .labelStyle(IconOnlyLabelStyle())
                         Spacer()
                     default:
                         EmptyView()
                 }
-                //                Spacer()
+
                 if scale == .percent {
                     Text(amount.formattedPercentageWith1Decimal)
                         .padding(.leading)

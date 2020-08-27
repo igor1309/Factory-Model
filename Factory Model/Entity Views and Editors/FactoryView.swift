@@ -157,7 +157,7 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Divisions",
-                        subtitle: "Total Salary incl taxes \(factory.salaryWithTax.formattedGrouped)",
+                        subtitle: "Salary incl taxes \(factory.salaryWithTax.formattedGrouped)",
                         detail: factory.divisionNames,
                         icon: "person.crop.rectangle",
                         color: Division.color
@@ -183,12 +183,29 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
+                    destination:
+                        List {
+                            ProductionOutputSection(for: factory)
+                        }
+                        .listStyle(InsetGroupedListStyle())
+                        .navigationTitle("Output")
+                ) {
+                    ListRow(
+                        title: "Output",
+                        subtitle: "...",
+                        detail: "Production Benchmarks",
+                        icon: "cylinder.split.1x2.fill",
+                        color: .systemPurple
+                    )
+                }
+                
+                NavigationLink(
                     destination: ProductList(for: factory)
                 ) {
                     ListRow(
                         title: "Products",
                         subtitle: "TBD: .................",
-                        detail: "TBD: Base products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
+                        detail: "TBD: Products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
                         icon: Product.icon,
                         color: Product.color
                     )
@@ -241,7 +258,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination: AllSalesList(for: factory)
                 ) {
-                    LabelWithDetail(Sales.icon, "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                 }
                 .foregroundColor(Sales.color)
                 

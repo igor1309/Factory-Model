@@ -33,7 +33,7 @@ struct AllSalesList: View {
                 header: Text("Total"),
                 footer: Text("To edit Sales go to Product")
             ) {
-                LabelWithDetail("creditcard.fill", "Total revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
                     .foregroundColor(.systemGreen)
                     .font(.subheadline)
                 
