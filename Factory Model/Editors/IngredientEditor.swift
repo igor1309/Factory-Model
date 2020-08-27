@@ -49,11 +49,7 @@ struct IngredientEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Ingredient Name")
-            ) {
-                TextField("Ingredient Name", text: $name)
-            }
+            NameSection<Ingredient>(name: $name)            
             
             Section(
                 header: Text("Price"),

@@ -43,11 +43,7 @@ struct DivisionEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Division Name")
-            ) {
-                TextField("Division Name", text: $name)
-            }
+            NameSection<Division>(name: $name)            
             
             EntityPickerSection(selection: $factory)
         }

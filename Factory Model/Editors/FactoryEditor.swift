@@ -46,11 +46,7 @@ struct FactoryEditor: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Factory Name")
-            ) {
-                TextField("Factory Name", text: $name)
-            }
+            NameSection<Factory>(name: $name)
             
             Section(
                 header: Text("Note")

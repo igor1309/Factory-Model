@@ -53,11 +53,7 @@ struct BuyerEditor: View {
         }
         
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Buyer Name")
-            ) {
-                TextField("Buyer Name", text: $name)
-            }
+            NameSection<Buyer>(name: $name)
             
             EntityPickerSection(selection: $factory)
             
