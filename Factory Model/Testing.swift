@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct Testing: View {
+    @State var period: Period = .month()
+    
     var body: some View {
         List {
+            PeriodPicker(icon: "deskclock", title: "Period", period: $period)
+            
             Section {
                 NavigationLink(
                     destination: FactoryList()
