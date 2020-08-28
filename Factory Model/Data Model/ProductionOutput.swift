@@ -11,38 +11,40 @@ import Foundation
 protocol ProductionOutput {
     
     //  MARK: - Work Hours
-    var productionWorkHours: Double { get }
+    func productionWorkHours(in period: Period) -> Double
     
     
     //  MARK: - WeightNetto
     
-    var productionWeightNetto: Double { get }
+    func productionWeightNetto(in period: Period) -> Double
     
     
     //  MARK: - Costs for all produced Products
     
-    var productionCostExVAT: Double { get }
+    func productionCostExVAT(in period: Period) -> Double
     
     
     //  MARK: - Output Coefficients
     //  MARK: compare to equipment capacity
-    var outputTonnePerHour: Double { get }
-    var productionCostExVATPerHour: Double { get }
-    var productionCostExVATPerKilo: Double { get }
+    func outputTonnePerHour(in period: Period) -> Double
+    func productionCostExVATPerHour(in period: Period) -> Double
+    func productionCostExVATPerKilo(in period: Period) -> Double
 }
 
 extension ProductionOutput {
         
     //  MARK: - Output Coefficients
     //  MARK: compare to equipment capacity
-    var outputTonnePerHour: Double {
-        productionWorkHours > 0 ? productionWeightNetto / productionWorkHours : 0
+    func outputTonnePerHour(in period: Period) -> Double {
+        productionWorkHours(in: period) > 0 ? productionWeightNetto(in: period) / productionWorkHours(in: period) : 0
     }
-    var productionCostExVATPerHour: Double {
-        productionWorkHours > 0 ? productionCostExVAT / productionWorkHours : 0
+    func productionCostExVATPerHour(in period: Period) -> Double {
+        let hours = productionWorkHours(in: period)
+        return hours > 0 ? productionCostExVAT(in: period) / hours : 0
     }
-    var productionCostExVATPerKilo: Double {
-        productionWeightNetto > 0 ? productionCostExVAT / productionWeightNetto / 1_000 : 0
+    func productionCostExVATPerKilo(in period: Period) -> Double {
+        let netto = productionWeightNetto(in: period)
+        return netto > 0 ? productionCostExVAT(in: period) / netto / 1_000 : 0
     }
 }
 

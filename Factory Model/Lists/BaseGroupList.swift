@@ -14,10 +14,12 @@ struct BaseGroupList: View {
     
     @ObservedObject var factory: Factory
     let group: String
+    let period: Period
     
-    init(group: String, at factory: Factory) {
+    init(group: String, at factory: Factory, in period: Period) {
         self.factory = factory
         self.group = group
+        self.period = period
         
         let predicate = NSCompoundPredicate(
             type: .and,
@@ -35,7 +37,7 @@ struct BaseGroupList: View {
                 Group {
                     LabelWithDetail("square", "Production", "TBD")
                     
-                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(for: group).formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(of: group, in: period).formattedGrouped)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)
@@ -44,7 +46,7 @@ struct BaseGroupList: View {
             Section(header: Text("Bases")) {
                 ForEach(bases, id: \.objectID) { base in
                     NavigationLink(
-                        destination: BaseView(base)
+                        destination: BaseView(base, in: period)
                     ) {
                         EntityRow(base)
                     }

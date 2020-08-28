@@ -12,8 +12,11 @@ struct BaseView: View {
     
     @ObservedObject var base: Base
     
-    init(_ base: Base) {
+    let period: Period
+    
+    init(_ base: Base, in period: Period) {
         self.base = base
+        self.period = period
     }
     
     var body: some View {
@@ -22,7 +25,7 @@ struct BaseView: View {
                 header: Text("Base Detail")
             ) {
                 NavigationLink(
-                    destination: BaseEditor(base)
+                    destination: BaseEditor(base, in: period)
                 ) {
                     Text("\(base.title), \(base.weightNetto.formattedGrouped)")
                 }
@@ -37,7 +40,7 @@ struct BaseView: View {
                     type: Product.self,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
                 ) { product in
-                    ProductView(product)
+                    ProductView(product, in: period)
                 }
             }
             
@@ -46,9 +49,9 @@ struct BaseView: View {
                 EntityPickerSection(selection: $base.factory)
             }
             
-            ProductionOutputSection(for: base)
+            ProductionOutputSection(for: base, in: period)
             
-            ProductData(base) {
+            ProductData(base, in: period) {
                 ListWithDashboard(
                     for: base,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
@@ -64,7 +67,7 @@ struct BaseView: View {
             } equipmentDestination: {
                 Text("TBD: Depreciation")
             } utilityDestination: {
-                UtilityList(for: base)
+                UtilityList(for: base, in: period)
             }
             
             Section(

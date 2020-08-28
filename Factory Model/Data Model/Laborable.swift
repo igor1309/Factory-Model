@@ -18,24 +18,24 @@ protocol Laborable {
     
     //  MARK: - Salary
     
-    var salary: Double { get }
-    var salaryWithTax: Double { get }
-    var productionSalaryWithTax: Double { get }
-    var nonProductionSalaryWithTax: Double { get }
+    func salaryExTax(in period: Period) -> Double
+    func salaryWithTax(in period: Period) -> Double
+    func productionSalaryWithTax(in period: Period) -> Double
+    func nonProductionSalaryWithTax(in period: Period) -> Double
     
     
     //  MARK: - Work Hours
     
-    var workHours: Double { get }
-    var productionWorkHours: Double { get }
-    var nonProductionWorkHours: Double { get }
+    func workHours(in period: Period) -> Double
+    func productionWorkHours(in period: Period) -> Double
+    func nonProductionWorkHours(in period: Period) -> Double
     
     
     //  MARK: - Salary per Hour
     
-    var salaryPerHourWithTax: Double { get }
-    var productionSalaryPerHourWithTax: Double { get }
-    var nonProductionSalaryPerHourWithTax: Double { get }
+    func salaryPerHourWithTax(in period: Period) -> Double
+    func productionSalaryPerHourWithTax(in period: Period) -> Double
+    func nonProductionSalaryPerHourWithTax(in period: Period) -> Double
     
 }
 
@@ -50,28 +50,31 @@ extension Laborable {
     
     //  MARK: - Salary
     
-    var nonProductionSalaryWithTax: Double {
-        salaryWithTax - productionSalaryWithTax
+    func nonProductionSalaryWithTax(in period: Period) -> Double {
+        salaryWithTax(in: period) - productionSalaryWithTax(in: period)
     }
     
     
     //  MARK: - Work Hours
     
-    var nonProductionWorkHours: Double {
-        workHours - productionWorkHours
+    func nonProductionWorkHours(in period: Period) -> Double {
+        workHours(in: period) - productionWorkHours(in: period)
     }
     
     
     //  MARK: - Salary per Hour
     
-    var salaryPerHourWithTax: Double {
-        workHours == 0 ? 0 : salaryWithTax / workHours
+    func salaryPerHourWithTax(in period: Period) -> Double {
+        let hours = workHours(in: period)
+        return hours == 0 ? 0 : salaryWithTax(in: period) / hours
     }
-    var productionSalaryPerHourWithTax: Double {
-        productionWorkHours == 0 ? 0 : productionSalaryWithTax / productionWorkHours
+    func productionSalaryPerHourWithTax(in period: Period) -> Double {
+        let hours = productionWorkHours(in: period)
+        return hours == 0 ? 0 : productionSalaryWithTax(in: period) / hours
     }
-    var nonProductionSalaryPerHourWithTax: Double {
-        nonProductionWorkHours == 0 ? 0 : nonProductionSalaryWithTax / nonProductionWorkHours
+    func nonProductionSalaryPerHourWithTax(in period: Period) -> Double {
+        let hours = nonProductionWorkHours(in: period)
+        return hours == 0 ? 0 : nonProductionSalaryWithTax(in: period) / hours
     }
 }
 
@@ -95,34 +98,34 @@ extension Factory: Laborable {
     
     //  MARK: - Salary
     
-    var salary: Double {
-        divisions.reduce(0) { $0 + $1.salary }
+    func salaryExTax(in period: Period) -> Double {
+        divisions.reduce(0) { $0 + $1.salaryExTax(in: period) }
     }
-    var salaryWithTax: Double {
-        divisions.reduce(0) { $0 + $1.salaryWithTax }
+    func salaryWithTax(in period: Period) -> Double {
+        divisions.reduce(0) { $0 + $1.salaryWithTax(in: period) }
     }
-    var productionSalaryWithTax: Double {
+    func productionSalaryWithTax(in period: Period) -> Double {
         divisions
             .flatMap(\.departments)
             .filter { $0.type == .production }
-            .reduce(0) { $0 + $1.salaryWithTax }
+            .reduce(0) { $0 + $1.salaryWithTax(in: period) }
     }
     
     
     //  MARK: - Work Hours
     
-    var workHours: Double {
+    func workHours(in period: Period) -> Double {
         divisions
             .flatMap(\.departments)
             //.flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
+            .reduce(0) { $0 + $1.workHours(in: period) }
     }
-    var productionWorkHours: Double {
+    func productionWorkHours(in period: Period) -> Double {
         divisions
             .flatMap(\.departments)
             .filter { $0.type == .production }
             //.flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
+            .reduce(0) { $0 + $1.workHours(in: period) }
     }
 }
 
@@ -144,28 +147,28 @@ extension Division: Laborable {
     
     //  MARK: - Salary
     
-    var salary: Double {
-        departments.reduce(0) { $0 + $1.salary }
+    func salaryExTax(in period: Period) -> Double {
+        departments.reduce(0) { $0 + $1.salaryExTax(in: period) }
     }
-    var salaryWithTax: Double {
-        departments.reduce(0) { $0 + $1.salaryWithTax }
+    func salaryWithTax(in period: Period) -> Double {
+        departments.reduce(0) { $0 + $1.salaryWithTax(in: period) }
     }
-    var productionSalaryWithTax: Double {
+    func productionSalaryWithTax(in period: Period) -> Double {
         departments
             .filter { $0.type == .production }
             .flatMap(\.employees)
-            .reduce(0) { $0 + $1.salaryWithTax }
+            .reduce(0) { $0 + $1.salaryWithTax(in: period) }
     }
     
     
     //  MARK: - Work Hours
     
-    var workHours: Double {
+    func workHours(in period: Period) -> Double {
         departments
             .flatMap(\.employees)
             .reduce(0) { $0 + $1.workHours }
     }
-    var productionWorkHours: Double {
+    func productionWorkHours(in period: Period) -> Double {
         departments
             .filter { $0.type == .production }
             .flatMap(\.employees)
@@ -187,23 +190,23 @@ extension Department: Laborable {
     
     //  MARK: - Salary
     
-    var salary: Double {
-        employees.reduce(0) { $0 + $1.salary}
+    func salaryExTax(in period: Period) -> Double {
+        employees.reduce(0) { $0 + $1.salaryExTax(in: period) }
     }
-    var salaryWithTax: Double {
-        employees.reduce(0) { $0 + $1.salaryWithTax }
+    func salaryWithTax(in period: Period) -> Double {
+        employees.reduce(0) { $0 + $1.salaryWithTax(in: period) }
     }
-    var productionSalaryWithTax: Double {
-        type == .production ? salaryWithTax : 0
+    func productionSalaryWithTax(in period: Period) -> Double {
+        type == .production ? salaryWithTax(in: period) : 0
     }
     
     
     //  MARK: - Work Hours
     
-    var workHours: Double {
-        employees.reduce(0) { $0 + $1.workHours }
+    func workHours(in period: Period) -> Double {
+        employees.reduce(0) { $0 + $1.workHours(in: period) }
     }
-    var productionWorkHours: Double {
-        type == .production ? workHours : 0
+    func productionWorkHours(in period: Period) -> Double {
+        type == .production ? workHours(in: period) : 0
     }
 }

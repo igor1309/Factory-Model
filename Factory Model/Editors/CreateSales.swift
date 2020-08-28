@@ -18,6 +18,7 @@ struct CreateSales: View {
     
     @State private var priceExVAT: Double = 0
     @State private var qty: Double = 0
+    @State private var period: Period = .month()
     @State private var buyer: Buyer?
     @State private var product: Product?
     
@@ -39,6 +40,8 @@ struct CreateSales: View {
                     EntityPickerSection(selection: $product)
             }
             
+            PeriodPicker(icon: "deskclock", title: "Period", period: $period)
+            
             AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $qty)
                 .foregroundColor(qty <= 0 ? .systemRed : .accentColor)
             
@@ -56,6 +59,7 @@ struct CreateSales: View {
                 SalesDraft(
                     priceExVAT: priceExVAT,
                     qty: qty,
+                    period: period,
                     buyer: buyer,
                     product: product
                 )

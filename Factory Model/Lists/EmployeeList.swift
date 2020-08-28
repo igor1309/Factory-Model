@@ -12,8 +12,11 @@ struct EmployeeList: View {
     
     @ObservedObject var department: Department
     
-    init(at department: Department) {
+    let period: Period
+    
+    init(at department: Department, in period: Period) {
         self.department = department
+        self.period = period
     }
     
     var body: some View {
@@ -31,7 +34,7 @@ struct EmployeeList: View {
             )
         } dashboard: {
             Section(header: Text("Total")) {
-                LabelWithDetail("Salary incl taxes", department.salaryWithTax.formattedGrouped)
+                LabelWithDetail("Salary incl taxes", department.salaryWithTax(in: period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

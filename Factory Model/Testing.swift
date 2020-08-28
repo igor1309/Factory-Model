@@ -16,13 +16,13 @@ struct Testing: View {
             
             Section {
                 NavigationLink(
-                    destination: FactoryList()
+                    destination: FactoryList(period: period)
                 ) {
                     Text("Factories")
                 }
                 
                 EntityLinkToList { (factory: Factory) in
-                    FactoryView(factory)
+                    FactoryView(factory, in: period)
                 }
             }
             
@@ -32,11 +32,11 @@ struct Testing: View {
                 
             ) {
                 EntityLinkToList { (division: Division) in
-                    DivisionView(division)
+                    DivisionView(division, in: period)
                 }
                 
                 EntityLinkToList { (department: Department) in
-                    DepartmentView(department)
+                    DepartmentView(department, in: period)
                 }
                 
                 EntityLinkToList { (buyer: Buyer) in
@@ -44,11 +44,11 @@ struct Testing: View {
                 }
                 
                 EntityLinkToList { (product: Product) in
-                    ProductView(product)
+                    ProductView(product, in: period)
                 }
                 
                 EntityLinkToList { (base: Base) in
-                    BaseView(base)
+                    BaseView(base, in: period)
                 }
             }
             
@@ -70,11 +70,11 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
             ) {
                 EntityLinkToList { (ingredient: Ingredient) in
-                    IngredientView(ingredient)
+                    IngredientView(ingredient, in: period)
                 }
                 
                 EntityLinkToList { (packaging: Packaging) in
-                    PackagingView(packaging)
+                    PackagingView(packaging, in: period)
                 }
             }
             
@@ -102,6 +102,6 @@ struct Testing: View {
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle("Testing")
-        .navigationBarItems(trailing: CreateEntityPickerButton())
+        .navigationBarItems(trailing: CreateEntityPickerButton(period: Period.month()))
     }
 }

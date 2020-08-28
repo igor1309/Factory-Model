@@ -11,58 +11,63 @@ extension Factory {
 
     //  MARK: - FINISH THIS PRODUCTION COST
     
-    var productionCostExVAT: Double {
-        bases
-            .reduce(0) { $0 + $1.productionCostExVAT }
+    func productionCostExVAT(in period: Period) -> Double {
+        bases.reduce(0) { $0 + $1.productionCostExVAT(in: period) }
     }
 
     //  MARK: - Costs
     
-    var cogsExVAT: Double {
-        salesIngredientCostExVAT + productionSalaryWithTax + utilitiesExVAT + depreciationMonthly
+    func cogsExVAT(in period: Period) -> Double {
+        salesIngredientCostExVAT(in: period) + productionSalaryWithTax(in: period) + utilitiesExVAT(in: period) + depreciationMonthly
     }
-    var cogsExVATPercentage: Double? {
-        revenueExVAT > 0 ? cogsExVAT / revenueExVAT : nil
-    }
-    
-    var salesIngredientCostExVAT: Double {
-        bases.reduce(0) { $0 + $1.salesIngrediensExVAT }
-    }
-    var salesIngredientCostExVATPercentage: Double? {
-        revenueExVAT > 0 ? salesIngredientCostExVAT / revenueExVAT : nil
+    func cogsExVATPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? cogsExVAT(in: period) / revenue : nil
     }
     
-    var ingredientCostExVAT: Double {
+    func salesIngredientCostExVAT(in period: Period) -> Double {
+        bases.reduce(0) { $0 + $1.salesIngrediensExVAT(in: period) }
+    }
+    func salesIngredientCostExVATPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? salesIngredientCostExVAT(in: period) / revenue : nil
+    }
+    
+    func ingredientCostExVAT(in period: Period) -> Double {
         bases
             .flatMap(\.products)
             .compactMap(\.base)
-            .reduce(0) { $0 + $1.productionCostExVAT }
+            .reduce(0) { $0 + $1.productionCostExVAT(in: period) }
     }
-    var ingredientCostExVATPercentage: Double? {
-        revenueExVAT > 0 ? ingredientCostExVAT / revenueExVAT : nil
+    func ingredientCostExVATPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? ingredientCostExVAT(in: period) / revenue : nil
     }
     
     
     //  MARK: - Salary
     
-    var productionSalaryWithTaxPercentage: Double? {
-        revenueExVAT > 0 ? productionSalaryWithTax / revenueExVAT : nil
+    func productionSalaryWithTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? productionSalaryWithTax(in: period) / revenue : nil
     }
 
-    var nonProductionSalaryWithTaxPercentage: Double? {
-        revenueExVAT > 0 ? nonProductionSalaryWithTax / revenueExVAT : nil
+    func nonProductionSalaryWithTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? nonProductionSalaryWithTax(in: period) / revenue : nil
     }
 
     
     //  MARK: - Utilities
     
-    var utilitiesExVAT: Double {
+    func utilitiesExVAT(in period: Period) -> Double {
         //  MARK: - FINISH THIS
         bases
-            .reduce(0) { $0 + $1.salesQty * $1.utilitiesExVAT }
+            .reduce(0) { $0 + $1.salesQty(in: period) * $1.utilitiesExVAT(in: period) }
     }
-    var utilitiesExVATPercentage: Double? {
-        revenueExVAT > 0 ? utilitiesExVAT / revenueExVAT : nil
+    func utilitiesExVATPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? utilitiesExVAT(in: period) / revenue : nil
     }
     
 }

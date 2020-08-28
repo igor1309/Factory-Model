@@ -12,8 +12,11 @@ struct DivisionView: View {
     
     @ObservedObject var division: Division
     
-    init(_ division: Division) {
+    let period: Period
+    
+    init(_ division: Division, in period: Period) {
         self.division = division
+        self.period = period
     }
     
     var body: some View {
@@ -39,14 +42,14 @@ struct DivisionView: View {
         } dashboard: {
             NameSection<Division>(name: $division.name)
             
-            LaborView(for: division)
+            LaborView(for: division, in: period)
             
             //  parent check
             if division.factory == nil {
                 EntityPickerSection(selection: $division.factory)                
             }
         } editor: { (department: Department) in
-            DepartmentView(department)
+            DepartmentView(department, in: period)
         }
     }
 }

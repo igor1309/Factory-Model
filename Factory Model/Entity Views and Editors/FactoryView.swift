@@ -14,8 +14,11 @@ struct FactoryView: View {
     
     @ObservedObject var factory: Factory
     
-    init(_ factory: Factory) {
+    let period: Period
+    
+    init(_ factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
@@ -97,7 +100,7 @@ struct FactoryView: View {
             header: Text("Expenses")
         ) {
             NavigationLink(
-                destination: ExpensesList(for: factory)
+                destination: ExpensesList(for: factory, in: period)
             ) {
                 ListRow(
                     title: "Other Expenses [TBD amount]",
@@ -117,7 +120,7 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: IssuesList(for: factory)
+                    destination: IssuesList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Issues",
@@ -153,11 +156,11 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: DivisionList(for: factory)
+                    destination: DivisionList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Divisions",
-                        subtitle: "Salary incl taxes \(factory.salaryWithTax.formattedGrouped)",
+                        subtitle: "Salary incl taxes \(factory.salaryWithTax(in: period).formattedGrouped)",
                         detail: factory.divisionNames,
                         icon: "person.crop.rectangle",
                         color: Division.color
@@ -185,7 +188,7 @@ struct FactoryView: View {
                 NavigationLink(
                     destination:
                         List {
-                            ProductionOutputSection(for: factory)
+                            ProductionOutputSection(for: factory, in: period)
                         }
                         .listStyle(InsetGroupedListStyle())
                         .navigationTitle("Output")
@@ -212,7 +215,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: BaseList(for: factory)
+                    destination: BaseList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Base Products",
@@ -236,7 +239,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: PackagingList(for: factory)
+                    destination: PackagingList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Packaging",
@@ -256,9 +259,9 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: AllSalesList(for: factory)
+                    destination: AllSalesList(for: factory, in: period)
                 ) {
-                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                 }
                 .foregroundColor(Sales.color)
                 

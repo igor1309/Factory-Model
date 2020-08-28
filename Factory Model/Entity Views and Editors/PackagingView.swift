@@ -13,8 +13,11 @@ struct PackagingView: View {
     
     @ObservedObject var packaging: Packaging
     
-    init(_ packaging: Packaging) {
+    let period: Period
+    
+    init(_ packaging: Packaging, in period: Period) {
         self.packaging = packaging
+        self.period = period
     }
     
     var body: some View {
@@ -23,7 +26,7 @@ struct PackagingView: View {
                 header: Text("Packaging Detail")
             ) {
                 NavigationLink(
-                    destination: PackagingEditor(packaging)
+                    destination: PackagingEditor(packaging, in: period)
                 ) {
                     ListRow(packaging)
                 }
@@ -36,7 +39,7 @@ struct PackagingView: View {
                 type: Product.self,
                 predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
             ) { product in
-                ProductView(product)
+                ProductView(product, in: period)
             }
         }
         .listStyle(InsetGroupedListStyle())

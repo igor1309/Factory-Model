@@ -10,6 +10,9 @@ import SwiftUI
 struct SalesEditorCore: View {
     @ObservedObject var sales: Sales
     
+    //  MARK: - FINISH THIS
+    let period = Period.month()
+    
     init(_ sales: Sales) {
         self.sales = sales
     }
@@ -37,6 +40,8 @@ struct SalesEditorCore: View {
                     EntityPicker(selection: $sales.product, icon: Product.icon, predicate: nil)
                         .foregroundColor(sales.product == nil ? .systemRed : .accentColor)
                     
+                    PeriodPicker(icon: "deskclock", title: "Period", period: $sales.period)
+                    
                     AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $sales.qty)
                         .foregroundColor(sales.qty <= 0 ? .systemRed : .accentColor)
                     
@@ -58,9 +63,9 @@ struct SalesEditorCore: View {
             header: Text("Total Sales")
         ) {
             Group {
-                LabelWithDetail("creditcard", "Sales, ex VAT", sales.revenueExVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Sales, ex VAT", sales.revenueExVAT(in: period).formattedGrouped)
                 
-                LabelWithDetail("creditcard", "Sales, with VAT", sales.revenueWithVAT.formattedGrouped)
+                LabelWithDetail("creditcard", "Sales, with VAT", sales.revenueWithVAT(in: period).formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

@@ -53,7 +53,8 @@ extension Factory {
     
     //  MARK: - Salary
     
-    var salaryWithTaxPercentage: Double? {
-        revenueExVAT > 0 ? salaryWithTax / revenueExVAT : nil
+    func salaryWithTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? salaryWithTax(in: period) / revenue : nil
     }
 }

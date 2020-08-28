@@ -11,8 +11,11 @@ import CoreData
 struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
     @ObservedObject var entity: T
     
-    init(for entity: T) {
+    let period: Period
+    
+    init(for entity: T, in period: Period) {
         self.entity = entity
+        self.period = period
     }
     
     var body: some View {
@@ -20,9 +23,9 @@ struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
             header: Text("Production")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Output, tonne", "\(entity.productionWeightNetto)")
-                LabelWithDetail("clock.arrow.circlepath", "Work Hours", entity.productionWorkHours.formattedGrouped)
-                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCostExVAT.formattedGrouped)
+                LabelWithDetail("scalemass", "Output, tonne", "\(entity.productionWeightNetto(in: period))")
+                LabelWithDetail("clock.arrow.circlepath", "Work Hours", entity.productionWorkHours(in: period).formattedGrouped)
+                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCostExVAT(in: period).formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -31,9 +34,9 @@ struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
             header: Text("Output")
         ) {
             Group {
-                LabelWithDetail("scalemass.fill", "Output, tonne per hour", entity.outputTonnePerHour.format(percentage: false, decimals: 3))
-                LabelWithDetail("dollarsign.square", "Output, cost ex VAT per hour", entity.productionCostExVATPerHour.formattedGrouped)
-                LabelWithDetail("dollarsign.square", "Cost ex VAT per kilo", entity.productionCostExVATPerKilo.formattedGrouped)
+                LabelWithDetail("scalemass.fill", "Output, tonne per hour", entity.outputTonnePerHour(in: period).format(percentage: false, decimals: 3))
+                LabelWithDetail("dollarsign.square", "Output, cost ex VAT per hour", entity.productionCostExVATPerHour(in: period).formattedGrouped)
+                LabelWithDetail("dollarsign.square", "Cost ex VAT per kilo", entity.productionCostExVATPerKilo(in: period).formattedGrouped)
             }
             .font(.subheadline)
         }

@@ -13,8 +13,11 @@ struct ProductView: View {
     
     @ObservedObject var product: Product
     
-    init(_ product: Product) {
+    let period: Period
+    
+    init(_ product: Product, in period: Period) {
         self.product = product
+        self.period = period
     }
     
     var body: some View {
@@ -43,9 +46,9 @@ struct ProductView: View {
                 }
             }
             
-            ProductionOutputSection(for: product)
+            ProductionOutputSection(for: product, in: period)
             
-            ProductData(product) {
+            ProductData(product, in: period) {
                 Text("TBD: Ingredient cost")
             } employeeDestination: {
                 Text("TBD: Labor Cost incl taxes")

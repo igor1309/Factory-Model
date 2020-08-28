@@ -8,6 +8,18 @@
 import Foundation
 
 extension Sales {
+    
+    var period: Period {
+        get {
+            Period(periodStr_ ?? "month", days: Int(days), hoursPerDay: hoursPerDay) ?? .month()
+        }
+        set {
+            periodStr_ = newValue.periodStr
+            days = Int16(newValue.days)
+            hoursPerDay = newValue.hoursPerDay
+        }
+    }
+    
     var buyerName: String {
         buyer?.name_ ?? ""
     }
@@ -26,14 +38,16 @@ extension Sales {
         }
     }
     
-    var revenueExVAT: Double {
-        qty * priceExVAT
+    func revenueExVAT(in period: Period) -> Double {
+        qty * priceExVAT / self.period.hours * period.hours
     }
-    var revenueWithVAT: Double {
-        qty * priceWithVAT
+    func revenueWithVAT(in period: Period) -> Double {
+        qty * priceWithVAT / self.period.hours * period.hours
     }
     
-    var cogs: Double { product?.cogs ?? 0 }
+    func cogs(in period: Period) -> Double {
+        product?.cogs(in: period) ?? 0
+    }
 }
 
 extension Sales: Comparable {

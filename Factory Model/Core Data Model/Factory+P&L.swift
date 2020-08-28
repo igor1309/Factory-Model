@@ -13,67 +13,72 @@ extension Factory {
     
     ///  reducing by buyers is not correct - Buyer could not be exclusively linked to factory
     ///  reducing via bases is a right way to go
-    var revenueExVAT: Double {
+    func revenueExVAT(in period: Period) -> Double {
         bases
             .flatMap(\.products)
-            .reduce(0) { $0 + $1.revenueExVAT }
+            .reduce(0) { $0 + $1.revenueExVAT(in: period) }
     }
     
-    var revenueWithVAT: Double {
+    func revenueWithVAT(in period: Period) -> Double {
         bases
             .flatMap(\.products)
-            .reduce(0) { $0 + $1.revenueWithVAT }
+            .reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }
     
-    func revenueExVAT(for group: String) -> Double {
+    func revenueExVAT(of group: String, in period: Period) -> Double {
         bases
             .flatMap(\.products)
             .compactMap(\.base)
             .filter { $0.group == group }
-            .map(\.revenueExVAT)
-            .reduce(0, +)
+            .reduce(0) { $0 + $1.revenueExVAT(in: period) }
     }
     
     
     //  MARK: - Margin, EBIT, EBITDA
     
-    var margin: Double {
-        revenueExVAT - cogsExVAT
+    func margin(in period: Period) -> Double {
+        revenueExVAT(in: period) - cogsExVAT(in: period)
     }
-    var marginPercentage: Double? {
-        revenueExVAT > 0 ? margin / revenueExVAT : nil
-    }
-    
-    var ebit: Double {
-        margin - nonProductionSalaryWithTax - expensesExVAT
-    }
-    var ebitPercentage: Double? {
-        revenueExVAT > 0 ? ebit / revenueExVAT : nil
+    func marginPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? margin(in: period) / revenue : nil
     }
     
-    var ebitda: Double {
-        ebit + depreciationMonthly
+    func ebit(in period: Period) -> Double {
+        margin(in: period) - nonProductionSalaryWithTax(in: period) - expensesExVAT(in: period)
     }
-    var ebitdaPercentage: Double? {
-        revenueExVAT > 0 ? ebitda / revenueExVAT : nil
+    func ebitPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? ebit(in: period) / revenue : nil
+    }
+    
+    func ebitda(in period: Period) -> Double {
+        ebit(in: period) + depreciationMonthly
+    }
+    func ebitdaPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? ebitda(in: period) / revenue : nil
     }
 
     
     //  MARK: - Profit Tax
-    var profitTax: Double {
-        ebit > 0 ? ebit * profitTaxRate : 0
+    func profitTax(in period: Period) -> Double {
+        let earnings = ebit(in: period)
+        return earnings > 0 ? earnings * profitTaxRate : 0
     }
-    var profitTaxPercentage: Double? {
-        revenueExVAT > 0 ? profitTax / revenueExVAT : nil
+    func profitTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? profitTax(in: period) / revenue : nil
     }
     
     
     //  MARK: - Net Profit
-    var netProfit: Double {
-        ebit - profitTax
+    func netProfit(in period: Period) -> Double {
+        ebit(in: period) - profitTax(in: period)
     }
-    var netProfitPercentage: Double? {
-        revenueExVAT > 0 ? netProfit / revenueExVAT : nil
+    func netProfitPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? netProfit(in: period) / revenue : nil
     }
     
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct SalesDraft: Identifiable {
     var priceExVAT: Double
     var qty: Double
+    var period: Period
     var buyer: Buyer?
     var product: Product?
     

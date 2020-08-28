@@ -18,6 +18,8 @@ struct ProductData<
     
     @ObservedObject var entity: T
     
+    let period: Period
+    
     var ingredientDestination: () -> IngredientDestination
     var employeeDestination: () -> EmployeeDestination
     var equipmentDestination: () -> EquipmentDestination
@@ -25,12 +27,14 @@ struct ProductData<
     
     init(
         _ entity: T,
+        in period: Period,
         @ViewBuilder ingredientDestination: @escaping () -> IngredientDestination,
         @ViewBuilder employeeDestination: @escaping () -> EmployeeDestination,
         @ViewBuilder equipmentDestination: @escaping () -> EquipmentDestination,
         @ViewBuilder utilityDestination: @escaping () -> UtilityDestination
     ) {
         self.entity = entity
+        self.period = period
         self.ingredientDestination = ingredientDestination
         self.employeeDestination = employeeDestination
         self.equipmentDestination = equipmentDestination
@@ -49,8 +53,8 @@ struct ProductData<
                     FinLabel(
                         type: Ingredient.self,
                         title: "Ingredients",
-                        detail: entity.ingredientsExVAT.formattedGroupedWith1Decimal,
-                        percentage: entity.ingredientsExVATPercentageStr
+                        detail: entity.ingredientsExVAT(in: period).formattedGroupedWith1Decimal,
+                        percentage: entity.ingredientsExVATPercentageStr(in: period)
                     )
                 }
                 
@@ -60,8 +64,8 @@ struct ProductData<
                     FinLabel(
                         type: Department.self,
                         title: "Salary",
-                        detail: entity.salaryWithTax.formattedGroupedWith1Decimal,
-                        percentage: entity.salaryWithTaxPercentageStr
+                        detail: entity.salaryWithTax(in: period).formattedGroupedWith1Decimal,
+                        percentage: entity.salaryWithTaxPercentageStr(in: period)
                     )
                 }
                 
@@ -71,8 +75,8 @@ struct ProductData<
                     FinLabel(
                         type: Equipment.self,
                         title: "Depreciation",
-                        detail: entity.depreciationWithTax.formattedGroupedWith1Decimal,
-                        percentage: entity.depreciationWithTaxPercentageStr
+                        detail: entity.depreciationWithTax(in: period).formattedGroupedWith1Decimal,
+                        percentage: entity.depreciationWithTaxPercentageStr(in: period)
                     )
                 }
                 
@@ -82,20 +86,20 @@ struct ProductData<
                     FinLabel(
                         type: Utility.self,
                         title: "Utility",
-                        detail: entity.utilitiesExVAT.formattedGroupedWith1Decimal,
-                        percentage: entity.utilitiesExVATPercentageStr
+                        detail: entity.utilitiesExVAT(in: period).formattedGroupedWith1Decimal,
+                        percentage: entity.utilitiesExVATPercentageStr(in: period)
                     )
                 }
                 
                 HBar([
-                    ColorPercentage(Ingredient.color, entity.ingredientsExVATPercentage),
-                    ColorPercentage(Employee.color,   entity.salaryWithTaxPercentage),
-                    ColorPercentage(Equipment.color,  entity.depreciationWithTaxPercentage),
-                    ColorPercentage(Utility.color,    entity.utilitiesExVATPercentage)
+                    ColorPercentage(Ingredient.color, entity.ingredientsExVATPercentage(in: period)),
+                    ColorPercentage(Employee.color,   entity.salaryWithTaxPercentage(in: period)),
+                    ColorPercentage(Equipment.color,  entity.depreciationWithTaxPercentage(in: period)),
+                    ColorPercentage(Utility.color,    entity.utilitiesExVATPercentage(in: period))
                 ])
                 
                 HStack(spacing: 0) {
-                    LabelWithDetail("dollarsign.square", "Base Product", entity.cost.formattedGroupedWith1Decimal)
+                    LabelWithDetail("dollarsign.square", "Base Product", entity.cost(in: period).formattedGroupedWith1Decimal)
                         .foregroundColor(.primary)
                     Text("100%").hidden()
                 }
@@ -107,13 +111,13 @@ struct ProductData<
         
         Section {
             Group {
-                LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", entity.avgPriceExVAT.formattedGroupedWith1Decimal)
+                LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", entity.avgPriceExVAT(in: period).formattedGroupedWith1Decimal)
                 
-                LabelWithDetail("dollarsign.square", "Margin", entity.margin.formattedGroupedWith1Decimal)
-                    .foregroundColor(entity.margin > 0 ? .systemGreen : .systemRed)
+                LabelWithDetail("dollarsign.square", "Margin", entity.margin(in: period).formattedGroupedWith1Decimal)
+                    .foregroundColor(entity.margin(in: period) > 0 ? .systemGreen : .systemRed)
                 
-                LabelWithDetail("percent", "Margin, percentage", entity.marginPercentage.formattedPercentage)
-                    .foregroundColor(entity.marginPercentage > 0 ? .systemGreen : .systemRed)
+                LabelWithDetail("percent", "Margin, percentage", entity.marginPercentage(in: period).formattedPercentage)
+                    .foregroundColor(entity.marginPercentage(in: period) > 0 ? .systemGreen : .systemRed)
             }
             .font(.subheadline)
         }
@@ -122,21 +126,21 @@ struct ProductData<
             header: Text("Sales")
         ) {
             Group {
-                LabelWithDetail("square", "Qty", "\(entity.salesQty.formattedGrouped)")
+                LabelWithDetail("square", "Qty", "\(entity.salesQty(in: period).formattedGrouped)")
                 
-                LabelWithDetail(Sales.icon, "Revenue, ex VAT", entity.revenueExVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", entity.revenueExVAT(in: period).formattedGrouped)
                     .foregroundColor(.systemGreen)
                 
-                LabelWithDetail(Sales.icon, "Revenue, with VAT", entity.revenueWithVAT.formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, with VAT", entity.revenueWithVAT(in: period).formattedGrouped)
                     .foregroundColor(.secondary)
                 
-                LabelWithDetail("dollarsign.square", "COGS", entity.cogs.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "COGS", entity.cogs(in: period).formattedGrouped)
                 
-                LabelWithDetail("dollarsign.square", "Margin", entity.totalMargin.formattedGrouped)
-                    .foregroundColor(entity.totalMargin > 0 ? .systemGreen : .systemRed)
+                    LabelWithDetail("dollarsign.square", "Margin", entity.totalMargin(in: period).formattedGrouped)
+                    .foregroundColor(entity.totalMargin(in: period) > 0 ? .systemGreen : .systemRed)
                 
-                LabelWithDetail("percent", "Margin, percentage", entity.marginPercentage.formattedPercentage)
-                    .foregroundColor(entity.marginPercentage > 0 ? .systemGreen : .systemRed)
+                    LabelWithDetail("percent", "Margin, percentage", entity.marginPercentage(in: period).formattedPercentage)
+                    .foregroundColor(entity.marginPercentage(in: period) > 0 ? .systemGreen : .systemRed)
             }
             .font(.subheadline)
         }
@@ -151,12 +155,12 @@ struct ProductData<
                         .foregroundColor(.systemRed)
                 }
                 
-                LabelWithDetail("wrench.and.screwdriver", "Qty", entity.productionQty.formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "Qty", entity.productionQty(in: period).formattedGrouped)
                 
-                LabelWithDetail("scalemass", "Weight Netto, t", entity.productionWeightNetto.formattedGroupedWith1Decimal)
+                    LabelWithDetail("scalemass", "Weight Netto, t", entity.productionWeightNetto(in: period).formattedGroupedWith1Decimal)
                     .foregroundColor(.systemRed)
                 
-                LabelWithDetail("dollarsign.square", "Cost", entity.productionCostExVAT.formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Cost", entity.productionCostExVAT(in: period).formattedGrouped)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -168,7 +172,7 @@ struct ProductData<
             Group {
                 //                AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $entity.initialInventory)
                 
-                LabelWithDetail("building.2", "Closing Inventory", entity.closingInventory.formattedGrouped)
+                    LabelWithDetail("building.2", "Closing Inventory", entity.closingInventory.formattedGrouped)
                     .foregroundColor(entity.closingInventory < 0 ? .systemRed : .secondary)
             }
             .font(.subheadline)

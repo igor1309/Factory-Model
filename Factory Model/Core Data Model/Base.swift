@@ -32,7 +32,9 @@ extension Base {
     
     
     
-    var productionWorkHours: Double { workHours * productionQty }
+    func productionWorkHours(in period: Period) -> Double {
+        workHours * productionQty(in: period)
+    }
 
 
 

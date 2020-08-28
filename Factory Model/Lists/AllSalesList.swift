@@ -15,8 +15,11 @@ struct AllSalesList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
         _orphans = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
@@ -33,7 +36,7 @@ struct AllSalesList: View {
                 header: Text("Total"),
                 footer: Text("To edit Sales go to Product")
             ) {
-                LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT.formattedGrouped)
+                LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                     .foregroundColor(.systemGreen)
                     .font(.subheadline)
                 

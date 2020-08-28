@@ -12,8 +12,11 @@ struct ExpensesList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
@@ -22,7 +25,7 @@ struct ExpensesList: View {
                 header: Text("Total"),
                 footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
             ) {
-                LabelWithDetail("Expenses Total", factory.expensesExVAT.formattedGrouped)
+                LabelWithDetail("Expenses Total", factory.expensesExVAT(in: period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }

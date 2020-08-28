@@ -11,8 +11,11 @@ import CoreData
 struct LaborView<T: NSManagedObject & Laborable>: View {
     @ObservedObject var entity: T
     
-    init(for entity: T) {
+    let period: Period
+    
+    init(for entity: T, in period: Period) {
         self.entity = entity
+        self.period = period
     }
     
     var body: some View {
@@ -22,11 +25,11 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
             Group {
                 LabelWithDetail("person.crop.rectangle", "Headcount", entity.headcount.formattedGrouped)
                 
-                LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.workHours.formattedGrouped)")
+                LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.workHours(in: period).formattedGrouped)")
                 
-                LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.salaryWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.salaryWithTax(in: period).formattedGrouped)")
                 
-                LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.salaryPerHourWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.salaryPerHourWithTax(in: period).formattedGrouped)")
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -40,11 +43,11 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
                 Group {
                     LabelWithDetail("person.crop.rectangle", "Headcount", entity.productionHeadcount.formattedGrouped)
                     
-                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.productionWorkHours.formattedGrouped)")
+                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.productionWorkHours(in: period).formattedGrouped)")
                     
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.productionSalaryWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.productionSalaryWithTax(in: period).formattedGrouped)")
                     
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.productionSalaryPerHourWithTax.formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.productionSalaryPerHourWithTax(in: period).formattedGrouped)")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

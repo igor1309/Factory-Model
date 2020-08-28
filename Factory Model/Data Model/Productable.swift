@@ -11,76 +11,73 @@ protocol Productable {
     
     //  MARK: - Qty
     
-    var salesQty: Double { get }
-    var productionQty: Double { get }
+    func salesQty(in period: Period) -> Double
+    func productionQty(in period: Period) -> Double
     
     
     //  MARK: - WeightNetto
     
     var weightNetto: Double { get }
-    var salesWeightNetto: Double { get }
-    var productionWeightNetto: Double { get }
+    func salesWeightNetto(in period: Period) -> Double
+    func productionWeightNetto(in period: Period) -> Double
     
     
     //  MARK: - Revenue & Avg Price
     
-    var revenueExVAT: Double { get }
-    var revenueWithVAT: Double { get }
+    func revenueExVAT(in period: Period) -> Double
+    func revenueWithVAT(in period: Period) -> Double
     
-    var avgPriceExVAT: Double { get }
-    var avgPriceWithVAT: Double { get }
+    func avgPriceExVAT(in period: Period) -> Double
+    func avgPriceWithVAT(in period: Period) -> Double
     
+    //  MARK(in period: Period) -> Double
     
-    //  MARK: - Costs per Unit
-    
-    var ingredientsExVAT: Double { get }
-    var ingredientsExVATPercentage: Double { get }
-    var ingredientsExVATPercentageStr: String { get }
+    func ingredientsExVAT(in period: Period) -> Double
+    func ingredientsExVATPercentage(in period: Period) -> Double
+    func ingredientsExVATPercentageStr(in period: Period) -> String
 
-    var salaryWithTax: Double { get }
-    var salaryWithTaxPercentage: Double { get }
-    var salaryWithTaxPercentageStr: String { get }
+    func salaryWithTax(in period: Period) -> Double
+    func salaryWithTaxPercentage(in period: Period) -> Double
+    func salaryWithTaxPercentageStr(in period: Period) -> String
 
     //  MARK: FINISH THIS
-    var depreciationWithTax: Double { get }
-    var depreciationWithTaxPercentage: Double { get }
-    var depreciationWithTaxPercentageStr: String { get }
+    func depreciationWithTax(in period: Period) -> Double
+    func depreciationWithTaxPercentage(in period: Period) -> Double
+    func depreciationWithTaxPercentageStr(in period: Period) -> String
 
-    var utilitiesExVAT: Double { get }
-    var utilitiesExVATPercentage: Double { get }
-    var utilitiesExVATPercentageStr: String { get }
-    var utilitiesWithVAT: Double { get }
+    func utilitiesExVAT(in period: Period) -> Double
+    func utilitiesExVATPercentage(in period: Period) -> Double
+    func utilitiesExVATPercentageStr(in period: Period) -> String
+    func utilitiesWithVAT(in period: Period) -> Double
     
     ///  Full Unit Cost
-    var cost: Double { get }
+    func cost(in period: Period) -> Double
     
     
     //  MARK: - Costs for all sold Products
     
-    var salesIngrediensExVAT: Double { get }
-    var salesSalaryWithTax: Double { get }
-    var salesUtilitiesExVAT: Double { get }
-    var salesUtilitiesWithVAT: Double { get }
-    var salesCostExVAT: Double { get }
-    var cogs: Double { get }
+    func salesIngrediensExVAT(in period: Period) -> Double
+    func salesSalaryWithTax(in period: Period) -> Double
+    func salesUtilitiesExVAT(in period: Period) -> Double
+    func salesUtilitiesWithVAT(in period: Period) -> Double
+    func salesCostExVAT(in period: Period) -> Double
+    func cogs(in period: Period) -> Double
     
     
     //  MARK: - Costs for all produced Products
     
-    var productionIngrediensExVAT: Double { get }
-    var productionSalaryWithTax: Double { get }
-    var productionUtilitiesExVAT: Double { get }
-    var productionUtilitiesWithVAT: Double { get }
-    var productionCostExVAT: Double { get }
+    func productionIngrediensExVAT(in period: Period) -> Double
+    func productionSalaryWithTax(in period: Period) -> Double
+    func productionUtilitiesExVAT(in period: Period) -> Double
+    func productionUtilitiesWithVAT(in period: Period) -> Double
+    func productionCostExVAT(in period: Period) -> Double
     
     
     //  MARK: - Margin
     // NOT REALLY MARGIN???
-    var margin: Double { get }
-    
-    var totalMargin: Double { get }
-    
-    var marginPercentage: Double { get }
+    func margin(in period: Period) -> Double
+    func totalMargin(in period: Period) -> Double
+    func marginPercentage(in period: Period) -> Double
     
     
     //  MARK: - Inventory
@@ -94,127 +91,134 @@ extension Productable {
     
     //  MARK: - WeightNetto
     
-    var salesWeightNetto: Double {
-        salesQty * weightNetto / 1_000 / 1_000
+    func salesWeightNetto(in period: Period) -> Double {
+        salesQty(in: period) * weightNetto / 1_000 / 1_000
     }
-    var productionWeightNetto: Double {
-        productionQty * weightNetto / 1_000 / 1_000
+    func productionWeightNetto(in period: Period) -> Double {
+        productionQty(in: period) * weightNetto / 1_000 / 1_000
     }
     
     
     //  MARK: - Avg Price
     
-    var avgPriceExVAT: Double {
-        salesQty > 0 ? revenueExVAT / salesQty : 0
+    func avgPriceExVAT(in period: Period) -> Double {
+        let qty = salesQty(in: period)
+        return qty > 0 ? revenueExVAT(in: period) / qty : 0
     }
-    var avgPriceWithVAT: Double {
-        salesQty > 0 ? revenueWithVAT / salesQty : 0
+    func avgPriceWithVAT(in period: Period) -> Double {
+        let qty = salesQty(in: period)
+        return qty > 0 ? revenueWithVAT(in: period) / qty : 0
     }
     
     
     //  MARK: - Costs per Unit
     
-    var ingredientsExVATPercentage: Double {
-        cost > 0 ? ingredientsExVAT / cost : 0
+    func ingredientsExVATPercentage(in period: Period) -> Double {
+        let cst = cost(in: period)
+        return cst > 0 ? ingredientsExVAT(in: period) / cst : 0
     }
-    var ingredientsExVATPercentageStr: String {
-        ingredientsExVATPercentage.formattedPercentageWith1Decimal
+    func ingredientsExVATPercentageStr(in period: Period) -> String {
+        ingredientsExVATPercentage(in: period).formattedPercentageWith1Decimal
     }
-    var salaryWithTaxPercentage: Double {
-        cost > 0 ? salaryWithTax / cost : 0
+    func salaryWithTaxPercentage(in period: Period) -> Double {
+        let cst = cost(in: period)
+        return cst > 0 ? salaryWithTax(in: period) / cst : 0
     }
-    var salaryWithTaxPercentageStr: String {
-        salaryWithTaxPercentage.formattedPercentageWith1Decimal
+    func salaryWithTaxPercentageStr(in period: Period) -> String {
+        salaryWithTaxPercentage(in: period).formattedPercentageWith1Decimal
     }
-    var depreciationWithTaxPercentage: Double {
-        cost > 0 ? depreciationWithTax / cost : 0
+    func depreciationWithTaxPercentage(in period: Period) -> Double {
+        let cst = cost(in: period)
+        return cst > 0 ? depreciationWithTax(in: period) / cst : 0
     }
-    var depreciationWithTaxPercentageStr: String {
-        depreciationWithTaxPercentage.formattedPercentageWith1Decimal
+    func depreciationWithTaxPercentageStr(in period: Period) -> String {
+        depreciationWithTaxPercentage(in: period).formattedPercentageWith1Decimal
     }
-    var utilitiesExVATPercentage: Double {
-        cost > 0 ? utilitiesExVAT / cost : 0
+    func utilitiesExVATPercentage(in period: Period) -> Double {
+        let cst = cost(in: period)
+        return cst > 0 ? utilitiesExVAT(in: period) / cst : 0
     }
-    var utilitiesExVATPercentageStr: String {
-        utilitiesExVATPercentage.formattedPercentageWith1Decimal
+    func utilitiesExVATPercentageStr(in period: Period) -> String {
+        utilitiesExVATPercentage(in: period).formattedPercentageWith1Decimal
     }
     
     ///  MARK: Full Unit Cost
     
-    var cost: Double {
-        ingredientsExVAT + salaryWithTax + depreciationWithTax + utilitiesExVAT
+    func cost(in period: Period) -> Double {
+        ingredientsExVAT(in: period) + salaryWithTax(in: period) + depreciationWithTax(in: period) + utilitiesExVAT(in: period)
     }
     
     
     //  MARK: - Costs for all sold Products
     
-    var salesIngrediensExVAT: Double {
-        salesQty * ingredientsExVAT
+    func salesIngrediensExVAT(in period: Period) -> Double {
+        salesQty(in: period) * ingredientsExVAT(in: period)
     }
     
-    var salesSalaryWithTax: Double {
-        salesQty * salaryWithTax
+    func salesSalaryWithTax(in period: Period) -> Double {
+        salesQty(in: period) * salaryWithTax(in: period)
     }
     
-    var salesUtilitiesExVAT: Double {
-        salesQty * utilitiesExVAT
+    func salesUtilitiesExVAT(in period: Period) -> Double {
+        salesQty(in: period) * utilitiesExVAT(in: period)
     }
     
-    var salesUtilitiesWithVAT: Double {
-        salesQty * utilitiesWithVAT
+    func salesUtilitiesWithVAT(in period: Period) -> Double {
+        salesQty(in: period) * utilitiesWithVAT(in: period)
     }
     
-    var salesCostExVAT: Double {
-        salesQty * cost
+    func salesCostExVAT(in period: Period) -> Double {
+        salesQty(in: period) * cost(in: period)
     }
     
-    var cogs: Double {
-        salesQty * cost
+    func cogs(in period: Period) -> Double {
+        salesQty(in: period) * cost(in: period)
     }
     
     
     //  MARK: - Costs for all produced Products
     
-    var productionIngrediensExVAT: Double {
-        productionQty * ingredientsExVAT
+    func productionIngrediensExVAT(in period: Period) -> Double {
+        productionQty(in: period) * ingredientsExVAT(in: period)
     }
     
-    var productionSalaryWithTax: Double {
-        productionQty * salaryWithTax
+    func productionSalaryWithTax(in period: Period) -> Double {
+        productionQty(in: period) * salaryWithTax(in: period)
     }
     
-    var productionUtilitiesExVAT: Double {
-        productionQty * utilitiesExVAT
+    func productionUtilitiesExVAT(in period: Period) -> Double {
+        productionQty(in: period) * utilitiesExVAT(in: period)
     }
     
-    var productionUtilitiesWithVAT: Double {
-        productionQty * utilitiesWithVAT
+    func productionUtilitiesWithVAT(in period: Period) -> Double {
+        productionQty(in: period) * utilitiesWithVAT(in: period)
     }
     
-    var productionCostExVAT: Double {
-        productionQty * cost
+    func productionCostExVAT(in period: Period) -> Double {
+        productionQty(in: period) * cost(in: period)
     }
     
     
     //  MARK: - Margin
     // NOT REALLY MARGIN???
-    var margin: Double {
-        avgPriceExVAT - cost
+    func margin(in period: Period) -> Double {
+        avgPriceExVAT(in: period) - cost(in: period)
     }
     
-    var totalMargin: Double {
-        revenueExVAT - cogs
+    func totalMargin(in period: Period) -> Double {
+        revenueExVAT(in: period) - cogs(in: period)
     }
     
-    var marginPercentage: Double {
-        revenueExVAT > 0 ? (1 - cogs/revenueExVAT) : 0
+    func marginPercentage(in period: Period) -> Double {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? (1 - cogs(in: period) / revenue) : 0
     }
     
         
     //  MARK: Closing Inventory
     
-    var closingInventory: Double {
-        initialInventory + productionQty - salesQty
+    func closingInventory(in period: Period) -> Double {
+        initialInventory + productionQty(in: period) - salesQty(in: period)
     }
 
 }
@@ -223,60 +227,69 @@ extension Base: Productable {
     
     //  MARK: - Qty
     
-    var salesQty: Double {
+    func salesQty(in period: Period) -> Double {
         products
-            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.salesQty}
+            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.salesQty(in: period) }
     }
-    var productionQty: Double {
+    func productionQty(in period: Period) -> Double {
         products
             /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
-            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty }
+            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty(in: period) }
     }
     
     
     //  MARK: - Revenue
     
-    var revenueExVAT: Double {
-        products.reduce(0) { $0 + $1.revenueExVAT }
+    func revenueExVAT(in period: Period) -> Double {
+        products.reduce(0) { $0 + $1.revenueExVAT(in: period) }
     }
-    var revenueWithVAT: Double {
-        products.reduce(0) { $0 + $1.revenueWithVAT }
+    func revenueWithVAT(in period: Period) -> Double {
+        products.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }
     
     
     //  MARK: - Costs per Unit
     
-    var ingredientsExVAT: Double {
+    func ingredientsExVAT(in period: Period) ->  Double {
         recipes.reduce(0) { $0 + $1.ingredientsExVAT }
     }
     
-    var salaryWithTax: Double {
-        workHours * (factory?.productionSalaryPerHourWithTax ?? 0)
+    func salaryWithTax(in period: Period) -> Double {
+        workHours * (factory?.productionSalaryPerHourWithTax(in: period) ?? 0)
     }
     
     //  MARK: - FINISH THIS
-    var depreciationWithTax: Double { 0.5 }
+    func depreciationWithTax(in period: Period) -> Double { 0.5 }
     
     
     //  MARK: - Utilities per Unit
     
-    var utilitiesExVAT: Double {
+    func utilitiesExVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT }
     }
-    var utilitiesWithVAT: Double {
+    func utilitiesWithVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
     }
+    
+    
+    //  MARK: - Inventory
+    //  MARK: - FINISH THIS
+    var closingInventory: Double { 0 }
+
 }
 
 
 extension Product: Productable {
-    
+
     //  MARK: - Qty
     
-    var salesQty: Double {
+    func salesQty(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.qty }
     }
     
+    func productionQty(in period: Period) -> Double {
+        productionQty / self.period.hours * period.hours
+    }
     
     //  MARK: - WeightNetto
     
@@ -287,30 +300,32 @@ extension Product: Productable {
     
     //  MARK: - Revenue
     
-    var revenueExVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueExVAT }
+    //var revenueExVAT: Double {
+    func revenueExVAT(in period: Period) -> Double {
+        sales.reduce(0) { $0 + $1.revenueExVAT(in: period) }
     }
-    var revenueWithVAT: Double {
-        sales.reduce(0) { $0 + $1.revenueWithVAT }
+    //var revenueWithVAT: Double {
+    func revenueWithVAT(in period: Period) -> Double {
+        sales.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }
 
     
     //  MARK: - Costs per Unit
     
-    var ingredientsExVAT: Double {
-        (base?.ingredientsExVAT ?? 0) * baseQtyInBaseUnit
+    func ingredientsExVAT(in period: Period) -> Double {
+        (base?.ingredientsExVAT(in: period) ?? 0) * baseQtyInBaseUnit
     }
-    var salaryWithTax: Double {
-        (base?.salaryWithTax ?? 0) * baseQtyInBaseUnit
+    func salaryWithTax(in period: Period) -> Double {
+        (base?.salaryWithTax(in: period) ?? 0) * baseQtyInBaseUnit
     }
-    var depreciationWithTax: Double {
-        (base?.depreciationWithTax ?? 0) * baseQtyInBaseUnit
+    func depreciationWithTax(in period: Period) -> Double {
+        (base?.depreciationWithTax(in: period) ?? 0) * baseQtyInBaseUnit
     }
-    var utilitiesExVAT: Double {
-        (base?.utilitiesExVAT ?? 0) * baseQtyInBaseUnit
+    func utilitiesExVAT(in period: Period) -> Double {
+        (base?.utilitiesExVAT(in: period) ?? 0) * baseQtyInBaseUnit
     }
-    var utilitiesWithVAT: Double {
-        (base?.utilitiesWithVAT ?? 0) * baseQtyInBaseUnit
+    func utilitiesWithVAT(in period: Period) -> Double {
+        (base?.utilitiesWithVAT(in: period) ?? 0) * baseQtyInBaseUnit
     }
 
 

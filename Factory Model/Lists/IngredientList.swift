@@ -15,8 +15,11 @@ struct IngredientList: View {
 
     @ObservedObject var base: Base
     
-    init(for base: Base) {
+    let period: Period
+    
+    init(for base: Base, in period: Period) {
         self.base = base
+        self.period = period
         
         let predicate = NSPredicate(
             format: "ANY %K.base == %@", #keyPath(Ingredient.recipes_), base
@@ -39,22 +42,22 @@ struct IngredientList: View {
             keyPathParentToChildren: \Base.recipes_
         ) {
             GenericListSection(fetchRequest: _ingredients) { ingredient in
-                IngredientView(ingredient)
+                IngredientView(ingredient, in: period)
             }
             
             GenericListSection(fetchRequest: _ingredients) { ingredient in
-                IngredientView(ingredient)
+                IngredientView(ingredient, in: period)
             }
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
 
         } editor: { (ingredient: Ingredient) in
-            IngredientView(ingredient)
+            IngredientView(ingredient, in: period)
         }
 
     }
@@ -66,16 +69,16 @@ struct IngredientList: View {
             }
             
             GenericListSection(fetchRequest: _ingredients) { ingredient in
-                IngredientView(ingredient)
+                IngredientView(ingredient, in: period)
             }
             
             GenericListSection(fetchRequest: _ingredients) { ingredient in
-                IngredientView(ingredient)
+                IngredientView(ingredient, in: period)
             }
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT.formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -86,7 +89,7 @@ struct IngredientList: View {
             ) {
                 ForEach(ingredients, id: \.objectID) { ingredient in
                     NavigationLink(
-                        destination: IngredientView(ingredient)
+                        destination: IngredientView(ingredient, in: period)
                     ) {
                         EntityRow(ingredient)
                     }

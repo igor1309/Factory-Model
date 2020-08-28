@@ -46,11 +46,11 @@ extension Factory {
     
     //  MARK: - Weight Netto
     
-    var salesWeightNetto: Double {
-        bases.reduce(0) { $0 + $1.salesWeightNetto }
+    func salesWeightNetto(in period: Period) -> Double {
+        bases.reduce(0) { $0 + $1.salesWeightNetto(in: period) }
     }
-    var productionWeightNetto: Double {
-        bases.reduce(0) { $0 + $1.productionWeightNetto }
+    func productionWeightNetto(in period: Period) -> Double {
+        bases.reduce(0) { $0 + $1.productionWeightNetto(in: period) }
     }
     
     
@@ -67,20 +67,20 @@ extension Factory {
             .map(\.depreciationMonthly)
             .reduce(0, +)
     }
-    var depreciationMonthlyPercentage: Double? {
-        revenueExVAT > 0 ? depreciationMonthly / revenueExVAT : nil
+    func depreciationMonthlyPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? depreciationMonthly / revenue : nil
     }
 
     
     //  MARK: - Expenses
     
-    var expensesExVAT: Double {
-        expenses
-            .map(\.amount)
-            .reduce(0, +)
+    func expensesExVAT(in period: Period) -> Double {
+        expenses.reduce(0) { $0 + $1.amount }
     }
-    var expensesExVATPercentage: Double? {
-        revenueExVAT > 0 ? expensesExVAT / revenueExVAT : nil
+    func expensesExVATPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? expensesExVAT(in: period) / revenue : nil
     }
     
 

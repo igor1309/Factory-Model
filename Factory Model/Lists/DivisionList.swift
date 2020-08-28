@@ -12,13 +12,16 @@ struct DivisionList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
         EntityListWithDashboard(for: factory) {
-            LaborView(for: factory)
+            LaborView(for: factory, in: period)
             
             Section(
                 header: Text("Personnel")
@@ -34,7 +37,7 @@ struct DivisionList: View {
                 .foregroundColor(.secondary)
             }
         } editor: { (division: Division) in
-            DivisionView(division)
+            DivisionView(division, in: period)
         }
         
     }

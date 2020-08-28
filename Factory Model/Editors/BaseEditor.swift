@@ -16,11 +16,13 @@ struct BaseEditor: View {
     
     let baseToEdit: Base?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         baseToEdit = nil
+        self.period = period
         
         _factory = State(initialValue: nil)
         _name = State(initialValue: "")
@@ -37,10 +39,11 @@ struct BaseEditor: View {
         title = "New Base"
     }
     
-    init(_ base: Base) {
+    init(_ base: Base, in period: Period) {
         _isPresented = .constant(true)
         
         baseToEdit = base
+        self.period = period
         
         _factory = State(initialValue: base.factory)
         _name = State(initialValue: base.name)
@@ -179,7 +182,7 @@ struct BaseEditor: View {
                     type: Product.self,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
                 ) { product in
-                    ProductView(product)
+                    ProductView(product, in: period)
                 }
             }
         }

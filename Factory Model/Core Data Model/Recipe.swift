@@ -47,12 +47,12 @@ extension Recipe {
     
     //  MARK: - Production Totals
     
-    private var baseProductionQty: Double {
-        base?.productionQty ?? 0
+    private func baseProductionQty(in period: Period) -> Double {
+        base?.productionQty(in: period) ?? 0
     }
     
-    var productionQty: Double {
-        ingredientQtyInIngredientUnit * baseProductionQty
+    func productionQty(in period: Period) -> Double {
+        ingredientQtyInIngredientUnit * baseProductionQty(in: period)
     }
 }
 

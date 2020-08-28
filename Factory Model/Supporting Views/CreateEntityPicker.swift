@@ -11,27 +11,29 @@ import CoreData
 struct CreateEntityPicker: View {
     @Binding var isPresented: Bool
     
+    let period: Period
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
                     Group {
-                        CreateNewEntityButton<Base>(isPresented: $isPresented)
-                        CreateNewEntityButton<Buyer>(isPresented: $isPresented)
-                        CreateNewEntityButton<Department>(isPresented: $isPresented)
-                        CreateNewEntityButton<Division>(isPresented: $isPresented)
-                        CreateNewEntityButton<Equipment>(isPresented: $isPresented)
-                        CreateNewEntityButton<Employee>(isPresented: $isPresented)
-                        CreateNewEntityButton<Expenses>(isPresented: $isPresented)
+                        CreateNewEntityButton<Base>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Buyer>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Department>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Division>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Equipment>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Employee>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Expenses>(isPresented: $isPresented, period: period)
                     }
                     Group {
-                        CreateNewEntityButton<Factory>(isPresented: $isPresented)
-                        CreateNewEntityButton<Ingredient>(isPresented: $isPresented)
-                        CreateNewEntityButton<Packaging>(isPresented: $isPresented)
-                        CreateNewEntityButton<Product>(isPresented: $isPresented)
-                        CreateNewEntityButton<Recipe>(isPresented: $isPresented)
-                        CreateNewEntityButton<Sales>(isPresented: $isPresented)
-                        CreateNewEntityButton<Utility>(isPresented: $isPresented)
+                        CreateNewEntityButton<Factory>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Ingredient>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Packaging>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Product>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Recipe>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Sales>(isPresented: $isPresented, period: period)
+                        CreateNewEntityButton<Utility>(isPresented: $isPresented, period: period)
                     }
                 }
                 .padding()

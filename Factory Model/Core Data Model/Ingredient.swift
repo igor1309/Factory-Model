@@ -24,7 +24,7 @@ extension Ingredient {
     }
 
     /// if Factory is nill sum for all factories
-    func productionQty(for factory: Factory? = nil) -> Double {
+    func productionQty(for factory: Factory? = nil, in period: Period) -> Double {
         recipes
             .filter {
                 if let factory = factory {
@@ -33,14 +33,14 @@ extension Ingredient {
                     return true
                 }
             }
-            .reduce(0) { $0 + $1.productionQty }
+            .reduce(0) { $0 + $1.productionQty(in: period) }
     }
 
-    func totalCostExVat(for factory: Factory? = nil) -> Double {
-        priceExVAT * productionQty(for: factory)
+    func totalCostExVat(for factory: Factory? = nil, in period: Period) -> Double {
+        priceExVAT * productionQty(for: factory, in: period)
     }
-    func totalCostWithVat(for factory: Factory? = nil) -> Double {
-        priceWithVAT * productionQty(for: factory)
+    func totalCostWithVat(for factory: Factory? = nil, in period: Period) -> Double {
+        priceWithVAT * productionQty(for: factory, in: period)
     }
 }
 

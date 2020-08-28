@@ -11,6 +11,8 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     
     @Binding var isPresented: Bool
     
+    let period: Period
+    
     @State private var isActive = false
     
     var body: some View {
@@ -42,7 +44,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     @ViewBuilder
     private func destination() -> some View {
         switch T.entityName {
-            case Base.entityName:       BaseEditor(isPresented: $isPresented)
+            case Base.entityName:       BaseEditor(isPresented: $isPresented, in: period)
             case Buyer.entityName:      BuyerEditor(isPresented: $isPresented)
             case Department.entityName: DepartmentEditor(isPresented: $isPresented)
             case Division.entityName:   DivisionEditor(isPresented: $isPresented)
@@ -51,7 +53,7 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
             case Expenses.entityName:   ExpensesEditor(isPresented: $isPresented)
             case Factory.entityName:    FactoryEditor(isPresented: $isPresented)
             case Ingredient.entityName: IngredientEditor(isPresented: $isPresented)
-            case Packaging.entityName:  PackagingEditor(isPresented: $isPresented)
+            case Packaging.entityName:  PackagingEditor(isPresented: $isPresented, in: period)
             case Product.entityName:    ProductEditor(isPresented: $isPresented)
             case Recipe.entityName:     RecipeEditor(isPresented: $isPresented)
             case Sales.entityName:      SalesEditor(isPresented: $isPresented)

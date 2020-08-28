@@ -8,7 +8,10 @@
 import SwiftUI
 import CoreData
 
-struct FactoryList: View {    
+struct FactoryList: View {
+    
+    let period: Period
+    
     var body: some View {
         List {
             GenericListSection(
@@ -16,7 +19,7 @@ struct FactoryList: View {
                 predicate: nil,
                 useSmallerFont: false
             ) { factory in
-                FactoryView(factory)
+                FactoryView(factory, in: period)
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -25,7 +28,7 @@ struct FactoryList: View {
             trailing:
                 HStack(spacing: 16) {
                     MenuCreateNewOrSample()
-                    CreateEntityPickerButton()
+                    CreateEntityPickerButton(period: period)
                 }
         )
     }

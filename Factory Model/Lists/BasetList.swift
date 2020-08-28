@@ -12,8 +12,11 @@ struct BaseList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
@@ -38,7 +41,7 @@ struct BaseList: View {
                 icon: "dollarsign.circle"
             )
         } editor: { (base: Base) in
-            BaseView(base)
+            BaseView(base, in: period)
         }
     }
 }

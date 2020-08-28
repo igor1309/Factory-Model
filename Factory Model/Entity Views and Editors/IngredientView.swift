@@ -13,8 +13,11 @@ struct IngredientView: View {
     
     @ObservedObject var ingredient: Ingredient
     
-    init(_ ingredient: Ingredient) {
+    let period: Period
+    
+    init(_ ingredient: Ingredient, in period: Period) {
         self.ingredient = ingredient
+        self.period = period
     }
     
     var unitHeader: some View {
@@ -48,9 +51,9 @@ struct IngredientView: View {
                 footer: Text("Total for the Ingredient used in production.")
             ) {
                 Group {
-                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty().formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Cost, ex VAT", ingredient.totalCostExVat().formattedGrouped)
-                    LabelWithDetail("dollarsign.square", "Cost, with VAT", ingredient.totalCostWithVat().formattedGrouped)
+                    LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty(in: period).formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Cost, ex VAT", ingredient.totalCostExVat(in: period).formattedGrouped)
+                    LabelWithDetail("dollarsign.square", "Cost, with VAT", ingredient.totalCostWithVat(in: period).formattedGrouped)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
@@ -61,7 +64,7 @@ struct IngredientView: View {
                 type: Base.self,
                 predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
             ) { (base: Base) in
-                BaseEditor(base)
+                BaseEditor(base, in: period)
             }
         }
         .listStyle(InsetGroupedListStyle())

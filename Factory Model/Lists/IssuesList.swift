@@ -11,8 +11,11 @@ struct IssuesList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
@@ -25,7 +28,7 @@ struct IssuesList: View {
                     type: Base.self,
                     predicate: Base.orphanPredicate
                 ) { (base: Base) in
-                    BaseView(base)
+                    BaseView(base, in: period)
                 }
                 //            }
                 //            if factory.buyersHasIssues {
@@ -41,7 +44,7 @@ struct IssuesList: View {
                     type: Department.self,
                     predicate: Department.orphanPredicate
                 ) { (department: Department) in
-                    DepartmentView(department)
+                    DepartmentView(department, in: period)
                 }
                 //            }
                 
@@ -50,7 +53,7 @@ struct IssuesList: View {
                     type: Division.self,
                     predicate: Division.orphanPredicate
                 ) { (division: Division) in
-                    DivisionView(division)
+                    DivisionView(division, in: period)
                 }
                 //                }
                 
@@ -78,7 +81,7 @@ struct IssuesList: View {
                     type: Ingredient.self,
                     predicate: Ingredient.orphanPredicate
                 ) { (ingredient: Ingredient) in
-                    IngredientView(ingredient)
+                    IngredientView(ingredient, in: period)
                 }
                 //            }
             }
@@ -98,7 +101,7 @@ struct IssuesList: View {
                     type: Packaging.self,
                     predicate: Packaging.orphanPredicate
                 ) { (packaging: Packaging) in
-                    PackagingEditor(packaging)
+                    PackagingEditor(packaging, in: period)
                 }
                 //            }
                 
@@ -107,7 +110,7 @@ struct IssuesList: View {
                     type: Product.self,
                     predicate: Product.orphanPredicate
                 ) { (product: Product) in
-                    ProductView(product)
+                    ProductView(product, in: period)
                 }
                 //            }
                 //            if factory.salesHasIssues {

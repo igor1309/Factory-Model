@@ -12,8 +12,11 @@ struct DepartmentView: View {
     
     @ObservedObject var department: Department
     
-    init(_ department: Department) {
+    let period: Period
+    
+    init(_ department: Department, in period: Period) {
         self.department = department
+        self.period = period
     }
     
     var body: some View {
@@ -49,7 +52,7 @@ struct DepartmentView: View {
             
             ErrorMessage(department)
                         
-            LaborView(for: department)            
+            LaborView(for: department, in: period)
             
         } editor: { (employee: Employee) in
             EmployeeEditor(employee)

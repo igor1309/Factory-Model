@@ -21,6 +21,29 @@ extension Employee {
     var salaryWithTax: Double {
         salary * 1.302
     }
+    
+    var period: Period {
+        get {
+            Period(periodStr_ ?? "month", days: Int(days), hoursPerDay: hoursPerDay) ?? .month()
+        }
+        set {
+            periodStr_ = newValue.periodStr
+            days = Int16(newValue.days)
+            hoursPerDay = newValue.hoursPerDay
+        }
+    }
+    
+    func salaryExTax(in period: Period) -> Double {
+        salary / self.period.hours * period.hours
+    }
+    
+    func salaryWithTax(in period: Period) -> Double {
+        salaryWithTax / self.period.hours * period.hours
+    }
+    
+    func workHours(in period: Period) -> Double {
+        workHours / self.period.hours * period.hours
+    }
 }
 
 extension Employee: Comparable {

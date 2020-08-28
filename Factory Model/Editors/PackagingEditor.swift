@@ -16,8 +16,11 @@ struct PackagingEditor: View {
     let packagingToEdit: Packaging?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    let period: Period
+    
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
+        self.period = period
         
         packagingToEdit = nil
         
@@ -27,8 +30,9 @@ struct PackagingEditor: View {
         title = "New Packaging"
     }
     
-    init(_ packaging: Packaging) {
+    init(_ packaging: Packaging, in period: Period) {
         _isPresented = .constant(true)
+        self.period = period
         
         packagingToEdit = packaging
         
@@ -64,7 +68,7 @@ struct PackagingEditor: View {
                     type: Product.self,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
                 ) { product in
-                    ProductView(product)
+                    ProductView(product, in: period)
                 }
             }
         }

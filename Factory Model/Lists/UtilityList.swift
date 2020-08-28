@@ -12,8 +12,11 @@ struct UtilityList: View {
     
     var base: Base
     
-    init(for base: Base) {
+    let period: Period
+    
+    init(for base: Base, in period: Period) {
         self.base = base
+        self.period = period
     }
     
     var body: some View {
@@ -32,8 +35,8 @@ struct UtilityList: View {
                 header: Text("Total")
             ) {
                 Group {
-                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT.formattedGrouped)
-                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT.formattedGrouped)
+                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT(in: period).formattedGrouped)
+                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT(in: period).formattedGrouped)
                         .foregroundColor(.secondary)
                 }
                 .font(.subheadline)

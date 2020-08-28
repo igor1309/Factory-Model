@@ -23,6 +23,7 @@ struct SalesEditor: View {
         
         _priceExVAT = State(initialValue: 0)
         _qty = State(initialValue: 0)
+        _period = State(initialValue: Period.month())
         _buyer = State(initialValue: nil)
         _product = State(initialValue: nil)
         
@@ -36,6 +37,7 @@ struct SalesEditor: View {
         
         _priceExVAT = State(initialValue: sales.priceExVAT)
         _qty = State(initialValue: sales.qty)
+        _period = State(initialValue: sales.period)
         _buyer = State(initialValue: sales.buyer)
         _product = State(initialValue: sales.product)
         
@@ -44,6 +46,7 @@ struct SalesEditor: View {
     
     @State private var priceExVAT: Double
     @State private var qty: Double
+    @State private var period: Period
     @State private var buyer: Buyer?
     @State private var product: Product?
 
@@ -52,6 +55,8 @@ struct SalesEditor: View {
             EntityPickerSection(selection: $buyer)
             
             EntityPickerSection(selection: $product)
+            
+            PeriodPicker(icon: "deskclock", title: "Period", period: $period)
             
             AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $qty)
                 .foregroundColor(qty <= 0 ? .systemRed : .accentColor)
