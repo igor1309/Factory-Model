@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17183" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Base" representedClassName="Base" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
@@ -50,8 +50,11 @@
     </entity>
     <entity name="Expenses" representedClassName="Expenses" syncable="YES" codeGenerationType="class">
         <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="days" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="hoursPerDay" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
+        <attribute name="periodStr_" optional="YES" attributeType="String"/>
         <relationship name="factory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Factory" inverseName="expenses_" inverseEntity="Factory"/>
     </entity>
     <entity name="Factory" representedClassName="Factory" syncable="YES" codeGenerationType="class">
@@ -118,18 +121,18 @@
     </entity>
     <elements>
         <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="223"/>
-        <element name="Buyer" positionX="-11646.9921875" positionY="-9167.140625" width="128" height="88"/>
-        <element name="Department" positionX="-11491.62109375" positionY="-8922.67578125" width="128" height="103"/>
+        <element name="Buyer" positionX="-11660.06640625" positionY="-9179.6875" width="128" height="88"/>
+        <element name="Department" positionX="-11468.96875" positionY="-8778.453125" width="128" height="103"/>
         <element name="Division" positionX="-11693.03515625" positionY="-9062.26953125" width="128" height="88"/>
-        <element name="Employee" positionX="-11286.98046875" positionY="-8781.48828125" width="128" height="178"/>
+        <element name="Employee" positionX="-11199.171875" positionY="-8853.63671875" width="128" height="178"/>
         <element name="Equipment" positionX="-11745.57421875" positionY="-8950.671875" width="128" height="118"/>
-        <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="103"/>
+        <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="148"/>
         <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="163"/>
-        <element name="Ingredient" positionX="-11329.00390625" positionY="-9434.51171875" width="128" height="118"/>
-        <element name="Packaging" positionX="-11002.6796875" positionY="-9216.125" width="128" height="88"/>
-        <element name="Product" positionX="-11203.765625" positionY="-9250.89453125" width="128" height="268"/>
+        <element name="Ingredient" positionX="-11298.765625" positionY="-9437.609375" width="128" height="118"/>
+        <element name="Packaging" positionX="-11037.33203125" positionY="-9214.1640625" width="128" height="88"/>
+        <element name="Product" positionX="-11225.76171875" positionY="-9255.3671875" width="128" height="268"/>
         <element name="Recipe" positionX="-11510.2890625" positionY="-9393.48828125" width="128" height="118"/>
-        <element name="Sales" positionX="-11409.40234375" positionY="-9061.64453125" width="128" height="163"/>
+        <element name="Sales" positionX="-11436.44140625" positionY="-9001.4765625" width="128" height="163"/>
         <element name="Utility" positionX="-11057.5625" positionY="-9389.8125" width="128" height="103"/>
     </elements>
 </model>

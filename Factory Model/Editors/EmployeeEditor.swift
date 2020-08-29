@@ -16,33 +16,33 @@ struct EmployeeEditor: View {
     let employeeToEdit: Employee?
     let title: String
     
-    init(isPresented: Binding<Bool>, in period: Period) {
+    init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
         
         employeeToEdit = nil
         
-        _name = State(initialValue: "")
-        _note = State(initialValue: "")
-        _position = State(initialValue: "")
-        _salary = State(initialValue: 0)
-        _workHours = State(initialValue: 0)
-        _period = State(initialValue: Period.month())
+        _name =       State(initialValue: "")
+        _note =       State(initialValue: "")
+        _position =   State(initialValue: "")
+        _salary =     State(initialValue: 0)
+        _workHours =  State(initialValue: 0)
+        _period =     State(initialValue: Period.month())
         _department = State(initialValue: nil)
         
         title = "New Employee"
     }
     
-    init(_ employee: Employee, in period: Period) {
+    init(_ employee: Employee) {
         _isPresented = .constant(true)
         
         employeeToEdit = employee
         
-        _name = State(initialValue: employee.name)
-        _note = State(initialValue: employee.note)
-        _position = State(initialValue: employee.position)
-        _salary = State(initialValue: employee.salary)
-        _workHours = State(initialValue: employee.workHours)
-        _period = State(initialValue: employee.period)
+        _name =       State(initialValue: employee.name)
+        _note =       State(initialValue: employee.note)
+        _position =   State(initialValue: employee.position)
+        _salary =     State(initialValue: employee.salary)
+        _workHours =  State(initialValue: employee.workHours)
+        _period =     State(initialValue: employee.period)
         _department = State(initialValue: employee.department)
         
         title = "Edit Employee"

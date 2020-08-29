@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct Testing: View {
-    @State var period: Period = .month()
+    @Binding var period: Period
+    
+    init(in period: Binding<Period>) {
+        _period = period
+    }
     
     var body: some View {
         List {
@@ -16,7 +20,7 @@ struct Testing: View {
             
             Section {
                 NavigationLink(
-                    destination: FactoryList(period: period)
+                    destination: FactoryList(in: period)
                 ) {
                     Text("Factories")
                 }
@@ -87,7 +91,7 @@ struct Testing: View {
                 }
                 
                 EntityLinkToList(in: period) { (employee: Employee) in
-                    EmployeeEditor(employee, in: period)
+                    EmployeeEditor(employee)
                 }
                 
                 EntityLinkToList(in: period) { (equipment: Equipment) in
@@ -95,7 +99,7 @@ struct Testing: View {
                 }
                 
                 EntityLinkToList(in: period) { (expenses: Expenses) in
-                    ExpensesEditor(expenses, in: period)
+                    ExpensesEditor(expenses)
                 }
             }
         }

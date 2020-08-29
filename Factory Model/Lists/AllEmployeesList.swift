@@ -37,7 +37,7 @@ struct AllEmployeesList: View {
         } dashboard: {
             
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee, in: period)
+            EmployeeEditor(employee)
         }
     }
 }

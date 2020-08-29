@@ -78,7 +78,7 @@ struct IssuesList: View {
                     predicate: Expenses.orphanPredicate,
                     in: period
                 ) { (expenses: Expenses) in
-                    ExpensesEditor(expenses, in: period)
+                    ExpensesEditor(expenses)
                 }
                 //            }
                 
@@ -149,7 +149,7 @@ struct IssuesList: View {
                     predicate: Employee.orphanPredicate,
                     in: period
                 ) { (employee: Employee) in
-                    EmployeeEditor(employee, in: period)
+                    EmployeeEditor(employee)
                 }
                 //            }
             }

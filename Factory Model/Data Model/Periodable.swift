@@ -28,4 +28,6 @@ extension Periodable {
 }
 
 extension Employee: Periodable {}
+extension Expenses: Periodable {}
+extension Product: Periodable {}
 extension Sales: Periodable {}

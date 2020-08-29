@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PeriodPicker: View {
     var icon: String = "clock"
-    var title: String
+    var title: String = "Period"
     @Binding var period: Period
     
     @State private var showTable = false

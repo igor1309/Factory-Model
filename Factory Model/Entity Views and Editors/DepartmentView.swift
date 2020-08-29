@@ -55,7 +55,7 @@ struct DepartmentView: View {
             LaborView(for: department, in: period)
             
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee, in: period)
+            EmployeeEditor(employee)
         }
     }
 }

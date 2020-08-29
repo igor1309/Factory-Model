@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var period: Period = .month()
+    
     var body: some View {
         NavigationView {
-            Testing()
+            Testing(in: $period)
         }
         
 //        NavigationView {
-//            FactoryList()
+//            FactoryList(in: period)
 //        }
     }
 }

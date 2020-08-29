@@ -125,7 +125,7 @@ extension Employee: Summarizable {
     
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
-        return "\(salaryWithTax.formattedGrouped) (\(salary.formattedGrouped))"
+        return "\(salaryWithTax(in: period).formattedGrouped) (\(salaryExTax(in: period).formattedGrouped))"
     }
     
     static var color: Color { .systemTeal }
@@ -156,7 +156,9 @@ extension Equipment: Summarizable {
 }
 
 extension Expenses: Summarizable {
-    func subtitle(in period: Period) -> String { amount.formattedGrouped }
+    func subtitle(in period: Period) -> String {
+        amount(in: period).formattedGrouped
+    }
     
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }

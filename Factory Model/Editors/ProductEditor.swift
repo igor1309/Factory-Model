@@ -15,44 +15,43 @@ struct ProductEditor: View {
     
     let productToEdit: Product?
     let title: String
-    let period: Period
     
-    init(isPresented: Binding<Bool>, in period: Period) {
+    init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
         
         productToEdit = nil
-        self.period = period
         
-        _name = State(initialValue: "")
-        _baseQty = State(initialValue: 0)
-        _code = State(initialValue: "")
+        _name =                    State(initialValue: "")
+        _baseQty =                 State(initialValue: 0)
+        _code =                    State(initialValue: "")
         _coefficientToParentUnit = State(initialValue: 1)
-        _group = State(initialValue: "")
-        _note = State(initialValue: "")
-        _productionQty = State(initialValue: 0)
-        _vat = State(initialValue: 10/100)
-        _base = State(initialValue: nil)
-        _packaging = State(initialValue: nil)
+        _group =                   State(initialValue: "")
+        _note =                    State(initialValue: "")
+        _productionQty =           State(initialValue: 0)
+        _period =                  State(initialValue: .month())
+        _vat =                     State(initialValue: 10/100)
+        _base =                    State(initialValue: nil)
+        _packaging =               State(initialValue: nil)
         
         title = "New Product"
     }
     
-    init(_ product: Product, in period: Period) {
+    init(_ product: Product) {
         _isPresented = .constant(true)
         
         productToEdit = product
-        self.period = period
         
-        _name = State(initialValue: product.name)
-        _baseQty = State(initialValue: product.baseQty)
-        _code = State(initialValue: product.code)
+        _name =                    State(initialValue: product.name)
+        _baseQty =                 State(initialValue: product.baseQty)
+        _code =                    State(initialValue: product.code)
         _coefficientToParentUnit = State(initialValue: product.coefficientToParentUnit)
-        _group = State(initialValue: product.group)
-        _note = State(initialValue: product.note)
-        _productionQty = State(initialValue: product.productionQty)
-        _vat = State(initialValue: product.vat)
-        _base = State(initialValue: product.base)
-        _packaging = State(initialValue: product.packaging)
+        _group =                   State(initialValue: product.group)
+        _note =                    State(initialValue: product.note)
+        _productionQty =           State(initialValue: product.productionQty)
+        _period =                  State(initialValue: product.period)
+        _vat =                     State(initialValue: product.vat)
+        _base =                    State(initialValue: product.base)
+        _packaging =               State(initialValue: product.packaging)
         
         title = "Edit Product"
     }
@@ -64,6 +63,7 @@ struct ProductEditor: View {
     @State private var group: String
     @State private var note: String
     @State private var productionQty: Double
+    @State private var period: Period
     @State private var vat: Double
     @State private var base: Base?
     @State private var packaging: Packaging?
@@ -139,7 +139,7 @@ struct ProductEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let product: Product
+            var product: Product
             if let productToEdit = productToEdit {
                 product = productToEdit
             } else {
@@ -153,6 +153,7 @@ struct ProductEditor: View {
             product.group = group
             product.note = note
             product.productionQty = productionQty
+            product.period = period
             product.vat = vat
             product.base = base
             product.packaging = packaging

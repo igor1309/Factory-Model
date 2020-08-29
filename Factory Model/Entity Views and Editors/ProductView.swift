@@ -26,7 +26,7 @@ struct ProductView: View {
                 header: Text("Product Detail")
             ) {
                 NavigationLink(
-                    destination: ProductEditor(product, in: period)
+                    destination: ProductEditor(product)
                 ) {
                     ListRow(product)
                 }

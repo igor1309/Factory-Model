@@ -30,7 +30,7 @@ struct ExpensesList: View {
                     .font(.subheadline)
             }
         } editor: { (expenses: Expenses) in
-            ExpensesEditor(expenses, in: period)
+            ExpensesEditor(expenses)
         }
     }
 }

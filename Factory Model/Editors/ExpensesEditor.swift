@@ -15,32 +15,31 @@ struct ExpensesEditor: View {
     
     let expensesToEdit: Expenses?
     let title: String
-    let period: Period
     
-    init(isPresented: Binding<Bool>, in period: Period) {
+    init(isPresented: Binding<Bool>) {
         _isPresented = isPresented
         
         expensesToEdit = nil
-        self.period = period
         
-        _name = State(initialValue: "")
+        _name =    State(initialValue: "")
         _factory = State(initialValue: nil)
-        _amount = State(initialValue: 0)
-        _note = State(initialValue: "")
+        _amount =  State(initialValue: 0)
+        _period =  State(initialValue: .month())
+        _note =    State(initialValue: "")
         
         title = "New Expenses"
     }
     
-    init(_ expenses: Expenses, in period: Period) {
+    init(_ expenses: Expenses) {
         _isPresented = .constant(true)
         
         expensesToEdit = expenses
-        self.period = period
         
-        _name = State(initialValue: expenses.name)
+        _name =    State(initialValue: expenses.name)
         _factory = State(initialValue: expenses.factory)
-        _amount = State(initialValue: expenses.amount)
-        _note = State(initialValue: expenses.note)
+        _amount =  State(initialValue: expenses.amount)
+        _period =  State(initialValue: expenses.period)
+        _note =    State(initialValue: expenses.note)
         
         title = "Edit Expenses"
     }
@@ -48,6 +47,7 @@ struct ExpensesEditor: View {
     @State private var name: String
     @State private var factory: Factory?
     @State private var amount: Double
+    @State private var period: Period
     @State private var note: String
     
     var body: some View {
@@ -55,6 +55,9 @@ struct ExpensesEditor: View {
             NameSection<Expenses>(name: $name)
             
             AmountPicker(systemName: Expenses.icon, title: "Amount", navigationTitle: "Amount", scale: .extraLarge, amount: $amount)
+                .foregroundColor(amount > 0 ? .accentColor : .systemRed)
+            
+            PeriodPicker(period: $period)
             
             EntityPickerSection(selection: $factory, period: period)
             
@@ -67,7 +70,7 @@ struct ExpensesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let expenses: Expenses
+            var expenses: Expenses
             if let expensesToEdit = expensesToEdit {
                 expenses = expensesToEdit
             } else {
@@ -77,6 +80,7 @@ struct ExpensesEditor: View {
             expenses.name = name
             expenses.factory = factory
             expenses.amount = amount
+            expenses.period = period
             expenses.note = note
             
             context.saveContext()

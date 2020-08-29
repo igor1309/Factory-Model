@@ -80,7 +80,7 @@ struct DepartmentEditor: View {
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department),
                     in: period
                 ) { (employee: Employee) in
-                    EmployeeEditor(employee, in: period)
+                    EmployeeEditor(employee)
                 }
             }
         }

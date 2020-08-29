@@ -22,10 +22,10 @@ struct SalesEditor: View {
         salesToEdit = nil
         
         _priceExVAT = State(initialValue: 0)
-        _qty = State(initialValue: 0)
-        _period = State(initialValue: Period.month())
-        _buyer = State(initialValue: nil)
-        _product = State(initialValue: nil)
+        _qty =        State(initialValue: 0)
+        _period =     State(initialValue: Period.month())
+        _buyer =      State(initialValue: nil)
+        _product =    State(initialValue: nil)
         
         title = "New Sales"
     }
@@ -36,10 +36,10 @@ struct SalesEditor: View {
         salesToEdit = sales
         
         _priceExVAT = State(initialValue: sales.priceExVAT)
-        _qty = State(initialValue: sales.qty)
-        _period = State(initialValue: sales.period)
-        _buyer = State(initialValue: sales.buyer)
-        _product = State(initialValue: sales.product)
+        _qty =        State(initialValue: sales.qty)
+        _period =     State(initialValue: sales.period)
+        _buyer =      State(initialValue: sales.buyer)
+        _product =    State(initialValue: sales.product)
         
         title = "Edit Sales"
     }
@@ -78,7 +78,7 @@ struct SalesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let sales: Sales
+            var sales: Sales
             if let salesToEdit = salesToEdit {
                 sales = salesToEdit
             } else {
@@ -88,6 +88,7 @@ struct SalesEditor: View {
             sales.name = ""
             sales.priceExVAT = priceExVAT
             sales.qty = qty
+            sales.period = period
             sales.buyer = buyer
             sales.product = product
             

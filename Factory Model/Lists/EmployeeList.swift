@@ -40,7 +40,7 @@ struct EmployeeList: View {
                     .font(.subheadline)
             }
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee, in: period)
+            EmployeeEditor(employee)
         }
         
     }

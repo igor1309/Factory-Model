@@ -13,6 +13,10 @@ extension Expenses {
         get { note_ ?? ""}
         set { note_ = newValue }
     }
+    
+    func amount(in period: Period) -> Double {
+        amount / self.period.hours * period.hours
+    }
 }
 
 extension Expenses: Comparable {

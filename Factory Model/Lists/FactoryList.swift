@@ -12,6 +12,10 @@ struct FactoryList: View {
     
     let period: Period
     
+    init(in period: Period) {
+        self.period = period
+    }
+    
     var body: some View {
         List {
             GenericListSection(
