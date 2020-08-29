@@ -16,7 +16,7 @@ struct SalesEditor: View {
     let salesToEdit: Sales?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         salesToEdit = nil
@@ -30,7 +30,7 @@ struct SalesEditor: View {
         title = "New Sales"
     }
     
-    init(_ sales: Sales) {
+    init(_ sales: Sales, in period: Period) {
         _isPresented = .constant(true)
         
         salesToEdit = sales
@@ -52,9 +52,9 @@ struct SalesEditor: View {
 
     var body: some View {
         List {
-            EntityPickerSection(selection: $buyer)
+            EntityPickerSection(selection: $buyer, period: period)
             
-            EntityPickerSection(selection: $product)
+            EntityPickerSection(selection: $product, period: period)
             
             PeriodPicker(icon: "deskclock", title: "Period", period: $period)
             

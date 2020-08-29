@@ -15,11 +15,13 @@ struct DepartmentEditor: View {
     
     let departmentToEdit: Department?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         departmentToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _type = State(initialValue: .production)
@@ -28,10 +30,11 @@ struct DepartmentEditor: View {
         title = "New Department"
     }
     
-    init(_ department: Department) {
+    init(_ department: Department, in period: Period) {
         _isPresented = .constant(true)
         
         departmentToEdit = department
+        self.period = period
         
         _name = State(initialValue: department.name)
         _type = State(initialValue: department.type)
@@ -65,7 +68,7 @@ struct DepartmentEditor: View {
                 //                    .pickerStyle(SegmentedPickerStyle())
             }
             
-            EntityPickerSection(selection: $division)
+            EntityPickerSection(selection: $division, period: period)
             
             DraftSection<Employee, EmployeeDraft>(isNewDraftActive: $isNewDraftActive, drafts: $employeeDrafts)
             
@@ -74,9 +77,10 @@ struct DepartmentEditor: View {
                 GenericListSection(
                     header: "Existing Employees",
                     type: Employee.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department),
+                    in: period
                 ) { (employee: Employee) in
-                    EmployeeEditor(employee)
+                    EmployeeEditor(employee, in: period)
                 }
             }
         }
@@ -99,11 +103,12 @@ struct DepartmentEditor: View {
             department.division = division
             
             for draft in employeeDrafts {
-                let employee = Employee(context: context)
+                var employee = Employee(context: context)
                 employee.name = draft.name
                 employee.note = draft.note
                 employee.position = draft.position
                 employee.salary = draft.salary
+                employee.period = period
                 department.addToEmployees_(employee)
             }
             
@@ -126,6 +131,7 @@ fileprivate struct CreateEmployee: View {
     @State private var position = ""
     @State private var salary: Double = 0
     @State private var workHours: Double = 0
+    @State private var period: Period = .month()
 
     var body: some View {
         List {
@@ -182,7 +188,14 @@ fileprivate struct CreateEmployee: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Done") {
                     employeeDrafts.append(
-                        EmployeeDraft(name: name, note: note, position: position, salary: salary, workHours: workHours)
+                        EmployeeDraft(
+                            name: name,
+                            note: note,
+                            position: position,
+                            salary: salary,
+                            workHours: workHours,
+                            period: period
+                        )
                     )
                     
                     presentation.wrappedValue.dismiss()

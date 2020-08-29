@@ -15,11 +15,13 @@ struct ProductEditor: View {
     
     let productToEdit: Product?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         productToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _baseQty = State(initialValue: 0)
@@ -35,10 +37,11 @@ struct ProductEditor: View {
         title = "New Product"
     }
     
-    init(_ product: Product) {
+    init(_ product: Product, in period: Period) {
         _isPresented = .constant(true)
         
         productToEdit = product
+        self.period = period
         
         _name = State(initialValue: product.name)
         _baseQty = State(initialValue: product.baseQty)
@@ -79,7 +82,7 @@ struct ProductEditor: View {
         List {
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
-            EntityPickerSection(selection: $base)
+            EntityPickerSection(selection: $base, period: period)
             
             Section(
                 header: Text("Base Product Qty")
@@ -96,7 +99,7 @@ struct ProductEditor: View {
                 }
             }
             
-            EntityPickerSection(selection: $packaging)            
+            EntityPickerSection(selection: $packaging, period: period)
             
             Section(
                 header: Text("Production Qty")
@@ -122,9 +125,10 @@ struct ProductEditor: View {
                 GenericListSection(
                     header: "Existing Sales",
                     type: Sales.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.product), product),
+                    in: period
                 ) { (sales: Sales) in
-                    SalesEditor(sales)
+                    SalesEditor(sales, in: period)
                 }
             }
         }

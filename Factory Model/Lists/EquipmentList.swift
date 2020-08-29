@@ -12,12 +12,15 @@ struct EquipmentList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory) {
+        EntityListWithDashboard(for: factory, in: period) {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
@@ -35,7 +38,7 @@ struct EquipmentList: View {
             }
         } editor: { (equipment: Equipment) in
 //            EquipmentView(equipment)
-            EquipmentEditor(equipment)
+            EquipmentEditor(equipment, in: period)
         }
     }
 }

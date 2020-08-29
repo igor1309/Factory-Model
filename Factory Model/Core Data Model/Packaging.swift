@@ -17,11 +17,11 @@ extension Packaging: Comparable {
         set { products_ = Set(newValue) as NSSet }
     }
 
-    var productList: String {
+    func productList(in period: Period) -> String {
         if products_ == nil || products.isEmpty {
             return "This packaging is not used in any products."
         }
-        return products.map(\.title).joined(separator: "\n")
+        return products.map { $0.title(in: period) }.joined(separator: "\n")
     }
     
     public static func < (lhs: Packaging, rhs: Packaging) -> Bool {

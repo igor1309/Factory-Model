@@ -18,6 +18,7 @@ protocol Productable {
     //  MARK: - WeightNetto
     
     var weightNetto: Double { get }
+    
     func salesWeightNetto(in period: Period) -> Double
     func productionWeightNetto(in period: Period) -> Double
     

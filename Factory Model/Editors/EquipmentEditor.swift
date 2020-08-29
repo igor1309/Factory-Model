@@ -15,11 +15,13 @@ struct EquipmentEditor: View {
     
     let equipmentToEdit: Equipment?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         equipmentToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _note = State(initialValue: "")
@@ -30,10 +32,11 @@ struct EquipmentEditor: View {
         title = "New Equipment"
     }
     
-    init(_ equipment: Equipment) {
+    init(_ equipment: Equipment, in period: Period) {
         _isPresented = .constant(true)
         
         equipmentToEdit = equipment
+        self.period = period
         
         _name = State(initialValue: equipment.name)
         _note = State(initialValue: equipment.note)
@@ -74,7 +77,7 @@ struct EquipmentEditor: View {
                     .foregroundColor(.secondary)
             }
             
-            EntityPickerSection(selection: $factory)
+            EntityPickerSection(selection: $factory, period: period)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

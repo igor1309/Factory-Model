@@ -37,7 +37,8 @@ struct PackagingView: View {
             GenericListSection(
                 header: "Used in Products",
                 type: Product.self,
-                predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
+                predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging),
+                in: period
             ) { product in
                 ProductView(product, in: period)
             }

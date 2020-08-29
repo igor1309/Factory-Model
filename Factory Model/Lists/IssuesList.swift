@@ -26,7 +26,8 @@ struct IssuesList: View {
                 //            if factory.basesHasIssues {
                 GenericListSection(
                     type: Base.self,
-                    predicate: Base.orphanPredicate
+                    predicate: Base.orphanPredicate,
+                    in: period
                 ) { (base: Base) in
                     BaseView(base, in: period)
                 }
@@ -34,15 +35,17 @@ struct IssuesList: View {
                 //            if factory.buyersHasIssues {
                 GenericListSection(
                     type: Buyer.self,
-                    predicate: Buyer.orphanPredicate
+                    predicate: Buyer.orphanPredicate,
+                    in: period
                 ) { (buyer: Buyer) in
-                    BuyerEditor(buyer)
+                    BuyerEditor(buyer, in: period)
                 }
                 //            }
                 //            if factory.departmentsHasIssues {
                 GenericListSection(
                     type: Department.self,
-                    predicate: Department.orphanPredicate
+                    predicate: Department.orphanPredicate,
+                    in: period
                 ) { (department: Department) in
                     DepartmentView(department, in: period)
                 }
@@ -51,7 +54,8 @@ struct IssuesList: View {
                 //                if factory.departmentsHasIssues {
                 GenericListSection(
                     type: Division.self,
-                    predicate: Division.orphanPredicate
+                    predicate: Division.orphanPredicate,
+                    in: period
                 ) { (division: Division) in
                     DivisionView(division, in: period)
                 }
@@ -60,26 +64,29 @@ struct IssuesList: View {
                 //            if factory.equipmentsHasIssues {
                 GenericListSection(
                     type: Equipment.self,
-                    predicate: Equipment.orphanPredicate
+                    predicate: Equipment.orphanPredicate,
+                    in: period
                 ) { (equipment: Equipment) in
                     //EquipmentView(equipment)
-                    EquipmentEditor(equipment)
+                    EquipmentEditor(equipment, in: period)
                 }
                 //            }
                 
                 //            if factory.expensesHasIssues {
                 GenericListSection(
                     type: Expenses.self,
-                    predicate: Expenses.orphanPredicate
+                    predicate: Expenses.orphanPredicate,
+                    in: period
                 ) { (expenses: Expenses) in
-                    ExpensesEditor(expenses)
+                    ExpensesEditor(expenses, in: period)
                 }
                 //            }
                 
                 //            if factory.ingredientsHasIssues {
                 GenericListSection(
                     type: Ingredient.self,
-                    predicate: Ingredient.orphanPredicate
+                    predicate: Ingredient.orphanPredicate,
+                    in: period
                 ) { (ingredient: Ingredient) in
                     IngredientView(ingredient, in: period)
                 }
@@ -90,16 +97,18 @@ struct IssuesList: View {
                 //            if factory.recipesHasIssues {
                 GenericListSection(
                     type: Recipe.self,
-                    predicate: Recipe.orphanPredicate
+                    predicate: Recipe.orphanPredicate,
+                    in: period
                 ) { (recipe: Recipe) in
-                    RecipeEditor(recipe)
+                    RecipeEditor(recipe, in: period)
                 }
                 //            }
                 
                 //            if factory.packagingsHasIssues {
                 GenericListSection(
                     type: Packaging.self,
-                    predicate: Packaging.orphanPredicate
+                    predicate: Packaging.orphanPredicate,
+                    in: period
                 ) { (packaging: Packaging) in
                     PackagingEditor(packaging, in: period)
                 }
@@ -108,7 +117,8 @@ struct IssuesList: View {
                 //            if factory.packagingsHasIssues {
                 GenericListSection(
                     type: Product.self,
-                    predicate: Product.orphanPredicate
+                    predicate: Product.orphanPredicate,
+                    in: period
                 ) { (product: Product) in
                     ProductView(product, in: period)
                 }
@@ -116,27 +126,30 @@ struct IssuesList: View {
                 //            if factory.salesHasIssues {
                 GenericListSection(
                     type: Sales.self,
-                    predicate: Sales.orphanPredicate
+                    predicate: Sales.orphanPredicate,
+                    in: period
                 ) { (sales: Sales) in
-                    SalesEditor(sales)
+                    SalesEditor(sales, in: period)
                 }
                 //            }
                 
                 //            if factory.utilitiesHasIssues {
                 GenericListSection(
                     type: Utility.self,
-                    predicate: Utility.orphanPredicate
+                    predicate: Utility.orphanPredicate,
+                    in: period
                 ) { (utility: Utility) in
-                    UtilityEditor(utility)
+                    UtilityEditor(utility, in: period)
                 }
                 //            }
                 
                 //            if factory.employeesHasIssues {
                 GenericListSection(
                     type: Employee.self,
-                    predicate: Employee.orphanPredicate
+                    predicate: Employee.orphanPredicate,
+                    in: period
                 ) { (employee: Employee) in
-                    EmployeeEditor(employee)
+                    EmployeeEditor(employee, in: period)
                 }
                 //            }
             }

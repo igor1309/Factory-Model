@@ -15,11 +15,13 @@ struct RecipeEditor: View {
     
     let recipeToEdit: Recipe?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         recipeToEdit = nil
+        self.period = period
         
         _base = State(initialValue: nil)
         _ingredient = State(initialValue: nil)
@@ -29,10 +31,11 @@ struct RecipeEditor: View {
         title = "New Recipe"
     }
     
-    init(_ recipe: Recipe) {
+    init(_ recipe: Recipe, in period: Period) {
         _isPresented = .constant(true)
         
         recipeToEdit = recipe
+        self.period = period
         
         _base = State(initialValue: recipe.base)
         _ingredient = State(initialValue: recipe.ingredient)
@@ -49,7 +52,7 @@ struct RecipeEditor: View {
     
     var body: some View {
         List {
-            EntityPickerSection(selection: $ingredient)
+            EntityPickerSection(selection: $ingredient, period: period)
             
             Section {
                 AmountPicker(systemName: "square", title: "Ingredient Qty", navigationTitle: "Ingredient Qty", scale: .small, amount: $qty)
@@ -65,7 +68,7 @@ struct RecipeEditor: View {
                 .foregroundColor(.accentColor)
             }
             
-            EntityPickerSection(selection: $base)
+            EntityPickerSection(selection: $base, period: period)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

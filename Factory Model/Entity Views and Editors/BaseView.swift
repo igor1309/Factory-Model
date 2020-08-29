@@ -27,7 +27,7 @@ struct BaseView: View {
                 NavigationLink(
                     destination: BaseEditor(base, in: period)
                 ) {
-                    Text("\(base.title), \(base.weightNetto.formattedGrouped)")
+                    Text("\(base.title(in: period)), \(base.weightNetto.formattedGrouped)")
                 }
                 .foregroundColor(.accentColor)
                 
@@ -38,7 +38,8 @@ struct BaseView: View {
                 GenericListSection(
                     header: "Used in Products",
                     type: Product.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base),
+                    in: period
                 ) { product in
                     ProductView(product, in: period)
                 }
@@ -46,7 +47,7 @@ struct BaseView: View {
             
             //  parent check
             if base.factory == nil {
-                EntityPickerSection(selection: $base.factory)
+                EntityPickerSection(selection: $base.factory, period: period)
             }
             
             ProductionOutputSection(for: base, in: period)
@@ -54,13 +55,14 @@ struct BaseView: View {
             ProductData(base, in: period) {
                 ListWithDashboard(
                     for: base,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base),
+                    in: period
                 ) {
                     CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
                 } dashboard: {
                     
                 } editor: { (recipe: Recipe) in
-                    RecipeEditor(recipe)
+                    RecipeEditor(recipe, in: period)
                 }
             } employeeDestination: {
                 Text("TBD: Labor Cost incl taxes")

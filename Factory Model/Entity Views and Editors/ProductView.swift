@@ -26,7 +26,7 @@ struct ProductView: View {
                 header: Text("Product Detail")
             ) {
                 NavigationLink(
-                    destination: ProductEditor(product)
+                    destination: ProductEditor(product, in: period)
                 ) {
                     ListRow(product)
                 }
@@ -62,7 +62,7 @@ struct ProductView: View {
                 header: Text("Sales")
             ) {
                 NavigationLink(
-                    destination: SalesList(for: product)
+                    destination: SalesList(for: product, in: period)
                 ) {
                     LabelWithDetail("creditcard", "Sales List", "")
                 }
@@ -83,6 +83,6 @@ struct ProductView: View {
             }
         }
         .listStyle(InsetGroupedListStyle())
-        .navigationTitle(product.title)
+        .navigationTitle(product.title(in: period))
     }
 }

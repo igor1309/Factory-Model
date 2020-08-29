@@ -29,7 +29,7 @@ struct SalesEditorCore: View {
     
     var body: some View {
         //  MARK: - FINISH THIS FIND SOLUTION TO FETCH BUYERS FOR FACTORY
-        EntityPickerSection(selection: $sales.buyer)        
+        EntityPickerSection(selection: $sales.buyer, period: period)
 
         Section(
             header: Text("Product, Price")
@@ -37,14 +37,15 @@ struct SalesEditorCore: View {
             Group {
                 Group {
                     //  MARK: - FINISH THIS FIND SOLUTION TO FETCH PRODUCTS FOR FACTORY
-                    EntityPicker(selection: $sales.product, icon: Product.icon, predicate: nil)
+                    EntityPicker(selection: $sales.product, icon: Product.icon, predicate: nil, period: period)
                         .foregroundColor(sales.product == nil ? .systemRed : .accentColor)
-                    
-                    PeriodPicker(icon: "deskclock", title: "Period", period: $sales.period)
-                    
+
+                    //  MARK: - FINISH THIS
+                    //PeriodPicker(icon: "deskclock", title: "Period", period: $sales.period)
+
                     AmountPicker(systemName: "square", title: "Product Qty", navigationTitle: "Qty", scale: .large, amount: $sales.qty)
                         .foregroundColor(sales.qty <= 0 ? .systemRed : .accentColor)
-                    
+
                     AmountPicker(systemName: "dollarsign.circle", title: "Price, ex VAT", navigationTitle: "Price", scale: .small, amount: $sales.priceExVAT)
                         .foregroundColor(sales.priceExVAT <= 0 ? .systemRed : .accentColor)
                 }

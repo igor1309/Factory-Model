@@ -48,7 +48,7 @@ struct BaseGroupList: View {
                     NavigationLink(
                         destination: BaseView(base, in: period)
                     ) {
-                        EntityRow(base)
+                        EntityRow(base, in: period)
                     }
                 }
                 .onDelete(perform: removeBase)

@@ -17,7 +17,8 @@ struct FactoryList: View {
             GenericListSection(
                 type: Factory.self,
                 predicate: nil,
-                useSmallerFont: false
+                useSmallerFont: false,
+                in: period
             ) { factory in
                 FactoryView(factory, in: period)
             }
@@ -27,7 +28,7 @@ struct FactoryList: View {
         .navigationBarItems(
             trailing:
                 HStack(spacing: 16) {
-                    MenuCreateNewOrSample()
+                    MenuCreateNewOrSample(period: period)
                     CreateEntityPickerButton(period: period)
                 }
         )

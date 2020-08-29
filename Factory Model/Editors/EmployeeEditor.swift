@@ -16,7 +16,7 @@ struct EmployeeEditor: View {
     let employeeToEdit: Employee?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         employeeToEdit = nil
@@ -26,12 +26,13 @@ struct EmployeeEditor: View {
         _position = State(initialValue: "")
         _salary = State(initialValue: 0)
         _workHours = State(initialValue: 0)
+        _period = State(initialValue: Period.month())
         _department = State(initialValue: nil)
         
         title = "New Employee"
     }
     
-    init(_ employee: Employee) {
+    init(_ employee: Employee, in period: Period) {
         _isPresented = .constant(true)
         
         employeeToEdit = employee
@@ -41,6 +42,7 @@ struct EmployeeEditor: View {
         _position = State(initialValue: employee.position)
         _salary = State(initialValue: employee.salary)
         _workHours = State(initialValue: employee.workHours)
+        _period = State(initialValue: employee.period)
         _department = State(initialValue: employee.department)
         
         title = "Edit Employee"
@@ -51,6 +53,7 @@ struct EmployeeEditor: View {
     @State private var position: String
     @State private var salary: Double
     @State private var workHours: Double
+    @State private var period: Period
     @State private var department: Department?
     
     var body: some View {
@@ -93,11 +96,13 @@ struct EmployeeEditor: View {
                         }
                     }
                     .pickerStyle(SegmentedPickerStyle())
+                    
+                    PeriodPicker(icon: "deskclock", title: "Period", period: $period)
                 }
-                .foregroundColor(.accentColor)
+                //.foregroundColor(.accentColor)
             }
             
-            EntityPickerSection(selection: $department)
+            EntityPickerSection(selection: $department, period: period)
             
             TextField("Note", text: $note)
         }
@@ -108,7 +113,7 @@ struct EmployeeEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let employee: Employee
+            var employee: Employee
             if let employeeToEdit = employeeToEdit {
                 employee = employeeToEdit
             } else {
@@ -120,6 +125,7 @@ struct EmployeeEditor: View {
             employee.position = position
             employee.salary = salary
             employee.workHours = workHours
+            employee.period = period
             employee.department = department
             
             context.saveContext()

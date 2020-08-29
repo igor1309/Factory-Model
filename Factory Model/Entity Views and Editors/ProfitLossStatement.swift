@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct ProfitLossStatement: View {
-    var factory: Factory
+    let factory: Factory
+    let period: Period
     
-    init(for factory: Factory) {
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     private func header(_ text: String) -> some View {
@@ -28,8 +30,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Revenue")
                     ) {
-                        FinancialLabel("Sales, ex VAT", value: factory.revenueExVAT, percentage: nil)
-                        FinancialLabel("Sales, with VAT", value: factory.revenueWithVAT, percentage: nil, font: .caption)
+                        FinancialLabel("Sales, ex VAT", value: factory.revenueExVAT(in: period), percentage: nil)
+                        FinancialLabel("Sales, with VAT", value: factory.revenueWithVAT(in: period), percentage: nil, font: .caption)
                             .foregroundColor(.secondary)
                     }
                     
@@ -39,39 +41,39 @@ struct ProfitLossStatement: View {
                         Group {
                             FinancialLabel(
                                 "Ingredient Cost, ex VAT",
-                                value:      factory.salesIngredientCostExVAT,
-                                percentage: factory.salesIngredientCostExVATPercentage
+                                value:      factory.salesIngredientCostExVAT(in: period),
+                                percentage: factory.salesIngredientCostExVATPercentage(in: period)
                             )
                             FinancialLabel(
                                 "Salary incl taxes",
-                                value: factory.productionSalaryWithTax,
-                                percentage: factory.productionSalaryWithTaxPercentage
+                                value: factory.productionSalaryWithTax(in: period),
+                                percentage: factory.productionSalaryWithTaxPercentage(in: period)
                             )
-                            FinancialLabel("Utilities, ex VAT", value: factory.utilitiesExVAT, percentage: factory.utilitiesExVATPercentage)
-                            FinancialLabel("Depreciation", value: factory.depreciationMonthly, percentage: factory.depreciationMonthlyPercentage)
+                            FinancialLabel("Utilities, ex VAT", value: factory.utilitiesExVAT(in: period), percentage: factory.utilitiesExVATPercentage(in: period))
+                            FinancialLabel("Depreciation", value: factory.depreciationMonthly, percentage: factory.depreciationMonthlyPercentage(in: period))
                         }
                         .foregroundColor(.secondary)
                         
                         FinancialLabel(
                             "COGS",
-                            value:      factory.cogsExVAT,
-                            percentage: factory.cogsExVATPercentage
+                            value:      factory.cogsExVAT(in: period),
+                            percentage: factory.cogsExVATPercentage(in: period)
                         )
                     }
                     
                     Section(
                         header: header("Margin")
                     ) {
-                        FinancialLabel("Margin", value: factory.margin, percentage: factory.marginPercentage)
-                            .foregroundColor(factory.margin > 0 ? .primary : .systemRed)
+                        FinancialLabel("Margin", value: factory.margin(in: period), percentage: factory.marginPercentage(in: period))
+                            .foregroundColor(factory.margin(in: period) > 0 ? .primary : .systemRed)
                     }
                     
                     Section(
                         header: header("Expenses")
                     ) {
                         Group {
-                            FinancialLabel("Non Production Salary incl taxes", value: factory.nonProductionSalaryWithTax, percentage: factory.nonProductionSalaryWithTaxPercentage)
-                            FinancialLabel("Expenses, ex VAT", value: factory.expensesExVAT, percentage: factory.expensesExVATPercentage)
+                            FinancialLabel("Non Production Salary incl taxes", value: factory.nonProductionSalaryWithTax(in: period), percentage: factory.nonProductionSalaryWithTaxPercentage(in: period))
+                            FinancialLabel("Expenses, ex VAT", value: factory.expensesExVAT(in: period), percentage: factory.expensesExVATPercentage(in: period))
                         }
                         .foregroundColor(.secondary)
                     }
@@ -81,8 +83,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("EBIT")
                     ) {
-                        FinancialLabel("EBIT", value: factory.ebit, percentage: factory.ebitPercentage)
-                            .foregroundColor(factory.ebit > 0 ? .primary : .systemRed)
+                        FinancialLabel("EBIT", value: factory.ebit(in: period), percentage: factory.ebitPercentage(in: period))
+                            .foregroundColor(factory.ebit(in: period) > 0 ? .primary : .systemRed)
                     }
                 }
                 
@@ -90,8 +92,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Taxes")
                     ) {
-                        FinancialLabel("Profit Tax", value: factory.profitTax, percentage: factory.profitTaxPercentage)
-                            .foregroundColor(factory.profitTax > 0 ? .primary : .secondary)
+                        FinancialLabel("Profit Tax", value: factory.profitTax(in: period), percentage: factory.profitTaxPercentage(in: period))
+                            .foregroundColor(factory.profitTax(in: period) > 0 ? .primary : .secondary)
                     }
                     
                     Divider()
@@ -99,8 +101,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("Net Profit")
                     ) {
-                        FinancialLabel("Net Profit", value: factory.netProfit, percentage: factory.netProfitPercentage)
-                            .foregroundColor(factory.netProfit > 0 ? .primary : .systemRed)
+                        FinancialLabel("Net Profit", value: factory.netProfit(in: period), percentage: factory.netProfitPercentage(in: period))
+                            .foregroundColor(factory.netProfit(in: period) > 0 ? .primary : .systemRed)
                     }
                     
                     Divider()
@@ -108,8 +110,8 @@ struct ProfitLossStatement: View {
                     Section(
                         header: header("EBITDA")
                     ) {
-                        FinancialLabel("EBITDA", value: factory.ebitda, percentage: factory.ebitdaPercentage)
-                            .foregroundColor(factory.ebitda > 0 ? .primary : .systemRed)
+                        FinancialLabel("EBITDA", value: factory.ebitda(in: period), percentage: factory.ebitdaPercentage(in: period))
+                            .foregroundColor(factory.ebitda(in: period) > 0 ? .primary : .systemRed)
                     }
                     
                     Divider()
@@ -118,12 +120,12 @@ struct ProfitLossStatement: View {
                         header: header("Salary")
                     ) {
                         Group {
-                            FinancialLabel("Production Salary", value: factory.productionSalaryWithTax, percentage: factory.productionSalaryWithTaxPercentage)
-                            FinancialLabel("Non Production Salary", value: factory.nonProductionSalaryWithTax, percentage: factory.nonProductionSalaryWithTaxPercentage)
+                            FinancialLabel("Production Salary", value: factory.productionSalaryWithTax(in: period), percentage: factory.productionSalaryWithTaxPercentage(in: period))
+                            FinancialLabel("Non Production Salary", value: factory.nonProductionSalaryWithTax(in: period), percentage: factory.nonProductionSalaryWithTaxPercentage(in: period))
                         }
                         .foregroundColor(.secondary)
                         
-                        FinancialLabel("Salary incl taxes", value: factory.salaryWithTax, percentage: factory.salaryWithTaxPercentage)
+                        FinancialLabel("Salary incl taxes", value: factory.salaryWithTax(in: period), percentage: factory.salaryWithTaxPercentage(in: period))
                     }
                 }
             }

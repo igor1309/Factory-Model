@@ -12,15 +12,19 @@ struct BuyerView: View {
     
     @ObservedObject var buyer: Buyer
     
-    init(_ buyer: Buyer){
+    let period: Period
+    
+    init(_ buyer: Buyer, in period: Period) {
         self.buyer = buyer
+        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: buyer,
             title: "Edit Buyer",
-            predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
+            predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer),
+            in: period
         ) {
             CreateChildButton(
                 systemName: "cart",
@@ -33,7 +37,7 @@ struct BuyerView: View {
                 header: Text("Buyer Detail")
             ) {
                 NavigationLink(
-                    destination: BuyerEditor(buyer)
+                    destination: BuyerEditor(buyer, in: period)
                 ) {
                     ListRow(buyer)
                 }
@@ -48,7 +52,7 @@ struct BuyerView: View {
                     .foregroundColor(.systemRed)
             }
         } editor: { (sales: Sales) in
-            SalesEditor(sales)
+            SalesEditor(sales, in: period)
         }
     }
 }

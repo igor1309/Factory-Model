@@ -20,7 +20,7 @@ struct ExpensesList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory) {
+        EntityListWithDashboard(for: factory, in: period) {
             Section(
                 header: Text("Total"),
                 footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
@@ -30,7 +30,7 @@ struct ExpensesList: View {
                     .font(.subheadline)
             }
         } editor: { (expenses: Expenses) in
-            ExpensesEditor(expenses)
+            ExpensesEditor(expenses, in: period)
         }
     }
 }

@@ -22,7 +22,8 @@ struct UtilityList: View {
     var body: some View {
         ListWithDashboard(
             for: base,
-            predicate: NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
+            predicate: NSPredicate(format: "%K == %@", #keyPath(Utility.base), base),
+            in: period
         ) {
             CreateChildButton(
                 systemName: "gauge.badge.plus",
@@ -42,7 +43,7 @@ struct UtilityList: View {
                 .font(.subheadline)
             }
         } editor: { (utility: Utility) in
-            UtilityEditor(utility)
+            UtilityEditor(utility, in: period)
         }
     }
 }

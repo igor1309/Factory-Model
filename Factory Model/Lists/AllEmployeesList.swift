@@ -12,15 +12,19 @@ struct AllEmployeesList: View {
     
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
             title: "All Employees",
-            predicate: Employee.factoryPredicate(for: factory)
+            predicate: Employee.factoryPredicate(for: factory),
+            in: period
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
             EmptyView()
@@ -33,7 +37,7 @@ struct AllEmployeesList: View {
         } dashboard: {
             
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
+            EmployeeEditor(employee, in: period)
         }
     }
 }

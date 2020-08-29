@@ -21,6 +21,7 @@ struct ListWithDashboard<
     
     let title: String
     let useSmallerFont: Bool
+    let period: Period
     let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
@@ -30,6 +31,7 @@ struct ListWithDashboard<
         title: String? = nil,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
+        in period: Period,
         plusButton: @escaping () -> PlusButton,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -37,6 +39,7 @@ struct ListWithDashboard<
         self.parent = parent
         self.title = title == nil ? Child.plural : title!
         self.useSmallerFont = useSmallerFont
+        self.period = period
         self.plusButton = plusButton
         self.dashboard = dashboard
         self.editor = editor
@@ -61,6 +64,7 @@ struct ListWithDashboard<
                     header: "Orphans",
                     fetchRequest: _orphansFetchRequest,
                     useSmallerFont: useSmallerFont,
+                    in: period,
                     editor: editor
                 )
                 .foregroundColor(.systemRed)
@@ -69,6 +73,7 @@ struct ListWithDashboard<
             GenericListSection(
                 fetchRequest: _entities,
                 useSmallerFont: useSmallerFont,
+                in: period,
                 editor: editor
             )
         }
@@ -88,6 +93,7 @@ private extension ListWithDashboard where Child: FactoryTracable {
         title: String? = nil,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
+        in period: Period,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -115,6 +121,7 @@ private extension ListWithDashboard where Child: FactoryTracable {
             title: title == nil ? Child.plural : title!,
             predicate: predicateToUse,
             useSmallerFont: useSmallerFont,
+            in: period,
             plusButton: plusButton,
             dashboard: dashboard,
             editor: editor
@@ -131,6 +138,7 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
         for parent: Parent,
         title: String? = nil,
         useSmallerFont: Bool = true,
+        in period: Period,
         predicate: NSPredicate? = nil,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -139,7 +147,9 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
         self.init(
             for: parent,
             title: title,
-            predicate: predicate, useSmallerFont: useSmallerFont,
+            predicate: predicate,
+            useSmallerFont: useSmallerFont,
+            in: period,
             keyPathParentToChildren: Child.offspringKeyPath,
             dashboard: dashboard,
             editor: editor)

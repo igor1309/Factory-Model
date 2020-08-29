@@ -20,7 +20,8 @@ struct DivisionList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory) {
+        EntityListWithDashboard(for: factory, in: period) {
+            
             LaborView(for: factory, in: period)
             
             Section(
@@ -28,7 +29,7 @@ struct DivisionList: View {
             ) {
                 Group {
                     NavigationLink(
-                        destination: AllEmployeesList(for: factory)
+                        destination: AllEmployeesList(for: factory, in: period)
                     ) {
                         Label("All Factory Personnel", systemImage: Department.icon)
                     }

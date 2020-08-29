@@ -9,22 +9,11 @@ import Foundation
 
 extension Sales {
     
-    var period: Period {
-        get {
-            Period(periodStr_ ?? "month", days: Int(days), hoursPerDay: hoursPerDay) ?? .month()
-        }
-        set {
-            periodStr_ = newValue.periodStr
-            days = Int16(newValue.days)
-            hoursPerDay = newValue.hoursPerDay
-        }
-    }
-    
     var buyerName: String {
         buyer?.name_ ?? ""
     }
     var productName: String {
-        product?.title ?? ""
+        product?.title(in: Period.hour) ?? ""
     }
     
     var priceWithVAT: Double {

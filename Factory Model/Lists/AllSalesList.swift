@@ -64,17 +64,19 @@ struct AllSalesList: View {
             
             GenericListSection(
                 type: Sales.self,
-                predicate: Sales.factoryPredicate(for: factory)
+                predicate: Sales.factoryPredicate(for: factory),
+                in: period
             ) { sales in
-                SalesEditor(sales)
+                SalesEditor(sales, in: period)
             }
             
             if !orphans.isEmpty {
                 GenericListSection(
                     header: "Sales and Orphans",
-                    fetchRequest: _orphans
+                    fetchRequest: _orphans,
+                    in: period
                 ) { sales in
-                    SalesEditor(sales)
+                    SalesEditor(sales, in: period)
                 }
                 .foregroundColor(.systemRed)
             }

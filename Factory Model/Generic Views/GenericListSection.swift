@@ -18,17 +18,20 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     let editor: (T) -> Editor
     let useSmallerFont: Bool
     let header: String
+    let period: Period
     
     init(
         header: String? = T.plural,
         fetchRequest: FetchRequest<T>,
         useSmallerFont: Bool = true,
+        in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header == nil ? T.plural : header!
         _fetchRequest = fetchRequest
         self.editor = editor
         self.useSmallerFont = useSmallerFont
+        self.period = period
     }
     
     init(
@@ -36,11 +39,13 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         type: T.Type,
         predicate: NSPredicate?,
         useSmallerFont: Bool = true,
+        in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header == nil ? T.plural : header!
         self.editor = editor
         self.useSmallerFont = useSmallerFont
+        self.period = period
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
     
@@ -57,7 +62,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
                     NavigationLink(
                         destination: editor(entity)
                     ) {
-                        EntityRowWithAction(entity, useSmallerFont: useSmallerFont)
+                        EntityRowWithAction(entity, useSmallerFont: useSmallerFont, in: period)
                     }
                 }
             }
@@ -84,17 +89,19 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
     
     @ObservedObject var entity: T
     
-    var useSmallerFont: Bool
+    let useSmallerFont: Bool
+    let period: Period
     
-    init(_ entity: T, useSmallerFont: Bool = true) {
+    init(_ entity: T, useSmallerFont: Bool = true, in period: Period) {
         self.entity = entity
         self.useSmallerFont = useSmallerFont
+        self.period = period
     }
     
     @State private var showDeleteAction = false
     
     var body: some View {
-        EntityRow(entity, useSmallerFont: useSmallerFont)
+        EntityRow(entity, useSmallerFont: useSmallerFont, in: period)
             .contextMenu {
                 Button {
                     showDeleteAction = true
@@ -106,7 +113,7 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
             .actionSheet(isPresented: $showDeleteAction) {
                 ActionSheet(
                     title: Text("Delete?".uppercased()),
-                    message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
+                    message: Text("Do you really want to delete '\(entity.title(in: period))'?\nThis cannot be undone."),
                     buttons: [
                         .destructive(Text("Yes, delete")) { delete(entity) },
                         .cancel()

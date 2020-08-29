@@ -21,7 +21,7 @@ struct Testing: View {
                     Text("Factories")
                 }
                 
-                EntityLinkToList { (factory: Factory) in
+                EntityLinkToList(in: period) { (factory: Factory) in
                     FactoryView(factory, in: period)
                 }
             }
@@ -31,23 +31,23 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
                 
             ) {
-                EntityLinkToList { (division: Division) in
+                EntityLinkToList(in: period) { (division: Division) in
                     DivisionView(division, in: period)
                 }
                 
-                EntityLinkToList { (department: Department) in
+                EntityLinkToList(in: period) { (department: Department) in
                     DepartmentView(department, in: period)
                 }
                 
-                EntityLinkToList { (buyer: Buyer) in
-                    BuyerView(buyer)
+                EntityLinkToList(in: period) { (buyer: Buyer) in
+                    BuyerView(buyer, in: period)
                 }
                 
-                EntityLinkToList { (product: Product) in
+                EntityLinkToList(in: period) { (product: Product) in
                     ProductView(product, in: period)
                 }
                 
-                EntityLinkToList { (base: Base) in
+                EntityLinkToList(in: period) { (base: Base) in
                     BaseView(base, in: period)
                 }
             }
@@ -56,12 +56,12 @@ struct Testing: View {
                 header: Text("Many-to-many"),
                 footer: Text("Subordinate. Not intended to direct use. No Entity View, using Editor.")
             ) {
-                EntityLinkToList { (sales: Sales) in
-                    SalesEditor(sales)
+                EntityLinkToList(in: period) { (sales: Sales) in
+                    SalesEditor(sales, in: period)
                 }
                 
-                EntityLinkToList { (recipe: Recipe) in
-                    RecipeEditor(recipe)
+                EntityLinkToList(in: period) { (recipe: Recipe) in
+                    RecipeEditor(recipe, in: period)
                 }
             }
             
@@ -69,11 +69,11 @@ struct Testing: View {
                 header: Text("Many parents"),
                 footer: Text("Using View + Editor (via View).")
             ) {
-                EntityLinkToList { (ingredient: Ingredient) in
+                EntityLinkToList(in: period) { (ingredient: Ingredient) in
                     IngredientView(ingredient, in: period)
                 }
                 
-                EntityLinkToList { (packaging: Packaging) in
+                EntityLinkToList(in: period) { (packaging: Packaging) in
                     PackagingView(packaging, in: period)
                 }
             }
@@ -82,20 +82,20 @@ struct Testing: View {
                 header: Text("One parent"),
                 footer: Text("No Entity View, using Editor.")
             ) {
-                EntityLinkToList { (utility: Utility) in
-                    UtilityEditor(utility)
+                EntityLinkToList(in: period) { (utility: Utility) in
+                    UtilityEditor(utility, in: period)
                 }
                 
-                EntityLinkToList { (employee: Employee) in
-                    EmployeeEditor(employee)
+                EntityLinkToList(in: period) { (employee: Employee) in
+                    EmployeeEditor(employee, in: period)
                 }
                 
-                EntityLinkToList { (equipment: Equipment) in
-                    EquipmentEditor(equipment)
+                EntityLinkToList(in: period) { (equipment: Equipment) in
+                    EquipmentEditor(equipment, in: period)
                 }
                 
-                EntityLinkToList { (expenses: Expenses) in
-                    ExpensesEditor(expenses)
+                EntityLinkToList(in: period) { (expenses: Expenses) in
+                    ExpensesEditor(expenses, in: period)
                 }
             }
         }

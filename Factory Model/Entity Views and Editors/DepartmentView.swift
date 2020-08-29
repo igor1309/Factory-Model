@@ -30,8 +30,8 @@ struct DepartmentView: View {
             
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Employee.department), department
-            )
-            
+            ),
+            in: period            
         ) {
             CreateChildButton(
                 systemName: "person.badge.plus",
@@ -44,7 +44,7 @@ struct DepartmentView: View {
                 header: Text("Department Detail")
             ) {
                 NavigationLink(
-                    destination: DepartmentEditor(department)
+                    destination: DepartmentEditor(department, in: period)
                 ) {
                     ListRow(department)
                 }
@@ -55,7 +55,7 @@ struct DepartmentView: View {
             LaborView(for: department, in: period)
             
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
+            EmployeeEditor(employee, in: period)
         }
     }
 }

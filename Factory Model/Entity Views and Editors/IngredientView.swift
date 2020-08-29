@@ -62,7 +62,8 @@ struct IngredientView: View {
             GenericListSection(
                 header: "Used in Base Products",
                 type: Base.self,
-                predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
+                predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient),
+                in: period
             ) { (base: Base) in
                 BaseEditor(base, in: period)
             }

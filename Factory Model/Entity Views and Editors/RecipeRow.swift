@@ -13,8 +13,11 @@ struct RecipeRow/*<T: Managed>*/: View {
     @ObservedObject var entity: Recipe//T
     //    let keyPath: ReferenceWritableKeyPath<>
     
-    init(_ entity: Recipe/*T*/) {
+    let period: Period
+    
+    init(_ entity: Recipe/*T*/, in period: Period) {
         self.entity = entity
+        self.period = period
     }
     
     @State private var showDeleteAction = false
@@ -22,7 +25,7 @@ struct RecipeRow/*<T: Managed>*/: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                EntityPicker(selection: $entity.ingredient, icon: Ingredient.icon)
+                EntityPicker(selection: $entity.ingredient, icon: Ingredient.icon, period: period)
                     .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
@@ -52,7 +55,7 @@ struct RecipeRow/*<T: Managed>*/: View {
         .actionSheet(isPresented: $showDeleteAction) {
             ActionSheet(
                 title: Text("Delete?".uppercased()),
-                message: Text("Do you really want to delete '\(entity.title)'?\nThis cannot be undone."),
+                message: Text("Do you really want to delete '\(entity.title(in: period))'?\nThis cannot be undone."),
                 buttons: [
                     .destructive(Text("Yes, delete")) { delete(entity) },
                     .cancel()

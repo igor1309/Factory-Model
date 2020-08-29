@@ -20,7 +20,8 @@ struct PackagingList: View {
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Packaging.factoryPredicate(for: factory)
+            predicate: Packaging.factoryPredicate(for: factory),
+            in: period
         ) {
             //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
             EmptyView()

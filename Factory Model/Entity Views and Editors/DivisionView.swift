@@ -30,8 +30,8 @@ struct DivisionView: View {
             
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Department.division), division
-            )
-            
+            ),
+            in: period
         ) {
             CreateChildButton(
                 systemName: "rectangle.badge.plus",
@@ -46,7 +46,7 @@ struct DivisionView: View {
             
             //  parent check
             if division.factory == nil {
-                EntityPickerSection(selection: $division.factory)                
+                EntityPickerSection(selection: $division.factory, period: period)
             }
         } editor: { (department: Department) in
             DepartmentView(department, in: period)

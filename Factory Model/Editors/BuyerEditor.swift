@@ -15,11 +15,13 @@ struct BuyerEditor: View {
     
     let buyerToEdit: Buyer?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         buyerToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _factory = State(initialValue: nil)
@@ -27,10 +29,11 @@ struct BuyerEditor: View {
         title = "New Buyer"
     }
     
-    init(_ buyer: Buyer) {
+    init(_ buyer: Buyer, in period: Period) {
         _isPresented = .constant(true)
         
         buyerToEdit = buyer
+        self.period = period
         
         _name = State(initialValue: buyer.name)
         _factory = State(initialValue: buyer.factory)
@@ -55,7 +58,7 @@ struct BuyerEditor: View {
         List {
             NameSection<Buyer>(name: $name)
             
-            EntityPickerSection(selection: $factory)
+            EntityPickerSection(selection: $factory, period: period)
             
             DraftSection<Sales, SalesDraft>(isNewDraftActive: $isNewDraftActive, drafts: $salesDrafts)
 
@@ -64,9 +67,10 @@ struct BuyerEditor: View {
                 GenericListSection(
                     header: "Existing Sales",
                     type: Sales.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer),
+                    in: period
                 ) { (sales: Sales) in
-                    SalesEditor(sales)
+                    SalesEditor(sales, in: period)
                 }
             }
         }

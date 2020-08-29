@@ -35,9 +35,9 @@ struct CreateSales: View {
         List {
             switch kind {
                 case .forProduct:
-                    EntityPickerSection(selection: $buyer)
+                    EntityPickerSection(selection: $buyer, period: period)
                 case .forBuyer:
-                    EntityPickerSection(selection: $product)
+                    EntityPickerSection(selection: $product, period: period)
             }
             
             PeriodPicker(icon: "deskclock", title: "Period", period: $period)

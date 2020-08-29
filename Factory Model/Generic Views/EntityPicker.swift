@@ -12,13 +12,15 @@ typealias PickableEntity = Managed & Monikerable & Summarizable //& NSManagedObj
 
 struct EntityPickerSection<T: PickableEntity & Sketchable>: View {
     @Binding var selection: T?
-    var predicate: NSPredicate? = nil
+
+    let predicate: NSPredicate? = nil
+    let period: Period
     
     var body: some View {
         Section(
             header: Text(T.entityName)
         ) {
-            EntityPicker(selection: $selection, icon: T.icon, predicate: predicate)
+            EntityPicker(selection: $selection, icon: T.icon, predicate: predicate, period: period)
                 .foregroundColor(selection == nil ? .systemRed : .accentColor)
         }
     }
@@ -30,15 +32,16 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     @Binding var selection: T?
     var icon: String? = nil
     var predicate: NSPredicate? = nil
+    let period: Period
     
     @State private var showSheet = false
     
     @ViewBuilder
     private var label: some View {
         if let icon = icon {
-            Label(selection?.title ?? "Select \(T.entityName)", systemImage: icon)
+            Label(selection?.title(in: period) ?? "Select \(T.entityName)", systemImage: icon)
         } else {
-            Text(selection?.title ?? "Select \(T.entityName)")
+            Text(selection?.title(in: period) ?? "Select \(T.entityName)")
         }
     }
     
@@ -60,7 +63,8 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
         }) {
             EntityPickerSheet(
                 selection: $selection,
-                predicate: predicate
+                predicate: predicate,
+                in: period
             )
             .environment(\.managedObjectContext, context)
         }
@@ -73,11 +77,14 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
     
     @Binding var selection: T?
     
+    let period: Period
+    
     @FetchRequest private var entities: FetchedResults<T>
     
     init(
         selection: Binding<T?>,
-        predicate: NSPredicate?
+        predicate: NSPredicate?,
+        in period: Period
     ) {
         _selection = selection
         _entities = FetchRequest(
@@ -85,6 +92,7 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
             sortDescriptors: T.defaultSortDescriptors,
             predicate: predicate
         )
+        self.period = period
     }
     
     var body: some View {
@@ -98,7 +106,7 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
                             selection = entity
                             presentation.wrappedValue.dismiss()
                         } label: {
-                            EntityRow(entity)
+                            EntityRow(entity, in: period)
                                 .foregroundColor(selection == entity ? .systemOrange : .accentColor)
                         }
                     }

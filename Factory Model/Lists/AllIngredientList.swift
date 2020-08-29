@@ -11,14 +11,18 @@ import CoreData
 struct AllIngredientList: View {
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Ingredient.factoryPredicate(for: factory)
+            predicate: Ingredient.factoryPredicate(for: factory),
+            in: period
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
             EmptyView()
@@ -32,7 +36,7 @@ struct AllIngredientList: View {
             Text("TBD: dashboard")
                 .font(.subheadline)
         } editor: { (ingredient: Ingredient) in
-            IngredientView(ingredient)
+            IngredientView(ingredient, in: period)
         }
     }
 }

@@ -10,19 +10,23 @@ import SwiftUI
 struct AllBuyersList: View {
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory) {
+    let period: Period
+    
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
         EntityListWithDashboard(
             for: factory,
             title: "All Buyers",
-            predicate: nil// if nil use default!!
+            in: period,
+            predicate: nil
         ) {
             
         } editor: { (buyer: Buyer) in
-            BuyerEditor(buyer)
+            BuyerEditor(buyer, in: period)
         }
     }
 }

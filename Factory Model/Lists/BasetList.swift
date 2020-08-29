@@ -23,7 +23,8 @@ struct BaseList: View {
         ListWithDashboard(
             for: factory,
             title: "Base Products",
-            predicate: Base.factoryPredicate(for: factory)
+            predicate: Base.factoryPredicate(for: factory),
+            in: period
         ) {
             CreateChildButton(systemName: "bag.badge.plus", childType: Base.self, parent: factory, keyPath: \Factory.bases_)
         } dashboard: {

@@ -12,8 +12,11 @@ struct SalesList: View {
     
     @ObservedObject var product: Product
     
-    init(for product: Product) {
+    let period: Period
+    
+    init(for product: Product, in period: Period) {
         self.product = product
+        self.period = period
     }
     
     var body: some View {
@@ -21,7 +24,8 @@ struct SalesList: View {
             for: product,
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Sales.product), product
-            )
+            ),
+            in: period
         ) {
             CreateChildButton(
                 systemName: "cart.badge.plus",
@@ -37,7 +41,7 @@ struct SalesList: View {
                 icon: "creditcard"
             )
         } editor: { (sales: Sales) in
-            SalesEditor(sales)
+            SalesEditor(sales, in: period)
         }
     }
 }

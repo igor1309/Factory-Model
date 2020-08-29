@@ -64,7 +64,7 @@ struct FactoryView: View {
                 .foregroundColor(.systemOrange)
         ) {
             NavigationLink(
-                destination: BooksView(for: factory)
+                destination: BooksView(for: factory, in: period)
             ) {
                 ListRow(
                     title: "Reports",
@@ -80,7 +80,7 @@ struct FactoryView: View {
     private var equipmentSection: some View {
         Section(header: Text("Equipment")) {
             NavigationLink(
-                destination: EquipmentList(for: factory)
+                destination: EquipmentList(for: factory, in: period)
             ) {
                 //  MARK: more clever depreciation?
                 
@@ -168,7 +168,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: AllEmployeesList(for: factory)
+                    destination: AllEmployeesList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "People (\(factory.headcount.formattedGrouped))",
@@ -203,7 +203,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: ProductList(for: factory)
+                    destination: ProductList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Products",
@@ -227,7 +227,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: AllIngredientList(for: factory)
+                    destination: AllIngredientList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Ingredients",
@@ -266,7 +266,7 @@ struct FactoryView: View {
                 .foregroundColor(Sales.color)
                 
                 NavigationLink(
-                    destination: AllBuyersList(for: factory)
+                    destination: AllBuyersList(for: factory, in: period)
                 ) {
                     LabelWithDetail(Buyer.icon, "All Buyers", "")
                 }

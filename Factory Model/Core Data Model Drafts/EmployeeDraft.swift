@@ -13,6 +13,7 @@ struct EmployeeDraft: Identifiable {
     var position: String
     var salary: Double
     var workHours: Double
+    var period: Period
 
     var id = UUID()
 }

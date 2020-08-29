@@ -95,9 +95,9 @@ extension Factory {
                 Something(
                     id: UUID(),
                     title: $0,
+                    detail: $1,
                     qty: 0,
-                    cost: 0,
-                    detail: $1//,
+                    cost: 0//,
                     //icon: "bag"
                 )
             }

@@ -57,7 +57,7 @@ struct PackagingEditor: View {
                     header: Text("Used in Products")
                 ) {
                     Group {
-                        Text(packaging.productList)
+                        Text(packaging.productList(in: period))
                             .foregroundColor(packaging.isValid ? .secondary : .systemRed)
                     }
                     .font(.caption)
@@ -66,7 +66,8 @@ struct PackagingEditor: View {
                 GenericListSection(
                     //header: "Оставлять ли этот список?",
                     type: Product.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging),
+                    in: period
                 ) { product in
                     ProductView(product, in: period)
                 }

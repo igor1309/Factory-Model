@@ -10,20 +10,24 @@ import SwiftUI
 struct ProductList: View {
     @ObservedObject var factory: Factory
     
-    init(for factory: Factory){
+    let period: Period
+    
+    init(for factory: Factory, in period: Period){
         self.factory = factory
+        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Product.factoryPredicate(for: factory)
+            predicate: Product.factoryPredicate(for: factory),
+            in: period
         ) {
             CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
         } dashboard: {
             dashboard
         } editor: { (product: Product) in
-            ProductView(product)
+            ProductView(product, in: period)
         }
         
     }

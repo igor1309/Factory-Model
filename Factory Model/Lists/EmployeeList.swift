@@ -24,7 +24,8 @@ struct EmployeeList: View {
             for: department,
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Employee.department), department
-            )
+            ),
+            in: period
         ) {
             CreateChildButton(
                 systemName: Department.icon,
@@ -39,7 +40,7 @@ struct EmployeeList: View {
                     .font(.subheadline)
             }
         } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
+            EmployeeEditor(employee, in: period)
         }
         
     }

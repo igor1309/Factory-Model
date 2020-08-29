@@ -11,9 +11,9 @@ struct Something: Hashable, Identifiable {
     var id: UUID
     
     var title: String
+    var detail: String?
     var qty: Double
     var cost: Double
-    var detail: String?
     
     static var icon: String = "puzzlepiece"
 }
@@ -25,8 +25,15 @@ extension Something: Comparable {
 }
 
 extension Something: Summarizable {
-    var subtitle: String {
+    func title(in period: Period) -> String {
+        title
+    }
+    func subtitle(in period: Period) -> String {
         "qty: \(qty.formattedGrouped) | cost: \(cost.formattedGrouped)"
     }
+    func detail(in period: Period) -> String? {
+        detail
+    }
+    
     static var headline: String { "Something" }
 }

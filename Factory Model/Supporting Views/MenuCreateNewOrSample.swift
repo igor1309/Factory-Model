@@ -11,6 +11,8 @@ import CoreData
 struct MenuCreateNewOrSample: View {
     @Environment(\.managedObjectContext) private var context
     
+    let period: Period
+    
     private enum Modal: String { case product, sales, recipe }
     @State private var modal: Modal = .product
     @State private var showSheet = false
@@ -79,7 +81,7 @@ struct MenuCreateNewOrSample: View {
             switch modal {
                 case .product:
                     EntityCreator(isPresented: $showSheet) { (product: Product) in
-                        ProductEditor(product)
+                        ProductEditor(product, in: period)
                     }
                     .environment(\.managedObjectContext, context)
                     
@@ -94,7 +96,7 @@ struct MenuCreateNewOrSample: View {
                     
                 case .recipe:
                     EntityCreator(isPresented: $showSheet) { (recipe: Recipe) in
-                        RecipeEditor(recipe)
+                        RecipeEditor(recipe, in: period)
                     }
                     .environment(\.managedObjectContext, context)
             }

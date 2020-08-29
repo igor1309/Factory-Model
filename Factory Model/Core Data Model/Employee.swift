@@ -22,16 +22,6 @@ extension Employee {
         salary * 1.302
     }
     
-    var period: Period {
-        get {
-            Period(periodStr_ ?? "month", days: Int(days), hoursPerDay: hoursPerDay) ?? .month()
-        }
-        set {
-            periodStr_ = newValue.periodStr
-            days = Int16(newValue.days)
-            hoursPerDay = newValue.hoursPerDay
-        }
-    }
     
     func salaryExTax(in period: Period) -> Double {
         salary / self.period.hours * period.hours

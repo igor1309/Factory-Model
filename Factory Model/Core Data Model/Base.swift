@@ -44,7 +44,7 @@ extension Base {
         factory?.bases.map(\.group).removingDuplicates() ?? []
     }
     var productList: String {
-        products.map(\.title).joined(separator: "\n")
+        products.map { $0.title(in: Period.hour) }.joined(separator: "\n")
     }
     
 }

@@ -116,7 +116,7 @@ struct BaseEditor: View {
         )
         
         NavigationLink(
-            destination: CreateRecipe(recipeDrafts: $recipeDrafts),
+            destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: period),
             isActive: $isNewDraftActive
         ) {
             EmptyView()
@@ -160,7 +160,7 @@ struct BaseEditor: View {
                     .foregroundColor(weightNetto > 0 ? .accentColor : .systemRed)
             }
             
-            EntityPickerSection(selection: $factory)
+            EntityPickerSection(selection: $factory, period: period)
             
             DraftSection<Ingredient, RecipeDraft>(isNewDraftActive: $isNewDraftActive, drafts: $recipeDrafts)
             
@@ -169,9 +169,10 @@ struct BaseEditor: View {
                 GenericListSection(
                     header: "Existing Ingredients",
                     type: Recipe.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base),
+                    in: period
                 ) { (recipe: Recipe) in
-                    RecipeEditor(recipe)
+                    RecipeEditor(recipe, in: period)
                 }
             }
             
@@ -180,7 +181,8 @@ struct BaseEditor: View {
                 GenericListSection(
                     header: "Used in Products",
                     type: Product.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base),
+                    in: period
                 ) { product in
                     ProductView(product, in: period)
                 }
@@ -233,6 +235,8 @@ fileprivate struct CreateRecipe: View {
     
     @Binding var recipeDrafts: [RecipeDraft]
     
+    let period: Period
+    
     @State private var ingredient: Ingredient?
     @State private var qty: Double = 0
     @State private var coefficientToParentUnit: Double = 1
@@ -240,7 +244,7 @@ fileprivate struct CreateRecipe: View {
     var body: some View {
         List {
             HStack {
-                EntityPicker(selection: $ingredient, icon: Ingredient.icon)
+                EntityPicker(selection: $ingredient, icon: Ingredient.icon, period: period)
                     .buttonStyle(PlainButtonStyle())
                 
                 Spacer()

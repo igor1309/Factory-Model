@@ -20,6 +20,7 @@ struct EntityListWithDashboard<
     
     let title: String
     let useSmallerFont: Bool
+    let period: Period
     let keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
@@ -43,6 +44,7 @@ struct EntityListWithDashboard<
         title: String? = nil,
         predicate: NSPredicate? = nil,
         useSmallerFont: Bool = true,
+        in period: Period,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -51,6 +53,7 @@ struct EntityListWithDashboard<
         self.parent = parent
         self.title = title == nil ? Child.plural : title!
         self.useSmallerFont = useSmallerFont
+        self.period = period
         self.keyPathParentToChildren = keyPathParentToChildren
         self.dashboard = dashboard
         self.editor = editor
@@ -77,6 +80,7 @@ struct EntityListWithDashboard<
                     header: "Orphans",
                     fetchRequest: _orphansFetchRequest,
                     useSmallerFont: useSmallerFont,
+                    in: period,
                     editor: editor
                 )
                 .foregroundColor(.systemRed)
@@ -85,6 +89,7 @@ struct EntityListWithDashboard<
             GenericListSection(
                 fetchRequest: _entities,
                 useSmallerFont: useSmallerFont,
+                in: period,
                 editor: editor
             )
         }
@@ -109,6 +114,7 @@ extension EntityListWithDashboard where Child: Offspringable, Parent == Factory 
         for parent: Parent,
         title: String? = nil,
         useSmallerFont: Bool = true,
+        in period: Period,
         predicate: NSPredicate? = nil,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -117,7 +123,9 @@ extension EntityListWithDashboard where Child: Offspringable, Parent == Factory 
         self.init(
             for: parent,
             title: title,
-            predicate: predicate, useSmallerFont: useSmallerFont,
+            predicate: predicate,
+            useSmallerFont: useSmallerFont,
+            in: period,
             keyPathParentToChildren: Child.offspringKeyPath,
             dashboard: dashboard,
             editor: editor)

@@ -123,12 +123,14 @@
 		2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */; };
 		2A9F592424F90AAC00E0EDAB /* PeriodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */; };
 		2A9F592624F98ACE00E0EDAB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592524F98ACE00E0EDAB /* Period.swift */; };
+		2A9F592824FA416B00E0EDAB /* Periodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592724FA416B00E0EDAB /* Periodable.swift */; };
 		2AA8D05D24CC2ED80058D48F /* Department.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8D05C24CC2ED80058D48F /* Department.swift */; };
 		2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */; };
 		2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA09B24C4F4A8005F1E9F /* ContentView.swift */; };
 		2AADA09E24C4F4A9005F1E9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */; };
 		2AADA0A124C4F4A9005F1E9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADA0A024C4F4A9005F1E9F /* Preview Assets.xcassets */; };
 		2AADA0AA24C4F4E2005F1E9F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA0A824C4F4E2005F1E9F /* DataModel.xcdatamodeld */; };
+		2AB2C9CE24FA4D27000506D3 /* GroupCodeNotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */; };
 		2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB435E24EE6ECF0036F42F /* BuyerView.swift */; };
 		2ABB436124EE74590036F42F /* RecipeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436024EE74590036F42F /* RecipeRow.swift */; };
 		2ABB436324EFC9D90036F42F /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436224EFC9D90036F42F /* ProductData.swift */; };
@@ -260,6 +262,7 @@
 		2A9F592224F90A2800E0EDAB /* Period.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Period.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodPicker.swift; sourceTree = "<group>"; };
 		2A9F592524F98ACE00E0EDAB /* Period.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Period.swift; sourceTree = "<group>"; };
+		2A9F592724FA416B00E0EDAB /* Periodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Periodable.swift; sourceTree = "<group>"; };
 		2AA8D05C24CC2ED80058D48F /* Department.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Department.swift; sourceTree = "<group>"; };
 		2AADA09624C4F4A8005F1E9F /* Factory Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Factory Model.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory_ModelApp.swift; sourceTree = "<group>"; };
@@ -268,6 +271,7 @@
 		2AADA0A024C4F4A9005F1E9F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2AADA0A224C4F4A9005F1E9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADA0A924C4F4E2005F1E9F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodeNotable.swift; sourceTree = "<group>"; };
 		2ABB435E24EE6ECF0036F42F /* BuyerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerView.swift; sourceTree = "<group>"; };
 		2ABB436024EE74590036F42F /* RecipeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRow.swift; sourceTree = "<group>"; };
 		2ABB436224EFC9D90036F42F /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
@@ -408,12 +412,14 @@
 				2A30471424C87AB90002E5DD /* Something.swift */,
 				2A7F4AAA24EDBAA2002A315F /* Draft.swift */,
 				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
+				2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */,
 				2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */,
 				2A43472C24F56A1200ADCB23 /* Laborable.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A0FBA4024D5597900F963CE /* Offspringable.swift */,
 				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
+				2A9F592724FA416B00E0EDAB /* Periodable.swift */,
 				2ABB436424EFEC3C0036F42F /* Productable.swift */,
 				2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */,
 				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
@@ -730,6 +736,7 @@
 				2A167F0724EC105600A8E7DE /* FactoryEditor.swift in Sources */,
 				2A8CCF2E24ED0F4E00EFDADC /* NameSection.swift in Sources */,
 				2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */,
+				2AB2C9CE24FA4D27000506D3 /* GroupCodeNotable.swift in Sources */,
 				2A167F0924EC118200A8E7DE /* ProductEditor.swift in Sources */,
 				2A167EE524EB14C900A8E7DE /* PackagingEditor.swift in Sources */,
 				2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */,
@@ -750,6 +757,7 @@
 				2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */,
 				2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
+				2A9F592824FA416B00E0EDAB /* Periodable.swift in Sources */,
 				2A30470324C778AD0002E5DD /* BasetList.swift in Sources */,
 				2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,

@@ -15,11 +15,13 @@ struct DivisionEditor: View {
     
     let divisionToEdit: Division?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         divisionToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _factory = State(initialValue: nil)
@@ -27,10 +29,11 @@ struct DivisionEditor: View {
         title = "New Division"
     }
     
-    init(division: Division) {
+    init(division: Division, in period: Period) {
         _isPresented = .constant(true)
         
         divisionToEdit = division
+        self.period = period
         
         _name = State(initialValue: division.name)
         _factory = State(initialValue: division.factory)
@@ -45,7 +48,7 @@ struct DivisionEditor: View {
         List {
             NameSection<Division>(name: $name)            
             
-            EntityPickerSection(selection: $factory)
+            EntityPickerSection(selection: $factory, period: period)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

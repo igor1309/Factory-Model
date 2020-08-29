@@ -39,13 +39,20 @@ struct IngredientList: View {
             predicate: NSPredicate(
                 format: "%K == %@", #keyPath(Recipe.ingredient), base
             ),
+            in: period,
             keyPathParentToChildren: \Base.recipes_
         ) {
-            GenericListSection(fetchRequest: _ingredients) { ingredient in
+            GenericListSection(
+                fetchRequest: _ingredients,
+                in: period
+            ) { ingredient in
                 IngredientView(ingredient, in: period)
             }
             
-            GenericListSection(fetchRequest: _ingredients) { ingredient in
+            GenericListSection(
+                fetchRequest: _ingredients,
+                in: period
+            ) { ingredient in
                 IngredientView(ingredient, in: period)
             }
             
@@ -65,14 +72,20 @@ struct IngredientList: View {
         List {
             
             if !ingredients.isEmpty {
-                EntityRow(ingredients.first!)
+                EntityRow(ingredients.first!, in: period)
             }
             
-            GenericListSection(fetchRequest: _ingredients) { ingredient in
+            GenericListSection(
+                fetchRequest: _ingredients,
+                in: period
+            ) { ingredient in
                 IngredientView(ingredient, in: period)
             }
             
-            GenericListSection(fetchRequest: _ingredients) { ingredient in
+            GenericListSection(
+                fetchRequest: _ingredients,
+                in: period
+            ) { ingredient in
                 IngredientView(ingredient, in: period)
             }
             
@@ -91,7 +104,7 @@ struct IngredientList: View {
                     NavigationLink(
                         destination: IngredientView(ingredient, in: period)
                     ) {
-                        EntityRow(ingredient)
+                        EntityRow(ingredient, in: period)
                     }
                 }
                 .onDelete(perform: removeIngredient)

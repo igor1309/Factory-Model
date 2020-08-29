@@ -15,11 +15,13 @@ struct UtilityEditor: View {
     
     let utilityToEdit: Utility?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         utilityToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _priceExVAT = State(initialValue: 0)
@@ -29,10 +31,11 @@ struct UtilityEditor: View {
         title = "New Utility"
     }
     
-    init(_ utility: Utility) {
+    init(_ utility: Utility, in period: Period) {
         _isPresented = .constant(true)
         
         utilityToEdit = utility
+        self.period = period
         
         _name = State(initialValue: utility.name)
         _priceExVAT = State(initialValue: utility.priceExVAT)
@@ -60,7 +63,7 @@ struct UtilityEditor: View {
                 AmountPicker(systemName: "scissors", title: "Utility VAT", navigationTitle: "Utility VAT", scale: .percent, amount: $vat)
             }
             
-            EntityPickerSection(selection: $base)
+            EntityPickerSection(selection: $base, period: period)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

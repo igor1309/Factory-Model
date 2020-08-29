@@ -10,18 +10,20 @@ import SwiftUI
 struct EntityRow<T: ObservableObject & Summarizable>: View {
     @ObservedObject var entity: T
     
-    var useSmallerFont: Bool
+    let useSmallerFont: Bool
+    let period: Period
     
-    init(_ entity: T, useSmallerFont: Bool = true) {
+    init(_ entity: T, useSmallerFont: Bool = true, in period: Period) {
         self.entity = entity
         self.useSmallerFont = useSmallerFont
+        self.period = period
     }
     
     var body: some View {
         ListRow(
-            title: entity.title,
-            subtitle: entity.subtitle,
-            detail: entity.detail,
+            title: entity.title(in: period),
+            subtitle: entity.subtitle(in: period),
+            detail: entity.detail(in: period),
             icon: T.icon,
             color: T.color,
             useSmallerFont: useSmallerFont
@@ -56,11 +58,12 @@ struct ListRow: View {
     
     init<T: Summarizable>(
         _ item: T,
-        useSmallerFont: Bool = true
+        useSmallerFont: Bool = true,
+        period: Period = .month()
     ) {
-        self.title = item.title
-        self.subtitle = item.subtitle
-        self.detail = item.detail
+        self.title = item.title(in: period)
+        self.subtitle = item.subtitle(in: period)
+        self.detail = item.detail(in: period)
         self.icon = T.icon
         self.color = T.color
         self.useSmallerFont = useSmallerFont
@@ -68,11 +71,12 @@ struct ListRow: View {
 
     init(
         _ row: Something,
-        useSmallerFont: Bool = true
+        useSmallerFont: Bool = true,
+        period: Period = .month()
     ) {
-        self.title = row.title
-        self.subtitle = row.subtitle
-        self.detail = row.detail
+        self.title = row.title(in: period)
+        self.subtitle = row.subtitle(in: period)
+        self.detail = row.detail(in: period)
         self.icon = type(of: row).icon
         self.color = .primary
         self.useSmallerFont = useSmallerFont

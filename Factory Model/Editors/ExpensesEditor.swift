@@ -15,11 +15,13 @@ struct ExpensesEditor: View {
     
     let expensesToEdit: Expenses?
     let title: String
+    let period: Period
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, in period: Period) {
         _isPresented = isPresented
         
         expensesToEdit = nil
+        self.period = period
         
         _name = State(initialValue: "")
         _factory = State(initialValue: nil)
@@ -29,10 +31,11 @@ struct ExpensesEditor: View {
         title = "New Expenses"
     }
     
-    init(_ expenses: Expenses) {
+    init(_ expenses: Expenses, in period: Period) {
         _isPresented = .constant(true)
         
         expensesToEdit = expenses
+        self.period = period
         
         _name = State(initialValue: expenses.name)
         _factory = State(initialValue: expenses.factory)
@@ -53,7 +56,7 @@ struct ExpensesEditor: View {
             
             AmountPicker(systemName: Expenses.icon, title: "Amount", navigationTitle: "Amount", scale: .extraLarge, amount: $amount)
             
-            EntityPickerSection(selection: $factory)
+            EntityPickerSection(selection: $factory, period: period)
             
             TextField("Expenses Note", text: $note)
         }
