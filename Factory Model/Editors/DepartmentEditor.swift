@@ -135,13 +135,9 @@ fileprivate struct CreateEmployee: View {
 
     var body: some View {
         List {
-            Section(
-                header: Text(name.isEmpty ? "" : "Edit Employee Name")
-            ) {
-                TextField("Employee Name", text: $name)
-            }
+            NameSection<Employee>(name: $name)
             
-            TextField("Note", text: $note)
+            NoteSection(note: $note)
             
             Section(
                 header: Text("Position")

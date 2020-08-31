@@ -29,7 +29,11 @@ extension Summarizable {
 extension Summarizable where Self: Productable {
     func subtitle(in period: Period) -> String {
         guard revenueExVAT(in: period) > 0, productionQty(in: period) > 0 else {
-            return "No Sales or/and Production"
+            return "ERROR: No Sales or Production"
+        }
+        
+        guard salesQty(in: period) <= productionQty(in: period) + initialInventory else {
+            return "ERROR: Sold more than produced"
         }
         
         return """
@@ -103,7 +107,9 @@ extension Department: Summarizable {
         return [name, headcount.formattedGrouped].filter { !$0.isEmpty }.joined(separator: ", ")
     }
     
-    func subtitle(in period: Period) -> String { "Salary incl taxes \(salaryWithTax(in: period).formattedGrouped)" }
+    func subtitle(in period: Period) -> String {
+        "Salary incl taxes \(salaryWithTax(in: period).formattedGrouped)"
+    }
     
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
@@ -125,7 +131,12 @@ extension Employee: Summarizable {
     
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
-        return "\(salaryWithTax(in: period).formattedGrouped) (\(salaryExTax(in: period).formattedGrouped))"
+        
+        if self.period == period {
+            return "\(salaryWithTax(in: period).formattedGrouped) (\(salaryExTax(in: period).formattedGrouped))"
+        } else {
+            return "\(salaryWithTax(in: period).formattedGrouped) (\(salaryExTax(in: period).formattedGrouped): \(salary.formattedGrouped) \(self.period.brief))"
+        }
     }
     
     static var color: Color { .systemTeal }
@@ -157,7 +168,11 @@ extension Equipment: Summarizable {
 
 extension Expenses: Summarizable {
     func subtitle(in period: Period) -> String {
-        amount(in: period).formattedGrouped
+        if self.period == period {
+            return "\(amount(in: period).formattedGrouped)"
+        } else {
+            return "\(amount(in: period).formattedGrouped) (\(amount.formattedGrouped) \(self.period.brief))"
+        }
     }
     
     func detail(in period: Period) -> String? {
@@ -275,11 +290,13 @@ extension Sales: Summarizable {
     }
     
     func subtitle(in period: Period) -> String {
-        guard buyer != nil else { return "ERROR no Buyer" }
-        guard qty > 0 else { return "ERROR qty" }
-        guard priceExVAT > 0 else { return "ERROR price" }
+        guard isValid else { return errorMessage! }
         
-        return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT(in: period).formattedGrouped)"
+        if self.period == period {
+            return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) = \(revenueExVAT(in: period).formattedGrouped)"
+        } else {
+            return "\(productName)\n\(qty.formattedGrouped) @ \(priceExVAT.formattedGrouped) \(self.period.brief)\n= \(revenueExVAT(in: period).formattedGrouped) \(period.brief)"
+        }
     }
     
     static var color: Color { .systemGreen }

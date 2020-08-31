@@ -67,8 +67,7 @@ struct EquipmentEditor: View {
                 AmountPicker(systemName: "dollarsign.circle", title: "Price", navigationTitle: "Price", scale: .extraExtraLarge, amount: $price)
             }
             
-            TextField("Note", text: $note)
-                .foregroundColor(.accentColor)
+            NoteSection(note: $note)
             
             Section(
                 header: Text("Depreciation")

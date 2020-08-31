@@ -58,6 +58,21 @@ enum Period: Hashable {
         }
     }
     
+    var brief: String {
+        switch self {
+            case .hour:
+                return "hourly"
+            case .shift(let hours):
+                return "shiftly /\(String(format: "%g", hours))h"
+            case .day(let hours):
+                return "daily /\(String(format: "%g", hours))h"
+            case let .week(days, hoursPerDay):
+                return "weekly /\(days)d x \(String(format: "%g", hoursPerDay))h"
+            case let .month(days, hoursPerDay):
+                return "monthly /\(days)d x \(String(format: "%g", hoursPerDay))h"
+        }
+    }
+    
     var periodStr: String {
         switch self {
             case .hour:        return "hour"

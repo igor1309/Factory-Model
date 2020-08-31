@@ -18,8 +18,9 @@ extension Employee {
         set { position_ = newValue }
     }
     
+    //  MARK: - FINISH THIS Tax Should be parameter at Factory level
     var salaryWithTax: Double {
-        salary * 1.302
+        salary * (department?.division?.factory?.salaryBurdenRate ?? 0)
     }
     
     

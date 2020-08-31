@@ -27,6 +27,10 @@ extension Sales {
         }
     }
     
+    func salesQty(in period: Period) -> Double {
+        qty / self.period.hours * period.hours
+    }
+    
     func revenueExVAT(in period: Period) -> Double {
         qty * priceExVAT / self.period.hours * period.hours
     }

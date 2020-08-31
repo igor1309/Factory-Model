@@ -61,7 +61,7 @@ struct ExpensesEditor: View {
             
             EntityPickerSection(selection: $factory, period: period)
             
-            TextField("Expenses Note", text: $note)
+            NoteSection(note: $note)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

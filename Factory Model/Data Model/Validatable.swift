@@ -100,10 +100,10 @@ extension Product: Validatable {
 
 extension Sales: Validatable {
     var errorMessage: String? {
-        guard buyer != nil else { return "ERROR: no buyer" }
-        guard product != nil else { return "ERROR: no product" }
-        guard qty > 0 else { return "ERROR: no qty" }
-        guard priceExVAT > 0 else { return "ERROR: no price" }
+        guard buyer != nil else { return "ERROR: no Buyer" }
+        guard product != nil else { return "ERROR: no Product" }
+        guard qty > 0 else { return "ERROR: no Qty" }
+        guard priceExVAT > 0 else { return "ERROR: no Price" }
         return nil
     }
 }

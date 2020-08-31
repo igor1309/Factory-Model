@@ -18,6 +18,7 @@ extension Factory {
         factory1.name = "Сыроварня"
         factory1.note = "Тестовый проект"
         factory1.profitTaxRate = 20/100
+        factory1.salaryBurdenRate = 30.2/100
         
         //  MARK: - Ingredients @ Factory 1
         
@@ -201,6 +202,7 @@ extension Factory {
         factory2.name = "Полуфабрикаты"
         factory2.note = "Фабрика Полуфабрикатов: заморозка и прочее"
         factory2.profitTaxRate = 20/100
+        factory2.salaryBurdenRate = 30.2/100
         
         let base2_1 = Base.createBase2_1(in: context)
         base2_1.factory = factory2

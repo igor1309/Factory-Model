@@ -24,6 +24,7 @@ struct FactoryEditor: View {
         _name = State(initialValue: "")
         _note = State(initialValue: "")
         _profitTaxRate = State(initialValue: 20/100)
+        _salaryBurdenRate = State(initialValue: 30.2/100)
         
         title = "New Factory"
     }
@@ -36,6 +37,7 @@ struct FactoryEditor: View {
         _name = State(initialValue: factory.name)
         _note = State(initialValue: factory.note)
         _profitTaxRate = State(initialValue: factory.profitTaxRate)
+        _salaryBurdenRate = State(initialValue: factory.salaryBurdenRate)
         
         title = "Edit Factory"
     }
@@ -43,18 +45,17 @@ struct FactoryEditor: View {
     @State private var name: String
     @State private var note: String
     @State private var profitTaxRate: Double
+    @State private var salaryBurdenRate: Double
     
     var body: some View {
         List {
             NameSection<Factory>(name: $name)
             
-            Section(
-                header: Text("Note")
-            ) {
-                TextField("Factory Note", text: $note)
-            }
+            NoteSection(note: $note)
             
             AmountPicker(systemName: "scissors", title: "Profit Tax Rate", navigationTitle: "Profit Tax Rate", scale: .percent, amount: $profitTaxRate)
+            
+            AmountPicker(systemName: "scalemass.fill", title: "Salary Burden Rate", navigationTitle: "Salary Burden Rate", scale: .percent, amount: $salaryBurdenRate)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
@@ -73,6 +74,7 @@ struct FactoryEditor: View {
             factory.name = name
             factory.note = note
             factory.profitTaxRate = profitTaxRate
+            factory.salaryBurdenRate = salaryBurdenRate
             
             context.saveContext()
             

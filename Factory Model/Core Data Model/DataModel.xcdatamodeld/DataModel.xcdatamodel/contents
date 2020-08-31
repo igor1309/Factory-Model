@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17183" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Base" representedClassName="Base" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
@@ -61,6 +61,7 @@
         <attribute name="name_" optional="YES" attributeType="String"/>
         <attribute name="note_" optional="YES" attributeType="String"/>
         <attribute name="profitTaxRate" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="salaryBurdenRate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="bases_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Base" inverseName="factory" inverseEntity="Base"/>
         <relationship name="buyers_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Buyer" inverseName="factory" inverseEntity="Buyer"/>
         <relationship name="divisions_" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Division" inverseName="factory" inverseEntity="Division"/>
@@ -127,7 +128,7 @@
         <element name="Employee" positionX="-11199.171875" positionY="-8853.63671875" width="128" height="178"/>
         <element name="Equipment" positionX="-11745.57421875" positionY="-8950.671875" width="128" height="118"/>
         <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="148"/>
-        <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="163"/>
+        <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="178"/>
         <element name="Ingredient" positionX="-11298.765625" positionY="-9437.609375" width="128" height="118"/>
         <element name="Packaging" positionX="-11037.33203125" positionY="-9214.1640625" width="128" height="88"/>
         <element name="Product" positionX="-11225.76171875" positionY="-9255.3671875" width="128" height="268"/>

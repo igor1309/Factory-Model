@@ -285,7 +285,7 @@ extension Product: Productable {
     //  MARK: - Qty
     
     func salesQty(in period: Period) -> Double {
-        sales.reduce(0) { $0 + $1.qty }
+        sales.reduce(0) { $0 + $1.salesQty(in: period) }
     }
     
     func productionQty(in period: Period) -> Double {

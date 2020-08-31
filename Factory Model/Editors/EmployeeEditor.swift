@@ -104,7 +104,7 @@ struct EmployeeEditor: View {
             
             EntityPickerSection(selection: $department, period: period)
             
-            TextField("Note", text: $note)
+            NoteSection(note: $note)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
