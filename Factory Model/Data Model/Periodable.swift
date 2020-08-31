@@ -11,6 +11,7 @@ protocol Periodable {
     dynamic var periodStr_: String? { get set }
     dynamic var days: Int16 { get set }
     dynamic var hoursPerDay: Double { get set }
+    
     var period: Period { get set }
 }
 

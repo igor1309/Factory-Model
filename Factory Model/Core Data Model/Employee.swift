@@ -33,7 +33,7 @@ extension Employee {
     }
     
     func workHours(in period: Period) -> Double {
-        workHours / self.period.hours * period.hours
+        period.hours
     }
 }
 

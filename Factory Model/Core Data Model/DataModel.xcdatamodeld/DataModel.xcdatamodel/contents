@@ -38,7 +38,6 @@
         <attribute name="periodStr_" optional="YES" attributeType="String"/>
         <attribute name="position_" optional="YES" attributeType="String"/>
         <attribute name="salary" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="workHours" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="department" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Department" inverseName="employees_" inverseEntity="Department"/>
     </entity>
     <entity name="Equipment" representedClassName="Equipment" syncable="YES" codeGenerationType="class">
@@ -125,7 +124,7 @@
         <element name="Buyer" positionX="-11660.06640625" positionY="-9179.6875" width="128" height="88"/>
         <element name="Department" positionX="-11468.96875" positionY="-8778.453125" width="128" height="103"/>
         <element name="Division" positionX="-11693.03515625" positionY="-9062.26953125" width="128" height="88"/>
-        <element name="Employee" positionX="-11199.171875" positionY="-8853.63671875" width="128" height="178"/>
+        <element name="Employee" positionX="-11199.171875" positionY="-8853.63671875" width="128" height="163"/>
         <element name="Equipment" positionX="-11745.57421875" positionY="-8950.671875" width="128" height="118"/>
         <element name="Expenses" positionX="-11792.265625" positionY="-8809.9453125" width="128" height="148"/>
         <element name="Factory" positionX="-12025.60546875" positionY="-9292.515625" width="128" height="178"/>
