@@ -166,13 +166,13 @@ extension Division: Laborable {
     func workHours(in period: Period) -> Double {
         departments
             .flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
+            .reduce(0) { $0 + $1.workHours(in: period) }
     }
     func productionWorkHours(in period: Period) -> Double {
         departments
             .filter { $0.type == .production }
             .flatMap(\.employees)
-            .reduce(0) { $0 + $1.workHours }
+            .reduce(0) { $0 + $1.workHours(in: period) }
     }
 }
 

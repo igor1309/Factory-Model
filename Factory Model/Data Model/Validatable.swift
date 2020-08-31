@@ -52,8 +52,8 @@ extension Employee: Validatable {
         guard position_ != nil else { return "ERROR: no Position" }
         guard department != nil else { return "ERROR: no Department" }
         guard salary > 0 else { return "ERROR: no Salary" }
-        guard periodStr_ != nil else { return "ERROR: no Period" }
-        guard !(periodStr_ ?? "").isEmpty else { return "ERROR: no Period" }
+//        guard periodStr_ != nil else { return "ERROR: no Period" }
+//        guard !(periodStr_ ?? "").isEmpty else { return "ERROR: no Period" }
         return nil
     }
 }

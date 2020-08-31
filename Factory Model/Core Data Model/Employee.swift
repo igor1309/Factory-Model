@@ -20,7 +20,8 @@ extension Employee {
     
     //  MARK: - FINISH THIS Tax Should be parameter at Factory level
     var salaryWithTax: Double {
-        salary * (department?.division?.factory?.salaryBurdenRate ?? 0)
+        let burden = department?.division?.factory?.salaryBurdenRate ?? 0
+        return salary * (1 + burden)
     }
     
     

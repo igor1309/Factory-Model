@@ -25,7 +25,6 @@ struct EmployeeEditor: View {
         _note =       State(initialValue: "")
         _position =   State(initialValue: "")
         _salary =     State(initialValue: 0)
-        _workHours =  State(initialValue: 0)
         _period =     State(initialValue: Period.month())
         _department = State(initialValue: nil)
         
@@ -41,7 +40,6 @@ struct EmployeeEditor: View {
         _note =       State(initialValue: employee.note)
         _position =   State(initialValue: employee.position)
         _salary =     State(initialValue: employee.salary)
-        _workHours =  State(initialValue: employee.workHours)
         _period =     State(initialValue: employee.period)
         _department = State(initialValue: employee.department)
         
@@ -52,7 +50,6 @@ struct EmployeeEditor: View {
     @State private var note: String
     @State private var position: String
     @State private var salary: Double
-    @State private var workHours: Double
     @State private var period: Period
     @State private var department: Department?
     
@@ -82,21 +79,6 @@ struct EmployeeEditor: View {
                         amount: $salary
                     )
                     
-                    AmountPicker(
-                        systemName: "clock.arrow.circlepath",
-                        title: "Work Hours",
-                        navigationTitle: "Work Hours",
-                        scale: .extraSmall,
-                        amount: $workHours
-                    )
-                    
-                    Picker("Work Hours", selection: $workHours) {
-                        ForEach([40.0, 168], id: \.self) { item in
-                            Text("\(item.formattedGrouped)h")
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    
                     PeriodPicker(icon: "deskclock", title: "Period", period: $period)
                 }
                 //.foregroundColor(.accentColor)
@@ -124,7 +106,6 @@ struct EmployeeEditor: View {
             employee.note = note
             employee.position = position
             employee.salary = salary
-            employee.workHours = workHours
             employee.period = period
             employee.department = department
             
@@ -133,6 +114,6 @@ struct EmployeeEditor: View {
             isPresented = false
             presentation.wrappedValue.dismiss()
         }
-        .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0 || workHours <= 0)
+        .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0)
     }
 }
