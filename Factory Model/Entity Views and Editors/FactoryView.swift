@@ -41,6 +41,8 @@ struct FactoryView: View {
                 salesSection
                 
                 productionSection
+                
+                procurementSection
             }
             
             Group {
@@ -207,8 +209,8 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Products",
-                        subtitle: "TBD: .................",
-                        detail: "TBD: Products with production volume (in their units): Сулугуни 1 ru (8,000), Сулугуни 0.5 кг (3,000), Хинкали 12 шт (1,250)",
+                        subtitle: factory.productsDetail(in: period),
+                        detail: "",
                         icon: Product.icon,
                         color: Product.color
                     )
@@ -219,20 +221,28 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Base Products",
-                        subtitle: ".................",
-                        detail: "TBD: Base products with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)",
+                        subtitle: factory.basesDetail(in: period),
+                        detail: "",
                         icon: Base.icon,
                         color: Base.color
                     )
                 }
-                
+            }
+        }
+    }
+    
+    private var procurementSection: some View {
+        Section(
+            header: Text("Procurement")
+        ) {
+            Group {
                 NavigationLink(
                     destination: AllIngredientList(for: factory, in: period)
                 ) {
                     ListRow(
                         title: "Ingredients",
-                        subtitle: "TBD: .................",
-                        detail: "TBD: some extra top-level details(?)",
+                        subtitle: factory.ingredientsDetail(in: period),
+                        detail: "",
                         icon: Ingredient.icon,
                         color: Ingredient.color
                     )
@@ -243,8 +253,8 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Packaging",
-                        subtitle: "TBD: .................",
-                        detail: "TBD: List of packaging types (??)",
+                        subtitle: factory.packagingDetail,
+                        detail: "",
                         icon: Packaging.icon,
                         color: Packaging.color
                     )

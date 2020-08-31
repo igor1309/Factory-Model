@@ -48,7 +48,7 @@ struct IngredientView: View {
             
             Section(
                 header: Text("Usage"),
-                footer: Text("Total for the Ingredient used in production.")
+                footer: Text("Total for the Ingredient used in Production.")
             ) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Production Qty", ingredient.productionQty(in: period).formattedGrouped)

@@ -32,6 +32,7 @@ struct DivisionList: View {
                         destination: AllEmployeesList(for: factory, in: period)
                     ) {
                         Label("All Factory Personnel", systemImage: Department.icon)
+                            .foregroundColor(Employee.color)
                     }
                 }
                 .font(.subheadline)

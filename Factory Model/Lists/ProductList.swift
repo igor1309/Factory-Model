@@ -35,6 +35,46 @@ struct ProductList: View {
     @ViewBuilder
     private var dashboard: some View {
         Section(
+            header: Text("Production")
+        ) {
+            Group {
+                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+                                
+                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCostExVAT(in: period).formattedGrouped)
+                
+                LabelWithDetail("dollarsign.circle", "Avg Cost ex VAT, per kilo", factory.avgCostPerKiloExVAT(in: period).formattedGrouped)
+            }
+            .foregroundColor(.secondary)
+            .font(.subheadline)
+        }
+        
+        Section(
+            header: Text("Sales")
+        ) {
+            Group {
+                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.salesWeightNetto(in: period).formattedGroupedWith1Decimal)
+                
+                LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
+                
+                LabelWithDetail("dollarsign.circle", "Avg Price ex VAT, per kilo", factory.avgPricePerKiloExVAT(in: period).formattedGrouped)
+            }
+            .foregroundColor(.secondary)
+            .font(.subheadline)
+        }
+        
+        Section(
+            header: Text("Margin")
+        ) {
+            Group {
+                LabelWithDetail(Sales.icon, "Margin ex VAT", factory.margin(in: period).formattedGrouped)
+                
+                LabelWithDetail(Sales.icon, "Avg Margin ex VAT, per kilo", factory.avgMarginPerKiloExVAT(in: period).formattedGrouped)
+            }
+            .foregroundColor(factory.avgMarginPerKiloExVAT(in: period) > 0 ? .secondary : .red)
+            .font(.subheadline)
+        }
+        
+        Section(
             header: Text("TBD Total"),
             footer: Text("Go to Base to create New Product")
         ) {

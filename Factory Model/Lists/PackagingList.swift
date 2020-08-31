@@ -32,6 +32,14 @@ struct PackagingList: View {
                 keyPath: \Factory.packagings_
             ) */
         } dashboard: {
+            Section {
+                Group {
+                    LabelWithDetail("squareshape.split.3x3", "No of Packagings", factory.packagings.count.formattedGrouped)
+//                    LabelWithDetail(<#T##systemName: String##String#>, <#T##title: _##_#>, <#T##detail: _##_#>)
+                }
+                .foregroundColor(.secondary)
+                .font(.subheadline)
+            }
 //            Text("TBD: dashboard: List of packaging types (??)")
 //                .font(.subheadline)
 //                .foregroundColor(.systemRed)

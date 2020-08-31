@@ -29,6 +29,43 @@ extension Factory {
         get { (expenses_ as? Set<Expenses> ?? []).sorted() }
         set { expenses_ = Set(newValue) as NSSet }
     }
+    
+    
+    func basesDetail(in period: Period) -> String {
+        let produced = bases
+            .filter { $0.productionQty(in: period) > 0 }
+            .map {
+                "\($0.name) (\($0.productionQty(in: period).formattedGrouped) \($0.customUnitString))"
+            }
+            .joined(separator: ", ")
+        
+        let notProduced = bases
+            .filter { $0.productionQty(in: period) == 0 }
+            .map(\.name)
+            .joined(separator: ", ")
+        
+        return [produced, notProduced].joined(separator: "\n")
+    }
+    
+    func productsDetail(in period: Period) -> String {
+        let products = bases.flatMap { $0.products }
+
+        let sold = products
+            .filter { $0.salesQty(in: period) > 0 }
+            .map {
+                "\($0.title(in: period)) (sales \($0.salesQty(in: period).formattedGrouped) of \($0.productionQty(in: period).formattedGrouped) production)"
+            }
+            .joined(separator: ", ")
+        
+        let unsold = products
+            .filter { $0.salesQty(in: period) == 0 }
+            .map { "\($0.title(in: period))" }
+            .joined(separator: ", ")
+        
+        return [sold, unsold].joined(separator: "\n")
+    }
+    
+    
     var buyerNames: [String] {
         bases
             .flatMap(\.products)
@@ -41,6 +78,12 @@ extension Factory {
         bases
             .flatMap(\.products)
             .compactMap(\.packaging)
+    }
+    var packagingDetail: String {
+        "\(packagings.count.formattedGrouped) kinds: \(packagingNames)"
+    }
+    var packagingNames: String {
+        packagings.map { $0.name }.joined(separator: ", ")
     }
     
     
@@ -83,7 +126,20 @@ extension Factory {
         return revenue > 0 ? expensesExVAT(in: period) / revenue : nil
     }
     
-
+    
+    //  MARK: - Averages
+    
+    func avgPricePerKiloExVAT(in period: Period) -> Double {
+        let weight = salesWeightNetto(in: period)
+        return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
+    }
+    func avgCostPerKiloExVAT(in period: Period) -> Double {
+        let weight = productionWeightNetto(in: period)
+        return weight == 0 ? 0 : productionCostExVAT(in: period) / weight / 1_000
+    }
+    func avgMarginPerKiloExVAT(in period: Period) -> Double {
+        avgPricePerKiloExVAT(in: period) - avgCostPerKiloExVAT(in: period)
+    }
 
 
     var baseGroupsAsRows: [Something] {
@@ -169,6 +225,11 @@ extension Factory {
             .filter { $0.qty > 0 }
             .compactMap(\.ingredient)
     }
+    func ingredientsDetail(in period: Period) -> String {
+        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(ingredientCostExVAT(in: period).formattedGrouped)"
+    }
+    
+    
     
     
     //  as in Stanford CS193p Lecture #12

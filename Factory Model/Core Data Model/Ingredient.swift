@@ -23,7 +23,11 @@ extension Ingredient {
         set { recipes_ = Set(newValue) as NSSet }
     }
 
-    /// if Factory is nill sum for all factories
+    func cost(in period: Period) -> Double {
+        priceExVAT * productionQty(in: period)
+    }
+        
+    /// if Factory is nill sum production Qty for all factories
     func productionQty(for factory: Factory? = nil, in period: Period) -> Double {
         recipes
             .filter {

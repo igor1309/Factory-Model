@@ -217,6 +217,17 @@ extension Ingredient: Summarizable {
         return "Price \(priceExVAT.formattedGrouped)/\(unitString_), VAT \(vat.formattedPercentage)"
     }
     
+    func detail(in period: Period) -> String? {
+        guard isValid else { return errorMessage! }
+        
+        let totalCost = cost(in: period)
+        if totalCost > 0 {
+            return "Total Cost ex VAT \(totalCost.formattedGrouped) for \(productionQty(in: period).formattedGrouped) used in production"
+        } else {
+            return ""
+        }
+    }
+    
     static var color: Color { .systemPurple }
     static var icon: String { "puzzlepiece" }
 }
@@ -240,7 +251,7 @@ extension Packaging: Summarizable {
     
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
-        return productList(in: period)
+        return "Products: \(productList(in: period))"
     }
     
     static var color: Color { .systemIndigo }

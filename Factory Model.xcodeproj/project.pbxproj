@@ -413,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				2A30471424C87AB90002E5DD /* Something.swift */,
+				2A52688524DE993300DDF4DE /* CustomUnitable.swift */,
 				2A7F4AAA24EDBAA2002A315F /* Draft.swift */,
 				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
 				2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */,
@@ -427,7 +428,6 @@
 				2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */,
 				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
 				2A13E4D024C9EF5F00016CBC /* Summarizable.swift */,
-				2A52688524DE993300DDF4DE /* CustomUnitable.swift */,
 				2A024CF524CD9419001A4B5C /* Validatable.swift */,
 			);
 			path = "Data Model";

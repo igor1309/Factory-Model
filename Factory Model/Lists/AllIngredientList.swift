@@ -25,6 +25,8 @@ struct AllIngredientList: View {
             in: period
         ) {
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
+            //  CreateOrphanButton creates new Ingredient but it's not fetched in orphans section!!!
+            //CreateOrphanButton<Ingredient>()
             EmptyView()
            /* CreateChildButton(
                 systemName: "plus.square",
@@ -33,8 +35,16 @@ struct AllIngredientList: View {
                 keyPath: \Factory.ingredients_
             ) */
         } dashboard: {
-            Text("TBD: dashboard")
+            Section(
+                header: Text("Used in Production")
+            ) {
+                Group {
+                    LabelWithDetail("squareshape.split.3x3", "No of Ingredients", factory.ingredients.count.formattedGrouped)
+                    LabelWithDetail("dollarsign.circle", "Total Cost ex VAT", factory.ingredientCostExVAT(in: period).formattedGrouped)
+                }
+                .foregroundColor(.secondary)
                 .font(.subheadline)
+            }
         } editor: { (ingredient: Ingredient) in
             IngredientView(ingredient, in: period)
         }
