@@ -12,8 +12,16 @@ struct ComplexityView: View {
     
     var body: some View {
         VStack {
-            LabelWithDetail("wand.and.stars", "Complexity", complexity.formattedPercentage)
-            Slider(value: $complexity, in: 0...5, step: 0.1)
+            // LabelWithDetail("wand.and.stars", "Complexity", complexity.formattedPercentage)
+            
+            HStack(spacing: 0) {
+                Slider(value: $complexity, in: 0...5, step: 0.1)
+                
+                ZStack(alignment: .trailing) {
+                    Text((10).formattedPercentage).hidden()
+                    Text(complexity.formattedPercentage)
+                }
+            }
         }
     }
 }

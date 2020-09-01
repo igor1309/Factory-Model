@@ -256,7 +256,8 @@ extension Base: Productable {
     }
     
     func salaryWithTax(in period: Period) -> Double {
-        workHours * (factory?.productionSalaryPerHourWithTax(in: period) ?? 0)
+        //workHours * (factory?.productionSalaryPerHourWithTax(in: period) ?? 0)
+        weightNetto * complexity * (factory?.laborCostOf1GramOfBaseProduct(in: period) ?? 0)
     }
     
     //  MARK: - FINISH THIS
