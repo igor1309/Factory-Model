@@ -19,6 +19,7 @@ struct BooksView: View {
     var body: some View {
         TabView {
             ProfitLossStatement(for: factory, in: period)
+            SalesAnalysis(for: factory, in: period)
             Text("TBD")
         }
 //        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
