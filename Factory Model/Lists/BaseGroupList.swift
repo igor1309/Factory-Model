@@ -68,6 +68,7 @@ struct BaseGroupList: View {
             //            base.note = "Some note for base"
             // base.code = "1001"
             base.group = group
+            base.complexity = 1
             factory.addToBases_(base)
             moc.saveContext()
         } label: {

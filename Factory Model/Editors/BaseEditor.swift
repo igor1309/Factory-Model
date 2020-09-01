@@ -33,6 +33,7 @@ struct BaseEditor: View {
         _initialInventory = State(initialValue: 0)
         _weightNetto = State(initialValue: 0)
         _workHours = State(initialValue: 0)
+        _complexity = State(initialValue: 1)
         
         _unitsHours = State(initialValue: .unitsPerHour)
         
@@ -54,6 +55,7 @@ struct BaseEditor: View {
         _initialInventory = State(initialValue: base.initialInventory)
         _weightNetto = State(initialValue: base.weightNetto)
         _workHours = State(initialValue: base.workHours)
+        _complexity = State(initialValue: base.complexity)
         
         _unitsHours = State(
             initialValue: {
@@ -77,6 +79,7 @@ struct BaseEditor: View {
     @State private var initialInventory: Double
     @State private var weightNetto: Double
     @State private var workHours: Double
+    @State private var complexity: Double
 
     @State private var isNewDraftActive = false
     @State private var recipeDrafts = [RecipeDraft]()
@@ -130,6 +133,14 @@ struct BaseEditor: View {
                 header: Text("Unit")
             ) {
                 ParentUnitStringPicker(unitString: $unitString_)
+            }
+            
+            Section(
+                header: Text("Complexity"),
+                footer: Text("Complexity is used to calculate Labor Cost of Base Product. Consider 100% as most used or ideal base.")
+            ) {
+                ComplexityView(complexity: $complexity)
+                    .padding(.top, 6)
             }
             
             Section(
@@ -212,6 +223,7 @@ struct BaseEditor: View {
             base.initialInventory = initialInventory
             base.weightNetto = weightNetto
             base.workHours = workHours
+            base.complexity = complexity
             
             for draft in recipeDrafts {
                 let recipe = Recipe(context: context)

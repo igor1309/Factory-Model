@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17189" systemVersion="19G2021" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Base" representedClassName="Base" syncable="YES" codeGenerationType="class">
         <attribute name="code_" optional="YES" attributeType="String"/>
+        <attribute name="complexity" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="group_" optional="YES" attributeType="String"/>
         <attribute name="initialInventory" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name_" optional="YES" attributeType="String"/>
@@ -120,7 +121,7 @@
         <relationship name="base" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Base" inverseName="utilities_" inverseEntity="Base"/>
     </entity>
     <elements>
-        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="223"/>
+        <element name="Base" positionX="-11715.0703125" positionY="-9438.33203125" width="128" height="238"/>
         <element name="Buyer" positionX="-11660.06640625" positionY="-9179.6875" width="128" height="88"/>
         <element name="Department" positionX="-11468.96875" positionY="-8778.453125" width="128" height="103"/>
         <element name="Division" positionX="-11693.03515625" positionY="-9062.26953125" width="128" height="88"/>

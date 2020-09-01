@@ -295,7 +295,7 @@ extension Product: Productable {
     //  MARK: - WeightNetto
     
     var weightNetto: Double {
-        (base?.weightNetto ?? 0) * baseQty
+        (base?.weightNetto ?? 0) * baseQtyInBaseUnit
     }
     
     

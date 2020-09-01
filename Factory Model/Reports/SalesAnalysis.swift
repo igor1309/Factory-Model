@@ -18,51 +18,23 @@ struct SalesAnalysis: View {
     
     var body: some View {
         ScrollView {
-            VStack {//}(alignment: .leading) {
-                Text("Sales Analysis")
-                    .font(.title)
-                    .padding(.bottom)
-                
+            VStack(spacing: 6) {
+                /// По каждому продукту:
                 Group {
-                    /// По каждому продукту:
-                    /// Выручка и доля в выручке
-                    /// Маржа и доля в марже
-                    // Маржинальность по каждому и средняя (по всем)
-                    // Средняя цена, мин, макс
                     /// Вес нетто и доля а общем весе нетто
+                    DataBlockView(dataBlock: factory.salesWeightNettoDataPoints(in: period))
                     
-                    DataView(
-                        icon: "scalemass",
-                        title: "Weight Netto, kilo",
-                        data: factory.salesWeightNettoDataPoints(in: period)
-                    )
+                    /// Выручка и доля в выручке
+                    DataBlockView(dataBlock: factory.revenueDataPoints(in: period))
                     
-                    DataView(
-                        icon: "creditcard",
-                        title: "Revenue",
-                        data: factory.revenueDataPoints(in: period)
-                    )
+                    /// Маржа и доля в марже
+                    DataBlockView(dataBlock: factory.marginDataPoints(in: period))
                     
-                    DataView(
-                        icon: "dollarsign.circle",
-                        title: "Margin",
-                        data: factory.marginDataPoints(in: period)
-                    )
+                    // Средняя цена, мин, макс
+                    DataBlockView(dataBlock: factory.avgPricePerKiloExVATDataPointWithShare(in: period))
                     
-                    //  MARK: - FINISH THIS TBD: FIX %%
-                    Text("TBD: FIX %%").foregroundColor(.red)
-                    
-                    DataView(
-                        icon: "dollarsign.circle",
-                        title: "TBD: Avg Price ex VAT - FIX %%",
-                        data: factory.avgPriceExVATDataPointWithShare(in: period)
-                    )
-                    
-                    DataView(
-                        icon: "dollarsign.circle",
-                        title: "TBD: Margin, % - FIX %%",
-                        data: factory.marginPercentageDataPointWithShare(in: period)
-                    )
+                    /// Маржинальность по каждому и средняя (по всем)
+                    DataBlockView(dataBlock: factory.marginPercentageDataPointWithShare(in: period))
                 }
                 .padding(.bottom)
             }
@@ -70,5 +42,6 @@ struct SalesAnalysis: View {
             .padding(.bottom)
             .padding(.bottom)
         }
+        .navigationTitle("Sales Analysis")
     }
 }

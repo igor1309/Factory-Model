@@ -33,6 +33,23 @@ extension Product {
         }
     }
     
+    //  MARK: - FINISH THIS: USED IF FACTORY AS WELL, SHOULD MOVE TO PROTOCOL???
+    //  MARK: - Averages
+    
+    func avgPricePerKiloExVAT(in period: Period) -> Double {
+        let weight = salesWeightNetto(in: period)
+        return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
+    }
+    func avgCostPerKiloExVAT(in period: Period) -> Double {
+        let weight = productionWeightNetto(in: period)
+        return weight == 0 ? 0 : productionCostExVAT(in: period) / weight / 1_000
+    }
+    func avgMarginPerKiloExVAT(in period: Period) -> Double {
+        avgPricePerKiloExVAT(in: period) - avgCostPerKiloExVAT(in: period)
+    }
+    
+
+    
     
     
     

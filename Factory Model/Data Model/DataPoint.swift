@@ -16,6 +16,13 @@ struct DataPoint: Identifiable {
 struct DataPointWithShare: Identifiable {
     var id = UUID()
     var title: String
-    var value: Double
-    var percentage: Double
+    var value: String
+    var percentage: String
+}
+
+struct DataBlock {
+    var icon: String
+    var title: String
+    var value: String
+    var data: [DataPointWithShare]
 }

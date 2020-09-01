@@ -18,6 +18,7 @@ extension Base {
         base.customUnit = .piece
         base.weightNetto = 60
         base.workHours = 1
+        base.complexity = 1
         
         let ingredient1 = Ingredient(context: context)
         ingredient1.name = "Мука"
