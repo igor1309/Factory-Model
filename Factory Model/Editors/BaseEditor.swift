@@ -32,10 +32,7 @@ struct BaseEditor: View {
         _note = State(initialValue: "")
         _initialInventory = State(initialValue: 0)
         _weightNetto = State(initialValue: 0)
-        _workHours = State(initialValue: 0)
         _complexity = State(initialValue: 1)
-        
-        _unitsHours = State(initialValue: .unitsPerHour)
         
         title = "New Base"
     }
@@ -54,19 +51,8 @@ struct BaseEditor: View {
         _note = State(initialValue: base.note)
         _initialInventory = State(initialValue: base.initialInventory)
         _weightNetto = State(initialValue: base.weightNetto)
-        _workHours = State(initialValue: base.workHours)
         _complexity = State(initialValue: base.complexity)
         
-        _unitsHours = State(
-            initialValue: {
-                switch base.workHours {
-                    case 0, 1...:    return .hoursPerUnit
-                    case ...1: return .unitsPerHour
-                    default:   return .hoursPerUnit
-                }
-            }()
-        )
-
         title = "Edit Base"
     }
     
@@ -78,46 +64,12 @@ struct BaseEditor: View {
     @State private var unitString_: String
     @State private var initialInventory: Double
     @State private var weightNetto: Double
-    @State private var workHours: Double
     @State private var complexity: Double
-
+    
     @State private var isNewDraftActive = false
     @State private var recipeDrafts = [RecipeDraft]()
-    
-    enum UnitsHours: String, CaseIterable {
-        case unitsPerHour = "Units per Hour"
-        case hoursPerUnit = "Hours per Unit"
         
-        var icon: String {
-            switch self {
-                case .unitsPerHour: return "cylinder.split.1x2"
-                case .hoursPerUnit: return "clock.arrow.circlepath"
-            }
-        }
-        
-        var headline: String {
-            switch self {
-                case .unitsPerHour: return "Units of Base Product produced in 1 Work Hour."
-                case .hoursPerUnit: return "Work Hours to produce 1 Unit of Base Product."
-            }
-        }
-        
-        func workHours(for value: Double) -> Double {
-            switch self {
-                case .unitsPerHour: return value > 0 ? 1 / value : 0
-                case .hoursPerUnit: return value
-            }
-        }
-    }
-    
-    @State private var unitsHours: UnitsHours// = .unitsPerHour
-    
     var body: some View {
-        let unitsHoursValue = Binding<Double>(
-            get: { unitsHours.workHours(for: workHours) },
-            set: { workHours = unitsHours.workHours(for: $0) }
-        )
-        
         NavigationLink(
             destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: period),
             isActive: $isNewDraftActive
@@ -141,20 +93,6 @@ struct BaseEditor: View {
             ) {
                 ComplexityView(complexity: $complexity)
                     .padding(.top, 6)
-            }
-            
-            Section(
-                header: Text("Work Hours"),
-                footer: Text("\(unitsHours.headline) \(String(format: "%g", workHours)) hours per unit.").lineLimit(nil)
-            ) {
-                Picker(
-                    selection: $unitsHours,
-                    label: AmountPicker(systemName: unitsHours.icon, navigationTitle: unitsHours.rawValue, scale: .extraSmall, amount: unitsHoursValue).buttonStyle(PlainButtonStyle()).foregroundColor(unitsHoursValue.wrappedValue < 1 ? .systemRed : .accentColor)
-                ) {
-                    ForEach(UnitsHours.allCases, id: \.self) { item in
-                        Text(item.rawValue)
-                    }
-                }
             }
             
             Section(
@@ -222,7 +160,6 @@ struct BaseEditor: View {
             base.note = note
             base.initialInventory = initialInventory
             base.weightNetto = weightNetto
-            base.workHours = workHours
             base.complexity = complexity
             
             for draft in recipeDrafts {
@@ -238,7 +175,7 @@ struct BaseEditor: View {
             isPresented = false
             presentation.wrappedValue.dismiss()
         }
-        .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0 || workHours == 0)
+        .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0)
     }
 }
 

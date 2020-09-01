@@ -24,7 +24,6 @@ struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
         ) {
             Group {
                 LabelWithDetail("scalemass", "Output, tonne", "\(entity.productionWeightNetto(in: period))")
-                LabelWithDetail("clock.arrow.circlepath", "Work Hours", entity.productionWorkHours(in: period).formattedGrouped)
                 LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCostExVAT(in: period).formattedGrouped)
             }
             .foregroundColor(.secondary)

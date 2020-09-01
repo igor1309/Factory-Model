@@ -53,14 +53,6 @@ extension Product {
     
     
     
-    var workHours: Double {
-        (base?.workHours ?? 0) * baseQtyInBaseUnit
-    }
-    func productionWorkHours(in period: Period) -> Double {
-        workHours * productionQty
-    }
-    
-    
     
     var baseName: String {
         base?.name ?? "ERROR: no base"

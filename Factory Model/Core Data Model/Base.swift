@@ -31,11 +31,6 @@ extension Base {
     
     
     
-    
-    func productionWorkHours(in period: Period) -> Double {
-        workHours * productionQty(in: period)
-    }
-
 
 
     //  MARK: FIX THIS: неоптимально —

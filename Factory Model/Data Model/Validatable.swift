@@ -25,7 +25,6 @@ extension Base: Validatable {
         guard unitString_ != nil else { return "ERROR: no unit" }
         guard recipes_ != nil else { return "ERROR: no recipes" }
         guard weightNetto > 0 else { return "ERROR: no Weight Netto" }
-        guard workHours > 0 else { return "ERROR: no Work Hours" }
         guard code_ != nil else { return "ERROR: no code" }
         guard group_ != nil else { return "ERROR: no group" }
         guard factory != nil else { return "ERROR: no factory" }
