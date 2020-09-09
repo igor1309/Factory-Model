@@ -34,8 +34,8 @@ struct EntityRow<T: ObservableObject & Summarizable>: View {
 struct ListRow: View {
     
     let title: String
-    var subtitle: String? = nil
-    var detail: String? = nil
+    var subtitle: String
+    var detail: String
     let icon: String
     var color: Color
     let useSmallerFont: Bool
@@ -49,8 +49,8 @@ struct ListRow: View {
         useSmallerFont: Bool = true
     ) {
         self.title = title
-        self.subtitle = subtitle
-        self.detail = detail
+        self.subtitle = subtitle ?? ""
+        self.detail = detail ?? ""
         self.icon = icon
         self.color = color
         self.useSmallerFont = useSmallerFont
@@ -63,7 +63,7 @@ struct ListRow: View {
     ) {
         self.title = item.title(in: period)
         self.subtitle = item.subtitle(in: period)
-        self.detail = item.detail(in: period)
+        self.detail = item.detail(in: period) ?? ""
         self.icon = T.icon
         self.color = T.color
         self.useSmallerFont = useSmallerFont
@@ -76,10 +76,14 @@ struct ListRow: View {
     ) {
         self.title = row.title(in: period)
         self.subtitle = row.subtitle(in: period)
-        self.detail = row.detail(in: period)
+        self.detail = row.detail(in: period) ?? ""
         self.icon = type(of: row).icon
         self.color = .primary
         self.useSmallerFont = useSmallerFont
+    }
+    
+    private var hasTitleOnly: Bool {
+        subtitle.isEmpty && detail.isEmpty
     }
     
     var body: some View {
@@ -96,15 +100,15 @@ struct ListRow: View {
                 }
                 .font(useSmallerFont ? .subheadline : .headline)
                 
-                if subtitle != nil, !subtitle!.isEmpty {
-                    Text(subtitle!)
-                        .foregroundColor(subtitle!.hasPrefix("ERROR") ? .systemRed : .secondary)
+                if !subtitle.isEmpty {
+                    Text(subtitle)
+                        .foregroundColor(subtitle.hasPrefix("ERROR") ? .systemRed : .secondary)
                         .font(useSmallerFont ? .footnote : .subheadline)
                 }
                 
-                if detail != nil, !detail!.isEmpty {
-                    Text(detail!)
-                        .foregroundColor(detail!.hasPrefix("ERROR") ? .systemRed : .secondary)
+                if !detail.isEmpty {
+                    Text(detail)
+                        .foregroundColor(detail.hasPrefix("ERROR") ? .systemRed : .secondary)
                         .font(.caption2)
                 }
             }
@@ -112,6 +116,7 @@ struct ListRow: View {
         } icon: {
             Image(systemName: icon)
                 .foregroundColor(color)
+                .offset(y: hasTitleOnly ? 0 : 3)
         }
     }
 }
