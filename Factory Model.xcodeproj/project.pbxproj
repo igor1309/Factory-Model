@@ -139,7 +139,7 @@
 		2AB2C9CE24FA4D27000506D3 /* GroupCodeNotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */; };
 		2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB435E24EE6ECF0036F42F /* BuyerView.swift */; };
 		2ABB436124EE74590036F42F /* RecipeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436024EE74590036F42F /* RecipeRow.swift */; };
-		2ABB436324EFC9D90036F42F /* ProductData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436224EFC9D90036F42F /* ProductData.swift */; };
+		2ABB436324EFC9D90036F42F /* ProductDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436224EFC9D90036F42F /* ProductDataView.swift */; };
 		2ABB436524EFEC3C0036F42F /* Productable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436424EFEC3C0036F42F /* Productable.swift */; };
 		2AC07F9324C5AA4200BB23B1 /* FactoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */; };
 		2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */; };
@@ -287,7 +287,7 @@
 		2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodeNotable.swift; sourceTree = "<group>"; };
 		2ABB435E24EE6ECF0036F42F /* BuyerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerView.swift; sourceTree = "<group>"; };
 		2ABB436024EE74590036F42F /* RecipeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRow.swift; sourceTree = "<group>"; };
-		2ABB436224EFC9D90036F42F /* ProductData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductData.swift; sourceTree = "<group>"; };
+		2ABB436224EFC9D90036F42F /* ProductDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataView.swift; sourceTree = "<group>"; };
 		2ABB436424EFEC3C0036F42F /* Productable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Productable.swift; sourceTree = "<group>"; };
 		2AC07F9224C5AA4200BB23B1 /* FactoryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryList.swift; sourceTree = "<group>"; };
 		2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryView.swift; sourceTree = "<group>"; };
@@ -482,7 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				2A85734624C5DBCF009FF51A /* BaseView.swift */,
-				2ABB436224EFC9D90036F42F /* ProductData.swift */,
+				2ABB436224EFC9D90036F42F /* ProductDataView.swift */,
 				2ABB435E24EE6ECF0036F42F /* BuyerView.swift */,
 				2ABB436024EE74590036F42F /* RecipeRow.swift */,
 				2A2B44C024D09189003EF752 /* DepartmentView.swift */,
@@ -505,6 +505,15 @@
 				2A17706B24FEC806004EC027 /* ComplexityView.swift */,
 			);
 			path = Reports;
+			sourceTree = "<group>";
+		};
+		2A892AE6250A5A660031492D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2A936E5224C63DF100C34381 /* Array+Ext.swift */,
+				2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2AADA08D24C4F4A8005F1E9F = {
@@ -542,8 +551,7 @@
 				2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */,
 				2A6979AA24DFE522009B03F2 /* Sample Data */,
 				2A31654524CC6E1F00AF68A1 /* Playgrounds */,
-				2A936E5224C63DF100C34381 /* Array+Ext.swift */,
-				2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */,
+				2A892AE6250A5A660031492D /* Extensions */,
 				2A59EAA724DB56830063D028 /* undefined.swift */,
 				2AADA09D24C4F4A9005F1E9F /* Assets.xcassets */,
 				2AADA0A224C4F4A9005F1E9F /* Info.plist */,
@@ -749,7 +757,7 @@
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
 				2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */,
 				2A2B44C124D09189003EF752 /* DepartmentView.swift in Sources */,
-				2ABB436324EFC9D90036F42F /* ProductData.swift in Sources */,
+				2ABB436324EFC9D90036F42F /* ProductDataView.swift in Sources */,
 				2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */,
 				2A167F0B24EC161700A8E7DE /* SalesEditor.swift in Sources */,
 				2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */,

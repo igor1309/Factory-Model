@@ -52,7 +52,7 @@ struct BaseView: View {
             
             ProductionOutputSection(for: base, in: period)
             
-            ProductData(base, in: period) {
+            ProductDataView(base, in: period) {
                 ListWithDashboard(
                     for: base,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base),

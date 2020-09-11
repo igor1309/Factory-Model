@@ -48,7 +48,7 @@ struct ProductView: View {
             
             ProductionOutputSection(for: product, in: period)
             
-            ProductData(product, in: period) {
+            ProductDataView(product, in: period) {
                 Text("TBD: Ingredient cost")
             } employeeDestination: {
                 Text("TBD: Labor Cost incl taxes")

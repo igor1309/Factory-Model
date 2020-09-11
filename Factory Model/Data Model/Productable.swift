@@ -302,11 +302,9 @@ extension Product: Productable {
     
     //  MARK: - Revenue
     
-    //var revenueExVAT: Double {
     func revenueExVAT(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.revenueExVAT(in: period) }
     }
-    //var revenueWithVAT: Double {
     func revenueWithVAT(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }

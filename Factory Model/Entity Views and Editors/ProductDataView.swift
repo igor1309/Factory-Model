@@ -1,5 +1,5 @@
 //
-//  ThingData.swift
+//  ProductDataView.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 21.08.2020.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ProductData<
+struct ProductDataView<
     T: Productable & NSManagedObject,
     IngredientDestination: View,
     EmployeeDestination: View,
