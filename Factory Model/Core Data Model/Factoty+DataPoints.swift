@@ -123,12 +123,12 @@ extension Factory {
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.ingredientsExVATPercentageStr(in: period),
-                percentage: ""
+                value: "",
+                percentage: $0.ingredientsExVATPercentageStr(in: period)
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Ingredients", value: ingredients.formattedPercentageWith1Decimal, data: data)
+        return DataBlock(icon: Ingredient.icon, title: "Ingredients", value: ingredients.formattedPercentageWith1Decimal, data: data)
     }
     
     func salaryWithTaxDataPoints(in period: Period) -> DataBlock {
@@ -136,12 +136,12 @@ extension Factory {
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.salaryWithTaxPercentageStr(in: period),
-                percentage: ""
+                value: "",
+                percentage: $0.salaryWithTaxPercentageStr(in: period)
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Salary", value: salary.formattedPercentageWith1Decimal, data: data)
+        return DataBlock(icon: Employee.icon, title: "Salary", value: salary.formattedPercentageWith1Decimal, data: data)
     }
     
     func depreciationWithTaxDataPoints(in period: Period) -> DataBlock {
@@ -149,12 +149,12 @@ extension Factory {
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.depreciationWithTaxPercentageStr(in: period),
-                percentage: ""
+                value: "",
+                percentage: $0.depreciationWithTaxPercentageStr(in: period)
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Depreciation", value: depreciation.formattedPercentageWith1Decimal, data: data)
+        return DataBlock(icon: Equipment.icon, title: "Depreciation", value: depreciation.formattedPercentageWith1Decimal, data: data)
     }
     
     func utilitiesExVATDataPoints(in period: Period) -> DataBlock {
@@ -162,12 +162,12 @@ extension Factory {
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.utilitiesExVATPercentageStr(in: period),
-                percentage: ""
+                value: "",
+                percentage: $0.utilitiesExVATPercentageStr(in: period)
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Utility", value: utilities.formattedPercentageWith1Decimal, data: data)
+        return DataBlock(icon: Utility.icon, title: "Utility", value: utilities.formattedPercentageWith1Decimal, data: data)
     }
     
 
