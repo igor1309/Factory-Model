@@ -10,10 +10,10 @@ import CoreData
 
 struct FactoryList: View {
     
-    let period: Period
+    @Binding var period: Period
     
-    init(in period: Period) {
-        self.period = period
+    init(in period: Binding<Period>) {
+        _period = period
     }
     
     var body: some View {
@@ -24,7 +24,7 @@ struct FactoryList: View {
                 useSmallerFont: false,
                 in: period
             ) { factory in
-                FactoryView(factory, in: period)
+                FactoryView(factory, in: $period)
             }
         }
         .listStyle(InsetGroupedListStyle())

@@ -31,7 +31,7 @@ struct SalesAnalysis: View {
                     DataBlockView(dataBlock: factory.marginDataPoints(in: period))
                     
                     // Средняя цена, мин, макс
-                    DataBlockView(dataBlock: factory.avgPricePerKiloExVATDataPointWithShare(in: period))
+                    DataBlockView(dataBlock: factory.avgPricePerKiloExVATDataPoints(in: period))
                     
                     /// Маржинальность по каждому и средняя (по всем)
                     DataBlockView(dataBlock: factory.marginPercentageDataPointWithShare(in: period))

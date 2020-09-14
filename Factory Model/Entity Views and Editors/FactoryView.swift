@@ -44,10 +44,12 @@ struct FactoryView: View {
                 
                 productionSection
                 
-                procurementSection
+                costStructureSection
             }
             
             Group {
+                procurementSection
+                
                 personnelSection
                 
                 expensesSection
@@ -80,41 +82,7 @@ struct FactoryView: View {
             }
         }
     }
-    
-    private var equipmentSection: some View {
-        Section(header: Text("Equipment")) {
-            NavigationLink(
-                destination: EquipmentList(for: factory, in: period)
-            ) {
-                //  MARK: more clever depreciation?
-                
-                ListRow(
-                    title: "Salvage Value [TBD amount]",
-                    subtitle: "Cost basis [TBD amount]",
-                    detail: "TBD: Depreciation details",
-                    icon: Equipment.icon,
-                    color: Equipment.color
-                )
-            }
-        }
-    }
-    
-    private var expensesSection: some View {
-        Section(
-            header: Text("Expenses")
-        ) {
-            NavigationLink(
-                destination: ExpensesList(for: factory, in: period)
-            ) {
-                ListRow(
-                    title: "Other Expenses [TBD amount]",
-                    icon: Expenses.icon,
-                    color: Expenses.color
-                )
-            }
-        }
-    }
-    
+
     private var issuesSection: some View {
         //  MARK: - FINISH THIS hasIssues does not work - need to use fetch
         //  if factory.hasIssues {
@@ -138,49 +106,37 @@ struct FactoryView: View {
         }
         //  }
     }
-    
-    private var oldSection: some View {
+
+    private var salesSection: some View {
         Section(
-            header: Text("Old")
+            header: Text("Sales")
         ) {
-            Group {
-                NavigationLink(
-                    destination: Text("Production TBD")
-                ) {
-                    LabelWithDetail("bag.fill.badge.plus", "Production", "TBD")
-                }
+            VStack(alignment: .leading, spacing: 9) {
+                DataPointsView(dataBlock: factory.revenueDataPoints(in: period, title: "Products"))
+                    .foregroundColor(Product.color)
+                
+                DataPointsView(dataBlock: factory.basesRevenueDataPoints(in: period, title: "Base Products"))
+                    .foregroundColor(Base.color)
             }
-            .font(.subheadline)
-        }
-    }
-    
-    private var personnelSection: some View {
-        Section(
-            header: Text("Personnel")
-        ) {
+            .padding(.vertical, 3)
+            
+            
             Group {
                 NavigationLink(
-                    destination: DivisionList(for: factory, in: period)
+                    destination: AllSalesList(for: factory, in: period)
                 ) {
-                    ListRow(
-                        title: "Divisions",
-                        subtitle: "Salary incl taxes \(factory.salaryWithTax(in: period).formattedGrouped)",
-                        detail: factory.divisionNames,
-                        icon: "person.crop.rectangle",
-                        color: Division.color
-                    )
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                 }
+                .foregroundColor(Sales.color)
                 
                 NavigationLink(
-                    destination: AllEmployeesList(for: factory, in: period)
+                    destination: AllBuyersList(for: factory, in: period)
                 ) {
-                    ListRow(
-                        title: "People (\(factory.headcount.formattedGrouped))",
-                        icon: Department.icon,
-                        color: Department.color
-                    )
+                    LabelWithDetail(Buyer.icon, "All Buyers", "")
                 }
+                .foregroundColor(Buyer.color)
             }
+            .font(.subheadline)
         }
     }
     
@@ -242,6 +198,24 @@ struct FactoryView: View {
         }
     }
     
+    private var costStructureSection: some View {
+        Section(
+            header: Text("Base Products Cost Structure")
+        ) {
+            VStack(alignment: .leading, spacing: 9) {
+                DataPointsView2(dataBlock: factory.ingredientCostExVATDataPoints(in: period))
+                    .foregroundColor(Ingredient.color)
+                DataPointsView2(dataBlock: factory.salaryWithTaxDataPoints(in: period))
+                    .foregroundColor(Employee.color)
+                DataPointsView2(dataBlock: factory.depreciationWithTaxDataPoints(in: period))
+                    .foregroundColor(Equipment.color)
+                DataPointsView2(dataBlock: factory.utilitiesExVATDataPoints(in: period))
+                    .foregroundColor(Utility.color)
+            }
+            .padding(.vertical, 3)
+        }
+    }
+    
     private var procurementSection: some View {
         Section(
             header: Text("Procurement")
@@ -274,34 +248,80 @@ struct FactoryView: View {
         }
     }
     
-    private var salesSection: some View {
+    private var personnelSection: some View {
         Section(
-            header: Text("Sales")
+            header: Text("Personnel")
         ) {
-            VStack(alignment: .leading, spacing: 9) {
-                DataPointsView(dataBlock: factory.revenueDataPoints(in: period, title: "Products"))
-                    .foregroundColor(Product.color)
-                
-                DataPointsView(dataBlock: factory.basesRevenueDataPoints(in: period, title: "Base Products"))
-                    .foregroundColor(Base.color)
-            }
-            .padding(.vertical, 3)
-            
-            
             Group {
                 NavigationLink(
-                    destination: AllSalesList(for: factory, in: period)
+                    destination: DivisionList(for: factory, in: period)
                 ) {
-                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
+                    ListRow(
+                        title: "Divisions",
+                        subtitle: "Salary incl taxes \(factory.salaryWithTax(in: period).formattedGrouped)",
+                        detail: factory.divisionNames,
+                        icon: "person.crop.rectangle",
+                        color: Division.color
+                    )
                 }
-                .foregroundColor(Sales.color)
                 
                 NavigationLink(
-                    destination: AllBuyersList(for: factory, in: period)
+                    destination: AllEmployeesList(for: factory, in: period)
                 ) {
-                    LabelWithDetail(Buyer.icon, "All Buyers", "")
+                    ListRow(
+                        title: "People (\(factory.headcount.formattedGrouped))",
+                        icon: Department.icon,
+                        color: Department.color
+                    )
                 }
-                .foregroundColor(Buyer.color)
+            }
+        }
+    }
+    
+    private var equipmentSection: some View {
+        Section(header: Text("Equipment")) {
+            NavigationLink(
+                destination: EquipmentList(for: factory, in: period)
+            ) {
+                //  MARK: more clever depreciation?
+                
+                ListRow(
+                    title: "Salvage Value [TBD amount]",
+                    subtitle: "Cost basis [TBD amount]",
+                    detail: "TBD: Depreciation details",
+                    icon: Equipment.icon,
+                    color: Equipment.color
+                )
+            }
+        }
+    }
+    
+    private var expensesSection: some View {
+        Section(
+            header: Text("Expenses")
+        ) {
+            NavigationLink(
+                destination: ExpensesList(for: factory, in: period)
+            ) {
+                ListRow(
+                    title: "Other Expenses [TBD amount]",
+                    icon: Expenses.icon,
+                    color: Expenses.color
+                )
+            }
+        }
+    }
+    
+    private var oldSection: some View {
+        Section(
+            header: Text("Old")
+        ) {
+            Group {
+                NavigationLink(
+                    destination: Text("Production TBD")
+                ) {
+                    LabelWithDetail("bag.fill.badge.plus", "Production", "TBD")
+                }
             }
             .font(.subheadline)
         }

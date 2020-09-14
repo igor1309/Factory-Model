@@ -25,7 +25,7 @@ struct ProductionAnalysis: View {
                     DataBlockView(dataBlock: factory.productionWeightNettoDataPoints(in: period))
                                         
                     // Средняя себестоимость, мин, макс
-                    DataBlockView(dataBlock: factory.avgCostPerKiloExVATDataPointWithShare(in: period))
+                    DataBlockView(dataBlock: factory.avgCostPerKiloExVATDataPoints(in: period))
                 }
                 .padding(.bottom)
             }

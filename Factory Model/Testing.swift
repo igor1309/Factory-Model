@@ -20,13 +20,13 @@ struct Testing: View {
             
             Section {
                 NavigationLink(
-                    destination: FactoryList(in: period)
+                    destination: FactoryList(in: $period)
                 ) {
                     Text("Factories")
                 }
                 
                 EntityLinkToList(in: period) { (factory: Factory) in
-                    FactoryView(factory, in: period)
+                    FactoryView(factory, in: $period)
                 }
             }
             
