@@ -193,7 +193,8 @@ extension Factory: Summarizable {
         }
         
         return """
-Sales / Production, t: \(salesWeightNetto(in: period).formattedGroupedWith1Decimal) / \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+Sales, t: \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+Production, t: \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)
 Work Hours: \(productionWorkHours(in: period).formattedGrouped) (\(workHours(in: period).formattedGrouped))
 Revenue: \(revenueExVAT(in: period).formattedGrouped)
         

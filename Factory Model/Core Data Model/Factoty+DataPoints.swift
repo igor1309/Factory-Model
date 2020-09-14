@@ -25,11 +25,12 @@ extension Factory {
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Weight Netto, t", value: weight.formattedGroupedWith1Decimal, data: data)
+        return DataBlock(icon: "scalemass", title: "Weight Netto, t", value: weight.formattedGroupedWith1Decimal, data: data)
     }
     
-    func productionWeightNettoDataPoints(in period: Period) -> DataBlock {
+    func productionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let weight = productionWeightNetto(in: period)
+        let title = title == nil ? "Weight Netto, t" : title!
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
@@ -38,11 +39,26 @@ extension Factory {
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Weight Netto, t", value: weight.formattedGroupedWith1Decimal, data: data)
+        return DataBlock(icon: "scalemass", title: title, value: weight.formattedGroupedWith1Decimal, data: data)
     }
     
-    func revenueDataPoints(in period: Period) -> DataBlock {
+    func basesProductionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let weight = productionWeightNetto(in: period)
+        let title = title == nil ? "Weight Netto, t" : title!
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.productionWeightNetto(in: period).formattedGroupedWith1Decimal,
+                percentage: (weight == 0 ? 0 : $0.productionWeightNetto(in: period) / weight).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: "scalemass", title: title, value: weight.formattedGroupedWith1Decimal, data: data)
+    }
+    
+    func revenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let revenue = revenueExVAT(in: period)
+        let title = title == nil ? "Revenue" : title!
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
@@ -51,7 +67,21 @@ extension Factory {
             )
         }
         
-        return DataBlock(icon: "creditcard", title: "Revenue", value: revenue.formattedGrouped, data: data)
+        return DataBlock(icon: "creditcard", title: title, value: revenue.formattedGrouped, data: data)
+    }
+    
+    func basesRevenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let revenue = revenueExVAT(in: period)
+        let title = title == nil ? "Base Products Revenue" : title!
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.revenueExVAT(in: period).formattedGrouped,
+                percentage: (revenue == 0 ? 0 : $0.revenueExVAT(in: period) / revenue).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: "creditcard", title: title, value: revenue.formattedGrouped, data: data)
     }
     
     func avgPricePerKiloExVATDataPointWithShare(in period: Period) -> DataBlock {

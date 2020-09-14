@@ -1,5 +1,5 @@
 //
-//  BooksView.swift
+//  ReportsView.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 31.07.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BooksView: View {
+struct ReportsView: View {
     let factory: Factory
     let period: Period
     

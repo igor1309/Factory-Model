@@ -14,15 +14,17 @@ struct FactoryView: View {
     
     @ObservedObject var factory: Factory
     
-    let period: Period
+    @Binding var period: Period
     
-    init(_ factory: Factory, in period: Period) {
+    init(_ factory: Factory, in period: Binding<Period>) {
         self.factory = factory
-        self.period = period
+        _period = period
     }
     
     var body: some View {
         List {
+            PeriodPicker(icon: "deskclock", title: "Period", period: $period)
+            
             Section(
                 header: Text("Factory Detail")
             ) {
@@ -34,7 +36,7 @@ struct FactoryView: View {
             }
             
             Group {
-                booksSection
+                reportsSection
                 
                 issuesSection
                 
@@ -60,13 +62,13 @@ struct FactoryView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
     
-    private var booksSection: some View {
+    private var reportsSection: some View {
         Section(
-            header: Text("Books")
+            header: Text("Reports")
                 .foregroundColor(.systemOrange)
         ) {
             NavigationLink(
-                destination: BooksView(for: factory, in: period)
+                destination: ReportsView(for: factory, in: period)
             ) {
                 ListRow(
                     title: "Reports",
@@ -187,6 +189,15 @@ struct FactoryView: View {
             header: Text("Production")
         ) {
             Group {
+                VStack(alignment: .leading, spacing: 9) {
+                    DataPointsView(dataBlock: factory.productionWeightNettoDataPoints(in: period, title: "Products, t"))
+                        .foregroundColor(Product.color)
+                    
+                    DataPointsView(dataBlock: factory.basesProductionWeightNettoDataPoints(in: period, title: "Base Products, t"))
+                        .foregroundColor(Base.color)
+                }
+                .padding(.vertical, 3)
+                
                 NavigationLink(
                     destination:
                         List {
@@ -197,8 +208,8 @@ struct FactoryView: View {
                 ) {
                     ListRow(
                         title: "Output",
-                        subtitle: "...",
-                        detail: "Production Benchmarks",
+                        subtitle: "TBD ...(?)",
+                        detail: "Production Benchmarks?",
                         icon: "cylinder.split.1x2.fill",
                         color: .systemPurple
                     )
@@ -267,6 +278,16 @@ struct FactoryView: View {
         Section(
             header: Text("Sales")
         ) {
+            VStack(alignment: .leading, spacing: 9) {
+                DataPointsView(dataBlock: factory.revenueDataPoints(in: period, title: "Products"))
+                    .foregroundColor(Product.color)
+                
+                DataPointsView(dataBlock: factory.basesRevenueDataPoints(in: period, title: "Base Products"))
+                    .foregroundColor(Base.color)
+            }
+            .padding(.vertical, 3)
+            
+            
             Group {
                 NavigationLink(
                     destination: AllSalesList(for: factory, in: period)
