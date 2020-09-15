@@ -38,7 +38,7 @@ struct ProductList: View {
             header: Text("Production")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
                                 
                 LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCost(in: period).costExVATStr)
                 
@@ -52,7 +52,7 @@ struct ProductList: View {
             header: Text("Sales")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.salesWeightNetto(in: period).formattedGroupedWith1Decimal)
+                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.salesWeightNettoTons(in: period).formattedGroupedWith1Decimal)
                 
                 LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                 

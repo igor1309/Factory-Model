@@ -65,6 +65,12 @@
 		2A5C94652510DEC200DE7DF2 /* Cost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94642510DEC200DE7DF2 /* Cost.swift */; };
 		2A5C94672510EF0B00DE7DF2 /* CostStructureSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94662510EF0B00DE7DF2 /* CostStructureSection.swift */; };
 		2A5C94692511080600DE7DF2 /* Costable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94682511080600DE7DF2 /* Costable.swift */; };
+		2A5C946B2511495300DE7DF2 /* WeightNettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C946A2511495300DE7DF2 /* WeightNettable.swift */; };
+		2A5C946D25114CE400DE7DF2 /* Utilizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C946C25114CE400DE7DF2 /* Utilizable.swift */; };
+		2A5C946F2511539B00DE7DF2 /* Salarable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C946E2511539B00DE7DF2 /* Salarable.swift */; };
+		2A5C9471251153D600DE7DF2 /* Depreciable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C9470251153D600DE7DF2 /* Depreciable.swift */; };
+		2A5C9473251155BC00DE7DF2 /* Inventorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C9472251155BC00DE7DF2 /* Inventorable.swift */; };
+		2A5C94752511584D00DE7DF2 /* Marginable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94742511584D00DE7DF2 /* Marginable.swift */; };
 		2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */; };
 		2A65B11524DD50E600A3F5A6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */; };
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
@@ -213,6 +219,12 @@
 		2A5C94642510DEC200DE7DF2 /* Cost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cost.swift; sourceTree = "<group>"; };
 		2A5C94662510EF0B00DE7DF2 /* CostStructureSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostStructureSection.swift; sourceTree = "<group>"; };
 		2A5C94682511080600DE7DF2 /* Costable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Costable.swift; sourceTree = "<group>"; };
+		2A5C946A2511495300DE7DF2 /* WeightNettable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightNettable.swift; sourceTree = "<group>"; };
+		2A5C946C25114CE400DE7DF2 /* Utilizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilizable.swift; sourceTree = "<group>"; };
+		2A5C946E2511539B00DE7DF2 /* Salarable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Salarable.swift; sourceTree = "<group>"; };
+		2A5C9470251153D600DE7DF2 /* Depreciable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Depreciable.swift; sourceTree = "<group>"; };
+		2A5C9472251155BC00DE7DF2 /* Inventorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inventorable.swift; sourceTree = "<group>"; };
+		2A5C94742511584D00DE7DF2 /* Marginable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marginable.swift; sourceTree = "<group>"; };
 		2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildUnitPicker.swift; sourceTree = "<group>"; };
 		2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
@@ -441,21 +453,27 @@
 				2A7DA8F524FE4D3D00A3B0CD /* DataPoint.swift */,
 				2A30471424C87AB90002E5DD /* Something.swift */,
 				2A52688524DE993300DDF4DE /* CustomUnitable.swift */,
+				2A5C9470251153D600DE7DF2 /* Depreciable.swift */,
 				2A7F4AAA24EDBAA2002A315F /* Draft.swift */,
 				2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */,
 				2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */,
 				2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */,
+				2A5C9472251155BC00DE7DF2 /* Inventorable.swift */,
 				2A43472C24F56A1200ADCB23 /* Laborable.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
+				2A5C94742511584D00DE7DF2 /* Marginable.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A0FBA4024D5597900F963CE /* Offspringable.swift */,
 				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
 				2A9F592724FA416B00E0EDAB /* Periodable.swift */,
 				2ABB436424EFEC3C0036F42F /* Productable.swift */,
 				2A9F591E24F66A3000E0EDAB /* ProductionOutput.swift */,
+				2A5C946E2511539B00DE7DF2 /* Salarable.swift */,
 				2AF8EC9024CF5A8000EDA2AE /* Sketchable.swift */,
 				2A13E4D024C9EF5F00016CBC /* Summarizable.swift */,
 				2A024CF524CD9419001A4B5C /* Validatable.swift */,
+				2A5C946C25114CE400DE7DF2 /* Utilizable.swift */,
+				2A5C946A2511495300DE7DF2 /* WeightNettable.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -784,11 +802,13 @@
 				2A167EF524EB2DA200A8E7DE /* ChildUnitStringPicker.swift in Sources */,
 				2A167EFF24EC0C3100A8E7DE /* DivisionEditor.swift in Sources */,
 				2A17706A24FEC346004EC027 /* ProductionAnalysis.swift in Sources */,
+				2A5C946D25114CE400DE7DF2 /* Utilizable.swift in Sources */,
 				2A7F4AAF24EDBAE2002A315F /* RecipeDraft.swift in Sources */,
 				2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */,
 				2A7F4AAD24EDBAC4002A315F /* EmployeeDraft.swift in Sources */,
 				2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */,
 				2A936E6124C7051500C34381 /* IngredientView.swift in Sources */,
+				2A5C946B2511495300DE7DF2 /* WeightNettable.swift in Sources */,
 				2A7DA8F624FE4D3D00A3B0CD /* DataPoint.swift in Sources */,
 				2A167F0724EC105600A8E7DE /* FactoryEditor.swift in Sources */,
 				2A7DA8FA24FE53BB00A3B0CD /* SalesAnalysis.swift in Sources */,
@@ -800,12 +820,14 @@
 				2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */,
 				2A17706C24FEC806004EC027 /* ComplexityView.swift in Sources */,
 				2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */,
+				2A5C946F2511539B00DE7DF2 /* Salarable.swift in Sources */,
 				2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */,
 				2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */,
 				2A30471524C87AB90002E5DD /* Something.swift in Sources */,
 				2AC7952524C76E7500018817 /* EmployeeList.swift in Sources */,
 				2A7CC72524E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift in Sources */,
 				2A167EF924EB342F00A8E7DE /* BaseEditor.swift in Sources */,
+				2A5C9473251155BC00DE7DF2 /* Inventorable.swift in Sources */,
 				2A21714624D5F2F4000055F3 /* EntityCreator.swift in Sources */,
 				2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */,
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,
@@ -822,11 +844,13 @@
 				2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,
 				2A33A47D24F29725001DAE71 /* FinLabel.swift in Sources */,
+				2A5C9471251153D600DE7DF2 /* Depreciable.swift in Sources */,
 				2A8113CB24CEB4FA00886C90 /* EntityPicker.swift in Sources */,
 				2A13E4CF24C9B4BD00016CBC /* StringPicker.swift in Sources */,
 				2A81582D24CDB0E3003A95C0 /* GenericListSection.swift in Sources */,
 				2A167F0324EC0DBB00A8E7DE /* ExpensesEditor.swift in Sources */,
 				2A2F4BD224C5A84600B2F8D9 /* Base.swift in Sources */,
+				2A5C94752511584D00DE7DF2 /* Marginable.swift in Sources */,
 				2A7F4AB124EDBB6A002A315F /* DraftSection.swift in Sources */,
 				2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */,
 				2A167F0124EC0CC800A8E7DE /* EquipmentEditor.swift in Sources */,

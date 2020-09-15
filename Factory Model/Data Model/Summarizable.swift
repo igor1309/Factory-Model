@@ -26,7 +26,7 @@ extension Summarizable {
     static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
-extension Summarizable where Self: Productable {
+extension Summarizable where Self: Productable & Inventorable & WeightNettable {
     func subtitle(in period: Period) -> String {
         guard revenueExVAT(in: period) > 0, productionQty(in: period) > 0 else {
             return "ERROR: No Sales or Production"
@@ -37,7 +37,7 @@ extension Summarizable where Self: Productable {
         }
         
         return """
-Sales \(salesQty(in: period).formattedGrouped) of \(productionQty(in: period).formattedGrouped) production, \(salesWeightNetto(in: period).formattedGroupedWith1Decimal) of \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)t
+Sales \(salesQty(in: period).formattedGrouped) of \(productionQty(in: period).formattedGrouped) production, \(salesWeightNettoTons(in: period).formattedGroupedWith1Decimal) of \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)t
 x\(avgPriceExVAT(in: period).formattedGrouped) = \(revenueExVAT(in: period).formattedGrouped) ex VAT
 """
     }
@@ -193,8 +193,8 @@ extension Factory: Summarizable {
         }
         
         return """
-Sales, t: \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)
-Production, t: \(productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+Sales, t: \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
+Production, t: \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
 Work Hours: \(productionWorkHours(in: period).formattedGrouped) (\(workHours(in: period).formattedGrouped))
 Revenue: \(revenueExVAT(in: period).formattedGrouped)
         

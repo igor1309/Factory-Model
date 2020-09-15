@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ProductDataSections<
-    T: NSManagedObject & Productable & Costable,
+    T: NSManagedObject & Productable & Costable & Inventorable & Marginable & WeightNettable,
     IngredientDestination: View,
     EmployeeDestination: View,
     EquipmentDestination: View,
@@ -152,14 +152,14 @@ struct ProductDataSections<
             footer: Text("Base Products Production Quantity calculated using Products Production.")
         ) {
             Group {
-                if entity.closingInventory < 0 {
+                if entity.closingInventory(in: period) < 0 {
                     Text("Negative Closing Inventory - check Production and Sales Qty of Products!")
                         .foregroundColor(.systemRed)
                 }
                 
                     LabelWithDetail("wrench.and.screwdriver", "Qty", entity.productionQty(in: period).formattedGrouped)
                 
-                    LabelWithDetail("scalemass", "Weight Netto, t", entity.productionWeightNetto(in: period).formattedGroupedWith1Decimal)
+                    LabelWithDetail("scalemass", "Weight Netto, t", entity.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
                     .foregroundColor(.systemRed)
                 
                     LabelWithDetail("dollarsign.square", "Cost", entity.productionCostExVAT(in: period).formattedGrouped)
@@ -174,8 +174,8 @@ struct ProductDataSections<
             Group {
                 //                AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $entity.initialInventory)
                 
-                    LabelWithDetail("building.2", "Closing Inventory", entity.closingInventory.formattedGrouped)
-                    .foregroundColor(entity.closingInventory < 0 ? .systemRed : .secondary)
+                    LabelWithDetail("building.2", "Closing Inventory", entity.closingInventory(in: period).formattedGrouped)
+                    .foregroundColor(entity.closingInventory(in: period) < 0 ? .systemRed : .secondary)
             }
             .font(.subheadline)
         }

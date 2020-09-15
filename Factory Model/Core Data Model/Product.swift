@@ -37,11 +37,11 @@ extension Product {
     //  MARK: - Averages
     
     func avgPricePerKiloExVAT(in period: Period) -> Double {
-        let weight = salesWeightNetto(in: period)
+        let weight = salesWeightNettoTons(in: period)
         return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
     }
     func avgCostPerKiloExVAT(in period: Period) -> Double {
-        let weight = productionWeightNetto(in: period)
+        let weight = productionWeightNettoTons(in: period)
         return weight == 0 ? 0 : productionCostExVAT(in: period) / weight / 1_000
     }
     func avgMarginPerKiloExVAT(in period: Period) -> Double {

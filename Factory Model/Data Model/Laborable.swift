@@ -7,20 +7,17 @@
 
 import Foundation
 
-protocol Laborable {
-    
+protocol Laborable: Salarable {
     //  MARK: - Headcount
     
     var headcount: Int { get }
     var productionHeadcount: Int { get }
     var nonProductionHeadcount: Int { get }
     
-    
+        
     //  MARK: - Salary
     
     func salaryExTax(in period: Period) -> Double
-    func salaryWithTax(in period: Period) -> Double
-    func productionSalaryWithTax(in period: Period) -> Double
     func nonProductionSalaryWithTax(in period: Period) -> Double
     
     
@@ -77,7 +74,6 @@ extension Laborable {
         return hours == 0 ? 0 : nonProductionSalaryWithTax(in: period) / hours
     }
 }
-
 
 extension Factory: Laborable {
     

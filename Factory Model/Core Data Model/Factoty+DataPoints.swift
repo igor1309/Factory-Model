@@ -18,12 +18,12 @@ extension Factory {
     //  Weight Netto
         
     func salesWeightNettoDataPoints(in period: Period) -> DataBlock {
-        let weight = salesWeightNetto(in: period)
+        let weight = salesWeightNettoTons(in: period)
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.salesWeightNetto(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.salesWeightNetto(in: period) / weight).formattedPercentage
+                value: $0.salesWeightNettoTons(in: period).formattedGroupedWith1Decimal,
+                percentage: (weight == 0 ? 0 : $0.salesWeightNettoTons(in: period) / weight).formattedPercentage
             )
         }
         
@@ -31,13 +31,13 @@ extension Factory {
     }
     
     func productionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = productionWeightNetto(in: period)
+        let weight = productionWeightNettoTons(in: period)
         let title = title ?? "Weight Netto, t"
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.productionWeightNetto(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.productionWeightNetto(in: period) / weight).formattedPercentage
+                value: $0.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal,
+                percentage: (weight == 0 ? 0 : $0.productionWeightNettoTons(in: period) / weight).formattedPercentage
             )
         }
         
@@ -45,13 +45,13 @@ extension Factory {
     }
     
     func basesProductionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = productionWeightNetto(in: period)
+        let weight = productionWeightNettoTons(in: period)
         let title = title ?? "Weight Netto, t"
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.productionWeightNetto(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.productionWeightNetto(in: period) / weight).formattedPercentage
+                value: $0.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal,
+                percentage: (weight == 0 ? 0 : $0.productionWeightNettoTons(in: period) / weight).formattedPercentage
             )
         }
         
@@ -208,7 +208,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.salaryWithTaxPercentageStr(in: period)
+                percentage: $0.productionCost(in: period).salaryWithTaxPercentageStr
             )
         }
         
@@ -221,7 +221,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.depreciationWithTaxPercentageStr(in: period)
+                percentage: $0.unitCost(in: period).depreciationPercentageStr
             )
         }
         

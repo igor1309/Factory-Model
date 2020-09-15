@@ -87,15 +87,6 @@ extension Factory {
     }
     
     
-    //  MARK: - Weight Netto
-    
-    func salesWeightNetto(in period: Period) -> Double {
-        bases.reduce(0) { $0 + $1.salesWeightNetto(in: period) }
-    }
-    func productionWeightNetto(in period: Period) -> Double {
-        bases.reduce(0) { $0 + $1.productionWeightNetto(in: period) }
-    }
-    
     
     //  MARK: - Equipment
     
@@ -130,11 +121,11 @@ extension Factory {
     //  MARK: - Averages
     
     func avgPricePerKiloExVAT(in period: Period) -> Double {
-        let weight = salesWeightNetto(in: period)
+        let weight = salesWeightNettoTons(in: period)
         return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
     }
     func avgCostPerKiloExVAT(in period: Period) -> Double {
-        let weight = productionWeightNetto(in: period)
+        let weight = productionWeightNettoTons(in: period)
         return weight == 0 ? 0 : productionCost(in: period).costExVAT / weight / 1_000
     }
     func avgMarginPerKiloExVAT(in period: Period) -> Double {
