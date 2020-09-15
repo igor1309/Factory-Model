@@ -11,6 +11,8 @@ struct Cost {
     let title: String
     let header: String
     
+    var hasDecimal: Bool = false
+    
     let ingredientCostExVAT: Double
     let salaryWithTax: Double
     let depreciation: Double
@@ -20,132 +22,101 @@ struct Cost {
         ingredientCostExVAT + salaryWithTax + depreciation + utilityCostExVAT
     }
     
-    //  + … formatted strings
-    var costExVATStr: String { costExVAT.formattedGrouped }
-    var ingredientCostExVATStr: String { ingredientCostExVAT.formattedGrouped }
-    var salaryWithTaxStr: String { salaryWithTax.formattedGrouped }
-    var depreciationStr: String { depreciation.formattedGrouped }
-    var utilityCostExVATStr: String { utilityCostExVAT.formattedGrouped }
+    //  MARK: - formatted strings
+    
+    var costExVATStr: String {
+        if hasDecimal {
+            return costExVAT.formattedGroupedWith1Decimal
+        } else {
+            return costExVAT.formattedGrouped
+        }
+    }
+    var ingredientCostExVATStr: String {
+        if hasDecimal {
+            return ingredientCostExVAT.formattedGroupedWith1Decimal
+        } else {
+            return ingredientCostExVAT.formattedGrouped
+        }
+    }
+    var salaryWithTaxStr: String {
+        if hasDecimal {
+            return salaryWithTax.formattedGroupedWith1Decimal
+        } else {
+            return salaryWithTax.formattedGrouped
+        }
+    }
+    var depreciationStr: String {
+        if hasDecimal {
+            return depreciation.formattedGroupedWith1Decimal
+        } else {
+            return depreciation.formattedGrouped
+        }
+    }
+    var utilityCostExVATStr: String {
+        if hasDecimal {
+            return utilityCostExVAT.formattedGroupedWith1Decimal
+        } else {
+            return utilityCostExVAT.formattedGrouped
+        }
+    }
     
     
-    //  + …PercentageStr - %% of productionCostExVAT
+    //  MARK: - Percentage - %% of costExVATStr
+    
+    var ingredientCostExVATPercentage: Double {
+        costExVAT == 0 ? 0 : ingredientCostExVAT / costExVAT
+    }
+    var salaryWithTaxPercentage: Double {
+        costExVAT == 0 ? 0 : salaryWithTax / costExVAT
+    }
+    var depreciationPercentage: Double {
+        costExVAT == 0 ? 0 : depreciation / costExVAT
+    }
+    var utilityCostExVATPercentage: Double {
+        costExVAT == 0 ? 0 : utilityCostExVAT / costExVAT
+    }
+    
+    
+    //  MARK: - PercentageStr - %% of costExVATStr
+    
     var ingredientCostExVATPercentageStr: String {
-        costExVAT == 0 ? "" : (ingredientCostExVAT / costExVAT).formattedPercentage
+        if hasDecimal {
+            return costExVAT == 0 ? "" : ingredientCostExVATPercentage.formattedPercentageWith1Decimal
+        } else {
+            return costExVAT == 0 ? "" : ingredientCostExVATPercentage.formattedPercentage
+        }
     }
     var salaryWithTaxPercentageStr: String {
-        costExVAT == 0 ? "" : (salaryWithTax / costExVAT).formattedPercentage
+        if hasDecimal {
+            return costExVAT == 0 ? "" : salaryWithTaxPercentage.formattedPercentageWith1Decimal
+        } else {
+            return costExVAT == 0 ? "" : salaryWithTaxPercentage.formattedPercentage
+        }
     }
     var depreciationPercentageStr: String {
-        costExVAT == 0 ? "" : (depreciation / costExVAT).formattedPercentage
+        if hasDecimal {
+            return costExVAT == 0 ? "" : depreciationPercentage.formattedPercentageWith1Decimal
+        } else {
+            return costExVAT == 0 ? "" : depreciationPercentage.formattedPercentage
+        }
     }
     var utilityCostExVATPercentageStr: String {
-        costExVAT == 0 ? "" : (utilityCostExVAT / costExVAT).formattedPercentage
-    }
-}
-
-protocol Costable {
-    func salesCost(in period: Period) -> Cost
-    func productionCost(in period: Period) -> Cost
-}
-
-extension Factory: Costable {
-    func salesCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = bases.reduce(0) { $0 + $1.salesCost( in: period).ingredientCostExVAT }
-        let salaryWithTax =       bases.reduce(0) { $0 + $1.salesCost( in: period).salaryWithTax }
-        let depreciation =        bases.reduce(0) { $0 + $1.salesCost( in: period).depreciation }
-        let utilityCostExVAT =    bases.reduce(0) { $0 + $1.salesCost( in: period).utilityCostExVAT }
-        
-        return Cost(
-            title: "COGS",
-            header: "Sales Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salaryWithTax,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
+        if hasDecimal {
+            return costExVAT == 0 ? "" : utilityCostExVATPercentage.formattedPercentageWith1Decimal
+        } else {
+            return costExVAT == 0 ? "" : utilityCostExVATPercentage.formattedPercentage
+        }
     }
     
-    func productionCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = bases.reduce(0) { $0 + $1.productionCost( in: period).ingredientCostExVAT }
-        let salaryWithTax =       bases.reduce(0) { $0 + $1.productionCost( in: period).salaryWithTax }
-        let depreciation =        bases.reduce(0) { $0 + $1.productionCost( in: period).depreciation }
-        let utilityCostExVAT =    bases.reduce(0) { $0 + $1.productionCost( in: period).utilityCostExVAT }
-        
-        return Cost(
-            title: "Production Cost",
-            header: "Production Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salaryWithTax,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
-    }
-}
-
-extension Base: Costable {
-    func salesCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = salesQty(in: period) * ingredientsExVAT(in: period)
-        let salary =              salesQty(in: period) * salaryWithTax(in: period)
-        let depreciation =        salesDepreciationWithTax(in: period)
-        let utilityCostExVAT =    utilitiesExVAT(in: period)
-        
-        return Cost(
-            title: "COGS",
-            header: "Sales Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salary,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
-    }
     
-    func productionCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = productionQty(in: period) * ingredientsExVAT(in: period)
-        let salary =              productionQty(in: period) * salaryWithTax(in: period)
-        let depreciation =        productionDepreciationWithTax(in: period)
-        let utilityCostExVAT =    utilitiesExVAT(in: period)
-        
-        return Cost(
-            title: "Production Cost",
-            header: "Production Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salary,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
-    }
-}
-
-extension Product: Costable {
-    func salesCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = salesQty(in: period) * ingredientsExVAT(in: period)
-        let salary =              salesQty(in: period) * salaryWithTax(in: period)
-        let depreciation =        salesDepreciationWithTax(in: period)
-        let utilityCostExVAT =    utilitiesExVAT(in: period)
-        
-        return Cost(
-            title: "COGS",
-            header: "Sales Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salary,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
-    }
+    //  MARK: - Chart Data
     
-    func productionCost(in period: Period) -> Cost {
-        let ingredientCostExVAT = productionQty(in: period) * ingredientsExVAT(in: period)
-        let salary =              productionQty(in: period) * salaryWithTax(in: period)
-        let depreciation =        productionDepreciationWithTax(in: period)
-        let utilityCostExVAT =    productionUtilitiesExVAT(in: period)
-        
-        return Cost(
-            title: "Production Cost",
-            header: "Production Cost Structure",
-            ingredientCostExVAT: ingredientCostExVAT,
-            salaryWithTax: salary,
-            depreciation: depreciation,
-            utilityCostExVAT: utilityCostExVAT
-        )
+    var chartData: [ColorPercentage] {
+        [
+            ColorPercentage(Ingredient.color, ingredientCostExVATPercentage),
+            ColorPercentage(Employee.color,   salaryWithTaxPercentage),
+            ColorPercentage(Equipment.color,  depreciationPercentage),
+            ColorPercentage(Utility.color,    utilityCostExVATPercentage)
+        ]
     }
 }

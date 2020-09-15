@@ -18,10 +18,12 @@ struct ColorPercentage: Hashable {
 }
 
 struct HBar: View {
-    var items: [ColorPercentage]
+    let items: [ColorPercentage]
+    let height: CGFloat
     
-    init(_ items: [ColorPercentage]) {
+    init(_ items: [ColorPercentage], height: CGFloat? = nil) {
         self.items = items
+        self.height = height ?? 12
     }
     
     var body: some View {
@@ -29,7 +31,7 @@ struct HBar: View {
             HStack(spacing: 0) {
                 ForEach(items, id: \.self) { item in
                     Capsule()
-                        .frame(width: geo.size.width * CGFloat(item.percentage), height: 12)
+                        .frame(width: geo.size.width * CGFloat(item.percentage), height: height)
                         .foregroundColor(item.color)
                 }
             }
@@ -39,12 +41,25 @@ struct HBar: View {
 }
 struct HBar_Previews: PreviewProvider {
     static var previews: some View {
-        HBar([
-            ColorPercentage(Color.blue, 0.3),
-            ColorPercentage(.green, 0.2),
-            ColorPercentage(.pink, 0.1),
-            ColorPercentage(.orange, 0.4),
-        ])
+        VStack {
+            HBar(
+                [
+                    ColorPercentage(Color.blue, 0.3),
+                    ColorPercentage(.green, 0.2),
+                    ColorPercentage(.pink, 0.1),
+                    ColorPercentage(.orange, 0.4),
+                ]
+            )
+            HBar(
+                [
+                    ColorPercentage(Color.blue, 0.3),
+                    ColorPercentage(.green, 0.2),
+                    ColorPercentage(.pink, 0.1),
+                    ColorPercentage(.orange, 0.4),
+                ],
+                height: 32
+            )
+        }
         .preferredColorScheme(.dark)
         .padding()
     }

@@ -17,7 +17,7 @@ protocol ProductionOutput {
     
     //  MARK: - Costs for all produced Products
     
-    func productionCostExVAT(in period: Period) -> Double
+    //func productionCostExVAT(in period: Period) -> Double
     
     
     //  MARK: - Output Coefficients
@@ -27,7 +27,7 @@ protocol ProductionOutput {
     func productionCostExVATPerKilo(in period: Period) -> Double
 }
 
-extension ProductionOutput {
+extension ProductionOutput where Self: Costable {
         
     //  MARK: - Output Coefficients
     //  MARK: compare to equipment capacity
@@ -35,11 +35,11 @@ extension ProductionOutput {
         productionWeightNetto(in: period) / period.hours
     }
     func productionCostExVATPerHour(in period: Period) -> Double {
-        productionCostExVAT(in: period) / period.hours
+        productionCost(in: period).costExVAT / period.hours
     }
     func productionCostExVATPerKilo(in period: Period) -> Double {
         let netto = productionWeightNetto(in: period)
-        return netto > 0 ? productionCostExVAT(in: period) / netto / 1_000 : 0
+        return netto > 0 ? productionCost(in: period).costExVAT / netto / 1_000 : 0
     }
 }
 

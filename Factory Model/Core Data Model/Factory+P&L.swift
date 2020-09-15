@@ -37,7 +37,7 @@ extension Factory {
     //  MARK: - Margin, EBIT, EBITDA
     
     func margin(in period: Period) -> Double {
-        revenueExVAT(in: period) - cogsExVAT(in: period)
+        revenueExVAT(in: period) - salesCost(in: period).costExVAT
     }
     func marginPercentage(in period: Period) -> Double? {
         let revenue = revenueExVAT(in: period)

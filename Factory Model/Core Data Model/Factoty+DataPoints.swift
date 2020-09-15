@@ -122,12 +122,12 @@ extension Factory {
     //  Output (production) Cost Structure Data Points
     
     func productionIngredientCostExVATDataPoints(in period: Period) -> DataBlock {
-        let ingredients = productionIngredientCostExVAT(in: period)
+        let ingredients = productionCost(in: period).ingredientCostExVAT
         let data = bases.map {
             DataPointWithShare(
-                title: $0.name,
-                value: $0.productionIngredientCostExVAT(in: period).formattedGrouped,
-                percentage: (ingredients == 0 ? 0 : $0.productionIngredientCostExVAT(in: period) / ingredients).formattedPercentage
+                title:      $0.name,
+                value:      $0.productionCost(in: period).ingredientCostExVATStr,
+                percentage: $0.productionCost(in: period).ingredientCostExVATPercentageStr
             )
         }
         
@@ -148,7 +148,7 @@ extension Factory {
     }
     
     func depreciationDataPoints(in period: Period) -> DataBlock {
-        let depreciation = depreciationMonthly//depreciationWithTax(in: period)
+        let depreciation = unitCost(in: period).depreciation// depreciationMonthly//depreciationWithTax(in: period)
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -161,7 +161,7 @@ extension Factory {
     }
     
     func utilitiesExVATDataPoints(in period: Period) -> DataBlock {
-        let utilities = utilitiesExVAT(in: period)
+        let utilities = unitCost(in: period).utilityCostExVAT
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -177,7 +177,7 @@ extension Factory {
     //  Output (production) Cost Structure Percentage Data Points
     
     func productionCostStructureDataPoints(in period: Period) -> DataBlock {
-        let ingredients = productionIngredientCostExVATPercentage(in: period) ?? 0
+        let ingredients = productionCost(in: period).ingredientCostExVATPercentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -190,7 +190,7 @@ extension Factory {
     }
     
     func productionIngredientCostExVATPercentageDataPoints(in period: Period) -> DataBlock {
-        let ingredients = productionIngredientCostExVATPercentage(in: period) ?? 0
+        let ingredients = productionCost(in: period).ingredientCostExVATPercentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -216,7 +216,7 @@ extension Factory {
     }
     
     func depreciationPercentageDataPoints(in period: Period) -> DataBlock {
-        let depreciation = depreciationMonthlyPercentage(in: period) ?? 0
+        let depreciation = unitCost(in: period).depreciationPercentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -229,7 +229,7 @@ extension Factory {
     }
     
     func utilitiesExVATPercentageDataPoints(in period: Period) -> DataBlock {
-        let utilities = utilitiesExVATPercentage(in: period) ?? 0
+        let utilities = unitCost(in: period).utilityCostExVATPercentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -268,6 +268,5 @@ extension Factory {
         }
         
         return DataBlock(icon: "dollarsign.circle", title: "Margin %%", value: margin.formattedPercentage, data: data)
-
     }
 }

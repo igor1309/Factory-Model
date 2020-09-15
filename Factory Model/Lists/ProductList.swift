@@ -40,7 +40,7 @@ struct ProductList: View {
             Group {
                 LabelWithDetail("scalemass", "Production Weight Netto, t", factory.productionWeightNetto(in: period).formattedGroupedWith1Decimal)
                                 
-                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCostExVAT(in: period).formattedGrouped)
+                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCost(in: period).costExVATStr)
                 
                 LabelWithDetail("dollarsign.circle", "Avg Cost ex VAT, per kilo", factory.avgCostPerKiloExVAT(in: period).formattedGrouped)
             }

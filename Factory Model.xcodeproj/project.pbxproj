@@ -64,13 +64,13 @@
 		2A5C9461250FEA0400DE7DF2 /* DataRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C9460250FEA0400DE7DF2 /* DataRow.swift */; };
 		2A5C94652510DEC200DE7DF2 /* Cost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94642510DEC200DE7DF2 /* Cost.swift */; };
 		2A5C94672510EF0B00DE7DF2 /* CostStructureSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94662510EF0B00DE7DF2 /* CostStructureSection.swift */; };
+		2A5C94692511080600DE7DF2 /* Costable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94682511080600DE7DF2 /* Costable.swift */; };
 		2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */; };
 		2A65B11524DD50E600A3F5A6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */; };
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
 		2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */; };
 		2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A624DFE342009B03F2 /* Factory+Employees.swift */; };
 		2A6979A924DFE51F009B03F2 /* Factories Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A824DFE51F009B03F2 /* Factories Sample.swift */; };
-		2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */; };
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
 		2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* ProfileData.swift */; };
@@ -212,13 +212,13 @@
 		2A5C9460250FEA0400DE7DF2 /* DataRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRow.swift; sourceTree = "<group>"; };
 		2A5C94642510DEC200DE7DF2 /* Cost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cost.swift; sourceTree = "<group>"; };
 		2A5C94662510EF0B00DE7DF2 /* CostStructureSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostStructureSection.swift; sourceTree = "<group>"; };
+		2A5C94682511080600DE7DF2 /* Costable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Costable.swift; sourceTree = "<group>"; };
 		2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildUnitPicker.swift; sourceTree = "<group>"; };
 		2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
 		2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCreateNewOrSample.swift; sourceTree = "<group>"; };
 		2A6979A624DFE342009B03F2 /* Factory+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Employees.swift"; sourceTree = "<group>"; };
 		2A6979A824DFE51F009B03F2 /* Factories Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factories Sample.swift"; sourceTree = "<group>"; };
-		2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Costs.swift"; sourceTree = "<group>"; };
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
 		2A74038924C8CB8200BA7999 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
@@ -390,7 +390,6 @@
 				2A85734024C5CFB3009FF51A /* Equipment.swift */,
 				2A85734224C5D853009FF51A /* Expenses.swift */,
 				2A2F4BCF24C5A72100B2F8D9 /* Factory.swift */,
-				2A6979AB24DFE57D009B03F2 /* Factory+Costs.swift */,
 				2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */,
 				2A7DA8FC24FE5A3600A3B0CD /* Factoty+DataPoints.swift */,
 				2A6979A624DFE342009B03F2 /* Factory+Employees.swift */,
@@ -438,6 +437,7 @@
 			isa = PBXGroup;
 			children = (
 				2A5C94642510DEC200DE7DF2 /* Cost.swift */,
+				2A5C94682511080600DE7DF2 /* Costable.swift */,
 				2A7DA8F524FE4D3D00A3B0CD /* DataPoint.swift */,
 				2A30471424C87AB90002E5DD /* Something.swift */,
 				2A52688524DE993300DDF4DE /* CustomUnitable.swift */,
@@ -709,6 +709,7 @@
 				2AC07F9324C5AA4200BB23B1 /* FactoryList.swift in Sources */,
 				2A7CC72924EA735300B43E7F /* CreateNewEntityButton.swift in Sources */,
 				2A30470B24C81AD60002E5DD /* LabelWithDetail.swift in Sources */,
+				2A5C94692511080600DE7DF2 /* Costable.swift in Sources */,
 				2A81582B24CDB09A003A95C0 /* LabelWithDetailView.swift in Sources */,
 				2A93D97C24D1AB0C00DF1A35 /* CreateChildButton.swift in Sources */,
 				2A167F0524EC0ED300A8E7DE /* EmployeeEditor.swift in Sources */,
@@ -776,7 +777,6 @@
 				2ABB436324EFC9D90036F42F /* ProductDataView.swift in Sources */,
 				2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */,
 				2A167F0B24EC161700A8E7DE /* SalesEditor.swift in Sources */,
-				2A6979AC24DFE57D009B03F2 /* Factory+Costs.swift in Sources */,
 				2ABB436124EE74590036F42F /* RecipeRow.swift in Sources */,
 				2A255BC024DD21E700B4D89D /* CustomUnit.swift in Sources */,
 				2A65B11524DD50E600A3F5A6 /* ErrorMessage.swift in Sources */,

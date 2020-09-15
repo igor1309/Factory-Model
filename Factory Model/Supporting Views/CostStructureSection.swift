@@ -8,59 +8,72 @@
 import SwiftUI
 
 struct CostStructureSection: View {
+    
     let cost: Cost
     
     var body: some View {
-        Section(
-            header: Text(cost.header)
-        ) {
-            VStack(alignment: .leading, spacing: 4) {
-                DataRow(
-                    DataPointWithShare(
-                        title: "Ingredients",
-                        value: cost.ingredientCostExVATStr,
-                        percentage: cost.ingredientCostExVATPercentageStr
-                    ),
-                    color: Ingredient.color)
-                
-                DataRow(
-                    DataPointWithShare(
-                        title: "Salary with tax",
-                        value: cost.salaryWithTaxStr,
-                        percentage: cost.salaryWithTaxPercentageStr
-                    ),
-                    color: Employee.color)
-                
-                DataRow(
-                    DataPointWithShare(
-                        title: "Depreciation",
-                        value: cost.depreciationStr,
-                        percentage: cost.depreciationPercentageStr
-                    ),
-                    color: Equipment.color)
-                
-                DataRow(
-                    DataPointWithShare(
-                        title: "Utility",
-                        value: cost.utilityCostExVATStr,
-                        percentage: cost.utilityCostExVATPercentageStr
-                    ),
-                    color: Utility.color)
-                
-                Divider()
-                
-                DataRow(
-                    DataPointWithShare(
-                        title: cost.title,
-                        value: cost.costExVATStr,
-                        percentage: ""
-                    ),
-                    color: .primary
-                )
-                .padding(.top, 3)
-                
+        if cost.costExVAT > 0 {
+            Section(
+                header: Text(cost.header)
+            ) {
+                VStack(alignment: .leading, spacing: 4) {
+                    HBar(cost.chartData, height: 6)
+                        .padding(.top, 3)
+                    
+                    DataRow(
+                        DataPointWithShare(
+                            title: "Ingredients",
+                            value: cost.ingredientCostExVATStr,
+                            percentage: cost.ingredientCostExVATPercentageStr
+                        ),
+                        color: Ingredient.color//,
+                        //icon: Ingredient.icon
+                    )
+                    
+                    DataRow(
+                        DataPointWithShare(
+                            title: "Salary with tax",
+                            value: cost.salaryWithTaxStr,
+                            percentage: cost.salaryWithTaxPercentageStr
+                        ),
+                        color: Employee.color//,
+                        //icon: Employee.icon
+                    )
+                    
+                    DataRow(
+                        DataPointWithShare(
+                            title: "Depreciation",
+                            value: cost.depreciationStr,
+                            percentage: cost.depreciationPercentageStr
+                        ),
+                        color: Equipment.color//,
+                        //icon: Equipment.icon
+                    )
+                    
+                    DataRow(
+                        DataPointWithShare(
+                            title: "Utility",
+                            value: cost.utilityCostExVATStr,
+                            percentage: cost.utilityCostExVATPercentageStr
+                        ),
+                        color: Utility.color//,
+                        //icon: Utility.icon
+                    )
+                    
+                    Divider()
+                    
+                    DataRow(
+                        DataPointWithShare(
+                            title: cost.title,
+                            value: cost.costExVATStr,
+                            percentage: ""
+                        ),
+                        color: .primary
+                    )
+                    .padding(.top, 3)
+                }
+                .padding(.vertical, 3)
             }
-            .padding(.vertical, 3)
         }
     }
 }

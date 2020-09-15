@@ -52,7 +52,7 @@ struct BaseView: View {
             
             ProductionOutputSection(for: base, in: period)
             
-            
+            CostStructureSection(cost: base.unitCost(in: period))
             
             ProductDataView(base, in: period) {
                 ListWithDashboard(

@@ -36,50 +36,59 @@ struct ProductView: View {
             
                             AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $product.initialInventory)
 
+            CostStructureSection(cost: product.unitCost(in: period))
             
-            Section(
-                header: Text("Production")
-            ) {
-                Group {
-                    AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
-                        .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
-                }
-            }
-            
-            ProductionOutputSection(for: product, in: period)
-            
-            ProductDataView(product, in: period) {
-                Text("TBD: Ingredient cost")
-            } employeeDestination: {
-                Text("TBD: Labor Cost incl taxes")
-            } equipmentDestination: {
-                Text("TBD: Depreciation")
-            } utilityDestination: {
-                Text("TBD: Utility")
-            }
-            
-            Section(
-                header: Text("Sales")
-            ) {
-                NavigationLink(
-                    destination: SalesList(for: product, in: period)
+            Group {
+                Section(
+                    header: Text("Production")
                 ) {
-                    LabelWithDetail("creditcard", "Sales List", "")
+                    Group {
+                        AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
+                            .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
+                    }
                 }
-                .foregroundColor(.accentColor)
                 
+                ProductionOutputSection(for: product, in: period)
+                
+                CostStructureSection(cost: product.productionCost(in: period))
+                
+                ProductDataView(product, in: period) {
+                    Text("TBD: Ingredient cost")
+                } employeeDestination: {
+                    Text("TBD: Labor Cost incl taxes")
+                } equipmentDestination: {
+                    Text("TBD: Depreciation")
+                } utilityDestination: {
+                    Text("TBD: Utility")
+                }
             }
             
-            Section(
-                header: Text("Inventory")
-            ) {
-                Group {
-                    LabelWithDetail("square", "TBD: Initial Inventory", "TBD")
+            Group {
+                Section(
+                    header: Text("Sales")
+                ) {
+                    NavigationLink(
+                        destination: SalesList(for: product, in: period)
+                    ) {
+                        LabelWithDetail("creditcard", "Sales List", "")
+                    }
+                    .foregroundColor(.accentColor)
                     
-                    LabelWithDetail("square", "TBD: Closing Inventory", "TBD")
                 }
-                .foregroundColor(.red)
-                .font(.subheadline)
+                
+                CostStructureSection(cost: product.salesCost(in: period))
+                
+                Section(
+                    header: Text("Inventory")
+                ) {
+                    Group {
+                        LabelWithDetail("square", "TBD: Initial Inventory", "TBD")
+                        
+                        LabelWithDetail("square", "TBD: Closing Inventory", "TBD")
+                    }
+                    .foregroundColor(.red)
+                    .font(.subheadline)
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())

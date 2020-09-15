@@ -135,7 +135,7 @@ extension Factory {
     }
     func avgCostPerKiloExVAT(in period: Period) -> Double {
         let weight = productionWeightNetto(in: period)
-        return weight == 0 ? 0 : productionCostExVAT(in: period) / weight / 1_000
+        return weight == 0 ? 0 : productionCost(in: period).costExVAT / weight / 1_000
     }
     func avgMarginPerKiloExVAT(in period: Period) -> Double {
         avgPricePerKiloExVAT(in: period) - avgCostPerKiloExVAT(in: period)
@@ -226,7 +226,7 @@ extension Factory {
             .compactMap(\.ingredient)
     }
     func ingredientsDetail(in period: Period) -> String {
-        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(productionIngredientCostExVAT(in: period).formattedGrouped)"
+        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(productionCost(in: period).ingredientCostExVATStr)"
     }
     
     
