@@ -9,6 +9,19 @@ import Foundation
 
 extension Factory {
     
+    //  MARK: - Salary
+    
+    func nonProductionSalaryWithTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? nonProductionSalaryWithTax(in: period) / revenue : nil
+    }
+    
+    func salaryWithTaxPercentage(in period: Period) -> Double? {
+        let revenue = revenueExVAT(in: period)
+        return revenue > 0 ? salaryWithTax(in: period) / revenue : nil
+    }
+
+
     //  MARK: - Division
 
     var divisions: [Division] {
@@ -48,13 +61,5 @@ extension Factory {
     }
     var employeeByDivision: [String: [Division]] {
         Dictionary(grouping: divisions, by: \.name)
-    }
-    
-    
-    //  MARK: - Salary
-    
-    func salaryWithTaxPercentage(in period: Period) -> Double? {
-        let revenue = revenueExVAT(in: period)
-        return revenue > 0 ? salaryWithTax(in: period) / revenue : nil
     }
 }
