@@ -14,7 +14,7 @@ protocol HavingParentUnit: NSManagedObject & Managed {
 }
 extension HavingParentUnit {
     var parentUnitString: String {
-        parentUnit == nil ? "Unit not defined" : parentUnit!.rawValue
+        parentUnit?.rawValue ?? "Unit not defined"
     }
 }
 

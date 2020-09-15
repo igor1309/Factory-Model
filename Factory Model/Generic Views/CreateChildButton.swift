@@ -27,7 +27,7 @@ struct CreateChildButton<Child: Managed & Sketchable,
         parent: Parent,
         keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     ) {
-        self.systemName = systemName == nil ? "plus" : systemName!
+        self.systemName = systemName ?? "plus"
         self.title = ""
         self.parent = parent
         self.path = keyPath?._kvcKeyPathString

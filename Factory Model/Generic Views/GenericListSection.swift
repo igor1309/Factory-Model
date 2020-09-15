@@ -27,7 +27,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.header = header == nil ? T.plural : header!
+        self.header = header ?? T.plural
         _fetchRequest = fetchRequest
         self.editor = editor
         self.useSmallerFont = useSmallerFont
@@ -42,7 +42,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
-        self.header = header == nil ? T.plural : header!
+        self.header = header ?? T.plural
         self.editor = editor
         self.useSmallerFont = useSmallerFont
         self.period = period

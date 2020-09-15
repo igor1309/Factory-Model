@@ -52,6 +52,8 @@ struct BaseView: View {
             
             ProductionOutputSection(for: base, in: period)
             
+            
+            
             ProductDataView(base, in: period) {
                 ListWithDashboard(
                     for: base,

@@ -32,7 +32,7 @@ extension Factory {
     
     func productionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let weight = productionWeightNetto(in: period)
-        let title = title == nil ? "Weight Netto, t" : title!
+        let title = title ?? "Weight Netto, t"
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
@@ -46,7 +46,7 @@ extension Factory {
     
     func basesProductionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let weight = productionWeightNetto(in: period)
-        let title = title == nil ? "Weight Netto, t" : title!
+        let title = title ?? "Weight Netto, t"
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -63,7 +63,7 @@ extension Factory {
     
     func revenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let revenue = revenueExVAT(in: period)
-        let title = title == nil ? "Revenue" : title!
+        let title = title ?? "Revenue"
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
@@ -77,7 +77,7 @@ extension Factory {
     
     func basesRevenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let revenue = revenueExVAT(in: period)
-        let title = title == nil ? "Base Products Revenue" : title!
+        let title = title ?? "Base Products Revenue"
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -118,8 +118,66 @@ extension Factory {
         return DataBlock(icon: "dollarsign.circle", title: "Avg Cost per kilo", value: cost.formattedGrouped, data: data)
     }
     
-    func ingredientCostExVATDataPoints(in period: Period) -> DataBlock {
-        let ingredients = ingredientCostExVATPercentage(in: period) ?? 0
+    
+    //  Output (production) Cost Structure Data Points
+    
+    func productionIngredientCostExVATDataPoints(in period: Period) -> DataBlock {
+        let ingredients = productionIngredientCostExVAT(in: period)
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.productionIngredientCostExVAT(in: period).formattedGrouped,
+                percentage: (ingredients == 0 ? 0 : $0.productionIngredientCostExVAT(in: period) / ingredients).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: Ingredient.icon, title: "Ingredients", value: ingredients.formattedGrouped, data: data)
+    }
+    
+    func productionSalaryWithTaxDataPoints(in period: Period) -> DataBlock {
+        let salary = productionSalaryWithTax(in: period)
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.productionSalaryWithTax(in: period).formattedGrouped,
+                percentage: (salary == 0 ? 0 : $0.productionSalaryWithTax(in: period) / salary).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: Employee.icon, title: "Salary", value: salary.formattedGrouped, data: data)
+    }
+    
+    func depreciationDataPoints(in period: Period) -> DataBlock {
+        let depreciation = depreciationMonthly//depreciationWithTax(in: period)
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.depreciationWithTax(in: period).formattedGrouped,
+                percentage: (depreciation == 0 ? 0 : $0.depreciationWithTax(in: period) / depreciation).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: Equipment.icon, title: "Depreciation", value: depreciation.formattedGrouped, data: data)
+    }
+    
+    func utilitiesExVATDataPoints(in period: Period) -> DataBlock {
+        let utilities = utilitiesExVAT(in: period)
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.utilitiesExVAT(in: period).formattedGrouped,
+                percentage: (utilities == 0 ? 0 : $0.utilitiesExVAT(in: period) / utilities).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: Utility.icon, title: "Utility", value: utilities.formattedGrouped, data: data)
+    }
+    
+    
+    //  Output (production) Cost Structure Percentage Data Points
+    
+    func productionCostStructureDataPoints(in period: Period) -> DataBlock {
+        let ingredients = productionIngredientCostExVATPercentage(in: period) ?? 0
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -131,7 +189,20 @@ extension Factory {
         return DataBlock(icon: Ingredient.icon, title: "Ingredients", value: ingredients.formattedPercentageWith1Decimal, data: data)
     }
     
-    func salaryWithTaxDataPoints(in period: Period) -> DataBlock {
+    func productionIngredientCostExVATPercentageDataPoints(in period: Period) -> DataBlock {
+        let ingredients = productionIngredientCostExVATPercentage(in: period) ?? 0
+        let data = bases.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: "",
+                percentage: $0.ingredientsExVATPercentageStr(in: period)
+            )
+        }
+        
+        return DataBlock(icon: Ingredient.icon, title: "Ingredients", value: ingredients.formattedPercentageWith1Decimal, data: data)
+    }
+    
+    func productionSalaryWithTaxPercentageDataPoints(in period: Period) -> DataBlock {
         let salary = salaryWithTaxPercentage(in: period) ?? 0
         let data = bases.map {
             DataPointWithShare(
@@ -144,7 +215,7 @@ extension Factory {
         return DataBlock(icon: Employee.icon, title: "Salary", value: salary.formattedPercentageWith1Decimal, data: data)
     }
     
-    func depreciationWithTaxDataPoints(in period: Period) -> DataBlock {
+    func depreciationPercentageDataPoints(in period: Period) -> DataBlock {
         let depreciation = depreciationMonthlyPercentage(in: period) ?? 0
         let data = bases.map {
             DataPointWithShare(
@@ -157,7 +228,7 @@ extension Factory {
         return DataBlock(icon: Equipment.icon, title: "Depreciation", value: depreciation.formattedPercentageWith1Decimal, data: data)
     }
     
-    func utilitiesExVATDataPoints(in period: Period) -> DataBlock {
+    func utilitiesExVATPercentageDataPoints(in period: Period) -> DataBlock {
         let utilities = utilitiesExVATPercentage(in: period) ?? 0
         let data = bases.map {
             DataPointWithShare(

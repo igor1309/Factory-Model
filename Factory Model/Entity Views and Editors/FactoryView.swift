@@ -42,6 +42,10 @@ struct FactoryView: View {
                 
                 salesSection
                 
+                CostStructureSection(cost: factory.salesCost(in: period))
+                                
+                CostStructureSection(cost: factory.productionCost(in: period))
+                
                 productionSection
                 
                 costStructureSection
@@ -82,7 +86,7 @@ struct FactoryView: View {
             }
         }
     }
-
+    
     private var issuesSection: some View {
         //  MARK: - FINISH THIS hasIssues does not work - need to use fetch
         //  if factory.hasIssues {
@@ -106,7 +110,7 @@ struct FactoryView: View {
         }
         //  }
     }
-
+    
     private var salesSection: some View {
         Section(
             header: Text("Sales")
@@ -194,6 +198,20 @@ struct FactoryView: View {
                         color: Base.color
                     )
                 }
+                
+                VStack(alignment: .leading, spacing: 9) {
+                    DataPointsView(dataBlock: factory.productionIngredientCostExVATDataPoints(in: period))
+                        .foregroundColor(Ingredient.color)
+                    //.padding(.top, 3)
+                    DataPointsView(dataBlock: factory.productionSalaryWithTaxDataPoints(in: period))
+                        .foregroundColor(Employee.color)
+                    DataPointsView(dataBlock: factory.depreciationDataPoints(in: period))
+                        .foregroundColor(Equipment.color)
+                    DataPointsView(dataBlock: factory.utilitiesExVATDataPoints(in: period))
+                        .foregroundColor(Utility.color)
+                    //.padding(.bottom, 3)
+                }
+                .padding(.vertical, 3)
             }
         }
     }
@@ -202,17 +220,16 @@ struct FactoryView: View {
         Section(
             header: Text("Base Products Cost Structure")
         ) {
-            VStack(alignment: .leading, spacing: 9) {
-                DataPointsView2(dataBlock: factory.ingredientCostExVATDataPoints(in: period))
-                    .foregroundColor(Ingredient.color)
-                DataPointsView2(dataBlock: factory.salaryWithTaxDataPoints(in: period))
-                    .foregroundColor(Employee.color)
-                DataPointsView2(dataBlock: factory.depreciationWithTaxDataPoints(in: period))
-                    .foregroundColor(Equipment.color)
-                DataPointsView2(dataBlock: factory.utilitiesExVATDataPoints(in: period))
-                    .foregroundColor(Utility.color)
-            }
-            .padding(.vertical, 3)
+            DataPointsView2(dataBlock: factory.productionIngredientCostExVATPercentageDataPoints(in: period))
+                .foregroundColor(Ingredient.color)
+                .padding(.top, 3)
+            DataPointsView2(dataBlock: factory.productionSalaryWithTaxPercentageDataPoints(in: period))
+                .foregroundColor(Employee.color)
+            DataPointsView2(dataBlock: factory.depreciationPercentageDataPoints(in: period))
+                .foregroundColor(Equipment.color)
+            DataPointsView2(dataBlock: factory.utilitiesExVATPercentageDataPoints(in: period))
+                .foregroundColor(Utility.color)
+                .padding(.bottom, 3)
         }
     }
     

@@ -24,7 +24,7 @@ struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
         ) {
             Group {
                 LabelWithDetail("scalemass", "Output, tonne", "\(entity.productionWeightNetto(in: period))")
-                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCostExVAT(in: period).formattedGrouped)
+                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCostExVAT(in: period).formattedGrouped)            
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -33,8 +33,8 @@ struct ProductionOutputSection<T: NSManagedObject & ProductionOutput>: View {
             header: Text("Output")
         ) {
             Group {
-                LabelWithDetail("scalemass.fill", "Output, tonne per hour", entity.outputTonnePerHour(in: period).format(percentage: false, decimals: 3))
-                LabelWithDetail("dollarsign.square", "Output, cost ex VAT per hour", entity.productionCostExVATPerHour(in: period).formattedGrouped)
+                LabelWithDetail("scalemass.fill", "Tonne per hour", entity.outputTonnePerHour(in: period).format(percentage: false, decimals: 3))
+                LabelWithDetail("dollarsign.square", "Cost ex VAT per hour", entity.productionCostExVATPerHour(in: period).formattedGrouped)
                 LabelWithDetail("dollarsign.square", "Cost ex VAT per kilo", entity.productionCostExVATPerKilo(in: period).formattedGrouped)
             }
             .font(.subheadline)

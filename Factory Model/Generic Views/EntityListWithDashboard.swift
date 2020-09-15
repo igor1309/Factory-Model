@@ -51,7 +51,7 @@ struct EntityListWithDashboard<
         
     ) {
         self.parent = parent
-        self.title = title == nil ? Child.plural : title!
+        self.title = title ?? Child.plural
         self.useSmallerFont = useSmallerFont
         self.period = period
         self.keyPathParentToChildren = keyPathParentToChildren

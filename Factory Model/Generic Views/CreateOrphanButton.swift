@@ -15,7 +15,7 @@ struct CreateOrphanButton<Child: Managed & Sketchable>: View {
     /// use this init to create orphans (no parent entities)
     /// - Parameter type: type of the Entity to be created
     init(systemName: String? = nil) {
-        self.systemName = systemName == nil ? "plus" : systemName!
+        self.systemName = systemName ?? "plus"
     }
 
     var body: some View {

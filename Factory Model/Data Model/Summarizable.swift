@@ -238,7 +238,7 @@ extension Recipe: Summarizable {
     
     func subtitle(in period: Period) -> String {
         qty.formattedGrouped + " " + customUnitString + " @ "
-            + (ingredient == nil ? 0: ingredient!.priceExVAT).formattedGrouped
+            + (ingredient?.priceExVAT ?? 0).formattedGrouped
             + " = " + ingredientsExVAT.formattedGrouped
     }
     

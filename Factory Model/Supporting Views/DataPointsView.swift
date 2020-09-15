@@ -44,22 +44,5 @@ struct DataPointsView2: View {
                 DataRow(item)
             }
         }
-    }
-    
-//    private func row(_ item: DataPointWithShare) -> some View {
-//        HStack {
-//            Text(item.title)
-//
-//            Spacer()
-//
-//            Text(item.value)
-//
-//            ZStack(alignment: .trailing) {
-//                Text((-2).formattedPercentage).hidden()
-//                Text(item.percentage)
-//            }
-//        }
-//        .foregroundColor(.secondary)
-//        .font(.footnote)
-//    }
+    }    
 }

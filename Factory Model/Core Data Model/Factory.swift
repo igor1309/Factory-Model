@@ -226,7 +226,7 @@ extension Factory {
             .compactMap(\.ingredient)
     }
     func ingredientsDetail(in period: Period) -> String {
-        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(ingredientCostExVAT(in: period).formattedGrouped)"
+        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(productionIngredientCostExVAT(in: period).formattedGrouped)"
     }
     
     

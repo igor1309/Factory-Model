@@ -37,7 +37,7 @@ struct ListWithDashboard<
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.parent = parent
-        self.title = title == nil ? Child.plural : title!
+        self.title = title ?? Child.plural
         self.useSmallerFont = useSmallerFont
         self.period = period
         self.plusButton = plusButton
@@ -118,7 +118,7 @@ private extension ListWithDashboard where Child: FactoryTracable {
         
         self.init(
             for: parent,
-            title: title == nil ? Child.plural : title!,
+            title: title ?? Child.plural,
             predicate: predicateToUse,
             useSmallerFont: useSmallerFont,
             in: period,

@@ -31,46 +31,71 @@ protocol Productable {
     func avgPriceExVAT(in period: Period) -> Double
     func avgPriceWithVAT(in period: Period) -> Double
     
-    //  MARK(in period: Period) -> Double
+    
+    //  MARK: - Ingredients
     
     func ingredientsExVAT(in period: Period) -> Double
     func ingredientsExVATPercentage(in period: Period) -> Double
     func ingredientsExVATPercentageStr(in period: Period) -> String
+    
+    func salesIngrediensExVAT(in period: Period) -> Double
 
+    func productionIngredientCostExVAT(in period: Period) -> Double
+    func productionIngredientCostExVATPercentage(in period: Period) -> Double
+    func productionIngredientCostExVATPercentageStr(in period: Period) -> String
+    
+    
+    //  MARK: - Salary
+    
     func salaryWithTax(in period: Period) -> Double
     func salaryWithTaxPercentage(in period: Period) -> Double
     func salaryWithTaxPercentageStr(in period: Period) -> String
 
+    func salesSalaryWithTax(in period: Period) -> Double
+    
+    func productionSalaryWithTax(in period: Period) -> Double
+    
+    //  MARK: - Depreciation
     //  MARK: FINISH THIS
+    
     func depreciationWithTax(in period: Period) -> Double
     func depreciationWithTaxPercentage(in period: Period) -> Double
     func depreciationWithTaxPercentageStr(in period: Period) -> String
 
+    func salesDepreciationWithTax(in period: Period) -> Double
+
+    func productionDepreciationWithTax(in period: Period) -> Double
+    
+    
+    
+    //  MARK: - Utility
+    
     func utilitiesExVAT(in period: Period) -> Double
     func utilitiesExVATPercentage(in period: Period) -> Double
     func utilitiesExVATPercentageStr(in period: Period) -> String
+    
+    func salesUtilitiesExVAT(in period: Period) -> Double
+    func salesUtilitiesWithVAT(in period: Period) -> Double
+
+    func productionUtilitiesExVAT(in period: Period) -> Double
+    func productionUtilitiesWithVAT(in period: Period) -> Double
+    
     func utilitiesWithVAT(in period: Period) -> Double
     
-    ///  Full Unit Cost
+    
+    //  Full Unit Cost
+    //  MARK: - FINISH THIS
     func cost(in period: Period) -> Double
     
     
     //  MARK: - Costs for all sold Products
     
-    func salesIngrediensExVAT(in period: Period) -> Double
-    func salesSalaryWithTax(in period: Period) -> Double
-    func salesUtilitiesExVAT(in period: Period) -> Double
-    func salesUtilitiesWithVAT(in period: Period) -> Double
     func salesCostExVAT(in period: Period) -> Double
     func cogs(in period: Period) -> Double
     
     
     //  MARK: - Costs for all produced Products
     
-    func productionIngrediensExVAT(in period: Period) -> Double
-    func productionSalaryWithTax(in period: Period) -> Double
-    func productionUtilitiesExVAT(in period: Period) -> Double
-    func productionUtilitiesWithVAT(in period: Period) -> Double
     func productionCostExVAT(in period: Period) -> Double
     
     
@@ -120,6 +145,13 @@ extension Productable {
     }
     func ingredientsExVATPercentageStr(in period: Period) -> String {
         ingredientsExVATPercentage(in: period).formattedPercentageWith1Decimal
+    }
+    func productionIngredientCostExVATPercentage(in period: Period) -> Double {
+        let cst = cost(in: period)
+        return cst > 0 ? productionIngredientCostExVAT(in: period) / cst : 0
+    }
+    func productionIngredientCostExVATPercentageStr(in period: Period) -> String {
+        productionIngredientCostExVATPercentage(in: period).formattedPercentageWith1Decimal
     }
     func salaryWithTaxPercentage(in period: Period) -> Double {
         let cst = cost(in: period)
@@ -179,7 +211,7 @@ extension Productable {
     
     //  MARK: - Costs for all produced Products
     
-    func productionIngrediensExVAT(in period: Period) -> Double {
+    func productionIngredientCostExVAT(in period: Period) -> Double {
         productionQty(in: period) * ingredientsExVAT(in: period)
     }
     
@@ -259,14 +291,22 @@ extension Base: Productable {
         //workHours * (factory?.productionSalaryPerHourWithTax(in: period) ?? 0)
         weightNetto * complexity * (factory?.laborCostOf1GramOfBaseProduct(in: period) ?? 0)
     }
-    
+        
     //  MARK: - FINISH THIS
     func depreciationWithTax(in period: Period) -> Double { 0.5 }
+    func salesDepreciationWithTax(in period: Period) -> Double { 0.5 }
+    func productionDepreciationWithTax(in period: Period) -> Double { 0.5 }
     
     
     //  MARK: - Utilities per Unit
     
     func utilitiesExVAT(in period: Period) -> Double {
+        utilities.reduce(0) { $0 + $1.priceExVAT }
+    }
+    func salesUtilitiesExVAT(in period: Period) -> Double {
+        utilities.reduce(0) { $0 + $1.priceExVAT }
+    }
+    func productionUtilitiesExVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT }
     }
     func utilitiesWithVAT(in period: Period) -> Double {
@@ -329,6 +369,11 @@ extension Product: Productable {
     }
 
 
+    //  MARK: - FINISH THIS
+    func salesDepreciationWithTax(in period: Period) -> Double { 0.5 }
+    func productionDepreciationWithTax(in period: Period) -> Double { 0.5 }
+    
+    
     //  MARK: - Inventory
     //  MARK: - FINISH THIS
     var closingInventory: Double { 0 }

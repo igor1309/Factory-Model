@@ -22,7 +22,7 @@ struct FinancialLabel: View {
     ) {
         self.title = title
         self.value = value
-        self.percentage = percentage == nil ? "" : percentage!
+        self.percentage = percentage ?? ""
         self.font = font
     }
     
@@ -34,7 +34,7 @@ struct FinancialLabel: View {
     ) {
         self.title = title
         self.value = value.formattedGrouped
-        self.percentage = percentage == nil ? "" : percentage!.formattedPercentageWith1Decimal
+        self.percentage = percentage?.formattedPercentageWith1Decimal ?? ""
         self.font = font
     }
     

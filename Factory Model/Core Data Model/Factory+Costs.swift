@@ -33,15 +33,12 @@ extension Factory {
         return revenue > 0 ? salesIngredientCostExVAT(in: period) / revenue : nil
     }
     
-    func ingredientCostExVAT(in period: Period) -> Double {
-        bases
-            .flatMap(\.products)
-            .compactMap(\.base)
-            .reduce(0) { $0 + $1.productionCostExVAT(in: period) }
+    func productionIngredientCostExVAT(in period: Period) -> Double {
+        bases.reduce(0) { $0 + $1.productionIngredientCostExVAT(in: period) }
     }
-    func ingredientCostExVATPercentage(in period: Period) -> Double? {
+    func productionIngredientCostExVATPercentage(in period: Period) -> Double? {
         let revenue = revenueExVAT(in: period)
-        return revenue > 0 ? ingredientCostExVAT(in: period) / revenue : nil
+        return revenue > 0 ? productionIngredientCostExVAT(in: period) / revenue : nil
     }
     
     

@@ -9,9 +9,11 @@ import SwiftUI
 
 struct DataRow: View {
     let item: DataPointWithShare
+    let color: Color
     
-    init(_ item: DataPointWithShare) {
+    init(_ item: DataPointWithShare, color: Color? = nil) {
         self.item = item
+        self.color = color ?? .secondary
     }
     
     var body: some View {
@@ -27,7 +29,7 @@ struct DataRow: View {
                 Text(item.percentage)
             }
         }
-        .foregroundColor(.secondary)
+        .foregroundColor(color)
         .font(.footnote)
     }
 }
