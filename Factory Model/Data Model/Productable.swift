@@ -35,14 +35,6 @@ protocol Productable {
     //  MARK: - Ingredients
     
     func ingredientsExVAT(in period: Period) -> Double
-    func ingredientsExVATPercentage(in period: Period) -> Double
-    func ingredientsExVATPercentageStr(in period: Period) -> String
-    
-    func salesIngrediensExVAT(in period: Period) -> Double
-
-    func productionIngredientCostExVAT(in period: Period) -> Double
-    func productionIngredientCostExVATPercentage(in period: Period) -> Double
-    func productionIngredientCostExVATPercentageStr(in period: Period) -> String
     
     
     //  MARK: - Salary
@@ -51,7 +43,7 @@ protocol Productable {
     func salaryWithTaxPercentage(in period: Period) -> Double
     func salaryWithTaxPercentageStr(in period: Period) -> String
 
-    func salesSalaryWithTax(in period: Period) -> Double
+    //func salesSalaryWithTax(in period: Period) -> Double
     
     func productionSalaryWithTax(in period: Period) -> Double
     
@@ -71,11 +63,6 @@ protocol Productable {
     //  MARK: - Utility
     
     func utilitiesExVAT(in period: Period) -> Double
-    func utilitiesExVATPercentage(in period: Period) -> Double
-    func utilitiesExVATPercentageStr(in period: Period) -> String
-    
-    func salesUtilitiesExVAT(in period: Period) -> Double
-    func salesUtilitiesWithVAT(in period: Period) -> Double
 
     func productionUtilitiesExVAT(in period: Period) -> Double
     func productionUtilitiesWithVAT(in period: Period) -> Double
@@ -139,20 +126,6 @@ extension Productable {
     
     //  MARK: - Costs per Unit
     
-    func ingredientsExVATPercentage(in period: Period) -> Double {
-        let cst = cost(in: period)
-        return cst > 0 ? ingredientsExVAT(in: period) / cst : 0
-    }
-    func ingredientsExVATPercentageStr(in period: Period) -> String {
-        ingredientsExVATPercentage(in: period).formattedPercentageWith1Decimal
-    }
-    func productionIngredientCostExVATPercentage(in period: Period) -> Double {
-        let cst = cost(in: period)
-        return cst > 0 ? productionIngredientCostExVAT(in: period) / cst : 0
-    }
-    func productionIngredientCostExVATPercentageStr(in period: Period) -> String {
-        productionIngredientCostExVATPercentage(in: period).formattedPercentageWith1Decimal
-    }
     func salaryWithTaxPercentage(in period: Period) -> Double {
         let cst = cost(in: period)
         return cst > 0 ? salaryWithTax(in: period) / cst : 0
@@ -167,13 +140,6 @@ extension Productable {
     func depreciationWithTaxPercentageStr(in period: Period) -> String {
         depreciationWithTaxPercentage(in: period).formattedPercentageWith1Decimal
     }
-    func utilitiesExVATPercentage(in period: Period) -> Double {
-        let cst = cost(in: period)
-        return cst > 0 ? utilitiesExVAT(in: period) / cst : 0
-    }
-    func utilitiesExVATPercentageStr(in period: Period) -> String {
-        utilitiesExVATPercentage(in: period).formattedPercentageWith1Decimal
-    }
     
     ///  MARK: Full Unit Cost
     
@@ -183,23 +149,7 @@ extension Productable {
     
     
     //  MARK: - Costs for all sold Products
-    
-    func salesIngrediensExVAT(in period: Period) -> Double {
-        salesQty(in: period) * ingredientsExVAT(in: period)
-    }
-    
-    func salesSalaryWithTax(in period: Period) -> Double {
-        salesQty(in: period) * salaryWithTax(in: period)
-    }
-    
-    func salesUtilitiesExVAT(in period: Period) -> Double {
-        salesQty(in: period) * utilitiesExVAT(in: period)
-    }
-    
-    func salesUtilitiesWithVAT(in period: Period) -> Double {
-        salesQty(in: period) * utilitiesWithVAT(in: period)
-    }
-    
+        
     func salesCostExVAT(in period: Period) -> Double {
         salesQty(in: period) * cost(in: period)
     }
@@ -210,11 +160,7 @@ extension Productable {
     
     
     //  MARK: - Costs for all produced Products
-    
-    func productionIngredientCostExVAT(in period: Period) -> Double {
-        productionQty(in: period) * ingredientsExVAT(in: period)
-    }
-    
+        
     func productionSalaryWithTax(in period: Period) -> Double {
         productionQty(in: period) * salaryWithTax(in: period)
     }

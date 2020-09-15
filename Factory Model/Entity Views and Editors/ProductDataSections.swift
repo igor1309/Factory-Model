@@ -8,8 +8,8 @@
 import SwiftUI
 import CoreData
 
-struct ProductDataView<
-    T: Productable & NSManagedObject,
+struct ProductDataSections<
+    T: NSManagedObject & Productable & Costable,
     IngredientDestination: View,
     EmployeeDestination: View,
     EquipmentDestination: View,
@@ -41,6 +41,8 @@ struct ProductDataView<
         self.utilityDestination = utilityDestination
     }
     
+    private var unitCost: Cost { entity.unitCost(in: period) }
+    
     var body: some View {
         Section(
             header: Text("Cost"),
@@ -53,8 +55,8 @@ struct ProductDataView<
                     FinLabel(
                         type: Ingredient.self,
                         title: "Ingredients",
-                        detail: entity.ingredientsExVAT(in: period).formattedGroupedWith1Decimal,
-                        percentage: entity.ingredientsExVATPercentageStr(in: period)
+                        detail:     unitCost.ingredientCostExVATStr,
+                        percentage: unitCost.ingredientCostExVATPercentageStr
                     )
                 }
                 
@@ -64,8 +66,8 @@ struct ProductDataView<
                     FinLabel(
                         type: Department.self,
                         title: "Salary",
-                        detail: entity.salaryWithTax(in: period).formattedGroupedWith1Decimal,
-                        percentage: entity.salaryWithTaxPercentageStr(in: period)
+                        detail:     unitCost.salaryWithTaxStr,
+                        percentage: unitCost.salaryWithTaxPercentageStr
                     )
                 }
                 
@@ -75,8 +77,8 @@ struct ProductDataView<
                     FinLabel(
                         type: Equipment.self,
                         title: "Depreciation",
-                        detail: entity.depreciationWithTax(in: period).formattedGroupedWith1Decimal,
-                        percentage: entity.depreciationWithTaxPercentageStr(in: period)
+                        detail:     unitCost.depreciationStr,
+                        percentage: unitCost.depreciationPercentageStr
                     )
                 }
                 
@@ -86,16 +88,16 @@ struct ProductDataView<
                     FinLabel(
                         type: Utility.self,
                         title: "Utility",
-                        detail: entity.utilitiesExVAT(in: period).formattedGroupedWith1Decimal,
-                        percentage: entity.utilitiesExVATPercentageStr(in: period)
+                        detail:     unitCost.utilityCostExVATStr,
+                        percentage: unitCost.utilityCostExVATPercentageStr
                     )
                 }
                 
                 HBar([
-                    ColorPercentage(Ingredient.color, entity.ingredientsExVATPercentage(in: period)),
-                    ColorPercentage(Employee.color,   entity.salaryWithTaxPercentage(in: period)),
-                    ColorPercentage(Equipment.color,  entity.depreciationWithTaxPercentage(in: period)),
-                    ColorPercentage(Utility.color,    entity.utilitiesExVATPercentage(in: period))
+                    ColorPercentage(Ingredient.color, unitCost.ingredientCostExVATPercentage),
+                    ColorPercentage(Employee.color,   unitCost.salaryWithTaxPercentage),
+                    ColorPercentage(Equipment.color,  unitCost.depreciationPercentage),
+                    ColorPercentage(Utility.color,    unitCost.utilityCostExVATPercentage)
                 ])
                 
                 HStack(spacing: 0) {

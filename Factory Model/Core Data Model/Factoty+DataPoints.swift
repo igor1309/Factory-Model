@@ -182,7 +182,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.ingredientsExVATPercentageStr(in: period)
+                percentage: $0.productionCost(in: period).ingredientCostExVATPercentageStr
             )
         }
         
@@ -195,7 +195,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.ingredientsExVATPercentageStr(in: period)
+                percentage: $0.productionCost(in: period).ingredientCostExVATPercentageStr
             )
         }
         
@@ -234,7 +234,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.utilitiesExVATPercentageStr(in: period)
+                percentage: $0.unitCost(in: period).utilityCostExVATPercentageStr
             )
         }
         

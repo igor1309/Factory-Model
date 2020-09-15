@@ -54,7 +54,7 @@ struct BaseView: View {
             
             CostStructureSection(cost: base.unitCost(in: period))
             
-            ProductDataView(base, in: period) {
+            ProductDataSections(base, in: period) {
                 ListWithDashboard(
                     for: base,
                     predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base),

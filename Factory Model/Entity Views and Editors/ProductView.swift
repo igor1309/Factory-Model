@@ -52,7 +52,7 @@ struct ProductView: View {
                 
                 CostStructureSection(cost: product.productionCost(in: period))
                 
-                ProductDataView(product, in: period) {
+                ProductDataSections(product, in: period) {
                     Text("TBD: Ingredient cost")
                 } employeeDestination: {
                     Text("TBD: Labor Cost incl taxes")
