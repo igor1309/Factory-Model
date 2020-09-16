@@ -36,14 +36,9 @@ protocol Productable {
     
     /// Cost for all produced Products
     func productionCostExVAT(in period: Period) -> Double
-    
-    
-    //  MARK: Ingredients
-    
-    func ingredientsExVAT(in period: Period) -> Double
 }
 
-extension Productable where Self: Salarable & Depreciable & Utilizable {
+extension Productable where Self: Ingredientable & Salarable & Depreciable & Utilizable {
     
     // Full Unit Cost
     func cost(in period: Period) -> Double {
@@ -105,13 +100,6 @@ extension Base: Productable {
     func revenueWithVAT(in period: Period) -> Double {
         products.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }
-    
-    
-    //  MARK: Ingredients
-    
-    func ingredientsExVAT(in period: Period) ->  Double {
-        recipes.reduce(0) { $0 + $1.ingredientsExVAT }
-    }
 }
 
 
@@ -134,13 +122,6 @@ extension Product: Productable {
     }
     func revenueWithVAT(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
-    }
-    
-    
-    //  MARK: Ingredients
-    
-    func ingredientsExVAT(in period: Period) -> Double {
-        (base?.ingredientsExVAT(in: period) ?? 0) * baseQtyInBaseUnit
     }
 }
 
