@@ -24,23 +24,23 @@ protocol Productable {
     func avgPriceWithVAT(in period: Period) -> Double
     
     
-    //  MARK: Ingredients
-    
-    func ingredientsExVAT(in period: Period) -> Double
-    
-     
     //  MARK: Cost
     
     ///  Full Unit Cost
     //  MARK: - FINISH THIS
     func cost(in period: Period) -> Double
-        
+    
     /// Costs for all sold Products
     func salesCostExVAT(in period: Period) -> Double
     func cogs(in period: Period) -> Double
-        
+    
     /// Cost for all produced Products
     func productionCostExVAT(in period: Period) -> Double
+    
+    
+    //  MARK: Ingredients
+    
+    func ingredientsExVAT(in period: Period) -> Double
 }
 
 extension Productable where Self: Salarable & Depreciable & Utilizable {
@@ -67,7 +67,7 @@ extension Productable {
         return qty > 0 ? revenueWithVAT(in: period) / qty : 0
     }
     
-        
+    
     //  MARK: Cost
     
     /// Costs for all sold Products
@@ -78,7 +78,7 @@ extension Productable {
         salesQty(in: period) * cost(in: period)
     }
     
-    ///  MARK: Costs for all produced Products
+    /// Cost for all produced Products
     func productionCostExVAT(in period: Period) -> Double {
         productionQty(in: period) * cost(in: period)
     }
@@ -89,13 +89,11 @@ extension Base: Productable {
     //  MARK: Qty
     
     func salesQty(in period: Period) -> Double {
-        products
-            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.salesQty(in: period) }
+        products.reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.salesQty(in: period) }
     }
     func productionQty(in period: Period) -> Double {
-        products
-            /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
-            .reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty(in: period) }
+        /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
+        products.reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.productionQty(in: period) }
     }
     
     
@@ -109,7 +107,7 @@ extension Base: Productable {
     }
     
     
-    //  MARK: Cost per Unit
+    //  MARK: Ingredients
     
     func ingredientsExVAT(in period: Period) ->  Double {
         recipes.reduce(0) { $0 + $1.ingredientsExVAT }
@@ -118,13 +116,12 @@ extension Base: Productable {
 
 
 extension Product: Productable {
-
+    
     //  MARK: Qty
     
     func salesQty(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.salesQty(in: period) }
     }
-    
     func productionQty(in period: Period) -> Double {
         productionQty / self.period.hours * period.hours
     }
@@ -138,9 +135,9 @@ extension Product: Productable {
     func revenueWithVAT(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.revenueWithVAT(in: period) }
     }
-
     
-    //  MARK: Cost per Unit
+    
+    //  MARK: Ingredients
     
     func ingredientsExVAT(in period: Period) -> Double {
         (base?.ingredientsExVAT(in: period) ?? 0) * baseQtyInBaseUnit
