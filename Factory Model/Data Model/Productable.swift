@@ -9,13 +9,13 @@ import Foundation
 
 protocol Productable {
     
-    //  MARK: - Qty
+    //  MARK: Qty
     
     func salesQty(in period: Period) -> Double
     func productionQty(in period: Period) -> Double
     
     
-    //  MARK: - Revenue & Avg Price
+    //  MARK: Revenue & Avg Price
     
     func revenueExVAT(in period: Period) -> Double
     func revenueWithVAT(in period: Period) -> Double
@@ -24,30 +24,28 @@ protocol Productable {
     func avgPriceWithVAT(in period: Period) -> Double
     
     
-    //  MARK: - Ingredients
+    //  MARK: Ingredients
     
     func ingredientsExVAT(in period: Period) -> Double
     
-        
-    //  Full Unit Cost
+     
+    //  MARK: Cost
+    
+    ///  Full Unit Cost
     //  MARK: - FINISH THIS
     func cost(in period: Period) -> Double
-    
-    
-    //  MARK: - Costs for all sold Products
-    
+        
+    /// Costs for all sold Products
     func salesCostExVAT(in period: Period) -> Double
     func cogs(in period: Period) -> Double
-    
-    
-    //  MARK: - Costs for all produced Products
-    
+        
+    /// Cost for all produced Products
     func productionCostExVAT(in period: Period) -> Double
 }
 
 extension Productable where Self: Salarable & Depreciable & Utilizable {
-    ///  MARK: Full Unit Cost
     
+    // Full Unit Cost
     func cost(in period: Period) -> Double {
         ingredientsExVAT(in: period)
             + salaryWithTax(in: period)
@@ -58,7 +56,7 @@ extension Productable where Self: Salarable & Depreciable & Utilizable {
 
 extension Productable {
     
-    //  MARK: - Avg Price
+    //  MARK: Avg Price
     
     func avgPriceExVAT(in period: Period) -> Double {
         let qty = salesQty(in: period)
@@ -70,19 +68,17 @@ extension Productable {
     }
     
         
-    //  MARK: - Costs for all sold Products
-        
+    //  MARK: Cost
+    
+    /// Costs for all sold Products
     func salesCostExVAT(in period: Period) -> Double {
         salesQty(in: period) * cost(in: period)
     }
-    
     func cogs(in period: Period) -> Double {
         salesQty(in: period) * cost(in: period)
     }
     
-    
-    //  MARK: - Costs for all produced Products
-        
+    ///  MARK: Costs for all produced Products
     func productionCostExVAT(in period: Period) -> Double {
         productionQty(in: period) * cost(in: period)
     }
@@ -90,7 +86,7 @@ extension Productable {
 
 extension Base: Productable {
     
-    //  MARK: - Qty
+    //  MARK: Qty
     
     func salesQty(in period: Period) -> Double {
         products
@@ -103,7 +99,7 @@ extension Base: Productable {
     }
     
     
-    //  MARK: - Revenue
+    //  MARK: Revenue
     
     func revenueExVAT(in period: Period) -> Double {
         products.reduce(0) { $0 + $1.revenueExVAT(in: period) }
@@ -113,7 +109,7 @@ extension Base: Productable {
     }
     
     
-    //  MARK: - Costs per Unit
+    //  MARK: Cost per Unit
     
     func ingredientsExVAT(in period: Period) ->  Double {
         recipes.reduce(0) { $0 + $1.ingredientsExVAT }
@@ -123,7 +119,7 @@ extension Base: Productable {
 
 extension Product: Productable {
 
-    //  MARK: - Qty
+    //  MARK: Qty
     
     func salesQty(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.salesQty(in: period) }
@@ -134,7 +130,7 @@ extension Product: Productable {
     }
     
     
-    //  MARK: - Revenue
+    //  MARK: Revenue
     
     func revenueExVAT(in period: Period) -> Double {
         sales.reduce(0) { $0 + $1.revenueExVAT(in: period) }
@@ -144,13 +140,10 @@ extension Product: Productable {
     }
 
     
-    //  MARK: - Costs per Unit
+    //  MARK: Cost per Unit
     
     func ingredientsExVAT(in period: Period) -> Double {
         (base?.ingredientsExVAT(in: period) ?? 0) * baseQtyInBaseUnit
-    }
-    func salaryWithTax(in period: Period) -> Double {
-        (base?.salaryWithTax(in: period) ?? 0) * baseQtyInBaseUnit
     }
 }
 

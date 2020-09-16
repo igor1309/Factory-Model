@@ -8,16 +8,15 @@
 import Foundation
 
 protocol Salarable {
-    //  MARK: - Salary
     
-    //func salaryExTax(in period: Period) -> Double
+    //  MARK: Salary
+    
     func salaryWithTax(in period: Period) -> Double
     func productionSalaryWithTax(in period: Period) -> Double
 }
 
 extension Base: Salarable {
     func salaryWithTax(in period: Period) -> Double {
-        //workHours * (factory?.productionSalaryPerHourWithTax(in: period) ?? 0)
         weightNetto * complexity * (factory?.laborCostOf1GramOfBaseProduct(in: period) ?? 0)
     }
     
@@ -28,6 +27,10 @@ extension Base: Salarable {
 }
 
 extension Product: Salarable {
+    func salaryWithTax(in period: Period) -> Double {
+        (base?.salaryWithTax(in: period) ?? 0) * baseQtyInBaseUnit
+    }
+    
     func productionSalaryWithTax(in period: Period) -> Double {
         productionQty(in: period) * salaryWithTax(in: period)
     }
