@@ -78,8 +78,8 @@ struct ProductDataSections<
                     destination: ingredientDestination()
                 ) {
                     FinLabel(
-                        type: Ingredient.self,
-                        title: "Ingredients",
+                        type:       Ingredient.self,
+                        title:      "Ingredients",
                         detail:     unitCost.ingredientCostExVATStr,
                         percentage: unitCost.ingredientCostExVATPercentageStr
                     )
@@ -89,8 +89,8 @@ struct ProductDataSections<
                     destination: employeeDestination()
                 ) {
                     FinLabel(
-                        type: Department.self,
-                        title: "Salary",
+                        type:       Department.self,
+                        title:      "Salary",
                         detail:     unitCost.salaryWithTaxStr,
                         percentage: unitCost.salaryWithTaxPercentageStr
                     )
@@ -100,8 +100,8 @@ struct ProductDataSections<
                     destination: equipmentDestination()
                 ) {
                     FinLabel(
-                        type: Equipment.self,
-                        title: "Depreciation",
+                        type:       Equipment.self,
+                        title:      "Depreciation",
                         detail:     unitCost.depreciationStr,
                         percentage: unitCost.depreciationPercentageStr
                     )
@@ -111,8 +111,8 @@ struct ProductDataSections<
                     destination: utilityDestination()
                 ) {
                     FinLabel(
-                        type: Utility.self,
-                        title: "Utility",
+                        type:       Utility.self,
+                        title:      "Utility",
                         detail:     unitCost.utilityCostExVATStr,
                         percentage: unitCost.utilityCostExVATPercentageStr
                     )
@@ -293,10 +293,14 @@ struct ProductDataSections<
             header: Text("Inventory")
         ) {
             Group {
-                //                AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $entity.initialInventory)
+                // AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $entity.initialInventory)
                 
-                LabelWithDetail("building.2", "Closing Inventory", entity.closingInventory(in: period).formattedGrouped)
-                    .foregroundColor(entity.closingInventory(in: period) < 0 ? .systemRed : .secondary)
+                LabelWithDetail(
+                    "building.2",
+                    "Closing Inventory",
+                    entity.closingInventory(in: period).formattedGrouped
+                )
+                .foregroundColor(entity.closingInventory(in: period) < 0 ? .systemRed : .secondary)
             }
             .font(.subheadline)
         }

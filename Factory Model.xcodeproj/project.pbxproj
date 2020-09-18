@@ -157,7 +157,6 @@
 		2AC7952524C76E7500018817 /* EmployeeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC7952424C76E7500018817 /* EmployeeList.swift */; };
 		2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD51E2E24ED51EF00BE3005 /* SalesDraft.swift */; };
 		2AE6DB372512033700457D74 /* Ingredientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB362512033700457D74 /* Ingredientable.swift */; };
-		2AE6DB3E2513922A00457D74 /* Averagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB3D2513922A00457D74 /* Averagable.swift */; };
 		2AE6DB432513CE7E00457D74 /* PriceCostMargin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB422513CE7E00457D74 /* PriceCostMargin.swift */; };
 		2AF814F024FCE2430078A58A /* NoteSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF814EF24FCE2430078A58A /* NoteSection.swift */; };
 		2AF8B0ED24CF1495005035FD /* FactoryTracable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */; };
@@ -320,7 +319,6 @@
 		2AD51E2E24ED51EF00BE3005 /* SalesDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesDraft.swift; sourceTree = "<group>"; };
 		2AD6C9C724D6E453003B28EE /* Measurements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Measurements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2AE6DB362512033700457D74 /* Ingredientable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredientable.swift; sourceTree = "<group>"; };
-		2AE6DB3D2513922A00457D74 /* Averagable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Averagable.swift; sourceTree = "<group>"; };
 		2AE6DB422513CE7E00457D74 /* PriceCostMargin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCostMargin.swift; sourceTree = "<group>"; };
 		2AF814EF24FCE2430078A58A /* NoteSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSection.swift; sourceTree = "<group>"; };
 		2AF8B0EC24CF1495005035FD /* FactoryTracable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryTracable.swift; sourceTree = "<group>"; };
@@ -599,7 +597,6 @@
 		2AE6DB3925120B3900457D74 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				2AE6DB3D2513922A00457D74 /* Averagable.swift */,
 				2A7114262513EDCB0009E3A2 /* File.swift */,
 				2A711429251406DF0009E3A2 /* Tradable.swift */,
 				2A5C94682511080600DE7DF2 /* Costable.swift */,
@@ -742,7 +739,6 @@
 				2A7CC72B24EA765500B43E7F /* CreateEntityPicker.swift in Sources */,
 				2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */,
 				2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */,
-				2AE6DB3E2513922A00457D74 /* Averagable.swift in Sources */,
 				2A43473124F5701400ADCB23 /* LaborView.swift in Sources */,
 				2A7F4AAB24EDBAA2002A315F /* Draft.swift in Sources */,
 				2A936E6324C7112B00C34381 /* IngredientList.swift in Sources */,

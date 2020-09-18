@@ -93,14 +93,16 @@ extension Factory {
     //  Avg Price and Cost per Kilo
     
     func avgPricePerKiloExVATDataPoints(in period: Period) -> DataBlock {
-        let price = avgPricePerKiloExVAT(in: period)
+        //avgPricePerKiloExVAT(in: period)
+        let price = sold(in: period).perKilo.price
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
                 //value: $0.avgPricePerKiloExVAT(in: period).formattedGrouped,
-                value: $0.avgPerKiloExVAT(in: period).priceStr,
+                //value: $0.avgPerKiloExVAT(in: period).priceStr,
+                value: $0.sold(in: period).perKilo.priceStr,
                 //percentage: (price == 0 ? 0 : $0.avgPricePerKiloExVAT(in: period) / price).formattedPercentage
-                percentage: (price == 0 ? 0 : $0.avgPerKiloExVAT(in: period).price / price).formattedPercentage
+                percentage: (price == 0 ? 0 : $0.sold(in: period).perKilo.price / price).formattedPercentage
             )
         }
         
@@ -108,14 +110,16 @@ extension Factory {
     }
     
     func avgCostPerKiloExVATDataPoints(in period: Period) -> DataBlock {
-        let cost = avgCostPerKiloExVAT(in: period)
+        //  avgCostPerKiloExVAT(in: period)
+        let cost = sold(in: period).perKilo.cost
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
                 //value: $0.avgCostPerKiloExVAT(in: period).formattedGrouped,
-                value: $0.avgPerKiloExVAT(in: period).costStr,
+                //value: $0.avgPerKiloExVAT(in: period).costStr,
+                value: $0.sold(in: period).perKilo.costStr,
                 //percentage: (cost == 0 ? 0 : $0.avgCostPerKiloExVAT(in: period) / cost).formattedPercentage
-                percentage: (cost == 0 ? 0 : $0.avgPerKiloExVAT(in: period).cost / cost).formattedPercentage
+                percentage: (cost == 0 ? 0 : $0.sold(in: period).perKilo.cost / cost).formattedPercentage
             )
         }
         

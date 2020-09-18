@@ -42,7 +42,12 @@ struct ProductList: View {
                                 
                 LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCost(in: period).costExVATStr)
                 
-                LabelWithDetail("dollarsign.circle", "Avg Cost ex VAT, per kilo", factory.avgCostPerKiloExVAT(in: period).formattedGrouped)
+                LabelWithDetail(
+                    "dollarsign.circle",
+                    "Avg Cost ex VAT, per kilo",
+                    //factory.avgCostPerKiloExVAT(in: period).formattedGrouped
+                    factory.sold(in: period).perKilo.costStr
+                )
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -56,7 +61,12 @@ struct ProductList: View {
                 
                 LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                 
-                LabelWithDetail("dollarsign.circle", "Avg Price ex VAT, per kilo", factory.avgPricePerKiloExVAT(in: period).formattedGrouped)
+                LabelWithDetail(
+                    "dollarsign.circle",
+                    "Avg Price ex VAT, per kilo",
+                    //factory.avgPricePerKiloExVAT(in: period).formattedGrouped
+                    factory.sold(in: period).perKilo.priceStr
+                )
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -68,9 +78,14 @@ struct ProductList: View {
             Group {
                 LabelWithDetail(Sales.icon, "Margin ex VAT", factory.pnl(in: period).margin.formattedGrouped)
                 
-                LabelWithDetail(Sales.icon, "Avg Margin ex VAT, per kilo", factory.avgMarginPerKiloExVAT(in: period).formattedGrouped)
+                LabelWithDetail(
+                    Sales.icon,
+                    "Avg Margin ex VAT, per kilo",
+                    //factory.avgMarginPerKiloExVAT(in: period).formattedGrouped
+                    factory.sold(in: period).perKilo.marginStr
+                )
             }
-            .foregroundColor(factory.avgMarginPerKiloExVAT(in: period) > 0 ? .secondary : .red)
+            .foregroundColor(factory.sold(in: period).perKilo.margin > 0 ? .secondary : .red)
             .font(.subheadline)
         }
         
