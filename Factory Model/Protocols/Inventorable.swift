@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Inventorable: Makable {
+protocol Inventorable: Goodable {
     
     //  MARK: Inventory
     

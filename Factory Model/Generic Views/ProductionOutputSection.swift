@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ProductionOutputSection<T: NSManagedObject & ProductionOutput & Costable & Tradable>: View {
+struct ProductionOutputSection<T: NSManagedObject & Costable & Tradable>: View {
     @ObservedObject var entity: T
     
     let period: Period

@@ -14,7 +14,7 @@ protocol Costable {
     func productionCost(in period: Period) -> Cost
 }
 
-typealias BaseOrProduct = CustomUnitable & Ingredientable & Makable & Salarable & Depreciable & Utilizable
+typealias BaseOrProduct = CustomUnitable & Ingredientable & Goodable & Salarable & Depreciable & Utilizable
 
 extension Costable where Self: BaseOrProduct {
     func unitCost(in period: Period) -> Cost {
@@ -23,9 +23,9 @@ extension Costable where Self: BaseOrProduct {
             header: "Unit Cost",
             hasDecimal: true,
             ingredientCostExVAT: ingredientsExVAT(in: period),
-            salaryWithTax: salaryWithTax(in: period),
-            depreciation: depreciationWithTax(in: period),
-            utilityCostExVAT: utilitiesExVAT(in: period)
+            salaryWithTax:       salaryWithTax(in: period),
+            depreciation:        depreciationWithTax(in: period),
+            utilityCostExVAT:    utilitiesExVAT(in: period)
         )
     }
     

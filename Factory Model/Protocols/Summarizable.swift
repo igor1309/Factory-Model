@@ -26,7 +26,7 @@ extension Summarizable {
     static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
-extension Summarizable where Self: HaveRevenue & Makable & Inventorable & Tradable {
+extension Summarizable where Self: HaveRevenue & Goodable & Inventorable & Tradable {
     func subtitle(in period: Period) -> String {
         guard revenueExVAT(in: period) > 0, made(in: period).productionQty > 0 else {
             return "ERROR: No Sales or Production"

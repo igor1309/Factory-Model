@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Tradable - Factory & Base & Product
+//  MARK: Factory & Base & Product
 
 // Production
 struct Production {
@@ -40,9 +40,33 @@ struct Trade {
 protocol Tradable {
     func produced(in period: Period) -> Production
     func sold(in period: Period) -> Trade
+    
+    
+    //  MARK: Output Coefficients
+    //  MARK: - FINISH THIS compare to equipment capacity
+    func outputTonnePerHour(in period: Period) -> Double
+    func productionCostExVATPerHour(in period: Period) -> Double
+    func productionCostExVATPerKilo(in period: Period) -> Double
+}
+
+extension Tradable {
+    
+    //  MARK: Output Coefficients
+    
+    func outputTonnePerHour(in period: Period) -> Double {
+        produced(in: period).weightNetto / period.hours
+    }
+    func productionCostExVATPerHour(in period: Period) -> Double {
+        produced(in: period).cost.costExVAT / period.hours
+    }
+    func productionCostExVATPerKilo(in period: Period) -> Double {
+        let netto = produced(in: period).weightNetto
+        return netto > 0 ? produced(in: period).cost.costExVAT / netto / 1_000 : 0
+    }
 }
 
 extension Base: Tradable {
+    
     func produced(in period: Period) -> Production {
         
         let productionQty = made(in: period).productionQty
@@ -93,6 +117,7 @@ extension Base: Tradable {
 }
 
 extension Factory: Tradable {
+    
     func produced(in period: Period) -> Production {
         
         let productionWeightNettoTons = bases.reduce(0) { $0 + $1.produced(in: period).weightNetto }
@@ -141,6 +166,7 @@ extension Factory: Tradable {
 }
 
 extension Product: Tradable {
+    
     func produced(in period: Period) -> Production {
         
         let weightNetto = (base?.weightNetto ?? 0) * baseQtyInBaseUnit

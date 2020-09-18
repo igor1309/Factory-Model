@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Makable.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 17.09.2020.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-// Makable - Base & Product
+//  MARK: Base & Product
 
-struct Make {
+struct Good {
     /// Production Qty
     let productionQty: Double
     /// Sales Qty
@@ -25,14 +25,14 @@ struct Make {
     }
 }
 
-protocol Makable {
-    func made(in period: Period) -> Make
+protocol Goodable {
+    func made(in period: Period) -> Good
 }
 
-extension Makable {
-    func made(in period: Period) -> Make {
+extension Goodable {
+    func made(in period: Period) -> Good {
         //  MARK: - FINISH THIS
-        Make(
+        Good(
             productionQty: 0,
             salesQty: 0,
             perUnit: PriceCostMargin(
@@ -43,16 +43,16 @@ extension Makable {
     }
 }
 
-extension Base: Makable {
+extension Base: Goodable {
     
-    func made(in period: Period) -> Make {
+    func made(in period: Period) -> Good {
         
         /// умножить количество первичного продукта в упаковке (baseQty) на производимое количество (productionQty)
         let productionQty = products.reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.made(in: period).productionQty }
         
         let salesQty = products.reduce(0) { $0 + $1.baseQtyInBaseUnit * $1.made(in: period).salesQty }
         
-        return Make(
+        return Good(
             productionQty: productionQty,
             salesQty: salesQty,
             //  MARK: - FINISH THIS
@@ -64,15 +64,15 @@ extension Base: Makable {
     }
 }
 
-extension Product: Makable {
+extension Product: Goodable {
     
-    func made(in period: Period) -> Make {
+    func made(in period: Period) -> Good {
         
         let productionQty = sales.reduce(0) { $0 + $1.salesQty(in: period) }
         
         let salesQty = productionQty / self.period.hours * period.hours
         
-        return Make(
+        return Good(
             productionQty: productionQty,
             salesQty: salesQty,
             //  MARK: - FINISH THIS
