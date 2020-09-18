@@ -33,14 +33,14 @@ extension Factory {
     
     func basesDetail(in period: Period) -> String {
         let produced = bases
-            .filter { $0.productionQty(in: period) > 0 }
+            .filter { $0.made(in: period).productionQty > 0 }
             .map {
-                "\($0.name) (\($0.productionQty(in: period).formattedGrouped) \($0.customUnitString))"
+                "\($0.name) (\($0.made(in: period).productionQtyStr) \($0.customUnitString))"
             }
             .joined(separator: ", ")
         
         let notProduced = bases
-            .filter { $0.productionQty(in: period) == 0 }
+            .filter { $0.made(in: period).productionQty == 0 }
             .map(\.name)
             .joined(separator: ", ")
         
@@ -51,14 +51,14 @@ extension Factory {
         let products = bases.flatMap { $0.products }
 
         let sold = products
-            .filter { $0.salesQty(in: period) > 0 }
+            .filter { $0.made(in: period).salesQty > 0 }
             .map {
-                "\($0.title(in: period)) (sales \($0.salesQty(in: period).formattedGrouped) of \($0.productionQty(in: period).formattedGrouped) production)"
+                "\($0.title(in: period)) (sales \($0.made(in: period).salesQtyStr) of \($0.made(in: period).productionQtyStr) production)"
             }
             .joined(separator: ", ")
         
         let unsold = products
-            .filter { $0.salesQty(in: period) == 0 }
+            .filter { $0.made(in: period).salesQty == 0 }
             .map { "\($0.title(in: period))" }
             .joined(separator: ", ")
         
@@ -118,20 +118,6 @@ extension Factory {
     }
     
     
-    //  MARK: - Averages
-    
-    func avgPricePerKiloExVAT(in period: Period) -> Double {
-        let weight = salesWeightNettoTons(in: period)
-        return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
-    }
-    func avgCostPerKiloExVAT(in period: Period) -> Double {
-        let weight = productionWeightNettoTons(in: period)
-        return weight == 0 ? 0 : productionCost(in: period).costExVAT / weight / 1_000
-    }
-    func avgMarginPerKiloExVAT(in period: Period) -> Double {
-        avgPricePerKiloExVAT(in: period) - avgCostPerKiloExVAT(in: period)
-    }
-
 
     var baseGroupsAsRows: [Something] {
         Dictionary(grouping: bases) { $0.group }

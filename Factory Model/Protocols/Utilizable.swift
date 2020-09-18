@@ -28,15 +28,15 @@ extension Base: Utilizable {
 
     func productionUtilitiesExVAT(in period: Period) -> Double {
         //utilities.reduce(0) { $0 + $1.priceExVAT }
-        productionQty(in: period) * utilitiesExVAT(in: period)
+        made(in: period).productionQty * utilitiesExVAT(in: period)
     }
     func productionUtilitiesWithVAT(in period: Period) -> Double {
-        productionQty(in: period) * utilitiesWithVAT(in: period)
+        made(in: period).productionQty * utilitiesWithVAT(in: period)
     }
     
     func salesUtilitiesExVAT(in period: Period) -> Double {
         //utilities.reduce(0) { $0 + $1.priceExVAT }
-        salesQty(in: period) * utilitiesExVAT(in: period)
+        made(in: period).salesQty * utilitiesExVAT(in: period)
     }
     func utilitiesWithVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
@@ -50,15 +50,15 @@ extension Product: Utilizable {
     }
 
     func productionUtilitiesExVAT(in period: Period) -> Double {
-        productionQty(in: period) * utilitiesExVAT(in: period)
+        made(in: period).productionQty * utilitiesExVAT(in: period)
     }
     
     func productionUtilitiesWithVAT(in period: Period) -> Double {
-        productionQty(in: period) * utilitiesWithVAT(in: period)
+        made(in: period).productionQty * utilitiesWithVAT(in: period)
     }
 
     func salesUtilitiesExVAT(in period: Period) -> Double {
-        salesQty(in: period) * utilitiesExVAT(in: period)
+        made(in: period).salesQty * utilitiesExVAT(in: period)
     }
     
     func utilitiesWithVAT(in period: Period) -> Double {

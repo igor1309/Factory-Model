@@ -18,12 +18,12 @@ extension Factory {
     //  Weight Netto
         
     func salesWeightNettoDataPoints(in period: Period) -> DataBlock {
-        let weight = salesWeightNettoTons(in: period)
+        let weight = sold(in: period).weightNetto
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.salesWeightNettoTons(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.salesWeightNettoTons(in: period) / weight).formattedPercentage
+                value: $0.sold(in: period).weightNettoStr,
+                percentage: (weight == 0 ? 0 : $0.sold(in: period).weightNetto / weight).formattedPercentage
             )
         }
         
@@ -31,13 +31,13 @@ extension Factory {
     }
     
     func productionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = productionWeightNettoTons(in: period)
+        let weight = produced(in: period).weightNetto
         let title = title ?? "Weight Netto, t"
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.productionWeightNettoTons(in: period) / weight).formattedPercentage
+                value: $0.produced(in: period).weightNettoStr,
+                percentage: (weight == 0 ? 0 : $0.produced(in: period).weightNetto / weight).formattedPercentage
             )
         }
         
@@ -45,13 +45,13 @@ extension Factory {
     }
     
     func basesProductionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = productionWeightNettoTons(in: period)
+        let weight = produced(in: period).weightNetto
         let title = title ?? "Weight Netto, t"
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal,
-                percentage: (weight == 0 ? 0 : $0.productionWeightNettoTons(in: period) / weight).formattedPercentage
+                value: $0.produced(in: period).weightNettoStr,
+                percentage: (weight == 0 ? 0 : $0.produced(in: period).weightNetto / weight).formattedPercentage
             )
         }
         
@@ -97,8 +97,10 @@ extension Factory {
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.avgPricePerKiloExVAT(in: period).formattedGrouped,
-                percentage: (price == 0 ? 0 : $0.avgPricePerKiloExVAT(in: period) / price).formattedPercentage
+                //value: $0.avgPricePerKiloExVAT(in: period).formattedGrouped,
+                value: $0.avgPerKiloExVAT(in: period).priceStr,
+                //percentage: (price == 0 ? 0 : $0.avgPricePerKiloExVAT(in: period) / price).formattedPercentage
+                percentage: (price == 0 ? 0 : $0.avgPerKiloExVAT(in: period).price / price).formattedPercentage
             )
         }
         
@@ -110,8 +112,10 @@ extension Factory {
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.avgCostPerKiloExVAT(in: period).formattedGrouped,
-                percentage: (cost == 0 ? 0 : $0.avgCostPerKiloExVAT(in: period) / cost).formattedPercentage
+                //value: $0.avgCostPerKiloExVAT(in: period).formattedGrouped,
+                value: $0.avgPerKiloExVAT(in: period).costStr,
+                //percentage: (cost == 0 ? 0 : $0.avgCostPerKiloExVAT(in: period) / cost).formattedPercentage
+                percentage: (cost == 0 ? 0 : $0.avgPerKiloExVAT(in: period).cost / cost).formattedPercentage
             )
         }
         
@@ -245,12 +249,14 @@ extension Factory {
     //  Margin
     
     func marginDataPoints(in period: Period) -> DataBlock {
-        let totalMargin = margin(in: period)
+        let totalMargin = pnl(in: period).margin
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.totalMargin(in: period).formattedGrouped,
-                percentage: (totalMargin == 0 ? 0 : $0.totalMargin(in: period) / totalMargin).formattedPercentage
+                //value: $0.totalMargin(in: period).formattedGrouped,
+                value: $0.sold(in: period).total.marginStr,
+                //percentage: (totalMargin == 0 ? 0 : $0.totalMargin(in: period) / totalMargin).formattedPercentage
+                percentage: $0.sold(in: period).total.marginPercentageStr
             )
         }
         
@@ -258,15 +264,17 @@ extension Factory {
     }
     
     func marginPercentageDataPointWithShare(in period: Period) -> DataBlock {
-        let margin = marginPercentage(in: period) ?? 0
+        let marginPercentage = sold(in: period).total.marginPercentage //pnl(in: period).marginPercentage ?? 0
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
-                value: $0.marginPercentage(in: period).formattedPercentage,
-                percentage: (margin == 0 ? 0 : $0.marginPercentage(in: period) / margin).formattedPercentage
+                //value: $0.marginPercentage(in: period).formattedPercentage,
+                value: $0.sold(in: period).total.marginPercentageStr,
+                //percentage: (marginPercentage == 0 ? 0 : $0.marginPercentage(in: period) / marginPercentage).formattedPercentage
+                percentage: (marginPercentage == 0 ? 0 : $0.sold(in: period).total.marginPercentage / marginPercentage).formattedPercentage
             )
         }
         
-        return DataBlock(icon: "dollarsign.circle", title: "Margin %%", value: margin.formattedPercentage, data: data)
+        return DataBlock(icon: "dollarsign.circle", title: "Margin %%", value: sold(in: period).total.marginPercentageStr, data: data)
     }
 }

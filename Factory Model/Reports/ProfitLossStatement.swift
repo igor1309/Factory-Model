@@ -24,6 +24,8 @@ struct ProfitLossStatement: View {
     }
     
     private var salesCost: Cost { factory.salesCost(in: period) }
+    
+    private var pnl: PNL { factory.pnl(in: period) }
 
     var body: some View {
         ScrollView {
@@ -84,10 +86,10 @@ struct ProfitLossStatement: View {
                     ) {
                         FinancialLabel(
                             "Margin",
-                            value:      factory.margin(in: period),
-                            percentage: factory.marginPercentage(in: period)
+                            value:      pnl.margin,
+                            percentage: pnl.marginPercentage
                         )
-                        .foregroundColor(factory.margin(in: period) > 0 ? .primary : .systemRed)
+                        .foregroundColor(pnl.margin > 0 ? .primary : .systemRed)
                     }
                     
                     Section(
@@ -115,10 +117,10 @@ struct ProfitLossStatement: View {
                     ) {
                         FinancialLabel(
                             "EBIT",
-                            value:      factory.ebit(in: period),
-                            percentage: factory.ebitPercentage(in: period)
+                            value:      pnl.ebit,
+                            percentage: pnl.ebitPercentage
                         )
-                        .foregroundColor(factory.ebit(in: period) > 0 ? .primary : .systemRed)
+                        .foregroundColor(pnl.ebit > 0 ? .primary : .systemRed)
                     }
                 }
                 
@@ -128,10 +130,12 @@ struct ProfitLossStatement: View {
                     ) {
                         FinancialLabel(
                             "Profit Tax",
-                            value:      factory.profitTax(in: period),
-                            percentage: factory.profitTaxPercentage(in: period)
+                            /// factory.profitTax(in: period)
+                            value:      pnl.profitTax,
+                            /// factory.profitTaxPercentage(in: period)
+                            percentage: pnl.profitTaxPercentage
                         )
-                        .foregroundColor(factory.profitTax(in: period) > 0 ? .primary : .secondary)
+                        .foregroundColor(pnl.profitTax > 0 ? .primary : .secondary)
                     }
                     
                     Divider()
@@ -141,10 +145,12 @@ struct ProfitLossStatement: View {
                     ) {
                         FinancialLabel(
                             "Net Profit",
-                            value:      factory.netProfit(in: period),
-                            percentage: factory.netProfitPercentage(in: period)
+                            /// netProfit(in: period)
+                            value:      pnl.netProfit,
+                            /// factory.netProfitPercentage(in: period)
+                            percentage: pnl.netProfitPercentage
                         )
-                        .foregroundColor(factory.netProfit(in: period) > 0 ? .primary : .systemRed)
+                        .foregroundColor(pnl.netProfit > 0 ? .primary : .systemRed)
                     }
                     
                     Divider()
@@ -154,10 +160,10 @@ struct ProfitLossStatement: View {
                     ) {
                         FinancialLabel(
                             "EBITDA",
-                            value:      factory.ebitda(in: period),
-                            percentage: factory.ebitdaPercentage(in: period)
+                            value:      pnl.ebitda,
+                            percentage: pnl.ebitdaPercentage
                         )
-                        .foregroundColor(factory.ebitda(in: period) > 0 ? .primary : .systemRed)
+                        .foregroundColor(pnl.ebitda > 0 ? .primary : .systemRed)
                     }
                     
                     Divider()

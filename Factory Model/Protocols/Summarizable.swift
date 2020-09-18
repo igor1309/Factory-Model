@@ -26,19 +26,19 @@ extension Summarizable {
     static var color: Color { .accentColor }
     static var plusButtonIcon: String { "plus" }
 }
-extension Summarizable where Self: Productable & Inventorable & WeightNettable {
+extension Summarizable where Self: HaveRevenue & Makable & Inventorable & Tradable {
     func subtitle(in period: Period) -> String {
-        guard revenueExVAT(in: period) > 0, productionQty(in: period) > 0 else {
+        guard revenueExVAT(in: period) > 0, made(in: period).productionQty > 0 else {
             return "ERROR: No Sales or Production"
         }
         
-        guard salesQty(in: period) <= productionQty(in: period) + initialInventory else {
+        guard made(in: period).salesQty <= made(in: period).productionQty + initialInventory else {
             return "ERROR: Sold more than produced"
         }
         
         return """
-Sales \(salesQty(in: period).formattedGrouped) of \(productionQty(in: period).formattedGrouped) production, \(salesWeightNettoTons(in: period).formattedGroupedWith1Decimal) of \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)t
-x\(avgPriceExVAT(in: period).formattedGrouped) = \(revenueExVAT(in: period).formattedGrouped) ex VAT
+Sales \(made(in: period).salesQtyStr) of \(made(in: period).productionQtyStr) production, \(sold(in: period).weightNettoStr) of \(produced(in: period).weightNettoStr)t
+x\(sold(in: period).perKilo.price) = \(revenueExVAT(in: period).formattedGrouped) ex VAT
 """
     }
 }
@@ -193,8 +193,8 @@ extension Factory: Summarizable {
         }
         
         return """
-Sales, t: \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
-Production, t: \(productionWeightNettoTons(in: period).formattedGroupedWith1Decimal)
+Sales, t: \(sold(in: period).weightNettoStr)
+Production, t: \(produced(in: period).weightNettoStr)
 Work Hours: \(productionWorkHours(in: period).formattedGrouped) (\(workHours(in: period).formattedGrouped))
 Revenue: \(revenueExVAT(in: period).formattedGrouped)
         

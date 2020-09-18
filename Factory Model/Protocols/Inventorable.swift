@@ -7,22 +7,27 @@
 
 import Foundation
 
-protocol Inventorable: Productable {
-    //  MARK: - Inventory
+protocol Inventorable: Makable {
+    
+    //  MARK: Inventory
     
     var initialInventory: Double { get set }
+    
+    
+    //  MARK: Closing Inventory
+    
     func closingInventory(in period: Period) -> Double
 }
 
 extension Inventorable {
+    
     //  MARK: Closing Inventory
     
     func closingInventory(in period: Period) -> Double {
-        initialInventory + productionQty(in: period) - salesQty(in: period)
+        initialInventory + made(in: period).productionQty - made(in: period).salesQty
     }
     
 }
 
 extension Base: Inventorable {}
-
 extension Product: Inventorable {}

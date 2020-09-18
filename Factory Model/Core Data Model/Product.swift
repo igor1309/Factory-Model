@@ -32,27 +32,7 @@ extension Product {
             }
         }
     }
-    
-    //  MARK: - FINISH THIS: USED IF FACTORY AS WELL, SHOULD MOVE TO PROTOCOL???
-    //  MARK: - Averages
-    
-    func avgPricePerKiloExVAT(in period: Period) -> Double {
-        let weight = salesWeightNettoTons(in: period)
-        return weight == 0 ? 0 : revenueExVAT(in: period) / weight / 1_000
-    }
-    func avgCostPerKiloExVAT(in period: Period) -> Double {
-        let weight = productionWeightNettoTons(in: period)
-        return weight == 0 ? 0 : productionCostExVAT(in: period) / weight / 1_000
-    }
-    func avgMarginPerKiloExVAT(in period: Period) -> Double {
-        avgPricePerKiloExVAT(in: period) - avgCostPerKiloExVAT(in: period)
-    }
-    
 
-    
-    
-    
-    
     
     var baseName: String {
         base?.name ?? "ERROR: no base"
@@ -63,7 +43,8 @@ extension Product {
     }
     
     
-    //  MARK: FIX THIS: неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
+    //  MARK: - FINISH THIS
+    /// неоптимально — мне нужно по FetchRequest вытащить список имеющихся групп продуктов (для этой/выбранной фабрики!)
     var groups: [String] {
         base?.factory?.productGroups ?? []
     }

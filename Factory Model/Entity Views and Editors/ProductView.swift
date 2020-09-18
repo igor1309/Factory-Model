@@ -70,9 +70,9 @@ struct ProductView: View {
                     NavigationLink(
                         destination: SalesList(for: product, in: period)
                     ) {
-                        LabelWithDetail("creditcard", "Sales List", "")
+                        Label("Sales List", systemImage: "creditcard")
+                            .foregroundColor(.systemGreen)
                     }
-                    .foregroundColor(.accentColor)
                     
                 }
                 

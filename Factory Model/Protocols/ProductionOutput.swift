@@ -7,38 +7,29 @@
 
 import Foundation
 
-//protocol ProductionOutput: Productable {
 protocol ProductionOutput {
     
-    //  MARK: - WeightNetto
-    
-    //func productionWeightNetto(in period: Period) -> Double
-    
-    
-    //  MARK: - Costs for all produced Products
-    
-    //func productionCostExVAT(in period: Period) -> Double
-    
-    
-    //  MARK: - Output Coefficients
-    //  MARK: compare to equipment capacity
+    //  MARK: Output Coefficients
+    //  MARK: - FINISH THIS compare to equipment capacity
     func outputTonnePerHour(in period: Period) -> Double
     func productionCostExVATPerHour(in period: Period) -> Double
     func productionCostExVATPerKilo(in period: Period) -> Double
 }
 
-extension ProductionOutput where Self: Costable & WeightNettable {
+extension ProductionOutput where Self: Costable & Tradable {
         
-    //  MARK: - Output Coefficients
-    //  MARK: compare to equipment capacity
+    //  MARK: Output Coefficients
+
     func outputTonnePerHour(in period: Period) -> Double {
-        productionWeightNettoTons(in: period) / period.hours
+        //productionWeightNettoTons(in: period)
+        produced(in: period).weightNetto / period.hours
     }
     func productionCostExVATPerHour(in period: Period) -> Double {
         productionCost(in: period).costExVAT / period.hours
     }
     func productionCostExVATPerKilo(in period: Period) -> Double {
-        let netto = productionWeightNettoTons(in: period)
+        // productionWeightNettoTons(in: period)
+        let netto = produced(in: period).weightNetto
         return netto > 0 ? productionCost(in: period).costExVAT / netto / 1_000 : 0
     }
 }
