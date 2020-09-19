@@ -1,5 +1,5 @@
 //
-//  CostStructureSection.swift
+//  CostSection.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 15.09.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CostStructureSection: View {
+struct CostSection: View {
     
     let cost: Cost
     
@@ -81,7 +81,7 @@ struct CostStructureSection: View {
 struct CostStructureSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            CostStructureSection(
+            CostSection(
                 cost: Cost(
                     title: "Test Cost",
                     header: "Production Cost Structure",

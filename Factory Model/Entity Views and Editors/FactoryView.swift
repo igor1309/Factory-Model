@@ -42,9 +42,9 @@ struct FactoryView: View {
                 
                 salesSection
                 
-                CostStructureSection(cost: factory.salesCost(in: period))
+                CostSection(cost: factory.salesCost(in: period))
                                 
-                CostStructureSection(cost: factory.productionCost(in: period))
+                CostSection(cost: factory.productionCost(in: period))
                 
                 productionSection
                 

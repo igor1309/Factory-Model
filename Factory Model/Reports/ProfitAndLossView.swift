@@ -1,5 +1,5 @@
 //
-//  ProfitLossStatement.swift
+//  ProfitAndLossView.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 01.08.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfitLossStatement: View {
+struct ProfitAndLossView: View {
     let factory: Factory
     let period: Period
     

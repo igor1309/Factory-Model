@@ -16,6 +16,8 @@ struct PriceCostMargin {
     let price: Double
     let cost: Double
     
+    var hasDecimal: Bool = false
+    
     var margin: Double {
         price - cost
     }
@@ -24,13 +26,25 @@ struct PriceCostMargin {
     }
     
     var priceStr: String {
-        price.formattedGroupedWith1Decimal
+        if hasDecimal {
+            return price.formattedGroupedWith1Decimal
+        } else {
+            return price.formattedGrouped
+        }
     }
     var costStr: String {
-        cost.formattedGroupedWith1Decimal
+        if hasDecimal {
+            return cost.formattedGroupedWith1Decimal
+        } else {
+            return cost.formattedGrouped
+        }
     }
     var marginStr: String {
-        margin.formattedGroupedWith1Decimal
+        if hasDecimal {
+            return margin.formattedGroupedWith1Decimal
+        } else {
+            return margin.formattedGrouped
+        }
     }
     var marginPercentageStr: String {
         marginPercentage.formattedPercentageWith1Decimal

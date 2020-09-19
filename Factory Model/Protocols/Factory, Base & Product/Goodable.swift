@@ -7,8 +7,7 @@
 
 import Foundation
 
-//  MARK: Base & Product
-
+/// MARK: Base & Product
 struct Good {
     /// Production Qty
     let productionQty: Double
@@ -25,6 +24,7 @@ struct Good {
     }
 }
 
+/// Base & Product
 protocol Goodable {
     func made(in period: Period) -> Good
 }

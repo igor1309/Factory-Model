@@ -18,7 +18,7 @@ struct ReportsView: View {
     
     var body: some View {
         TabView {
-            ProfitLossStatement(for: factory, in: period)
+            ProfitAndLossView(for: factory, in: period)
             SalesAnalysis(for: factory, in: period)
             ProductionAnalysis(for: factory, in: period)
             Text("TBD")

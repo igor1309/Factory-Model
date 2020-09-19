@@ -9,7 +9,7 @@ import Foundation
 
 //  MARK: Factory & Base & Product
 
-// Production
+/// Production
 struct Production {
     /// Production Weight Netto in Tons
     let weightNetto: Double
@@ -23,7 +23,7 @@ struct Production {
     }
 }
 
-// Sales
+/// Sales
 struct Trade {
     /// Sales Weight Netto in Tons
     let weightNetto: Double
@@ -37,6 +37,7 @@ struct Trade {
     }
 }
 
+/// Factory & Base & Product
 protocol Tradable {
     func produced(in period: Period) -> Production
     func sold(in period: Period) -> Trade

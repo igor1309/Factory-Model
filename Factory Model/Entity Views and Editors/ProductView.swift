@@ -36,7 +36,7 @@ struct ProductView: View {
             
                             AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $product.initialInventory)
 
-            CostStructureSection(cost: product.unitCost(in: period))
+            CostSection(cost: product.unitCost(in: period))
             
             Group {
                 Section(
@@ -50,7 +50,7 @@ struct ProductView: View {
                 
                 ProductionOutputSection(for: product, in: period)
                 
-                CostStructureSection(cost: product.productionCost(in: period))
+                CostSection(cost: product.productionCost(in: period))
                 
                 ProductDataSections(product, in: period) {
                     Text("TBD: Ingredient cost")
@@ -76,7 +76,7 @@ struct ProductView: View {
                     
                 }
                 
-                CostStructureSection(cost: product.salesCost(in: period))
+                CostSection(cost: product.salesCost(in: period))
                 
                 Section(
                     header: Text("Inventory")

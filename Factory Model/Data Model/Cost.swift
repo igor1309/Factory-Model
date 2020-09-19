@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct Cost {
+    
     let title: String
     let header: String
     
     var hasDecimal: Bool = false
     
     let ingredientCostExVAT: Double
+    /// Production Salary
     let salaryWithTax: Double
     let depreciation: Double
     let utilityCostExVAT: Double
     
     var costExVAT: Double {
-        ingredientCostExVAT + salaryWithTax + depreciation + utilityCostExVAT
+        ingredientCostExVAT
+            + salaryWithTax
+            + depreciation
+            + utilityCostExVAT
     }
     
     //  MARK: - formatted strings

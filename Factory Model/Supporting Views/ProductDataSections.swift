@@ -8,31 +8,6 @@
 import SwiftUI
 import CoreData
 
-struct PriceMarginSection: View {
-    let priceCostMargin: PriceCostMargin
-    
-    var body: some View {
-        Section {
-            VStack(spacing: 8) {
-                Group {
-                    // entity.avgPriceExVAT(in: period).formattedGroupedWith1Decimal
-                    LabelWithDetail("dollarsign.circle", "Average Price, ex VAT", priceCostMargin.priceStr)
-                    
-                    // entity.margin(in: period).formattedGroupedWith1Decimal
-                    LabelWithDetail("dollarsign.square", "Margin", priceCostMargin.marginStr)
-                        .foregroundColor(priceCostMargin.margin > 0 ? .systemGreen : .systemRed)
-                    
-                    // entity.marginPercentage(in: period).formattedPercentage
-                    LabelWithDetail("percent", "Margin, percentage", priceCostMargin.marginPercentageStr)
-                        .foregroundColor(priceCostMargin.marginPercentage > 0 ? .systemGreen : .systemRed)
-                }
-            }
-            .font(.subheadline)
-            .padding(.vertical, 4)
-        }
-    }
-}
-
 struct ProductDataSections<
     T: NSManagedObject & Costable & Inventorable & Tradable,// & WeightNettable,
     IngredientDestination: View,
@@ -141,12 +116,14 @@ struct ProductDataSections<
             .foregroundColor(.secondary)
         }
         
-        PriceMarginSection(
+        PriceCostMarginSection(
             priceCostMargin: PriceCostMargin(
                 price: entity.sold(in: period).perKilo.price,
                 // cost: entity.cost(in: period)
-                cost: entity.made(in: period).perUnit.cost
-            )
+                //cost: entity.made(in: period).perUnit.cost
+                cost: entity.sold(in: period).perKilo.cost
+            ),
+            kind: .perKiloExVAT
         )
         
         Section {
