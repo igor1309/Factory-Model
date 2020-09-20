@@ -14,114 +14,123 @@ struct Cost {
     
     var hasDecimal: Bool = false
     
-    let ingredientCostExVAT: Double
-    /// Production Salary
-    let salaryWithTax: Double
-    let depreciation: Double
-    let utilityCostExVAT: Double
+    /// Ingredient Cost ex VAT
+    let ingredient: CostComponent//Double
+    /// Production Salary with Tax
+    let salary: CostComponent//Double
+    /// Depreciation
+    let depreciation: CostComponent//Double
+    /// Utility ex VAT
+    let utility: CostComponent//Double
     
-    var costExVAT: Double {
-        ingredientCostExVAT
-            + salaryWithTax
-            + depreciation
-            + utilityCostExVAT
+    /// Full Cost
+    var fullCost: Double {
+        ingredient.value
+            + salary.value
+            + depreciation.value
+            + utility.value
     }
     
     //  MARK: - formatted strings
     
-    var costExVATStr: String {
+    /// Full Cost Formatted String
+    var fullCostStr: String {
         if hasDecimal {
-            return costExVAT.formattedGroupedWith1Decimal
+            return fullCost.formattedGroupedWith1Decimal
         } else {
-            return costExVAT.formattedGrouped
+            return fullCost.formattedGrouped
         }
     }
-    var ingredientCostExVATStr: String {
-        if hasDecimal {
-            return ingredientCostExVAT.formattedGroupedWith1Decimal
-        } else {
-            return ingredientCostExVAT.formattedGrouped
-        }
-    }
-    var salaryWithTaxStr: String {
-        if hasDecimal {
-            return salaryWithTax.formattedGroupedWith1Decimal
-        } else {
-            return salaryWithTax.formattedGrouped
-        }
-    }
-    var depreciationStr: String {
-        if hasDecimal {
-            return depreciation.formattedGroupedWith1Decimal
-        } else {
-            return depreciation.formattedGrouped
-        }
-    }
-    var utilityCostExVATStr: String {
-        if hasDecimal {
-            return utilityCostExVAT.formattedGroupedWith1Decimal
-        } else {
-            return utilityCostExVAT.formattedGrouped
-        }
-    }
+//    var ingredientStr: String {
+//        if hasDecimal {
+//            return ingredient.formattedGroupedWith1Decimal
+//        } else {
+//            return ingredient.formattedGrouped
+//        }
+//    }
+//    var salaryStr: String {
+//        if hasDecimal {
+//            return salary.formattedGroupedWith1Decimal
+//        } else {
+//            return salary.formattedGrouped
+//        }
+//    }
+//    var depreciationStr: String {
+//        if hasDecimal {
+//            return depreciation.formattedGroupedWith1Decimal
+//        } else {
+//            return depreciation.formattedGrouped
+//        }
+//    }
+//    var utilityStr: String {
+//        if hasDecimal {
+//            return utility.formattedGroupedWith1Decimal
+//        } else {
+//            return utility.formattedGrouped
+//        }
+//    }
     
     
-    //  MARK: - Percentage - %% of costExVATStr
+//    //  MARK: - Percentage - %% of costExVATStr
+//
+//    /// Ingredient Percentage: Ingredient to Full Cost
+//    var ingredientPercentage: Double {
+//        fullCost == 0 ? 0 : ingredient / fullCost
+//    }
+//    /// Salary Percentage: Salary to Full Cost
+//    var salaryPercentage: Double {
+//        fullCost == 0 ? 0 : salary / fullCost
+//    }
+//    /// Depreciation Percentage: Depreciation to Full Cost
+//    var depreciationPercentage: Double {
+//        fullCost == 0 ? 0 : depreciation / fullCost
+//    }
+//    /// Utility Percentage: Utility to Full Cost
+//    var utilityPercentage: Double {
+//        fullCost == 0 ? 0 : utility / fullCost
+//    }
     
-    var ingredientCostExVATPercentage: Double {
-        costExVAT == 0 ? 0 : ingredientCostExVAT / costExVAT
-    }
-    var salaryWithTaxPercentage: Double {
-        costExVAT == 0 ? 0 : salaryWithTax / costExVAT
-    }
-    var depreciationPercentage: Double {
-        costExVAT == 0 ? 0 : depreciation / costExVAT
-    }
-    var utilityCostExVATPercentage: Double {
-        costExVAT == 0 ? 0 : utilityCostExVAT / costExVAT
-    }
     
-    
-    //  MARK: - PercentageStr - %% of costExVATStr
-    
-    var ingredientCostExVATPercentageStr: String {
-        if hasDecimal {
-            return costExVAT == 0 ? "" : ingredientCostExVATPercentage.formattedPercentageWith1Decimal
-        } else {
-            return costExVAT == 0 ? "" : ingredientCostExVATPercentage.formattedPercentage
-        }
-    }
-    var salaryWithTaxPercentageStr: String {
-        if hasDecimal {
-            return costExVAT == 0 ? "" : salaryWithTaxPercentage.formattedPercentageWith1Decimal
-        } else {
-            return costExVAT == 0 ? "" : salaryWithTaxPercentage.formattedPercentage
-        }
-    }
-    var depreciationPercentageStr: String {
-        if hasDecimal {
-            return costExVAT == 0 ? "" : depreciationPercentage.formattedPercentageWith1Decimal
-        } else {
-            return costExVAT == 0 ? "" : depreciationPercentage.formattedPercentage
-        }
-    }
-    var utilityCostExVATPercentageStr: String {
-        if hasDecimal {
-            return costExVAT == 0 ? "" : utilityCostExVATPercentage.formattedPercentageWith1Decimal
-        } else {
-            return costExVAT == 0 ? "" : utilityCostExVATPercentage.formattedPercentage
-        }
-    }
+//    //  MARK: - PercentageStr - Formatted String: Percentage of fullCost
+//
+//    var ingredientPercentageStr: String {
+//        if hasDecimal {
+//            return fullCost == 0 ? "" : ingredientPercentage.formattedPercentageWith1Decimal
+//        } else {
+//            return fullCost == 0 ? "" : ingredientPercentage.formattedPercentage
+//        }
+//    }
+//    var salaryPercentageStr: String {
+//        if hasDecimal {
+//            return fullCost == 0 ? "" : salaryPercentage.formattedPercentageWith1Decimal
+//        } else {
+//            return fullCost == 0 ? "" : salaryPercentage.formattedPercentage
+//        }
+//    }
+//    var depreciationPercentageStr: String {
+//        if hasDecimal {
+//            return fullCost == 0 ? "" : depreciationPercentage.formattedPercentageWith1Decimal
+//        } else {
+//            return fullCost == 0 ? "" : depreciationPercentage.formattedPercentage
+//        }
+//    }
+//    var utilityPercentageStr: String {
+//        if hasDecimal {
+//            return fullCost == 0 ? "" : utilityPercentage.formattedPercentageWith1Decimal
+//        } else {
+//            return fullCost == 0 ? "" : utilityPercentage.formattedPercentage
+//        }
+//    }
     
     
     //  MARK: - Chart Data
     
     var chartData: [ColorPercentage] {
         [
-            ColorPercentage(Ingredient.color, ingredientCostExVATPercentage),
-            ColorPercentage(Employee.color,   salaryWithTaxPercentage),
-            ColorPercentage(Equipment.color,  depreciationPercentage),
-            ColorPercentage(Utility.color,    utilityCostExVATPercentage)
+            ColorPercentage(Ingredient.color, ingredient.percentage),
+            ColorPercentage(Employee.color, salary.percentage),
+            ColorPercentage(Equipment.color, depreciation.percentage),
+            ColorPercentage(Utility.color, utility.percentage)
         ]
     }
 }
