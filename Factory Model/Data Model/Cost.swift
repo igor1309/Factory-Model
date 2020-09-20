@@ -9,10 +9,20 @@ import SwiftUI
 
 struct Cost {
     
+    internal init(title: String, header: String, hasDecimal: Bool = false, ingredient: CostComponent, salary: CostComponent, depreciation: CostComponent, utility: CostComponent) {
+        self.title = title
+        self.header = header
+        self.hasDecimal = hasDecimal
+        self.ingredient = ingredient
+        self.salary = salary
+        self.depreciation = depreciation
+        self.utility = utility
+    }
+    
     let title: String
     let header: String
     
-    var hasDecimal: Bool = false
+    private var hasDecimal: Bool = false
     
     /// Ingredient Cost ex VAT
     let ingredient: CostComponent//Double
@@ -31,7 +41,7 @@ struct Cost {
             + utility.value
     }
     
-    //  MARK: - formatted strings
+    //  MARK: Formatted Strings
     
     /// Full Cost Formatted String
     var fullCostStr: String {
@@ -41,89 +51,9 @@ struct Cost {
             return fullCost.formattedGrouped
         }
     }
-//    var ingredientStr: String {
-//        if hasDecimal {
-//            return ingredient.formattedGroupedWith1Decimal
-//        } else {
-//            return ingredient.formattedGrouped
-//        }
-//    }
-//    var salaryStr: String {
-//        if hasDecimal {
-//            return salary.formattedGroupedWith1Decimal
-//        } else {
-//            return salary.formattedGrouped
-//        }
-//    }
-//    var depreciationStr: String {
-//        if hasDecimal {
-//            return depreciation.formattedGroupedWith1Decimal
-//        } else {
-//            return depreciation.formattedGrouped
-//        }
-//    }
-//    var utilityStr: String {
-//        if hasDecimal {
-//            return utility.formattedGroupedWith1Decimal
-//        } else {
-//            return utility.formattedGrouped
-//        }
-//    }
     
     
-//    //  MARK: - Percentage - %% of costExVATStr
-//
-//    /// Ingredient Percentage: Ingredient to Full Cost
-//    var ingredientPercentage: Double {
-//        fullCost == 0 ? 0 : ingredient / fullCost
-//    }
-//    /// Salary Percentage: Salary to Full Cost
-//    var salaryPercentage: Double {
-//        fullCost == 0 ? 0 : salary / fullCost
-//    }
-//    /// Depreciation Percentage: Depreciation to Full Cost
-//    var depreciationPercentage: Double {
-//        fullCost == 0 ? 0 : depreciation / fullCost
-//    }
-//    /// Utility Percentage: Utility to Full Cost
-//    var utilityPercentage: Double {
-//        fullCost == 0 ? 0 : utility / fullCost
-//    }
-    
-    
-//    //  MARK: - PercentageStr - Formatted String: Percentage of fullCost
-//
-//    var ingredientPercentageStr: String {
-//        if hasDecimal {
-//            return fullCost == 0 ? "" : ingredientPercentage.formattedPercentageWith1Decimal
-//        } else {
-//            return fullCost == 0 ? "" : ingredientPercentage.formattedPercentage
-//        }
-//    }
-//    var salaryPercentageStr: String {
-//        if hasDecimal {
-//            return fullCost == 0 ? "" : salaryPercentage.formattedPercentageWith1Decimal
-//        } else {
-//            return fullCost == 0 ? "" : salaryPercentage.formattedPercentage
-//        }
-//    }
-//    var depreciationPercentageStr: String {
-//        if hasDecimal {
-//            return fullCost == 0 ? "" : depreciationPercentage.formattedPercentageWith1Decimal
-//        } else {
-//            return fullCost == 0 ? "" : depreciationPercentage.formattedPercentage
-//        }
-//    }
-//    var utilityPercentageStr: String {
-//        if hasDecimal {
-//            return fullCost == 0 ? "" : utilityPercentage.formattedPercentageWith1Decimal
-//        } else {
-//            return fullCost == 0 ? "" : utilityPercentage.formattedPercentage
-//        }
-//    }
-    
-    
-    //  MARK: - Chart Data
+    //  MARK: Chart Data
     
     var chartData: [ColorPercentage] {
         [
