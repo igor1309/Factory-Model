@@ -54,7 +54,7 @@ class PersistenceManager: ObservableObject {
         let _ = Factory.createFactory1(in: context)
         let _ = Factory.createFactory2(in: context)
         
-        try? context.save()
+        context.saveContext()                
     }
 }
 

@@ -194,6 +194,8 @@ extension Factory {
         
         factory1.equipments = [equipment]
         
+        context.saveContext()
+        
         return factory1
     }
     
@@ -228,6 +230,8 @@ extension Factory {
         
         product2_1.sales = [metroSales]
         product2_1.base = base2_1
+        
+        context.saveContext()
         
         return factory2
     }

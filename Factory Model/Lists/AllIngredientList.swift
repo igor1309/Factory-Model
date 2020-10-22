@@ -28,12 +28,12 @@ struct AllIngredientList: View {
             //  CreateOrphanButton creates new Ingredient but it's not fetched in orphans section!!!
             //CreateOrphanButton<Ingredient>()
             EmptyView()
-           /* CreateChildButton(
-                systemName: "plus.square",
-                childType: Ingredient.self,
-                parent: factory,
-                keyPath: \Factory.ingredients_
-            ) */
+            /* CreateChildButton(
+             systemName: "plus.square",
+             childType: Ingredient.self,
+             parent: factory,
+             keyPath: \Factory.ingredients_
+             ) */
         } dashboard: {
             Section(
                 header: Text("Used in Production")
@@ -47,6 +47,20 @@ struct AllIngredientList: View {
             }
         } editor: { (ingredient: Ingredient) in
             IngredientView(ingredient, in: period)
+        }
+    }
+}
+
+struct AllIngredientList_Previews: PreviewProvider {
+    static let context = PersistenceManager(containerName: "DataModel").context
+    static let factory = Factory.createFactory1(in: context)
+    static let period: Period = .month()
+    
+    static var previews: some View {
+        NavigationView {
+            AllIngredientList(for: factory, in: period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

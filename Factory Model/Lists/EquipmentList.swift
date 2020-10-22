@@ -37,8 +37,22 @@ struct EquipmentList: View {
                 .font(.subheadline)
             }
         } editor: { (equipment: Equipment) in
-//            EquipmentView(equipment)
+            //            EquipmentView(equipment)
             EquipmentEditor(equipment, in: period)
+        }
+    }
+}
+
+struct EquipmentList_Previews: PreviewProvider {
+    static let context = PersistenceManager(containerName: "DataModel").context
+    static let factory = Factory.createFactory1(in: context)
+    static let period: Period = .month()
+    
+    static var previews: some View {
+        NavigationView {
+            EquipmentList(for: factory, in: period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, context)
         }
     }
 }

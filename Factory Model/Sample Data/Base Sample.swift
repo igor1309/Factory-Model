@@ -45,6 +45,8 @@ extension Base {
         
         base.recipes = [recipe1, recipe2]
         
+        context.saveContext()
+        
         return base
     }
 }

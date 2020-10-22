@@ -47,7 +47,6 @@
 		2A30470B24C81AD60002E5DD /* LabelWithDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */; };
 		2A30470E24C81C030002E5DD /* SwiftPI in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30470D24C81C030002E5DD /* SwiftPI */; };
 		2A30471124C836200002E5DD /* AllIngredientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471024C836200002E5DD /* AllIngredientList.swift */; };
-		2A30471324C8734F0002E5DD /* AllIngredientListTESTING.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471224C8734F0002E5DD /* AllIngredientListTESTING.swift */; };
 		2A30471524C87AB90002E5DD /* Something.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30471424C87AB90002E5DD /* Something.swift */; };
 		2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31654924CCD32000AF68A1 /* Packaging.swift */; };
 		2A33A47B24F11BAE001DAE71 /* HBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33A47A24F11BAE001DAE71 /* HBar.swift */; };
@@ -207,7 +206,6 @@
 		2A30470824C7995B0002E5DD /* AmountPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountPicker.swift; sourceTree = "<group>"; };
 		2A30470A24C81AD60002E5DD /* LabelWithDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelWithDetail.swift; sourceTree = "<group>"; };
 		2A30471024C836200002E5DD /* AllIngredientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllIngredientList.swift; sourceTree = "<group>"; };
-		2A30471224C8734F0002E5DD /* AllIngredientListTESTING.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllIngredientListTESTING.swift; sourceTree = "<group>"; };
 		2A30471424C87AB90002E5DD /* Something.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Something.swift; sourceTree = "<group>"; };
 		2A31654924CCD32000AF68A1 /* Packaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packaging.swift; sourceTree = "<group>"; };
 		2A33A47A24F11BAE001DAE71 /* HBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBar.swift; sourceTree = "<group>"; };
@@ -382,7 +380,6 @@
 			children = (
 				2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */,
 				2A30471024C836200002E5DD /* AllIngredientList.swift */,
-				2A30471224C8734F0002E5DD /* AllIngredientListTESTING.swift */,
 				2A30470424C77C3A0002E5DD /* AllSalesList.swift */,
 				2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */,
 				2A30470224C778AD0002E5DD /* BasetList.swift */,
@@ -833,7 +830,6 @@
 				2A2F4BD024C5A72100B2F8D9 /* Factory.swift in Sources */,
 				2AF8B0ED24CF1495005035FD /* FactoryTracable.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
-				2A30471324C8734F0002E5DD /* AllIngredientListTESTING.swift in Sources */,
 				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
 				2A5C94672510EF0B00DE7DF2 /* CostSection.swift in Sources */,

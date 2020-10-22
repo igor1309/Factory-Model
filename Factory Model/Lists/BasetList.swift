@@ -50,11 +50,14 @@ struct BaseList: View {
 
 struct BasetList_Previews: PreviewProvider {
     static let context = PersistenceManager(containerName: "DataModel").context
+    static let factory = Factory.createFactory1(in: context)
     static let period: Period = .month()
     
     static var previews: some View {
-        BaseList(for: Factory.createFactory1(in: context), in: period)
-            .preferredColorScheme(.dark)
-            .environment(\.managedObjectContext, context)
+        NavigationView {
+            BaseList(for: factory, in: period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, context)
+        }
     }
 }

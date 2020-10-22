@@ -34,3 +34,17 @@ struct ExpensesList: View {
         }
     }
 }
+
+struct ExpensesList_Previews: PreviewProvider {
+    static let context = PersistenceManager(containerName: "DataModel").context
+    static let factory = Factory.createFactory1(in: context)
+    static let period: Period = .month()
+    
+    static var previews: some View {
+        NavigationView {
+            ExpensesList(for: factory, in: period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, context)
+        }
+    }
+}
