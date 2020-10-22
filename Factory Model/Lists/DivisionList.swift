@@ -44,3 +44,14 @@ struct DivisionList: View {
         
     }
 }
+
+struct DivisionList_Previews: PreviewProvider {
+    static let context = PersistenceManager(containerName: "DataModel").context
+    static let period: Period = .month()
+    
+    static var previews: some View {
+        DivisionList(for: Factory.createFactory1(in: context), in: period)
+            .preferredColorScheme(.dark)
+            .environment(\.managedObjectContext, context)
+    }
+}

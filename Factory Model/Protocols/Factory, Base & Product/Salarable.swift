@@ -23,7 +23,7 @@ extension Base: Salarable {
     }
     
     func productionSalaryWithTax(in period: Period) -> Double {
-        made(in: period).productionQty * salaryWithTax(in: period)
+        productionQty(in: period) * salaryWithTax(in: period)
     }
     
 }
@@ -34,7 +34,7 @@ extension Product: Salarable {
     }
     
     func productionSalaryWithTax(in period: Period) -> Double {
-        made(in: period).productionQty * salaryWithTax(in: period)
+        productionQty(in: period) * salaryWithTax(in: period)
     }
     
 }

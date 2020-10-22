@@ -18,7 +18,7 @@ class PersistenceManager: ObservableObject {
         let container = NSPersistentContainer(name: containerName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                fatalError("Unresolved error loading store: \(error.localizedDescription), \(error.userInfo)")
             }
         })
         return container
@@ -49,6 +49,13 @@ class PersistenceManager: ObservableObject {
 //            }
 //        }
     }
+    
+    func createSampleData() throws {
+        let _ = Factory.createFactory1(in: context)
+        let _ = Factory.createFactory2(in: context)
+        
+        try? context.save()
+    }
 }
 
 extension NSManagedObjectContext {
@@ -59,8 +66,8 @@ extension NSManagedObjectContext {
             try self.save()
         } catch {
             // handle the Core Data error
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            let error = error as NSError
+            fatalError("Unresolved error saving context: \(error.localizedDescription), \(error.userInfo)")
         }
     }
 }

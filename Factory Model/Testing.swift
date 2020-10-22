@@ -109,3 +109,16 @@ struct Testing: View {
         .navigationBarItems(trailing: CreateEntityPickerButton(period: Period.month()))
     }
 }
+
+struct Testing_Previews: PreviewProvider {
+    static let manager = PersistenceManager(containerName: "DataModel")
+    @State static var period: Period = .month()
+    
+    static var previews: some View {
+        try? manager.createSampleData()
+        
+        return Testing(in: $period)
+            .preferredColorScheme(.dark)
+            .environment(\.managedObjectContext, manager.context)
+    }
+}

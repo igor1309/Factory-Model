@@ -23,7 +23,7 @@ struct ProfitAndLossView: View {
             .padding(.top)
     }
     
-    private var salesCost: Cost { factory.salesCost(in: period) }
+    private var salesCost: Cost { factory.sold(in: period).cost }
     
     private var pnl: PNL { factory.pnl(in: period) }
 
@@ -53,31 +53,31 @@ struct ProfitAndLossView: View {
                         Group {
                             FinancialLabel(
                                 "Ingredient Cost, ex VAT",
-                                value:      salesCost.ingredientCostExVAT,
-                                percentage: salesCost.ingredientCostExVATPercentage
+                                value:      salesCost.ingredient.value,
+                                percentage: salesCost.ingredient.percentage
                             )
                             FinancialLabel(
                                 "Salary incl taxes",
-                                value:      salesCost.salaryWithTax,
-                                percentage: salesCost.salaryWithTaxPercentage
+                                value:      salesCost.salary.value,
+                                percentage: salesCost.salary.percentage
                             )
                             FinancialLabel(
                                 "Depreciation",
-                                value:      factory.depreciationMonthly,
-                                percentage: factory.depreciationMonthlyPercentage(in: period)
+                                value:      factory.depreciation(in: period).formattedGrouped,
+                                percentage: "TBD"
                             )
                             FinancialLabel(
                                 "Utilities, ex VAT",
-                                value:      salesCost.utilityCostExVAT,
-                                percentage: salesCost.utilityCostExVATPercentage
+                                value:      salesCost.utility.value,
+                                percentage: salesCost.utility.percentage
                             )
                         }
                         .foregroundColor(.secondary)
                         
                         FinancialLabel(
                             "COGS",
-                            value:      salesCost.costExVAT,
-                            percentage: salesCost.utilityCostExVATPercentage
+                            value:      salesCost.fullCost,
+                            percentage: salesCost.utility.percentage
                         )
                     }
                     
@@ -174,8 +174,8 @@ struct ProfitAndLossView: View {
                         Group {
                             FinancialLabel(
                                 "Production Salary",
-                                value:      factory.productionCost(in: period).salaryWithTax,
-                                percentage: factory.productionCost(in: period).salaryWithTaxPercentage
+                                value:      factory.produced(in: period).cost.salary.value,
+                                percentage: factory.produced(in: period).cost.salary.percentage
                             )
                             FinancialLabel(
                                 "Non Production Salary",

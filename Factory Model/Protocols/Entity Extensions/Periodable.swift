@@ -30,5 +30,16 @@ extension Periodable {
 
 extension Employee: Periodable {}
 extension Expenses: Periodable {}
-extension Product: Periodable {}
+extension Product: Periodable {
+    var period: Period {
+        get {
+            Period(periodStr_ ?? "month", days: Int(days), hoursPerDay: hoursPerDay) ?? .month()
+        }
+        set {
+            periodStr_ = newValue.periodStr
+            days = Int16(newValue.days)
+            hoursPerDay = newValue.hoursPerDay
+        }
+    }
+}
 extension Sales: Periodable {}

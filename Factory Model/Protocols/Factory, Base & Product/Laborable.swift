@@ -108,10 +108,10 @@ extension Factory: Laborable {
     }
     
     
-    //  MARK: - Labor Cost of 1 gram of base product with complexity
+    //  MARK: - Labor Cost of 1 gram of base product with complexity of 1
     func laborCostOf1GramOfBaseProduct(in period: Period) -> Double {
         let weightedWeight = bases
-            .map { $0.made(in: period).productionQty * $0.weightNetto * $0.complexity }
+            .map { $0.productionQty(in: period) * $0.weightNetto * $0.complexity }
             .reduce(0, +)
         return weightedWeight == 0 ? 0 : productionSalaryWithTax(in: period) / weightedWeight
     }

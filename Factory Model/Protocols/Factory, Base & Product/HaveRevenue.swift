@@ -15,7 +15,7 @@ protocol HaveRevenue {
     func revenueWithVAT(in period: Period) -> Double
 }
 
-extension Base: HaveRevenue {
+extension Base {//}: HaveRevenue {
     
     //  MARK: Revenue
     
@@ -28,7 +28,7 @@ extension Base: HaveRevenue {
     
 }
 
-extension Product: HaveRevenue {
+extension Product {//}: HaveRevenue {
     
     //  MARK: Revenue
     
@@ -49,7 +49,7 @@ extension Factory: HaveRevenue {
     func revenueExVAT(in period: Period) -> Double {
         bases
             .flatMap(\.products)
-            .reduce(0) { $0 + $1.revenueExVAT(in: period) }
+            .reduce(0) { $0 + $1.sold(in: period).revenue }
     }
     
     func revenueWithVAT(in period: Period) -> Double {

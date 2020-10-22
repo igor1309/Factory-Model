@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Depreciable: Costable {
+protocol Depreciable {
     //  MARK: - Depreciation
     //  MARK: FINISH THIS
     

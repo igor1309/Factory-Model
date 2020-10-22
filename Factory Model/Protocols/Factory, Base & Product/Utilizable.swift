@@ -11,6 +11,8 @@ protocol Utilizable {
     
     //  MARK: - having Utility
     
+    // func utilitiesExVAT(in period: Period) -> CostComponent
+    
     func utilitiesExVAT(in period: Period) -> Double
     
     func productionUtilitiesExVAT(in period: Period) -> Double
@@ -21,6 +23,7 @@ protocol Utilizable {
     func utilitiesWithVAT(in period: Period) -> Double
 }
 
+
 extension Base: Utilizable {
     func utilitiesExVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT }
@@ -28,15 +31,15 @@ extension Base: Utilizable {
 
     func productionUtilitiesExVAT(in period: Period) -> Double {
         //utilities.reduce(0) { $0 + $1.priceExVAT }
-        made(in: period).productionQty * utilitiesExVAT(in: period)
+        productionQty(in: period) * utilitiesExVAT(in: period)
     }
     func productionUtilitiesWithVAT(in period: Period) -> Double {
-        made(in: period).productionQty * utilitiesWithVAT(in: period)
+        productionQty(in: period) * utilitiesWithVAT(in: period)
     }
     
     func salesUtilitiesExVAT(in period: Period) -> Double {
         //utilities.reduce(0) { $0 + $1.priceExVAT }
-        made(in: period).salesQty * utilitiesExVAT(in: period)
+        salesQty(in: period) * utilitiesExVAT(in: period)
     }
     func utilitiesWithVAT(in period: Period) -> Double {
         utilities.reduce(0) { $0 + $1.priceExVAT * (1 + $1.vat) }
@@ -50,15 +53,15 @@ extension Product: Utilizable {
     }
 
     func productionUtilitiesExVAT(in period: Period) -> Double {
-        made(in: period).productionQty * utilitiesExVAT(in: period)
+        productionQty(in: period) * utilitiesExVAT(in: period)
     }
     
     func productionUtilitiesWithVAT(in period: Period) -> Double {
-        made(in: period).productionQty * utilitiesWithVAT(in: period)
+        productionQty(in: period) * utilitiesWithVAT(in: period)
     }
 
     func salesUtilitiesExVAT(in period: Period) -> Double {
-        made(in: period).salesQty * utilitiesExVAT(in: period)
+        salesQty(in: period) * utilitiesExVAT(in: period)
     }
     
     func utilitiesWithVAT(in period: Period) -> Double {

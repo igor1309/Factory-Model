@@ -9,10 +9,18 @@ import SwiftUI
 
 struct Cost {
     
-    internal init(title: String, header: String, hasDecimal: Bool = false, ingredient: CostComponent, salary: CostComponent, depreciation: CostComponent, utility: CostComponent) {
+    init(
+        title: String,
+        header: String,
+        ingredient: CostComponent,
+        salary: CostComponent,
+        depreciation: CostComponent,
+        utility: CostComponent,
+        formatWithDecimal: Bool = false
+    ) {
         self.title = title
         self.header = header
-        self.hasDecimal = hasDecimal
+        self.formatWithDecimal = formatWithDecimal
         self.ingredient = ingredient
         self.salary = salary
         self.depreciation = depreciation
@@ -22,7 +30,7 @@ struct Cost {
     let title: String
     let header: String
     
-    private var hasDecimal: Bool = false
+    let formatWithDecimal: Bool
     
     /// Ingredient Cost ex VAT
     let ingredient: CostComponent//Double
@@ -45,7 +53,7 @@ struct Cost {
     
     /// Full Cost Formatted String
     var fullCostStr: String {
-        if hasDecimal {
+        if formatWithDecimal {
             return fullCost.formattedGroupedWith1Decimal
         } else {
             return fullCost.formattedGrouped
@@ -64,3 +72,53 @@ struct Cost {
         ]
     }
 }
+
+extension Cost {
+    
+    func multiplying(by number: Double, formatWithDecimal: Bool) -> Cost {
+        Cost(
+            title: self.title,
+            header: self.header,
+            ingredient: self.ingredient.multiplying(by: number, formatWithDecimal: formatWithDecimal),
+            salary: self.salary.multiplying(by: number, formatWithDecimal: formatWithDecimal),
+            depreciation: self.depreciation.multiplying(by: number, formatWithDecimal: formatWithDecimal),
+            utility: self.utility.multiplying(by: number, formatWithDecimal: formatWithDecimal),
+            formatWithDecimal: formatWithDecimal
+        )
+    }
+    
+    static func + (_ lhs: Cost, _ rhs: Cost) -> Cost {
+        Cost(
+            title: lhs.title,
+            header: lhs.header,
+            ingredient: lhs.ingredient + rhs.ingredient,
+            salary: lhs.salary + rhs.salary,
+            depreciation: lhs.depreciation + rhs.depreciation,
+            utility: lhs.utility + rhs.utility,
+            formatWithDecimal: lhs.formatWithDecimal
+        )
+    }
+//    static func * (_ lhs: Double, _ rhs: Cost) -> Cost {
+//        Cost(
+//            title: rhs.title,
+//            header: rhs.header,
+//            ingredient: lhs * rhs.ingredient,
+//            salary: lhs * rhs.salary,
+//            depreciation: lhs * rhs.depreciation,
+//            utility: lhs * rhs.utility,
+//            formatWithDecimal: rhs.formatWithDecimal
+//        )
+//    }
+    static func / (_ lhs: Cost, _ rhs: Double) -> Cost {
+        Cost(
+            title: lhs.title,
+            header: lhs.header,
+            ingredient: lhs.ingredient / rhs,
+            salary: lhs.salary / rhs,
+            depreciation: lhs.depreciation / rhs,
+            utility: lhs.utility / rhs,
+            formatWithDecimal: lhs.formatWithDecimal
+        )
+    }
+}
+

@@ -40,7 +40,7 @@ extension Sales {
     
     func cogs(in period: Period) -> Double {
         //product?.cogs(in: period) ?? 0
-        product?.sold(in: period).total.cost ?? 0
+        product?.sold(in: period).cost.fullCost ?? 0
     }
 }
 

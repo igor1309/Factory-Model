@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PriceCostMarginSection: View {
     
-    let priceCostMargin: PriceCostMargin
+    let priceCostMargin: PCM
     
     let kind: Kind
     
@@ -34,7 +34,7 @@ struct PriceCostMarginSection: View {
         var costStr: String {
             switch self {
                 case .revenue:
-                    return "Revenue"
+                    return "Cost"
                 case .averageExVAT:
                     return "Average Cost, ex VAT"
                 case .averageWithVAT:
@@ -91,41 +91,41 @@ struct PriceCostMarginSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
             PriceCostMarginSection(
-                priceCostMargin: PriceCostMargin(
+                priceCostMargin: PCM(
                     price: 120_000.2,
                     cost: 99_000.9
                 ),
                 kind: .revenue
             )
             PriceCostMarginSection(
-                priceCostMargin: PriceCostMargin(
+                priceCostMargin: PCM(
                     price: 120.2,
                     cost: 99.9,
-                    hasDecimal: true
+                    formatWithDecimal: true
                 ),
                 kind: .averageWithVAT
             )
             PriceCostMarginSection(
-                priceCostMargin: PriceCostMargin(
+                priceCostMargin: PCM(
                     price: 120.2,
                     cost: 99.9,
-                    hasDecimal: true
+                    formatWithDecimal: true
                 ),
                 kind: .averageExVAT
             )
             PriceCostMarginSection(
-                priceCostMargin: PriceCostMargin(
+                priceCostMargin: PCM(
                     price: 120.2,
                     cost: 99.9,
-                    hasDecimal: true
+                    formatWithDecimal: true
                 ),
                 kind: .perKiloWithVAT
             )
             PriceCostMarginSection(
-                priceCostMargin: PriceCostMargin(
+                priceCostMargin: PCM(
                     price: 120.2,
                     cost: 99.9,
-                    hasDecimal: true
+                    formatWithDecimal: true
                 ),
                 kind: .perKiloExVAT
             )

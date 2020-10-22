@@ -11,6 +11,8 @@ enum Period: Hashable {
     case day(hours: Double = 8)
     case week(days: Int = 5, hoursPerDay: Double = 8)
     case month(days: Int = 21, hoursPerDay: Double = 8)
+    /// В РФ за последние 5 лет в среднем 247 рабочих дней https://allcalc.ru/node/1122
+    case year(days: Int = 247, hoursPerDay: Double = 8)
     
     var hours: Double {
         switch self {
@@ -20,7 +22,8 @@ enum Period: Hashable {
                  .day(let hours):
                 return hours
             case let .week(days, hoursPerDay),
-                 let .month(days, hoursPerDay):
+                 let .month(days, hoursPerDay),
+                 let .year(days, hoursPerDay):
                 return Double(days) * hoursPerDay
         }
     }
@@ -38,6 +41,8 @@ enum Period: Hashable {
                 summary = "Week: \(days) days, \(String(format: "%g", hoursPerDay)) hours per day."
             case let .month(days, hoursPerDay):
                 summary = "Month: \(days) days, \(String(format: "%g", hoursPerDay)) hours per day."
+            case let .year(days, hoursPerDay):
+                summary = "Year: \(days) days, \(String(format: "%g", hoursPerDay)) hours per day."
         }
         
         return "\(summary) Total \(String(format: "%g", self.hours)) hours."
@@ -55,6 +60,8 @@ enum Period: Hashable {
                 return "Week: \(days)d x \(String(format: "%g", hoursPerDay))h"
             case let .month(days, hoursPerDay):
                 return "Month: \(days)d x \(String(format: "%g", hoursPerDay))h"
+            case let .year(days, hoursPerDay):
+                return "Year: \(days)d x \(String(format: "%g", hoursPerDay))h"
         }
     }
     
@@ -70,6 +77,8 @@ enum Period: Hashable {
                 return "weekly /\(days)d x \(String(format: "%g", hoursPerDay))h"
             case let .month(days, hoursPerDay):
                 return "monthly /\(days)d x \(String(format: "%g", hoursPerDay))h"
+            case let .year(days, hoursPerDay):
+                return "yearly /\(days)d x \(String(format: "%g", hoursPerDay))h"
         }
     }
     
@@ -80,6 +89,7 @@ enum Period: Hashable {
             case .day(_):      return "day"
             case .week(_, _):  return "week"
             case .month(_, _): return "month"
+            case .year(_, _):  return "year"
         }
     }
     
@@ -89,7 +99,8 @@ enum Period: Hashable {
                  .shift(_),
                  .day(_):               return 0
             case let .week(days, _),
-                 let .month(days, _):   return days
+                 let .month(days, _),
+                 let .year(days, _):   return days
         }
     }
     
@@ -99,11 +110,12 @@ enum Period: Hashable {
             case .shift(let hours),
                  .day(let hours):               return hours
             case let .week(_, hoursPerDay),
-                 let .month(_, hoursPerDay):    return hoursPerDay
+                 let .month(_, hoursPerDay),
+                 let .year(_, hoursPerDay):     return hoursPerDay
         }
     }
     
-    static var allCases: [String] { ["hour", "shift", "day", "week", "month"] }
+    static var allCases: [String] { ["hour", "shift", "day", "week", "month", "year"] }
     
     ///  failable initializer
     init?(_ period: String, days: Int = 0, hoursPerDay: Double = 8) {
@@ -113,11 +125,18 @@ enum Period: Hashable {
             case "hour":  self = .hour
             case "shift": self = .shift(hours: hoursPerDay)
             case "day":   self = .day(hours: hoursPerDay)
-            case "week":  guard 1...7 ~= days else { return nil }
+                
+            case "week":
+                guard 1...7 ~= days else { return nil }
                 self = .week(days: days, hoursPerDay: hoursPerDay)
-            case "month": guard 1...31 ~= days else { return nil }
+            case "month":
+                guard 1...31 ~= days else { return nil }
                 self = .month(days: days, hoursPerDay: hoursPerDay)
-            default:      return nil
+            case "year":
+                guard 200...360 ~= days else { return nil }
+                self = .year(days: days, hoursPerDay: hoursPerDay)
+                
+            default: return nil
         }
     }
     
@@ -132,17 +151,27 @@ enum Period: Hashable {
             case "hour":  self = .hour
             case "shift": self = .shift(hours: hoursPerDay)
             case "day":   self = .day(hours: hoursPerDay)
-            case "week":  guard 1...7 ~= days else {
-                self = .month()
-                return
-            }
-            self = .week(days: days, hoursPerDay: hoursPerDay)
-            case "month": guard 1...7 ~= days else {
-                self = .month()
-                return
-            }
-            self = .month(days: days, hoursPerDay: hoursPerDay)
-            default:      self = .month()
+                
+            case "week":
+                guard 1...7 ~= days else {
+                    self = .month()
+                    return
+                }
+                self = .week(days: days, hoursPerDay: hoursPerDay)
+            case "month":
+                guard 1...31 ~= days else {
+                    self = .month()
+                    return
+                }
+                self = .month(days: days, hoursPerDay: hoursPerDay)
+            case "year":
+                guard 200...360 ~= days else {
+                    self = .month()
+                    return
+                }
+                self = .year(days: days, hoursPerDay: hoursPerDay)
+                
+            default: self = .month()
         }
     }
 }

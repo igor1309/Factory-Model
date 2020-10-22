@@ -11,6 +11,8 @@ protocol Ingredientable {
     
     //  MARK: having Ingredients
     
+    // func ingredientsExVAT(in period: Period) -> CostStructure
+    
     func ingredientsExVAT(in period: Period) -> Double
 }
 

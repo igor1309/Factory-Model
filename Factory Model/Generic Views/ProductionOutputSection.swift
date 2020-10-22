@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ProductionOutputSection<T: NSManagedObject & Costable & Tradable>: View {
+struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
     @ObservedObject var entity: T
     
     let period: Period
@@ -26,10 +26,9 @@ struct ProductionOutputSection<T: NSManagedObject & Costable & Tradable>: View {
                 LabelWithDetail(
                     "scalemass",
                     "Output, tonne",
-                    //entity.productionWeightNettoTons(in: period)
-                    entity.produced(in: period).weightNettoStr
+                    entity.produced(in: period).weightNettoTonsStr
                 )
-                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.productionCost(in: period).costExVATStr)
+                LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.produced(in: period).cost.fullCostStr)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)

@@ -52,8 +52,11 @@ struct BaseView: View {
             
             ProductionOutputSection(for: base, in: period)
             
-            CostSection(cost: base.unitCost(in: period))
-            
+            CostSection(cost: base.unit(in: period).cost)
+            CostSection(cost: base.perKilo(in: period).cost, showBarChart: false)
+            CostSection(cost: base.produced(in: period).cost, showBarChart: false)
+            CostSection(cost: base.sold(in: period).cost, showBarChart: false)
+
             ProductDataSections(base, in: period) {
                 ListWithDashboard(
                     for: base,

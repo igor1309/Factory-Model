@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Inventorable: Goodable {
+protocol Inventorable: Warable {
     
     //  MARK: Inventory
     
@@ -24,7 +24,7 @@ extension Inventorable {
     //  MARK: Closing Inventory
     
     func closingInventory(in period: Period) -> Double {
-        initialInventory + made(in: period).productionQty - made(in: period).salesQty
+        initialInventory + productionQty(in: period) - salesQty(in: period)
     }
     
 }

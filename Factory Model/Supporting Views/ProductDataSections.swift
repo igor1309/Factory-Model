@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ProductDataSections<
-    T: NSManagedObject & Costable & Inventorable & Tradable,// & WeightNettable,
+    T: NSManagedObject & Inventorable & Merch,
     IngredientDestination: View,
     EmployeeDestination: View,
     EquipmentDestination: View,
@@ -41,7 +41,7 @@ struct ProductDataSections<
         self.utilityDestination = utilityDestination
     }
     
-    private var unitCost: Cost { entity.unitCost(in: period) }
+    private var perKilo: Cost { entity.perKilo(in: period).cost }
     
     var body: some View {
         Section(
@@ -55,8 +55,8 @@ struct ProductDataSections<
                     FinLabel(
                         type:       Ingredient.self,
                         title:      "Ingredients",
-                        detail:     unitCost.ingredientCostExVATStr,
-                        percentage: unitCost.ingredientCostExVATPercentageStr
+                        detail:     perKilo.ingredient.valueStr,
+                        percentage: perKilo.ingredient.percentageStr
                     )
                 }
                 
@@ -66,8 +66,8 @@ struct ProductDataSections<
                     FinLabel(
                         type:       Department.self,
                         title:      "Salary",
-                        detail:     unitCost.salaryWithTaxStr,
-                        percentage: unitCost.salaryWithTaxPercentageStr
+                        detail:     perKilo.salary.valueStr,
+                        percentage: perKilo.salary.percentageStr
                     )
                 }
                 
@@ -77,8 +77,8 @@ struct ProductDataSections<
                     FinLabel(
                         type:       Equipment.self,
                         title:      "Depreciation",
-                        detail:     unitCost.depreciationStr,
-                        percentage: unitCost.depreciationPercentageStr
+                        detail:     perKilo.depreciation.valueStr,
+                        percentage: perKilo.depreciation.percentageStr
                     )
                 }
                 
@@ -88,24 +88,24 @@ struct ProductDataSections<
                     FinLabel(
                         type:       Utility.self,
                         title:      "Utility",
-                        detail:     unitCost.utilityCostExVATStr,
-                        percentage: unitCost.utilityCostExVATPercentageStr
+                        detail:     perKilo.utility.valueStr,
+                        percentage: perKilo.utility.percentageStr
                     )
                 }
                 
                 HBar([
-                    ColorPercentage(Ingredient.color, unitCost.ingredientCostExVATPercentage),
-                    ColorPercentage(Employee.color,   unitCost.salaryWithTaxPercentage),
-                    ColorPercentage(Equipment.color,  unitCost.depreciationPercentage),
-                    ColorPercentage(Utility.color,    unitCost.utilityCostExVATPercentage)
+                    ColorPercentage(Ingredient.color, perKilo.ingredient.percentage),
+                    ColorPercentage(Employee.color,   perKilo.salary.percentage),
+                    ColorPercentage(Equipment.color,  perKilo.depreciation.percentage),
+                    ColorPercentage(Utility.color,    perKilo.utility.percentage)
                 ])
                 
                 HStack(spacing: 0) {
                     LabelWithDetail(
                         "dollarsign.square",
-                        "Base Product",
+                        "Base Product per Kilo",
                         // entity.cost(in: period).formattedGroupedWith1Decimal
-                        entity.made(in: period).perUnit.costStr
+                        entity.perKilo(in: period).cost.fullCostStr
                     )
                     .foregroundColor(.primary)
                     Text("100%").hidden()
@@ -117,11 +117,11 @@ struct ProductDataSections<
         }
         
         PriceCostMarginSection(
-            priceCostMargin: PriceCostMargin(
-                price: entity.sold(in: period).perKilo.price,
+            priceCostMargin: PCM(
+                price: entity.perKilo(in: period).price,
                 // cost: entity.cost(in: period)
                 //cost: entity.made(in: period).perUnit.cost
-                cost: entity.sold(in: period).perKilo.cost
+                cost: entity.perKilo(in: period).cost.fullCost
             ),
             kind: .perKiloExVAT
         )
@@ -132,24 +132,24 @@ struct ProductDataSections<
                     LabelWithDetail(
                         "dollarsign.circle",
                         "Average Price, ex VAT",
-                        entity.sold(in: period).perKilo.priceStr
+                        entity.perKilo(in: period).priceStr
                     )
                     
                     LabelWithDetail(
                         "dollarsign.square",
                         "Margin",
                         //entity.margin(in: period).formattedGroupedWith1Decimal
-                        entity.sold(in: period).perKilo.marginStr
+                        entity.perKilo(in: period).marginStr
                     )
-                    .foregroundColor(entity.sold(in: period).perKilo.margin > 0 ? .systemGreen : .systemRed)
+                    .foregroundColor(entity.perKilo(in: period).margin > 0 ? .systemGreen : .systemRed)
                     
                     LabelWithDetail(
                         "percent",
                         "Margin, percentage",
                         //entity.marginPercentage(in: period).formattedPercentage
-                        entity.sold(in: period).perKilo.marginPercentageStr
+                        entity.perKilo(in: period).marginPercentageStr
                     )
-                    .foregroundColor(entity.sold(in: period).perKilo.marginPercentage > 0 ? .systemGreen : .systemRed)
+                    .foregroundColor(entity.perKilo(in: period).marginPercentage > 0 ? .systemGreen : .systemRed)
                 }
             }
             .font(.subheadline)
@@ -165,14 +165,14 @@ struct ProductDataSections<
                         "square",
                         "Qty",
                         // entity.salesQty(in: period).formattedGrouped
-                        entity.made(in: period).salesQtyStr
+                        entity.salesQty(in: period).formattedGrouped
                     )
                     
                     LabelWithDetail(
                         "scalemass",
                         "Weight Netto, t",
                         //entity.salesWeightNettoTons(in: period).formattedGroupedWith1Decimal
-                        entity.sold(in: period).weightNettoStr
+                        entity.sold(in: period).weightNettoTonsStr
                     )
                 }
                 .foregroundColor(.secondary)
@@ -185,23 +185,22 @@ struct ProductDataSections<
                         Sales.icon,
                         "Revenue, ex VAT",
                         //entity.revenueExVAT(in: period).formattedGrouped
-                        entity.sold(in: period).total.priceStr
+                        entity.sold(in: period).priceStr
                     )
                     .foregroundColor(.systemGreen)
                     
-                    LabelWithDetail(
-                        Sales.icon,
-                        "Revenue, with VAT",
-                        //entity.revenueWithVAT(in: period).formattedGrouped
-                        "TBD"
-                    )
-                    .foregroundColor(.secondary)
+//                    LabelWithDetail(
+//                        Sales.icon,
+//                        "Revenue, with VAT",
+//                        entity.revenueWithVAT(in: period).formattedGrouped
+//                    )
+//                    .foregroundColor(.secondary)
                     
                     LabelWithDetail(
                         "dollarsign.square",
                         "COGS",
                         //entity.cogs(in: period).formattedGrouped
-                        entity.sold(in: period).total.costStr
+                        entity.sold(in: period).cost.fullCostStr
                     )
                     
                     Divider()
@@ -210,17 +209,17 @@ struct ProductDataSections<
                         "dollarsign.square",
                         "Margin",
                         //entity.totalMargin(in: period).formattedGrouped
-                        entity.sold(in: period).total.marginStr
+                        entity.sold(in: period).marginStr
                     )
-                    .foregroundColor(entity.sold(in: period).total.margin > 0 ? .systemGreen : .systemRed)
+                    .foregroundColor(entity.sold(in: period).margin > 0 ? .systemGreen : .systemRed)
                     
                     LabelWithDetail(
                         "percent",
                         "Margin, percentage",
                         //entity.marginPercentage(in: period).formattedPercentage
-                        entity.sold(in: period).total.marginPercentageStr
+                        entity.sold(in: period).marginPercentageStr
                     )
-                    .foregroundColor(entity.sold(in: period).total.marginPercentage > 0 ? .systemGreen : .systemRed)
+                    .foregroundColor(entity.sold(in: period).marginPercentage > 0 ? .systemGreen : .systemRed)
                 }
             }
             .font(.subheadline)
@@ -242,14 +241,14 @@ struct ProductDataSections<
                         "wrench.and.screwdriver",
                         "Qty",
                         //entity.productionQty(in: period).formattedGrouped
-                        entity.made(in: period).productionQtyStr
+                        entity.productionQty(in: period).formattedGrouped
                     )
                     
                     LabelWithDetail(
                         "scalemass",
                         "Weight Netto, t",
                         //entity.productionWeightNettoTons(in: period).formattedGroupedWith1Decimal
-                        entity.produced(in: period).weightNettoStr
+                        entity.produced(in: period).weightNettoTonsStr
                     )
                     .foregroundColor(.systemRed)
                     
@@ -257,7 +256,7 @@ struct ProductDataSections<
                         "dollarsign.square",
                         "Cost",
                         //entity.productionCostExVAT(in: period).formattedGrouped
-                        entity.produced(in: period).cost.costExVATStr
+                        entity.produced(in: period).cost.fullCostStr
                     )
                 }
             }

@@ -34,24 +34,54 @@ struct ProductView: View {
             
             ErrorMessage(product)
             
-                            AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $product.initialInventory)
+            Section {
+                AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $product.initialInventory)
+                
+                LabelWithDetail("building.2.fill", "Closing Inventory", product.closingInventory(in: period).formattedGrouped)
+                    //  MARK: - FINISH THIS COLOR CODE: RED IF NEGATIVE
+                    .foregroundColor(product.closingInventory(in: period) > 0 ? .secondary : .systemRed)
+            }
+         
+            Section(
+                // header: Text("Production")
+            ) {
+                Group {
+                    AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
+                        .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
+                    
+                    PeriodPicker(period: $product.period)
+                }
+            }
 
-            CostSection(cost: product.unitCost(in: period))
+            Section(
+                // header: Text("Sales")
+            ) {
+                LabelWithDetail("creditcard", "Sales Qty", product.salesQty(in: period).formattedGrouped)
+                    //  MARK: - FINISH THIS COLOR CODE: GREEN IF > 0
+                    .foregroundColor(product.salesQty(in: period) > 0 ? .systemGreen : .systemRed)
+
+                NavigationLink(
+                    destination: SalesList(for: product, in: period)
+                ) {
+                    Label("Sales List", systemImage: "creditcard")
+                        .foregroundColor(.accentColor)
+                }
+                
+            }
+            
             
             Group {
-                Section(
-                    header: Text("Production")
-                ) {
-                    Group {
-                        AmountPicker(systemName: "square", title: "Production Qty", navigationTitle: "Qty", scale: .large, amount: $product.productionQty)
-                            .foregroundColor(product.productionQty <= 0 ? .systemRed : .accentColor)
-                    }
-                }
+                CostSection(cost: product.unit(in: period).cost)
+                CostSection(cost: product.perKilo(in: period).cost, showBarChart: false)
+                CostSection(cost: product.produced(in: period).cost, showBarChart: false)
+                CostSection(cost: product.sold(in: period).cost, showBarChart: false)
+            }
+            
+            Group {
                 
                 ProductionOutputSection(for: product, in: period)
                 
-                CostSection(cost: product.productionCost(in: period))
-                
+                CostSection(cost: product.produced(in: period).cost)
                 ProductDataSections(product, in: period) {
                     Text("TBD: Ingredient cost")
                 } employeeDestination: {
@@ -64,19 +94,7 @@ struct ProductView: View {
             }
             
             Group {
-                Section(
-                    header: Text("Sales")
-                ) {
-                    NavigationLink(
-                        destination: SalesList(for: product, in: period)
-                    ) {
-                        Label("Sales List", systemImage: "creditcard")
-                            .foregroundColor(.systemGreen)
-                    }
-                    
-                }
-                
-                CostSection(cost: product.salesCost(in: period))
+                CostSection(cost: product.sold(in: period).cost)
                 
                 Section(
                     header: Text("Inventory")

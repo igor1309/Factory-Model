@@ -40,7 +40,7 @@ struct AllIngredientList: View {
             ) {
                 Group {
                     LabelWithDetail("squareshape.split.3x3", "No of Ingredients", factory.ingredients.count.formattedGrouped)
-                    LabelWithDetail("dollarsign.circle", "Total Cost ex VAT", factory.productionCost(in: period).ingredientCostExVATStr)
+                    LabelWithDetail("dollarsign.circle", "Total Cost ex VAT", factory.produced(in: period).cost.ingredient.valueStr)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)

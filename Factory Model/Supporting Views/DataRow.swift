@@ -40,7 +40,7 @@ struct DataRow: View {
             Text(item.value)
             
             ZStack(alignment: .trailing) {
-                Text((-2).formattedPercentage).hidden()
+                Text((-2).formattedPercentageWith1Decimal).hidden()
                 Text(item.percentage)
             }
         }

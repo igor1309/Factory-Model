@@ -103,6 +103,14 @@ fileprivate struct PeriodPickerTable: View {
                         }
                     }
                     
+                    if periodStr == "year" {
+                        Picker("Days: \(days)", selection: $days) {
+                            ForEach([247, 300, 360], id: \.self) { item in
+                                Text("\(item)")
+                            }
+                        }
+                    }
+                    
                     if periodStr != "hour" {
                         Picker("Hours: \(String(format: "%g", hoursPerDay))", selection: $hoursPerDay) {
                             ForEach([4.0, 6, 8, 10, 12, 16, 20, 24], id: \.self) { item in

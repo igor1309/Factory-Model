@@ -38,15 +38,15 @@ struct ProductList: View {
             header: Text("Production")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: period).weightNettoStr)
+                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: period).weightNettoTonsStr)
                                 
-                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.productionCost(in: period).costExVATStr)
+                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.produced(in: period).cost.fullCostStr)
                 
                 LabelWithDetail(
                     "dollarsign.circle",
                     "Avg Cost ex VAT, per kilo",
                     //factory.avgCostPerKiloExVAT(in: period).formattedGrouped
-                    factory.sold(in: period).perKilo.costStr
+                    factory.perKilo(in: period).cost.fullCostStr
                 )
             }
             .foregroundColor(.secondary)
@@ -57,7 +57,7 @@ struct ProductList: View {
             header: Text("Sales")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.sold(in: period).weightNettoStr)
+                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.sold(in: period).weightNettoTonsStr)
                 
                 LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                 
@@ -65,7 +65,7 @@ struct ProductList: View {
                     "dollarsign.circle",
                     "Avg Price ex VAT, per kilo",
                     //factory.avgPricePerKiloExVAT(in: period).formattedGrouped
-                    factory.sold(in: period).perKilo.priceStr
+                    factory.perKilo(in: period).priceStr
                 )
             }
             .foregroundColor(.secondary)
@@ -82,10 +82,10 @@ struct ProductList: View {
                     Sales.icon,
                     "Avg Margin ex VAT, per kilo",
                     //factory.avgMarginPerKiloExVAT(in: period).formattedGrouped
-                    factory.sold(in: period).perKilo.marginStr
+                    factory.perKilo(in: period).marginStr
                 )
             }
-            .foregroundColor(factory.sold(in: period).perKilo.margin > 0 ? .secondary : .red)
+            .foregroundColor(factory.perKilo(in: period).margin > 0 ? .secondary : .red)
             .font(.subheadline)
         }
         

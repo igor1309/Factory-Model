@@ -33,6 +33,9 @@ extension Product {
         }
     }
 
+    var weightNetto: Double {
+        (base?.weightNetto ?? 0) * baseQtyInBaseUnit
+    }
     
     var baseName: String {
         base?.name ?? "ERROR: no base"
