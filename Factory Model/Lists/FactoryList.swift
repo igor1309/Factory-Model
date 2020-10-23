@@ -39,3 +39,17 @@ struct FactoryList: View {
     }
 }
 
+
+struct FactoryList_Previews: PreviewProvider {
+    static let context = PersistenceManager(containerName: "DataModel").context
+    static let factory = Factory.createFactory1(in: context)
+    @State static var period: Period = .month()
+    
+    static var previews: some View {
+        NavigationView {
+            FactoryList(in: $period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, context)
+        }
+    }
+}
