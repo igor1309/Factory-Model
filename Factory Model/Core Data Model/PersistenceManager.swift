@@ -12,10 +12,16 @@ import CoreData
 class PersistenceManager: ObservableObject {
     
     private let containerName: String
+    private let inMemory: Bool
     var context: NSManagedObjectContext { persistentContainer.viewContext }
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
+        
+        if inMemory {
+            container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
+        }
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error loading store: \(error.localizedDescription), \(error.userInfo)")
@@ -24,8 +30,9 @@ class PersistenceManager: ObservableObject {
         return container
     }()
     
-    init(containerName: String) {
+    init(containerName: String, inMemory: Bool = false) {
         self.containerName = containerName
+        self.inMemory = inMemory
         
         let center = NotificationCenter.default
         let notification = UIApplication.willResignActiveNotification
@@ -54,7 +61,7 @@ class PersistenceManager: ObservableObject {
         let _ = Factory.createFactory1(in: context)
         let _ = Factory.createFactory2(in: context)
         
-        context.saveContext()                
+        context.saveContext()
     }
 }
 

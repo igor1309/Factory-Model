@@ -79,6 +79,7 @@
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
 		2A73A6862541D2750005D541 /* Employee Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A73A6852541D2750005D541 /* Employee Sample.swift */; };
 		2A73A6892541D2910005D541 /* Department Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A73A6882541D2910005D541 /* Department Sample.swift */; };
+		2A73A6912542B2960005D541 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A73A6902542B2960005D541 /* CloudKit.framework */; };
 		2A74038A24C8CB8200BA7999 /* ProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A74038924C8CB8200BA7999 /* ProfileData.swift */; };
 		2A7C3DA524D3795C005A03B3 /* AllEmployeesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */; };
 		2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA624D3F321005A03B3 /* IssuesList.swift */; };
@@ -239,6 +240,8 @@
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
 		2A73A6852541D2750005D541 /* Employee Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Employee Sample.swift"; sourceTree = "<group>"; };
 		2A73A6882541D2910005D541 /* Department Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Department Sample.swift"; sourceTree = "<group>"; };
+		2A73A68D2542B2920005D541 /* Factory Model.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Factory Model.entitlements"; sourceTree = "<group>"; };
+		2A73A6902542B2960005D541 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		2A74038924C8CB8200BA7999 /* ProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileData.swift; sourceTree = "<group>"; };
 		2A7C3DA424D3795C005A03B3 /* AllEmployeesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEmployeesList.swift; sourceTree = "<group>"; };
 		2A7C3DA624D3F321005A03B3 /* IssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesList.swift; sourceTree = "<group>"; };
@@ -338,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A30470E24C81C030002E5DD /* SwiftPI in Frameworks */,
+				2A73A6912542B2960005D541 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +508,14 @@
 			path = "Sample Data";
 			sourceTree = "<group>";
 		};
+		2A73A68F2542B2960005D541 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A73A6902542B2960005D541 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2A7C3DAE24D42E3A005A03B3 /* Entity Views and Editors */ = {
 			isa = PBXGroup;
 			children = (
@@ -582,6 +594,7 @@
 			children = (
 				2AADA09824C4F4A8005F1E9F /* Factory Model */,
 				2AADA09724C4F4A8005F1E9F /* Products */,
+				2A73A68F2542B2960005D541 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -596,6 +609,7 @@
 		2AADA09824C4F4A8005F1E9F /* Factory Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A73A68D2542B2920005D541 /* Factory Model.entitlements */,
 				2ACA1F05251BBFCD007781CF /* FInancial Wiki.md */,
 				2A53CFB7251E373300F7CDDF /* market.md */,
 				2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */,
@@ -1029,6 +1043,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
@@ -1051,6 +1066,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
