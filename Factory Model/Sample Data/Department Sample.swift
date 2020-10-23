@@ -8,6 +8,7 @@
 import CoreData
 
 extension Department {
+    
     //  MARK: - Departments
     
     //  Production

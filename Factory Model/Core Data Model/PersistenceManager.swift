@@ -87,7 +87,7 @@ class PersistenceManager: ObservableObject {
         if let base = bases?.first {
             return base
         } else {
-            return Base.createBase2_1(in: preview)
+            return Base.createBaseKhinkali(in: preview)
         }
     }
     

@@ -45,7 +45,7 @@ extension Division {
         
         let department5 = Department.createDepartment5(in: context)
         department5.division = divisionHQ// "Администрация"
-                
+        
         context.saveContext()
         
         return [divisionProduction, divisionSales, divisionHQ]

@@ -8,6 +8,7 @@
 import CoreData
 
 extension Product {
+    
     static func createProduct2_1(in context: NSManagedObjectContext) -> Product {
         let product2_1 = Product(context: context)
         product2_1.name = "Настоящие"

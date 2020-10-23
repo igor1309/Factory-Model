@@ -74,7 +74,7 @@
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
 		2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */; };
 		2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A624DFE342009B03F2 /* Factory+Employees.swift */; };
-		2A6979A924DFE51F009B03F2 /* Factories Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A824DFE51F009B03F2 /* Factories Sample.swift */; };
+		2A6979A924DFE51F009B03F2 /* Factory Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A824DFE51F009B03F2 /* Factory Sample.swift */; };
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
 		2A6979B024DFF95B009B03F2 /* Base Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AF24DFF95B009B03F2 /* Base Sample.swift */; };
 		2A73A6862541D2750005D541 /* Employee Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A73A6852541D2750005D541 /* Employee Sample.swift */; };
@@ -236,7 +236,7 @@
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
 		2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCreateNewOrSample.swift; sourceTree = "<group>"; };
 		2A6979A624DFE342009B03F2 /* Factory+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Employees.swift"; sourceTree = "<group>"; };
-		2A6979A824DFE51F009B03F2 /* Factories Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factories Sample.swift"; sourceTree = "<group>"; };
+		2A6979A824DFE51F009B03F2 /* Factory Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory Sample.swift"; sourceTree = "<group>"; };
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
 		2A6979AF24DFF95B009B03F2 /* Base Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Base Sample.swift"; sourceTree = "<group>"; };
 		2A73A6852541D2750005D541 /* Employee Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Employee Sample.swift"; sourceTree = "<group>"; };
@@ -501,12 +501,12 @@
 		2A6979AA24DFE522009B03F2 /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
-				2A6979A824DFE51F009B03F2 /* Factories Sample.swift */,
-				2A73A6852541D2750005D541 /* Employee Sample.swift */,
-				2A73A6882541D2910005D541 /* Department Sample.swift */,
 				2A6979AF24DFF95B009B03F2 /* Base Sample.swift */,
-				2A808B032542CD470030268C /* Product Sample.swift */,
+				2A73A6882541D2910005D541 /* Department Sample.swift */,
 				2A43472E24F56E1800ADCB23 /* Division Sample.swift */,
+				2A73A6852541D2750005D541 /* Employee Sample.swift */,
+				2A6979A824DFE51F009B03F2 /* Factory Sample.swift */,
+				2A808B032542CD470030268C /* Product Sample.swift */,
 			);
 			path = "Sample Data";
 			sourceTree = "<group>";
@@ -799,7 +799,7 @@
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
 				2A93D97624D17B8F00DF1A35 /* PickerWithTextField.swift in Sources */,
 				2A7C3DAB24D3FD59005A03B3 /* Issues.swift in Sources */,
-				2A6979A924DFE51F009B03F2 /* Factories Sample.swift in Sources */,
+				2A6979A924DFE51F009B03F2 /* Factory Sample.swift in Sources */,
 				2A024CF624CD9419001A4B5C /* Validatable.swift in Sources */,
 				2A167EFB24EBF74100A8E7DE /* BuyerEditor.swift in Sources */,
 				2A936E5524C6D5C200C34381 /* Ingredient.swift in Sources */,
