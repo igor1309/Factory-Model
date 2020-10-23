@@ -13,9 +13,10 @@ class PersistenceManager: ObservableObject {
     
     private let containerName: String
     private let inMemory: Bool
-    var context: NSManagedObjectContext { persistentContainer.viewContext }
     
-    private lazy var persistentContainer: NSPersistentContainer = {
+    var context: NSManagedObjectContext { container.viewContext }
+    
+    private lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: containerName)
         
         if inMemory {
@@ -30,6 +31,18 @@ class PersistenceManager: ObservableObject {
         return container
     }()
     
+    static var preview: NSManagedObjectContext = {
+        let manager = PersistenceManager(containerName: "DataModel", inMemory: true)
+        
+        do {
+            try manager.createSampleData()
+        } catch {
+            fatalError("Fatal error creating preview: \(error.localizedDescription)")
+        }
+        
+        return manager.context
+    }()
+    
     init(containerName: String, inMemory: Bool = false) {
         self.containerName = containerName
         self.inMemory = inMemory
@@ -40,8 +53,8 @@ class PersistenceManager: ObservableObject {
         center.addObserver(forName: notification, object: nil, queue: nil) { [weak self] _ in
             guard let self = self else { return }
             
-            if self.persistentContainer.viewContext.hasChanges {
-                try? self.persistentContainer.viewContext.save()
+            if self.container.viewContext.hasChanges {
+                try? self.container.viewContext.save()
             }
         }
         

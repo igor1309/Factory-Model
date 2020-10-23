@@ -22,13 +22,9 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let manager = PersistenceManager(containerName: "DataModel")
-    
     static var previews: some View {
-        try? manager.createSampleData()
-        
-        return ContentView()
+        ContentView()
             .preferredColorScheme(.dark)
-            .environment(\.managedObjectContext, manager.context)
+            .environment(\.managedObjectContext, PersistenceManager.preview)
     }
 }
