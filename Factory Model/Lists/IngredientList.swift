@@ -127,16 +127,14 @@ struct IngredientList: View {
     }
 }
 
-//struct IngredientList_Previews: PreviewProvider {
-//    static let context = PersistenceManager(containerName: "DataModel").context
-//    static let factory = Factory.createFactory1(in: context)
-//    static let period: Period = .month()
-//    
-//    static var previews: some View {
-//        NavigationView {
-//            IngredientList(for: factory, in: period)
-//                .preferredColorScheme(.dark)
-//                .environment(\.managedObjectContext, context)
-//        }
-//    }
-//}
+struct IngredientList_Previews: PreviewProvider {
+    static let period: Period = .month()
+    
+    static var previews: some View {
+        NavigationView {
+            IngredientList(for: PersistenceManager.basePreview, in: period)
+                .preferredColorScheme(.dark)
+                .environment(\.managedObjectContext, PersistenceManager.preview)
+        }
+    }
+}

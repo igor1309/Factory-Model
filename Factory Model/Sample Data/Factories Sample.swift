@@ -217,16 +217,16 @@ extension Factory {
         metroSales.qty = 1_000
         metroSales.priceExVAT = 230
         
-        let product2_1 = Product(context: context)
-        product2_1.name = "Настоящие"
-        product2_1.code = "2001"
-        product2_1.baseQty = 12
-        product2_1.group = "Контейнер"
-        product2_1.vat = 10/100
-                
-        product2_1.packaging = Packaging(context: context)
-        product2_1.packaging?.name = "P3"
-        product2_1.packaging?.type = "p03"
+        let product2_1 = Product.createProduct2_1(in: context)
+//        product2_1.name = "Настоящие"
+//        product2_1.code = "2001"
+//        product2_1.baseQty = 12
+//        product2_1.group = "Контейнер"
+//        product2_1.vat = 10/100
+//
+//        product2_1.packaging = Packaging(context: context)
+//        product2_1.packaging?.name = "P3"
+//        product2_1.packaging?.type = "p03"
         
         product2_1.sales = [metroSales]
         product2_1.base = base2_1

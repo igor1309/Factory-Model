@@ -47,15 +47,13 @@ struct EmployeeList: View {
 }
 
 struct EmployeeList_Previews: PreviewProvider {
-    static let context = PersistenceManager(containerName: "DataModel").context
-    static let department = Department.createDepartment2(in: context)
     static let period: Period = .month()
     
     static var previews: some View {
         NavigationView {
-            EmployeeList(at: department, in: period)
+            EmployeeList(at: PersistenceManager.departmentPreview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, context)
+                .environment(\.managedObjectContext, PersistenceManager.preview)
         }
     }
 }
