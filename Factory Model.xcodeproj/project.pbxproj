@@ -160,6 +160,7 @@
 		2AC07F9524C5ABA500BB23B1 /* FactoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC07F9424C5ABA500BB23B1 /* FactoryView.swift */; };
 		2AC7952524C76E7500018817 /* EmployeeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC7952424C76E7500018817 /* EmployeeList.swift */; };
 		2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD51E2E24ED51EF00BE3005 /* SalesDraft.swift */; };
+		2AD752822543705D004A5F13 /* saveContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD752812543705D004A5F13 /* saveContext.swift */; };
 		2AE6DB372512033700457D74 /* Ingredientable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB362512033700457D74 /* Ingredientable.swift */; };
 		2AE6DB432513CE7E00457D74 /* PCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB422513CE7E00457D74 /* PCM.swift */; };
 		2AF814F024FCE2430078A58A /* NoteSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF814EF24FCE2430078A58A /* NoteSection.swift */; };
@@ -329,6 +330,7 @@
 		2ACA1F05251BBFCD007781CF /* FInancial Wiki.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "FInancial Wiki.md"; sourceTree = "<group>"; };
 		2AD51E2E24ED51EF00BE3005 /* SalesDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesDraft.swift; sourceTree = "<group>"; };
 		2AD6C9C724D6E453003B28EE /* Measurements.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Measurements.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2AD752812543705D004A5F13 /* saveContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveContext.swift; sourceTree = "<group>"; };
 		2AE6DB362512033700457D74 /* Ingredientable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredientable.swift; sourceTree = "<group>"; };
 		2AE6DB422513CE7E00457D74 /* PCM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCM.swift; sourceTree = "<group>"; };
 		2AF814EF24FCE2430078A58A /* NoteSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteSection.swift; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 			children = (
 				2AADA0A824C4F4E2005F1E9F /* DataModel.xcdatamodeld */,
 				2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */,
+				2AD752812543705D004A5F13 /* saveContext.swift */,
 				2A255BBF24DD21E700B4D89D /* CustomUnit.swift */,
 				2A2F4BD124C5A84600B2F8D9 /* Base.swift */,
 				2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */,
@@ -765,6 +768,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2AD752822543705D004A5F13 /* saveContext.swift in Sources */,
 				2A7F4AB524EE537C002A315F /* EntityLinkToList.swift in Sources */,
 				2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */,
 				2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */,

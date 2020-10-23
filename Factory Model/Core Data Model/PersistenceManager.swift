@@ -47,6 +47,13 @@ class PersistenceManager: ObservableObject {
     }
     
     
+    func createSampleData() throws {
+        let _ = Factory.createFactory1(in: context)
+        let _ = Factory.createFactory2(in: context)
+        
+        context.saveContext()
+    }
+
     //  MARK: - Previews
     
     static var preview: NSManagedObjectContext = {
@@ -100,25 +107,5 @@ class PersistenceManager: ObservableObject {
             return Product.createProduct2_1(in: preview)
         }
     }
-    
-    func createSampleData() throws {
-        let _ = Factory.createFactory1(in: context)
-        let _ = Factory.createFactory2(in: context)
-        
-        context.saveContext()
-    }
 }
 
-extension NSManagedObjectContext {
-    func saveContext() {
-        guard hasChanges else { return }
-        
-        do {
-            try self.save()
-        } catch {
-            // handle the Core Data error
-            let error = error as NSError
-            fatalError("Unresolved error saving context: \(error.localizedDescription), \(error.userInfo)")
-        }
-    }
-}
