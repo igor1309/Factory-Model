@@ -10,7 +10,7 @@ import CoreData
 extension Product {
     
     static var preview: Product {
-        let preview = PersistenceManager.preview
+        let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Product>(entityName: "Product")
         let products = try? preview.fetch(request)
         if let product = products?.first {

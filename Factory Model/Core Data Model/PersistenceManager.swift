@@ -50,6 +50,32 @@ class PersistenceManager: ObservableObject {
 
 extension PersistenceManager {
     
+    //  MARK: - Sample Data
+    
+    func createSampleData(in context: NSManagedObjectContext) throws {
+        //deleteAll()
+        
+        let _ = Factory.createFactory1(in: context)
+        let _ = Factory.createFactory2(in: context)
+        
+        context.saveContext()
+    }
+    
+    //  MARK: - Previews
+    
+    static var previewContext: NSManagedObjectContext = {
+        let manager = PersistenceManager(containerName: "DataModel", inMemory: true)
+        
+        do {
+            try manager.createSampleData(in: manager.context)
+        } catch {
+            fatalError("Fatal error creating preview: \(error.localizedDescription)")
+        }
+        
+        return manager.context
+    }()
+    
+
     //  MARK: - FINISH THIS - NOT WORKING
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Base.fetchRequest()
@@ -109,30 +135,5 @@ extension PersistenceManager {
         _ = try? container.viewContext.execute(batchDeleteRequest14)
     }
     
-    
-    //  MARK: - Sample Data
-    
-    func createSampleData() throws {
-        //deleteAll()
-
-        let _ = Factory.createFactory1(in: context)
-        let _ = Factory.createFactory2(in: context)
-        
-        context.saveContext()
-    }
-
-    //  MARK: - Previews
-    
-    static var preview: NSManagedObjectContext = {
-        let manager = PersistenceManager(containerName: "DataModel", inMemory: true)
-        
-        do {
-            try manager.createSampleData()
-        } catch {
-            fatalError("Fatal error creating preview: \(error.localizedDescription)")
-        }
-        
-        return manager.context
-    }()
 }
 

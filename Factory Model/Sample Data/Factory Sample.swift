@@ -11,7 +11,7 @@ import CoreData
 extension Factory {
     
     static var preview: Factory {
-        let preview = PersistenceManager.preview
+        let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Factory>(entityName: "Factory")
         let factories = try? preview.fetch(request)
         if let factory = factories?.first {

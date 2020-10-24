@@ -53,7 +53,7 @@ struct SalesList_Previews: PreviewProvider {
         NavigationView {
             SalesList(for: Product.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

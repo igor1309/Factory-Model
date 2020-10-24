@@ -56,7 +56,7 @@ struct PackagingList_Previews: PreviewProvider {
         NavigationView {
             PackagingList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

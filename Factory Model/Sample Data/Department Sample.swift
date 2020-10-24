@@ -10,7 +10,7 @@ import CoreData
 extension Department {
     
     static var preview: Department {
-        let preview = PersistenceManager.preview
+        let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Department>(entityName: "Department")
         let departments = try? preview.fetch(request)
         if let department = departments?.first {

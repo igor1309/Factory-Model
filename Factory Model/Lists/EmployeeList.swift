@@ -53,7 +53,7 @@ struct EmployeeList_Previews: PreviewProvider {
         NavigationView {
             EmployeeList(at: Department.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

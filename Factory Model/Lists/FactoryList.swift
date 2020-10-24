@@ -47,7 +47,7 @@ struct FactoryList_Previews: PreviewProvider {
         NavigationView {
             FactoryList(in: $period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

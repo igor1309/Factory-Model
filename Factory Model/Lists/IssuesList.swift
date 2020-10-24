@@ -166,7 +166,7 @@ struct IssuesList_Previews: PreviewProvider {
         NavigationView {
             IssuesList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

@@ -55,7 +55,7 @@ struct BasetList_Previews: PreviewProvider {
         NavigationView {
             BaseList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

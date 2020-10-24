@@ -25,6 +25,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
-            .environment(\.managedObjectContext, PersistenceManager.preview)
+            .environment(\.managedObjectContext, PersistenceManager.previewContext)
     }
 }

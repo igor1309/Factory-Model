@@ -11,7 +11,7 @@ import CoreData
 extension Base {
     
     static var preview: Base {
-        let preview = PersistenceManager.preview
+        let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Base>(entityName: "Base")
         let bases = try? preview.fetch(request)
         if let base = bases?.first {

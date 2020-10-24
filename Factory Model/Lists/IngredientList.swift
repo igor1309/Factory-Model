@@ -136,7 +136,7 @@ struct IngredientList_Previews: PreviewProvider {
         NavigationView {
             IngredientList(for: Base.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

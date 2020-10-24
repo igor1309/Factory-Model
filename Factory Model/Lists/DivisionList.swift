@@ -52,7 +52,7 @@ struct DivisionList_Previews: PreviewProvider {
         NavigationView {
             DivisionList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
-                .environment(\.managedObjectContext, PersistenceManager.preview)
+                .environment(\.managedObjectContext, PersistenceManager.previewContext)
         }
     }
 }

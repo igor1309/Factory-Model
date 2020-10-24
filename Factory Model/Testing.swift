@@ -118,6 +118,6 @@ struct Testing_Previews: PreviewProvider {
             Testing(in: $period)
         }
         .preferredColorScheme(.dark)
-        .environment(\.managedObjectContext, PersistenceManager.preview)
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
     }
 }
