@@ -10,6 +10,17 @@ import CoreData
 
 extension Base {
     
+    static var preview: Base {
+        let preview = PersistenceManager.preview
+        let request = NSFetchRequest<Base>(entityName: "Base")
+        let bases = try? preview.fetch(request)
+        if let base = bases?.first {
+            return base
+        } else {
+            return Base.createBaseKhinkali(in: preview)
+        }
+    }
+    
     static func createBaseKhinkali(in context: NSManagedObjectContext) -> Base {
         let base = Base(context: context)
         base.name = "Хинкали"

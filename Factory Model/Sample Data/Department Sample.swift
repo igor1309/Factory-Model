@@ -9,6 +9,18 @@ import CoreData
 
 extension Department {
     
+    static var preview: Department {
+        let preview = PersistenceManager.preview
+        let request = NSFetchRequest<Department>(entityName: "Department")
+        let departments = try? preview.fetch(request)
+        if let department = departments?.first {
+            return department
+        } else {
+            return Department.createDepartment2(in: preview)
+        }
+    }
+    
+    
     //  MARK: - Departments
     
     //  Production

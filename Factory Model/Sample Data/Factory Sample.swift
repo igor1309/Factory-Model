@@ -10,6 +10,17 @@ import CoreData
 
 extension Factory {
     
+    static var preview: Factory {
+        let preview = PersistenceManager.preview
+        let request = NSFetchRequest<Factory>(entityName: "Factory")
+        let factories = try? preview.fetch(request)
+        if let factory = factories?.first {
+            return factory
+        } else {
+            return Factory.createFactory1(in: preview)
+        }
+    }
+    
     static func createFactory1(in context: NSManagedObjectContext) -> Factory {
         
         //  MARK: - Factory 1

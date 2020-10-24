@@ -9,6 +9,17 @@ import CoreData
 
 extension Product {
     
+    static var preview: Product {
+        let preview = PersistenceManager.preview
+        let request = NSFetchRequest<Product>(entityName: "Product")
+        let products = try? preview.fetch(request)
+        if let product = products?.first {
+            return product
+        } else {
+            return Product.createProduct2_1(in: preview)
+        }
+    }
+    
     static func createProduct2_1(in context: NSManagedObjectContext) -> Product {
         let product2_1 = Product(context: context)
         product2_1.name = "Настоящие"

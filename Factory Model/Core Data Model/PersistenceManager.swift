@@ -50,6 +50,7 @@ class PersistenceManager: ObservableObject {
 
 extension PersistenceManager {
     
+    //  MARK: - FINISH THIS - NOT WORKING
     func deleteAll() {
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Base.fetchRequest()
         let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
@@ -133,45 +134,5 @@ extension PersistenceManager {
         
         return manager.context
     }()
-    
-    static var factoryPreview: Factory {
-        let request = NSFetchRequest<Factory>(entityName: "Factory")
-        let factories = try? preview.fetch(request)
-        if let factory = factories?.first {
-            return factory
-        } else {
-            return Factory.createFactory1(in: preview)
-        }
-    }
-    
-    static var departmentPreview: Department {
-        let request = NSFetchRequest<Department>(entityName: "Department")
-        let departments = try? preview.fetch(request)
-        if let department = departments?.first {
-            return department
-        } else {
-            return Department.createDepartment2(in: preview)
-        }
-    }
-    
-    static var basePreview: Base {
-        let request = NSFetchRequest<Base>(entityName: "Base")
-        let bases = try? preview.fetch(request)
-        if let base = bases?.first {
-            return base
-        } else {
-            return Base.createBaseKhinkali(in: preview)
-        }
-    }
-    
-    static var productPreview: Product {
-        let request = NSFetchRequest<Product>(entityName: "Product")
-        let products = try? preview.fetch(request)
-        if let product = products?.first {
-            return product
-        } else {
-            return Product.createProduct2_1(in: preview)
-        }
-    }
 }
 

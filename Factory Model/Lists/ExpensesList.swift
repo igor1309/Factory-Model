@@ -40,7 +40,7 @@ struct ExpensesList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            ExpensesList(for: PersistenceManager.factoryPreview, in: period)
+            ExpensesList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }

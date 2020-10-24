@@ -28,7 +28,7 @@ struct EmployeeList: View {
             in: period
         ) {
             CreateChildButton(
-                systemName: Department.icon,
+                systemName: Employee.plusButtonIcon,
                 childType: Employee.self,
                 parent: department,
                 keyPath: \Department.employees_
@@ -51,7 +51,7 @@ struct EmployeeList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            EmployeeList(at: PersistenceManager.departmentPreview, in: period)
+            EmployeeList(at: Department.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }

@@ -48,7 +48,7 @@ struct EquipmentList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            EquipmentList(for: PersistenceManager.factoryPreview, in: period)
+            EquipmentList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }

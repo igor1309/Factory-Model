@@ -47,7 +47,7 @@ struct AllEmployeesList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            AllEmployeesList(for: PersistenceManager.factoryPreview, in: period)
+            AllEmployeesList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }

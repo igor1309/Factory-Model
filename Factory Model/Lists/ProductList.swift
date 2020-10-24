@@ -126,7 +126,7 @@ struct ProductList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            ProductList(for: PersistenceManager.factoryPreview, in: period)
+            ProductList(for: Factory.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }

@@ -36,9 +36,11 @@ struct IngredientList: View {
     var body: some View {
         EntityListWithDashboard(
             for: base,
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Recipe.ingredient), base
-            ),
+            predicate: nil,
+            //  MARK: - FINISH THIS
+            //predicate: NSPredicate(
+            //    format: "%K == %@", #keyPath(Recipe.ingredient), base
+            //),
             in: period,
             keyPathParentToChildren: \Base.recipes_
         ) {
@@ -132,7 +134,7 @@ struct IngredientList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            IngredientList(for: PersistenceManager.basePreview, in: period)
+            IngredientList(for: Base.preview, in: period)
                 .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.preview)
         }
