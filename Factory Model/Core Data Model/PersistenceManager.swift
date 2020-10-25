@@ -16,17 +16,17 @@ class PersistenceManager: ObservableObject {
     var context: NSManagedObjectContext { container.viewContext }
     
     private lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: containerName)
+        let container = NSPersistentCloudKitContainer(name: containerName)// NSPersistentContainer(name: containerName)
         
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
         
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error loading store: \(error.localizedDescription), \(error.userInfo)")
             }
-        })
+        }
         return container
     }()
     
