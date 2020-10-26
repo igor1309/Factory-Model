@@ -14,5 +14,5 @@ struct SalesDraft: Identifiable {
     var buyer: Buyer?
     var product: Product?
     
-    var id = UUID()
+    let id = UUID()
 }

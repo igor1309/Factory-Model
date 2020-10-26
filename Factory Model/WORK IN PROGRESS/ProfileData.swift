@@ -3,7 +3,7 @@ import CoreData
 
 @objc(ProfileData)
 public class ProfileData: NSManagedObject, Identifiable {
-    public var id = UUID()
+    public let id = UUID()
 }
 
 

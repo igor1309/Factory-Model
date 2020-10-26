@@ -15,5 +15,5 @@ struct EmployeeDraft: Identifiable {
     var workHours: Double
     var period: Period
 
-    var id = UUID()
+    let id = UUID()
 }

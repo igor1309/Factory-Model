@@ -8,13 +8,13 @@
 import Foundation
 
 struct DataPoint: Identifiable {
-    var id = UUID()
+    let id = UUID()
     var title: String
     var value: Double
 }
 
 struct DataPointWithShare: Identifiable {
-    var id = UUID()
+    let id = UUID()
     var title: String
     var value: String
     var percentage: String
