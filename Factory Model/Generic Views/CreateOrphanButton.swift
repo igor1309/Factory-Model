@@ -17,14 +17,13 @@ struct CreateOrphanButton<Child: Managed & Sketchable>: View {
     init(systemName: String? = nil) {
         self.systemName = systemName ?? "plus"
     }
-
+    
     var body: some View {
         Button {
             let entity = Child.create(in: context)
-            entity.makeSketch()
             entity.objectWillChange.send()
             
-//            context.saveContext()
+            context.saveContext()
         } label: {
             Image(systemName: systemName)
                 .padding([.leading, .vertical])
@@ -35,10 +34,13 @@ struct CreateOrphanButton<Child: Managed & Sketchable>: View {
 
 struct CreateOrphanButton_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(spacing: 32) {
-            CreateOrphanButton<Base>()
-            CreateOrphanButton<Base>(systemName: "plus.circle")
+        NavigationView {
+            VStack(spacing: 32) {
+                CreateOrphanButton<Base>()
+                CreateOrphanButton<Base>(systemName: "plus.circle")
+            }
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .preferredColorScheme(.dark)
     }
 }

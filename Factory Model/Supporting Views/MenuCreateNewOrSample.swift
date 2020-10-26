@@ -75,7 +75,7 @@ struct MenuCreateNewOrSample: View {
         } label: {
             Image(systemName: "ellipsis.circle")
         }
-
+        
         
         .sheet(isPresented: $showSheet) {
             switch modal {
@@ -113,4 +113,14 @@ struct MenuCreateNewOrSample: View {
     //    func typeFromString(_ string: String) -> NSManagedObject.Type {
     //        NSClassFromString(string) as! NSManagedObject.Type
     //    }
+}
+
+struct MenuCreateNewOrSample_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            MenuCreateNewOrSample(period: .month())
+        }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .preferredColorScheme(.dark)
+    }
 }

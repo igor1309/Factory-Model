@@ -18,32 +18,31 @@ extension Sketchable where Self: Monikerable {
 }
 
 extension Base: Sketchable {}
-
 extension Buyer: Sketchable {}
 extension Department: Sketchable {}
 extension Division: Sketchable {}
 
 extension Equipment: Sketchable {
     func makeSketch() {
-        self.name = " ..."
-        self.lifetime = 7
-        self.price = 1_000_000
+        name = " ..."
+        lifetime = 7
+        price = 1_000_000
     }
 }
 
 extension Expenses: Sketchable {
     func makeSketch() {
-        self.name = " ..."
-        self.note = "..."
-        self.amount = 10_000
+        name = " ..."
+        note = "..."
+        amount = 10_000
     }
 }
 
 extension Ingredient: Sketchable {
     func makeSketch() {
-        self.name = " ..."
-        self.priceExVAT = 70
-        self.vat = 10/100
+        name = " ..."
+        priceExVAT = 70
+        vat = 10/100
     }
 }
 
@@ -53,8 +52,8 @@ extension Packaging: Sketchable {}
 
 extension Product: Sketchable {
     func makeSketch() {
-        self.name = " ..."
-        self.vat = 10/100
+        name = " ..."
+        vat = 10/100
     }
 }
 
@@ -62,7 +61,7 @@ extension Sales: Sketchable {}
 
 extension Utility: Sketchable {
     func makeSketch() {
-        self.name = " ..."
+        name = " ..."
         priceExVAT = 10
     }
 }

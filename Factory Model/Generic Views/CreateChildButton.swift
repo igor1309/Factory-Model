@@ -50,7 +50,6 @@ struct CreateChildButton<Child: Managed & Sketchable,
     var body: some View {
         Button {
             let entity = Child.create(in: context)
-            entity.makeSketch()
             entity.objectWillChange.send()
             
             if let path = path {
@@ -82,6 +81,7 @@ struct CreateChildButton_Previews: PreviewProvider {
             CreateChildButton(childType: Base.self, parent: Factory(), keyPath: \Factory.bases_)
             CreateChildButton(systemName: "plus.circle", childType: Base.self, parent: Factory(), keyPath: \Factory.bases_)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .preferredColorScheme(.dark)
     }
 }
