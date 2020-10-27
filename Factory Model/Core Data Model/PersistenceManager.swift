@@ -41,9 +41,7 @@ class PersistenceManager: ObservableObject {
         center.addObserver(forName: notification, object: nil, queue: nil) { [weak self] _ in
             guard let self = self else { return }
             
-            if self.container.viewContext.hasChanges {
-                try? self.container.viewContext.save()
-            }
+            self.context.saveContext()
         }
     }
 }
