@@ -79,7 +79,8 @@ struct ListWithDashboard<
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        .navigationBarItems(trailing: plusButton())
+        // .navigationBarItems(trailing: plusButton())
+        .toolbar { plusButton() }
     }
 }
 

@@ -35,7 +35,7 @@ struct AllSalesList: View {
         List {
             Section(
                 header: Text("Total"),
-                footer: Text("To edit Sales go to Product")
+                footer: Text("To edit Sales go to Product.")
             ) {
                 LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
                     .foregroundColor(.systemGreen)
@@ -84,27 +84,28 @@ struct AllSalesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
+        //.navigationBarItems(trailing: CreateOrphanButton<Sales>(systemName: "cart.badge.plus"))
+        .toolbar { CreateOrphanButton<Sales>(systemName: "cart.badge.plus") }
         //        .navigationBarItems(trailing: plusButton)
-        .navigationBarItems(trailing: CreateOrphanButton<Sales>(systemName: "cart.badge.plus"))
     }
     
     //  MARK: - can't replace with PlusEntityButton: linked entities
-    private var plusButton: some View {
-        Button {
-            let buyer = Buyer(context: context)
-            buyer.name = " John"
-            
-            let sales = Sales(context: context)
-            sales.buyer = buyer
-            sales.qty = 1_000
-            sales.priceExVAT = 300
-            
-            context.saveContext()
-        } label: {
-            Image(systemName: "plus")
-                .padding([.leading, .vertical])
-        }
-    }
+    //    private var plusButton: some View {
+    //        Button {
+    //            let buyer = Buyer(context: context)
+    //            buyer.name = " John"
+    //
+    //            let sales = Sales(context: context)
+    //            sales.buyer = buyer
+    //            sales.qty = 1_000
+    //            sales.priceExVAT = 300
+    //
+    //            context.saveContext()
+    //        } label: {
+    //            Image(systemName: "plus")
+    //                .padding([.leading, .vertical])
+    //        }
+    //    }
 }
 
 

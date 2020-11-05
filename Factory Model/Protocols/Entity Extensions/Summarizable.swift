@@ -247,6 +247,7 @@ extension Ingredient: Summarizable {
     
     static var color: Color { .systemPurple }
     static var icon: String { "puzzlepiece" }
+    static var plusButtonIcon: String { "square.grid.3x1.folder.badge.plus" }
 }
 
 extension Recipe: Summarizable {
@@ -259,8 +260,8 @@ extension Recipe: Summarizable {
     }
     
     static var color: Color { .systemPurple }
-    static var icon: String { "puzzlepiece" }
-    static var plusButtonIcon: String { "plus.rectangle.on.rectangle" }
+    static var icon: String { "link.circle" }   //"puzzlepiece" }
+    static var plusButtonIcon: String { "link.badge.plus" }    //"plus.rectangle.on.rectangle" }
 }
 
 extension Packaging: Summarizable {
