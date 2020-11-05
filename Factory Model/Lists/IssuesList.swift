@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct IssuesList: View {
-    
     @ObservedObject var factory: Factory
     
     let period: Period
@@ -160,13 +159,11 @@ struct IssuesList: View {
 }
 
 struct IssuesList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            IssuesList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            IssuesList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

@@ -11,8 +11,6 @@ import SwiftPI
 struct AllSalesList: View {
     @Environment(\.managedObjectContext) private var context
     
-    @FetchRequest private var orphans: FetchedResults<Sales>
-    
     @ObservedObject var factory: Factory
     
     let period: Period
@@ -20,6 +18,7 @@ struct AllSalesList: View {
     init(for factory: Factory, in period: Period) {
         self.factory = factory
         self.period = period
+        
         _orphans = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
@@ -29,6 +28,8 @@ struct AllSalesList: View {
             predicate: Sales.orphanPredicate
         )
     }
+    
+    @FetchRequest private var orphans: FetchedResults<Sales>
     
     var body: some View {
         List {
@@ -108,13 +109,11 @@ struct AllSalesList: View {
 
 
 struct AllSalesList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            AllSalesList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            AllSalesList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

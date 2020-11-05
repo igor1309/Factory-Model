@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct BaseList: View {
-    @Environment(\.managedObjectContext) private var moc
-    
     @ObservedObject var factory: Factory
     
     let period: Period
@@ -49,13 +47,11 @@ struct BaseList: View {
 
 
 struct BasetList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            BaseList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            BaseList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

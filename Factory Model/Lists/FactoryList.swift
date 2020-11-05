@@ -21,7 +21,7 @@ struct FactoryList: View {
             GenericListSection(
                 type: Factory.self,
                 predicate: nil,
-                useSmallerFont: false,
+                smallFont: false,
                 in: period
             ) { factory in
                 FactoryView(factory, in: $period)
@@ -46,8 +46,8 @@ struct FactoryList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             FactoryList(in: $period)
-                .preferredColorScheme(.dark)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

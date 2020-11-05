@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-struct ExpensesList: View {
-    @Environment(\.managedObjectContext) private var moc
-    
+struct ExpensesList: View {    
     @ObservedObject var factory: Factory
     
     let period: Period
@@ -36,13 +34,11 @@ struct ExpensesList: View {
 }
 
 struct ExpensesList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            ExpensesList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            ExpensesList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

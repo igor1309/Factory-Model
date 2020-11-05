@@ -19,7 +19,7 @@ struct EntityListWithDashboard<
     @ObservedObject var parent: Parent
     
     let title: String
-    let useSmallerFont: Bool
+    let smallFont: Bool
     let period: Period
     let keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>
     let dashboard: () -> Dashboard
@@ -34,7 +34,7 @@ struct EntityListWithDashboard<
     /// - Parameters:
     ///   - parent: @ObservedObject var
     ///   - title: if nill it uses plural form of Child Entity name
-    ///   - useSmallerFont:
+    ///   - smallFont:
     ///   - predicate: if nil it uses defauls predicate
     ///   - keyPathParentToChildren:
     ///   - dashboard: a View above Child list
@@ -43,7 +43,7 @@ struct EntityListWithDashboard<
         for parent: Parent,
         title: String? = nil,
         predicate: NSPredicate? = nil,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -52,7 +52,7 @@ struct EntityListWithDashboard<
     ) {
         self.parent = parent
         self.title = title ?? Child.plural
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
         self.keyPathParentToChildren = keyPathParentToChildren
         self.dashboard = dashboard
@@ -79,7 +79,7 @@ struct EntityListWithDashboard<
                 GenericListSection(
                     header: "Orphans",
                     fetchRequest: _orphansFetchRequest,
-                    useSmallerFont: useSmallerFont,
+                    smallFont: smallFont,
                     in: period,
                     editor: editor
                 )
@@ -88,7 +88,7 @@ struct EntityListWithDashboard<
             
             GenericListSection(
                 fetchRequest: _entities,
-                useSmallerFont: useSmallerFont,
+                smallFont: smallFont,
                 in: period,
                 editor: editor
             )
@@ -113,7 +113,7 @@ extension EntityListWithDashboard where Child: Offspringable, Parent == Factory 
     init(
         for parent: Parent,
         title: String? = nil,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         predicate: NSPredicate? = nil,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -124,7 +124,7 @@ extension EntityListWithDashboard where Child: Offspringable, Parent == Factory 
             for: parent,
             title: title,
             predicate: predicate,
-            useSmallerFont: useSmallerFont,
+            smallFont: smallFont,
             in: period,
             keyPathParentToChildren: Child.offspringKeyPath,
             dashboard: dashboard,

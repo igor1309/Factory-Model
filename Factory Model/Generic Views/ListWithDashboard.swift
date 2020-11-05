@@ -20,7 +20,7 @@ struct ListWithDashboard<
     @ObservedObject var parent: NSManagedObject
     
     let title: String
-    let useSmallerFont: Bool
+    let smallFont: Bool
     let period: Period
     let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
@@ -30,7 +30,7 @@ struct ListWithDashboard<
         for parent: Parent,
         title: String? = nil,
         predicate: NSPredicate? = nil,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         plusButton: @escaping () -> PlusButton,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -38,7 +38,7 @@ struct ListWithDashboard<
     ) {
         self.parent = parent
         self.title = title ?? Child.plural
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
         self.plusButton = plusButton
         self.dashboard = dashboard
@@ -63,7 +63,7 @@ struct ListWithDashboard<
                 GenericListSection(
                     header: "Orphans",
                     fetchRequest: _orphansFetchRequest,
-                    useSmallerFont: useSmallerFont,
+                    smallFont: smallFont,
                     in: period,
                     editor: editor
                 )
@@ -72,7 +72,7 @@ struct ListWithDashboard<
             
             GenericListSection(
                 fetchRequest: _entities,
-                useSmallerFont: useSmallerFont,
+                smallFont: smallFont,
                 in: period,
                 editor: editor
             )
@@ -92,7 +92,7 @@ private extension ListWithDashboard where Child: FactoryTracable {
         for parent: Parent,
         title: String? = nil,
         predicate: NSPredicate? = nil,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -120,7 +120,7 @@ private extension ListWithDashboard where Child: FactoryTracable {
             for: parent,
             title: title ?? Child.plural,
             predicate: predicateToUse,
-            useSmallerFont: useSmallerFont,
+            smallFont: smallFont,
             in: period,
             plusButton: plusButton,
             dashboard: dashboard,
@@ -137,7 +137,7 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
     init(
         for parent: Parent,
         title: String? = nil,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         predicate: NSPredicate? = nil,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
@@ -148,7 +148,7 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
             for: parent,
             title: title,
             predicate: predicate,
-            useSmallerFont: useSmallerFont,
+            smallFont: smallFont,
             in: period,
             keyPathParentToChildren: Child.offspringKeyPath,
             dashboard: dashboard,

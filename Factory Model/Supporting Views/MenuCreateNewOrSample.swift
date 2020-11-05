@@ -60,14 +60,12 @@ struct MenuCreateNewOrSample: View {
             Section(header: Text("Sample Factory")) {
                 Button {
                     let _ = Factory.createFactory1(in: context)
-                    context.saveContext()
                 } label: {
                     Label("Сыроварня", systemImage: "plus")
                 }
                 
                 Button {
                     let _ = Factory.createFactory2(in: context)
-                    context.saveContext()
                 } label: {
                     Label("Полуфабрикаты", systemImage: "plus")
                 }

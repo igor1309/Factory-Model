@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct DivisionList: View {
-    @Environment(\.managedObjectContext) private var moc
-    
     @ObservedObject var factory: Factory
     
     let period: Period
@@ -46,13 +44,11 @@ struct DivisionList: View {
 }
 
 struct DivisionList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            DivisionList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            DivisionList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

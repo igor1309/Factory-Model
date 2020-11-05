@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct SalesList: View {
-    @Environment(\.managedObjectContext) private var moc
-    
     @ObservedObject var product: Product
     
     let period: Period
@@ -47,13 +45,11 @@ struct SalesList: View {
 }
 
 struct SalesList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            SalesList(for: Product.preview, in: period)
-                .preferredColorScheme(.dark)
+            SalesList(for: Product.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

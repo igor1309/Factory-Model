@@ -32,13 +32,11 @@ struct AllBuyersList: View {
 }
 
 struct AllBuyersList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            AllBuyersList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            AllBuyersList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

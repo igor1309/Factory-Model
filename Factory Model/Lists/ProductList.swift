@@ -12,7 +12,7 @@ struct ProductList: View {
     
     let period: Period
     
-    init(for factory: Factory, in period: Period){
+    init(for factory: Factory, in period: Period) {
         self.factory = factory
         self.period = period
     }
@@ -122,13 +122,11 @@ struct ProductList: View {
 }
 
 struct ProductList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            ProductList(for: Factory.preview, in: period)
-                .preferredColorScheme(.dark)
+            ProductList(for: Factory.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

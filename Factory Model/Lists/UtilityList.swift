@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct UtilityList: View {
-    @Environment(\.managedObjectContext) private var moc
-    
-    var base: Base
+    @ObservedObject var base: Base
     
     let period: Period
     
@@ -49,13 +47,11 @@ struct UtilityList: View {
 }
 
 struct UtilityList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            UtilityList(for: Base.preview, in: period)
-                .preferredColorScheme(.dark)
+            UtilityList(for: Base.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

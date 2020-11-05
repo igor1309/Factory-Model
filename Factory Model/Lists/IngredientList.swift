@@ -10,9 +10,6 @@ import SwiftUI
 struct IngredientList: View {
     @Environment(\.managedObjectContext) private var moc
     
-    @FetchRequest private var ingredients: FetchedResults<Ingredient>
-//    @FetchRequest private var recipes: FetchedResults<Recipe>
-
     @ObservedObject var base: Base
     
     let period: Period
@@ -31,7 +28,9 @@ struct IngredientList: View {
 //        )
 //        _recipes = Recipe.defaultFetchRequest(with: recipePredicate)
     }
-    
+        
+    @FetchRequest private var ingredients: FetchedResults<Ingredient>
+    //    @FetchRequest private var recipes: FetchedResults<Recipe>
     
     var body: some View {
         EntityListWithDashboard(
@@ -130,13 +129,11 @@ struct IngredientList: View {
 }
 
 struct IngredientList_Previews: PreviewProvider {
-    static let period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
-            IngredientList(for: Base.preview, in: period)
-                .preferredColorScheme(.dark)
+            IngredientList(for: Base.preview, in: .month())
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .preferredColorScheme(.dark)
         }
     }
 }

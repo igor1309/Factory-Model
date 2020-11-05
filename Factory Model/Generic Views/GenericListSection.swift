@@ -16,21 +16,21 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     @FetchRequest private var fetchRequest: FetchedResults<T>
     
     let editor: (T) -> Editor
-    let useSmallerFont: Bool
+    let smallFont: Bool
     let header: String
     let period: Period
     
     init(
         header: String? = T.plural,
         fetchRequest: FetchRequest<T>,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header ?? T.plural
         _fetchRequest = fetchRequest
         self.editor = editor
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
     }
     
@@ -38,13 +38,13 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         header: String? = T.plural,
         type: T.Type,
         predicate: NSPredicate?,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         in period: Period,
         @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header ?? T.plural
         self.editor = editor
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
@@ -62,7 +62,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
                     NavigationLink(
                         destination: editor(entity)
                     ) {
-                        EntityRowWithAction(entity, useSmallerFont: useSmallerFont, in: period)
+                        EntityRowWithAction(entity, smallFont: smallFont, in: period)
                     }
                 }
             }
@@ -85,23 +85,23 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
 }
 
 fileprivate struct EntityRowWithAction<T: Listable>: View {
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var entity: T
     
-    let useSmallerFont: Bool
+    let smallFont: Bool
     let period: Period
     
-    init(_ entity: T, useSmallerFont: Bool = true, in period: Period) {
+    init(_ entity: T, smallFont: Bool = true, in period: Period) {
         self.entity = entity
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
     }
     
     @State private var showDeleteAction = false
     
     var body: some View {
-        EntityRow(entity, useSmallerFont: useSmallerFont, in: period)
+        EntityRow(entity, smallFont: smallFont, in: period)
             .contextMenu {
                 Button {
                     showDeleteAction = true
@@ -124,8 +124,37 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
     
     private func delete(_ entity: T) {
         withAnimation {
-            moc.delete(entity)
-            moc.saveContext()
+            context.delete(entity)
+            context.saveContext()
         }
+    }
+}
+
+struct GenericListSection_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            GenericListSection(
+                type: Factory.self,
+                predicate: nil,
+                in: .month()
+            ) { (factory: Factory) in
+                FactoryEditor(factory)
+            }
+//            GenericListSection(
+//                type: Base.self,
+//                predicate: nil,
+//                in: .month()
+//            ) { (base: Base) in
+//                BaseEditor(base, in: .month())
+//            }
+//            GenericListSection(
+//                fetchRequest: FetchRequest(entity: Base.entity(), sortDescriptors: []),
+//                in: .month()
+//            ) { (base: Base) in
+//                BaseEditor(base, in: .month())
+//            }
+        }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .preferredColorScheme(.dark)
     }
 }

@@ -10,12 +10,12 @@ import SwiftUI
 struct EntityRow<T: ObservableObject & Summarizable>: View {
     @ObservedObject var entity: T
     
-    let useSmallerFont: Bool
+    let smallFont: Bool
     let period: Period
     
-    init(_ entity: T, useSmallerFont: Bool = true, in period: Period) {
+    init(_ entity: T, smallFont: Bool = true, in period: Period) {
         self.entity = entity
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
         self.period = period
     }
     
@@ -26,7 +26,7 @@ struct EntityRow<T: ObservableObject & Summarizable>: View {
             detail: entity.detail(in: period),
             icon: T.icon,
             color: T.color,
-            useSmallerFont: useSmallerFont
+            smallFont: smallFont
         )
     }
 }
@@ -38,7 +38,7 @@ struct ListRow: View {
     var detail: String
     let icon: String
     var color: Color
-    let useSmallerFont: Bool
+    let smallFont: Bool
     
     init(
         title: String,
@@ -46,19 +46,19 @@ struct ListRow: View {
         detail: String? = nil,
         icon: String,
         color: Color = .primary,
-        useSmallerFont: Bool = true
+        smallFont: Bool = true
     ) {
         self.title = title
         self.subtitle = subtitle ?? ""
         self.detail = detail ?? ""
         self.icon = icon
         self.color = color
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
     }
     
     init<T: Summarizable>(
         _ item: T,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         period: Period = .month()
     ) {
         self.title = item.title(in: period)
@@ -66,12 +66,12 @@ struct ListRow: View {
         self.detail = item.detail(in: period) ?? ""
         self.icon = T.icon
         self.color = T.color
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
     }
 
     init(
         _ row: Something,
-        useSmallerFont: Bool = true,
+        smallFont: Bool = true,
         period: Period = .month()
     ) {
         self.title = row.title(in: period)
@@ -79,7 +79,7 @@ struct ListRow: View {
         self.detail = row.detail(in: period) ?? ""
         self.icon = type(of: row).icon
         self.color = .primary
-        self.useSmallerFont = useSmallerFont
+        self.smallFont = smallFont
     }
     
     private var hasTitleOnly: Bool {
@@ -98,12 +98,12 @@ struct ListRow: View {
                             .foregroundColor(color)
                     }
                 }
-                .font(useSmallerFont ? .subheadline : .headline)
+                .font(smallFont ? .subheadline : .headline)
                 
                 if !subtitle.isEmpty {
                     Text(subtitle)
                         .foregroundColor(subtitle.hasPrefix("ERROR") ? .systemRed : .secondary)
-                        .font(useSmallerFont ? .footnote : .subheadline)
+                        .font(smallFont ? .footnote : .subheadline)
                 }
                 
                 if !detail.isEmpty {
