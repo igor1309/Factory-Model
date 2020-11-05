@@ -9,29 +9,30 @@ import SwiftUI
 
 struct EntityLinkToList<T: Managed & Monikerable & Summarizable, Editor: View>: View where T.ManagedType == T {
     
-    var editor: (T) -> Editor
-    let period: Period
+    @EnvironmentObject var settings: Settings
     
-    init(in period: Period, @ViewBuilder editor: @escaping (T) -> Editor) {
-        self.period = period
+    var editor: (T) -> Editor
+    
+    init(@ViewBuilder editor: @escaping (T) -> Editor) {
         self.editor = editor
     }
     
+    private var destination: some View {
+        List {
+            GenericListSection(
+                type: T.self,
+                predicate: nil,
+                in: settings.period
+            ) { (entity: T) in
+                editor(entity)
+            }
+        }
+        .listStyle(InsetGroupedListStyle())
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    
     var body: some View {
-        NavigationLink(
-            destination:
-                List {
-                    GenericListSection(
-                        type: T.self,
-                        predicate: nil,
-                        in: period
-                    ) { (entity: T) in
-                        editor(entity)
-                    }
-                }
-                .listStyle(InsetGroupedListStyle())
-                .navigationBarTitleDisplayMode(.inline)
-        ) {
+        NavigationLink(destination: destination) {
             Label(T.plural, systemImage: T.icon)
                 .foregroundColor(T.color)
         }

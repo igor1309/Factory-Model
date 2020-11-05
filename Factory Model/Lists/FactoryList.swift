@@ -9,12 +9,7 @@ import SwiftUI
 import CoreData
 
 struct FactoryList: View {
-    
-    @Binding var period: Period
-    
-    init(in period: Binding<Period>) {
-        _period = period
-    }
+    @EnvironmentObject var settings: Settings
     
     var body: some View {
         List {
@@ -22,9 +17,9 @@ struct FactoryList: View {
                 type: Factory.self,
                 predicate: nil,
                 smallFont: false,
-                in: period
+                in: settings.period
             ) { factory in
-                FactoryView(factory, in: $period)
+                FactoryView(factory, in: $settings.period)
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -32,8 +27,8 @@ struct FactoryList: View {
         .navigationBarItems(
             trailing:
                 HStack(spacing: 16) {
-                    MenuCreateNewOrSample(period: period)
-                    CreateEntityPickerButton(period: period)
+                    MenuCreateNewOrSample(period: settings.period)
+                    CreateEntityPickerButton(period: settings.period)
                 }
         )
     }
@@ -45,8 +40,9 @@ struct FactoryList_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            FactoryList(in: $period)
+            FactoryList()
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

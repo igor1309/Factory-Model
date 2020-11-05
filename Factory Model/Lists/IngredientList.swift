@@ -18,7 +18,7 @@ struct IngredientList: View {
         self.base = base
         self.period = period
         
-        let predicate = NSPredicate(
+        predicate = NSPredicate(
             format: "ANY %K.base == %@", #keyPath(Ingredient.recipes_), base
         )
         _ingredients = Ingredient.defaultFetchRequest(with: predicate)
@@ -31,6 +31,8 @@ struct IngredientList: View {
         
     @FetchRequest private var ingredients: FetchedResults<Ingredient>
     //    @FetchRequest private var recipes: FetchedResults<Recipe>
+    
+    private let predicate: NSPredicate
     
     var body: some View {
         EntityListWithDashboard(

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var period: Period = .month()
+    //@State private var period: Period = .month()
     
     var body: some View {
         NavigationView {
-            Testing(in: $period)
+            Testing()
         }
         
 //        NavigationView {

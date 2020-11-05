@@ -15,14 +15,16 @@ struct SalesList: View {
     init(for product: Product, in period: Period) {
         self.product = product
         self.period = period
+        
+        predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
     }
+    
+    private let predicate: NSPredicate
     
     var body: some View {
         ListWithDashboard(
             for: product,
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Sales.product), product
-            ),
+            predicate: predicate,
             in: period
         ) {
             CreateChildButton(

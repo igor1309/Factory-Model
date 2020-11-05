@@ -154,6 +154,7 @@
 		2AADA0A124C4F4A9005F1E9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AADA0A024C4F4A9005F1E9F /* Preview Assets.xcassets */; };
 		2AADA0AA24C4F4E2005F1E9F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2AADA0A824C4F4E2005F1E9F /* DataModel.xcdatamodeld */; };
 		2AB2C9CE24FA4D27000506D3 /* GroupCodeNotable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */; };
+		2AB3051A25546AFB0060A94D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB3051925546AFB0060A94D /* Settings.swift */; };
 		2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB435E24EE6ECF0036F42F /* BuyerView.swift */; };
 		2ABB436124EE74590036F42F /* RecipeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436024EE74590036F42F /* RecipeRow.swift */; };
 		2ABB436324EFC9D90036F42F /* ProductDataSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABB436224EFC9D90036F42F /* ProductDataSections.swift */; };
@@ -323,6 +324,7 @@
 		2AADA0A224C4F4A9005F1E9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2AADA0A924C4F4E2005F1E9F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCodeNotable.swift; sourceTree = "<group>"; };
+		2AB3051925546AFB0060A94D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2ABB435E24EE6ECF0036F42F /* BuyerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuyerView.swift; sourceTree = "<group>"; };
 		2ABB436024EE74590036F42F /* RecipeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeRow.swift; sourceTree = "<group>"; };
 		2ABB436224EFC9D90036F42F /* ProductDataSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSections.swift; sourceTree = "<group>"; };
@@ -479,6 +481,7 @@
 				2AE6DB422513CE7E00457D74 /* PCM.swift */,
 				2A16C6B82518AF4200B0BFE5 /* PriceCostMargin.swift */,
 				2A30471424C87AB90002E5DD /* Something.swift */,
+				2AB3051925546AFB0060A94D /* Settings.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -777,6 +780,7 @@
 				2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */,
 				2A8B35F524EE5DD300A829DD /* PackagingView.swift in Sources */,
 				2A167F0D24EC181F00A8E7DE /* UtilityEditor.swift in Sources */,
+				2AB3051A25546AFB0060A94D /* Settings.swift in Sources */,
 				2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */,
 				2A85734324C5D853009FF51A /* Expenses.swift in Sources */,
 				2A167EF324EB2B4200A8E7DE /* ParentUnitStringPicker.swift in Sources */,
