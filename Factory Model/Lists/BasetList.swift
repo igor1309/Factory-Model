@@ -24,7 +24,11 @@ struct BaseList: View {
             predicate: Base.factoryPredicate(for: factory),
             in: period
         ) {
-            CreateChildButton(systemName: "bag.badge.plus", childType: Base.self, parent: factory, keyPath: \Factory.bases_)
+            CreateChildButton(
+                childType: Base.self,
+                parent: factory,
+                keyPath: \Factory.bases_
+            )
         } dashboard: {
             ListRow(
                 title: "Общий объем производства",

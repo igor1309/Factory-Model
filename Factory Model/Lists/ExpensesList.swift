@@ -18,7 +18,10 @@ struct ExpensesList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, in: period) {
+        EntityListWithDashboard(
+            for: factory,
+            in: period
+        ) {
             Section(
                 header: Text("Total"),
                 footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")

@@ -26,7 +26,6 @@ struct SalesList: View {
             in: period
         ) {
             CreateChildButton(
-                systemName: "cart.badge.plus",
                 childType: Sales.self,
                 parent: product,
                 keyPath: \Product.sales_

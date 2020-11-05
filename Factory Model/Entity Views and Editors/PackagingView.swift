@@ -18,7 +18,11 @@ struct PackagingView: View {
     init(_ packaging: Packaging, in period: Period) {
         self.packaging = packaging
         self.period = period
+        
+        predicate = NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
     }
+    
+    private let predicate: NSPredicate
     
     var body: some View {
         List {
@@ -37,7 +41,7 @@ struct PackagingView: View {
             GenericListSection(
                 header: "Used in Products",
                 type: Product.self,
-                predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging),
+                predicate: predicate,
                 in: period
             ) { product in
                 ProductView(product, in: period)

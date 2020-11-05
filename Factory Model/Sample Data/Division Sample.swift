@@ -8,6 +8,12 @@
 import CoreData
 
 extension Division {
+    
+    static var preview: Division {
+        let preview = PersistenceManager.previewContext
+        return createSampleDivisions(in: preview)[0]
+    }
+        
     static func createSampleDivisions(in context: NSManagedObjectContext) -> [Division] {
         
         //  MARK: - Divisions

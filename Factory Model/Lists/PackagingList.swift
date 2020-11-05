@@ -17,14 +17,21 @@ struct PackagingList: View {
         self.period = period
     }
     
+    /// to update list (fetch) by publishing context saved event
+    /// https://stackoverflow.com/a/58777603/11793043
+    @State private var refreshing = false
+    private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
     var body: some View {
         ListWithDashboard(
             for: factory,
             predicate: Packaging.factoryPredicate(for: factory),
             in: period
         ) {
+            CreateOrphanButton<Packaging>()
+            
             //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
-            EmptyView()
+            // EmptyView()
             /* CreateChildButton(
              systemName: "plus.square",
              childType: Packaging.self,
@@ -34,7 +41,8 @@ struct PackagingList: View {
         } dashboard: {
             Section {
                 Group {
-                    LabelWithDetail("squareshape.split.3x3", "No of Packagings", factory.packagings.count.formattedGrouped)
+                    /// refreshing UI if context was saved
+                    LabelWithDetail("squareshape.split.3x3" + (refreshing ? "" : ""), "No of Packagings", factory.packagings.count.formattedGrouped)
                     //                    LabelWithDetail(<#T##systemName: String##String#>, <#T##title: _##_#>, <#T##detail: _##_#>)
                 }
                 .foregroundColor(.secondary)
@@ -45,6 +53,10 @@ struct PackagingList: View {
             //                .foregroundColor(.systemRed)
         } editor: { (packaging: Packaging) in
             PackagingEditor(packaging, in: period)
+        }
+        /// observing context saving
+        .onReceive(didSave) { _ in
+            refreshing.toggle()
         }
     }
 }

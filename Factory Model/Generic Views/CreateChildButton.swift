@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 import Combine
 
-struct CreateChildButton<Child: Managed & Sketchable,
+struct CreateChildButton<Child: Managed & Summarizable & Sketchable,
                          Parent: NSManagedObject>: View {
     
     @Environment(\.managedObjectContext) private var context
@@ -27,7 +27,7 @@ struct CreateChildButton<Child: Managed & Sketchable,
         parent: Parent,
         keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
     ) {
-        self.systemName = systemName ?? "plus"
+        self.systemName = systemName ?? Child.plusButtonIcon
         self.title = ""
         self.parent = parent
         self.path = keyPath?._kvcKeyPathString

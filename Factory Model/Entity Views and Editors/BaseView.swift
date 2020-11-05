@@ -17,7 +17,13 @@ struct BaseView: View {
     init(_ base: Base, in period: Period) {
         self.base = base
         self.period = period
+        
+        basePredicate = NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+        recipePredicate = NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
     }
+    
+    private let basePredicate: NSPredicate
+    private let recipePredicate: NSPredicate
     
     var body: some View {
         List {
@@ -38,7 +44,7 @@ struct BaseView: View {
                 GenericListSection(
                     header: "Used in Products",
                     type: Product.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base),
+                    predicate: basePredicate,
                     in: period
                 ) { product in
                     ProductView(product, in: period)
@@ -56,14 +62,18 @@ struct BaseView: View {
             CostSection(cost: base.perKilo(in: period).cost, showBarChart: false)
             CostSection(cost: base.produced(in: period).cost, showBarChart: false)
             CostSection(cost: base.sold(in: period).cost, showBarChart: false)
-
+            
             ProductDataSections(base, in: period) {
                 ListWithDashboard(
                     for: base,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base),
+                    predicate: recipePredicate,
                     in: period
                 ) {
-                    CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
+                    CreateChildButton(
+                        childType: Recipe.self,
+                        parent: base,
+                        keyPath: \Base.recipes_
+                    )
                 } dashboard: {
                     
                 } editor: { (recipe: Recipe) in
@@ -82,13 +92,25 @@ struct BaseView: View {
             ) {
                 Group {
                     AmountPicker(systemName: "building.2", title: "Initial Inventory", navigationTitle: "Initial Inventory", scale: .large, amount: $base.initialInventory)
-                    
                 }
                 .font(.subheadline)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateChildButton(systemName: "rectangle.badge.plus", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
+//        .navigationBarItems(trailing: CreateChildButton(childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
+        .toolbar {
+            CreateChildButton(childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
+        }
+    }
+}
+
+struct BaseView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            BaseView(Base.preview, in: .month())
+        }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .preferredColorScheme(.dark)
     }
 }

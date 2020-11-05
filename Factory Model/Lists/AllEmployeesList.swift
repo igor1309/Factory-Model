@@ -24,8 +24,10 @@ struct AllEmployeesList: View {
             predicate: Employee.factoryPredicate(for: factory),
             in: period
         ) {
+            CreateOrphanButton<Employee>()
+            
             //  MARK: - FINISH THIS FUGURE OUT HOW TO CREATE ENTITY HERE
-            EmptyView()
+            // EmptyView()
             /*
             CreateChildButton(
                 systemName: "cart.badge.plus",

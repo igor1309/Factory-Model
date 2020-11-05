@@ -17,24 +17,23 @@ struct DepartmentView: View {
     init(_ department: Department, in period: Period) {
         self.department = department
         self.period = period
+        
+        //  MARK: - FINISH THIS
+        //  should be `default` predicate
+        //  format: "%K == %@", #keyPath(Product.base.factory), factory
+        predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
     }
+    
+    private let predicate: NSPredicate
     
     var body: some View {
         ListWithDashboard(
             for: department,
             title: department.name,
-            
-            //  MARK: - FINISH THIS
-            //  should be `default` predicate
-            //            format: "%K == %@", #keyPath(Product.base.factory), factory
-            
-            predicate: NSPredicate(
-                format: "%K == %@", #keyPath(Employee.department), department
-            ),
-            in: period            
+            predicate: predicate,
+            in: period
         ) {
             CreateChildButton(
-                systemName: "person.badge.plus",
                 childType: Employee.self,
                 parent: department,
                 keyPath: \Department.employees_
@@ -51,11 +50,21 @@ struct DepartmentView: View {
             }
             
             ErrorMessage(department)
-                        
+            
             LaborView(for: department, in: period)
             
         } editor: { (employee: Employee) in
             EmployeeEditor(employee)
         }
+    }
+}
+
+struct DepartmentView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            DepartmentView(Department.preview, in: .month())
+        }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .preferredColorScheme(.dark)
     }
 }

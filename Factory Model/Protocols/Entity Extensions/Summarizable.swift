@@ -67,6 +67,7 @@ extension Base: Summarizable {
     
     static var color: Color { .systemPurple }
     static var icon: String { "bag.circle" }
+    static var plusButtonIcon: String { "bag.badge.plus" }
     static var headline: String { "Create base product with ingredients." }
 }
 
@@ -119,6 +120,7 @@ extension Department: Summarizable {
     
     static var color: Color { .systemTeal }
     static var icon: String { "person.2" }
+    static var plusButtonIcon: String { "rectangle.stack.badge.plus" }
 }
 
 extension Employee: Summarizable {
@@ -250,20 +252,6 @@ extension Ingredient: Summarizable {
     static var plusButtonIcon: String { "square.grid.3x1.folder.badge.plus" }
 }
 
-extension Recipe: Summarizable {
-    func title(in period: Period) -> String { ingredient?.name ?? "ERROR: ingredient unknown" }
-    
-    func subtitle(in period: Period) -> String {
-        qty.formattedGrouped + " " + customUnitString + " @ "
-            + (ingredient?.priceExVAT ?? 0).formattedGrouped
-            + " = " + ingredientsExVAT.formattedGrouped
-    }
-    
-    static var color: Color { .systemPurple }
-    static var icon: String { "link.circle" }   //"puzzlepiece" }
-    static var plusButtonIcon: String { "link.badge.plus" }    //"plus.rectangle.on.rectangle" }
-}
-
 extension Packaging: Summarizable {
     func subtitle(in period: Period) -> String { type }
     
@@ -274,6 +262,7 @@ extension Packaging: Summarizable {
     
     static var color: Color { .systemIndigo }
     static var icon: String { "shippingbox" }
+    static var plusButtonIcon: String { "rectangle.badge.plus" }
 }
 
 extension Product: Summarizable {
@@ -295,6 +284,20 @@ extension Product: Summarizable {
     static var headline: String {
         "Create a product for sale with base product, base product quantity, packaging, VAT and other parameters."
     }
+}
+
+extension Recipe: Summarizable {
+    func title(in period: Period) -> String { ingredient?.name ?? "ERROR: ingredient unknown" }
+    
+    func subtitle(in period: Period) -> String {
+        qty.formattedGrouped + " " + customUnitString + " @ "
+            + (ingredient?.priceExVAT ?? 0).formattedGrouped
+            + " = " + ingredientsExVAT.formattedGrouped
+    }
+    
+    static var color: Color { .systemPurple }
+    static var icon: String { "link.circle" }   //"puzzlepiece" }
+    static var plusButtonIcon: String { "link.badge.plus" }    //"plus.rectangle.on.rectangle" }
 }
 
 extension RecipeDraft: Summarizable {
@@ -330,7 +333,7 @@ extension Sales: Summarizable {
     
     static var color: Color { .systemGreen }
     static var icon: String { "creditcard.fill" }
-    static var plusButtonIcon: String { "rectangle.badge.plus" }
+    static var plusButtonIcon: String { "cart.badge.plus" }
 }
 
 extension SalesDraft: Summarizable {
@@ -361,4 +364,5 @@ extension Utility: Summarizable {
     }
     
     static var icon: String { "lightbulb" }
+    static var plusButtonIcon: String { "gauge.badge.plus" }
 }

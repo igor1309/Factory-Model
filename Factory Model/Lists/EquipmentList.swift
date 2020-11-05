@@ -18,7 +18,10 @@ struct EquipmentList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, in: period) {
+        EntityListWithDashboard(
+            for: factory,
+            in: period
+        ) {
             Section(header: Text("Total")) {
                 Group {
                     LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")

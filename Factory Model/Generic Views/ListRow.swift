@@ -118,5 +118,6 @@ struct ListRow: View {
                 .foregroundColor(color)
                 .offset(y: hasTitleOnly ? 0 : 3)
         }
+        .contentShape(Rectangle())
     }
 }

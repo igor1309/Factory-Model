@@ -24,7 +24,6 @@ struct UtilityList: View {
             in: period
         ) {
             CreateChildButton(
-                systemName: "gauge.badge.plus",
                 childType: Utility.self,
                 parent: base,
                 keyPath: \Base.utilities_

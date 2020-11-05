@@ -18,7 +18,11 @@ struct IngredientView: View {
     init(_ ingredient: Ingredient, in period: Period) {
         self.ingredient = ingredient
         self.period = period
+        
+        predicate = NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
     }
+    
+    private let predicate: NSPredicate
     
     var unitHeader: some View {
         let text: String = {
@@ -62,7 +66,7 @@ struct IngredientView: View {
             GenericListSection(
                 header: "Used in Base Products",
                 type: Base.self,
-                predicate: NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient),
+                predicate: predicate,
                 in: period
             ) { (base: Base) in
                 BaseEditor(base, in: period)

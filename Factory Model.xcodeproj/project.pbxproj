@@ -135,6 +135,7 @@
 		2A93D98224D227E000DF1A35 /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98124D227E000DF1A35 /* Division.swift */; };
 		2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */; };
 		2A94C3DD24D43182000C928E /* EquipmentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94C3DC24D43182000C928E /* EquipmentList.swift */; };
+		2A9B996C25542B9D0062A1C2 /* Buyer Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9B996B25542B9D0062A1C2 /* Buyer Sample.swift */; };
 		2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */; };
 		2A9C8DAD24D4B8B000AD7C34 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */; };
 		2A9C8DAF24D4BE3C00AD7C34 /* ProfitAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */; };
@@ -300,6 +301,7 @@
 		2A93D98124D227E000DF1A35 /* Division.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Division.swift; sourceTree = "<group>"; };
 		2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBuyersList.swift; sourceTree = "<group>"; };
 		2A94C3DC24D43182000C928E /* EquipmentList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EquipmentList.swift; sourceTree = "<group>"; };
+		2A9B996B25542B9D0062A1C2 /* Buyer Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buyer Sample.swift"; sourceTree = "<group>"; };
 		2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Ext.swift"; sourceTree = "<group>"; };
 		2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitAndLossView.swift; sourceTree = "<group>"; };
@@ -505,6 +507,7 @@
 			isa = PBXGroup;
 			children = (
 				2A6979AF24DFF95B009B03F2 /* Base Sample.swift */,
+				2A9B996B25542B9D0062A1C2 /* Buyer Sample.swift */,
 				2A73A6882541D2910005D541 /* Department Sample.swift */,
 				2A43472E24F56E1800ADCB23 /* Division Sample.swift */,
 				2A73A6852541D2750005D541 /* Employee Sample.swift */,
@@ -905,6 +908,7 @@
 				2A7F4AA724ED6164002A315F /* CreateSales.swift in Sources */,
 				2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */,
 				2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */,
+				2A9B996C25542B9D0062A1C2 /* Buyer Sample.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
 				2A9FC7F72515EA6F00C4AD0D /* PriceCostMarginSection.swift in Sources */,
 				2AE6DB372512033700457D74 /* Ingredientable.swift in Sources */,
@@ -1062,6 +1066,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1085,6 +1090,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.01;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

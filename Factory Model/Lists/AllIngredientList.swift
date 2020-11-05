@@ -18,16 +18,22 @@ struct AllIngredientList: View {
         self.period = period
     }
     
+    /// to update list (fetch) by publishing context saved event
+    /// https://stackoverflow.com/a/58777603/11793043
+    @State private var refreshing = false
+    private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+
     var body: some View {
         ListWithDashboard(
             for: factory,
             predicate: Ingredient.factoryPredicate(for: factory),
             in: period
         ) {
-            CreateOrphanButton<Ingredient>(systemName: Ingredient.plusButtonIcon)
+            CreateOrphanButton<Ingredient>()
         } dashboard: {
             Section(
-                header: Text("Used in Production")
+                /// refreshing UI if context was saved
+                header: Text("Used in Production" + (refreshing ? "" : ""))
             ) {
                 Group {
                     LabelWithDetail("squareshape.split.3x3", "No of Ingredients", factory.ingredients.count.formattedGrouped)
@@ -38,6 +44,10 @@ struct AllIngredientList: View {
             }
         } editor: { (ingredient: Ingredient) in
             IngredientView(ingredient, in: period)
+        }
+        /// observing context saving
+        .onReceive(didSave) { _ in
+            refreshing.toggle()
         }
     }
 }

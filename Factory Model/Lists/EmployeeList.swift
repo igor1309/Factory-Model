@@ -26,7 +26,6 @@ struct EmployeeList: View {
             in: period
         ) {
             CreateChildButton(
-                systemName: Employee.plusButtonIcon,
                 childType: Employee.self,
                 parent: department,
                 keyPath: \Department.employees_

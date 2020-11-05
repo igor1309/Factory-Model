@@ -17,17 +17,20 @@ struct BuyerView: View {
     init(_ buyer: Buyer, in period: Period) {
         self.buyer = buyer
         self.period = period
+        
+        predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
     }
+    
+    private let predicate: NSPredicate
     
     var body: some View {
         ListWithDashboard(
             for: buyer,
             title: "Edit Buyer",
-            predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer),
+            predicate: predicate,
             in: period
         ) {
             CreateChildButton(
-                systemName: "cart",
                 childType: Sales.self,
                 parent: buyer,
                 keyPath: \Buyer.sales_
@@ -54,5 +57,16 @@ struct BuyerView: View {
         } editor: { (sales: Sales) in
             SalesEditor(sales, in: period)
         }
+    }
+}
+
+struct BuyerView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            BuyerView(Buyer.preview, in: .month())
+        }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .preferredColorScheme(.dark)
+
     }
 }
