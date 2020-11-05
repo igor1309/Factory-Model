@@ -105,8 +105,33 @@ struct Testing: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle("Testing", displayMode: .inline)
+        .navigationBarItems(
+            leading: settingsButton,
+            trailing: CreateEntityPickerButton(period: Period.month())
+        )
         .toolbar {
-            CreateEntityPickerButton(period: Period.month())
+            ToolbarItem(placement: .navigationBarLeading) {
+                settingsButton
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                CreateEntityPickerButton(period: Period.month())
+            }
+        }
+    }
+    
+    
+    @State private var showSettings = false
+    
+    private var settingsButton: some View {
+        Button {
+            showSettings = true
+        } label: {
+            Image(systemName: "gear")
+        }
+        .sheet(isPresented: $showSettings) {
+            SettingsView()
+                .environmentObject(settings)
         }
     }
 }

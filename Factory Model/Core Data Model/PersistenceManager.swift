@@ -74,8 +74,26 @@ extension PersistenceManager {
     }()
     
 
-    //  MARK: - FINISH THIS - NOT WORKING
     func deleteAll() {
+        let entities = container.managedObjectModel.entities
+        
+        for entity in entities {
+            if let entityName = entity.name {
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+                do {
+                    try context.execute(deleteRequest)
+                } catch let error as NSError {
+                    debugPrint("Delete ERROR \(entityName)")
+                    debugPrint(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    //  MARK: - FINISH THIS - NOT WORKING
+    func deleteAllTOFIX() {
+        
         let fetchRequest1: NSFetchRequest<NSFetchRequestResult> = Base.fetchRequest()
         let batchDeleteRequest1 = NSBatchDeleteRequest(fetchRequest: fetchRequest1)
         _ = try? container.viewContext.execute(batchDeleteRequest1)
