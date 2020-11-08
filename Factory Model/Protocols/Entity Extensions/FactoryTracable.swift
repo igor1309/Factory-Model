@@ -29,8 +29,16 @@ extension Buyer: FactoryTracable {
     static var factoryPath: String { "\(#keyPath(Buyer.factory))" }
 }
 
+extension Department: FactoryTracable {
+    static var factoryPath: String { "\(#keyPath(Department.division.factory))" }
+}
+
 extension Division: FactoryTracable {
     static var factoryPath: String { "\(#keyPath(Division.factory))" }
+}
+
+extension Employee: FactoryTracable {
+    static var factoryPath: String { "\(#keyPath(Employee.department.division.factory))" }
 }
 
 extension Equipment: FactoryTracable {
@@ -57,8 +65,4 @@ extension Product: FactoryTracable {
 
 extension Sales: FactoryTracable {
     static var factoryPath: String { "\(#keyPath(Sales.product.base.factory))" }
-}
-
-extension Employee: FactoryTracable {
-    static var factoryPath: String { "\(#keyPath(Employee.department.division.factory))" }
 }

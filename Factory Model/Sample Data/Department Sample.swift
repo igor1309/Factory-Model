@@ -9,9 +9,10 @@ import CoreData
 
 extension Department {
     
-    static var preview: Department {
+    static var example: Department {
         let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Department>(entityName: "Department")
+        request.predicate = NSPredicate(format: "name_ == %@", "Производственный цех")
         let departments = try? preview.fetch(request)
         if let department = departments?.first {
             return department

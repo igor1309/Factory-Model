@@ -5,14 +5,14 @@
 //  Created by Igor Malyarov on 05.11.2020.
 //
 
-import Foundation
 import CoreData
 
 extension Buyer {
     
-    static var preview: Buyer {
+    static var example: Buyer {
         let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Buyer>(entityName: "Buyer")
+        request.predicate = NSPredicate(format: "name_ == %@", "Speelo Group")
         let buyers = try? preview.fetch(request)
         if let buyer = buyers?.first {
             return buyer

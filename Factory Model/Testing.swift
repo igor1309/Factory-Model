@@ -6,17 +6,27 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Testing: View {
+    @EnvironmentObject var persistence: PersistenceManager
     @EnvironmentObject var settings: Settings
     
-    //    init(in period: Binding<Period>) {
-    //        _period = period
-    //    }
+    @FetchRequest(entity: Product.entity(), sortDescriptors: [], predicate: NSPredicate(format: "name_ == %@", "Ведёрко 1 кг")) private var products: FetchedResults<Product>
     
     var body: some View {
         List {
-            PeriodPicker(icon: "deskclock", title: "Period", period: $settings.period)
+            PeriodPicker(period: $settings.period)
+            
+            Section {
+                if let product = products.first {
+                    NavigationLink(destination: ProductView(product)) {
+                        ListRow(product, period: settings.period)
+                    }
+                } else {
+                    Text("can't fetch product")
+                }
+            }
             
             Section {
                 NavigationLink(
@@ -26,7 +36,7 @@ struct Testing: View {
                 }
                 
                 EntityLinkToList { (factory: Factory) in
-                    FactoryView(factory, in: $settings.period)
+                    FactoryView(factory)
                 }
             }
             
@@ -36,23 +46,23 @@ struct Testing: View {
                 
             ) {
                 EntityLinkToList { (division: Division) in
-                    DivisionView(division, in: settings.period)
+                    DivisionView(division)
                 }
                 
                 EntityLinkToList { (department: Department) in
-                    DepartmentView(department, in: settings.period)
+                    DepartmentView(department)
                 }
                 
                 EntityLinkToList { (buyer: Buyer) in
-                    BuyerView(buyer, in: settings.period)
+                    BuyerView(buyer)
                 }
                 
                 EntityLinkToList { (product: Product) in
-                    ProductView(product, in: settings.period)
+                    ProductView(product)
                 }
                 
                 EntityLinkToList { (base: Base) in
-                    BaseView(base, in: settings.period)
+                    BaseView(base)
                 }
             }
             
@@ -61,11 +71,11 @@ struct Testing: View {
                 footer: Text("Subordinate. Not intended for direct use. No Entity View, using just Editor.")
             ) {
                 EntityLinkToList { (sales: Sales) in
-                    SalesEditor(sales, in: settings.period)
+                    SalesEditor(sales)
                 }
                 
                 EntityLinkToList { (recipe: Recipe) in
-                    RecipeEditor(recipe, in: settings.period)
+                    RecipeEditor(recipe)
                 }
             }
             
@@ -74,11 +84,11 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
             ) {
                 EntityLinkToList { (ingredient: Ingredient) in
-                    IngredientView(ingredient, in: settings.period)
+                    IngredientView(ingredient)
                 }
                 
                 EntityLinkToList { (packaging: Packaging) in
-                    PackagingView(packaging, in: settings.period)
+                    PackagingView(packaging)
                 }
             }
             
@@ -87,7 +97,7 @@ struct Testing: View {
                 footer: Text("No Entity View, using Editor.")
             ) {
                 EntityLinkToList { (utility: Utility) in
-                    UtilityEditor(utility, in: settings.period)
+                    UtilityEditor(utility)
                 }
                 
                 EntityLinkToList { (employee: Employee) in
@@ -95,7 +105,7 @@ struct Testing: View {
                 }
                 
                 EntityLinkToList { (equipment: Equipment) in
-                    EquipmentEditor(equipment, in: settings.period)
+                    EquipmentEditor(equipment)
                 }
                 
                 EntityLinkToList { (expenses: Expenses) in
@@ -107,17 +117,17 @@ struct Testing: View {
         .navigationBarTitle("Testing", displayMode: .inline)
         .navigationBarItems(
             leading: settingsButton,
-            trailing: CreateEntityPickerButton(period: Period.month())
+            trailing: CreateEntityPickerButton()
         )
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                settingsButton
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                CreateEntityPickerButton(period: Period.month())
-            }
-        }
+        //        .toolbar {
+        //            ToolbarItem(placement: .navigationBarLeading) {
+        //                settingsButton
+        //            }
+        //
+        //            ToolbarItem(placement: .navigationBarTrailing) {
+        //                CreateEntityPickerButton()
+        //            }
+        //        }
     }
     
     
@@ -131,20 +141,20 @@ struct Testing: View {
         }
         .sheet(isPresented: $showSettings) {
             SettingsView()
+                .environmentObject(persistence)
                 .environmentObject(settings)
         }
     }
 }
 
 struct Testing_Previews: PreviewProvider {
-    @StateObject static var settings = Settings()
-    
     static var previews: some View {
         NavigationView {
             Testing()
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
-        .environmentObject(settings)
+        .environmentObject(PersistenceManager.preview)
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

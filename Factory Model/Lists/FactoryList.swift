@@ -16,10 +16,9 @@ struct FactoryList: View {
             GenericListSection(
                 type: Factory.self,
                 predicate: nil,
-                smallFont: false,
-                in: settings.period
+                smallFont: false
             ) { factory in
-                FactoryView(factory, in: $settings.period)
+                FactoryView(factory)
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -27,8 +26,8 @@ struct FactoryList: View {
         .navigationBarItems(
             trailing:
                 HStack(spacing: 16) {
-                    MenuCreateNewOrSample(period: settings.period)
-                    CreateEntityPickerButton(period: settings.period)
+                    MenuCreateNewOrSample()
+                    CreateEntityPickerButton()
                 }
         )
     }
@@ -36,14 +35,12 @@ struct FactoryList: View {
 
 
 struct FactoryList_Previews: PreviewProvider {
-    @State static var period: Period = .month()
-    
     static var previews: some View {
         NavigationView {
             FactoryList()
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

@@ -10,19 +10,15 @@ import SwiftUI
 struct BaseList: View {
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
             title: "Base Products",
-            predicate: Base.factoryPredicate(for: factory),
-            in: period
+            predicate: Base.factoryPredicate(for: factory)
         ) {
             CreateChildButton(
                 childType: Base.self,
@@ -44,7 +40,7 @@ struct BaseList: View {
                 icon: "dollarsign.circle"
             )
         } editor: { (base: Base) in
-            BaseView(base, in: period)
+            BaseView(base)
         }
     }
 }
@@ -53,8 +49,9 @@ struct BaseList: View {
 struct BasetList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            BaseList(for: Factory.preview, in: .month())
+            BaseList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

@@ -30,7 +30,7 @@ struct PriceCostMarginSection: View {
                     return "Price per Kilo, with VAT"
             }
         }
-
+        
         var costStr: String {
             switch self {
                 case .revenue:
@@ -100,36 +100,40 @@ struct PriceCostMarginSection_Previews: PreviewProvider {
             PriceCostMarginSection(
                 priceCostMargin: PCM(
                     price: 120.2,
-                    cost: 99.9,
-                    formatWithDecimal: true
+                    cost: 199.9,
+                    formatWithDecimal: false
                 ),
                 kind: .averageWithVAT
             )
-            PriceCostMarginSection(
-                priceCostMargin: PCM(
-                    price: 120.2,
-                    cost: 99.9,
-                    formatWithDecimal: true
-                ),
-                kind: .averageExVAT
-            )
-            PriceCostMarginSection(
-                priceCostMargin: PCM(
-                    price: 120.2,
-                    cost: 99.9,
-                    formatWithDecimal: true
-                ),
-                kind: .perKiloWithVAT
-            )
-            PriceCostMarginSection(
-                priceCostMargin: PCM(
-                    price: 120.2,
-                    cost: 99.9,
-                    formatWithDecimal: true
-                ),
-                kind: .perKiloExVAT
-            )
+            
+            Section(header: Text("with decimal")) {
+                PriceCostMarginSection(
+                    priceCostMargin: PCM(
+                        price: 120.2,
+                        cost: 199.9,
+                        formatWithDecimal: true
+                    ),
+                    kind: .averageExVAT
+                )
+                PriceCostMarginSection(
+                    priceCostMargin: PCM(
+                        price: 120.2,
+                        cost: 99.9,
+                        formatWithDecimal: true
+                    ),
+                    kind: .perKiloWithVAT
+                )
+                PriceCostMarginSection(
+                    priceCostMargin: PCM(
+                        price: 120.2,
+                        cost: 199.9,
+                        formatWithDecimal: true
+                    ),
+                    kind: .perKiloExVAT
+                )
+            }
         }
+        .listStyle(InsetGroupedListStyle())
         .preferredColorScheme(.dark)
     }
 }

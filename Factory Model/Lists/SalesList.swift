@@ -10,11 +10,8 @@ import SwiftUI
 struct SalesList: View {
     @ObservedObject var product: Product
     
-    let period: Period
-    
-    init(for product: Product, in period: Period) {
+    init(for product: Product) {
         self.product = product
-        self.period = period
         
         predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
     }
@@ -24,8 +21,7 @@ struct SalesList: View {
     var body: some View {
         ListWithDashboard(
             for: product,
-            predicate: predicate,
-            in: period
+            predicate: predicate
         ) {
             CreateChildButton(
                 childType: Sales.self,
@@ -40,7 +36,7 @@ struct SalesList: View {
                 icon: "creditcard"
             )
         } editor: { (sales: Sales) in
-            SalesEditor(sales, in: period)
+            SalesEditor(sales)
         }
     }
 }
@@ -48,9 +44,10 @@ struct SalesList: View {
 struct SalesList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            SalesList(for: Product.preview, in: .month())
+            SalesList(for: Product.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .preferredColorScheme(.dark)
         }
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

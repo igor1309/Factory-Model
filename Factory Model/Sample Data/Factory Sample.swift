@@ -5,14 +5,14 @@
 //  Created by Igor Malyarov on 09.08.2020.
 //
 
-import Foundation
 import CoreData
 
 extension Factory {
     
-    static var preview: Factory {
+    static var example: Factory {
         let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Factory>(entityName: "Factory")
+        request.predicate = NSPredicate(format: "name_ == %@", "Сыроварня")
         let factories = try? preview.fetch(request)
         if let factory = factories?.first {
             return factory
@@ -104,13 +104,8 @@ extension Factory {
         
         //  MARK: - Equipment
         
-        let equipment = Equipment(context: context)
-        equipment.name = "Сырная линия"
-        equipment.note = "Основная производственная линия"
-        equipment.price = 7_000_000
-        equipment.lifetime = 7
-        
-        factory1.equipments = [equipment]
+        let equipment = Equipment.createSampleEquipment(in: context)
+        equipment.factory = factory1
         
         
         context.saveContext()

@@ -5,14 +5,14 @@
 //  Created by Igor Malyarov on 09.08.2020.
 //
 
-import Foundation
 import CoreData
 
 extension Base {
     
-    static var preview: Base {
+    static var example: Base {
         let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Base>(entityName: "Base")
+        request.predicate = NSPredicate(format: "name_ == %@", "Хинкали")
         let bases = try? preview.fetch(request)
         if let base = bases?.first {
             return base
@@ -55,6 +55,10 @@ extension Base {
         recipe2.coefficientToParentUnit = 1/1_000
         
         base.recipes = [recipe1, recipe2]
+        
+        let utility = Utility(context: context)
+        utility.makeSketch()
+        utility.base = base
         
         context.saveContext()
         

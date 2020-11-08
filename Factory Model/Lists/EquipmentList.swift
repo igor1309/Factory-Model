@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct EquipmentList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         EntityListWithDashboard(
-            for: factory,
-            in: period
+            for: factory
         ) {
             Section(header: Text("Total")) {
                 Group {
@@ -39,7 +37,7 @@ struct EquipmentList: View {
             }
         } editor: { (equipment: Equipment) in
             //            EquipmentView(equipment)
-            EquipmentEditor(equipment, in: period)
+            EquipmentEditor(equipment)
         }
     }
 }
@@ -47,8 +45,9 @@ struct EquipmentList: View {
 struct EquipmentList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EquipmentList(for: Factory.preview, in: .month())
+            EquipmentList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

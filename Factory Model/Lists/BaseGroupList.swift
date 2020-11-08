@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct BaseGroupList: View {
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.managedObjectContext) private var context
+    
+    @EnvironmentObject var settings: Settings
     
     @FetchRequest private var bases: FetchedResults<Base>
     
     @ObservedObject var factory: Factory
     let group: String
-    let period: Period
     
-    init(group: String, at factory: Factory, in period: Period) {
+    init(group: String, at factory: Factory) {
         self.factory = factory
         self.group = group
-        self.period = period
         
         let predicate = NSCompoundPredicate(
             type: .and,
@@ -37,7 +37,7 @@ struct BaseGroupList: View {
                 Group {
                     LabelWithDetail("square", "Production", "TBD")
                     
-                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(of: group, in: period).formattedGrouped)
+                    LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(of: group, in: settings.period).formattedGrouped)
                 }
                 .font(.subheadline)
                 .padding(.vertical, 3)
@@ -46,9 +46,9 @@ struct BaseGroupList: View {
             Section(header: Text("Bases")) {
                 ForEach(bases, id: \.objectID) { base in
                     NavigationLink(
-                        destination: BaseView(base, in: period)
+                        destination: BaseView(base)
                     ) {
-                        EntityRow(base, in: period)
+                        EntityRow(base)
                     }
                 }
                 .onDelete(perform: removeBase)
@@ -63,14 +63,16 @@ struct BaseGroupList: View {
     //  MARK: - can't replace with PlusEntityButton: base.group = group
     private var plusButton: some View {
         Button {
-            let base = Base(context: moc)
-            base.name = " New Base"
-            //            base.note = "Some note for base"
-            // base.code = "1001"
-            base.group = group
-            base.complexity = 1
-            factory.addToBases_(base)
-            moc.saveContext()
+            withAnimation {
+                let base = Base(context: context)
+                base.name = " New Base"
+                //            base.note = "Some note for base"
+                // base.code = "1001"
+                base.group = group
+                base.complexity = 1
+                factory.addToBases_(base)
+                context.saveContext()
+            }
         } label: {
             Image(systemName: "plus")
                 .padding([.leading, .vertical])
@@ -80,8 +82,8 @@ struct BaseGroupList: View {
     private func removeBase(at offsets: IndexSet) {
         for index in offsets {
             let base = bases[index]
-            moc.delete(base)
+            context.delete(base)
         }
-        moc.saveContext()
+        context.saveContext()
     }
 }

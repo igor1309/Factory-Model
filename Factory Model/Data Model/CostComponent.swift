@@ -89,3 +89,38 @@ extension CostComponent {
     }
 }
 
+
+extension CostComponent {
+    
+    private static var sample = (22.0, 18.0, 5.0, 3.0)
+    private static var sampleTotal = sample.0 + sample.1 + sample.2 + sample.3
+    
+    static var ingredient: CostComponent {
+        CostComponent(
+            value: sample.0,
+            fullCost: sampleTotal,
+            formatWithDecimal: false
+        )
+    }
+    static var salary: CostComponent {
+        CostComponent(
+            value: sample.1,
+            fullCost: sampleTotal,
+            formatWithDecimal: false
+        )
+    }
+    static var depreciation: CostComponent {
+        CostComponent(
+            value: sample.2,
+            fullCost: sampleTotal,
+            formatWithDecimal: false
+        )
+    }
+    static var utility: CostComponent {
+        CostComponent(
+            value: sample.3,
+            fullCost: sampleTotal,
+            formatWithDecimal: false
+        )
+    }
+}

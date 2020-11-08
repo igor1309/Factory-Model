@@ -152,6 +152,7 @@ extension EmployeeDraft: Summarizable {
     func subtitle(in period: Period) -> String { "\(position) \(salary.formattedGrouped)" }
     func detail(in period: Period) -> String? { nil }
     
+    static var color: Color { .systemTeal }
     static var icon: String { "person" }
     static var headline: String { "" }
 }

@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct UtilityList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var base: Base
     
-    let period: Period
-    
-    init(for base: Base, in period: Period) {
+    init(for base: Base) {
         self.base = base
-        self.period = period
         
         predicate = NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
     }
@@ -24,8 +23,7 @@ struct UtilityList: View {
     var body: some View {
         ListWithDashboard(
             for: base,
-            predicate: predicate,
-            in: period
+            predicate: predicate
         ) {
             CreateChildButton(
                 childType: Utility.self,
@@ -37,14 +35,14 @@ struct UtilityList: View {
                 header: Text("Total")
             ) {
                 Group {
-                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT(in: period).formattedGrouped)
-                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT(in: period).formattedGrouped)
+                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT(in: settings.period).formattedGrouped)
+                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT(in: settings.period).formattedGrouped)
                         .foregroundColor(.secondary)
                 }
                 .font(.subheadline)
             }
         } editor: { (utility: Utility) in
-            UtilityEditor(utility, in: period)
+            UtilityEditor(utility)
         }
     }
 }
@@ -52,8 +50,9 @@ struct UtilityList: View {
 struct UtilityList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            UtilityList(for: Base.preview, in: .month())
+            UtilityList(for: Base.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

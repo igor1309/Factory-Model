@@ -8,6 +8,12 @@
 import CoreData
 
 extension Employee {
+    
+    static var example: Employee {
+        let preview = PersistenceManager.previewContext
+        return createEmployee1(in: preview)
+    }
+    
     static func createEmployee1(in context: NSManagedObjectContext) -> Employee {
         let employee1 = Employee(context: context)
         employee1.position = "Главный технолог"

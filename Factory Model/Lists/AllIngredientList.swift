@@ -9,13 +9,12 @@ import SwiftUI
 import CoreData
 
 struct AllIngredientList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     /// to update list (fetch) by publishing context saved event
@@ -26,8 +25,7 @@ struct AllIngredientList: View {
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Ingredient.factoryPredicate(for: factory),
-            in: period
+            predicate: Ingredient.factoryPredicate(for: factory)
         ) {
             CreateOrphanButton<Ingredient>()
         } dashboard: {
@@ -37,13 +35,13 @@ struct AllIngredientList: View {
             ) {
                 Group {
                     LabelWithDetail("squareshape.split.3x3", "No of Ingredients", factory.ingredients.count.formattedGrouped)
-                    LabelWithDetail("dollarsign.circle", "Total Cost ex VAT", factory.produced(in: period).cost.ingredient.valueStr)
+                    LabelWithDetail("dollarsign.circle", "Total Cost ex VAT", factory.produced(in: settings.period).cost.ingredient.valueStr)
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
         } editor: { (ingredient: Ingredient) in
-            IngredientView(ingredient, in: period)
+            IngredientView(ingredient)
         }
         /// observing context saving
         .onReceive(didSave) { _ in
@@ -55,8 +53,9 @@ struct AllIngredientList: View {
 struct AllIngredientList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AllIngredientList(for: Factory.preview, in: .month())
+            AllIngredientList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

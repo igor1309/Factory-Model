@@ -122,3 +122,15 @@ extension Cost {
     }
 }
 
+extension Cost {
+    static var example: Cost {
+        Cost(
+            title: "Test Cost",
+            header: "Production Cost Structure",
+            ingredient: CostComponent.ingredient,
+            salary: CostComponent.salary,
+            depreciation: CostComponent.depreciation,
+            utility: CostComponent.utility
+        )
+    }
+}

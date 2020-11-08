@@ -9,7 +9,7 @@ import CoreData
 
 extension Division {
     
-    static var preview: Division {
+    static var example: Division {
         let preview = PersistenceManager.previewContext
         return createSampleDivisions(in: preview)[0]
     }

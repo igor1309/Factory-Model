@@ -17,3 +17,9 @@ struct EmployeeDraft: Identifiable {
 
     let id = UUID()
 }
+
+extension EmployeeDraft {
+    static var example: EmployeeDraft {
+        EmployeeDraft(name: "Гоги", note: "Хороший парень", position: "Сыровар", salary: 37_000, workHours: 8, period: .day(hours: 8))
+    }
+}

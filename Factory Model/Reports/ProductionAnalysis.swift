@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ProductionAnalysis: View {
-    let factory: Factory
-    let period: Period
+    @EnvironmentObject var settings: Settings
     
-    init(for factory: Factory, in period: Period) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
@@ -22,10 +22,10 @@ struct ProductionAnalysis: View {
                 /// По каждому продукту:
                 Group {
                     /// Вес нетто и доля а общем весе нетто
-                    DataBlockView(dataBlock: factory.productionWeightNettoDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.productionWeightNettoDataPoints(in: settings.period))
                                         
                     // Средняя себестоимость, мин, макс
-                    DataBlockView(dataBlock: factory.avgCostPerKiloExVATDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.avgCostPerKiloExVATDataPoints(in: settings.period))
                 }
                 .padding(.bottom)
             }
@@ -34,5 +34,13 @@ struct ProductionAnalysis: View {
             .padding(.bottom)
         }
         .navigationTitle("Production Analysis")
+    }
+}
+
+struct ProductionAnalysis_Previews: PreviewProvider {
+    static var previews: some View {
+        ProductionAnalysis(for: Factory.example)
+            .environmentObject(Settings())
+            .preferredColorScheme(.dark)
     }
 }

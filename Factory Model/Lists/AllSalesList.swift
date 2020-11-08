@@ -11,14 +11,13 @@ import SwiftPI
 struct AllSalesList: View {
     @Environment(\.managedObjectContext) private var context
     
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
-        
+
         _orphans = FetchRequest(
             entity: Sales.entity(),
             sortDescriptors: [
@@ -37,7 +36,7 @@ struct AllSalesList: View {
                 header: Text("Total"),
                 footer: Text("To edit Sales go to Product.")
             ) {
-                LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
+                LabelWithDetail("creditcard.fill", "Revenue, ex VAT", factory.revenueExVAT(in: settings.period).formattedGrouped)
                     .foregroundColor(.systemGreen)
                     .font(.subheadline)
                 
@@ -65,19 +64,17 @@ struct AllSalesList: View {
             
             GenericListSection(
                 type: Sales.self,
-                predicate: Sales.factoryPredicate(for: factory),
-                in: period
+                predicate: Sales.factoryPredicate(for: factory)
             ) { sales in
-                SalesEditor(sales, in: period)
+                SalesEditor(sales)
             }
             
             if !orphans.isEmpty {
                 GenericListSection(
                     header: "Sales and Orphans",
-                    fetchRequest: _orphans,
-                    in: period
+                    fetchRequest: _orphans
                 ) { sales in
-                    SalesEditor(sales, in: period)
+                    SalesEditor(sales)
                 }
                 .foregroundColor(.systemRed)
             }
@@ -112,8 +109,9 @@ struct AllSalesList: View {
 struct AllSalesList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AllSalesList(for: Factory.preview, in: .month())
+            AllSalesList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

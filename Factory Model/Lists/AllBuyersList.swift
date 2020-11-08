@@ -8,25 +8,23 @@
 import SwiftUI
 
 struct AllBuyersList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
-    
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+        
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         EntityListWithDashboard(
             for: factory,
             title: "All Buyers",
-            in: period,
             predicate: nil
         ) {
             
         } editor: { (buyer: Buyer) in
-            BuyerEditor(buyer, in: period)
+            BuyerEditor(buyer)
         }
     }
 }
@@ -34,8 +32,9 @@ struct AllBuyersList: View {
 struct AllBuyersList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AllBuyersList(for: Factory.preview, in: .month())
+            AllBuyersList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

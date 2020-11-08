@@ -10,7 +10,20 @@ import SwiftUI
 struct CostSection: View {
     
     let cost: Cost
-    var showBarChart = true
+    var showBarChart: Bool
+    var barHeight: CGFloat
+    
+    init(_ cost: Cost, showBarChart: Bool) {
+        self.cost = cost
+        self.showBarChart = false
+        self.barHeight = 3
+    }
+    
+    init(_ cost: Cost, barHeight: CGFloat = 3) {
+        self.cost = cost
+        self.showBarChart = true
+        self.barHeight = barHeight
+    }
     
     var body: some View {
         if cost.fullCost > 0 {
@@ -18,62 +31,57 @@ struct CostSection: View {
                 header: Text(cost.header)
             ) {
                 VStack(alignment: .leading, spacing: 4) {
-                    if showBarChart {
-                        HBar(cost.chartData, height: 6)
-                            .padding(.top, 3)
-                    }
-                    
-                    DataRow(
+                    FinancialRow(
                         DataPointWithShare(
                             title: "Ingredients",
                             value: cost.ingredient.valueStr,
                             percentage: cost.ingredient.percentageStr
-                        ),
-                        color: Ingredient.color//,
-                        //icon: Ingredient.icon
+                        )
                     )
+                    .foregroundColor(Ingredient.color)
                     
-                    DataRow(
+                    FinancialRow(
                         DataPointWithShare(
                             title: "Salary with tax",
                             value: cost.salary.valueStr,
                             percentage: cost.salary.percentageStr
-                        ),
-                        color: Employee.color//,
-                        //icon: Employee.icon
+                        )
                     )
+                    .foregroundColor(Employee.color)
                     
-                    DataRow(
+                    FinancialRow(
                         DataPointWithShare(
                             title: "Depreciation",
                             value: cost.depreciation.valueStr,
                             percentage: cost.depreciation.percentageStr
-                        ),
-                        color: Equipment.color//,
-                        //icon: Equipment.icon
+                        )
                     )
+                    .foregroundColor(Equipment.color)
                     
-                    DataRow(
+                    FinancialRow(
                         DataPointWithShare(
                             title: "Utility",
                             value: cost.utility.valueStr,
                             percentage: cost.utility.percentageStr
-                        ),
-                        color: Utility.color//,
-                        //icon: Utility.icon
+                        )
                     )
+                    .foregroundColor(Utility.color)
                     
-                    Divider()
+                    if showBarChart {
+                        HBar(cost.chartData, height: barHeight)
+                            .padding(.top, 3)
+                    } else {
+                        Divider()
+                    }
                     
-                    DataRow(
+                    FinancialRow(
                         DataPointWithShare(
                             title: cost.title,
                             value: cost.fullCostStr,
                             percentage: ""
-                        ),
-                        color: .primary
+                        )
                     )
-                    .padding(.top, 3)
+                    .foregroundColor(.primary)
                 }
                 .padding(.vertical, 3)
             }
@@ -81,21 +89,14 @@ struct CostSection: View {
     }
 }
 
-//struct CostStructureSection_Previews: PreviewProvider {
-//    static var previews: some View {
-//        List {
-//            CostSection(
-//                cost: Cost(
-//                    title: "Test Cost",
-//                    header: "Production Cost Structure",
-//                    ingredient: 20,
-//                    salary: 15,
-//                    depreciation: 1,
-//                    utility: 2
-//                )
-//            )
-//        }
-//        .listStyle(InsetGroupedListStyle())
-//        .preferredColorScheme(.dark)
-//    }
-//}
+struct CostSection_Previews: PreviewProvider {
+    static var previews: some View {
+        Form {
+            CostSection(Cost.example, showBarChart: false)
+            
+            CostSection(Cost.example, barHeight: 6)
+            CostSection(Cost.example, barHeight: 3)
+        }
+        .preferredColorScheme(.dark)
+    }
+}

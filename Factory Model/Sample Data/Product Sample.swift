@@ -9,9 +9,10 @@ import CoreData
 
 extension Product {
     
-    static var preview: Product {
+    static var example: Product {
         let preview = PersistenceManager.previewContext
         let request = NSFetchRequest<Product>(entityName: "Product")
+        request.predicate = NSPredicate(format: "name_ == %@", "Ведёрко 1 кг")
         let products = try? preview.fetch(request)
         if let product = products?.first {
             return product

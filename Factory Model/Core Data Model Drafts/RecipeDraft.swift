@@ -14,3 +14,9 @@ struct RecipeDraft: Identifiable {
     
     var id: NSManagedObjectID { ingredient.objectID }
 }
+
+extension RecipeDraft {
+    static var example: RecipeDraft {
+        RecipeDraft(ingredient: Ingredient.example, qty: 10, coefficientToParentUnit: 1)
+    }
+}

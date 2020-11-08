@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SalesAnalysis: View {
-    let factory: Factory
-    let period: Period
+    @EnvironmentObject var settings: Settings
     
-    init(for factory: Factory, in period: Period) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
@@ -22,19 +22,19 @@ struct SalesAnalysis: View {
                 /// По каждому продукту:
                 Group {
                     /// Вес нетто и доля а общем весе нетто
-                    DataBlockView(dataBlock: factory.salesWeightNettoDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.salesWeightNettoDataPoints(in: settings.period))
                     
                     /// Выручка и доля в выручке
-                    DataBlockView(dataBlock: factory.revenueDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.revenueDataPoints(in: settings.period))
                     
                     /// Маржа и доля в марже
-                    DataBlockView(dataBlock: factory.marginDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.marginDataPoints(in: settings.period))
                     
                     // Средняя цена, мин, макс
-                    DataBlockView(dataBlock: factory.avgPricePerKiloExVATDataPoints(in: period))
+                    DataBlockView(dataBlock: factory.avgPricePerKiloExVATDataPoints(in: settings.period))
                     
                     /// Маржинальность по каждому и средняя (по всем)
-                    DataBlockView(dataBlock: factory.marginPercentageDataPointWithShare(in: period))
+                    DataBlockView(dataBlock: factory.marginPercentageDataPointWithShare(in: settings.period))
                 }
                 .padding(.bottom)
             }
@@ -43,5 +43,13 @@ struct SalesAnalysis: View {
             .padding(.bottom)
         }
         .navigationTitle("Sales Analysis")
+    }
+}
+
+struct SalesAnalysis_Previews: PreviewProvider {
+    static var previews: some View {
+        SalesAnalysis(for: Factory.example)
+            .environmentObject(Settings())
+            .preferredColorScheme(.dark)
     }
 }

@@ -8,24 +8,31 @@
 import SwiftUI
 
 struct ReportsView: View {
-    let factory: Factory
-    let period: Period
+    @EnvironmentObject var settings: Settings
     
-    init(for factory: Factory, in period: Period) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         TabView {
-            ProfitAndLossView(for: factory, in: period)
-            SalesAnalysis(for: factory, in: period)
-            ProductionAnalysis(for: factory, in: period)
+            ProfitAndLossView(for: factory)
+            SalesAnalysis(for: factory)
+            ProductionAnalysis(for: factory)
             Text("TBD")
         }
 //        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
         .tabViewStyle(PageTabViewStyle())
-        .navigationTitle("Books")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle("Books", displayMode: .inline)
+    }
+}
+
+struct ReportsView_Previews: PreviewProvider {
+    static var previews: some View {
+        ReportsView(for: Factory.example)
+            .environmentObject(Settings())
+            .preferredColorScheme(.dark)
     }
 }

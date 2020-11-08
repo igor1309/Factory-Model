@@ -8,28 +8,25 @@
 import SwiftUI
 
 struct ProductList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Product.factoryPredicate(for: factory),
-            in: period
+            predicate: Product.factoryPredicate(for: factory)
         ) {
             CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
         } dashboard: {
             dashboard
         } editor: { (product: Product) in
-            ProductView(product, in: period)
+            ProductView(product)
         }
-        
     }
     
     @ViewBuilder
@@ -38,15 +35,15 @@ struct ProductList: View {
             header: Text("Production")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: period).weightNettoTonsStr)
+                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: settings.period).weightNettoTonsStr)
                                 
-                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.produced(in: period).cost.fullCostStr)
+                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.produced(in: settings.period).cost.fullCostStr)
                 
                 LabelWithDetail(
                     "dollarsign.circle",
                     "Avg Cost ex VAT, per kilo",
-                    //factory.avgCostPerKiloExVAT(in: period).formattedGrouped
-                    factory.perKilo(in: period).cost.fullCostStr
+                    //factory.avgCostPerKiloExVAT(in: settings.period).formattedGrouped
+                    factory.perKilo(in: settings.period).cost.fullCostStr
                 )
             }
             .foregroundColor(.secondary)
@@ -57,15 +54,15 @@ struct ProductList: View {
             header: Text("Sales")
         ) {
             Group {
-                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.sold(in: period).weightNettoTonsStr)
+                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.sold(in: settings.period).weightNettoTonsStr)
                 
-                LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: period).formattedGrouped)
+                LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: settings.period).formattedGrouped)
                 
                 LabelWithDetail(
                     "dollarsign.circle",
                     "Avg Price ex VAT, per kilo",
-                    //factory.avgPricePerKiloExVAT(in: period).formattedGrouped
-                    factory.perKilo(in: period).priceStr
+                    //factory.avgPricePerKiloExVAT(in: settings.period).formattedGrouped
+                    factory.perKilo(in: settings.period).priceStr
                 )
             }
             .foregroundColor(.secondary)
@@ -76,16 +73,16 @@ struct ProductList: View {
             header: Text("Margin")
         ) {
             Group {
-                LabelWithDetail(Sales.icon, "Margin ex VAT", factory.pnl(in: period).margin.formattedGrouped)
+                LabelWithDetail(Sales.icon, "Margin ex VAT", factory.pnl(in: settings.period).margin.formattedGrouped)
                 
                 LabelWithDetail(
                     Sales.icon,
                     "Avg Margin ex VAT, per kilo",
-                    //factory.avgMarginPerKiloExVAT(in: period).formattedGrouped
-                    factory.perKilo(in: period).marginStr
+                    //factory.avgMarginPerKiloExVAT(in: settings.period).formattedGrouped
+                    factory.perKilo(in: settings.period).marginStr
                 )
             }
-            .foregroundColor(factory.perKilo(in: period).margin > 0 ? .secondary : .red)
+            .foregroundColor(factory.perKilo(in: settings.period).margin > 0 ? .secondary : .red)
             .font(.subheadline)
         }
         
@@ -124,8 +121,9 @@ struct ProductList: View {
 struct ProductList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ProductList(for: Factory.preview, in: .month())
+            ProductList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

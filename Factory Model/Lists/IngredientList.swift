@@ -8,27 +8,26 @@
 import SwiftUI
 
 struct IngredientList: View {
-    @Environment(\.managedObjectContext) private var moc
+    @Environment(\.managedObjectContext) private var context
+    
+    @EnvironmentObject var settings: Settings
     
     @ObservedObject var base: Base
     
-    let period: Period
-    
-    init(for base: Base, in period: Period) {
+    init(for base: Base) {
         self.base = base
-        self.period = period
         
         predicate = NSPredicate(
             format: "ANY %K.base == %@", #keyPath(Ingredient.recipes_), base
         )
         _ingredients = Ingredient.defaultFetchRequest(with: predicate)
         
-//        let recipePredicate = NSPredicate(
-//            format: "ANY %K == %@", #keyPath(Base.recipes_), base
-//        )
-//        _recipes = Recipe.defaultFetchRequest(with: recipePredicate)
+        //        let recipePredicate = NSPredicate(
+        //            format: "ANY %K == %@", #keyPath(Base.recipes_), base
+        //        )
+        //        _recipes = Recipe.defaultFetchRequest(with: recipePredicate)
     }
-        
+    
     @FetchRequest private var ingredients: FetchedResults<Ingredient>
     //    @FetchRequest private var recipes: FetchedResults<Recipe>
     
@@ -42,59 +41,48 @@ struct IngredientList: View {
             //predicate: NSPredicate(
             //    format: "%K == %@", #keyPath(Recipe.ingredient), base
             //),
-            in: period,
             keyPathParentToChildren: \Base.recipes_
         ) {
-            GenericListSection(
-                fetchRequest: _ingredients,
-                in: period
-            ) { ingredient in
-                IngredientView(ingredient, in: period)
+            GenericListSection(fetchRequest: _ingredients) { ingredient in
+                IngredientView(ingredient)
             }
             
-            GenericListSection(
-                fetchRequest: _ingredients,
-                in: period
-            ) { ingredient in
-                IngredientView(ingredient, in: period)
+            GenericListSection(fetchRequest: _ingredients) { ingredient in
+                IngredientView(ingredient)
             }
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: period).formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
-
+            
         } editor: { (ingredient: Ingredient) in
-            IngredientView(ingredient, in: period)
+            IngredientView(ingredient)
         }
-
+        
     }
-        var old: some View {
+    var old: some View {
         List {
             
             if !ingredients.isEmpty {
-                EntityRow(ingredients.first!, in: period)
+                EntityRow(ingredients.first!)
             }
             
             GenericListSection(
-                fetchRequest: _ingredients,
-                in: period
+                fetchRequest: _ingredients
             ) { ingredient in
-                IngredientView(ingredient, in: period)
+                IngredientView(ingredient)
             }
             
-            GenericListSection(
-                fetchRequest: _ingredients,
-                in: period
-            ) { ingredient in
-                IngredientView(ingredient, in: period)
+            GenericListSection(fetchRequest: _ingredients) { ingredient in
+                IngredientView(ingredient)
             }
             
             
             Section(header: Text("Total")) {
-                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: period).formattedGrouped)
+                LabelWithDetail("puzzlepiece", "Ingredient Cost", base.ingredientsExVAT(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -105,9 +93,9 @@ struct IngredientList: View {
             ) {
                 ForEach(ingredients, id: \.objectID) { ingredient in
                     NavigationLink(
-                        destination: IngredientView(ingredient, in: period)
+                        destination: IngredientView(ingredient)
                     ) {
-                        EntityRow(ingredient, in: period)
+                        EntityRow(ingredient)
                     }
                 }
                 .onDelete(perform: removeIngredient)
@@ -115,8 +103,8 @@ struct IngredientList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-//        .navigationBarItems(trailing: CreateOrphanButton<Ingredient>())
-//        .navigationBarItems(trailing: CreateChildButton(systemName: "plus.circle", childType: Ingredient.self, parent: base, keyPath: \Base.recipes_.ingredient))
+        //        .navigationBarItems(trailing: CreateOrphanButton<Ingredient>())
+        //        .navigationBarItems(trailing: CreateChildButton(systemName: "plus.circle", childType: Ingredient.self, parent: base, keyPath: \Base.recipes_.ingredient))
         //  MARK: - FINISH THIS USE THIS COFE FOR INGREDIENTS LIST
         //        .navigationBarItems(trailing: CreateChildButton(systemName: "plus.circle", childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
     }
@@ -124,17 +112,18 @@ struct IngredientList: View {
     private func removeIngredient(at offsets: IndexSet) {
         for index in offsets {
             let ingredientf = ingredients[index]
-            moc.delete(ingredientf)
+            context.delete(ingredientf)
         }
-        moc.saveContext()
+        context.saveContext()
     }
 }
 
 struct IngredientList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            IngredientList(for: Base.preview, in: .month())
+            IngredientList(for: Base.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

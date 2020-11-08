@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    //@State private var period: Period = .month()
-    
     var body: some View {
         NavigationView {
             Testing()
@@ -24,7 +22,8 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
             .environment(\.managedObjectContext, PersistenceManager.previewContext)
+            .environmentObject(Settings())
+            .preferredColorScheme(.dark)
     }
 }

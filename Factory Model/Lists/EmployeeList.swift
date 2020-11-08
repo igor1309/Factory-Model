@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct EmployeeList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var department: Department
     
-    let period: Period
-    
-    init(at department: Department, in period: Period) {
+    init(at department: Department) {
         self.department = department
-        self.period = period
         
         predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
     }
@@ -24,8 +23,7 @@ struct EmployeeList: View {
     var body: some View {
         ListWithDashboard(
             for: department,
-            predicate: predicate,
-            in: period
+            predicate: predicate
         ) {
             CreateChildButton(
                 childType: Employee.self,
@@ -34,7 +32,7 @@ struct EmployeeList: View {
             )
         } dashboard: {
             Section(header: Text("Total")) {
-                LabelWithDetail("Salary incl taxes", department.salaryWithTax(in: period).formattedGrouped)
+                LabelWithDetail("Salary incl taxes", department.salaryWithTax(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
@@ -48,8 +46,9 @@ struct EmployeeList: View {
 struct EmployeeList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            EmployeeList(at: Department.preview, in: .month())
+            EmployeeList(at: Department.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

@@ -10,24 +10,21 @@ import SwiftUI
 struct DivisionList: View {
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, in: period) {
+        EntityListWithDashboard(for: factory) {
             
-            LaborView(for: factory, in: period)
+            LaborView(for: factory)
             
             Section(
                 header: Text("Personnel")
             ) {
                 Group {
                     NavigationLink(
-                        destination: AllEmployeesList(for: factory, in: period)
+                        destination: AllEmployeesList(for: factory)
                     ) {
                         Label("All Factory Personnel", systemImage: Department.icon)
                             .foregroundColor(Employee.color)
@@ -37,7 +34,7 @@ struct DivisionList: View {
                 .foregroundColor(.secondary)
             }
         } editor: { (division: Division) in
-            DivisionView(division, in: period)
+            DivisionView(division)
         }
         
     }
@@ -46,8 +43,9 @@ struct DivisionList: View {
 struct DivisionList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            DivisionList(for: Factory.preview, in: .month())
+            DivisionList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

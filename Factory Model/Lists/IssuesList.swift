@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct IssuesList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
@@ -25,57 +24,51 @@ struct IssuesList: View {
                 //            if factory.basesHasIssues {
                 GenericListSection(
                     type: Base.self,
-                    predicate: Base.orphanPredicate,
-                    in: period
+                    predicate: Base.orphanPredicate
                 ) { (base: Base) in
-                    BaseView(base, in: period)
+                    BaseView(base)
                 }
                 //            }
                 //            if factory.buyersHasIssues {
                 GenericListSection(
                     type: Buyer.self,
-                    predicate: Buyer.orphanPredicate,
-                    in: period
+                    predicate: Buyer.orphanPredicate
                 ) { (buyer: Buyer) in
-                    BuyerEditor(buyer, in: period)
+                    BuyerEditor(buyer)
                 }
                 //            }
                 //            if factory.departmentsHasIssues {
                 GenericListSection(
                     type: Department.self,
-                    predicate: Department.orphanPredicate,
-                    in: period
+                    predicate: Department.orphanPredicate
                 ) { (department: Department) in
-                    DepartmentView(department, in: period)
+                    DepartmentView(department)
                 }
                 //            }
                 
                 //                if factory.departmentsHasIssues {
                 GenericListSection(
                     type: Division.self,
-                    predicate: Division.orphanPredicate,
-                    in: period
+                    predicate: Division.orphanPredicate
                 ) { (division: Division) in
-                    DivisionView(division, in: period)
+                    DivisionView(division)
                 }
                 //                }
                 
                 //            if factory.equipmentsHasIssues {
                 GenericListSection(
                     type: Equipment.self,
-                    predicate: Equipment.orphanPredicate,
-                    in: period
+                    predicate: Equipment.orphanPredicate
                 ) { (equipment: Equipment) in
                     //EquipmentView(equipment)
-                    EquipmentEditor(equipment, in: period)
+                    EquipmentEditor(equipment)
                 }
                 //            }
                 
                 //            if factory.expensesHasIssues {
                 GenericListSection(
                     type: Expenses.self,
-                    predicate: Expenses.orphanPredicate,
-                    in: period
+                    predicate: Expenses.orphanPredicate
                 ) { (expenses: Expenses) in
                     ExpensesEditor(expenses)
                 }
@@ -84,10 +77,9 @@ struct IssuesList: View {
                 //            if factory.ingredientsHasIssues {
                 GenericListSection(
                     type: Ingredient.self,
-                    predicate: Ingredient.orphanPredicate,
-                    in: period
+                    predicate: Ingredient.orphanPredicate
                 ) { (ingredient: Ingredient) in
-                    IngredientView(ingredient, in: period)
+                    IngredientView(ingredient)
                 }
                 //            }
             }
@@ -96,57 +88,51 @@ struct IssuesList: View {
                 //            if factory.recipesHasIssues {
                 GenericListSection(
                     type: Recipe.self,
-                    predicate: Recipe.orphanPredicate,
-                    in: period
+                    predicate: Recipe.orphanPredicate
                 ) { (recipe: Recipe) in
-                    RecipeEditor(recipe, in: period)
+                    RecipeEditor(recipe)
                 }
                 //            }
                 
                 //            if factory.packagingsHasIssues {
                 GenericListSection(
                     type: Packaging.self,
-                    predicate: Packaging.orphanPredicate,
-                    in: period
+                    predicate: Packaging.orphanPredicate
                 ) { (packaging: Packaging) in
-                    PackagingEditor(packaging, in: period)
+                    PackagingEditor(packaging)
                 }
                 //            }
                 
                 //            if factory.packagingsHasIssues {
                 GenericListSection(
                     type: Product.self,
-                    predicate: Product.orphanPredicate,
-                    in: period
+                    predicate: Product.orphanPredicate
                 ) { (product: Product) in
-                    ProductView(product, in: period)
+                    ProductView(product)
                 }
                 //            }
                 //            if factory.salesHasIssues {
                 GenericListSection(
                     type: Sales.self,
-                    predicate: Sales.orphanPredicate,
-                    in: period
+                    predicate: Sales.orphanPredicate
                 ) { (sales: Sales) in
-                    SalesEditor(sales, in: period)
+                    SalesEditor(sales)
                 }
                 //            }
                 
                 //            if factory.utilitiesHasIssues {
                 GenericListSection(
                     type: Utility.self,
-                    predicate: Utility.orphanPredicate,
-                    in: period
+                    predicate: Utility.orphanPredicate
                 ) { (utility: Utility) in
-                    UtilityEditor(utility, in: period)
+                    UtilityEditor(utility)
                 }
                 //            }
                 
                 //            if factory.employeesHasIssues {
                 GenericListSection(
                     type: Employee.self,
-                    predicate: Employee.orphanPredicate,
-                    in: period
+                    predicate: Employee.orphanPredicate
                 ) { (employee: Employee) in
                     EmployeeEditor(employee)
                 }
@@ -161,8 +147,9 @@ struct IssuesList: View {
 struct IssuesList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            IssuesList(for: Factory.preview, in: .month())
+            IssuesList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

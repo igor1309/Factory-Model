@@ -21,13 +21,14 @@ struct DataBlockView: View {
     var dataBlock: DataBlock
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: 4) {
             Label(dataBlock.title, systemImage: dataBlock.icon)
                 .font(.subheadline)
                 .padding(.bottom, 3)
             
             ForEach(dataBlock.data) { item in
-                DataRow(item)
+                FinancialRow(item)
+                    .foregroundColor(.secondary)
             }
             
             Divider().padding(.vertical, 3)
@@ -35,10 +36,24 @@ struct DataBlockView: View {
             HStack {
                 Spacer()
                 Text(dataBlock.value)
-                Text((-2).formattedPercentage).hidden()
+                Text((-2).formattedPercentageWith1Decimal).hidden()
             }
             .font(.footnote)
         }
+        .padding(.vertical, 3)
     }
 }
 
+
+struct DataBlockView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            List {
+                DataBlockView(dataBlock: DataBlock.example)
+            }
+            .listStyle(InsetGroupedListStyle())
+            .navigationBarTitle("Test Factory", displayMode: .inline)
+        }
+        .preferredColorScheme(.dark)
+    }
+}

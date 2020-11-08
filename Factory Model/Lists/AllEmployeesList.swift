@@ -8,21 +8,19 @@
 import SwiftUI
 
 struct AllEmployeesList: View {
+    @EnvironmentObject var settings: Settings
+    
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     var body: some View {
         ListWithDashboard(
             for: factory,
             title: "All Employees",
-            predicate: Employee.factoryPredicate(for: factory),
-            in: period
+            predicate: Employee.factoryPredicate(for: factory)
         ) {
             CreateOrphanButton<Employee>()
             
@@ -45,8 +43,9 @@ struct AllEmployeesList: View {
 struct AllEmployeesList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            AllEmployeesList(for: Factory.preview, in: .month())
+            AllEmployeesList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

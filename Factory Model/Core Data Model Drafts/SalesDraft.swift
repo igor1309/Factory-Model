@@ -16,3 +16,9 @@ struct SalesDraft: Identifiable {
     
     let id = UUID()
 }
+
+extension SalesDraft {
+    static var example: SalesDraft {
+        SalesDraft(priceExVAT: 123, qty: 4321, period: .month(), buyer: Buyer.example, product: Product.example)
+    }
+}

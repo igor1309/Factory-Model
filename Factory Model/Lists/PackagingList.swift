@@ -10,11 +10,8 @@ import SwiftUI
 struct PackagingList: View {
     @ObservedObject var factory: Factory
     
-    let period: Period
-    
-    init(for factory: Factory, in period: Period) {
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     /// to update list (fetch) by publishing context saved event
@@ -25,8 +22,7 @@ struct PackagingList: View {
     var body: some View {
         ListWithDashboard(
             for: factory,
-            predicate: Packaging.factoryPredicate(for: factory),
-            in: period
+            predicate: Packaging.factoryPredicate(for: factory)
         ) {
             CreateOrphanButton<Packaging>()
             
@@ -52,7 +48,7 @@ struct PackagingList: View {
             //                .font(.subheadline)
             //                .foregroundColor(.systemRed)
         } editor: { (packaging: Packaging) in
-            PackagingEditor(packaging, in: period)
+            PackagingEditor(packaging)
         }
         /// observing context saving
         .onReceive(didSave) { _ in
@@ -64,8 +60,9 @@ struct PackagingList: View {
 struct PackagingList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            PackagingList(for: Factory.preview, in: .month())
+            PackagingList(for: Factory.example)
                 .environment(\.managedObjectContext, PersistenceManager.previewContext)
+                .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
     }

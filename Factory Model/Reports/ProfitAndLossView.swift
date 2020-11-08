@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ProfitAndLossView: View {
-    let factory: Factory
-    let period: Period
+    @EnvironmentObject var settings: Settings
     
-    init(for factory: Factory, in period: Period) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
         self.factory = factory
-        self.period = period
     }
     
     private func header(_ text: String) -> some View {
@@ -23,9 +23,9 @@ struct ProfitAndLossView: View {
             .padding(.top)
     }
     
-    private var salesCost: Cost { factory.sold(in: period).cost }
+    private var salesCost: Cost { factory.sold(in: settings.period).cost }
     
-    private var pnl: PNL { factory.pnl(in: period) }
+    private var pnl: PNL { factory.pnl(in: settings.period) }
 
     var body: some View {
         ScrollView {
@@ -34,14 +34,14 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("Revenue")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "Sales, ex VAT",
-                            value: factory.revenueExVAT(in: period),
+                            value: factory.revenueExVAT(in: settings.period),
                             percentage: nil
                         )
-                        FinancialLabel(
+                        FinancialRow(
                             "Sales, with VAT",
-                            value: factory.revenueWithVAT(in: period),
+                            value: factory.revenueWithVAT(in: settings.period),
                             percentage: nil, font: .caption
                         )
                         .foregroundColor(.secondary)
@@ -51,22 +51,22 @@ struct ProfitAndLossView: View {
                         header: header("COGS")
                     ) {
                         Group {
-                            FinancialLabel(
+                            FinancialRow(
                                 "Ingredient Cost, ex VAT",
                                 value:      salesCost.ingredient.value,
                                 percentage: salesCost.ingredient.percentage
                             )
-                            FinancialLabel(
+                            FinancialRow(
                                 "Salary incl taxes",
                                 value:      salesCost.salary.value,
                                 percentage: salesCost.salary.percentage
                             )
-                            FinancialLabel(
+                            FinancialRow(
                                 "Depreciation",
-                                value:      factory.depreciation(in: period).formattedGrouped,
+                                value:      factory.depreciation(in: settings.period).formattedGrouped,
                                 percentage: "TBD"
                             )
-                            FinancialLabel(
+                            FinancialRow(
                                 "Utilities, ex VAT",
                                 value:      salesCost.utility.value,
                                 percentage: salesCost.utility.percentage
@@ -74,7 +74,7 @@ struct ProfitAndLossView: View {
                         }
                         .foregroundColor(.secondary)
                         
-                        FinancialLabel(
+                        FinancialRow(
                             "COGS",
                             value:      salesCost.fullCost,
                             percentage: salesCost.utility.percentage
@@ -84,7 +84,7 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("Margin")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "Margin",
                             value:      pnl.margin,
                             percentage: pnl.marginPercentage
@@ -96,15 +96,15 @@ struct ProfitAndLossView: View {
                         header: header("Expenses")
                     ) {
                         Group {
-                            FinancialLabel(
+                            FinancialRow(
                                 "Non Production Salary incl taxes",
-                                value:      factory.nonProductionSalaryWithTax(in: period),
-                                percentage: factory.nonProductionSalaryWithTaxPercentage(in: period)
+                                value:      factory.nonProductionSalaryWithTax(in: settings.period),
+                                percentage: factory.nonProductionSalaryWithTaxPercentage(in: settings.period)
                             )
-                            FinancialLabel(
+                            FinancialRow(
                                 "Expenses, ex VAT",
-                                value:      factory.expensesExVAT(in: period),
-                                percentage: factory.expensesExVATPercentage(in: period)
+                                value:      factory.expensesExVAT(in: settings.period),
+                                percentage: factory.expensesExVATPercentage(in: settings.period)
                             )
                         }
                         .foregroundColor(.secondary)
@@ -115,7 +115,7 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("EBIT")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "EBIT",
                             value:      pnl.ebit,
                             percentage: pnl.ebitPercentage
@@ -128,11 +128,11 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("Taxes")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "Profit Tax",
-                            /// factory.profitTax(in: period)
+                            /// factory.profitTax(in: settings.period)
                             value:      pnl.profitTax,
-                            /// factory.profitTaxPercentage(in: period)
+                            /// factory.profitTaxPercentage(in: settings.period)
                             percentage: pnl.profitTaxPercentage
                         )
                         .foregroundColor(pnl.profitTax > 0 ? .primary : .secondary)
@@ -143,11 +143,11 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("Net Profit")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "Net Profit",
-                            /// netProfit(in: period)
+                            /// netProfit(in: settings.period)
                             value:      pnl.netProfit,
-                            /// factory.netProfitPercentage(in: period)
+                            /// factory.netProfitPercentage(in: settings.period)
                             percentage: pnl.netProfitPercentage
                         )
                         .foregroundColor(pnl.netProfit > 0 ? .primary : .systemRed)
@@ -158,7 +158,7 @@ struct ProfitAndLossView: View {
                     Section(
                         header: header("EBITDA")
                     ) {
-                        FinancialLabel(
+                        FinancialRow(
                             "EBITDA",
                             value:      pnl.ebitda,
                             percentage: pnl.ebitdaPercentage
@@ -172,23 +172,23 @@ struct ProfitAndLossView: View {
                         header: header("Salary")
                     ) {
                         Group {
-                            FinancialLabel(
+                            FinancialRow(
                                 "Production Salary",
-                                value:      factory.produced(in: period).cost.salary.value,
-                                percentage: factory.produced(in: period).cost.salary.percentage
+                                value:      factory.produced(in: settings.period).cost.salary.value,
+                                percentage: factory.produced(in: settings.period).cost.salary.percentage
                             )
-                            FinancialLabel(
+                            FinancialRow(
                                 "Non Production Salary",
-                                value:      factory.nonProductionSalaryWithTax(in: period),
-                                percentage: factory.nonProductionSalaryWithTaxPercentage(in: period)
+                                value:      factory.nonProductionSalaryWithTax(in: settings.period),
+                                percentage: factory.nonProductionSalaryWithTaxPercentage(in: settings.period)
                             )
                         }
                         .foregroundColor(.secondary)
                         
-                        FinancialLabel(
+                        FinancialRow(
                             "Salary incl taxes",
-                            value:      factory.salaryWithTax(in: period),
-                            percentage: factory.salaryWithTaxPercentage(in: period)
+                            value:      factory.salaryWithTax(in: settings.period),
+                            percentage: factory.salaryWithTaxPercentage(in: settings.period)
                         )
                     }
                 }
@@ -197,5 +197,13 @@ struct ProfitAndLossView: View {
             .padding(.bottom)
             .padding(.bottom)
         }
+    }
+}
+
+struct ProfitAndLossView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfitAndLossView(for: Factory.example)
+            .environmentObject(Settings())
+            .preferredColorScheme(.dark)
     }
 }
