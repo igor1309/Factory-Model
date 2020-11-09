@@ -20,7 +20,7 @@ struct FactoryChildrenListWithDashboard<
     
     let title: String
     let smallFont: Bool
-    let keyPathParentToChildren: ReferenceWritableKeyPath<Factory, NSSet?>
+    let keyPathToParent: ReferenceWritableKeyPath<Child, Factory?>
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
@@ -37,13 +37,15 @@ struct FactoryChildrenListWithDashboard<
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
+        keyPathToParent: ReferenceWritableKeyPath<Child, Factory?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.factory = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
-        self.keyPathParentToChildren = Child.factoryToChildrenKeyPath
+        self.keyPathToParent = keyPathToParent
+        //self.keyPathParentToChildren = Child.factoryToChildrenKeyPath
         self.dashboard = dashboard
         self.editor = editor
         
@@ -67,7 +69,7 @@ struct FactoryChildrenListWithDashboard<
             systemName: Child.plusButtonIcon,
             childType: Child.self,
             parent: factory,
-            keyPath: keyPathParentToChildren
+            keyPath: keyPathToParent
         )
     }
     
@@ -106,7 +108,8 @@ struct EntityListWithDashboard_Previews: PreviewProvider {
             FactoryChildrenListWithDashboard(
                 for: Factory.example,
                 title: "Offspringable: All Buyers",
-                predicate: nil
+                predicate: nil,
+                keyPathToParent: \Buyer.factory
             ) {
                 Text("Dashboard goes here")
             } editor: { (buyer: Buyer) in
