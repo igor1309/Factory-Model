@@ -50,16 +50,18 @@ struct CreateChildButton<Child: Managed & Summarizable & Sketchable,
     var body: some View {
         Button {
             withAnimation {
-                let entity = Child.create(in: context)
-                entity.objectWillChange.send()
+                //  MARK: - which one to use??
+                let entity = Child(context: context)
+                //let entity = Child.create(in: context)
+                //entity.objectWillChange.send()
                 
                 if let path = path {
+                    parent.objectWillChange.send()
                     // https://stackoverflow.com/a/55931101
                     parent.mutableSetValue(forKeyPath: path /*"bases_"*/).add(entity)
-                    parent.objectWillChange.send()
                     //  MARK: - FINISH THIS Enroute L12 @ CS193p ТАК НУЖНО?????? КАК ЭТО СДЕЛАТЬ???
-                    //                parent[keyPath: keyPath]?.forEach { $0.objectWillChange.send() }
-                    //                airport.flightsFrom.forEach { $0.objectWillChange.send() }
+                    // parent[keyPath: keyPath]?.forEach { $0.objectWillChange.send() }
+                    // airport.flightsFrom.forEach { $0.objectWillChange.send() }
                 }
                 
                 try? context.save()
@@ -80,27 +82,26 @@ struct CreateChildButton<Child: Managed & Summarizable & Sketchable,
 struct CreateChildButton_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            Color
-                .blue
-                .opacity(0.2)
-                .padding()
-                .navigationBarTitle("Create Child Button", displayMode: .inline)
-                .navigationBarItems(
-                    trailing: HStack {
-                        CreateChildButton(
-                            childType: Base.self,
-                            parent: Factory(),
-                            keyPath: \Factory.bases_
-                        )
-                        CreateChildButton(
-                            systemName: "plus.circle", childType: Base.self,
-                            parent: Factory(),
-                            keyPath: \Factory.bases_
-                        )
-                    }
-                )
+            BaseList(for: Factory.example)
+            .navigationBarTitle("Base: Create Child Button", displayMode: .inline)
+            .navigationBarItems(
+                trailing: HStack {
+                    CreateChildButton(
+                        childType: Base.self,
+                        parent: Factory(),
+                        keyPath: \Factory.bases_
+                    )
+                    CreateChildButton(
+                        systemName: "plus.circle",
+                        childType: Base.self,
+                        parent: Factory(),
+                        keyPath: \Factory.bases_
+                    )
+                }
+            )
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }
