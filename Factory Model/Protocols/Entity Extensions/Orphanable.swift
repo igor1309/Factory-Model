@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-/// fetching entities without parant (parent is nil)
+/// fetching entities without parent (parent is nil)
 protocol Orphanable {
     associatedtype ManagedType: NSManagedObject = Self
     

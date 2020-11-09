@@ -19,7 +19,27 @@ struct PackagingList: View {
     @State private var refreshing = false
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
+    private func dashboard() -> some View {
+        Section {
+            Group {
+                /// refreshing UI if context was saved
+                LabelWithDetail("squareshape.split.3x3" + (refreshing ? "" : ""), "No of Packagings", factory.packagings.count.formattedGrouped)
+                //                    LabelWithDetail(<#T##systemName: String##String#>, <#T##title: _##_#>, <#T##detail: _##_#>)
+            }
+            .foregroundColor(.secondary)
+            .font(.subheadline)
+        }
+        //            Text("TBD: dashboard: List of packaging types (??)")
+        //                .font(.subheadline)
+        //                .foregroundColor(.systemRed)
+    }
+    
     var body: some View {
+        
+//        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (packaging: Packaging) in
+//            PackagingEditor(packaging)
+//        }
+        
         ListWithDashboard(
             for: factory,
             predicate: Packaging.factoryPredicate(for: factory)
@@ -35,18 +55,7 @@ struct PackagingList: View {
              keyPath: \Factory.packagings_
              ) */
         } dashboard: {
-            Section {
-                Group {
-                    /// refreshing UI if context was saved
-                    LabelWithDetail("squareshape.split.3x3" + (refreshing ? "" : ""), "No of Packagings", factory.packagings.count.formattedGrouped)
-                    //                    LabelWithDetail(<#T##systemName: String##String#>, <#T##title: _##_#>, <#T##detail: _##_#>)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
-            }
-            //            Text("TBD: dashboard: List of packaging types (??)")
-            //                .font(.subheadline)
-            //                .foregroundColor(.systemRed)
+            dashboard()
         } editor: { (packaging: Packaging) in
             PackagingEditor(packaging)
         }

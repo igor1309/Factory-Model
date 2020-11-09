@@ -67,21 +67,23 @@ struct CostSection: View {
                     )
                     .foregroundColor(Utility.color)
                     
-                    if showBarChart {
-                        HBar(cost.chartData, height: barHeight)
-                            .padding(.top, 3)
-                    } else {
-                        Divider()
-                    }
-                    
-                    FinancialRow(
-                        DataPointWithShare(
-                            title: cost.title,
-                            value: cost.fullCostStr,
-                            percentage: ""
+                    VStack(spacing: 0) {
+                        if showBarChart {
+                            HBar(cost.chartData, height: barHeight)
+                                .padding(.top, 3)
+                        } else {
+                            Divider()
+                        }
+                        
+                        FinancialRow(
+                            DataPointWithShare(
+                                title: cost.title,
+                                value: cost.fullCostStr,
+                                percentage: ""
+                            )
                         )
-                    )
-                    .foregroundColor(.primary)
+                        .foregroundColor(.primary)
+                    }
                 }
                 .padding(.vertical, 3)
             }
@@ -92,10 +94,10 @@ struct CostSection: View {
 struct CostSection_Previews: PreviewProvider {
     static var previews: some View {
         Form {
-            CostSection(Cost.example, showBarChart: false)
-            
-            CostSection(Cost.example, barHeight: 6)
             CostSection(Cost.example, barHeight: 3)
+            CostSection(Cost.example, barHeight: 6)
+            
+            CostSection(Cost.example, showBarChart: false)
         }
         .preferredColorScheme(.dark)
     }

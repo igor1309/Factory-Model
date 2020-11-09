@@ -14,26 +14,29 @@ struct DivisionList: View {
         self.factory = factory
     }
     
-    var body: some View {
-        EntityListWithDashboard(for: factory) {
-            
-            LaborView(for: factory)
-            
-            Section(
-                header: Text("Personnel")
-            ) {
-                Group {
-                    NavigationLink(
-                        destination: AllEmployeesList(for: factory)
-                    ) {
-                        Label("All Factory Personnel", systemImage: Department.icon)
-                            .foregroundColor(Employee.color)
-                    }
+    @ViewBuilder
+    private func dashboard() -> some View {
+        
+        LaborView(for: factory)
+        
+        Section(
+            header: Text("Personnel")
+        ) {
+            Group {
+                NavigationLink(
+                    destination: AllEmployeesList(for: factory)
+                ) {
+                    Label("All Factory Personnel", systemImage: Department.icon)
+                        .foregroundColor(Employee.color)
                 }
-                .font(.subheadline)
-                .foregroundColor(.secondary)
             }
-        } editor: { (division: Division) in
+            .font(.subheadline)
+            .foregroundColor(.secondary)
+        }
+    }
+    
+    var body: some View {
+        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (division: Division) in
             DivisionView(division)
         }
         
@@ -44,9 +47,9 @@ struct DivisionList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             DivisionList(for: Factory.example)
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

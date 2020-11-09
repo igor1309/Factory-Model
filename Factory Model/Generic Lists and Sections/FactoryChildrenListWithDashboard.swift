@@ -16,7 +16,7 @@ struct FactoryChildrenListWithDashboard<
     
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var parent: Factory
+    @ObservedObject var factory: Factory
     
     let title: String
     let smallFont: Bool
@@ -40,7 +40,7 @@ struct FactoryChildrenListWithDashboard<
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
-        self.parent = parent
+        self.factory = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
         self.keyPathParentToChildren = Child.factoryToChildrenKeyPath
@@ -66,7 +66,7 @@ struct FactoryChildrenListWithDashboard<
         CreateChildButton(
             systemName: Child.plusButtonIcon,
             childType: Child.self,
-            parent: parent,
+            parent: factory,
             keyPath: keyPathParentToChildren
         )
     }

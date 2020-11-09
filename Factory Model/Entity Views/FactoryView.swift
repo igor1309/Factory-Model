@@ -156,18 +156,6 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: DepartmentList(for: factory)
-                ) {
-                    ListRow(
-                        title: "Departments",
-                        subtitle: "TBD: what here???",
-                        detail: "TBD: factory.depertmentNames",
-                        icon: "person.crop.rectangle",
-                        color: Department.color
-                    )
-                }
-                
-                NavigationLink(
                     destination: AllEmployeesList(for: factory)
                 ) {
                     ListRow(

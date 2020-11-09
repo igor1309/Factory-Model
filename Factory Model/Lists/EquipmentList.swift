@@ -16,26 +16,27 @@ struct EquipmentList: View {
         self.factory = factory
     }
     
-    var body: some View {
-        EntityListWithDashboard(
-            for: factory
-        ) {
-            Section(header: Text("Total")) {
-                Group {
-                    LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
-                        .foregroundColor(.primary)
-                    
-                    /// https://www.investopedia.com/terms/a/accumulated-depreciation.asp
-                    LabelWithDetail("wrench.and.screwdriver", "Accumulated Depreciation", "TBD")
-                    
-                    LabelWithDetail("wrench.and.screwdriver", "Cost basis", factory.equipmentTotal.formattedGrouped)
-                    
-                    LabelWithDetail("dollarsign.circle", "Depreciation, monthly", factory.depreciationMonthly.formattedGrouped)
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
+    @ViewBuilder
+    private func dashboard() -> some View {
+        Section(header: Text("Total")) {
+            Group {
+                LabelWithDetail("wrench.and.screwdriver", "Salvage Value", "TBD")
+                    .foregroundColor(.primary)
+                
+                /// https://www.investopedia.com/terms/a/accumulated-depreciation.asp
+                LabelWithDetail("wrench.and.screwdriver", "Accumulated Depreciation", "TBD")
+                
+                LabelWithDetail("wrench.and.screwdriver", "Cost basis", factory.equipmentTotal.formattedGrouped)
+                
+                LabelWithDetail("dollarsign.circle", "Depreciation, monthly", factory.depreciationMonthly.formattedGrouped)
             }
-        } editor: { (equipment: Equipment) in
+            .foregroundColor(.secondary)
+            .font(.subheadline)
+        }
+    }
+    
+    var body: some View {
+        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (equipment: Equipment) in
             //            EquipmentView(equipment)
             EquipmentEditor(equipment)
         }
@@ -46,9 +47,9 @@ struct EquipmentList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             EquipmentList(for: Factory.example)
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

@@ -8,17 +8,19 @@
 import Foundation
 import CoreData
 
+
+/// Can trace a root from entity to Factory
 protocol FactoryTracable where Self: NSManagedObject {
     static func factoryPredicate(for factory: Factory) -> NSPredicate
     
     static var format: String { get }
     static var factoryPath: String { get }
 }
-extension FactoryTracable {//where Self: NSManagedObject {
-    static var format: String { "%K == %@" }
+extension FactoryTracable {
     static func factoryPredicate(for factory: Factory) -> NSPredicate {
         NSPredicate(format: format, (factoryPath), factory)
     }
+    static var format: String { "%K == %@" }
 }
 
 extension Base: FactoryTracable {
@@ -65,4 +67,8 @@ extension Product: FactoryTracable {
 
 extension Sales: FactoryTracable {
     static var factoryPath: String { "\(#keyPath(Sales.product.base.factory))" }
+}
+
+extension Utility: FactoryTracable {
+    static var factoryPath: String { "\(#keyPath(Utility.base.factory))" }
 }

@@ -16,19 +16,20 @@ struct ExpensesList: View {
         self.factory = factory
     }
     
-    var body: some View {
-        EntityListWithDashboard(
-            for: factory
+    @ViewBuilder
+    private func dashboard() -> some View {
+        Section(
+            header: Text("Total"),
+            footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
         ) {
-            Section(
-                header: Text("Total"),
-                footer: Text("Expenses other than Salary (Personnel) and Utilities (Production).")
-            ) {
-                LabelWithDetail("Expenses Total", factory.expensesExVAT(in: settings.period).formattedGrouped)
-                    .foregroundColor(.secondary)
-                    .font(.subheadline)
-            }
-        } editor: { (expenses: Expenses) in
+            LabelWithDetail("Expenses Total", factory.expensesExVAT(in: settings.period).formattedGrouped)
+                .foregroundColor(.secondary)
+                .font(.subheadline)
+        }
+    }
+    
+    var body: some View {
+        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (expenses: Expenses) in
             ExpensesEditor(expenses)
         }
     }
@@ -38,9 +39,9 @@ struct ExpensesList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ExpensesList(for: Factory.example)
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

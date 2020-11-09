@@ -17,9 +17,10 @@ struct ListWithDashboard<
     Dashboard: View,
     Editor: View
 >: View where Child.ManagedType == Child {
+    
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var parent: NSManagedObject
+    @ObservedObject var parent: Parent
     
     let title: String
     let smallFont: Bool
@@ -27,11 +28,12 @@ struct ListWithDashboard<
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
+    /// for immediate Factory children use FactoryChildrenListWithDashboard
     init(
         for parent: Parent,
         title: String? = nil,
-        predicate: NSPredicate? = nil,
         smallFont: Bool = true,
+        predicate: NSPredicate? = nil,
         plusButton: @escaping () -> PlusButton,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -43,11 +45,11 @@ struct ListWithDashboard<
         self.dashboard = dashboard
         self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
-        _orphansFetchRequest = Child.defaultFetchRequest(with: Child.orphanPredicate)
+        _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
     
     @FetchRequest private var entities: FetchedResults<Child>
-    @FetchRequest private var orphansFetchRequest: FetchedResults<Child>
+    @FetchRequest private var orphans: FetchedResults<Child>
     
     //  @State private var searchText = ""
     
@@ -58,10 +60,10 @@ struct ListWithDashboard<
             
             dashboard()
             
-            if !orphansFetchRequest.isEmpty {
+            if !orphans.isEmpty {
                 GenericListSection(
                     header: "Orphans",
-                    fetchRequest: _orphansFetchRequest,
+                    fetchRequest: _orphans,
                     smallFont: smallFont,
                     editor: editor
                 )
@@ -82,16 +84,17 @@ struct ListWithDashboard<
 }
 
 
-//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE EntityListWithDashboard
+//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE FactoryChildrenListWithDashboard
 //  but there is a problem with PlusButton Type that cannot be infered
 
 /// For `FactoryTracable` Types it's possible to construct `PlusButton` using `factoryPredicate` as default
-private extension ListWithDashboard where Child: FactoryTracable {
+private extension ListWithDashboard where Child: FactoryTracable, Parent == Factory {
+    
     init(
         for parent: Parent,
         title: String? = nil,
-        predicate: NSPredicate? = nil,
         smallFont: Bool = true,
+        predicate: NSPredicate? = nil,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -99,8 +102,8 @@ private extension ListWithDashboard where Child: FactoryTracable {
     ) {
         let predicateToUse: NSPredicate
         
-        if predicate == nil, type(of: parent) == Factory.self {
-            predicateToUse = Child.factoryPredicate(for: parent as! Factory )
+        if predicate == nil {
+            predicateToUse = Child.factoryPredicate(for: parent)
         } else {
             predicateToUse = predicate!
         }
@@ -117,8 +120,8 @@ private extension ListWithDashboard where Child: FactoryTracable {
         self.init(
             for: parent,
             title: title ?? Child.plural,
-            predicate: predicateToUse,
             smallFont: smallFont,
+            predicate: predicateToUse,
             plusButton: plusButton,
             dashboard: dashboard,
             editor: editor
@@ -127,11 +130,12 @@ private extension ListWithDashboard where Child: FactoryTracable {
 }
 
 
-//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE EntityListWithDashboard
+//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE FactoryChildrenListWithDashboard
 //  but there is a problem with PlusButton Type that cannot be infered
 
 /// This init for `Offspringable` types with Factory as parent: can get keyPathParentToChildren from Offspringable conformance
-private extension ListWithDashboard where Child: FactoryTracable & Offspringable, Parent == Factory {
+//  MARK: - NOT USED
+private extension ListWithDashboard where Child: FactoryChild, Parent == Factory {
     
     init(
         for parent: Parent,
@@ -144,9 +148,9 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
         self.init(
             for: parent,
             title: title,
-            predicate: predicate,
             smallFont: smallFont,
-            keyPathParentToChildren: Child.offspringKeyPath,
+            predicate: predicate,
+            keyPathParentToChildren: Child.factoryToChildrenKeyPath,
             dashboard: dashboard,
             editor: editor)
     }
@@ -191,13 +195,13 @@ struct ListWithDashboard_Previews: PreviewProvider {
             let packaging = Test2<Packaging>()
             let product = Test2<Product>()
             let sales = Test2<Sales>()
-            // let utility = Test2<Utility>()   //Type 'Utility' does not conform to protocol 'FactoryTracable'
+            let utility = Test2<Utility>()
             let employee = Test2<Employee>()
         }
         
-        struct Test3<T: Dashboardable & FactoryTracable & Offspringable> {}
+        struct Test3<T: Dashboardable & FactoryChild> {}
         struct Testing3 {
-            // let base = Test3<Base>()    // Type 'Base' does not conform to protocol 'Offspringable'
+            let base = Test3<Base>()    // Type 'Base' does not conform to protocol 'Offspringable'
             let buyer = Test3<Buyer>()
             // let department = Test3<Department>()    // Type 'Department' does not conform to protocol 'Offspringable'
             let division = Test3<Division>()
@@ -209,7 +213,7 @@ struct ListWithDashboard_Previews: PreviewProvider {
             // let packaging = Test3<Packaging>()  // Type 'Packaging' does not conform to protocol 'Offspringable'
             // let product = Test3<Product>()  // Type 'Product' does not conform to protocol 'Offspringable'
             // let sales = Test3<Sales>()  // Type 'Sales' does not conform to protocol 'Offspringable'
-            // let utility = Test3<Utility>()   Type 'Utility' does not conform to protocol 'FactoryTracable'
+            // let utility = Test3<Utility>()  // Type 'Utility' does not conform to protocol 'Offspringable'
             // let employee = Test3<Employee>()    // Type 'Employee' does not conform to protocol 'Offspringable'
         }
     }

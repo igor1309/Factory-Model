@@ -11,6 +11,7 @@ import CoreData
 typealias Listable = Managed & Monikerable & Summarizable
 
 struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
+    
     @Environment(\.managedObjectContext) private var context
     
     @EnvironmentObject var settings: Settings
@@ -103,8 +104,7 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
                 Button {
                     showDeleteAction = true
                 } label: {
-                    Image(systemName: "trash.circle")
-                    Text("Delete")
+                    Label("Delete", systemImage: "trash.circle")
                 }
             }
             .actionSheet(isPresented: $showDeleteAction) {
