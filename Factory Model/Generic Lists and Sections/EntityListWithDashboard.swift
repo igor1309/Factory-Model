@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct EntityListWithDashboard<
-    Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable & FactoryTracable,
+    Child: Dashboardable & FactoryTracable,
     Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
@@ -23,9 +23,6 @@ struct EntityListWithDashboard<
     let keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
-    
-    @FetchRequest private var entities: FetchedResults<Child>
-    @FetchRequest private var orphansFetchRequest: FetchedResults<Child>
     
     //  @State private var searchText = ""
     
@@ -41,8 +38,8 @@ struct EntityListWithDashboard<
     init(
         for parent: Parent,
         title: String? = nil,
-        predicate: NSPredicate? = nil,
         smallFont: Bool = true,
+        predicate: NSPredicate? = nil,
         keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
@@ -63,8 +60,11 @@ struct EntityListWithDashboard<
             _entities = Child.defaultFetchRequest(with: predicate)
         }
         
-        _orphansFetchRequest = Child.defaultFetchRequest(with: Child.orphanPredicate)
+        _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
+    
+    @FetchRequest private var entities: FetchedResults<Child>
+    @FetchRequest private var orphans: FetchedResults<Child>
     
     var body: some View {
         List {
@@ -72,10 +72,10 @@ struct EntityListWithDashboard<
             
             dashboard()
             
-            if !orphansFetchRequest.isEmpty {
+            if !orphans.isEmpty {
                 GenericListSection(
                     header: "Orphans",
-                    fetchRequest: _orphansFetchRequest,
+                    fetchRequest: _orphans,
                     smallFont: smallFont,
                     editor: editor
                 )
@@ -102,8 +102,7 @@ struct EntityListWithDashboard<
     }
 }
 
-
-extension EntityListWithDashboard where Child: Offspringable, Parent == Factory {
+extension EntityListWithDashboard where Child: FactoryChild, Parent == Factory {
     
     init(
         for parent: Parent,
@@ -116,9 +115,9 @@ extension EntityListWithDashboard where Child: Offspringable, Parent == Factory 
         self.init(
             for: parent,
             title: title,
-            predicate: predicate,
             smallFont: smallFont,
-            keyPathParentToChildren: Child.offspringKeyPath,
+            predicate: predicate,
+            keyPathParentToChildren: Child.factoryToChildrenKeyPath,
             dashboard: dashboard,
             editor: editor)
     }
