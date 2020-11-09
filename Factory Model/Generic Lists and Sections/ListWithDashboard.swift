@@ -8,8 +8,10 @@
 import SwiftUI
 import CoreData
 
+typealias Dashboardable = Monikerable & Managed & Summarizable & Sketchable & Orphanable
+
 struct ListWithDashboard<
-    Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable,
+    Child: Dashboardable,
     Parent: NSManagedObject,
     PlusButton: View,
     Dashboard: View,
@@ -74,8 +76,8 @@ struct ListWithDashboard<
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
-        // .navigationBarItems(trailing: plusButton())
-        .toolbar { plusButton() }
+        .navigationBarItems(trailing: plusButton())
+        //        .toolbar { plusButton() }
     }
 }
 
@@ -83,6 +85,7 @@ struct ListWithDashboard<
 //  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE EntityListWithDashboard
 //  but there is a problem with PlusButton Type that cannot be infered
 
+/// For `FactoryTracable` Types it's possible to construct `PlusButton` using `factoryPredicate` as default
 private extension ListWithDashboard where Child: FactoryTracable {
     init(
         for parent: Parent,
@@ -126,6 +129,8 @@ private extension ListWithDashboard where Child: FactoryTracable {
 
 //  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE EntityListWithDashboard
 //  but there is a problem with PlusButton Type that cannot be infered
+
+/// This init for `Offspringable` types with Factory as parent: can get keyPathParentToChildren from Offspringable conformance
 private extension ListWithDashboard where Child: FactoryTracable & Offspringable, Parent == Factory {
     
     init(
@@ -135,7 +140,6 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
         predicate: NSPredicate? = nil,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
-        
     ) {
         self.init(
             for: parent,
@@ -148,13 +152,75 @@ private extension ListWithDashboard where Child: FactoryTracable & Offspringable
     }
 }
 
+
 struct ListWithDashboard_Previews: PreviewProvider {
+    
+    
+    //  MARK: - checking ListWithDashboard signatures - looking for conforming Entities (Types)
+    
+    private struct TestingListWithDashboard {
+        struct Test1<T: Dashboardable> {}
+        struct Testing1 {
+            let base = Test1<Base>()
+            let buyer = Test1<Buyer>()
+            let department = Test1<Department>()
+            let division = Test1<Division>()
+            let equipment = Test1<Equipment>()
+            let expenses = Test1<Expenses>()
+            //let factory = Test1<Factory>() // Type 'Factory' does not conform to protocol 'Orphanable'
+            let ingredient = Test1<Ingredient>()
+            let recipe = Test1<Recipe>()
+            let packaging = Test1<Packaging>()
+            let product = Test1<Product>()
+            let sales = Test1<Sales>()
+            let utility = Test1<Utility>()
+            let employee = Test1<Employee>()
+        }
+        
+        struct Test2<T: Dashboardable & FactoryTracable> {}
+        struct Testing2 {
+            let base = Test2<Base>()
+            let buyer = Test2<Buyer>()
+            let department = Test2<Department>()
+            let division = Test2<Division>()
+            let equipment = Test2<Equipment>()
+            let expenses = Test2<Expenses>()
+            // let factory = Test2<Factory>() // Type 'Factory' does not conform to protocol 'Orphanable' and protocol 'FactoryTracable'
+            let ingredient = Test2<Ingredient>()
+            // let recipe = Test2<Recipe>()     // Type 'Recipe' does not conform to protocol 'FactoryTracable'
+            let packaging = Test2<Packaging>()
+            let product = Test2<Product>()
+            let sales = Test2<Sales>()
+            // let utility = Test2<Utility>()   //Type 'Utility' does not conform to protocol 'FactoryTracable'
+            let employee = Test2<Employee>()
+        }
+        
+        struct Test3<T: Dashboardable & FactoryTracable & Offspringable> {}
+        struct Testing3 {
+            // let base = Test3<Base>()    // Type 'Base' does not conform to protocol 'Offspringable'
+            let buyer = Test3<Buyer>()
+            // let department = Test3<Department>()    // Type 'Department' does not conform to protocol 'Offspringable'
+            let division = Test3<Division>()
+            let equipment = Test3<Equipment>()
+            let expenses = Test3<Expenses>()
+            // let factory = Test3<Factory>() Type 'Factory' does not conform to protocol 'Orphanable'
+            // let ingredient = Test3<Ingredient>()    // Type 'Ingredient' does not conform to protocol 'Offspringable'
+            //let recipe = Test3<Recipe>()     Type 'Recipe' does not conform to protocol 'FactoryTracable'
+            // let packaging = Test3<Packaging>()  // Type 'Packaging' does not conform to protocol 'Offspringable'
+            // let product = Test3<Product>()  // Type 'Product' does not conform to protocol 'Offspringable'
+            // let sales = Test3<Sales>()  // Type 'Sales' does not conform to protocol 'Offspringable'
+            // let utility = Test3<Utility>()   Type 'Utility' does not conform to protocol 'FactoryTracable'
+            // let employee = Test3<Employee>()    // Type 'Employee' does not conform to protocol 'Offspringable'
+        }
+    }
+    
+    
     static var previews: some View {
         Group {
             
-            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ FactoryTracable?
+            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ FactoryTracable? - yes, Factory
             
-            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ Offspringable??
+            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ Offspringable?? - yes, see TestingListWithDashboard
             
             //  MARK: - not Offspringable
             NavigationView {
