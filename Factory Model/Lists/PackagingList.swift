@@ -24,7 +24,6 @@ struct PackagingList: View {
             Group {
                 /// refreshing UI if context was saved
                 LabelWithDetail("squareshape.split.3x3" + (refreshing ? "" : ""), "No of Packagings", factory.packagings.count.formattedGrouped)
-                //                    LabelWithDetail(<#T##systemName: String##String#>, <#T##title: _##_#>, <#T##detail: _##_#>)
             }
             .foregroundColor(.secondary)
             .font(.subheadline)
@@ -42,10 +41,9 @@ struct PackagingList: View {
         
         ListWithDashboard(
             childType: Packaging.self,
-            for: factory,
             predicate: Packaging.factoryPredicate(for: factory)
         ) {
-            CreateOrphanButton<Packaging>()
+            CreateNewEntityBarButton<Packaging>()
             
             //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
             // EmptyView()

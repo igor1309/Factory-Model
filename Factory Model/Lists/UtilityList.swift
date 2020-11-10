@@ -23,7 +23,6 @@ struct UtilityList: View {
     var body: some View {
         ListWithDashboard(
             childType: Utility.self,
-            for: base,
             predicate: predicate
         ) {
             CreateChildButton(

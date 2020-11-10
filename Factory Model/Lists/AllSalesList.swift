@@ -71,8 +71,7 @@ struct AllSalesList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Sales")
-        //.navigationBarItems(trailing: CreateOrphanButton<Sales>(systemName: "cart.badge.plus"))
-        .toolbar { CreateOrphanButton<Sales>(systemName: "cart.badge.plus") }
+        .navigationBarItems(trailing: CreateNewEntityBarButton<Sales>())
         //        .navigationBarItems(trailing: plusButton)
     }
     

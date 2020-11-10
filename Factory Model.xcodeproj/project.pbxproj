@@ -60,6 +60,7 @@
 		2A52688624DE993300DDF4DE /* CustomUnitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688524DE993300DDF4DE /* CustomUnitable.swift */; };
 		2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */; };
 		2A53AA53255AD08E00B3FA12 /* Managed+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53AA52255AD08E00B3FA12 /* Managed+Ext.swift */; };
+		2A53AA5B255B408D00B3FA12 /* CreateNewEntityBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53AA5A255B408D00B3FA12 /* CreateNewEntityBarButton.swift */; };
 		2A59EAA824DB56830063D028 /* undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A59EAA724DB56830063D028 /* undefined.swift */; };
 		2A5C945F250F8E8F00DE7DF2 /* DataPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C945E250F8E8F00DE7DF2 /* DataPointsView.swift */; };
 		2A5C94652510DEC200DE7DF2 /* Cost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94642510DEC200DE7DF2 /* Cost.swift */; };
@@ -233,6 +234,7 @@
 		2A52688524DE993300DDF4DE /* CustomUnitable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnitable.swift; sourceTree = "<group>"; };
 		2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavingParentUnit.swift; sourceTree = "<group>"; };
 		2A53AA52255AD08E00B3FA12 /* Managed+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Managed+Ext.swift"; sourceTree = "<group>"; };
+		2A53AA5A255B408D00B3FA12 /* CreateNewEntityBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityBarButton.swift; sourceTree = "<group>"; };
 		2A53CFB7251E373300F7CDDF /* market.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = market.md; sourceTree = "<group>"; };
 		2A59EAA724DB56830063D028 /* undefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = undefined.swift; sourceTree = "<group>"; };
 		2A5C945E250F8E8F00DE7DF2 /* DataPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointsView.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 				2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */,
 				2A93D97B24D1AB0C00DF1A35 /* CreateChildButton.swift */,
 				2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */,
+				2A53AA5A255B408D00B3FA12 /* CreateNewEntityBarButton.swift */,
 			);
 			path = "Buttons and Menus";
 			sourceTree = "<group>";
@@ -926,6 +929,7 @@
 				2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */,
 				2A2B44C124D09189003EF752 /* DepartmentView.swift in Sources */,
 				2ABB436324EFC9D90036F42F /* ProductDataSections.swift in Sources */,
+				2A53AA5B255B408D00B3FA12 /* CreateNewEntityBarButton.swift in Sources */,
 				2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */,
 				2A167F0B24EC161700A8E7DE /* SalesEditor.swift in Sources */,
 				2ABB436124EE74590036F42F /* RecipeRow.swift in Sources */,
@@ -1129,7 +1133,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1154,7 +1158,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;

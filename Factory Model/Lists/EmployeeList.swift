@@ -23,7 +23,6 @@ struct EmployeeList: View {
     var body: some View {
         ListWithDashboard(
             childType: Employee.self,
-            for: department,
             predicate: predicate
         ) {
             CreateChildButton(

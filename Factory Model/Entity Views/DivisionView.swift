@@ -26,7 +26,6 @@ struct DivisionView: View {
     var body: some View {
         ListWithDashboard(
             childType: Department.self,
-            for: division,
             title: division.name
         ) {
             CreateChildButton(

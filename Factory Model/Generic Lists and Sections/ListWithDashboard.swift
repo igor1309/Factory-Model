@@ -12,14 +12,11 @@ typealias Dashboardable = Monikerable & Managed & Summarizable & Sketchable & Or
 
 struct ListWithDashboard<
     Child: Dashboardable,
-    Parent: NSManagedObject,
     PlusButton: View,
     Dashboard: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
-    
-    @ObservedObject var parent: Parent
     
     let title: String
     let smallFont: Bool
@@ -29,14 +26,12 @@ struct ListWithDashboard<
     /// for immediate Factory children use FactoryChildrenListWithDashboard
     init(
         childType: Child.Type,
-        for parent: Parent,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
         plusButton: @escaping () -> PlusButton,
         @ViewBuilder dashboard: @escaping () -> Dashboard
     ) {
-        self.parent = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
         self.plusButton = plusButton
@@ -76,46 +71,46 @@ struct ListWithDashboard<
 //  but there is a problem with PlusButton Type that cannot be infered
 
 /// For `FactoryTracable` Types it's possible to construct `PlusButton` using `factoryPredicate` as default
-private extension ListWithDashboard where Child: FactoryTracable, Parent == Factory {
-    
-    init(
-        childType: Child.Type,
-        for parent: Parent,
-        title: String? = nil,
-        smallFont: Bool = true,
-        predicate: NSPredicate? = nil,
-        keyPath: ReferenceWritableKeyPath<Child, Parent?>,
-        //keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
-        @ViewBuilder dashboard: @escaping () -> Dashboard
-    ) {
-        let predicateToUse: NSPredicate
-        
-        if predicate == nil {
-            predicateToUse = Child.factoryPredicate(for: parent)
-        } else {
-            predicateToUse = predicate!
-        }
-        
-        let plusButton: () -> PlusButton = {
-            CreateChildButton(
-                systemName: Child.plusButtonIcon,
-                childType: Child.self,
-                parent: parent,
-                keyPathToParent: keyPath
-            ) as! PlusButton
-        }
-        
-        self.init(
-            childType: childType,
-            for: parent,
-            title: title ?? Child.plural,
-            smallFont: smallFont,
-            predicate: predicateToUse,
-            plusButton: plusButton,
-            dashboard: dashboard
-        )
-    }
-}
+//private extension ListWithDashboard where Child: FactoryTracable, Parent == Factory {
+//
+//    init(
+//        childType: Child.Type,
+//        for parent: Parent,
+//        title: String? = nil,
+//        smallFont: Bool = true,
+//        predicate: NSPredicate? = nil,
+//        keyPath: ReferenceWritableKeyPath<Child, Parent?>,
+//        //keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
+//        @ViewBuilder dashboard: @escaping () -> Dashboard
+//    ) {
+//        let predicateToUse: NSPredicate
+//
+//        if predicate == nil {
+//            predicateToUse = Child.factoryPredicate(for: parent)
+//        } else {
+//            predicateToUse = predicate!
+//        }
+//
+//        let plusButton: () -> PlusButton = {
+//            CreateChildButton(
+//                systemName: Child.plusButtonIcon,
+//                childType: Child.self,
+//                parent: parent,
+//                keyPathToParent: keyPath
+//            ) as! PlusButton
+//        }
+//
+//        self.init(
+//            childType: childType,
+//            for: parent,
+//            title: title ?? Child.plural,
+//            smallFont: smallFont,
+//            predicate: predicateToUse,
+//            plusButton: plusButton,
+//            dashboard: dashboard
+//        )
+//    }
+//}
 
 
 //  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE FactoryChildrenListWithDashboard
@@ -219,10 +214,9 @@ struct ListWithDashboard_Previews: PreviewProvider {
             NavigationView {
                 ListWithDashboard(
                     childType: Department.self,
-                    for: Factory.example,
                     predicate: Department.factoryPredicate(for: Factory.example)
                 ) {
-                    CreateOrphanButton<Department>(systemName: Department.plusButtonIcon)
+                    CreateNewEntityBarButton<Department>()
                 } dashboard: {
                     Text("Dashboard goes here")
                 }
@@ -235,10 +229,9 @@ struct ListWithDashboard_Previews: PreviewProvider {
             NavigationView {
                 ListWithDashboard(
                     childType: Product.self,
-                    for: Factory.example,
                     predicate: Product.factoryPredicate(for: Factory.example)
                 ) {
-                    CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
+                    CreateNewEntityBarButton<Product>()
                 } dashboard: {
                     Text("Dashboard goes here")
                 }

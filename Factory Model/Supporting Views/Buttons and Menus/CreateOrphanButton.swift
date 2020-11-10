@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable>: View {
+fileprivate struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable>: View {
     @Environment(\.managedObjectContext) private var context
     
     let systemName: String
@@ -33,7 +33,7 @@ struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable>: View {
 }
 
 
-struct CreateOrphanButton_Previews: PreviewProvider {
+fileprivate struct CreateOrphanButton_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             Color

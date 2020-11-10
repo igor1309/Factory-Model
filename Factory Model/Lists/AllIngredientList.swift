@@ -25,10 +25,9 @@ struct AllIngredientList: View {
     var body: some View {
         ListWithDashboard(
             childType: Ingredient.self,
-            for: factory,
             predicate: Ingredient.factoryPredicate(for: factory)
         ) {
-            CreateOrphanButton<Ingredient>()
+            CreateNewEntityBarButton<Ingredient>()
         } dashboard: {
             Section(
                 /// refreshing UI if context was saved

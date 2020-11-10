@@ -21,7 +21,6 @@ struct SalesList: View {
     var body: some View {
         ListWithDashboard(
             childType: Sales.self,
-            for: product,
             predicate: predicate
         ) {
             CreateChildButton(

@@ -119,11 +119,7 @@ struct ProductDataCostSection_Previews: PreviewProvider {
         NavigationView {
             List {
                 ProductDataCostSection(Base.example) {
-                    ListWithDashboard(
-                        childType: Recipe.self,
-                        for: Base.example,
-                        predicate: nil//recipePredicate
-                    ) {
+                    ListWithDashboard(childType: Recipe.self, predicate: nil) {
                         CreateChildButton(
                             childType: Recipe.self,
                             parent: Base.example,

@@ -19,10 +19,9 @@ struct ProductList: View {
     var body: some View {
         ListWithDashboard(
             childType: Product.self,
-            for: factory,
             predicate: Product.factoryPredicate(for: factory)
         ) {
-            CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
+            CreateNewEntityBarButton<Product>()
         } dashboard: {
             dashboard
         }

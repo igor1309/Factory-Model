@@ -23,7 +23,6 @@ struct BuyerView: View {
     var body: some View {
         ListWithDashboard(
             childType: Sales.self,
-            for: buyer,
             title: buyer.name,
             predicate: predicate
         ) {

@@ -71,13 +71,8 @@ struct EmployeeEditor: View {
                 footer: Text("Standart work week 40 hours, standart month 168 hours.")
             ) {
                 Group {
-                    AmountPicker(
-                        systemName: "dollarsign.circle",
-                        title: "Salary ex taxes",
-                        navigationTitle: "Salary",
-                        scale: .extraLarge,
-                        amount: $salary
-                    )
+                    AmountPicker(systemName: "dollarsign.circle", title: "Salary ex taxes", navigationTitle: "Salary", scale: .extraLarge, amount: $salary)
+                        .foregroundColor(salary > 0 ? .systemBlue : .systemRed)
                     
                     PeriodPicker(icon: "deskclock", title: "Period", period: $period)
                 }

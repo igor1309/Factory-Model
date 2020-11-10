@@ -26,7 +26,6 @@ struct DepartmentView: View {
     var body: some View {
         ListWithDashboard(
             childType: Employee.self,
-            for: department,
             title: department.name,
             predicate: predicate
         ) {

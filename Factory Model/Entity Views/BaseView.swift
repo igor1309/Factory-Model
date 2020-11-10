@@ -66,7 +66,6 @@ struct BaseView: View {
                 ProductDataCostSection(base) {
                     ListWithDashboard(
                         childType: Recipe.self,
-                        for: base,
                         predicate: recipePredicate
                     ) {
                         CreateChildButton(

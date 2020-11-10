@@ -8,9 +8,7 @@
 import SwiftUI
 import CoreData
 
-typealias PickableEntity = Managed & Monikerable & Summarizable //& NSManagedObject
-
-struct EntityPickerSection<T: PickableEntity & Sketchable>: View {
+struct EntityPickerSection<T: Listable & Sketchable>: View where T.ManagedType == T {
     @Binding var selection: T?
 
     let predicate: NSPredicate? = nil
@@ -26,7 +24,7 @@ struct EntityPickerSection<T: PickableEntity & Sketchable>: View {
     }
 }
 
-struct EntityPicker<T: PickableEntity & Sketchable>: View {
+struct EntityPicker<T: Listable & Sketchable>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) private var context
     
     @Binding var selection: T?
@@ -71,7 +69,7 @@ struct EntityPicker<T: PickableEntity & Sketchable>: View {
     }
 }
 
-fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
+fileprivate struct EntityPickerSheet<T: Listable & Sketchable>: View where T.ManagedType == T {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) private var presentation
     
@@ -115,7 +113,7 @@ fileprivate struct EntityPickerSheet<T: PickableEntity & Sketchable>: View {
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(T.entityName)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: CreateOrphanButton<T>())
+            .navigationBarItems(trailing: CreateNewEntityBarButton<T>())
         }
     }
 }
