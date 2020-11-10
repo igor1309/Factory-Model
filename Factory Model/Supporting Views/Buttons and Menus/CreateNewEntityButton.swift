@@ -9,27 +9,23 @@ import SwiftUI
 
 struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     
+    var iconOnly: Bool = false
+    
     @Binding var isPresented: Bool
     
     @State private var isActive = false
     
-    var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: T.icon)
-                .foregroundColor(T.color)
-                .font(.system(size: 52, weight: .ultraLight, design: .default))
-                .padding(.top, 6)
-            
-            Text(T.headline)
-                .font(.subheadline)
-            
-            NavigationLink(
-                destination: destination(),
-                isActive: $isActive
-            ) {
-                Button {
-                    isActive = true
-                } label: {
+    private var navigationLink: some View {
+        NavigationLink(
+            destination: destination(),
+            isActive: $isActive
+        ) {
+            Button {
+                isActive = true
+            } label: {
+                if iconOnly {
+                    Image(systemName: T.plusButtonIcon)
+                } else {
                     Text("Create \(T.entityName)")
                         .frame(maxWidth: .infinity)
                         .accentColor(.white)
@@ -37,7 +33,25 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
                 }
             }
         }
-        .simpleCardify()
+    }
+    
+    var body: some View {
+        if iconOnly {
+            navigationLink
+        } else {
+            VStack(spacing: 16) {
+                Image(systemName: T.icon)
+                    .foregroundColor(T.color)
+                    .font(.system(size: 52, weight: .ultraLight, design: .default))
+                    .padding(.top, 6)
+                
+                Text(T.headline)
+                    .font(.subheadline)
+                
+                navigationLink
+            }
+            .simpleCardify()
+        }
     }
     
     @ViewBuilder
@@ -73,8 +87,10 @@ struct CreateNewEntityButton_Previews: PreviewProvider {
                 CreateNewEntityButton<Utility>(isPresented: $isPresented)
             }
             .padding(.horizontal)
+            .navigationBarItems(trailing: CreateNewEntityButton<Utility>(iconOnly: true, isPresented: $isPresented))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
     }
 }
