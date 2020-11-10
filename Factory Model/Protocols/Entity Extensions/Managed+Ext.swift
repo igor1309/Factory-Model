@@ -30,25 +30,45 @@ extension Managed {
         }
     }
     
-    
     @ViewBuilder
-    func editor() -> some View {
+    func viewer() -> some View {
         switch type(of: self).entityName {
-            case Base.entityName:       BaseEditor(self as! Base)
-            case Buyer.entityName:      BuyerEditor(self as! Buyer)
-            case Department.entityName: DepartmentEditor(self as! Department)
-            case Division.entityName:   DivisionEditor(division: self as! Division)
+            case Base.entityName:       BaseView(self as! Base)
+            case Buyer.entityName:      BuyerView(self as! Buyer)
+            case Department.entityName: DepartmentView(self as! Department)
+            case Division.entityName:   DivisionView(self as! Division)
             case Equipment.entityName:  EquipmentEditor(self as! Equipment)
             case Employee.entityName:   EmployeeEditor(self as! Employee)
             case Expenses.entityName:   ExpensesEditor(self as! Expenses)
-            case Factory.entityName:    FactoryEditor(self as! Factory)
-            case Ingredient.entityName: IngredientEditor(self as! Ingredient)
-            case Packaging.entityName:  PackagingEditor(self as! Packaging)
-            case Product.entityName:    ProductEditor(self as! Product)
+            case Factory.entityName:    FactoryView(self as! Factory)
+            case Ingredient.entityName: IngredientView(self as! Ingredient)
+            case Packaging.entityName:  PackagingView(self as! Packaging)
+            case Product.entityName:    ProductView(self as! Product)
             case Recipe.entityName:     RecipeEditor(self as! Recipe)
             case Sales.entityName:      SalesEditor(self as! Sales)
             case Utility.entityName:    UtilityEditor(self as! Utility)
             default: Text("TBD")
         }
     }
+
+    //    @ViewBuilder
+//    func editor() -> some View {
+//        switch type(of: self).entityName {
+//            case Base.entityName:       BaseEditor(self as! Base)
+//            case Buyer.entityName:      BuyerEditor(self as! Buyer)
+//            case Department.entityName: DepartmentEditor(self as! Department)
+//            case Division.entityName:   DivisionEditor(division: self as! Division)
+//            case Equipment.entityName:  EquipmentEditor(self as! Equipment)
+//            case Employee.entityName:   EmployeeEditor(self as! Employee)
+//            case Expenses.entityName:   ExpensesEditor(self as! Expenses)
+//            case Factory.entityName:    FactoryEditor(self as! Factory)
+//            case Ingredient.entityName: IngredientEditor(self as! Ingredient)
+//            case Packaging.entityName:  PackagingEditor(self as! Packaging)
+//            case Product.entityName:    ProductEditor(self as! Product)
+//            case Recipe.entityName:     RecipeEditor(self as! Recipe)
+//            case Sales.entityName:      SalesEditor(self as! Sales)
+//            case Utility.entityName:    UtilityEditor(self as! Utility)
+//            default: Text("TBD")
+//        }
+//    }
 }

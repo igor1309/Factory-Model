@@ -23,7 +23,7 @@ struct BuyerView: View {
     var body: some View {
         ListWithDashboard(
             for: buyer,
-            title: "Edit Buyer",
+            title: buyer.name,
             predicate: predicate
         ) {
             CreateChildButton(
@@ -64,6 +64,7 @@ struct BuyerView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 560))
 
     }
 }

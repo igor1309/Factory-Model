@@ -73,13 +73,7 @@ struct DepartmentEditor: View {
             
             if let department = departmentToEdit,
                !department.employees.isEmpty {
-                GenericListSection(
-                    header: "Existing Employees",
-                    type: Employee.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
-                ) { (employee: Employee) in
-                    EmployeeEditor(employee)
-                }
+                GenericListSection(header: "Existing Employees", type: Employee.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department))
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -130,7 +124,7 @@ fileprivate struct CreateEmployee: View {
     @State private var salary: Double = 0
     @State private var workHours: Double = 0
     @State private var period: Period = .month()
-
+    
     var body: some View {
         List {
             NameSection<Employee>(name: $name)

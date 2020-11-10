@@ -61,13 +61,8 @@ struct PackagingEditor: View {
                     .font(.caption)
                 }
                 
-                GenericListSection(
-                    //header: "Оставлять ли этот список?",
-                    type: Product.self,
-                    predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
-                ) { product in
-                    ProductView(product)
-                }
+                //header: "Оставлять ли этот список?",
+                GenericListSection(type: Product.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging))
             }
         }
         .listStyle(InsetGroupedListStyle())

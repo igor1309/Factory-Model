@@ -19,12 +19,7 @@ struct EntityLinkToList<T: Managed & Monikerable & Summarizable, Editor: View>: 
     
     private var destination: some View {
         List {
-            GenericListSection(
-                type: T.self,
-                predicate: nil
-            ) { (entity: T) in
-                editor(entity)
-            }
+            GenericListSection(type: T.self, predicate: nil)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)

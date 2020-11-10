@@ -82,20 +82,11 @@ struct EntityListWithDashboard<
             dashboard()
             
             if !orphans.isEmpty {
-                GenericListSection(
-                    header: "Orphans",
-                    fetchRequest: _orphans,
-                    smallFont: smallFont,
-                    editor: editor
-                )
+                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont)
                 .foregroundColor(.systemRed)
             }
             
-            GenericListSection(
-                fetchRequest: _entities,
-                smallFont: smallFont,
-                editor: editor
-            )
+            GenericListSection(fetchRequest: _entities, smallFont: smallFont)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)

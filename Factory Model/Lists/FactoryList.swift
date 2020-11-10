@@ -13,22 +13,15 @@ struct FactoryList: View {
     
     var body: some View {
         List {
-            GenericListSection(
-                type: Factory.self,
-                predicate: nil,
-                smallFont: false
-            ) { factory in
-                FactoryView(factory)
-            }
+            GenericListSection(type: Factory.self, predicate: nil, smallFont: false)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Factories")
         .navigationBarItems(
-            trailing:
-                HStack(spacing: 16) {
-                    MenuCreateNewOrSample()
-                    CreateEntityPickerButton()
-                }
+            trailing: HStack(spacing: 16) {
+                MenuCreateNewOrSample()
+                CreateEntityPickerButton()
+            }
         )
     }
 }

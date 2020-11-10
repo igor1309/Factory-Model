@@ -126,5 +126,6 @@ struct ProductList_Previews: PreviewProvider {
                 .environmentObject(Settings())
                 .preferredColorScheme(.dark)
         }
+        .previewLayout(.fixed(width: 350, height: 1100))
     }
 }

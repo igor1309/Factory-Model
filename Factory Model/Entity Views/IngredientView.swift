@@ -59,13 +59,7 @@ struct IngredientView: View {
                 .font(.subheadline)
             }
             
-            GenericListSection(
-                header: "Used in Base Products",
-                type: Base.self,
-                predicate: predicate
-            ) { (base: Base) in
-                BaseEditor(base)
-            }
+            GenericListSection(header: "Used in Base Products", type: Base.self, predicate: predicate)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(ingredient.name)
@@ -80,5 +74,6 @@ struct IngredientView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
+        .previewLayout(.fixed(width: 350, height: 600))
     }
 }

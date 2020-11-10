@@ -62,20 +62,10 @@ struct AllSalesList: View {
                 )
             }
             
-            GenericListSection(
-                type: Sales.self,
-                predicate: Sales.factoryPredicate(for: factory)
-            ) { sales in
-                SalesEditor(sales)
-            }
+            GenericListSection(type: Sales.self, predicate: Sales.factoryPredicate(for: factory))
             
             if !orphans.isEmpty {
-                GenericListSection(
-                    header: "Sales and Orphans",
-                    fetchRequest: _orphans
-                ) { sales in
-                    SalesEditor(sales)
-                }
+                GenericListSection(header: "Sales and Orphans", fetchRequest: _orphans)
                 .foregroundColor(.systemRed)
             }
         }

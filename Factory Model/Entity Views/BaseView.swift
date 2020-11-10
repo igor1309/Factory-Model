@@ -40,13 +40,7 @@ struct BaseView: View {
             }
             
             if !base.products.isEmpty {
-                GenericListSection(
-                    header: "Used in Products",
-                    type: Product.self,
-                    predicate: basePredicate
-                ) { product in
-                    ProductView(product)
-                }
+                GenericListSection(header: "Used in Products", type: Product.self, predicate: basePredicate)
             }
             
             //  parent check

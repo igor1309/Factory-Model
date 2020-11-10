@@ -76,9 +76,7 @@ struct CreateChildButton_Previews: PreviewProvider {
         Group {
             NavigationView {
                 List {
-                    GenericListSection(type: Product.self, predicate: NSPredicate(format: "base == %@", base)) { (product: Product) in
-                        ProductEditor(product)
-                    }
+                    GenericListSection(type: Product.self, predicate: NSPredicate(format: "base == %@", base))
                 }
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Products: Create Child Button", displayMode: .inline)

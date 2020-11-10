@@ -34,13 +34,7 @@ struct PackagingView: View {
             
             ErrorMessage(packaging)
             
-            GenericListSection(
-                header: "Used in Products",
-                type: Product.self,
-                predicate: predicate
-            ) { product in
-                ProductView(product)
-            }
+            GenericListSection(header: "Used in Products", type: Product.self, predicate: predicate)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(packaging.name, displayMode: .inline)
