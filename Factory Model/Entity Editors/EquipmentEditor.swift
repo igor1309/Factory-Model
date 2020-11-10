@@ -108,10 +108,20 @@ struct EquipmentEditor: View {
 
 struct EquipmentEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                EquipmentEditor(Equipment.example)
+        Group {
+            NavigationView {
+                VStack {
+                    EquipmentEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 700))
+            
+            NavigationView {
+                VStack {
+                    EquipmentEditor(Equipment.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 700))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

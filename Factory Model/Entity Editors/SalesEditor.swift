@@ -103,10 +103,20 @@ struct SalesEditor: View {
 
 struct SalesEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                SalesEditor(Sales.example)
+        Group {
+            NavigationView {
+                VStack {
+                    SalesEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 600))
+            
+            NavigationView {
+                VStack {
+                    SalesEditor(Sales.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 600))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

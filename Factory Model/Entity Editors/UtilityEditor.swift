@@ -94,10 +94,20 @@ struct UtilityEditor: View {
 
 struct UtilityEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                UtilityEditor(Utility.example)
+        Group {
+            NavigationView {
+                VStack {
+                    UtilityEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 500))
+            
+            NavigationView {
+                VStack {
+                    UtilityEditor(Utility.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 500))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

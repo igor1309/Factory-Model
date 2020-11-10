@@ -99,10 +99,20 @@ struct RecipeEditor: View {
 
 struct RecipeEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                RecipeEditor(Recipe.example)
+        Group {
+            NavigationView {
+                VStack {
+                    RecipeEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 420))
+            
+            NavigationView {
+                VStack {
+                    RecipeEditor(Recipe.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 420))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

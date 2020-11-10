@@ -77,10 +77,20 @@ struct DivisionEditor: View {
 
 struct DivisionEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                DivisionEditor(division: Division.example)
+        Group {
+            NavigationView {
+                VStack {
+                    DivisionEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 300))
+            
+            NavigationView {
+                VStack {
+                    DivisionEditor(division: Division.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 300))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

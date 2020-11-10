@@ -228,10 +228,20 @@ fileprivate struct CreateRecipe: View {
 
 struct BaseEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                BaseEditor(Base.example)
+        Group {
+            NavigationView {
+                VStack {
+                    BaseEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 950))
+            
+            NavigationView {
+                VStack {
+                    BaseEditor(Base.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 1200))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

@@ -60,7 +60,7 @@ struct BuyerEditor: View {
             EntityPickerSection(selection: $factory, period: settings.period)
             
             DraftSection<Sales, SalesDraft>(isNewDraftActive: $isNewDraftActive, drafts: $salesDrafts)
-
+            
             if let buyer = buyerToEdit,
                !buyer.sales.isEmpty {
                 GenericListSection(
@@ -108,10 +108,20 @@ struct BuyerEditor: View {
 
 struct BuyerEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                BuyerEditor(Buyer.example)
+        Group {
+            NavigationView {
+                VStack {
+                    BuyerEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 400))
+            
+            NavigationView {
+                VStack {
+                    BuyerEditor(Buyer.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 550))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

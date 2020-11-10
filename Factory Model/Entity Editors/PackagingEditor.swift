@@ -98,10 +98,20 @@ struct PackagingEditor: View {
 
 struct PackagingEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                PackagingEditor(Packaging.example)
+        Group {
+            NavigationView {
+                VStack {
+                    PackagingEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 300))
+            
+            NavigationView {
+                VStack {
+                    PackagingEditor(Packaging.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 300))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

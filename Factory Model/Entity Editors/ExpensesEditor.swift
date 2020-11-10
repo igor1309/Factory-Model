@@ -94,10 +94,20 @@ struct ExpensesEditor: View {
 
 struct ExpensesEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                ExpensesEditor(Expenses.example)
+        Group {
+            NavigationView {
+                VStack {
+                    ExpensesEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 580))
+            
+            NavigationView {
+                VStack {
+                    ExpensesEditor(Expenses.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 580))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

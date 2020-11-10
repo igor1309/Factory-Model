@@ -88,10 +88,20 @@ struct FactoryEditor: View {
 
 struct FactoryEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                FactoryEditor(Factory.example)
+        Group {
+            NavigationView {
+                VStack {
+                    FactoryEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 420))
+            
+            NavigationView {
+                VStack {
+                    FactoryEditor(Factory.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 420))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

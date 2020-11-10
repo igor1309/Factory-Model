@@ -120,10 +120,20 @@ struct EmployeeEditor: View {
 
 struct EmployeeEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                EmployeeEditor(Employee.example)
+        Group {
+            NavigationView {
+                VStack {
+                    EmployeeEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 700))
+            
+            NavigationView {
+                VStack {
+                    EmployeeEditor(Employee.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 700))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

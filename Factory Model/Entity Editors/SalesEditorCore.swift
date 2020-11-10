@@ -76,9 +76,14 @@ struct SalesEditorCore: View {
 
 struct SalesEditorCore_Previews: PreviewProvider {
     static var previews: some View {
-        Form {
-            SalesEditorCore(Sales.example)
+        NavigationView {
+            Form {
+                SalesEditorCore(Sales.example)
+            }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

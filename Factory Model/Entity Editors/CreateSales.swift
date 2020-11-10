@@ -83,6 +83,8 @@ struct CreateSales_Previews: PreviewProvider {
                 CreateSales(salesDrafts: $salesDrafts, kind: .forProduct)
             }
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
         .preferredColorScheme(.dark)
     }
 }

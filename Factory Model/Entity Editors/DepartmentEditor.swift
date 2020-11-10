@@ -202,10 +202,20 @@ fileprivate struct CreateEmployee: View {
 
 struct DepartmentEditor_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            VStack {
-                DepartmentEditor(Department.example)
+        Group {
+            NavigationView {
+                VStack {
+                    DepartmentEditor(isPresented: .constant(true))
+                }
             }
+            .previewLayout(.fixed(width: 345, height: 510))
+            
+            NavigationView {
+                VStack {
+                    DepartmentEditor(Department.example)
+                }
+            }
+            .previewLayout(.fixed(width: 345, height: 730))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
