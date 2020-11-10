@@ -29,7 +29,7 @@ struct BuyerView: View {
             CreateChildButton(
                 childType: Sales.self,
                 parent: buyer,
-                keyPath: \Buyer.sales_
+                keyPathToParent: \Sales.buyer
             )
         } dashboard: {
             Section(

@@ -36,7 +36,7 @@ struct PackagingList: View {
     
     var body: some View {
         
-//        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (packaging: Packaging) in
+//        EntityListWithDashboard(for: factory, dashboard: dashboard) { (packaging: Packaging) in
 //            PackagingEditor(packaging)
 //        }
         

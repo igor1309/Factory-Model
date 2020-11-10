@@ -28,7 +28,7 @@ struct EmployeeList: View {
             CreateChildButton(
                 childType: Employee.self,
                 parent: department,
-                keyPath: \Department.employees_
+                keyPathToParent: \Employee.department
             )
         } dashboard: {
             Section(header: Text("Total")) {

@@ -28,7 +28,7 @@ extension Managed where Self: NSManagedObject {
     }
     
     /// https://stackoverflow.com/a/27112385
-    static func create(in context: NSManagedObjectContext) -> Self {
+    private static func create(in context: NSManagedObjectContext) -> Self {
         let object = NSEntityDescription.insertNewObject(forEntityName: entityName, into: context)
         return unsafeDowncast(object, to: self)
     }

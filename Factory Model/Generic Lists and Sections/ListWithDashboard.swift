@@ -95,10 +95,10 @@ private extension ListWithDashboard where Child: FactoryTracable, Parent == Fact
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
-        keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
+        keyPath: ReferenceWritableKeyPath<Child, Parent?>,
+        //keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
-        
     ) {
         let predicateToUse: NSPredicate
         
@@ -113,7 +113,7 @@ private extension ListWithDashboard where Child: FactoryTracable, Parent == Fact
                 systemName: Child.plusButtonIcon,
                 childType: Child.self,
                 parent: parent,
-                keyPath: keyPathParentToChildren
+                keyPathToParent: keyPath
             ) as! PlusButton
         }
         
@@ -135,30 +135,30 @@ private extension ListWithDashboard where Child: FactoryTracable, Parent == Fact
 
 /// This init for `Offspringable` types with Factory as parent: can get keyPathParentToChildren from Offspringable conformance
 //  MARK: - NOT USED
-private extension ListWithDashboard where Child: FactoryChild, Parent == Factory {
-    
-    init(
-        for parent: Parent,
-        title: String? = nil,
-        smallFont: Bool = true,
-        predicate: NSPredicate? = nil,
-        @ViewBuilder dashboard: @escaping () -> Dashboard,
-        @ViewBuilder editor: @escaping (Child) -> Editor
-    ) {
-        self.init(
-            for: parent,
-            title: title,
-            smallFont: smallFont,
-            predicate: predicate,
-            keyPathParentToChildren: Child.factoryToChildrenKeyPath,
-            dashboard: dashboard,
-            editor: editor)
-    }
-}
+//private extension ListWithDashboard where Child: FactoryChild, Parent == Factory {
+//    
+//    init(
+//        for parent: Parent,
+//        title: String? = nil,
+//        smallFont: Bool = true,
+//        predicate: NSPredicate? = nil,
+//        @ViewBuilder dashboard: @escaping () -> Dashboard,
+//        @ViewBuilder editor: @escaping (Child) -> Editor
+//    ) {
+//        self.init(
+//            for: parent,
+//            title: title,
+//            smallFont: smallFont,
+//            predicate: predicate,
+//            keyPathParentToChildren: Child.factoryToChildrenKeyPath,
+//            dashboard: dashboard,
+//            editor: editor
+//        )
+//    }
+//}
 
 
 struct ListWithDashboard_Previews: PreviewProvider {
-    
     
     //  MARK: - checking ListWithDashboard signatures - looking for conforming Entities (Types)
     
@@ -220,6 +220,7 @@ struct ListWithDashboard_Previews: PreviewProvider {
     
     
     static var previews: some View {
+        
         Group {
             
             //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ FactoryTracable? - yes, Factory

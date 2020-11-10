@@ -59,6 +59,7 @@
 		2A52688424DE976400DDF4DE /* ParentUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */; };
 		2A52688624DE993300DDF4DE /* CustomUnitable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688524DE993300DDF4DE /* CustomUnitable.swift */; };
 		2A52688824DE9D4400DDF4DE /* HavingParentUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */; };
+		2A53AA53255AD08E00B3FA12 /* Managed+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A53AA52255AD08E00B3FA12 /* Managed+Ext.swift */; };
 		2A59EAA824DB56830063D028 /* undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A59EAA724DB56830063D028 /* undefined.swift */; };
 		2A5C945F250F8E8F00DE7DF2 /* DataPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C945E250F8E8F00DE7DF2 /* DataPointsView.swift */; };
 		2A5C94652510DEC200DE7DF2 /* Cost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C94642510DEC200DE7DF2 /* Cost.swift */; };
@@ -127,7 +128,6 @@
 		2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97724D1995E00DF1A35 /* Orphanable.swift */; };
 		2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */; };
 		2A93D97C24D1AB0C00DF1A35 /* CreateChildButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97B24D1AB0C00DF1A35 /* CreateChildButton.swift */; };
-		2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97D24D1BAF800DF1A35 /* CreateSoloChildButton.swift */; };
 		2A93D98024D226D100DF1A35 /* DivisionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D97F24D226D100DF1A35 /* DivisionList.swift */; };
 		2A93D98224D227E000DF1A35 /* Division.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98124D227E000DF1A35 /* Division.swift */; };
 		2A93D98824D35D9C00DF1A35 /* AllBuyersList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */; };
@@ -232,6 +232,7 @@
 		2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentUnitPicker.swift; sourceTree = "<group>"; };
 		2A52688524DE993300DDF4DE /* CustomUnitable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnitable.swift; sourceTree = "<group>"; };
 		2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavingParentUnit.swift; sourceTree = "<group>"; };
+		2A53AA52255AD08E00B3FA12 /* Managed+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Managed+Ext.swift"; sourceTree = "<group>"; };
 		2A53CFB7251E373300F7CDDF /* market.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = market.md; sourceTree = "<group>"; };
 		2A59EAA724DB56830063D028 /* undefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = undefined.swift; sourceTree = "<group>"; };
 		2A5C945E250F8E8F00DE7DF2 /* DataPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPointsView.swift; sourceTree = "<group>"; };
@@ -303,7 +304,6 @@
 		2A93D97724D1995E00DF1A35 /* Orphanable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orphanable.swift; sourceTree = "<group>"; };
 		2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOrphanButton.swift; sourceTree = "<group>"; };
 		2A93D97B24D1AB0C00DF1A35 /* CreateChildButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChildButton.swift; sourceTree = "<group>"; };
-		2A93D97D24D1BAF800DF1A35 /* CreateSoloChildButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSoloChildButton.swift; sourceTree = "<group>"; };
 		2A93D97F24D226D100DF1A35 /* DivisionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivisionList.swift; sourceTree = "<group>"; };
 		2A93D98124D227E000DF1A35 /* Division.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Division.swift; sourceTree = "<group>"; };
 		2A93D98724D35D9C00DF1A35 /* AllBuyersList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBuyersList.swift; sourceTree = "<group>"; };
@@ -600,6 +600,7 @@
 				2AB2C9CD24FA4D27000506D3 /* GroupCodeNotable.swift */,
 				2A52688724DE9D4400DDF4DE /* HavingParentUnit.swift */,
 				2A8113CE24CEC3A500886C90 /* Managed.swift */,
+				2A53AA52255AD08E00B3FA12 /* Managed+Ext.swift */,
 				2A8113CC24CEBFA600886C90 /* Monikerable.swift */,
 				2A0FBA4024D5597900F963CE /* FactoryChild.swift */,
 				2A93D97724D1995E00DF1A35 /* Orphanable.swift */,
@@ -714,7 +715,6 @@
 				2A7F4AB624EE5C63002A315F /* CreateEntityPickerButton.swift */,
 				2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */,
 				2A93D97B24D1AB0C00DF1A35 /* CreateChildButton.swift */,
-				2A93D97D24D1BAF800DF1A35 /* CreateSoloChildButton.swift */,
 				2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */,
 			);
 			path = "Buttons and Menus";
@@ -976,7 +976,6 @@
 				2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */,
 				2A7DA8F824FE4D7700A3B0CD /* DataBlockView.swift in Sources */,
 				2A7F4AA724ED6164002A315F /* CreateSales.swift in Sources */,
-				2A93D97E24D1BAF800DF1A35 /* CreateSoloChildButton.swift in Sources */,
 				2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */,
 				2A9B996C25542B9D0062A1C2 /* Buyer Sample.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
@@ -988,6 +987,7 @@
 				2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */,
 				2A936E5B24C6E09F00C34381 /* BaseGroupList.swift in Sources */,
 				2A759104255542680047CCA4 /* Utility Sample.swift in Sources */,
+				2A53AA53255AD08E00B3FA12 /* Managed+Ext.swift in Sources */,
 				2A9FC7E125152EF800C4AD0D /* HaveRevenue.swift in Sources */,
 				2A33A47D24F29725001DAE71 /* FinListRow.swift in Sources */,
 				2A5C9471251153D600DE7DF2 /* Depreciable.swift in Sources */,
@@ -1129,7 +1129,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1154,7 +1154,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;

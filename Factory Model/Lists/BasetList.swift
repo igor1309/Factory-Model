@@ -33,25 +33,27 @@ struct BaseList: View {
     
     var body: some View {
         
-        FactoryChildrenListWithDashboard(for: factory, title: "Base Products", dashboard: dashboard) { (base: Base) in
+        EntityListWithDashboard(for: factory, title: "Base Products", keyPathToParent: \Base.factory, dashboard: dashboard) { (base: Base) in
             BaseView(base)
         }
         
-        //        ListWithDashboard(
-        //            for: factory,
-        //            title: "Base Products",
-        //            predicate: Base.factoryPredicate(for: factory)
-        //        ) {
-        //            CreateChildButton(
-        //                childType: Base.self,
-        //                parent: factory,
-        //                keyPath: \Factory.bases_
-        //            )
-        //        } dashboard: {
-        //            dashboard()
-        //        } editor: { (base: Base) in
-        //            BaseView(base)
-        //        }
+        /*
+         ListWithDashboard(
+         for: factory,
+         title: "Base Products",
+         predicate: Base.factoryPredicate(for: factory)
+         ) {
+         CreateChildButton(
+         childType: Base.self,
+         parent: factory,
+         keyPath: \Base.factory
+         )
+         } dashboard: {
+         dashboard()
+         } editor: { (base: Base) in
+         BaseView(base)
+         }
+         */
     }
 }
 

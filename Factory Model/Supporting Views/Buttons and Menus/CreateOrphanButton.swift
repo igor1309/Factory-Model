@@ -21,7 +21,8 @@ struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable>: View {
     var body: some View {
         Button {
             withAnimation {
-                let _ = Child.create(in: context)
+                let child = Child(context: context)
+                child.makeSketch()
                 context.saveContext()
             }
         } label: {

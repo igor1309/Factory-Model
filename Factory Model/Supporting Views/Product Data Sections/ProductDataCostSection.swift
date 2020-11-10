@@ -126,7 +126,7 @@ struct ProductDataCostSection_Previews: PreviewProvider {
                         CreateChildButton(
                             childType: Recipe.self,
                             parent: Base.example,
-                            keyPath: \Base.recipes_
+                            keyPathToParent: \Recipe.base
                         )
                     } dashboard: {
                         

@@ -31,7 +31,7 @@ struct DivisionView: View {
             CreateChildButton(
                 childType: Department.self,
                 parent: division,
-                keyPath: \Division.departments_
+                keyPathToParent: \Department.division
             )
         } dashboard: {
             NameSection<Division>(name: $division.name)

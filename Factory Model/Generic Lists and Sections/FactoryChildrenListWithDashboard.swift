@@ -1,5 +1,5 @@
 //
-//  FactoryChildrenListWithDashboard.swift
+//  EntityListWithDashboard.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 31.07.2020.
@@ -8,19 +8,20 @@
 import SwiftUI
 import CoreData
 
-struct FactoryChildrenListWithDashboard<
+struct EntityListWithDashboard<
     Child: Dashboardable & FactoryChild,
+    Parent: NSManagedObject,
     Dashboard: View,
     Editor: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var factory: Factory
+    @ObservedObject var factory: Parent
     
     let title: String
     let smallFont: Bool
-    let keyPathToParent: ReferenceWritableKeyPath<Child, Factory?>
+    let keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     let dashboard: () -> Dashboard
     let editor: (Child) -> Editor
     
@@ -33,11 +34,11 @@ struct FactoryChildrenListWithDashboard<
     ///   - dashboard: a View above Child list
     ///   - editor: editor for Child
     init(
-        for parent: Factory,
+        for parent: Parent,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
-        keyPathToParent: ReferenceWritableKeyPath<Child, Factory?>,
+        keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>,
         @ViewBuilder dashboard: @escaping () -> Dashboard,
         @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
@@ -50,7 +51,7 @@ struct FactoryChildrenListWithDashboard<
         self.editor = editor
         
         if predicate == nil, type(of: parent) == Factory.self {
-            let predicateToUse = Child.factoryPredicate(for: parent)
+            let predicateToUse = Child.factoryPredicate(for: parent as! Factory)
             _entities = Child.defaultFetchRequest(with: predicateToUse)
         } else {
             _entities = Child.defaultFetchRequest(with: predicate)
@@ -69,7 +70,7 @@ struct FactoryChildrenListWithDashboard<
             systemName: Child.plusButtonIcon,
             childType: Child.self,
             parent: factory,
-            keyPath: keyPathToParent
+            keyPathToParent: keyPathToParent
         )
     }
     
@@ -105,7 +106,7 @@ struct FactoryChildrenListWithDashboard<
 struct EntityListWithDashboard_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FactoryChildrenListWithDashboard(
+            EntityListWithDashboard(
                 for: Factory.example,
                 title: "Offspringable: All Buyers",
                 predicate: nil,

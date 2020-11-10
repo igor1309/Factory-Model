@@ -113,9 +113,9 @@ extension PersistenceManager {
         
         for entity in entities {
             if let entityName = entity.name {
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
                 do {
-                    let count = try context.count(for: fetchRequest)
+                    let count = try context.count(for: request)
                     total += count
                 } catch let error as NSError {
                     debugPrint(error.localizedDescription)

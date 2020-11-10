@@ -20,7 +20,7 @@ struct AllBuyersList: View {
     private func dashboard() -> some View {}
     
     var body: some View {
-        FactoryChildrenListWithDashboard(for: factory,title: "All Buyers", predicate: nil, dashboard: dashboard) { (buyer: Buyer) in
+        EntityListWithDashboard(for: factory,title: "All Buyers", predicate: nil, keyPathToParent: \Buyer.factory, dashboard: dashboard) { (buyer: Buyer) in
             BuyerEditor(buyer)
         }
     }

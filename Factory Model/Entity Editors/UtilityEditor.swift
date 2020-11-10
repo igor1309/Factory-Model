@@ -58,6 +58,7 @@ struct UtilityEditor: View {
                 footer: Text("Price per Unit of Base Product")
             ) {
                 AmountPicker(systemName: "dollarsign.circle", title: "Utility Price, ex VAT", navigationTitle: "Utility Price", scale: .small, amount: $priceExVAT)
+                    .foregroundColor(priceExVAT > 0 ? .systemBlue : .systemRed)
                 
                 AmountPicker(systemName: "scissors", title: "Utility VAT", navigationTitle: "Utility VAT", scale: .percent, amount: $vat)
             }

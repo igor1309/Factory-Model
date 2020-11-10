@@ -62,8 +62,10 @@ struct EquipmentEditor: View {
             
             Section {
                 AmountPicker(systemName: "sparkles", title: "Lifetime, years", navigationTitle: "Lifetime", scale: .extraSmall, amount: $lifetime)
+                    .foregroundColor(lifetime > 0 ? .systemBlue : .systemRed)
                 
                 AmountPicker(systemName: "dollarsign.circle", title: "Price", navigationTitle: "Price", scale: .extraExtraLarge, amount: $price)
+                    .foregroundColor(price > 0 ? .systemBlue : .systemRed)
             }
             
             NoteSection(note: $note)

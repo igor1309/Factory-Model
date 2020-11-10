@@ -28,7 +28,7 @@ struct UtilityList: View {
             CreateChildButton(
                 childType: Utility.self,
                 parent: base,
-                keyPath: \Base.utilities_
+                keyPathToParent: \Utility.base
             )
         } dashboard: {
             Section(

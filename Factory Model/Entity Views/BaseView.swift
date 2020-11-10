@@ -77,7 +77,7 @@ struct BaseView: View {
                         CreateChildButton(
                             childType: Recipe.self,
                             parent: base,
-                            keyPath: \Base.recipes_
+                            keyPathToParent: \Recipe.base
                         )
                     } dashboard: {
                         
@@ -118,7 +118,7 @@ struct BaseView: View {
         .navigationTitle(base.name)
 //        .navigationBarItems(trailing: CreateChildButton(childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
         .toolbar {
-            CreateChildButton(childType: Recipe.self, parent: base, keyPath: \Base.recipes_)
+            CreateChildButton(childType: Recipe.self, parent: base, keyPathToParent: \Recipe.base)
         }
     }
 }

@@ -7,66 +7,55 @@
 
 import SwiftUI
 import CoreData
-import Combine
 
-struct CreateChildButton<Child: Managed & Summarizable & Sketchable,
+struct CreateChildButton<Child: Summarizable & Sketchable,
                          Parent: NSManagedObject>: View {
     
     @Environment(\.managedObjectContext) private var context
     
-    @ObservedObject var parent: Parent
+    //  MARK: - или просто let будет достаточно?
+    // @ObservedObject var parent: Parent
+    let parent: Parent
     
-    var path: String?
-    let keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
+    let keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     let systemName: String
     let title: String
+    
     
     init(
         systemName: String? = nil,
         childType: Child.Type,
         parent: Parent,
-        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
+        keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     ) {
         self.systemName = systemName ?? Child.plusButtonIcon
         self.title = ""
         self.parent = parent
-        self.path = keyPath?._kvcKeyPathString
-        self.keyPath = keyPath
+        self.keyPathToParent = keyPathToParent
     }
     
     init(
         title: String,
         childType: Child.Type,
         parent: Parent,
-        keyPath: ReferenceWritableKeyPath<Parent, NSSet?>?
+        keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     ) {
         self.systemName = ""
         self.title = title
         self.parent = parent
-        self.path = keyPath?._kvcKeyPathString
-        self.keyPath = keyPath
+        self.keyPathToParent = keyPathToParent
     }
     
     var body: some View {
         Button {
             withAnimation {
-                //  MARK: - which one to use??
+                parent.objectWillChange.send()
+                
                 let entity = Child(context: context)
-                //let entity = Child.create(in: context)
-                //entity.objectWillChange.send()
+                entity.makeSketch()
+                entity[keyPath: keyPathToParent] = parent
                 
-                if let path = path {
-                    parent.objectWillChange.send()
-                    // https://stackoverflow.com/a/55931101
-                    parent.mutableSetValue(forKeyPath: path /*"bases_"*/).add(entity)
-                    //  MARK: - FINISH THIS Enroute L12 @ CS193p ТАК НУЖНО?????? КАК ЭТО СДЕЛАТЬ???
-                    // parent[keyPath: keyPath]?.forEach { $0.objectWillChange.send() }
-                    // airport.flightsFrom.forEach { $0.objectWillChange.send() }
-                }
-                
-                try? context.save()
-                //  context.saveContext() crashes while using @ObservedObject
-                //  context.saveContext()
+                context.saveContext()
             }
         } label: {
             if title.isEmpty {
@@ -80,25 +69,52 @@ struct CreateChildButton<Child: Managed & Summarizable & Sketchable,
 }
 
 struct CreateChildButton_Previews: PreviewProvider {
+    static let factory = Factory.example
+    static let base = Base.example
+    
     static var previews: some View {
-        NavigationView {
-            BaseList(for: Factory.example)
-            .navigationBarTitle("Base: Create Child Button", displayMode: .inline)
-            .navigationBarItems(
-                trailing: HStack {
-                    CreateChildButton(
-                        childType: Base.self,
-                        parent: Factory(),
-                        keyPath: \Factory.bases_
-                    )
-                    CreateChildButton(
-                        systemName: "plus.circle",
-                        childType: Base.self,
-                        parent: Factory(),
-                        keyPath: \Factory.bases_
-                    )
+        Group {
+            NavigationView {
+                List {
+                    GenericListSection(type: Product.self, predicate: NSPredicate(format: "base == %@", base)) { (product: Product) in
+                        ProductEditor(product)
+                    }
                 }
-            )
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("Products: Create Child Button", displayMode: .inline)
+                .navigationBarItems(trailing: CreateChildButton(
+                    childType: Product.self, parent: base, keyPathToParent: \Product.base
+                ))
+            }
+            
+            NavigationView {
+                EquipmentList(for: factory)
+                    .navigationBarTitle("Equipments: Create Child Button", displayMode: .inline)
+                    .navigationBarItems(trailing: CreateChildButton(
+                        childType: Equipment.self, parent: factory, keyPathToParent: \Equipment.factory
+                    ))
+            }
+            
+            NavigationView {
+                DivisionList(for: factory)
+                    .navigationBarTitle("Divisions: Create Child Button", displayMode: .inline)
+                    .navigationBarItems(trailing: CreateChildButton(
+                        childType: Division.self, parent: factory, keyPathToParent: \Division.factory
+                    ))
+            }
+            
+            NavigationView {
+                //  MARK: - FINISH THIS IT CRASHES!!
+                BaseList(for: factory)
+                    .navigationBarTitle("Base: Create Child Button", displayMode: .inline)
+                    .navigationBarItems(
+                        trailing: CreateChildButton(
+                            childType: Base.self,
+                            parent: factory,
+                            keyPathToParent: \Base.factory
+                        )
+                    )
+            }
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

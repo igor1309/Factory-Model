@@ -36,7 +36,7 @@ struct DivisionList: View {
     }
     
     var body: some View {
-        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (division: Division) in
+        EntityListWithDashboard(for: factory, keyPathToParent: \Division.factory, dashboard: dashboard) { (division: Division) in
             DivisionView(division)
         }
         

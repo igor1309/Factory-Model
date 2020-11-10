@@ -29,7 +29,7 @@ struct ExpensesList: View {
     }
     
     var body: some View {
-        FactoryChildrenListWithDashboard(for: factory, dashboard: dashboard) { (expenses: Expenses) in
+        EntityListWithDashboard(for: factory, keyPathToParent: \Expenses.factory, dashboard: dashboard) { (expenses: Expenses) in
             ExpensesEditor(expenses)
         }
     }

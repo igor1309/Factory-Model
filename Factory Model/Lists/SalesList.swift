@@ -26,7 +26,7 @@ struct SalesList: View {
             CreateChildButton(
                 childType: Sales.self,
                 parent: product,
-                keyPath: \Product.sales_
+                keyPathToParent: \Sales.product
             )
         } dashboard: {
             ListRow(
