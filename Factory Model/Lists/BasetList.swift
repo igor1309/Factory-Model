@@ -33,9 +33,7 @@ struct BaseList: View {
     
     var body: some View {
         
-        EntityListWithDashboard(for: factory, title: "Base Products", keyPathToParent: \Base.factory, dashboard: dashboard) { (base: Base) in
-            BaseView(base)
-        }
+        EntityListWithDashboard(for: factory, title: "Base Products", keyPathToParent: \Base.factory, dashboard: dashboard)
         
         /*
          ListWithDashboard(

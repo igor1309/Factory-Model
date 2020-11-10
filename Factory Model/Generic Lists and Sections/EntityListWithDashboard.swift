@@ -1,5 +1,5 @@
 //
-//  FactoryChildrenListWithDashboard.swift
+//  EntityListWithDashboard.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 31.07.2020.
@@ -8,21 +8,20 @@
 import SwiftUI
 import CoreData
 
-struct FactoryChildrenListWithDashboard<
+struct EntityListWithDashboard<
     Child: Dashboardable & FactoryChild,
-    Dashboard: View,
-    Editor: View
+    Parent: NSManagedObject,
+    Dashboard: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var parent: Factory
+    @ObservedObject var parent: Parent
     
     let title: String
     let smallFont: Bool
-    let keyPathParentToChildren: ReferenceWritableKeyPath<Factory, NSSet?>
+    let keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     let dashboard: () -> Dashboard
-    let editor: (Child) -> Editor
     
     /// Creates a View with Dashboard above the Child List with Plus Button in navigation bar. Plus Button icon is taken from Summarizable protocol conformance.
     /// - Parameters:
@@ -31,24 +30,22 @@ struct FactoryChildrenListWithDashboard<
     ///   - smallFont:
     ///   - predicate: if nil it uses defauls predicate
     ///   - dashboard: a View above Child list
-    ///   - editor: editor for Child
     init(
-        for parent: Factory,
+        for parent: Parent,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
-        @ViewBuilder dashboard: @escaping () -> Dashboard,
-        @ViewBuilder editor: @escaping (Child) -> Editor
+        keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>,
+        @ViewBuilder dashboard: @escaping () -> Dashboard
     ) {
         self.parent = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
-        self.keyPathParentToChildren = Child.factoryToChildrenKeyPath
+        self.keyPathToParent = keyPathToParent
         self.dashboard = dashboard
-        self.editor = editor
         
         if predicate == nil, type(of: parent) == Factory.self {
-            let predicateToUse = Child.factoryPredicate(for: parent)
+            let predicateToUse = Child.factoryPredicate(for: parent as! Factory)
             _entities = Child.defaultFetchRequest(with: predicateToUse)
         } else {
             _entities = Child.defaultFetchRequest(with: predicate)
@@ -67,7 +64,7 @@ struct FactoryChildrenListWithDashboard<
             systemName: Child.plusButtonIcon,
             childType: Child.self,
             parent: parent,
-            keyPath: keyPathParentToChildren
+            keyPathToParent: keyPathToParent
         )
     }
     
@@ -79,20 +76,11 @@ struct FactoryChildrenListWithDashboard<
             dashboard()
             
             if !orphans.isEmpty {
-                GenericListSection(
-                    header: "Orphans",
-                    fetchRequest: _orphans,
-                    smallFont: smallFont,
-                    editor: editor
-                )
+                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont)
                 .foregroundColor(.systemRed)
             }
             
-            GenericListSection(
-                fetchRequest: _entities,
-                smallFont: smallFont,
-                editor: editor
-            )
+            GenericListSection(fetchRequest: _entities, smallFont: smallFont)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
@@ -103,14 +91,13 @@ struct FactoryChildrenListWithDashboard<
 struct EntityListWithDashboard_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            FactoryChildrenListWithDashboard(
+            EntityListWithDashboard(
                 for: Factory.example,
                 title: "Offspringable: All Buyers",
-                predicate: nil
+                predicate: nil,
+                keyPathToParent: \Buyer.factory
             ) {
                 Text("Dashboard goes here")
-            } editor: { (buyer: Buyer) in
-                BuyerEditor(buyer)
             }
             .navigationBarTitleDisplayMode(.inline)
         }
