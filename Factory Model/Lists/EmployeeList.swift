@@ -22,6 +22,7 @@ struct EmployeeList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Employee.self,
             for: department,
             predicate: predicate
         ) {
@@ -36,8 +37,6 @@ struct EmployeeList: View {
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
-        } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
         }
         
     }

@@ -18,14 +18,13 @@ struct ProductList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Product.self,
             for: factory,
             predicate: Product.factoryPredicate(for: factory)
         ) {
             CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
         } dashboard: {
             dashboard
-        } editor: { (product: Product) in
-            ProductView(product)
         }
     }
     

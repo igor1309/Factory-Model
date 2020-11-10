@@ -24,6 +24,7 @@ struct AllIngredientList: View {
 
     var body: some View {
         ListWithDashboard(
+            childType: Ingredient.self,
             for: factory,
             predicate: Ingredient.factoryPredicate(for: factory)
         ) {
@@ -40,8 +41,6 @@ struct AllIngredientList: View {
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
-        } editor: { (ingredient: Ingredient) in
-            IngredientView(ingredient)
         }
         /// observing context saving
         .onReceive(didSave) { _ in

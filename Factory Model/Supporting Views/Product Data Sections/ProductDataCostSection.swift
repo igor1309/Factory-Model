@@ -120,6 +120,7 @@ struct ProductDataCostSection_Previews: PreviewProvider {
             List {
                 ProductDataCostSection(Base.example) {
                     ListWithDashboard(
+                        childType: Recipe.self,
                         for: Base.example,
                         predicate: nil//recipePredicate
                     ) {
@@ -130,8 +131,6 @@ struct ProductDataCostSection_Previews: PreviewProvider {
                         )
                     } dashboard: {
                         
-                    } editor: { (recipe: Recipe) in
-                        RecipeEditor(recipe)
                     }
                 } employeeDestination: {
                     Text("TBD: Labor Cost incl taxes")

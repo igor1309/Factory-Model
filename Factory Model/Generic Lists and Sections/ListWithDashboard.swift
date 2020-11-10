@@ -14,8 +14,7 @@ struct ListWithDashboard<
     Child: Dashboardable,
     Parent: NSManagedObject,
     PlusButton: View,
-    Dashboard: View,
-    Editor: View
+    Dashboard: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
@@ -26,24 +25,22 @@ struct ListWithDashboard<
     let smallFont: Bool
     let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
-    let editor: (Child) -> Editor
     
     /// for immediate Factory children use FactoryChildrenListWithDashboard
     init(
+        childType: Child.Type,
         for parent: Parent,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
         plusButton: @escaping () -> PlusButton,
-        @ViewBuilder dashboard: @escaping () -> Dashboard,
-        @ViewBuilder editor: @escaping (Child) -> Editor
+        @ViewBuilder dashboard: @escaping () -> Dashboard
     ) {
         self.parent = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
         self.plusButton = plusButton
         self.dashboard = dashboard
-        self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
         _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
@@ -82,14 +79,14 @@ struct ListWithDashboard<
 private extension ListWithDashboard where Child: FactoryTracable, Parent == Factory {
     
     init(
+        childType: Child.Type,
         for parent: Parent,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
         keyPath: ReferenceWritableKeyPath<Child, Parent?>,
         //keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
-        @ViewBuilder dashboard: @escaping () -> Dashboard,
-        @ViewBuilder editor: @escaping (Child) -> Editor
+        @ViewBuilder dashboard: @escaping () -> Dashboard
     ) {
         let predicateToUse: NSPredicate
         
@@ -109,13 +106,13 @@ private extension ListWithDashboard where Child: FactoryTracable, Parent == Fact
         }
         
         self.init(
+            childType: childType,
             for: parent,
             title: title ?? Child.plural,
             smallFont: smallFont,
             predicate: predicateToUse,
             plusButton: plusButton,
-            dashboard: dashboard,
-            editor: editor
+            dashboard: dashboard
         )
     }
 }
@@ -221,14 +218,13 @@ struct ListWithDashboard_Previews: PreviewProvider {
             //  MARK: - not Offspringable
             NavigationView {
                 ListWithDashboard(
+                    childType: Department.self,
                     for: Factory.example,
                     predicate: Department.factoryPredicate(for: Factory.example)
                 ) {
                     CreateOrphanButton<Department>(systemName: Department.plusButtonIcon)
                 } dashboard: {
                     Text("Dashboard goes here")
-                } editor: { (department: Department) in
-                    DepartmentView(department)
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
@@ -238,14 +234,13 @@ struct ListWithDashboard_Previews: PreviewProvider {
             //  MARK: - FactoryTracable
             NavigationView {
                 ListWithDashboard(
+                    childType: Product.self,
                     for: Factory.example,
                     predicate: Product.factoryPredicate(for: Factory.example)
                 ) {
                     CreateOrphanButton<Product>(systemName: Product.plusButtonIcon)
                 } dashboard: {
                     Text("Dashboard goes here")
-                } editor: { (product: Product) in
-                    ProductView(product)
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }

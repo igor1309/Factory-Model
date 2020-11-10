@@ -20,6 +20,7 @@ struct SalesList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Sales.self,
             for: product,
             predicate: predicate
         ) {
@@ -35,8 +36,6 @@ struct SalesList: View {
                 detail: "TBD: По Product и по Product Base(?)",
                 icon: "creditcard"
             )
-        } editor: { (sales: Sales) in
-            SalesEditor(sales)
         }
     }
 }

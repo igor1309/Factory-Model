@@ -25,6 +25,7 @@ struct DepartmentView: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Employee.self,
             for: department,
             title: department.name,
             predicate: predicate
@@ -48,9 +49,6 @@ struct DepartmentView: View {
             ErrorMessage(department)
             
             LaborView(for: department)
-            
-        } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
         }
     }
 }

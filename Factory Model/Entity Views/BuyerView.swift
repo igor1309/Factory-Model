@@ -22,6 +22,7 @@ struct BuyerView: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Sales.self,
             for: buyer,
             title: buyer.name,
             predicate: predicate
@@ -50,8 +51,6 @@ struct BuyerView: View {
                 Text("TBD: Sales volumes and amount for the Buyer, list of Products")
                     .foregroundColor(.systemRed)
             }
-        } editor: { (sales: Sales) in
-            SalesEditor(sales)
         }
     }
 }

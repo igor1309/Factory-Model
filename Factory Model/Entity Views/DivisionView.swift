@@ -25,6 +25,7 @@ struct DivisionView: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Department.self,
             for: division,
             title: division.name
         ) {
@@ -42,8 +43,6 @@ struct DivisionView: View {
             if division.factory == nil {
                 EntityPickerSection(selection: $division.factory, period: settings.period)
             }
-        } editor: { (department: Department) in
-            DepartmentView(department)
         }
     }
 }

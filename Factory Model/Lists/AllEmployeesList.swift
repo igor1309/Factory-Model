@@ -18,6 +18,7 @@ struct AllEmployeesList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Employee.self,
             for: factory,
             title: "All Employees",
             predicate: Employee.factoryPredicate(for: factory)
@@ -34,8 +35,6 @@ struct AllEmployeesList: View {
             ) */
         } dashboard: {
             
-        } editor: { (employee: Employee) in
-            EmployeeEditor(employee)
         }
     }
 }

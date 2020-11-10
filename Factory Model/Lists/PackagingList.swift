@@ -41,6 +41,7 @@ struct PackagingList: View {
 //        }
         
         ListWithDashboard(
+            childType: Packaging.self,
             for: factory,
             predicate: Packaging.factoryPredicate(for: factory)
         ) {
@@ -56,8 +57,6 @@ struct PackagingList: View {
              ) */
         } dashboard: {
             dashboard()
-        } editor: { (packaging: Packaging) in
-            PackagingEditor(packaging)
         }
         /// observing context saving
         .onReceive(didSave) { _ in

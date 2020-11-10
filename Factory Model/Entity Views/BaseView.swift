@@ -65,6 +65,7 @@ struct BaseView: View {
                 
                 ProductDataCostSection(base) {
                     ListWithDashboard(
+                        childType: Recipe.self,
                         for: base,
                         predicate: recipePredicate
                     ) {
@@ -75,8 +76,6 @@ struct BaseView: View {
                         )
                     } dashboard: {
                         
-                    } editor: { (recipe: Recipe) in
-                        RecipeEditor(recipe)
                     }
                 } employeeDestination: {
                     Text("TBD: Labor Cost incl taxes")
