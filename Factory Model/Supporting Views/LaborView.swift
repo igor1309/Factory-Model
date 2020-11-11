@@ -17,40 +17,74 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
         self.entity = entity
     }
     
-    var body: some View {
-        Section(
-            header: Text("Total")
-        ) {
-            Group {
-                LabelWithDetail("person.crop.rectangle", "Headcount", entity.headcount.formattedGrouped)
-                
-                LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.workHours(in: settings.period).formattedGrouped)")
-                
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.salaryWithTax(in: settings.period).formattedGrouped)")
-                
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.salaryPerHourWithTax(in: settings.period).formattedGrouped)")
-            }
-            .foregroundColor(.secondary)
-            .font(.subheadline)
-        }
+    @ViewBuilder
+    private func laborSection(header: String, headcount: Int, workHours: Double, salaryWithTax: Double, salaryPerHourWithTax: Double, asStack: Bool = true) -> some View {
         
-        /// show production totals only for those entities where there is production (ex., headcount > 0)
-        if entity.productionHeadcount > 0 {
-            Section(
-                header: Text("Production")
+        if asStack {
+            Section(header: Text(header)
+            ) {
+                VStack(spacing: 6) {
+                    LabelWithDetail("Headcount", headcount.formattedGrouped)
+                    
+                    LabelWithDetail("Work Hours", "\(workHours.formattedGrouped)")
+                    
+                    LabelWithDetail("Salary incl taxes", "\(salaryWithTax.formattedGrouped)")
+                    
+                    LabelWithDetail("Salary per hour incl taxes", "\(salaryPerHourWithTax.formattedGrouped)")
+                }
+                .padding(.vertical, 3)
+                .foregroundColor(.secondary)
+                .font(.footnote)
+            }
+        } else {
+            Section(header: Text(header)
             ) {
                 Group {
-                    LabelWithDetail("person.crop.rectangle", "Headcount", entity.productionHeadcount.formattedGrouped)
+                    LabelWithDetail("person.crop.rectangle", "Headcount", headcount.formattedGrouped)
                     
-                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(entity.productionWorkHours(in: settings.period).formattedGrouped)")
+                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(workHours.formattedGrouped)")
                     
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(entity.productionSalaryWithTax(in: settings.period).formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(salaryWithTax.formattedGrouped)")
                     
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(entity.productionSalaryPerHourWithTax(in: settings.period).formattedGrouped)")
+                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(salaryPerHourWithTax.formattedGrouped)")
                 }
                 .foregroundColor(.secondary)
                 .font(.subheadline)
             }
+        }
+    }
+    
+    private var productionHeadcount: Int { entity.productionHeadcount }
+    private var workHours: Double { entity.workHours(in: settings.period) }
+    private var productionWorkHours: Double { entity.productionWorkHours(in: settings.period) }
+    private var salaryWithTax: Double { entity.salaryWithTax(in: settings.period) }
+    private var productionSalaryWithTax: Double { entity.productionSalaryWithTax(in: settings.period) }
+    
+    /// there is production departments in this divisions and not all depertments are production
+    private var isProductionNotEqualToTotal: Bool {
+        productionHeadcount > 0
+            && workHours > productionWorkHours
+            && salaryWithTax > productionSalaryWithTax
+    }
+    
+    var body: some View {
+        laborSection(
+            header: "Labor, total",
+            headcount: entity.headcount,
+            workHours: workHours,
+            salaryWithTax: salaryWithTax,
+            salaryPerHourWithTax: entity.salaryPerHourWithTax(in: settings.period)
+        )
+        
+        /// show production totals only for those entities where there is production (ex., headcount > 0) and not all are production (in that case it is equal to Total)
+        if isProductionNotEqualToTotal {
+            laborSection(
+                header: "Labor, production",
+                headcount: productionHeadcount,
+                workHours: productionWorkHours,
+                salaryWithTax: productionSalaryWithTax,
+                salaryPerHourWithTax: entity.productionSalaryPerHourWithTax(in: settings.period)
+            )
         }
     }
 }
@@ -61,8 +95,10 @@ struct LaborView_Previews: PreviewProvider {
             Form {
                 LaborView(for: Factory.example)
             }
+            .navigationBarTitle("LaborView", displayMode: .inline)
         }
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
+        .previewLayout(.fixed(width: 350, height: 400))
     }
 }
