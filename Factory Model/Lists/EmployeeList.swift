@@ -8,14 +8,24 @@
 import SwiftUI
 
 struct EmployeeList: View {
+    
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var department: Department
+    // @ObservedObject var
+    let department: Department?
+    // @ObservedObject var
+    let factory: Factory?
     
     init(at department: Department) {
         self.department = department
-        
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
+        self.factory = nil
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
+    }
+    
+    init(for factory: Factory) {
+        self.department = nil
+        self.factory = factory
+        self.predicate = Employee.factoryPredicate(for: factory)
     }
     
     private let predicate: NSPredicate
@@ -23,31 +33,61 @@ struct EmployeeList: View {
     var body: some View {
         ListWithDashboard(
             childType: Employee.self,
-            predicate: predicate
-        ) {
+            predicate: predicate,
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    @ViewBuilder
+    private func plusButton() -> some View {
+        if let department = department {
             CreateChildButton(
                 childType: Employee.self,
                 parent: department,
                 keyPathToParent: \Employee.department
             )
-        } dashboard: {
+        } else if let _ = factory {
+            CreateNewEntityBarButton<Employee>()
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private func dashboard() -> some View {
+        if let department = department {
             Section(header: Text("Total")) {
                 LabelWithDetail("Salary incl taxes", department.salaryWithTax(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
+        } else if let factory = factory {
+            EmptyView()
+            Section(header: Text("Total")) {
+                LabelWithDetail("Salary incl taxes", factory.salaryWithTax(in: settings.period).formattedGrouped)
+                    .foregroundColor(.secondary)
+                    .font(.subheadline)
+            }
+        } else {
+            EmptyView()
         }
-        
     }
 }
 
 struct EmployeeList_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            EmployeeList(at: Department.example)
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
+        Group {
+            NavigationView {
+                EmployeeList(at: Department.example)
+            }
+            
+            NavigationView {
+                EmployeeList(for: Factory.example)
+            }
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }
