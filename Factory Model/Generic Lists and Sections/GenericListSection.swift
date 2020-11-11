@@ -130,6 +130,8 @@ struct GenericListSection_Previews: PreviewProvider {
         )
     ) static private var ingredients: FetchedResults<Ingredient>
     
+    static private let factory = Factory.example
+    
     static var previews: some View {
         NavigationView {
             List {
@@ -138,8 +140,7 @@ struct GenericListSection_Previews: PreviewProvider {
                 GenericListSection(type: Buyer.self, predicate: nil)
                 
                 GenericListSection(type: Base.self, predicate: nil)
-                
-                GenericListSection<Base>(fetchRequest: FetchRequest(entity: Base.entity(), sortDescriptors: []))
+                GenericListSection<Base>(fetchRequest: Base.defaultFetchRequest(for: factory))
                 
                 GenericListSection(type: Factory.self, predicate: nil)
             }
@@ -149,5 +150,6 @@ struct GenericListSection_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 1200))
     }
 }

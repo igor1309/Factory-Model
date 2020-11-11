@@ -54,7 +54,7 @@ struct ListWithDashboard<
             
             if !orphans.isEmpty {
                 GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont)
-                .foregroundColor(.systemRed)
+                    .foregroundColor(.systemRed)
             }
             
             GenericListSection(fetchRequest: _entities, smallFont: smallFont)
@@ -62,7 +62,6 @@ struct ListWithDashboard<
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .navigationBarItems(trailing: plusButton())
-        //        .toolbar { plusButton() }
     }
 }
 
@@ -146,8 +145,8 @@ struct ListWithDashboard_Previews: PreviewProvider {
     //  MARK: - checking ListWithDashboard signatures - looking for conforming Entities (Types)
     
     private struct TestingListWithDashboard {
-        struct Test1<T: Dashboardable> {}
-        struct Testing1 {
+        private struct Test1<T: Dashboardable> {}
+        private struct Testing1 {
             let base = Test1<Base>()
             let buyer = Test1<Buyer>()
             let department = Test1<Department>()
@@ -164,8 +163,8 @@ struct ListWithDashboard_Previews: PreviewProvider {
             let employee = Test1<Employee>()
         }
         
-        struct Test2<T: Dashboardable & FactoryTracable> {}
-        struct Testing2 {
+        private struct Test2<T: Dashboardable & FactoryTracable> {}
+        private struct Testing2 {
             let base = Test2<Base>()
             let buyer = Test2<Buyer>()
             let department = Test2<Department>()
@@ -182,8 +181,8 @@ struct ListWithDashboard_Previews: PreviewProvider {
             let employee = Test2<Employee>()
         }
         
-        struct Test3<T: Dashboardable & FactoryChild> {}
-        struct Testing3 {
+        private struct Test3<T: Dashboardable & FactoryChild> {}
+        private struct Testing3 {
             let base = Test3<Base>()    // Type 'Base' does not conform to protocol 'Offspringable'
             let buyer = Test3<Buyer>()
             // let department = Test3<Department>()    // Type 'Department' does not conform to protocol 'Offspringable'

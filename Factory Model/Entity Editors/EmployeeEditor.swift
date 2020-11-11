@@ -93,6 +93,7 @@ struct EmployeeEditor: View {
             var employee: Employee
             if let employeeToEdit = employeeToEdit {
                 employee = employeeToEdit
+                employee.objectWillChange.send()
             } else {
                 employee = Employee(context: context)
             }

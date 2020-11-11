@@ -75,6 +75,7 @@ struct PackagingEditor: View {
             let packaging: Packaging
             if let packagingToEdit = packagingToEdit {
                 packaging = packagingToEdit
+                packaging.objectWillChange.send()
             } else {
                 packaging = Packaging(context: context)
             }

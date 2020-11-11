@@ -16,22 +16,16 @@ struct SalesList: View {
     init(for product: Product) {
         self.product = product
         self.factory = nil
-        
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.product), product)
     }
     
     init(for factory: Factory) {
         self.product = nil
         self.factory = factory
-        
-        predicate = NSPredicate(format: "%K == %@", Sales.factoryPath, factory)
+        self.predicate = NSPredicate(format: "%K == %@", Sales.factoryPath, factory)
     }
     
     private let predicate: NSPredicate
-    
-    var body: some View {
-        ListWithDashboard(childType: Sales.self, predicate: predicate, plusButton: plusButton, dashboard: dashboard)
-    }
     
     @FetchRequest(
         entity: Sales.entity(),
@@ -42,7 +36,11 @@ struct SalesList: View {
         predicate: Sales.orphanPredicate
     )
     private var orphans: FetchedResults<Sales>
-
+    
+    var body: some View {
+        ListWithDashboard(childType: Sales.self, predicate: predicate, plusButton: plusButton, dashboard: dashboard)
+    }
+    
     @ViewBuilder
     private func plusButton() -> some View {
         if let product = product {

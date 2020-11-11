@@ -17,7 +17,34 @@ struct PackagingList: View {
     /// to update list (fetch) by publishing context saved event
     /// https://stackoverflow.com/a/58777603/11793043
     @State private var refreshing = false
+    
     private var didSave =  NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
+    var body: some View {
+        ListWithDashboard(
+            childType: Packaging.self,
+            predicate: Packaging.factoryPredicate(for: factory),
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+        /// observing context saving
+        .onReceive(didSave) { _ in
+            refreshing.toggle()
+        }
+    }
+    
+    private func plusButton() -> some View {
+        CreateNewEntityBarButton<Packaging>()
+        
+        //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
+        // EmptyView()
+        /* CreateChildButton(
+         systemName: "plus.square",
+         childType: Packaging.self,
+         parent: factory,
+         keyPath: \Factory.packagings_
+         ) */
+    }
     
     private func dashboard() -> some View {
         Section {
@@ -31,35 +58,6 @@ struct PackagingList: View {
         //            Text("TBD: dashboard: List of packaging types (??)")
         //                .font(.subheadline)
         //                .foregroundColor(.systemRed)
-    }
-    
-    var body: some View {
-        
-//        EntityListWithDashboard(for: factory, dashboard: dashboard) { (packaging: Packaging) in
-//            PackagingEditor(packaging)
-//        }
-        
-        ListWithDashboard(
-            childType: Packaging.self,
-            predicate: Packaging.factoryPredicate(for: factory)
-        ) {
-            CreateNewEntityBarButton<Packaging>()
-            
-            //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
-            // EmptyView()
-            /* CreateChildButton(
-             systemName: "plus.square",
-             childType: Packaging.self,
-             parent: factory,
-             keyPath: \Factory.packagings_
-             ) */
-        } dashboard: {
-            dashboard()
-        }
-        /// observing context saving
-        .onReceive(didSave) { _ in
-            refreshing.toggle()
-        }
     }
 }
 

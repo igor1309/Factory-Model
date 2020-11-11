@@ -14,8 +14,7 @@ struct UtilityList: View {
     
     init(for base: Base) {
         self.base = base
-        
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Utility.base), base)
     }
     
     private let predicate: NSPredicate
@@ -23,24 +22,30 @@ struct UtilityList: View {
     var body: some View {
         ListWithDashboard(
             childType: Utility.self,
-            predicate: predicate
+            predicate: predicate,
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    private func plusButton() -> some View {
+        CreateChildButton(
+            childType: Utility.self,
+            parent: base,
+            keyPathToParent: \Utility.base
+        )
+    }
+    
+    private func dashboard() -> some View {
+        Section(
+            header: Text("Total")
         ) {
-            CreateChildButton(
-                childType: Utility.self,
-                parent: base,
-                keyPathToParent: \Utility.base
-            )
-        } dashboard: {
-            Section(
-                header: Text("Total")
-            ) {
-                Group {
-                    LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT(in: settings.period).formattedGrouped)
-                    LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT(in: settings.period).formattedGrouped)
-                        .foregroundColor(.secondary)
-                }
-                .font(.subheadline)
+            Group {
+                LabelWithDetail("Utility Total, ex VAT", base.utilitiesExVAT(in: settings.period).formattedGrouped)
+                LabelWithDetail("Utility Total, incl VAT", base.utilitiesWithVAT(in: settings.period).formattedGrouped)
+                    .foregroundColor(.secondary)
             }
+            .font(.subheadline)
         }
     }
 }

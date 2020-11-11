@@ -112,7 +112,7 @@ struct FactoryView: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: AllIngredientList(for: factory)
+                    destination: IngredientList(for: factory)
                 ) {
                     ListRow(
                         title: "Ingredients",
@@ -156,7 +156,7 @@ struct FactoryView: View {
                 }
                 
                 NavigationLink(
-                    destination: AllEmployeesList(for: factory)
+                    destination: EmployeeList(for: factory)
                 ) {
                     ListRow(
                         title: "People (\(factory.headcount.formattedGrouped))",
@@ -228,5 +228,6 @@ struct FactoryView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(settings)
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 1200))
     }
 }

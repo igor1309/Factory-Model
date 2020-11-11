@@ -86,6 +86,7 @@ struct DepartmentEditor: View {
             let department: Department
             if let departmentToEdit = departmentToEdit {
                 department = departmentToEdit
+                department.objectWillChange.send()
             } else {
                 department = Department(context: context)
             }

@@ -14,6 +14,10 @@ struct BaseList: View {
         self.factory = factory
     }
     
+    var body: some View {
+        EntityListWithDashboard(for: factory, keyPathToParent: \Base.factory, dashboard: dashboard)
+    }
+    
     @ViewBuilder
     private func dashboard() -> some View {
         ListRow(
@@ -29,29 +33,6 @@ struct BaseList: View {
             detail: "monthly",
             icon: "dollarsign.circle"
         )
-    }
-    
-    var body: some View {
-        
-        EntityListWithDashboard(for: factory, title: "Base Products", keyPathToParent: \Base.factory, dashboard: dashboard)
-        
-        /*
-         ListWithDashboard(
-         for: factory,
-         title: "Base Products",
-         predicate: Base.factoryPredicate(for: factory)
-         ) {
-         CreateChildButton(
-         childType: Base.self,
-         parent: factory,
-         keyPath: \Base.factory
-         )
-         } dashboard: {
-         dashboard()
-         } editor: { (base: Base) in
-         BaseView(base)
-         }
-         */
     }
 }
 

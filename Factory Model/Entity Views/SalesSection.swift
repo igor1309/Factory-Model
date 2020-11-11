@@ -32,14 +32,14 @@ struct SalesSection: View {
             
             Group {
                 NavigationLink(
-                    destination: AllSalesList(for: factory)
+                    destination: SalesList(for: factory)
                 ) {
                     LabelWithDetail(Sales.icon, "Revenue, ex VAT", factory.revenueExVAT(in: settings.period).formattedGrouped)
                 }
                 .foregroundColor(Sales.color)
                 
                 NavigationLink(
-                    destination: AllBuyersList(for: factory)
+                    destination: BuyerList(for: factory)
                 ) {
                     LabelWithDetail(Buyer.icon, "All Buyers", "")
                 }
@@ -62,5 +62,6 @@ struct SalesSection_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 450))
     }
 }

@@ -41,7 +41,7 @@ extension Managed where Self: NSManagedObject {
     static var plural: String {
         switch entityName {
             case "Base":
-                return "Bases"
+                return "Base Products"
             case "Buyer":
                 return "Buyers"
             case "Department":

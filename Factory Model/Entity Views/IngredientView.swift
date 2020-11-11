@@ -14,8 +14,7 @@ struct IngredientView: View {
     
     init(_ ingredient: Ingredient) {
         self.ingredient = ingredient
-        
-        predicate = NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
+        self.predicate = NSPredicate(format: "ANY %K.ingredient == %@", #keyPath(Base.recipes_), ingredient)
     }
     
     private let predicate: NSPredicate

@@ -66,8 +66,8 @@ struct FactoryEditor: View {
         Button("Save") {
             let factory: Factory
             if let factoryToEdit = factoryToEdit {
-                factoryToEdit.objectWillChange.send()
                 factory = factoryToEdit
+                factory.objectWillChange.send()
             } else {
                 factory = Factory(context: context)
             }

@@ -14,8 +14,7 @@ struct BuyerView: View {
     
     init(_ buyer: Buyer) {
         self.buyer = buyer
-        
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)
     }
     
     private let predicate: NSPredicate
@@ -24,32 +23,39 @@ struct BuyerView: View {
         ListWithDashboard(
             childType: Sales.self,
             title: buyer.name,
-            predicate: predicate
+            predicate: predicate,
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    private func plusButton() -> some View {
+        CreateChildButton(
+            childType: Sales.self,
+            parent: buyer,
+            keyPathToParent: \Sales.buyer
+        )
+    }
+    
+    @ViewBuilder
+    private func dashboard() -> some View {
+        Section(
+            header: Text("Buyer Detail")
         ) {
-            CreateChildButton(
-                childType: Sales.self,
-                parent: buyer,
-                keyPathToParent: \Sales.buyer
-            )
-        } dashboard: {
-            Section(
-                header: Text("Buyer Detail")
+            NavigationLink(
+                destination: BuyerEditor(buyer)
             ) {
-                NavigationLink(
-                    destination: BuyerEditor(buyer)
-                ) {
-                    ListRow(buyer, period: settings.period)
-                }
+                ListRow(buyer, period: settings.period)
             }
-            
-            ErrorMessage(buyer)
-            
-            Section(
-                header: Text("Total Sales")
-            ) {
-                Text("TBD: Sales volumes and amount for the Buyer, list of Products")
-                    .foregroundColor(.systemRed)
-            }
+        }
+        
+        ErrorMessage(buyer)
+        
+        Section(
+            header: Text("Total Sales")
+        ) {
+            Text("TBD: Sales volumes and amount for the Buyer, list of Products")
+                .foregroundColor(.systemRed)
         }
     }
 }
@@ -63,6 +69,5 @@ struct BuyerView_Previews: PreviewProvider {
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
         .previewLayout(.fixed(width: 350, height: 560))
-
     }
 }

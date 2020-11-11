@@ -18,7 +18,7 @@ struct DepartmentView: View {
         //  MARK: - FINISH THIS
         //  should be `default` predicate
         //  format: "%K == %@", #keyPath(Product.base.factory), factory
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)
     }
     
     private let predicate: NSPredicate
@@ -27,28 +27,35 @@ struct DepartmentView: View {
         ListWithDashboard(
             childType: Employee.self,
             title: department.name,
-            predicate: predicate
+            predicate: predicate,
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    private func plusButton() -> some View {
+        CreateChildButton(
+            childType: Employee.self,
+            parent: department,
+            keyPathToParent: \Employee.department
+        )
+    }
+    
+    @ViewBuilder
+    private func dashboard() -> some View {
+        Section(
+            header: Text("Department Detail")
         ) {
-            CreateChildButton(
-                childType: Employee.self,
-                parent: department,
-                keyPathToParent: \Employee.department
-            )
-        } dashboard: {
-            Section(
-                header: Text("Department Detail")
+            NavigationLink(
+                destination: DepartmentEditor(department)
             ) {
-                NavigationLink(
-                    destination: DepartmentEditor(department)
-                ) {
-                    ListRow(department, period: settings.period)
-                }
+                ListRow(department, period: settings.period)
             }
-            
-            ErrorMessage(department)
-            
-            LaborView(for: department)
         }
+        
+        ErrorMessage(department)
+        
+        LaborView(for: department)
     }
 }
 
@@ -60,6 +67,6 @@ struct DepartmentView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 950))
+        .previewLayout(.fixed(width: 350, height: 1000))
     }
 }

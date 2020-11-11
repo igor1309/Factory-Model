@@ -135,6 +135,7 @@ struct ProductEditor: View {
             var product: Product
             if let productToEdit = productToEdit {
                 product = productToEdit
+                product.objectWillChange.send()
             } else {
                 product = Product(context: context)
             }

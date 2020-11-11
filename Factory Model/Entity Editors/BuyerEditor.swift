@@ -76,6 +76,7 @@ struct BuyerEditor: View {
             let buyer: Buyer
             if let buyerToEdit = buyerToEdit {
                 buyer = buyerToEdit
+                buyer.objectWillChange.send()
             } else {
                 buyer = Buyer(context: context)
             }

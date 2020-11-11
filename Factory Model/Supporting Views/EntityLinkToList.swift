@@ -7,15 +7,9 @@
 
 import SwiftUI
 
-struct EntityLinkToList<T: Managed & Monikerable & Summarizable, Editor: View>: View where T.ManagedType == T {
+struct EntityLinkToList<T: Managed & Monikerable & Summarizable>: View where T.ManagedType == T {
     
     @EnvironmentObject var settings: Settings
-    
-    var editor: (T) -> Editor
-    
-    init(@ViewBuilder editor: @escaping (T) -> Editor) {
-        self.editor = editor
-    }
     
     private var destination: some View {
         List {
@@ -37,13 +31,16 @@ struct EntityLinkToList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             Form {
-                EntityLinkToList { (base: Base) in
-                    BaseEditor(base)
-                }
+                EntityLinkToList<Base>()
+                EntityLinkToList<Product>()
+                EntityLinkToList<Division>()
+                EntityLinkToList<Employee>()
             }
+            .navigationBarTitle("EntityLinkToList", displayMode: .inline)
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
+        .previewLayout(.fixed(width: 350, height: 350))
     }
 }

@@ -83,6 +83,7 @@ struct IngredientEditor: View {
             let ingredient: Ingredient
             if let ingredientToEdit = ingredientToEdit {
                 ingredient = ingredientToEdit
+                ingredient.objectWillChange.send()
             } else {
                 ingredient = Ingredient(context: context)
             }

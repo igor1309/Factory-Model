@@ -73,6 +73,7 @@ struct ExpensesEditor: View {
             var expenses: Expenses
             if let expensesToEdit = expensesToEdit {
                 expenses = expensesToEdit
+                expenses.objectWillChange.send()
             } else {
                 expenses = Expenses(context: context)
             }

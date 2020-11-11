@@ -79,6 +79,7 @@ struct RecipeEditor: View {
             let recipe: Recipe
             if let recipeToEdit = recipeToEdit {
                 recipe = recipeToEdit
+                recipe.objectWillChange.send()
             } else {
                 recipe = Recipe(context: context)
             }

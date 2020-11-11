@@ -77,6 +77,7 @@ struct FinancialLabel_Previews: PreviewProvider {
             }
             
             Section(header: Text("other")) {
+                FinancialRow("Row Title", value: "", percentage: 1_000_000.formattedGrouped)
                 FinancialRow("Row Title", value: 1_000_000.formattedGrouped, percentage: nil)
                 FinancialRow("Row Title", value: 1_000_000.formattedGrouped, percentage: 0.13.formattedPercentageWith1Decimal, font: .caption)
                 FinancialRow("Row Title", value: 30_000_000, percentage: 0.25)

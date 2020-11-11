@@ -59,6 +59,7 @@ struct DivisionEditor: View {
             let division: Division
             if let divisionToEdit = divisionToEdit {
                 division = divisionToEdit
+                division.objectWillChange.send()
             } else {
                 division = Division(context: context)
             }

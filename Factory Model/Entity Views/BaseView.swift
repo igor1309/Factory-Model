@@ -16,9 +16,8 @@ struct BaseView: View {
     
     init(_ base: Base) {
         self.base = base
-        
-        basePredicate = NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
-        recipePredicate = NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
+        self.basePredicate = NSPredicate(format: "%K == %@", #keyPath(Product.base), base)
+        self.recipePredicate = NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)
     }
     
     private let basePredicate: NSPredicate
@@ -108,10 +107,7 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-//        .navigationBarItems(trailing: CreateChildButton(childType: Recipe.self, parent: base, keyPath: \Base.recipes_))
-        .toolbar {
-            CreateChildButton(childType: Recipe.self, parent: base, keyPathToParent: \Recipe.base)
-        }
+        .navigationBarItems(trailing: CreateChildButton(childType: Recipe.self, parent: base, keyPathToParent: \Recipe.base))
     }
 }
 

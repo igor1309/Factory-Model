@@ -29,15 +29,11 @@ struct Testing: View {
             }
             
             Section {
-                NavigationLink(
-                    destination: FactoryList()
-                ) {
+                NavigationLink(destination: FactoryList()) {
                     Text("Factories")
                 }
                 
-                EntityLinkToList { (factory: Factory) in
-                    FactoryView(factory)
-                }
+                EntityLinkToList<Factory>()
             }
             
             Section(
@@ -45,72 +41,37 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
                 
             ) {
-                EntityLinkToList { (division: Division) in
-                    DivisionView(division)
-                }
-                
-                EntityLinkToList { (department: Department) in
-                    DepartmentView(department)
-                }
-                
-                EntityLinkToList { (buyer: Buyer) in
-                    BuyerView(buyer)
-                }
-                
-                EntityLinkToList { (product: Product) in
-                    ProductView(product)
-                }
-                
-                EntityLinkToList { (base: Base) in
-                    BaseView(base)
-                }
+                EntityLinkToList<Division>()
+                EntityLinkToList<Department>()
+                EntityLinkToList<Buyer>()
+                EntityLinkToList<Product>()
+                EntityLinkToList<Base>()
             }
             
             Section(
                 header: Text("Many-to-many"),
                 footer: Text("Subordinate. Not intended for direct use. No Entity View, using just Editor.")
             ) {
-                EntityLinkToList { (sales: Sales) in
-                    SalesEditor(sales)
-                }
-                
-                EntityLinkToList { (recipe: Recipe) in
-                    RecipeEditor(recipe)
-                }
+                EntityLinkToList<Sales>()
+                EntityLinkToList<Recipe>()
             }
             
             Section(
                 header: Text("Many parents"),
                 footer: Text("Using View + Editor (via View).")
             ) {
-                EntityLinkToList { (ingredient: Ingredient) in
-                    IngredientView(ingredient)
-                }
-                
-                EntityLinkToList { (packaging: Packaging) in
-                    PackagingView(packaging)
-                }
+                EntityLinkToList<Ingredient>()
+                EntityLinkToList<Packaging>()
             }
             
             Section(
                 header: Text("One parent"),
                 footer: Text("No Entity View, using Editor.")
             ) {
-                EntityLinkToList { (utility: Utility) in
-                    UtilityEditor(utility)
-                }
-                
-                EntityLinkToList { (employee: Employee) in
-                    EmployeeEditor(employee)
-                }
-                
-                EntityLinkToList { (equipment: Equipment) in
-                    EquipmentEditor(equipment)
-                }
-                
-                EntityLinkToList { (expenses: Expenses) in
-                    ExpensesEditor(expenses)
-                }
+                EntityLinkToList<Utility>()
+                EntityLinkToList<Employee>()
+                EntityLinkToList<Equipment>()
+                EntityLinkToList<Expenses>()
             }
         }
         .listStyle(InsetGroupedListStyle())
@@ -119,17 +80,7 @@ struct Testing: View {
             leading: settingsButton,
             trailing: CreateEntityPickerButton()
         )
-        //        .toolbar {
-        //            ToolbarItem(placement: .navigationBarLeading) {
-        //                settingsButton
-        //            }
-        //
-        //            ToolbarItem(placement: .navigationBarTrailing) {
-        //                CreateEntityPickerButton()
-        //            }
-        //        }
     }
-    
     
     @State private var showSettings = false
     
@@ -156,5 +107,6 @@ struct Testing_Previews: PreviewProvider {
         .environmentObject(PersistenceManager.preview)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 1250))
     }
 }

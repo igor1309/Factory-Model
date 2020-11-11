@@ -81,6 +81,7 @@ struct SalesEditor: View {
             var sales: Sales
             if let salesToEdit = salesToEdit {
                 sales = salesToEdit
+                sales.objectWillChange.send()
             } else {
                 sales = Sales(context: context)
             }

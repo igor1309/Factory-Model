@@ -132,6 +132,7 @@ struct BaseEditor: View {
             let base: Base
             if let baseToEdit = baseToEdit {
                 base = baseToEdit
+                base.objectWillChange.send()
             } else {
                 base = Base(context: context)
             }

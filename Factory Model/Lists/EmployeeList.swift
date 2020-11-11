@@ -11,9 +11,7 @@ struct EmployeeList: View {
     
     @EnvironmentObject var settings: Settings
     
-    // @ObservedObject var
     let department: Department?
-    // @ObservedObject var
     let factory: Factory?
     
     init(at department: Department) {

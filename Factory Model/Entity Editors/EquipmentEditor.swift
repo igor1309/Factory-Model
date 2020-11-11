@@ -89,6 +89,7 @@ struct EquipmentEditor: View {
             let equipment: Equipment
             if let equipmentToEdit = equipmentToEdit {
                 equipment = equipmentToEdit
+                equipment.objectWillChange.send()
             } else {
                 equipment = Equipment(context: context)
             }

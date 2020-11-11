@@ -19,22 +19,24 @@ struct ProductList: View {
     var body: some View {
         ListWithDashboard(
             childType: Product.self,
-            predicate: Product.factoryPredicate(for: factory)
-        ) {
-            CreateNewEntityBarButton<Product>()
-        } dashboard: {
-            dashboard
-        }
+            predicate: Product.factoryPredicate(for: factory),
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    private func plusButton() -> some View {
+        CreateNewEntityBarButton<Product>()
     }
     
     @ViewBuilder
-    private var dashboard: some View {
+    private func dashboard() -> some View {
         Section(
             header: Text("Production")
         ) {
             Group {
                 LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: settings.period).weightNettoTonsStr)
-                                
+                
                 LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.produced(in: settings.period).cost.fullCostStr)
                 
                 LabelWithDetail(

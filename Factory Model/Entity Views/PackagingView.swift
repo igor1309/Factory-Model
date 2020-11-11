@@ -14,30 +14,38 @@ struct PackagingView: View {
     
     init(_ packaging: Packaging) {
         self.packaging = packaging
-        
-        predicate = NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
+        self.predicate = NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)
     }
     
     private let predicate: NSPredicate
     
     var body: some View {
-        List {
-            Section(
-                header: Text("Packaging Detail")
+        ListWithDashboard(
+            childType: Product.self,
+            title: packaging.name,
+            predicate: predicate,
+            plusButton: plusButton,
+            dashboard: dashboard
+        )
+    }
+    
+    private func plusButton() -> some View {
+        EmptyView()
+    }
+    
+    @ViewBuilder
+    private func dashboard() -> some View {
+        Section(
+            header: Text("Packaging Detail")
+        ) {
+            NavigationLink(
+                destination: PackagingEditor(packaging)
             ) {
-                NavigationLink(
-                    destination: PackagingEditor(packaging)
-                ) {
-                    ListRow(packaging, period: settings.period)
-                }
+                ListRow(packaging, period: settings.period)
             }
-            
-            ErrorMessage(packaging)
-            
-            GenericListSection(header: "Used in Products", type: Product.self, predicate: predicate)
         }
-        .listStyle(InsetGroupedListStyle())
-        .navigationBarTitle(packaging.name, displayMode: .inline)
+        
+        ErrorMessage(packaging)
     }
 }
 
@@ -49,5 +57,6 @@ struct PackagingView_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
+        .previewLayout(.fixed(width: 350, height: 560))
     }
 }

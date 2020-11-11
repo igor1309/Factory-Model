@@ -75,6 +75,7 @@ struct UtilityEditor: View {
             let utility: Utility
             if let utilityToEdit = utilityToEdit {
                 utility = utilityToEdit
+                utility.objectWillChange.send()
             } else {
                 utility = Utility(context: context)
             }
@@ -108,7 +109,7 @@ struct UtilityEditor_Previews: PreviewProvider {
                     UtilityEditor(Utility.example)
                 }
             }
-            .previewLayout(.fixed(width: 345, height: 500))
+            .previewLayout(.fixed(width: 345, height: 550))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

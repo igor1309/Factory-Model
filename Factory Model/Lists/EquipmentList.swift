@@ -16,6 +16,10 @@ struct EquipmentList: View {
         self.factory = factory
     }
     
+    var body: some View {
+        EntityListWithDashboard(for: factory, keyPathToParent: \Equipment.factory, dashboard: dashboard)
+    }
+    
     @ViewBuilder
     private func dashboard() -> some View {
         Section(header: Text("Total")) {
@@ -33,10 +37,6 @@ struct EquipmentList: View {
             .foregroundColor(.secondary)
             .font(.subheadline)
         }
-    }
-    
-    var body: some View {
-        EntityListWithDashboard(for: factory, keyPathToParent: \Equipment.factory, dashboard: dashboard)
     }
 }
 

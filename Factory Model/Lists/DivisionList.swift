@@ -14,6 +14,10 @@ struct DivisionList: View {
         self.factory = factory
     }
     
+    var body: some View {
+        EntityListWithDashboard(for: factory, keyPathToParent: \Division.factory, dashboard: dashboard)
+    }
+    
     @ViewBuilder
     private func dashboard() -> some View {
         
@@ -24,7 +28,7 @@ struct DivisionList: View {
         ) {
             Group {
                 NavigationLink(
-                    destination: AllEmployeesList(for: factory)
+                    destination: EmployeeList(for: factory)
                 ) {
                     Label("All Factory Personnel", systemImage: Department.icon)
                         .foregroundColor(Employee.color)
@@ -33,10 +37,6 @@ struct DivisionList: View {
             .font(.subheadline)
             .foregroundColor(.secondary)
         }
-    }
-    
-    var body: some View {
-        EntityListWithDashboard(for: factory, keyPathToParent: \Division.factory, dashboard: dashboard)
     }
 }
 
@@ -48,5 +48,6 @@ struct DivisionList_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 850))
     }
 }
