@@ -12,11 +12,9 @@ struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
     @EnvironmentObject var settings: Settings
     
     let entity: T
-    let asStack: Bool
     
-    init(for entity: T, asStack: Bool = true) {
+    init(for entity: T) {
         self.entity = entity
-        self.asStack = asStack
     }
     
     var body: some View {
@@ -32,7 +30,7 @@ struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
     
     @ViewBuilder
     private func productionGroup() -> some View {
-        if asStack {
+        if settings.asStack {
             /// no icons
             VStack(spacing: 6) {
                 LabelWithDetail("Output, tonne", entity.produced(in: settings.period).weightNettoTonsStr)
@@ -51,7 +49,7 @@ struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
     
     @ViewBuilder
     private func outputGroup() -> some View {
-        if asStack {
+        if settings.asStack {
             /// no icons
             VStack(spacing: 6) {
                 LabelWithDetail("Tonne per hour", entity.outputTonnePerHour(in: settings.period).format(percentage: false, decimals: 3))
@@ -72,23 +70,30 @@ struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
 }
 
 struct ProductionOutputSection_Previews: PreviewProvider {
+    static var settings1 = Settings()
+    static var settings2 = Settings()
+
     static var previews: some View {
-        Group {
+        settings1.asStack = true
+        settings2.asStack = false
+        
+        return Group {
             NavigationView {
                 Form {
                     ProductionOutputSection(for: Base.example)
                 }
             }
             .previewLayout(.fixed(width: 350, height: 350))
+            .environmentObject(settings1)
             
             NavigationView {
                 Form {
-                    ProductionOutputSection(for: Base.example, asStack: false)
+                    ProductionOutputSection(for: Base.example)
                 }
             }
             .previewLayout(.fixed(width: 350, height: 450))
+            .environmentObject(settings2)
         }
-        .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
     }
 }

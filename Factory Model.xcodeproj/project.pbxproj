@@ -454,7 +454,6 @@
 				2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */,
 				2A33A47A24F11BAE001DAE71 /* HBar.swift */,
 				2A7F4AB024EDBB6A002A315F /* DraftSection.swift */,
-				2A7F4AB424EE537C002A315F /* EntityLinkToList.swift */,
 				2A8CCF2D24ED0F4E00EFDADC /* NameSection.swift */,
 				2AF814EF24FCE2430078A58A /* NoteSection.swift */,
 				2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */,
@@ -742,6 +741,7 @@
 				2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */,
 				2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */,
 				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
+				2A7F4AB424EE537C002A315F /* EntityLinkToList.swift */,
 			);
 			path = "Generic Lists and Sections";
 			sourceTree = "<group>";

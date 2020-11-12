@@ -24,6 +24,13 @@ struct SettingsView: View {
                 }
                 
                 Section(
+                    header: Text("Stack View"),
+                    footer: Text("In some views data rows could be presented in a Stack for more compact view.")
+                ) {
+                    Toggle("Show as Stack", isOn: $settings.asStack)
+                }
+                
+                Section(
                     header: Text("Delete"),
                     footer: Text("Delete all entities: all Factories, Products, etc. Use with care - data would be wiped out for good.")
                         .foregroundColor(.red)

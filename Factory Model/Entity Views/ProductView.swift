@@ -103,9 +103,7 @@ struct ProductView: View {
             }
             
             Group {
-                Section(
-                    header: Text("Inventory")
-                ) {
+                Section(header: Text("Inventory")) {
                     Group {
                         LabelWithDetail("square", "TBD: Initial Inventory", "TBD")
                         

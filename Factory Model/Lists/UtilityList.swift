@@ -54,9 +54,9 @@ struct UtilityList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             UtilityList(for: Base.example)
-                .environment(\.managedObjectContext, PersistenceManager.previewContext)
-                .environmentObject(Settings())
-                .preferredColorScheme(.dark)
         }
+        .environment(\.managedObjectContext, PersistenceManager.previewContext)
+        .environmentObject(Settings())
+        .preferredColorScheme(.dark)
     }
 }

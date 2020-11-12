@@ -12,11 +12,9 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
     @EnvironmentObject var settings: Settings
     
     let entity: T
-    let asStack: Bool
     
-    init(for entity: T, asStack: Bool = true) {
+    init(for entity: T) {
         self.entity = entity
-        self.asStack = asStack
     }
     
     var body: some View {
@@ -52,11 +50,11 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
             && workHours > productionWorkHours
             && salaryWithTax > productionSalaryWithTax
     }
-
+    
     private func laborSection(header: String, headcount: Int, workHours: Double, salaryWithTax: Double, salaryPerHourWithTax: Double) -> some View {
         
         Section(header: Text(header)) {
-            if asStack {
+            if settings.asStack {
                 VStack(spacing: 6) {
                     LabelWithDetail("Headcount", headcount.formattedGrouped)
                     
@@ -87,26 +85,32 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
 }
 
 struct LaborView_Previews: PreviewProvider {
+    static var settings1 = Settings()
+    static var settings2 = Settings()
+    
     static var previews: some View {
-        Group {
+        settings1.asStack = true
+        settings2.asStack = false
+        
+        return Group {
             NavigationView {
                 Form {
                     LaborView(for: Factory.example)
                 }
                 .navigationBarTitle("LaborView", displayMode: .inline)
+                .environmentObject(settings1)
             }
-            .previewLayout(.fixed(width: 350, height: 400))
-
+            .previewLayout(.fixed(width: 350, height: 430))
+            
             NavigationView {
                 Form {
-                    LaborView(for: Factory.example, asStack: false)
+                    LaborView(for: Factory.example)
                 }
                 .navigationBarTitle("LaborView", displayMode: .inline)
+                .environmentObject(settings2)
             }
-            .previewLayout(.fixed(width: 350, height: 600))
-
+            .previewLayout(.fixed(width: 350, height: 550))
         }
-        .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
     }
 }

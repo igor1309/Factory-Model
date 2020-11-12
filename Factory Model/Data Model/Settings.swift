@@ -9,4 +9,6 @@ import SwiftUI
 
 final class Settings: ObservableObject {
     @Published var period: Period = .month()
+    
+    @AppStorage("asStack") var asStack: Bool = true
 }
