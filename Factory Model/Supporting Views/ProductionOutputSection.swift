@@ -11,30 +11,56 @@ import CoreData
 struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
     @EnvironmentObject var settings: Settings
     
-    @ObservedObject var entity: T
+    let entity: T
+    let asStack: Bool
     
-    init(for entity: T) {
+    init(for entity: T, asStack: Bool = true) {
         self.entity = entity
+        self.asStack = asStack
     }
     
     var body: some View {
-        Section(
-            header: Text("Production")
-        ) {
+        Section(header: Text("Production")) {
+            productionGroup()
+                .foregroundColor(.secondary)
+        }
+        Section(header: Text("Output")) {
+            outputGroup()
+                .foregroundColor(.secondary)
+        }
+    }
+    
+    @ViewBuilder
+    private func productionGroup() -> some View {
+        if asStack {
+            /// no icons
+            VStack(spacing: 6) {
+                LabelWithDetail("Output, tonne", entity.produced(in: settings.period).weightNettoTonsStr)
+                LabelWithDetail("Cost ex VAT", entity.produced(in: settings.period).cost.fullCostStr)
+            }
+            .padding(.vertical, 3)
+            .font(.footnote)
+        } else {
             Group {
-                LabelWithDetail(
-                    "scalemass",
-                    "Output, tonne",
-                    entity.produced(in: settings.period).weightNettoTonsStr
-                )
+                LabelWithDetail("scalemass", "Output, tonne", entity.produced(in: settings.period).weightNettoTonsStr)
                 LabelWithDetail("dollarsign.circle", "Cost ex VAT", entity.produced(in: settings.period).cost.fullCostStr)
             }
-            .foregroundColor(.secondary)
             .font(.subheadline)
         }
-        Section(
-            header: Text("Output")
-        ) {
+    }
+    
+    @ViewBuilder
+    private func outputGroup() -> some View {
+        if asStack {
+            /// no icons
+            VStack(spacing: 6) {
+                LabelWithDetail("Tonne per hour", entity.outputTonnePerHour(in: settings.period).format(percentage: false, decimals: 3))
+                LabelWithDetail("Cost ex VAT per hour", entity.productionCostExVATPerHour(in: settings.period).formattedGrouped)
+                LabelWithDetail("Cost ex VAT per kilo", entity.productionCostExVATPerKilo(in: settings.period).formattedGrouped)
+            }
+            .padding(.vertical, 3)
+            .font(.footnote)
+        } else {
             Group {
                 LabelWithDetail("scalemass.fill", "Tonne per hour", entity.outputTonnePerHour(in: settings.period).format(percentage: false, decimals: 3))
                 LabelWithDetail("dollarsign.square", "Cost ex VAT per hour", entity.productionCostExVATPerHour(in: settings.period).formattedGrouped)
@@ -47,10 +73,20 @@ struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
 
 struct ProductionOutputSection_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            Form {
-                ProductionOutputSection(for: Base.example)
+        Group {
+            NavigationView {
+                Form {
+                    ProductionOutputSection(for: Base.example)
+                }
             }
+            .previewLayout(.fixed(width: 350, height: 350))
+            
+            NavigationView {
+                Form {
+                    ProductionOutputSection(for: Base.example, asStack: false)
+                }
+            }
+            .previewLayout(.fixed(width: 350, height: 450))
         }
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
