@@ -103,6 +103,8 @@ extension PersistenceManager {
                 }
             }
         }
+        
+        context.saveContext()
     }
 
     //  MARK: List of all Entities in the Model
