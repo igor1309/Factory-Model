@@ -22,11 +22,12 @@ struct PackagingList: View {
     
     var body: some View {
         ListWithDashboard(
-            childType: Packaging.self,
             predicate: Packaging.factoryPredicate(for: factory),
             plusButton: plusButton,
             dashboard: dashboard
-        )
+        ) { (packaging: Packaging) in
+            PackagingEditor(packaging)
+        }
         /// observing context saving
         .onReceive(didSave) { _ in
             refreshing.toggle()

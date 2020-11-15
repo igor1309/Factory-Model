@@ -21,12 +21,13 @@ struct PackagingView: View {
     
     var body: some View {
         ListWithDashboard(
-            childType: Product.self,
             title: packaging.name,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        )
+        ) { (product: Product) in
+            ProductView(product)
+        }
     }
     
     private func plusButton() -> some View {

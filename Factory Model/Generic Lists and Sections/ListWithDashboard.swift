@@ -13,7 +13,8 @@ typealias Dashboardable = Monikerable & Managed & Summarizable & Sketchable & Or
 struct ListWithDashboard<
     Child: Dashboardable,
     PlusButton: View,
-    Dashboard: View
+    Dashboard: View,
+    Editor: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
@@ -22,20 +23,22 @@ struct ListWithDashboard<
     let smallFont: Bool
     let plusButton: () -> PlusButton
     let dashboard: () -> Dashboard
+    let editor: (Child) -> Editor
     
     /// for immediate Factory children use FactoryChildrenListWithDashboard
     init(
-        childType: Child.Type,
         title: String? = nil,
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
         plusButton: @escaping () -> PlusButton,
-        @ViewBuilder dashboard: @escaping () -> Dashboard
+        @ViewBuilder dashboard: @escaping () -> Dashboard,
+        @ViewBuilder editor: @escaping (Child) -> Editor
     ) {
         self.title = title ?? Child.plural
         self.smallFont = smallFont
         self.plusButton = plusButton
         self.dashboard = dashboard
+        self.editor = editor
         _entities = Child.defaultFetchRequest(with: predicate)
         _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
@@ -53,11 +56,11 @@ struct ListWithDashboard<
             dashboard()
             
             if !orphans.isEmpty {
-                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont)
+                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont, editor: editor)
                     .foregroundColor(.systemRed)
             }
             
-            GenericListSection(fetchRequest: _entities, smallFont: smallFont)
+            GenericListSection(fetchRequest: _entities, smallFont: smallFont, editor: editor)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
@@ -212,27 +215,29 @@ struct ListWithDashboard_Previews: PreviewProvider {
             //  MARK: - not Offspringable
             NavigationView {
                 ListWithDashboard(
-                    childType: Department.self,
                     predicate: Department.factoryPredicate(for: Factory.example)
                 ) {
                     CreateNewEntityBarButton<Department>()
                 } dashboard: {
                     Text("Dashboard goes here")
+                } editor: { (department: Department) in
+                    DepartmentView(department)
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
-            .previewLayout(.fixed(width: 350, height: 400))
+            .previewLayout(.fixed(width: 350, height: 600))
             
             
             //  MARK: - FactoryTracable
             NavigationView {
                 ListWithDashboard(
-                    childType: Product.self,
                     predicate: Product.factoryPredicate(for: Factory.example)
                 ) {
                     CreateNewEntityBarButton<Product>()
                 } dashboard: {
                     Text("Dashboard goes here")
+                } editor: { (product: Product) in
+                    ProductView(product)
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }

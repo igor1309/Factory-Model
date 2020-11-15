@@ -114,12 +114,16 @@ struct BaseEditor: View {
             
             if let base = baseToEdit,
                !base.recipes.isEmpty {
-                GenericListSection(header: "Existing Ingredients", type: Recipe.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base))
+                GenericListSection(header: "Existing Ingredients", type: Recipe.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Recipe.base), base)) { (recipe: Recipe) in
+                    RecipeEditor(recipe)
+                }
             }
             
             if let base = baseToEdit,
                !base.products.isEmpty {
-                GenericListSection(header: "Used in Products", type: Product.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base))
+                GenericListSection(header: "Used in Products", type: Product.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Product.base), base)) { (product: Product) in
+                    ProductView(product)
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())

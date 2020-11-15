@@ -25,12 +25,13 @@ struct DepartmentView: View {
     
     var body: some View {
         ListWithDashboard(
-            childType: Employee.self,
             title: department.name,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        )
+        ) { (employee: Employee) in
+            EmployeeEditor(employee)
+        }
     }
     
     private func plusButton() -> some View {

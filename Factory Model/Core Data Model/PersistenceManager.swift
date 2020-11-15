@@ -16,8 +16,9 @@ class PersistenceManager: ObservableObject {
     var context: NSManagedObjectContext { container.viewContext }
     
     private lazy var container: NSPersistentContainer = {
-        let container = NSPersistentCloudKitContainer(name: containerName)// NSPersistentContainer(name: containerName)
+        let container = NSPersistentCloudKitContainer(name: containerName)
         
+        /// for testing and previewing
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -27,14 +28,18 @@ class PersistenceManager: ObservableObject {
                 fatalError("Unresolved error loading store: \(error.localizedDescription), \(error.userInfo)")
             }
         }
+        
+        /// automatic syncing that happens through the silent push notification
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
         return container
     }()
-    
     
     init(containerName: String, inMemory: Bool = false) {
         self.containerName = containerName
         self.inMemory = inMemory
         
+        /// automatically save any changes when application goes to the background
         let center = NotificationCenter.default
         let notification = UIApplication.willResignActiveNotification
         
@@ -48,8 +53,8 @@ class PersistenceManager: ObservableObject {
 
 extension PersistenceManager {
 
-    //  MARK: - Previews
-    
+    //  MARK: Previews
+    //
     static var preview: PersistenceManager = {
         let manager = PersistenceManager(containerName: "DataModel", inMemory: true)
         
@@ -69,8 +74,8 @@ extension PersistenceManager {
 
 extension PersistenceManager {
     
-    //  MARK: - Sample Data
-    
+    //  MARK: Sample Data
+    //
     func createSampleData(in context: NSManagedObjectContext) throws {
         //deleteAll()
         
@@ -81,8 +86,8 @@ extension PersistenceManager {
     }
     
 
-    //  MARK: - Delete All
-    
+    //  MARK: Delete All
+    //
     func deleteAll() {
         let entities = container.managedObjectModel.entities
         
@@ -100,13 +105,16 @@ extension PersistenceManager {
         }
     }
 
-
+    //  MARK: List of all Entities in the Model
+    //
     var entitiesList: String {
         container.managedObjectModel.entities
             .compactMap { $0.name }
             .joined(separator: ", ")
     }
     
+    //  MARK: Check if context contains any object
+    //
     var isEmpty: Bool {
         let entities = container.managedObjectModel.entities
         var total = 0

@@ -30,11 +30,12 @@ struct EmployeeList: View {
     
     var body: some View {
         ListWithDashboard(
-            childType: Employee.self,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        )
+        ) { (employee: Employee) in
+            EmployeeEditor(employee)
+        }
     }
     
     @ViewBuilder
@@ -79,10 +80,12 @@ struct EmployeeList_Previews: PreviewProvider {
             NavigationView {
                 EmployeeList(at: Department.example)
             }
+            .previewLayout(.fixed(width: 350, height: 450))
             
             NavigationView {
                 EmployeeList(for: Factory.example)
             }
+            .previewLayout(.fixed(width: 350, height: 600))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())

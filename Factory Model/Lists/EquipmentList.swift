@@ -17,7 +17,9 @@ struct EquipmentList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, keyPathToParent: \Equipment.factory, dashboard: dashboard)
+        EntityListWithDashboard(for: factory, keyPathToParent: \Equipment.factory, dashboard: dashboard)  { (equipment: Equipment) in
+            EquipmentEditor(equipment)
+        }
     }
     
     @ViewBuilder

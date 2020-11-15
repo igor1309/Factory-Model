@@ -17,6 +17,7 @@ struct MenuCreateNewOrSample: View {
                 Button {
                     withAnimation {
                         let _ = Factory.createFactory1(in: context)
+                        context.saveContext()
                     }
                 } label: {
                     Label("Сыроварня", systemImage: "plus")
@@ -25,6 +26,7 @@ struct MenuCreateNewOrSample: View {
                 Button {
                     withAnimation {
                         let _ = Factory.createFactory2(in: context)
+                        context.saveContext()
                     }
                 } label: {
                     Label("Полуфабрикаты", systemImage: "plus")

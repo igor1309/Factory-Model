@@ -22,54 +22,81 @@ struct IssuesList: View {
             
             Group {
                 //            if factory.basesHasIssues {
-                GenericListSection(type: Base.self, predicate: Base.orphanPredicate)
+                GenericListSection(type: Base.self, predicate: Base.orphanPredicate) { (base: Base) in
+                    BaseView(base)
+                }
                 //            }
                 //            if factory.buyersHasIssues {
-                GenericListSection(type: Buyer.self, predicate: Buyer.orphanPredicate)
+                GenericListSection(type: Buyer.self, predicate: Buyer.orphanPredicate) { (buyer: Buyer) in
+                    BuyerEditor(buyer)
+                }
                 //            }
                 //            if factory.departmentsHasIssues {
-                GenericListSection(type: Department.self, predicate: Department.orphanPredicate)
+                GenericListSection(type: Department.self, predicate: Department.orphanPredicate) { (department: Department) in
+                    DepartmentView(department)
+                }
                 //            }
                 
                 //                if factory.departmentsHasIssues {
-                GenericListSection(type: Division.self, predicate: Division.orphanPredicate)
+                GenericListSection(type: Division.self, predicate: Division.orphanPredicate) { (division: Division) in
+                    DivisionView(division)
+                }
                 //                }
                 
                 //            if factory.equipmentsHasIssues {
-                GenericListSection(type: Equipment.self, predicate: Equipment.orphanPredicate)
+                GenericListSection(type: Equipment.self, predicate: Equipment.orphanPredicate) { (equipment: Equipment) in
+                    //EquipmentView(equipment)
+                    EquipmentEditor(equipment)
+                }
                 //            }
                 
                 //            if factory.expensesHasIssues {
-                GenericListSection(type: Expenses.self, predicate: Expenses.orphanPredicate)
+                GenericListSection(type: Expenses.self, predicate: Expenses.orphanPredicate) { (expenses: Expenses) in
+                    ExpensesEditor(expenses)
+                }
                 //            }
                 
                 //            if factory.ingredientsHasIssues {
-                GenericListSection(type: Ingredient.self, predicate: Ingredient.orphanPredicate)
+                GenericListSection(type: Ingredient.self, predicate: Ingredient.orphanPredicate) { (ingredient: Ingredient) in
+                    IngredientView(ingredient)
+                }
                 //            }
             }
             
             Group {
                 //            if factory.recipesHasIssues {
-                GenericListSection(type: Recipe.self, predicate: Recipe.orphanPredicate)
+                GenericListSection(type: Recipe.self, predicate: Recipe.orphanPredicate) { (recipe: Recipe) in
+                    RecipeEditor(recipe)
+                }
                 //            }
                 
                 //            if factory.packagingsHasIssues {
-                GenericListSection(type: Packaging.self, predicate: Packaging.orphanPredicate)
+                GenericListSection(type: Packaging.self, predicate: Packaging.orphanPredicate) { (packaging: Packaging) in
+                    PackagingEditor(packaging)
+                }
                 //            }
                 
                 //            if factory.packagingsHasIssues {
-                GenericListSection(type: Product.self, predicate: Product.orphanPredicate)
+                GenericListSection(type: Product.self, predicate: Product.orphanPredicate) { (product: Product) in
+                    ProductView(product)
+                }
                 //            }
                 //            if factory.salesHasIssues {
-                GenericListSection(type: Sales.self, predicate: Sales.orphanPredicate)
+                GenericListSection(type: Sales.self, predicate: Sales.orphanPredicate) { (sales: Sales) in
+                    SalesEditor(sales)
+                }
                 //            }
                 
                 //            if factory.utilitiesHasIssues {
-                GenericListSection(type: Utility.self, predicate: Utility.orphanPredicate)
+                GenericListSection(type: Utility.self, predicate: Utility.orphanPredicate) { (utility: Utility) in
+                    UtilityEditor(utility)
+                }
                 //            }
                 
                 //            if factory.employeesHasIssues {
-                GenericListSection(type: Employee.self, predicate: Employee.orphanPredicate)
+                GenericListSection(type: Employee.self, predicate: Employee.orphanPredicate) { (employee: Employee) in
+                    EmployeeEditor(employee)
+                }
                 //            }
             }
         }

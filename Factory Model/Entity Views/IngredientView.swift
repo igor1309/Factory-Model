@@ -58,7 +58,9 @@ struct IngredientView: View {
                 .font(.subheadline)
             }
             
-            GenericListSection(header: "Used in Base Products", type: Base.self, predicate: predicate)
+            GenericListSection(header: "Used in Base Products", type: Base.self, predicate: predicate) { (base: Base) in
+                BaseEditor(base)
+            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(ingredient.name)

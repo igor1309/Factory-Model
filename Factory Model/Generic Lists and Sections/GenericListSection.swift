@@ -10,7 +10,7 @@ import CoreData
 
 typealias Listable = Managed & Monikerable & Summarizable
 
-struct GenericListSection<T: Listable>: View where T.ManagedType == T {
+struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
     
     @Environment(\.managedObjectContext) private var context
     
@@ -18,16 +18,19 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
     
+    let editor: (T) -> Editor
     let smallFont: Bool
     let header: String
     
     init(
         header: String? = T.plural,
         fetchRequest: FetchRequest<T>,
-        smallFont: Bool = true
+        smallFont: Bool = true,
+        @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header ?? T.plural
         _fetchRequest = fetchRequest
+        self.editor = editor
         self.smallFont = smallFont
     }
     
@@ -35,9 +38,11 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
         header: String? = T.plural,
         type: T.Type,
         predicate: NSPredicate?,
-        smallFont: Bool = true
+        smallFont: Bool = true,
+        @ViewBuilder editor: @escaping (T) -> Editor
     ) {
         self.header = header ?? T.plural
+        self.editor = editor
         self.smallFont = smallFont
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
@@ -53,7 +58,9 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
             } else {
                 ForEach(fetchRequest, id: \.objectID) { entity in
                     NavigationLink(
-                        destination: entity.viewer()
+                        // working with entity.viewer() means loosing ability to assign parent
+                        // making it more advanced leads to errors
+                        destination: editor(entity)
                     ) {
                         EntityRowWithAction(entity, smallFont: smallFont, in: settings.period)
                     }
@@ -130,19 +137,39 @@ struct GenericListSection_Previews: PreviewProvider {
         )
     ) static private var ingredients: FetchedResults<Ingredient>
     
-    static private let factory = Factory.example
-    
     static var previews: some View {
         NavigationView {
             List {
-                GenericListSection(fetchRequest: _ingredients)
+                GenericListSection(fetchRequest: _ingredients) { ingredient in
+                    IngredientView(ingredient)
+                }
                 
-                GenericListSection(type: Buyer.self, predicate: nil)
+                GenericListSection(
+                    type: Buyer.self,
+                    predicate: nil
+                ) { (base: Buyer) in
+                    BuyerEditor(base)
+                }
                 
-                GenericListSection(type: Base.self, predicate: nil)
-                GenericListSection<Base>(fetchRequest: Base.defaultFetchRequest(for: factory))
+                GenericListSection(
+                    type: Base.self,
+                    predicate: nil
+                ) { (base: Base) in
+                    BaseEditor(base)
+                }
                 
-                GenericListSection(type: Factory.self, predicate: nil)
+                GenericListSection(
+                    fetchRequest: FetchRequest(entity: Base.entity(), sortDescriptors: [])
+                ) { (base: Base) in
+                    BaseEditor(base)
+                }
+                
+                GenericListSection(
+                    type: Factory.self,
+                    predicate: nil
+                ) { (factory: Factory) in
+                    FactoryEditor(factory)
+                }
             }
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("GenericListSection", displayMode: .inline)

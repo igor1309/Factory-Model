@@ -62,7 +62,9 @@ struct PackagingEditor: View {
                 }
                 
                 //header: "Оставлять ли этот список?",
-                GenericListSection(type: Product.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging))
+                GenericListSection(type: Product.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Product.packaging), packaging)) { (product: Product) in
+                    ProductView(product)
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())

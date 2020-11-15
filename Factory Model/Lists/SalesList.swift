@@ -38,7 +38,9 @@ struct SalesList: View {
     private var orphans: FetchedResults<Sales>
     
     var body: some View {
-        ListWithDashboard(childType: Sales.self, predicate: predicate, plusButton: plusButton, dashboard: dashboard)
+        ListWithDashboard(predicate: predicate, plusButton: plusButton, dashboard: dashboard) { (sales: Sales) in
+            SalesEditor(sales)
+        }
     }
     
     @ViewBuilder
@@ -102,7 +104,9 @@ struct SalesList: View {
         }
         
         if !orphans.isEmpty {
-            GenericListSection(header: "Sales and Orphans", fetchRequest: _orphans)
+            GenericListSection(header: "Sales and Orphans", fetchRequest: _orphans) { (sales: Sales) in
+                SalesEditor(sales)
+            }
                 .foregroundColor(.systemRed)
         }
     }

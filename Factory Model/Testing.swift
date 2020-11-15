@@ -33,7 +33,9 @@ struct Testing: View {
                     Text("Factories")
                 }
                 
-                EntityLinkToList<Factory>()
+                EntityLinkToList { (factory: Factory) in
+                    FactoryView(factory)
+                }
             }
             
             Section(
@@ -41,37 +43,64 @@ struct Testing: View {
                 footer: Text("Using View + Editor (via View).")
                 
             ) {
-                EntityLinkToList<Division>()
-                EntityLinkToList<Department>()
-                EntityLinkToList<Buyer>()
-                EntityLinkToList<Product>()
-                EntityLinkToList<Base>()
+                EntityLinkToList { (division: Division) in
+                    DivisionView(division)
+                }
+                EntityLinkToList { (department: Department) in
+                    DepartmentView(department)
+                }
+                EntityLinkToList { (buyer: Buyer) in
+                    BuyerEditor(buyer)
+                }
+                EntityLinkToList { (product: Product) in
+                    ProductView(product)
+                }
+                EntityLinkToList { (base: Base) in
+                    BaseEditor(base)
+                }
             }
             
             Section(
                 header: Text("Many-to-many"),
                 footer: Text("Subordinate. Not intended for direct use. No Entity View, using just Editor.")
             ) {
-                EntityLinkToList<Sales>()
-                EntityLinkToList<Recipe>()
+                EntityLinkToList { (sales: Sales) in
+                    SalesEditor(sales)
+                }
+                EntityLinkToList { (recipe: Recipe) in
+                    RecipeEditor(recipe)
+                }
             }
             
             Section(
                 header: Text("Many parents"),
                 footer: Text("Using View + Editor (via View).")
             ) {
-                EntityLinkToList<Ingredient>()
-                EntityLinkToList<Packaging>()
+                EntityLinkToList { (ingredient: Ingredient) in
+                    IngredientView(ingredient)
+                }
+                EntityLinkToList { (packaging: Packaging) in
+                    PackagingEditor(packaging)
+                }
             }
             
             Section(
                 header: Text("One parent"),
                 footer: Text("No Entity View, using Editor.")
             ) {
-                EntityLinkToList<Utility>()
-                EntityLinkToList<Employee>()
-                EntityLinkToList<Equipment>()
-                EntityLinkToList<Expenses>()
+                EntityLinkToList { (utility: Utility) in
+                    UtilityEditor(utility)
+                }
+                EntityLinkToList { (employee: Employee) in
+                    EmployeeEditor(employee)
+                }
+                EntityLinkToList { (equipment: Equipment) in
+                    //EquipmentView(equipment)
+                    EquipmentEditor(equipment)
+                }
+                EntityLinkToList { (expenses: Expenses) in
+                    ExpensesEditor(expenses)
+                }
             }
         }
         .listStyle(InsetGroupedListStyle())

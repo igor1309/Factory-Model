@@ -7,13 +7,25 @@
 
 import SwiftUI
 
-struct EntityLinkToList<T: Managed & Monikerable & Summarizable>: View where T.ManagedType == T {
+struct EntityLinkToList<T: Listable, Editor: View>: View where T.ManagedType == T {
     
     @EnvironmentObject var settings: Settings
     
+    var editor: (T) -> Editor
+    
+    init(@ViewBuilder editor: @escaping (T) -> Editor) {
+        self.editor = editor
+    }
+    
     private var destination: some View {
         List {
-            GenericListSection(type: T.self, predicate: nil)
+            GenericListSection(type: T.self, predicate: nil, editor: editor)
+//            GenericListSection(
+//                type: T.self,
+//                predicate: nil
+//            ) { (entity: T) in
+//                editor(entity)
+//            }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitleDisplayMode(.inline)
@@ -31,10 +43,18 @@ struct EntityLinkToList_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             Form {
-                EntityLinkToList<Base>()
-                EntityLinkToList<Product>()
-                EntityLinkToList<Division>()
-                EntityLinkToList<Employee>()
+                EntityLinkToList { (base: Base) in
+                    BaseEditor(base)
+                }
+                EntityLinkToList { (product: Product) in
+                    ProductEditor(product)
+                }
+                EntityLinkToList { (division: Division) in
+                    DivisionEditor(division: division)
+                }
+                EntityLinkToList { (employee: Employee) in
+                    EmployeeEditor(employee)
+                }
             }
             .navigationBarTitle("EntityLinkToList", displayMode: .inline)
         }
