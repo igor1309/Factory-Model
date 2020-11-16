@@ -26,12 +26,11 @@ struct IngredientList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Ingredient.self,
             predicate: Ingredient.factoryPredicate(for: factory),
             plusButton: plusButton,
             dashboard: dashboard
-        ) { (ingredient: Ingredient) in
-            IngredientEditor(ingredient)
-        }
+        )
         /// observing context saving
         .onReceive(didSave) { _ in
             refreshing.toggle()

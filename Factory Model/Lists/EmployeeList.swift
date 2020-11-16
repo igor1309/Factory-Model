@@ -30,12 +30,11 @@ struct EmployeeList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Employee.self,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        ) { (employee: Employee) in
-            EmployeeEditor(employee)
-        }
+        )
     }
     
     @ViewBuilder

@@ -63,9 +63,7 @@ struct BuyerEditor: View {
             
             if let buyer = buyerToEdit,
                !buyer.sales.isEmpty {
-                GenericListSection(header: "Existing Sales", type: Sales.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer)) { (sales: Sales) in
-                    SalesEditor(sales)
-                }
+                GenericListSection(header: "Existing Sales", type: Sales.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Sales.buyer), buyer))
             }
         }
         .listStyle(InsetGroupedListStyle())

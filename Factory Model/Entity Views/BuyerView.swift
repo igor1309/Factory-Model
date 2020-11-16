@@ -21,13 +21,12 @@ struct BuyerView: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Sales.self,
             title: buyer.name,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        ) { (sales: Sales) in
-            SalesEditor(sales)
-        }
+        )
     }
     
     private func plusButton() -> some View {

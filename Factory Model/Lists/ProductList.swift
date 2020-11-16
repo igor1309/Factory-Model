@@ -18,12 +18,11 @@ struct ProductList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Product.self,
             predicate: Product.factoryPredicate(for: factory),
             plusButton: plusButton,
             dashboard: dashboard
-        ) { (product: Product) in
-            ProductView(product)
-        }
+        )
     }
     
     private func plusButton() -> some View {

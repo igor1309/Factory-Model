@@ -10,13 +10,19 @@ import SwiftUI
 struct CreateEntityPickerButton: View {
     @Environment(\.managedObjectContext) private var context
     
+    var isTabItem: Bool = true
+    
     @State private var showModal = false
     
     var body: some View {
         Button {
             showModal = true
         } label: {
-            Image(systemName: "plus.rectangle.on.rectangle")
+            if isTabItem {
+                Image(systemName: "plus.rectangle.on.rectangle")
+            } else {
+                Label("Create Entity", systemImage: "plus.rectangle.on.rectangle")
+            }
         }
         .sheet(isPresented: $showModal) {
             CreateEntityPicker(isPresented: $showModal)
@@ -29,14 +35,13 @@ struct CreateEntityPickerButton: View {
 struct CreateEntityPickerButton_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            Color
-                .blue
-                .opacity(0.2)
-                .padding()
-                .navigationBarTitle("CreateEntityPickerButton", displayMode: .inline)
-                .navigationBarItems(
-                    trailing:
-                        CreateEntityPickerButton()
+            Form {
+                CreateEntityPickerButton(isTabItem: false)
+            }
+            .navigationBarTitle("CreateEntityPickerButton", displayMode: .inline)
+            .navigationBarItems(
+                trailing:
+                    CreateEntityPickerButton()
             )
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)

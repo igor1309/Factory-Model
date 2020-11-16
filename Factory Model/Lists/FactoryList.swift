@@ -13,9 +13,7 @@ struct FactoryList: View {
     
     var body: some View {
         List {
-            GenericListSection(type: Factory.self, predicate: nil, smallFont: false) { (factory: Factory) in
-                FactoryView(factory)
-            }
+            GenericListSection(type: Factory.self, predicate: nil, smallFont: false)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Factories")

@@ -8,9 +8,9 @@
 import SwiftUI
 import CoreData
 
-typealias Listable = Managed & Monikerable & Summarizable
+typealias Listable = Creatable & Managed & Monikerable & Summarizable & Viewable
 
-struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType == T {
+struct GenericListSection<T: Listable>: View where T.ManagedType == T {
     
     @Environment(\.managedObjectContext) private var context
     
@@ -18,19 +18,16 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
     
     @FetchRequest private var fetchRequest: FetchedResults<T>
     
-    let editor: (T) -> Editor
     let smallFont: Bool
     let header: String
     
     init(
         header: String? = T.plural,
         fetchRequest: FetchRequest<T>,
-        smallFont: Bool = true,
-        @ViewBuilder editor: @escaping (T) -> Editor
+        smallFont: Bool = true
     ) {
         self.header = header ?? T.plural
         _fetchRequest = fetchRequest
-        self.editor = editor
         self.smallFont = smallFont
     }
     
@@ -38,11 +35,9 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
         header: String? = T.plural,
         type: T.Type,
         predicate: NSPredicate?,
-        smallFont: Bool = true,
-        @ViewBuilder editor: @escaping (T) -> Editor
+        smallFont: Bool = true
     ) {
         self.header = header ?? T.plural
-        self.editor = editor
         self.smallFont = smallFont
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
@@ -58,9 +53,7 @@ struct GenericListSection<T: Listable, Editor: View>: View where T.ManagedType =
             } else {
                 ForEach(fetchRequest, id: \.objectID) { entity in
                     NavigationLink(
-                        // working with entity.viewer() means loosing ability to assign parent
-                        // making it more advanced leads to errors
-                        destination: editor(entity)
+                        destination: entity.viewer()
                     ) {
                         EntityRowWithAction(entity, smallFont: smallFont, in: settings.period)
                     }
@@ -140,36 +133,15 @@ struct GenericListSection_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List {
-                GenericListSection(fetchRequest: _ingredients) { ingredient in
-                    IngredientView(ingredient)
-                }
+                GenericListSection(fetchRequest: _ingredients)
                 
-                GenericListSection(
-                    type: Buyer.self,
-                    predicate: nil
-                ) { (base: Buyer) in
-                    BuyerEditor(base)
-                }
+                GenericListSection(type: Buyer.self, predicate: nil)
                 
-                GenericListSection(
-                    type: Base.self,
-                    predicate: nil
-                ) { (base: Base) in
-                    BaseEditor(base)
-                }
+                GenericListSection(type: Base.self, predicate: nil)
                 
-                GenericListSection(
-                    fetchRequest: FetchRequest(entity: Base.entity(), sortDescriptors: [])
-                ) { (base: Base) in
-                    BaseEditor(base)
-                }
+                GenericListSection<Base>(fetchRequest: FetchRequest(entity: Base.entity(), sortDescriptors: []))
                 
-                GenericListSection(
-                    type: Factory.self,
-                    predicate: nil
-                ) { (factory: Factory) in
-                    FactoryEditor(factory)
-                }
+                GenericListSection(type: Factory.self, predicate: nil)
             }
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("GenericListSection", displayMode: .inline)
