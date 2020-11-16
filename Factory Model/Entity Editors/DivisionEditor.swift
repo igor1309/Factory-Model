@@ -29,7 +29,7 @@ struct DivisionEditor: View {
         title = "New Division"
     }
     
-    init(division: Division) {
+    init(_ division: Division) {
         _isPresented = .constant(true)
         
         divisionToEdit = division
@@ -88,7 +88,7 @@ struct DivisionEditor_Previews: PreviewProvider {
             
             NavigationView {
                 VStack {
-                    DivisionEditor(division: Division.example)
+                    DivisionEditor(Division.example)
                 }
             }
             .previewLayout(.fixed(width: 345, height: 300))

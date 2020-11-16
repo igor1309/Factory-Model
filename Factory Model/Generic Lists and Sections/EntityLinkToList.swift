@@ -50,7 +50,7 @@ struct EntityLinkToList_Previews: PreviewProvider {
                     ProductEditor(product)
                 }
                 EntityLinkToList { (division: Division) in
-                    DivisionEditor(division: division)
+                    DivisionEditor(division)
                 }
                 EntityLinkToList { (employee: Employee) in
                     EmployeeEditor(employee)
