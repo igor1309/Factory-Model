@@ -19,7 +19,7 @@ struct CreateNewEntityBarButton<T: Listable>: View where T.ManagedType == T {
         }
         .sheet(isPresented: $isPresented) {
             NavigationView {
-                T.creator(isPresented: $isPresented)
+                T.creator(isPresented: $isPresented, factory: nil)
             }
         }
     }

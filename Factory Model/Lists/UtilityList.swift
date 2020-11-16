@@ -21,12 +21,11 @@ struct UtilityList: View {
     
     var body: some View {
         ListWithDashboard(
+            childType: Utility.self,
             predicate: predicate,
             plusButton: plusButton,
             dashboard: dashboard
-        ) { (utility: Utility) in
-            UtilityEditor(utility)
-        }
+        )
     }
     
     private func plusButton() -> some View {

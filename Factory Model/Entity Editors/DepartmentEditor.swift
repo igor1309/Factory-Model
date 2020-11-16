@@ -73,9 +73,7 @@ struct DepartmentEditor: View {
             
             if let department = departmentToEdit,
                !department.employees.isEmpty {
-                GenericListSection(header: "Existing Employees", type: Employee.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department)) { (employee: Employee) in
-                    EmployeeEditor(employee)
-                }
+                GenericListSection(header: "Existing Employees", type: Employee.self, predicate: NSPredicate(format: "%K == %@", #keyPath(Employee.department), department))
             }
         }
         .listStyle(InsetGroupedListStyle())

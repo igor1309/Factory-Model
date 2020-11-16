@@ -11,8 +11,7 @@ import CoreData
 struct EntityListWithDashboard<
     Child: Dashboardable & FactoryChild,
     Parent: NSManagedObject,
-    Dashboard: View,
-    Editor: View
+    Dashboard: View
 >: View where Child.ManagedType == Child {
     
     @EnvironmentObject var settings: Settings
@@ -23,7 +22,6 @@ struct EntityListWithDashboard<
     let smallFont: Bool
     let keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     let dashboard: () -> Dashboard
-    let editor: (Child) -> Editor
     
     /// Creates a View with Dashboard above the Child List with Plus Button in navigation bar. Plus Button icon is taken from Summarizable protocol conformance.
     /// - Parameters:
@@ -38,15 +36,13 @@ struct EntityListWithDashboard<
         smallFont: Bool = true,
         predicate: NSPredicate? = nil,
         keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>,
-        @ViewBuilder dashboard: @escaping () -> Dashboard,
-        @ViewBuilder editor: @escaping (Child) -> Editor
+        @ViewBuilder dashboard: @escaping () -> Dashboard
     ) {
         self.parent = parent
         self.title = title ?? Child.plural
         self.smallFont = smallFont
         self.keyPathToParent = keyPathToParent
         self.dashboard = dashboard
-        self.editor = editor
         
         if predicate == nil, type(of: parent) == Factory.self {
             let predicateToUse = Child.factoryPredicate(for: parent as! Factory)
@@ -80,11 +76,11 @@ struct EntityListWithDashboard<
             dashboard()
             
             if !orphans.isEmpty {
-                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont, editor: editor)
+                GenericListSection(header: "Orphans", fetchRequest: _orphans, smallFont: smallFont)
                 .foregroundColor(.systemRed)
             }
             
-            GenericListSection(fetchRequest: _entities, smallFont: smallFont, editor: editor)
+            GenericListSection(fetchRequest: _entities, smallFont: smallFont)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
@@ -102,8 +98,6 @@ struct EntityListWithDashboard_Previews: PreviewProvider {
                 keyPathToParent: \Buyer.factory
             ) {
                 Text("Dashboard goes here")
-            } editor: { (buyer: Buyer) in
-                BuyerEditor(buyer)
             }
             .navigationBarTitleDisplayMode(.inline)
         }

@@ -39,9 +39,7 @@ struct BaseView: View {
             }
             
             if !base.products.isEmpty {
-                GenericListSection(header: "Used in Products", type: Product.self, predicate: basePredicate) { (product: Product) in
-                    ProductView(product)
-                }
+                GenericListSection(header: "Used in Products", type: Product.self, predicate: basePredicate)
             }
             
             //  parent check
@@ -65,7 +63,10 @@ struct BaseView: View {
             Group {
                 
                 ProductDataCostSection(base) {
-                    ListWithDashboard(predicate: recipePredicate) {
+                    ListWithDashboard(
+                        childType: Recipe.self,
+                        predicate: recipePredicate
+                    ) {
                         CreateChildButton(
                             childType: Recipe.self,
                             parent: base,
@@ -73,8 +74,6 @@ struct BaseView: View {
                         )
                     } dashboard: {
                         
-                    } editor: { (recipe: Recipe) in
-                        RecipeEditor(recipe)
                     }
                 } employeeDestination: {
                     Text("TBD: Labor Cost incl taxes")
