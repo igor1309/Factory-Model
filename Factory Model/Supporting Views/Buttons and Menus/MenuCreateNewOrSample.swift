@@ -10,7 +10,9 @@ import CoreData
 
 struct MenuCreateNewOrSample: View {
     @Environment(\.managedObjectContext) private var context
-        
+    
+    @State private var isPresented = false
+    
     var body: some View {
         Menu {
             Section(header: Text("Sample Factory")) {
@@ -31,6 +33,16 @@ struct MenuCreateNewOrSample: View {
                 } label: {
                     Label("Полуфабрикаты", systemImage: "plus")
                 }
+            }
+            
+            CreateNewEntityButton<Equipment>(isPresented: $isPresented, asCard: false)
+            
+            Section(header: Text("Create Entity")) {
+                CreateEntityPicker(isPresented: $isPresented, asCard: false)
+            }
+            
+            Section(header: Text("Create Entity")) {
+                CreateEntityPickerButton(isTabItem: false)
             }
         } label: {
             Image(systemName: "ellipsis.circle")
