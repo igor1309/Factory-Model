@@ -494,13 +494,6 @@
 			path = Playgrounds;
 			sourceTree = "<group>";
 		};
-		2A31654624CC6E4000AF68A1 /* WORK IN PROGRESS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "WORK IN PROGRESS";
-			sourceTree = "<group>";
-		};
 		2A6979AA24DFE522009B03F2 /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,7 +626,6 @@
 				2AADA09924C4F4A8005F1E9F /* Factory_ModelApp.swift */,
 				2AADA09B24C4F4A8005F1E9F /* ContentView.swift */,
 				2A7F4AB224EE535A002A315F /* Testing.swift */,
-				2A31654624CC6E4000AF68A1 /* WORK IN PROGRESS */,
 				2AB765E12558457700AD8D78 /* Labels and Rows */,
 				2A30470F24C82FEE0002E5DD /* Supporting Views */,
 				2AF8EC8B24CF4F9B00EDA2AE /* Generic Lists and Sections */,
