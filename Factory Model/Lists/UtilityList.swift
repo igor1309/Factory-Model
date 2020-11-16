@@ -29,11 +29,7 @@ struct UtilityList: View {
     }
     
     private func plusButton() -> some View {
-        CreateChildButton(
-            childType: Utility.self,
-            parent: base,
-            keyPathToParent: \Utility.base
-        )
+        CreateChildButton(parent: base, keyPathToParent: \Utility.base)
     }
     
     private func dashboard() -> some View {

@@ -67,11 +67,7 @@ struct BaseView: View {
                         childType: Recipe.self,
                         predicate: recipePredicate
                     ) {
-                        CreateChildButton(
-                            childType: Recipe.self,
-                            parent: base,
-                            keyPathToParent: \Recipe.base
-                        )
+                        CreateChildButton(parent: base, keyPathToParent: \Recipe.base)
                     } dashboard: {
                         
                     }
@@ -107,7 +103,7 @@ struct BaseView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(base.name)
-        .navigationBarItems(trailing: CreateChildButton(childType: Recipe.self, parent: base, keyPathToParent: \Recipe.base))
+        .navigationBarItems(trailing: CreateChildButton(parent: base, keyPathToParent: \Recipe.base))
     }
 }
 

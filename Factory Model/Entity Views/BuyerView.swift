@@ -30,11 +30,7 @@ struct BuyerView: View {
     }
     
     private func plusButton() -> some View {
-        CreateChildButton(
-            childType: Sales.self,
-            parent: buyer,
-            keyPathToParent: \Sales.buyer
-        )
+        CreateChildButton(parent: buyer, keyPathToParent: \Sales.buyer)
     }
     
     @ViewBuilder

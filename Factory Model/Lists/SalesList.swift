@@ -44,11 +44,7 @@ struct SalesList: View {
     @ViewBuilder
     private func plusButton() -> some View {
         if let product = product {
-            CreateChildButton(
-                childType: Sales.self,
-                parent: product,
-                keyPathToParent: \Sales.product
-            )
+            CreateChildButton(parent: product, keyPathToParent: \Sales.product)
         } else if let _ = factory {
             CreateNewEntityBarButton<Sales>()
         } else {

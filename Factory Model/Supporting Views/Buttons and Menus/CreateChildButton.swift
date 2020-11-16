@@ -24,7 +24,6 @@ struct CreateChildButton<Child: Summarizable & Sketchable,
     
     init(
         systemName: String? = nil,
-        childType: Child.Type,
         parent: Parent,
         keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     ) {
@@ -36,7 +35,6 @@ struct CreateChildButton<Child: Summarizable & Sketchable,
     
     init(
         title: String,
-        childType: Child.Type,
         parent: Parent,
         keyPathToParent: ReferenceWritableKeyPath<Child, Parent?>
     ) {
@@ -80,38 +78,26 @@ struct CreateChildButton_Previews: PreviewProvider {
                 }
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Products: Create Child Button", displayMode: .inline)
-                .navigationBarItems(trailing: CreateChildButton(
-                    childType: Product.self, parent: base, keyPathToParent: \Product.base
-                ))
+                .navigationBarItems(trailing: CreateChildButton(parent: base, keyPathToParent: \Product.base))
             }
             
             NavigationView {
                 EquipmentList(for: factory)
                     .navigationBarTitle("Equipments: Create Child Button", displayMode: .inline)
-                    .navigationBarItems(trailing: CreateChildButton(
-                        childType: Equipment.self, parent: factory, keyPathToParent: \Equipment.factory
-                    ))
+                    .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Equipment.factory))
             }
             
             NavigationView {
                 DivisionList(for: factory)
                     .navigationBarTitle("Divisions: Create Child Button", displayMode: .inline)
-                    .navigationBarItems(trailing: CreateChildButton(
-                        childType: Division.self, parent: factory, keyPathToParent: \Division.factory
-                    ))
+                    .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Division.factory))
             }
             
             NavigationView {
                 //  MARK: - FINISH THIS IT CRASHES!!
                 BaseList(for: factory)
                     .navigationBarTitle("Base: Create Child Button", displayMode: .inline)
-                    .navigationBarItems(
-                        trailing: CreateChildButton(
-                            childType: Base.self,
-                            parent: factory,
-                            keyPathToParent: \Base.factory
-                        )
-                    )
+                    .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Base.factory))
             }
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)

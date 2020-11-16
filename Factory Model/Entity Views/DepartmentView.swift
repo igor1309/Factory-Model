@@ -34,11 +34,7 @@ struct DepartmentView: View {
     }
     
     private func plusButton() -> some View {
-        CreateChildButton(
-            childType: Employee.self,
-            parent: department,
-            keyPathToParent: \Employee.department
-        )
+        CreateChildButton(parent: department, keyPathToParent: \Employee.department)
     }
     
     @ViewBuilder

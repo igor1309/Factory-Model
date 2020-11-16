@@ -16,8 +16,6 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
     
     @EnvironmentObject var settings: Settings
     
-    @FetchRequest private var fetchRequest: FetchedResults<T>
-    
     let smallFont: Bool
     let header: String
     
@@ -41,6 +39,8 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
         self.smallFont = smallFont
         _fetchRequest = T.defaultFetchRequest(with: predicate)
     }
+    
+    @FetchRequest private var fetchRequest: FetchedResults<T>
     
     var body: some View {
         Section(

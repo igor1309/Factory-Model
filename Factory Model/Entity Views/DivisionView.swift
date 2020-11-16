@@ -34,11 +34,7 @@ struct DivisionView: View {
     }
     
     private func plusButton() -> some View {
-        CreateChildButton(
-            childType: Department.self,
-            parent: division,
-            keyPathToParent: \Department.division
-        )
+        CreateChildButton(parent: division,keyPathToParent: \Department.division)
     }
     
     @ViewBuilder

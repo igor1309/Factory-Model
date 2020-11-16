@@ -62,7 +62,6 @@ struct EntityListWithDashboard<
     private func createChildButton() -> some View {
         CreateChildButton(
             systemName: Child.plusButtonIcon,
-            childType: Child.self,
             parent: parent,
             keyPathToParent: keyPathToParent
         )

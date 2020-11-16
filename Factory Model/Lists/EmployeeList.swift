@@ -40,11 +40,7 @@ struct EmployeeList: View {
     @ViewBuilder
     private func plusButton() -> some View {
         if let department = department {
-            CreateChildButton(
-                childType: Employee.self,
-                parent: department,
-                keyPathToParent: \Employee.department
-            )
+            CreateChildButton(parent: department, keyPathToParent: \Employee.department)
         } else if let _ = factory {
             CreateNewEntityBarButton<Employee>()
         } else {
