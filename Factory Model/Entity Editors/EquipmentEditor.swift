@@ -18,14 +18,14 @@ struct EquipmentEditor: View {
     let equipmentToEdit: Equipment?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, factory: Factory? = nil) {
         _isPresented = isPresented
         
         equipmentToEdit = nil
         
         _name = State(initialValue: "")
         _note = State(initialValue: "")
-        _factory = State(initialValue: nil)
+        _factory = State(initialValue: factory)
         _lifetime = State(initialValue: 7)
         _price = State(initialValue: 0)
         

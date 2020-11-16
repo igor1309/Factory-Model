@@ -19,12 +19,12 @@ struct BaseEditor: View {
     let baseToEdit: Base?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, factory: Factory? = nil) {
         _isPresented = isPresented
         
         baseToEdit = nil
         
-        _factory = State(initialValue: nil)
+        _factory = State(initialValue: factory)
         _name = State(initialValue: "")
         _unitString_ = State(initialValue: "")
         _code = State(initialValue: "")

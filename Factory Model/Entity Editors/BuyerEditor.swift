@@ -18,13 +18,13 @@ struct BuyerEditor: View {
     let buyerToEdit: Buyer?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, factory: Factory? = nil) {
         _isPresented = isPresented
         
         buyerToEdit = nil
         
         _name = State(initialValue: "")
-        _factory = State(initialValue: nil)
+        _factory = State(initialValue: factory)
         
         title = "New Buyer"
     }

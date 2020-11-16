@@ -16,13 +16,13 @@ struct ExpensesEditor: View {
     let expensesToEdit: Expenses?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, factory: Factory? = nil) {
         _isPresented = isPresented
         
         expensesToEdit = nil
         
         _name =    State(initialValue: "")
-        _factory = State(initialValue: nil)
+        _factory = State(initialValue: factory)
         _amount =  State(initialValue: 0)
         _period =  State(initialValue: .month())
         _note =    State(initialValue: "")

@@ -10,15 +10,15 @@ import SwiftUI
 extension Managed {
     
     @ViewBuilder
-    static func creator(isPresented: Binding<Bool>) -> some View {
+    static func creator(isPresented: Binding<Bool>, factory: Factory? = nil) -> some View {
         switch entityName {
-            case Base.entityName:       BaseEditor(isPresented: isPresented)
-            case Buyer.entityName:      BuyerEditor(isPresented: isPresented)
+            case Base.entityName:       BaseEditor(isPresented: isPresented, factory: factory)
+            case Buyer.entityName:      BuyerEditor(isPresented: isPresented, factory: factory)
             case Department.entityName: DepartmentEditor(isPresented: isPresented)
-            case Division.entityName:   DivisionEditor(isPresented: isPresented)
-            case Equipment.entityName:  EquipmentEditor(isPresented: isPresented)
+            case Division.entityName:   DivisionEditor(isPresented: isPresented, factory: factory)
+            case Equipment.entityName:  EquipmentEditor(isPresented: isPresented, factory: factory)
             case Employee.entityName:   EmployeeEditor(isPresented: isPresented)
-            case Expenses.entityName:   ExpensesEditor(isPresented: isPresented)
+            case Expenses.entityName:   ExpensesEditor(isPresented: isPresented, factory: factory)
             case Factory.entityName:    FactoryEditor(isPresented: isPresented)
             case Ingredient.entityName: IngredientEditor(isPresented: isPresented)
             case Packaging.entityName:  PackagingEditor(isPresented: isPresented)
