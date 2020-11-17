@@ -9,8 +9,8 @@ import SwiftUI
 import CoreData
 
 struct Testing: View {
-    @EnvironmentObject var persistence: PersistenceManager
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var persistence: PersistenceManager
+    @EnvironmentObject private var settings: Settings
     
     @FetchRequest(entity: Product.entity(), sortDescriptors: [], predicate: NSPredicate(format: "name_ == %@", "Ведёрко 1 кг")) private var products: FetchedResults<Product>
     
@@ -78,7 +78,7 @@ struct Testing: View {
         .navigationBarTitle("Testing", displayMode: .inline)
         .navigationBarItems(
             leading: settingsButton,
-            trailing: CreateEntityPickerButton()
+            trailing: CreateEntityPickerButton(factory: nil, isTabItem: true)
         )
     }
     

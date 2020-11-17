@@ -17,7 +17,7 @@ struct FactoryList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Factories")
-        .navigationBarItems(trailing: CreateEntityPickerButton())
+        .navigationBarItems(trailing: CreateEntityPickerButton(factory: nil, isTabItem: true))
     }
 }
 

@@ -60,7 +60,12 @@ struct FactoryView: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(factory.name, displayMode: .inline)
-        .navigationBarItems(trailing: PeriodPicker(period: $settings.period, compact: true))
+        .navigationBarItems(
+            trailing: HStack(spacing: 16) {
+                PeriodPicker(period: $settings.period, compact: true)
+                CreateEntityPickerButton(factory: factory, isTabItem: true)
+            }
+        )
     }
     
     private var reportsSection: some View {

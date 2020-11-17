@@ -50,7 +50,7 @@ struct PeriodPicker: View {
 
 
 fileprivate struct PeriodPickerTable: View {
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.presentationMode) private var presentation
     
     @Binding var period: Period
     

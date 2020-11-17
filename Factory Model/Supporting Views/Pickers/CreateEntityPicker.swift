@@ -11,8 +11,8 @@ import CoreData
 struct CreateEntityPicker: View {
     @Binding var isPresented: Bool
     
-    var factory: Factory? = nil
-    var asCard: Bool = true
+    let factory: Factory?
+    let asCard: Bool
     
     private var kind: EntityButtonKind {
         if asCard {
@@ -95,14 +95,14 @@ struct CreateEntityPicker_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                CreateEntityPicker(isPresented: $isPresented)
+                CreateEntityPicker(isPresented: $isPresented, factory: nil, asCard: true)
                     .navigationBarTitle("CreateEntityPicker", displayMode: .inline)
             }
             .previewLayout(.fixed(width: 350, height: 600))
 
             NavigationView {
                 Form {
-                    CreateEntityPicker(isPresented: $isPresented, asCard: false)
+                    CreateEntityPicker(isPresented: $isPresented, factory: nil, asCard: false)
                 }
                 .navigationBarTitle("CreateEntityPicker", displayMode: .inline)
             }

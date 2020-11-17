@@ -16,10 +16,10 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     @EnvironmentObject private var settings: Settings
     
     /// used to close CreateEntityPicker sheet or navigate back from Entitity Editors
-    var isPresented: Binding<Bool>
-    var factory: Factory?
-    var kind: EntityButtonKind
-    var useSheet: Bool
+    let isPresented: Binding<Bool>
+    let factory: Factory?
+    let kind: EntityButtonKind
+    let useSheet: Bool
     
     /// create buttons for Bar Items or as Labels (in a List for example)
     /// - Parameters:
@@ -139,7 +139,7 @@ struct CreateNewEntityButton_Previews: PreviewProvider {
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("CreateNewEntityButton", displayMode: .inline)
                 .navigationBarItems(
-                    leading: CreateEntityPickerButton(),
+                    leading: CreateEntityPickerButton(factory: nil, isTabItem: true),
                     trailing: HStack {
                         CreateNewEntityButton<Packaging>(useSheet: true)
                         CreateNewEntityButton<Packaging>(useSheet: false)
@@ -161,7 +161,7 @@ struct CreateNewEntityButton_Previews: PreviewProvider {
                     .padding(.horizontal)
                     .navigationBarTitle("CreateNewEntityButton", displayMode: .inline)
                     .navigationBarItems(
-                        leading: CreateEntityPickerButton(),
+                        leading: CreateEntityPickerButton(factory: nil, isTabItem: true),
                         trailing:
                             HStack {
                                 CreateNewEntityButton<Base>()
