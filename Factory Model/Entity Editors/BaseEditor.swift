@@ -67,17 +67,17 @@ struct BaseEditor: View {
     
     @State private var isNewDraftActive = false
     @State private var recipeDrafts = [RecipeDraft]()
-        
+    
     var body: some View {
-        NavigationLink(
-            destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: settings.period),
-            isActive: $isNewDraftActive
-        ) {
-            EmptyView()
-        }
-        .hidden()
-        
         List {
+            NavigationLink(
+                destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: settings.period),
+                isActive: $isNewDraftActive
+            ) {
+                EmptyView()
+            }
+            .hidden()
+            
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
             Section(
