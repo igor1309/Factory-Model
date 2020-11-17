@@ -50,40 +50,40 @@ struct CreateEntityPicker: View {
         if asCard {
             Group {
                 CreateNewEntityButton<Base>(isPresented: $isPresented, factory: factory)
-                CreateNewEntityButton<Buyer>(isPresented: $isPresented)
-                CreateNewEntityButton<Department>(isPresented: $isPresented)
-                CreateNewEntityButton<Division>(isPresented: $isPresented)
-                CreateNewEntityButton<Equipment>(isPresented: $isPresented)
-                CreateNewEntityButton<Employee>(isPresented: $isPresented)
-                CreateNewEntityButton<Expenses>(isPresented: $isPresented)
+                CreateNewEntityButton<Buyer>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Department>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Division>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Equipment>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Employee>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Expenses>(isPresented: $isPresented, factory: factory)
             }
             Group {
-                CreateNewEntityButton<Factory>(isPresented: $isPresented)
-                CreateNewEntityButton<Ingredient>(isPresented: $isPresented)
-                CreateNewEntityButton<Packaging>(isPresented: $isPresented)
-                CreateNewEntityButton<Product>(isPresented: $isPresented)
-                CreateNewEntityButton<Recipe>(isPresented: $isPresented)
-                CreateNewEntityButton<Sales>(isPresented: $isPresented)
-                CreateNewEntityButton<Utility>(isPresented: $isPresented)
+                CreateNewEntityButton<Factory>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Ingredient>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Packaging>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Product>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Recipe>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Sales>(isPresented: $isPresented, factory: factory)
+                CreateNewEntityButton<Utility>(isPresented: $isPresented, factory: factory)
             }
         } else {
             Group {
                 CreateNewEntityButton<Base>(factory: factory, kind: kind)
-                CreateNewEntityButton<Buyer>(kind: kind)
-                CreateNewEntityButton<Department>(kind: kind)
-                CreateNewEntityButton<Division>(kind: kind)
-                CreateNewEntityButton<Equipment>(kind: kind)
-                CreateNewEntityButton<Employee>(kind: kind)
-                CreateNewEntityButton<Expenses>(kind: kind)
+                CreateNewEntityButton<Buyer>(factory: factory, kind: kind)
+                CreateNewEntityButton<Department>(factory: factory, kind: kind)
+                CreateNewEntityButton<Division>(factory: factory, kind: kind)
+                CreateNewEntityButton<Equipment>(factory: factory, kind: kind)
+                CreateNewEntityButton<Employee>(factory: factory, kind: kind)
+                CreateNewEntityButton<Expenses>(factory: factory, kind: kind)
             }
             Group {
-                CreateNewEntityButton<Factory>(kind: kind)
-                CreateNewEntityButton<Ingredient>(kind: kind)
-                CreateNewEntityButton<Packaging>(kind: kind)
-                CreateNewEntityButton<Product>(kind: kind)
-                CreateNewEntityButton<Recipe>(kind: kind)
-                CreateNewEntityButton<Sales>(kind: kind)
-                CreateNewEntityButton<Utility>(kind: kind)
+                CreateNewEntityButton<Factory>(factory: factory, kind: kind)
+                CreateNewEntityButton<Ingredient>(factory: factory, kind: kind)
+                CreateNewEntityButton<Packaging>(factory: factory, kind: kind)
+                CreateNewEntityButton<Product>(factory: factory, kind: kind)
+                CreateNewEntityButton<Recipe>(factory: factory, kind: kind)
+                CreateNewEntityButton<Sales>(factory: factory, kind: kind)
+                CreateNewEntityButton<Utility>(factory: factory, kind: kind)
             }
         }
     }
