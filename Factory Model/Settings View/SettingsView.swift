@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.managedObjectContext) private var context
+    @Environment(\.presentationMode) private var presentation
     
-    @EnvironmentObject var persistence: PersistenceManager
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var persistence: PersistenceManager
+    @EnvironmentObject private var settings: Settings
     
     @State private var showConfirmation = false
     @State private var showAction = false
@@ -21,6 +22,14 @@ struct SettingsView: View {
             List {
                 Section(header: Text("Period")) {
                     PeriodPicker(icon: "deskclock", title: "Period", period: $settings.period)
+                }
+                
+                Section(
+                    header: Text("Example Factories"),
+                    footer: Text("Add example factories to play and get familiar with app.")
+                ) {
+                    createFactory1Button()
+                    createFactory2Button()
                 }
                 
                 Section(
@@ -60,6 +69,30 @@ struct SettingsView: View {
         }
     }
     
+    private func createFactory1Button() -> some View {
+        Button {
+            withAnimation {
+                let _ = Factory.createFactory1(in: context)
+                context.saveContext()
+                presentation.wrappedValue.dismiss()
+            }
+        } label: {
+            Label("Сыроварня", systemImage: "plus")
+        }
+    }
+    
+    private func createFactory2Button() -> some View {
+        Button {
+            withAnimation {
+                let _ = Factory.createFactory2(in: context)
+                context.saveContext()
+                presentation.wrappedValue.dismiss()
+            }
+        } label: {
+            Label("Полуфабрикаты", systemImage: "plus")
+        }
+    }
+        
     private func confirmation() -> ActionSheet {
         ActionSheet(
             title: Text("Delete all".uppercased()),
@@ -86,12 +119,14 @@ struct SettingsView: View {
     
     private func delete() {
         persistence.deleteAll()
+        presentation.wrappedValue.dismiss()
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .environment(\.managedObjectContext, PersistenceManager.previewContext)
             .environment(\.managedObjectContext, PersistenceManager.previewContext)
             .environmentObject(PersistenceManager.preview)
             .environmentObject(Settings())

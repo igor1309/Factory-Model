@@ -17,12 +17,7 @@ struct FactoryList: View {
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("Factories")
-        .navigationBarItems(
-            trailing: HStack(spacing: 16) {
-                MenuCreateNewOrSample()
-                CreateEntityPickerButton()
-            }
-        )
+        .navigationBarItems(trailing: CreateEntityPickerButton())
     }
 }
 

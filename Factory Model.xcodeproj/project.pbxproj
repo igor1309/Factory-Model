@@ -69,7 +69,6 @@
 		2A65B11324DD4B3800A3F5A6 /* ChildUnitPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */; };
 		2A65B11524DD50E600A3F5A6 /* ErrorMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */; };
 		2A68121924CD784500CBDD66 /* PackagingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A68121824CD784500CBDD66 /* PackagingList.swift */; };
-		2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */; };
 		2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A624DFE342009B03F2 /* Factory+Employees.swift */; };
 		2A6979A924DFE51F009B03F2 /* Factory Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979A824DFE51F009B03F2 /* Factory Sample.swift */; };
 		2A6979AE24DFF1D4009B03F2 /* Factory+P&L.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */; };
@@ -243,7 +242,6 @@
 		2A65B11224DD4B3800A3F5A6 /* ChildUnitPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildUnitPicker.swift; sourceTree = "<group>"; };
 		2A65B11424DD50E600A3F5A6 /* ErrorMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessage.swift; sourceTree = "<group>"; };
 		2A68121824CD784500CBDD66 /* PackagingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackagingList.swift; sourceTree = "<group>"; };
-		2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCreateNewOrSample.swift; sourceTree = "<group>"; };
 		2A6979A624DFE342009B03F2 /* Factory+Employees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Employees.swift"; sourceTree = "<group>"; };
 		2A6979A824DFE51F009B03F2 /* Factory Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory Sample.swift"; sourceTree = "<group>"; };
 		2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+P&L.swift"; sourceTree = "<group>"; };
@@ -702,7 +700,6 @@
 		2AB765EB2558478700AD8D78 /* Buttons and Menus */ = {
 			isa = PBXGroup;
 			children = (
-				2A686E2B24D616860078B069 /* MenuCreateNewOrSample.swift */,
 				2A7F4AB624EE5C63002A315F /* CreateEntityPickerButton.swift */,
 				2A93D97924D1A51D00DF1A35 /* CreateOrphanButton.swift */,
 				2A93D97B24D1AB0C00DF1A35 /* CreateChildButton.swift */,
@@ -942,7 +939,6 @@
 				2A167F0724EC105600A8E7DE /* FactoryEditor.swift in Sources */,
 				2A7DA8FA24FE53BB00A3B0CD /* SalesAnalysis.swift in Sources */,
 				2A8CCF2E24ED0F4E00EFDADC /* NameSection.swift in Sources */,
-				2A686E2C24D616860078B069 /* MenuCreateNewOrSample.swift in Sources */,
 				2AB2C9CE24FA4D27000506D3 /* GroupCodeNotable.swift in Sources */,
 				2A167F0924EC118200A8E7DE /* ProductEditor.swift in Sources */,
 				2A167EE524EB14C900A8E7DE /* PackagingEditor.swift in Sources */,
@@ -1121,7 +1117,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1131,7 +1127,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.07;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1146,7 +1142,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1156,7 +1152,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.07;
+				MARKETING_VERSION = 1.08;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
