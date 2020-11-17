@@ -16,7 +16,7 @@ struct EmployeeEditor: View {
     let employeeToEdit: Employee?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, parent: Department? = nil) {
         _isPresented = isPresented
         
         employeeToEdit = nil
@@ -26,7 +26,7 @@ struct EmployeeEditor: View {
         _position =   State(initialValue: "")
         _salary =     State(initialValue: 0)
         _period =     State(initialValue: Period.month())
-        _department = State(initialValue: nil)
+        _department = State(initialValue: parent)
         
         title = "New Employee"
     }

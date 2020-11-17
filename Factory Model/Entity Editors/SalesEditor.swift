@@ -16,7 +16,7 @@ struct SalesEditor: View {
     let salesToEdit: Sales?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, buyer: Buyer? = nil, product: Product? = nil) {
         _isPresented = isPresented
         
         salesToEdit = nil
@@ -24,8 +24,8 @@ struct SalesEditor: View {
         _priceExVAT = State(initialValue: 0)
         _qty =        State(initialValue: 0)
         _period =     State(initialValue: Period.month())
-        _buyer =      State(initialValue: nil)
-        _product =    State(initialValue: nil)
+        _buyer =      State(initialValue: buyer)
+        _product =    State(initialValue: product)
         
         title = "New Sales"
     }

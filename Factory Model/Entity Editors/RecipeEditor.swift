@@ -18,13 +18,13 @@ struct RecipeEditor: View {
     let recipeToEdit: Recipe?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, base: Base? = nil, ingredient: Ingredient? = nil) {
         _isPresented = isPresented
         
         recipeToEdit = nil
         
-        _base = State(initialValue: nil)
-        _ingredient = State(initialValue: nil)
+        _base = State(initialValue: base)
+        _ingredient = State(initialValue: ingredient)
         _qty = State(initialValue: 0)
         _coefficientToParentUnit = State(initialValue: 1)
         

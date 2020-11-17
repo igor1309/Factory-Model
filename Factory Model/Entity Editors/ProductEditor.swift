@@ -16,7 +16,7 @@ struct ProductEditor: View {
     let productToEdit: Product?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, base: Base? = nil, packaging: Packaging? = nil) {
         _isPresented = isPresented
         
         productToEdit = nil
@@ -30,8 +30,8 @@ struct ProductEditor: View {
         _productionQty =           State(initialValue: 0)
         _period =                  State(initialValue: .month())
         _vat =                     State(initialValue: 10/100)
-        _base =                    State(initialValue: nil)
-        _packaging =               State(initialValue: nil)
+        _base =                    State(initialValue: base)
+        _packaging =               State(initialValue: packaging)
         
         title = "New Product"
     }

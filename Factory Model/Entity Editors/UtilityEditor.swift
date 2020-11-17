@@ -18,7 +18,7 @@ struct UtilityEditor: View {
     let utilityToEdit: Utility?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, parent: Base? = nil) {
         _isPresented = isPresented
         
         utilityToEdit = nil
@@ -26,7 +26,7 @@ struct UtilityEditor: View {
         _name = State(initialValue: "")
         _priceExVAT = State(initialValue: 0)
         _vat = State(initialValue: 10/100)
-        _base = State(initialValue: nil)
+        _base = State(initialValue: parent)
         
         title = "New Utility"
     }

@@ -18,14 +18,14 @@ struct DepartmentEditor: View {
     let departmentToEdit: Department?
     let title: String
     
-    init(isPresented: Binding<Bool>) {
+    init(isPresented: Binding<Bool>, parent: Division? = nil) {
         _isPresented = isPresented
         
         departmentToEdit = nil
         
         _name = State(initialValue: "")
         _type = State(initialValue: .production)
-        _division = State(initialValue: nil)
+        _division = State(initialValue: parent)
         
         title = "New Department"
     }
