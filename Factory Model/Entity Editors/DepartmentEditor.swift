@@ -50,13 +50,6 @@ struct DepartmentEditor: View {
     @State private var employeeDrafts = [EmployeeDraft]()
     
     var body: some View {
-        NavigationLink(
-            destination: CreateEmployee(employeeDrafts: $employeeDrafts),
-            isActive: $isNewDraftActive
-        ) {
-            EmptyView()
-        }
-        
         List {
             NameSection<Department>(name: $name)
             
@@ -79,6 +72,13 @@ struct DepartmentEditor: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .navigationBarItems(trailing: saveButton)
+        
+        NavigationLink(
+            destination: CreateEmployee(employeeDrafts: $employeeDrafts),
+            isActive: $isNewDraftActive
+        ) {
+            EmptyView()
+        }
     }
     
     private var saveButton: some View {

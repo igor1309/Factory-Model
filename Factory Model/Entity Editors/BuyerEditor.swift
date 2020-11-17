@@ -47,13 +47,6 @@ struct BuyerEditor: View {
     @State private var salesDrafts = [SalesDraft]()
     
     var body: some View {
-        NavigationLink(
-            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forBuyer),
-            isActive: $isNewDraftActive
-        ) {
-            EmptyView()
-        }
-        
         List {
             NameSection<Buyer>(name: $name)
             
@@ -69,6 +62,13 @@ struct BuyerEditor: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .navigationBarItems(trailing: saveButton)
+        
+        NavigationLink(
+            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forBuyer),
+            isActive: $isNewDraftActive
+        ) {
+            EmptyView()
+        }
     }
     
     private var saveButton: some View {
