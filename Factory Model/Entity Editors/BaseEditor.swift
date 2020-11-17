@@ -70,14 +70,6 @@ struct BaseEditor: View {
     
     var body: some View {
         List {
-            NavigationLink(
-                destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: settings.period),
-                isActive: $isNewDraftActive
-            ) {
-                EmptyView()
-            }
-            .hidden()
-            
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
             Section(
@@ -125,6 +117,13 @@ struct BaseEditor: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .navigationBarItems(trailing: saveButton)
+        
+        NavigationLink(
+            destination: CreateRecipe(recipeDrafts: $recipeDrafts, period: settings.period),
+            isActive: $isNewDraftActive
+        ) {
+            EmptyView()
+        }
     }
     
     private var saveButton: some View {

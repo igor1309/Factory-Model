@@ -73,13 +73,6 @@ struct ProductEditor: View {
     
     var body: some View {
         List {
-            NavigationLink(
-                destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
-                isActive: $isNewDraftActive
-            ) {
-                EmptyView()
-            }
-            
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
             EntityPickerSection(selection: $base, period: period)
@@ -128,6 +121,13 @@ struct ProductEditor: View {
         .listStyle(InsetGroupedListStyle())
         .navigationTitle(title)
         .navigationBarItems(trailing: saveButton)
+        
+        NavigationLink(
+            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
+            isActive: $isNewDraftActive
+        ) {
+            EmptyView()
+        }
     }
     
     private var saveButton: some View {
