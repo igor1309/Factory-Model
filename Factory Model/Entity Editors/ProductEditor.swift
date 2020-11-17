@@ -72,14 +72,14 @@ struct ProductEditor: View {
     @State private var salesDrafts = [SalesDraft]()
     
     var body: some View {
-        NavigationLink(
-            destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
-            isActive: $isNewDraftActive
-        ) {
-            EmptyView()
-        }
-        
         List {
+            NavigationLink(
+                destination: CreateSales(salesDrafts: $salesDrafts, kind: .forProduct),
+                isActive: $isNewDraftActive
+            ) {
+                EmptyView()
+            }
+            
             NameGroupCodeNoteStringEditorSection(name: $name, group: $group, code: $code, note: $note)
             
             EntityPickerSection(selection: $base, period: period)
