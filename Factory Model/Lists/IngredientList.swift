@@ -38,7 +38,7 @@ struct IngredientList: View {
     }
     
     private func plusButton() -> some View {
-        CreateNewEntityBarButton<Ingredient>()
+        CreateNewEntityButton<Ingredient>()
     }
     
     private func dashboard() -> some View {

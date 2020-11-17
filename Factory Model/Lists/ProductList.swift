@@ -26,7 +26,7 @@ struct ProductList: View {
     }
     
     private func plusButton() -> some View {
-        CreateNewEntityBarButton<Product>()
+        CreateNewEntityButton<Product>()
     }
     
     @ViewBuilder
@@ -185,6 +185,6 @@ struct ProductList_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 1100))
+        .previewLayout(.fixed(width: 350, height: 1000))
     }
 }

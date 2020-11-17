@@ -12,6 +12,7 @@ struct SalesList: View {
     
     let product: Product?
     let factory: Factory?
+    let predicate: NSPredicate
     
     init(for product: Product) {
         self.product = product
@@ -24,9 +25,7 @@ struct SalesList: View {
         self.factory = factory
         self.predicate = NSPredicate(format: "%K == %@", Sales.factoryPath, factory)
     }
-    
-    private let predicate: NSPredicate
-    
+        
     @FetchRequest(
         entity: Sales.entity(),
         sortDescriptors: [
@@ -46,7 +45,7 @@ struct SalesList: View {
         if let product = product {
             CreateChildButton(parent: product, keyPathToParent: \Sales.product)
         } else if let _ = factory {
-            CreateNewEntityBarButton<Sales>()
+            CreateNewEntityButton<Sales>()
         } else {
             EmptyView()
         }

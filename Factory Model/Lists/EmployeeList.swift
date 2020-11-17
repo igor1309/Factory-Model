@@ -13,6 +13,7 @@ struct EmployeeList: View {
     
     let department: Department?
     let factory: Factory?
+    let predicate: NSPredicate
     
     init(at department: Department) {
         self.department = department
@@ -25,8 +26,6 @@ struct EmployeeList: View {
         self.factory = factory
         self.predicate = Employee.factoryPredicate(for: factory)
     }
-    
-    private let predicate: NSPredicate
     
     var body: some View {
         ListWithDashboard(
@@ -42,7 +41,7 @@ struct EmployeeList: View {
         if let department = department {
             CreateChildButton(parent: department, keyPathToParent: \Employee.department)
         } else if let _ = factory {
-            CreateNewEntityBarButton<Employee>()
+            CreateNewEntityButton<Employee>()
         } else {
             EmptyView()
         }
@@ -51,14 +50,13 @@ struct EmployeeList: View {
     @ViewBuilder
     private func dashboard() -> some View {
         if let department = department {
-            Section(header: Text("Total")) {
+            Section(header: Text("\(department.name) Total")) {
                 LabelWithDetail("Salary incl taxes", department.salaryWithTax(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)
             }
         } else if let factory = factory {
-            EmptyView()
-            Section(header: Text("Total")) {
+            Section(header: Text("\(factory.name) Total")) {
                 LabelWithDetail("Salary incl taxes", factory.salaryWithTax(in: settings.period).formattedGrouped)
                     .foregroundColor(.secondary)
                     .font(.subheadline)

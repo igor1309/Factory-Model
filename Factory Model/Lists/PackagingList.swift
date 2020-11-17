@@ -34,7 +34,7 @@ struct PackagingList: View {
     }
     
     private func plusButton() -> some View {
-        CreateNewEntityBarButton<Packaging>()
+        CreateNewEntityButton<Packaging>()
         
         //  MARK: - FINISH THIS FIGURE OUT HIW TO CREATE PACKAGING FROM HERE
         // EmptyView()

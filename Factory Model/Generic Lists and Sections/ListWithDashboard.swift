@@ -215,7 +215,7 @@ struct ListWithDashboard_Previews: PreviewProvider {
                     childType: Department.self,
                     predicate: Department.factoryPredicate(for: Factory.example)
                 ) {
-                    CreateNewEntityBarButton<Department>()
+                    CreateNewEntityButton<Department>()
                 } dashboard: {
                     Text("Dashboard goes here")
                 }
@@ -230,7 +230,7 @@ struct ListWithDashboard_Previews: PreviewProvider {
                     childType: Product.self,
                     predicate: Product.factoryPredicate(for: Factory.example)
                 ) {
-                    CreateNewEntityBarButton<Product>()
+                    CreateNewEntityButton<Product>()
                 } dashboard: {
                     Text("Dashboard goes here")
                 }

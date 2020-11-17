@@ -35,7 +35,7 @@ struct MenuCreateNewOrSample: View {
                 }
             }
             
-            CreateNewEntityButton<Equipment>(isPresented: $isPresented, asCard: false)
+            CreateNewEntityButton<Equipment>(kind: .label)
             
             Section(header: Text("Create Entity")) {
                 CreateEntityPicker(isPresented: $isPresented, asCard: false)

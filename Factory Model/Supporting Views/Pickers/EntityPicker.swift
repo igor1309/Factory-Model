@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 struct EntityPickerSection<T: Listable & Sketchable>: View where T.ManagedType == T {
+    
     @Binding var selection: T?
 
     let predicate: NSPredicate? = nil
@@ -25,6 +26,7 @@ struct EntityPickerSection<T: Listable & Sketchable>: View where T.ManagedType =
 }
 
 struct EntityPicker<T: Listable & Sketchable>: View where T.ManagedType == T {
+    
     @Environment(\.managedObjectContext) private var context
     
     @Binding var selection: T?
@@ -70,6 +72,7 @@ struct EntityPicker<T: Listable & Sketchable>: View where T.ManagedType == T {
 }
 
 fileprivate struct EntityPickerSheet<T: Listable & Sketchable>: View where T.ManagedType == T {
+    
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) private var presentation
     
@@ -113,7 +116,7 @@ fileprivate struct EntityPickerSheet<T: Listable & Sketchable>: View where T.Man
             .listStyle(InsetGroupedListStyle())
             .navigationTitle(T.entityName)
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: CreateNewEntityBarButton<T>())
+            .navigationBarItems(trailing: CreateNewEntityButton<T>())
         }
     }
 }
@@ -124,12 +127,15 @@ struct EntityPicker_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            Form {
+            List {
                 EntityPicker(selection: .constant(base), icon: "envelope.arrow.triangle.branch", predicate: nil, period: .month())
                 
                 EntityPickerSection<Base>(selection: .constant(base), period: .month())
             }
+            .listStyle(InsetGroupedListStyle())
+            .navigationBarTitle("EntityPicker & Section", displayMode: .inline)
         }
+        .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
     }
 }
