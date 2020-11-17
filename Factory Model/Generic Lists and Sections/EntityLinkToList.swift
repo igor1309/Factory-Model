@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EntityLinkToList<T: Listable>: View where T.ManagedType == T {
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     private var destination: some View {
         List {

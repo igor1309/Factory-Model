@@ -16,7 +16,7 @@ struct ListWithDashboard<
     Dashboard: View
 >: View where Child.ManagedType == Child {
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let title: String
     let smallFont: Bool

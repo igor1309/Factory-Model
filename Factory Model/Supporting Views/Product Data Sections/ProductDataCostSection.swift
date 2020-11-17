@@ -16,7 +16,7 @@ struct ProductDataCostSection<
     UtilityDestination: View
 >: View {
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var entity: T
     

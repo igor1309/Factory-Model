@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EntityRow<T: ObservableObject & Summarizable>: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var entity: T
     

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BaseList: View {
+    
     @ObservedObject var factory: Factory
     
     init(for factory: Factory) {

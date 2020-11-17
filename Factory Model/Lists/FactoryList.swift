@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct FactoryList: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     var body: some View {
         List {

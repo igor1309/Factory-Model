@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReportsView: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let factory: Factory
     

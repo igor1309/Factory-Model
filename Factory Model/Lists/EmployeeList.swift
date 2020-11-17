@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmployeeList: View {
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let department: Department?
     let factory: Factory?

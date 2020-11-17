@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DivisionList: View {
+    
     @ObservedObject var factory: Factory
     
     init(for factory: Factory) {

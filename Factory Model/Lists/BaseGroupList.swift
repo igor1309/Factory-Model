@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct BaseGroupList: View {
+    
     @Environment(\.managedObjectContext) private var context
     
-    @EnvironmentObject var settings: Settings
-    
-    @FetchRequest private var bases: FetchedResults<Base>
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var factory: Factory
     let group: String
+    
+    @FetchRequest private var bases: FetchedResults<Base>
     
     init(group: String, at factory: Factory) {
         self.factory = factory

@@ -9,7 +9,7 @@ import CoreData
 import SwiftUI
 
 struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summarizable>: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @Binding var isNewDraftActive: Bool
     @Binding var drafts: [U]

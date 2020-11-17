@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BuyerView: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var buyer: Buyer
     

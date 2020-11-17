@@ -12,7 +12,7 @@ struct FactoryView: View {
     @Environment(\.managedObjectContext) private var moc
     @Environment(\.presentationMode) private var presentation
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var factory: Factory
     

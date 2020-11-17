@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PackagingList: View {
+    
     @ObservedObject var factory: Factory
     
     init(for factory: Factory) {

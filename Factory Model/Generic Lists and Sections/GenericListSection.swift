@@ -14,7 +14,7 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
     
     @Environment(\.managedObjectContext) private var context
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let smallFont: Bool
     let header: String

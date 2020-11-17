@@ -10,7 +10,7 @@ import SwiftUI
 struct BaseView: View {
     @Environment(\.managedObjectContext) private var moc
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var base: Base
     

@@ -11,7 +11,7 @@ struct UtilityEditor: View {
     @Environment(\.managedObjectContext) private var context
     @Environment(\.presentationMode) private var presentation
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @Binding var isPresented: Bool
     

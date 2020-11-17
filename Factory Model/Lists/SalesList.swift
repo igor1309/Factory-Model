@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SalesList: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let product: Product?
     let factory: Factory?

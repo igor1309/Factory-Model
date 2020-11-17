@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ProductionOutputSection<T: NSManagedObject & Merch>: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let entity: T
     

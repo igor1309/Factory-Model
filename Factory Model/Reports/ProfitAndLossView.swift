@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfitAndLossView: View {
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     let factory: Factory
     

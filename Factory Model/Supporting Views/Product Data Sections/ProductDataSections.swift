@@ -10,7 +10,7 @@ import CoreData
 
 struct ProductDataSections<T: NSManagedObject & Inventorable & Merch>: View {
     
-    @EnvironmentObject var settings: Settings
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var entity: T
     

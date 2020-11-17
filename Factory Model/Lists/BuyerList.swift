@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct BuyerList: View {
-    @EnvironmentObject var settings: Settings
+    
+    @EnvironmentObject private var settings: Settings
     
     @ObservedObject var factory: Factory
     
