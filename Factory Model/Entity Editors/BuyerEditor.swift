@@ -81,6 +81,8 @@ struct BuyerEditor: View {
                 buyer = Buyer(context: context)
             }
             
+            buyer.factory?.objectWillChange.send()
+            
             buyer.name = name
             buyer.factory = factory
             

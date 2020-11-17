@@ -86,6 +86,9 @@ struct SalesEditor: View {
                 sales = Sales(context: context)
             }
             
+            sales.buyer?.objectWillChange.send()
+            sales.product?.objectWillChange.send()
+            
             sales.name = ""
             sales.priceExVAT = priceExVAT
             sales.qty = qty

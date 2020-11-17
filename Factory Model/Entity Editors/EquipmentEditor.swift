@@ -93,12 +93,14 @@ struct EquipmentEditor: View {
             } else {
                 equipment = Equipment(context: context)
             }
+
+            equipment.factory?.objectWillChange.send()
             
             equipment.name = name
             equipment.note = note
-            equipment.factory = factory
             equipment.lifetime = lifetime
             equipment.price = price
+            equipment.factory = factory
             
             context.saveContext()
             

@@ -78,11 +78,13 @@ struct ExpensesEditor: View {
                 expenses = Expenses(context: context)
             }
             
+            expenses.factory?.objectWillChange.send()
+            
             expenses.name = name
-            expenses.factory = factory
             expenses.amount = amount
             expenses.period = period
             expenses.note = note
+            expenses.factory = factory
             
             context.saveContext()
             

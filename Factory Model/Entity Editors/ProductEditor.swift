@@ -140,6 +140,9 @@ struct ProductEditor: View {
                 product = Product(context: context)
             }
             
+            product.base?.objectWillChange.send()
+            product.packaging?.objectWillChange.send()
+            
             product.name = name
             product.baseQty = baseQty
             product.code = code

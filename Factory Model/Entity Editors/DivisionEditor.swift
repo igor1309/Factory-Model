@@ -63,6 +63,8 @@ struct DivisionEditor: View {
             } else {
                 division = Division(context: context)
             }
+
+            division.factory?.objectWillChange.send()
             
             division.name = name
             division.factory = factory

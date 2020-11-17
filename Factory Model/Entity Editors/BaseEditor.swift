@@ -136,7 +136,8 @@ struct BaseEditor: View {
                 base = Base(context: context)
             }
             
-            base.factory = factory
+            base.factory?.objectWillChange.send()
+            
             base.name = name
             base.unitString_ = unitString_
             base.code = code
@@ -146,6 +147,7 @@ struct BaseEditor: View {
             base.initialInventory = initialInventory
             base.weightNetto = weightNetto
             base.complexity = complexity
+            base.factory = factory
             
             for draft in recipeDrafts {
                 let recipe = Recipe(context: context)

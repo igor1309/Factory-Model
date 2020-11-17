@@ -98,6 +98,8 @@ struct EmployeeEditor: View {
                 employee = Employee(context: context)
             }
             
+            employee.department?.objectWillChange.send()
+            
             employee.name = name
             employee.note = note
             employee.position = position

@@ -80,6 +80,8 @@ struct UtilityEditor: View {
                 utility = Utility(context: context)
             }
             
+            utility.base?.objectWillChange.send()
+            
             utility.name = name
             utility.priceExVAT = priceExVAT
             utility.vat = vat

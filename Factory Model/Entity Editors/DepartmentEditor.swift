@@ -91,6 +91,8 @@ struct DepartmentEditor: View {
                 department = Department(context: context)
             }
             
+            department.division?.objectWillChange.send()
+            
             department.name = name
             department.type = type
             department.division = division

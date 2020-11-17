@@ -84,6 +84,9 @@ struct RecipeEditor: View {
                 recipe = Recipe(context: context)
             }
             
+            recipe.base?.objectWillChange.send()
+            recipe.ingredient?.objectWillChange.send()
+            
             recipe.base = base
             recipe.ingredient = ingredient
             recipe.qty = qty
