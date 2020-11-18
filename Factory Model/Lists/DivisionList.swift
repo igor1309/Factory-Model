@@ -16,7 +16,7 @@ struct DivisionList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, keyPathToParent: \Division.factory, dashboard: dashboard)
+        ListWithDashboard(for: factory, keyPathToParent: \Division.factory, dashboard: dashboard)
     }
     
     @ViewBuilder
@@ -27,13 +27,11 @@ struct DivisionList: View {
         Section(
             header: Text("Personnel")
         ) {
-            Group {
-                NavigationLink(
-                    destination: EmployeeList(for: factory)
-                ) {
-                    Label("All Factory Personnel", systemImage: Department.icon)
-                        .foregroundColor(Employee.color)
-                }
+            NavigationLink(
+                destination: EmployeeList(for: factory)
+            ) {
+                Label("All Factory Personnel", systemImage: Department.icon)
+                    .foregroundColor(Employee.color)
             }
             .font(.subheadline)
             .foregroundColor(.secondary)

@@ -10,6 +10,44 @@ import CoreData
 
 typealias Dashboardable = Listable & Sketchable & Orphanable
 
+extension ListWithDashboard where Child: Dashboardable & FactoryTracable,
+                                  PlusButton == CreateChildButton<Child, Factory> {
+    
+    /// for direct Factory children (Base, Buyer, Division, Expenses, Equipment)
+    /// Creates a View with Dashboard above the Child List with Plus Button in navigation bar. Plus Button icon is taken from Summarizable protocol conformance.
+    /// - Parameters:
+    ///   - factory: @ObservedObject var, direct parent
+    ///   - title: optional, it uses plural form of Child Entity name if nil
+    ///   - smallFont:
+    ///   - predicate: if nil it uses defauls predicate
+    ///   - dashboard: a View above Child list
+    init(
+        for factory: Factory,
+        title: String? = nil,
+        smallFont: Bool = true,
+        predicate: NSPredicate? = nil,
+        keyPathToParent: ReferenceWritableKeyPath<Child, Factory?>,
+        @ViewBuilder dashboard: @escaping () -> Dashboard
+    ) {
+        self.title = title ?? Child.plural
+        self.smallFont = smallFont
+        self.dashboard = dashboard
+
+        self.plusButton = {
+            CreateChildButton(systemName: Child.plusButtonIcon, parent: factory, keyPathToParent: keyPathToParent)
+        }
+        
+        if let predicate = predicate {
+            _entities = Child.defaultFetchRequest(with: predicate)
+        } else {
+            let predicateToUse = Child.factoryPredicate(for: factory)
+            _entities = Child.defaultFetchRequest(with: predicateToUse)
+        }
+        
+        _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
+    }
+}
+
 struct ListWithDashboard<
     Child: Dashboardable,
     PlusButton: View,
@@ -36,6 +74,7 @@ struct ListWithDashboard<
         self.smallFont = smallFont
         self.plusButton = plusButton
         self.dashboard = dashboard
+        
         _entities = Child.defaultFetchRequest(with: predicate)
         _orphans = Child.defaultFetchRequest(with: Child.orphanPredicate)
     }
@@ -65,158 +104,12 @@ struct ListWithDashboard<
     }
 }
 
-
-//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE FactoryChildrenListWithDashboard
-//  but there is a problem with PlusButton Type that cannot be infered
-
-/// For `FactoryTracable` Types it's possible to construct `PlusButton` using `factoryPredicate` as default
-//private extension ListWithDashboard where Child: FactoryTracable, Parent == Factory {
-//
-//    init(
-//        childType: Child.Type,
-//        for parent: Parent,
-//        title: String? = nil,
-//        smallFont: Bool = true,
-//        predicate: NSPredicate? = nil,
-//        keyPath: ReferenceWritableKeyPath<Child, Parent?>,
-//        //keyPathParentToChildren: ReferenceWritableKeyPath<Parent, NSSet?>,
-//        @ViewBuilder dashboard: @escaping () -> Dashboard
-//    ) {
-//        let predicateToUse: NSPredicate
-//
-//        if predicate == nil {
-//            predicateToUse = Child.factoryPredicate(for: parent)
-//        } else {
-//            predicateToUse = predicate!
-//        }
-//
-//        let plusButton: () -> PlusButton = {
-//            CreateChildButton(
-//                systemName: Child.plusButtonIcon,
-//                childType: Child.self,
-//                parent: parent,
-//                keyPathToParent: keyPath
-//            ) as! PlusButton
-//        }
-//
-//        self.init(
-//            childType: childType,
-//            for: parent,
-//            title: title ?? Child.plural,
-//            smallFont: smallFont,
-//            predicate: predicateToUse,
-//            plusButton: plusButton,
-//            dashboard: dashboard
-//        )
-//    }
-//}
-
-
-//  MARK: - FINISH THIS THIS EXTENSION CREATED TO COMPLETLY REMOVE FactoryChildrenListWithDashboard
-//  but there is a problem with PlusButton Type that cannot be infered
-
-/// This init for `Offspringable` types with Factory as parent: can get keyPathParentToChildren from Offspringable conformance
-//  MARK: - NOT USED
-//private extension ListWithDashboard where Child: FactoryChild, Parent == Factory {
-//    
-//    init(
-//        for parent: Parent,
-//        title: String? = nil,
-//        smallFont: Bool = true,
-//        predicate: NSPredicate? = nil,
-//        @ViewBuilder dashboard: @escaping () -> Dashboard,
-//        @ViewBuilder editor: @escaping (Child) -> Editor
-//    ) {
-//        self.init(
-//            for: parent,
-//            title: title,
-//            smallFont: smallFont,
-//            predicate: predicate,
-//            keyPathParentToChildren: Child.factoryToChildrenKeyPath,
-//            dashboard: dashboard,
-//            editor: editor
-//        )
-//    }
-//}
-
-
 struct ListWithDashboard_Previews: PreviewProvider {
-    
-    //  MARK: - checking ListWithDashboard signatures - looking for conforming Entities (Types)
-    
-    private struct TestingListWithDashboard {
-        private struct Test1<T: Dashboardable> {}
-        private struct Testing1 {
-            let base = Test1<Base>()
-            let buyer = Test1<Buyer>()
-            let department = Test1<Department>()
-            let division = Test1<Division>()
-            let equipment = Test1<Equipment>()
-            let expenses = Test1<Expenses>()
-            //let factory = Test1<Factory>() // Type 'Factory' does not conform to protocol 'Orphanable'
-            let ingredient = Test1<Ingredient>()
-            let recipe = Test1<Recipe>()
-            let packaging = Test1<Packaging>()
-            let product = Test1<Product>()
-            let sales = Test1<Sales>()
-            let utility = Test1<Utility>()
-            let employee = Test1<Employee>()
-        }
-        
-        private struct Test2<T: Dashboardable & FactoryTracable> {}
-        private struct Testing2 {
-            let base = Test2<Base>()
-            let buyer = Test2<Buyer>()
-            let department = Test2<Department>()
-            let division = Test2<Division>()
-            let equipment = Test2<Equipment>()
-            let expenses = Test2<Expenses>()
-            // let factory = Test2<Factory>() // Type 'Factory' does not conform to protocol 'Orphanable' and protocol 'FactoryTracable'
-            let ingredient = Test2<Ingredient>()
-            // let recipe = Test2<Recipe>()     // Type 'Recipe' does not conform to protocol 'FactoryTracable'
-            let packaging = Test2<Packaging>()
-            let product = Test2<Product>()
-            let sales = Test2<Sales>()
-            let utility = Test2<Utility>()
-            let employee = Test2<Employee>()
-        }
-        
-        private struct Test3<T: Dashboardable & FactoryChild> {}
-        private struct Testing3 {
-            let base = Test3<Base>()    // Type 'Base' does not conform to protocol 'Offspringable'
-            let buyer = Test3<Buyer>()
-            // let department = Test3<Department>()    // Type 'Department' does not conform to protocol 'Offspringable'
-            let division = Test3<Division>()
-            let equipment = Test3<Equipment>()
-            let expenses = Test3<Expenses>()
-            // let factory = Test3<Factory>() Type 'Factory' does not conform to protocol 'Orphanable'
-            // let ingredient = Test3<Ingredient>()    // Type 'Ingredient' does not conform to protocol 'Offspringable'
-            //let recipe = Test3<Recipe>()     Type 'Recipe' does not conform to protocol 'FactoryTracable'
-            // let packaging = Test3<Packaging>()  // Type 'Packaging' does not conform to protocol 'Offspringable'
-            // let product = Test3<Product>()  // Type 'Product' does not conform to protocol 'Offspringable'
-            // let sales = Test3<Sales>()  // Type 'Sales' does not conform to protocol 'Offspringable'
-            // let utility = Test3<Utility>()  // Type 'Utility' does not conform to protocol 'Offspringable'
-            // let employee = Test3<Employee>()    // Type 'Employee' does not conform to protocol 'Offspringable'
-        }
-    }
-    
-    
     static var previews: some View {
-        
         Group {
-            
-            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ FactoryTracable? - yes, Factory
-            
-            //  MARK: - есть ли варианты, когда Child: Monikerable & Managed & Summarizable & Sketchable & Orphanable НО НЕ Offspringable?? - yes, see TestingListWithDashboard
-            
-            //  MARK: - not Offspringable
+            //  MARK: direct Factory Child: Base
             NavigationView {
-                ListWithDashboard(
-                    childType: Department.self,
-                    predicate: Department.factoryPredicate(for: Factory.example)
-                ) {
-                    CreateNewEntityButton<Department>()
-                } dashboard: {
+                ListWithDashboard(for: Factory.example, keyPathToParent: \Base.factory) {
                     Text("Dashboard goes here")
                 }
                 .navigationBarTitleDisplayMode(.inline)
@@ -224,7 +117,7 @@ struct ListWithDashboard_Previews: PreviewProvider {
             .previewLayout(.fixed(width: 350, height: 600))
             
             
-            //  MARK: - FactoryTracable
+            //  MARK: non-direct child
             NavigationView {
                 ListWithDashboard(
                     childType: Product.self,
