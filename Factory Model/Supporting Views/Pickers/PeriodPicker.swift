@@ -121,7 +121,7 @@ fileprivate struct PeriodPickerTable: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Period")
-            .navigationBarItems(trailing: doneButton)
+            .navigationBarItems(leading: cancelButton, trailing: doneButton)
         }
     }
     
@@ -161,6 +161,12 @@ fileprivate struct PeriodPickerTable: View {
             presentation.wrappedValue.dismiss()
         }
         .disabled(calculatedPeriod == nil)
+    }
+    
+    private var cancelButton: some View {
+        Button("Cancel") {
+            presentation.wrappedValue.dismiss()
+        }
     }
 }
 
