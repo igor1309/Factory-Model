@@ -114,10 +114,10 @@ enum Period: Hashable {
                  let .year(_, hoursPerDay):     return hoursPerDay
         }
     }
-    
-    static var allCases: [String] { ["hour", "shift", "day", "week", "month", "year"] }
-    static var allCasesShort: [String] { ["H", "shift", "D", "W", "M", "Y"] }
-    
+
+    static let allCases: [String] = ["hour", "shift", "day", "week", "month", "year"]
+    static let allCasesShort: [String] = ["H", "S", "D", "W", "M", "Y"]
+
     ///  failable initializer
     init?(_ period: String, days: Int = 0, hoursPerDay: Double = 8) {
         guard 1...24 ~= hoursPerDay else { return nil }
@@ -140,7 +140,7 @@ enum Period: Hashable {
             default: return nil
         }
     }
-    
+
     /// non-failable initializer init: default is `month`
     private init(period: String, days: Int = 0, hoursPerDay: Double = 8) {
         guard 1...24 ~= hoursPerDay else {
@@ -175,7 +175,9 @@ enum Period: Hashable {
             default: self = .month()
         }
     }
-    
+
+    static let hoursPerDayOptions: [Double] = [4.0, 6, 8, 10, 12, 16, 20, 24]
+
     static func dayOptions(for periodStr: String) -> [Int] {
         switch periodStr {
             case "week":    return [3, 4, 5, 6, 7]

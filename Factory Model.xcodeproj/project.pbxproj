@@ -134,6 +134,7 @@
 		2A9C8DAB24D4B46F00AD7C34 /* NSPredicate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */; };
 		2A9C8DAD24D4B8B000AD7C34 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */; };
 		2A9C8DAF24D4BE3C00AD7C34 /* ProfitAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */; };
+		2A9D27D225651F2C007D0AA4 /* GridPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D27D125651F2C007D0AA4 /* GridPicker.swift */; };
 		2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */; };
 		2A9F592424F90AAC00E0EDAB /* PeriodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */; };
 		2A9F592624F98ACE00E0EDAB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592524F98ACE00E0EDAB /* Period.swift */; };
@@ -309,6 +310,7 @@
 		2A9C8DAA24D4B46F00AD7C34 /* NSPredicate+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Ext.swift"; sourceTree = "<group>"; };
 		2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitAndLossView.swift; sourceTree = "<group>"; };
+		2A9D27D125651F2C007D0AA4 /* GridPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPicker.swift; sourceTree = "<group>"; };
 		2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionOutputSection.swift; sourceTree = "<group>"; };
 		2A9F592224F90A2800E0EDAB /* Period.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Period.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodPicker.swift; sourceTree = "<group>"; };
@@ -691,6 +693,7 @@
 				2A52688324DE976400DDF4DE /* ParentUnitPicker.swift */,
 				2A167EF224EB2B4200A8E7DE /* ParentUnitStringPicker.swift */,
 				2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */,
+				2A9D27D125651F2C007D0AA4 /* GridPicker.swift */,
 				2A93D97524D17B8F00DF1A35 /* PickerWithTextField.swift */,
 				2A13E4CE24C9B4BD00016CBC /* StringPicker.swift */,
 			);
@@ -960,6 +963,7 @@
 				2A93D97A24D1A51D00DF1A35 /* CreateOrphanButton.swift in Sources */,
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A808B042542CD470030268C /* Product Sample.swift in Sources */,
+				2A9D27D225651F2C007D0AA4 /* GridPicker.swift in Sources */,
 				2AF0820D25553E1500C66CAF /* Packaging Sample.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */,
@@ -1117,7 +1121,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1127,7 +1131,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1142,7 +1146,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1152,7 +1156,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.08;
+				MARKETING_VERSION = 1.09;
 				PRODUCT_BUNDLE_IDENTIFIER = com.photoigor.FactoryModel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

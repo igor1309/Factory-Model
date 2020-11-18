@@ -74,7 +74,7 @@ fileprivate struct PeriodPickerTable: View {
             get: {
                 switch periodStr {
                     case "hour":    return "H"
-                    case "shift":   return "shift"
+                    case "shift":   return "S"
                     case "day":     return "D"
                     case "week":    return "W"
                     case "month":   return "M"
@@ -85,7 +85,7 @@ fileprivate struct PeriodPickerTable: View {
             set: {
                 switch $0 {
                     case "H":       periodStr = "hour"
-                    case "shift":   periodStr = "shift"
+                    case "S":       periodStr = "shift"
                     case "D":       periodStr = "day"
                     case "W":       periodStr = "week"
                     case "M":       periodStr = "month"
@@ -95,30 +95,38 @@ fileprivate struct PeriodPickerTable: View {
             }
         )
         
+        let hoursPerDayInt = Binding<Int>(
+            get: { Int(hoursPerDay) },
+            set: { hoursPerDay = Double($0) }
+        )
+        
         return NavigationView {
-            Form {
-                Section(
-                    header: header,
-                    footer: footer
-                ) {
-                    Picker("Period", selection: periodString) {
-                        ForEach(Period.allCasesShort, id: \.self) { periodStr in
-                            Text(periodStr)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    
-                    dayPicker(Period.dayOptions(for: periodStr))
-                    
-                    if periodStr != "hour" {
-                        Picker("Hours: \(String(format: "%g", hoursPerDay))", selection: $hoursPerDay) {
-                            ForEach([4.0, 6, 8, 10, 12, 16, 20, 24], id: \.self) { item in
-                                Text("\(String(format: "%g", item))")
-                            }
-                        }
-                    }
+            VStack(alignment: .leading, spacing: 16) {
+                
+                VStack(alignment: .leading, spacing: 6) {
+                    header
+                    footer
+                        .foregroundColor(.secondary)
+                        .font(.footnote)
                 }
+                
+                GridPicker(title: "Period", selection: periodString, options: Period.allCasesShort, columnsCount: 6)
+                
+                switch periodStr {
+                    case "week", "month", "year":
+                        GridPicker(title: "Days per \(periodStr)", selection: $days, options: Period.dayOptions(for: periodStr))
+                    default:
+                        EmptyView()
+                }
+                
+                if periodStr != "hour" {
+                    GridPicker(title: "Hours: \(String(format: "%g", hoursPerDay))", selection: hoursPerDayInt, options: Period.hoursPerDayOptions.map { Int($0) })
+                }
+                
+                
+                Spacer()
             }
+            .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Period")
             .navigationBarItems(leading: cancelButton, trailing: doneButton)
@@ -130,7 +138,7 @@ fileprivate struct PeriodPickerTable: View {
         if let footerStr = calculatedPeriod?.short {
             Text(footerStr)
         } else {
-            Text("Error.")
+            Text("ERROR")
                 .foregroundColor(.systemRed)
         }
     }
@@ -184,7 +192,7 @@ struct PeriodPicker_Previews: PreviewProvider {
             .previewLayout(.fixed(width: /*@START_MENU_TOKEN@*/375.0/*@END_MENU_TOKEN@*/, height: 200.0))
             
             PeriodPickerTable($period)
-                .previewLayout(.fixed(width: 375, height: 350))
+                .previewLayout(.fixed(width: 375, height: 550))
         }
         .preferredColorScheme(.dark)
     }
