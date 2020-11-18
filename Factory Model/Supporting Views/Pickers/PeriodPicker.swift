@@ -69,28 +69,33 @@ fileprivate struct PeriodPickerTable: View {
         Period(periodStr, days: days, hoursPerDay: hoursPerDay)
     }
     
-    @ViewBuilder
-    private var header: some View {
-        if let footerStr = calculatedPeriod?.short {
-            Text(footerStr)
-        } else {
-            Text("Error.")
-                .foregroundColor(.systemRed)
-        }
-    }
-    
-    @ViewBuilder
-    private var footer: some View {
-        if let footerStr = calculatedPeriod?.summary {
-            Text(footerStr)
-        } else {
-            Text("Error creating period. Check all parameters.")
-                .foregroundColor(.systemRed)
-        }
-    }
-    
     var body: some View {
-        NavigationView {
+        let periodString = Binding<String>(
+            get: {
+                switch periodStr {
+                    case "hour":    return "H"
+                    case "shift":   return "shift"
+                    case "day":     return "D"
+                    case "week":    return "W"
+                    case "month":   return "M"
+                    case "year":    return "Y"
+                    default:        return "month"
+                }
+            },
+            set: {
+                switch $0 {
+                    case "H":       periodStr = "hour"
+                    case "shift":   periodStr = "shift"
+                    case "D":       periodStr = "day"
+                    case "W":       periodStr = "week"
+                    case "M":       periodStr = "month"
+                    case "Y":       periodStr = "year"
+                    default:        periodStr = "month"
+                }
+            }
+        )
+        
+        return NavigationView {
             Form {
                 Section(
                     header: header,
@@ -98,8 +103,8 @@ fileprivate struct PeriodPickerTable: View {
                 ) {
                     //Text(calculatedPeriod?.short ?? "ERROR")
                     
-                    Picker("Period", selection: $periodStr) {
-                        ForEach(Period.allCases, id: \.self) { periodStr in
+                    Picker("Period", selection: periodString) {
+                        ForEach(Period.allCasesShort, id: \.self) { periodStr in
                             Text(periodStr)
                         }
                     }
@@ -144,6 +149,26 @@ fileprivate struct PeriodPickerTable: View {
         }
     }
     
+    @ViewBuilder
+    private var header: some View {
+        if let footerStr = calculatedPeriod?.short {
+            Text(footerStr)
+        } else {
+            Text("Error.")
+                .foregroundColor(.systemRed)
+        }
+    }
+    
+    @ViewBuilder
+    private var footer: some View {
+        if let footerStr = calculatedPeriod?.summary {
+            Text(footerStr)
+        } else {
+            Text("Error creating period. Check all parameters.")
+                .foregroundColor(.systemRed)
+        }
+    }
+        
     private var doneButton: some View {
         Button("Done") {
             guard let calculatedPeriod = calculatedPeriod else { return }

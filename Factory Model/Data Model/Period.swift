@@ -116,6 +116,7 @@ enum Period: Hashable {
     }
     
     static var allCases: [String] { ["hour", "shift", "day", "week", "month", "year"] }
+    static var allCasesShort: [String] { ["H", "shift", "D", "W", "M", "Y"] }
     
     ///  failable initializer
     init?(_ period: String, days: Int = 0, hoursPerDay: Double = 8) {
