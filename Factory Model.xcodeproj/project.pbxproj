@@ -82,7 +82,6 @@
 		2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA624D3F321005A03B3 /* IssuesList.swift */; };
 		2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */; };
 		2A7C3DAB24D3FD59005A03B3 /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAA24D3FD59005A03B3 /* Issues.swift */; };
-		2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */; };
 		2A7CC72524E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */; };
 		2A7CC72924EA735300B43E7F /* CreateNewEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */; };
 		2A7CC72B24EA765500B43E7F /* CreateEntityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */; };
@@ -257,7 +256,6 @@
 		2A7C3DA624D3F321005A03B3 /* IssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesList.swift; sourceTree = "<group>"; };
 		2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buyer.swift; sourceTree = "<group>"; };
 		2A7C3DAA24D3FD59005A03B3 /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
-		2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListWithDashboard.swift; sourceTree = "<group>"; };
 		2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameGroupCodeNoteEditorSection.swift; sourceTree = "<group>"; };
 		2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityButton.swift; sourceTree = "<group>"; };
 		2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntityPicker.swift; sourceTree = "<group>"; };
@@ -734,7 +732,6 @@
 			isa = PBXGroup;
 			children = (
 				2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */,
-				2A7C3DAC24D41523005A03B3 /* EntityListWithDashboard.swift */,
 				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
 				2A7F4AB424EE537C002A315F /* EntityLinkToList.swift */,
 			);
@@ -950,7 +947,6 @@
 				2A93D97824D1995E00DF1A35 /* Orphanable.swift in Sources */,
 				2AE7F9CA2555DAC300847496 /* ProductionSection.swift in Sources */,
 				2A5C946F2511539B00DE7DF2 /* Salarable.swift in Sources */,
-				2A7C3DAD24D41523005A03B3 /* EntityListWithDashboard.swift in Sources */,
 				2AADA09A24C4F4A8005F1E9F /* Factory_ModelApp.swift in Sources */,
 				2A30471524C87AB90002E5DD /* Something.swift in Sources */,
 				2AC7952524C76E7500018817 /* EmployeeList.swift in Sources */,
@@ -1121,7 +1117,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1146,7 +1142,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;

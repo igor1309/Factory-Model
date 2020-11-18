@@ -18,7 +18,7 @@ struct BuyerList: View {
     }
     
     var body: some View {
-        EntityListWithDashboard(for: factory, keyPathToParent: \Buyer.factory, dashboard: dashboard)
+        ListWithDashboard(for: factory, keyPathToParent: \Buyer.factory, dashboard: dashboard)
     }
     
     @ViewBuilder
