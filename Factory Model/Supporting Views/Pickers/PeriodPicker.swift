@@ -101,8 +101,6 @@ fileprivate struct PeriodPickerTable: View {
                     header: header,
                     footer: footer
                 ) {
-                    //Text(calculatedPeriod?.short ?? "ERROR")
-                    
                     Picker("Period", selection: periodString) {
                         ForEach(Period.allCasesShort, id: \.self) { periodStr in
                             Text(periodStr)
@@ -110,29 +108,7 @@ fileprivate struct PeriodPickerTable: View {
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
-                    if periodStr == "week" {
-                        Picker("Days: \(days)", selection: $days) {
-                            ForEach([3, 4, 5, 6, 7], id: \.self) { item in
-                                Text("\(item)")
-                            }
-                        }
-                    }
-                    
-                    if periodStr == "month" {
-                        Picker("Days: \(days)", selection: $days) {
-                            ForEach([14, 21, 24, 30], id: \.self) { item in
-                                Text("\(item)")
-                            }
-                        }
-                    }
-                    
-                    if periodStr == "year" {
-                        Picker("Days: \(days)", selection: $days) {
-                            ForEach([247, 300, 360], id: \.self) { item in
-                                Text("\(item)")
-                            }
-                        }
-                    }
+                    dayPicker(Period.dayOptions(for: periodStr))
                     
                     if periodStr != "hour" {
                         Picker("Hours: \(String(format: "%g", hoursPerDay))", selection: $hoursPerDay) {
@@ -168,7 +144,15 @@ fileprivate struct PeriodPickerTable: View {
                 .foregroundColor(.systemRed)
         }
     }
-        
+    
+    private func dayPicker(_ items: [Int]) -> some View {
+        Picker("Days: \(days)", selection: $days) {
+            ForEach(items, id: \.self) { item in
+                Text("\(item)")
+            }
+        }
+    }
+    
     private var doneButton: some View {
         Button("Done") {
             guard let calculatedPeriod = calculatedPeriod else { return }

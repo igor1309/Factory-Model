@@ -175,4 +175,13 @@ enum Period: Hashable {
             default: self = .month()
         }
     }
+    
+    static func dayOptions(for periodStr: String) -> [Int] {
+        switch periodStr {
+            case "week":    return [3, 4, 5, 6, 7]
+            case "month":   return [14, 21, 24, 30]
+            case "year":    return [247, 300, 360]
+            default:        return []
+        }
+    }
 }
