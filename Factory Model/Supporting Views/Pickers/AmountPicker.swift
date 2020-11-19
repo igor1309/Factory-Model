@@ -129,7 +129,7 @@ fileprivate struct AmountPickerSheet: View {
     @Environment(\.presentationMode) private var presentation
     
     @Binding var qty: Double
-    var navigationTitle: String
+    let navigationTitle: String
     
     @State private var scale: AmountPicker.Scale
     
@@ -142,6 +142,8 @@ fileprivate struct AmountPickerSheet: View {
         self.navigationTitle = navigationTitle == "" ? "Select Qty" : navigationTitle
         _scale = State(initialValue: scale)
     }
+    
+    let cornerRadius: CGFloat = 8
     
     var columnsCount: Int {
         switch scale {
@@ -208,8 +210,11 @@ fileprivate struct AmountPickerSheet: View {
                     ) {
                         ForEach(scale.values, id: \.self) { value in
                             Button {
-                                qty = value / (scale == .percent ? 100 : 1)
-                                presentation.wrappedValue.dismiss()
+                                //  MARK: - FINISH THIS ADD HAPTICS
+                                withAnimation {
+                                    qty = value / (scale == .percent ? 100 : 1)
+                                    presentation.wrappedValue.dismiss()
+                                }
                             } label: {
                                 ZStack {
                                     Text("\(scale.values.last ?? 0, specifier: "%.f")")
@@ -221,7 +226,11 @@ fileprivate struct AmountPickerSheet: View {
                                         .fixedSize()
                                 }
                                 .font(.subheadline)
-                                .simpleCardify()
+                                .simpleCardify(cornerRadius: cornerRadius)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: cornerRadius)
+                                        .strokeBorder(qty == (value / (scale == .percent ? 100 : 1)) ? Color.systemOrange : Color.clear)
+                                )
                             }
                         }
                     }
