@@ -132,7 +132,7 @@ struct ProductEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            var product: Product
+            let product: Product
             if let productToEdit = productToEdit {
                 product = productToEdit
                 product.objectWillChange.send()
