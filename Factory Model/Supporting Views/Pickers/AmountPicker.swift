@@ -71,12 +71,20 @@ struct AmountPicker: View {
         }
     }
     
-    var systemName: String = ""
-    var title: String = ""
-    var navigationTitle: String
-    var scale: Scale = .large
+    let systemName: String
+    let title: String
+    let navigationTitle: String
+    let scale: Scale
     
     @Binding var amount: Double
+    
+    init(systemName: String = "", title: String = "", navigationTitle: String, scale: AmountPicker.Scale = .large, amount: Binding<Double>) {
+        self.systemName = systemName
+        self.title = title
+        self.navigationTitle = navigationTitle
+        self.scale = scale
+        self._amount = amount
+    }
     
     @State private var showSheet = false
     
@@ -95,12 +103,12 @@ struct AmountPicker: View {
                         Spacer()
                     case (true, false):
                         Label(title, systemImage: systemName)
-//                            .labelStyle(IconOnlyLabelStyle())
+                            .labelStyle(IconOnlyLabelStyle())
                         Spacer()
                     default:
                         EmptyView()
                 }
-
+                
                 if scale == .percent {
                     Text(amount.formattedPercentageWith1Decimal)
                         .padding(.leading)
@@ -165,13 +173,15 @@ fileprivate struct AmountPickerSheet: View {
                         in: scale.range,
                         step: scale.minorStep
                     ) {
-                        if scale == .percent {
-                            Text(qty.formattedPercentageWith1Decimal)
-                                .foregroundColor(.systemOrange)
-                        } else {
-                            Text(qty.formattedGrouped)
-                                .foregroundColor(.systemOrange)
+                        VStack {
+                            if scale == .percent {
+                                Text(qty.formattedPercentageWith1Decimal)
+                            } else {
+                                Text(qty.formattedGrouped)
+                            }
                         }
+                        .foregroundColor(.systemTeal)
+                        .font(.title)
                     }
                     
                     Picker("Scale", selection: $scale) {
@@ -192,7 +202,7 @@ fileprivate struct AmountPickerSheet: View {
                 .padding([.horizontal, .top])
                 
                 //  https://swiftui-lab.com/impossible-grids/
-                ScrollView(.vertical) { // .vertical is the default, so it can be omitted
+                ScrollView {
                     LazyVGrid(
                         columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columnsCount)
                     ) {
@@ -207,36 +217,16 @@ fileprivate struct AmountPickerSheet: View {
                                         .fixedSize()
                                         .hidden()
                                     Text("\(value, specifier: "%.f")")
-                                    .lineLimit(1)
-                                    .fixedSize()
+                                        .lineLimit(1)
+                                        .fixedSize()
                                 }
                                 .font(.subheadline)
-//                                        .padding(3)
                                 .simpleCardify()
                             }
                         }
                     }
                     .padding()
                 }
-                
-//                List {
-//                    Section(
-//                        header: Text("")
-//                    ) {
-//                        ForEach(scale.values, id: \.self) { value in
-//                            Button {
-//                                qty = value
-//                                presentation.wrappedValue.dismiss()
-//                            } label: {
-//                                HStack {
-//                                    Spacer()
-//                                    Text(("\(value, specifier: "%.f")"))
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-                .listStyle(InsetGroupedListStyle())
             }
             .navigationTitle(navigationTitle)
             .navigationBarTitleDisplayMode(.inline)
@@ -254,18 +244,27 @@ struct QtyPicker_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            VStack(spacing: 32) {
-                AmountPicker(systemName: "scalemass", title: "mass", navigationTitle: "", scale: .small, amount: $qty)
-                AmountPicker(title: "mass", navigationTitle: "", scale: .medium, amount: $qty)
-                AmountPicker(navigationTitle: "", scale: .large, amount: $qty)
+            NavigationView {
+                Form {
+                    AmountPicker(systemName: "scalemass", title: "mass", navigationTitle: "navigation Title", scale: .small, amount: $qty)
+                    AmountPicker(systemName: "scalemass", title: "", navigationTitle: "navigation Title", scale: .small, amount: $qty)
+                    AmountPicker(title: "mass", navigationTitle: "", scale: .medium, amount: $qty)
+                    
+                    AmountPicker(navigationTitle: "", scale: .large, amount: $qty)
+                }
+                .navigationBarTitle("AmountPicker", displayMode: .inline)
             }
-            .previewLayout(.fixed(width: 345.0, height: 200.0))
-            .padding()
-            .preferredColorScheme(.dark)
+            .previewLayout(.fixed(width: 345.0, height: 320.0))
             
             AmountPickerSheet(qty: $qty, scale: AmountPicker.Scale.medium, navigationTitle: "Weight")
-                .previewLayout(.sizeThatFits)
-                .preferredColorScheme(.dark)
+                .previewLayout(.fixed(width: 345.0, height: 500))
+            
+            AmountPickerSheet(qty: $qty, scale: AmountPicker.Scale.extraSmall, navigationTitle: "Weight")
+                .previewLayout(.fixed(width: 345.0, height: 400))
+            
+            AmountPickerSheet(qty: $qty, scale: AmountPicker.Scale.percent, navigationTitle: "Weight")
+                .previewLayout(.fixed(width: 345.0, height: 600.0))
         }
+        .preferredColorScheme(.dark)
     }
 }
