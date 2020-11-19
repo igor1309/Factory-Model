@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GridPicker<Value: Hashable & Equatable>: View {
+
     let title: String
     @Binding var selection: Value
     let options: [Value]
@@ -36,7 +37,9 @@ struct GridPicker<Value: Hashable & Equatable>: View {
             ) {
                 ForEach(options, id: \.self) { item in
                     Button {
-                        //  MARK: - FINISH THIS ADD HAPTIC
+                        let haptics = Haptics()
+                        haptics.haptic()
+
                         withAnimation {
                             selection = item
                         }
@@ -65,6 +68,7 @@ struct GridPicker<Value: Hashable & Equatable>: View {
         }
     }
 }
+
 
 fileprivate struct GridPickerTesting: View {
     @State private var selection = 5

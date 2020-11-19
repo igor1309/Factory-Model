@@ -46,6 +46,9 @@ struct CreateChildButton<Child: Summarizable & Sketchable,
     
     var body: some View {
         Button {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 parent.objectWillChange.send()
                 

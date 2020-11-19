@@ -64,6 +64,9 @@ struct BaseGroupList: View {
     //  MARK: - can't replace with PlusEntityButton: base.group = group
     private var plusButton: some View {
         Button {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 let base = Base(context: context)
                 base.name = " New Base"

@@ -134,6 +134,7 @@
 		2A9C8DAD24D4B8B000AD7C34 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */; };
 		2A9C8DAF24D4BE3C00AD7C34 /* ProfitAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */; };
 		2A9D27D225651F2C007D0AA4 /* GridPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D27D125651F2C007D0AA4 /* GridPicker.swift */; };
+		2A9D27F025671245007D0AA4 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D27EF25671245007D0AA4 /* Haptics.swift */; };
 		2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */; };
 		2A9F592424F90AAC00E0EDAB /* PeriodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */; };
 		2A9F592624F98ACE00E0EDAB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592524F98ACE00E0EDAB /* Period.swift */; };
@@ -309,6 +310,7 @@
 		2A9C8DAC24D4B8B000AD7C34 /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitAndLossView.swift; sourceTree = "<group>"; };
 		2A9D27D125651F2C007D0AA4 /* GridPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPicker.swift; sourceTree = "<group>"; };
+		2A9D27EF25671245007D0AA4 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionOutputSection.swift; sourceTree = "<group>"; };
 		2A9F592224F90A2800E0EDAB /* Period.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Period.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodPicker.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				2A16C6B82518AF4200B0BFE5 /* PriceCostMargin.swift */,
 				2A30471424C87AB90002E5DD /* Something.swift */,
 				2AB3051925546AFB0060A94D /* Settings.swift */,
+				2A9D27EF25671245007D0AA4 /* Haptics.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				2A5C945F250F8E8F00DE7DF2 /* DataPointsView.swift in Sources */,
 				2A30471124C836200002E5DD /* IngredientList.swift in Sources */,
 				2A9C8DAF24D4BE3C00AD7C34 /* ProfitAndLossView.swift in Sources */,
+				2A9D27F025671245007D0AA4 /* Haptics.swift in Sources */,
 				2A02DF1E24CB066F00A6E35A /* ProductList.swift in Sources */,
 				2A9FC83E251747E200C4AD0D /* Warable.swift in Sources */,
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
@@ -1117,7 +1121,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1142,7 +1146,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;

@@ -70,6 +70,9 @@ struct ExpensesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 var expenses: Expenses
                 

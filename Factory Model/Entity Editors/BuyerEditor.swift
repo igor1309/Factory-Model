@@ -73,6 +73,9 @@ struct BuyerEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 let buyer: Buyer
                 

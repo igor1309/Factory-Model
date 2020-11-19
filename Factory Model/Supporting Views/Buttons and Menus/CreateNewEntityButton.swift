@@ -89,6 +89,9 @@ struct CreateNewEntityButton<T: Listable>: View where T.ManagedType == T {
     
     private func innerButton() -> some View {
         Button {
+            let haptics = Haptics()
+            haptics.haptic()
+
             withAnimation {
                 isActive = true
             }

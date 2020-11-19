@@ -126,6 +126,7 @@ struct AmountPicker: View {
 }
 
 fileprivate struct AmountPickerSheet: View {
+    
     @Environment(\.presentationMode) private var presentation
     
     @Binding var qty: Double
@@ -210,7 +211,9 @@ fileprivate struct AmountPickerSheet: View {
                     ) {
                         ForEach(scale.values, id: \.self) { value in
                             Button {
-                                //  MARK: - FINISH THIS ADD HAPTICS
+                                let haptics = Haptics()
+                                haptics.haptic()                                
+                                
                                 withAnimation {
                                     qty = value / (scale == .percent ? 100 : 1)
                                     presentation.wrappedValue.dismiss()

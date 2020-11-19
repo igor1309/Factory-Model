@@ -72,6 +72,9 @@ struct PackagingEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 let packaging: Packaging
                 

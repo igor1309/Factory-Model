@@ -78,6 +78,7 @@ struct GenericListSection<T: Listable>: View where T.ManagedType == T {
 }
 
 fileprivate struct EntityRowWithAction<T: Listable>: View {
+
     @Environment(\.managedObjectContext) private var context
     
     @ObservedObject var entity: T
@@ -115,6 +116,9 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
     }
     
     private func delete(_ entity: T) {
+        let haptics = Haptics()
+        haptics.haptic()
+        
         withAnimation {
             context.delete(entity)
             context.saveContext()

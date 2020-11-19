@@ -65,6 +65,9 @@ fileprivate struct StringPickerTable: View {
     
     private var plusButton: some View {
         Button {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 showDraft = true
             }

@@ -9,6 +9,7 @@ import CoreData
 import SwiftUI
 
 struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summarizable>: View {
+    
     @EnvironmentObject private var settings: Settings
     
     @Binding var isNewDraftActive: Bool
@@ -19,6 +20,9 @@ struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summ
             header: Text("New \(T.plural)")
         ) {
             Button {
+                let haptics = Haptics()
+                haptics.haptic()
+                
                 withAnimation {
                     isNewDraftActive = true
                 }

@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 
 fileprivate struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable>: View {
+    
     @Environment(\.managedObjectContext) private var context
     
     let systemName: String
@@ -20,9 +21,13 @@ fileprivate struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable
     
     var body: some View {
         Button {
+            let haptics = Haptics()
+            haptics.haptic()
+            
             withAnimation {
                 let child = Child(context: context)
                 child.makeSketch()
+                
                 context.saveContext()
             }
         } label: {
