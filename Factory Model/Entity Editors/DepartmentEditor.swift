@@ -83,34 +83,37 @@ struct DepartmentEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let department: Department
-            if let departmentToEdit = departmentToEdit {
-                department = departmentToEdit
-                department.objectWillChange.send()
-            } else {
-                department = Department(context: context)
+            withAnimation {
+                let department: Department
+                
+                if let departmentToEdit = departmentToEdit {
+                    department = departmentToEdit
+                    department.objectWillChange.send()
+                } else {
+                    department = Department(context: context)
+                }
+                
+                department.division?.objectWillChange.send()
+                
+                department.name = name
+                department.type = type
+                department.division = division
+                
+                for draft in employeeDrafts {
+                    var employee = Employee(context: context)
+                    employee.name = draft.name
+                    employee.note = draft.note
+                    employee.position = draft.position
+                    employee.salary = draft.salary
+                    employee.period = settings.period
+                    department.addToEmployees_(employee)
+                }
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            department.division?.objectWillChange.send()
-            
-            department.name = name
-            department.type = type
-            department.division = division
-            
-            for draft in employeeDrafts {
-                var employee = Employee(context: context)
-                employee.name = draft.name
-                employee.note = draft.note
-                employee.position = draft.position
-                employee.salary = draft.salary
-                employee.period = settings.period
-                department.addToEmployees_(employee)
-            }
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(division == nil || name.isEmpty)
     }

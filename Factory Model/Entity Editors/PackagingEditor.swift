@@ -72,21 +72,24 @@ struct PackagingEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let packaging: Packaging
-            if let packagingToEdit = packagingToEdit {
-                packaging = packagingToEdit
-                packaging.objectWillChange.send()
-            } else {
-                packaging = Packaging(context: context)
+            withAnimation {
+                let packaging: Packaging
+                
+                if let packagingToEdit = packagingToEdit {
+                    packaging = packagingToEdit
+                    packaging.objectWillChange.send()
+                } else {
+                    packaging = Packaging(context: context)
+                }
+                
+                packaging.name = name
+                packaging.type = type
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            packaging.name = name
-            packaging.type = type
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(name.isEmpty)
     }

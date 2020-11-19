@@ -86,26 +86,29 @@ struct EquipmentEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let equipment: Equipment
-            if let equipmentToEdit = equipmentToEdit {
-                equipment = equipmentToEdit
-                equipment.objectWillChange.send()
-            } else {
-                equipment = Equipment(context: context)
+            withAnimation {
+                let equipment: Equipment
+                
+                if let equipmentToEdit = equipmentToEdit {
+                    equipment = equipmentToEdit
+                    equipment.objectWillChange.send()
+                } else {
+                    equipment = Equipment(context: context)
+                }
+                
+                equipment.factory?.objectWillChange.send()
+                
+                equipment.name = name
+                equipment.note = note
+                equipment.lifetime = lifetime
+                equipment.price = price
+                equipment.factory = factory
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-
-            equipment.factory?.objectWillChange.send()
-            
-            equipment.name = name
-            equipment.note = note
-            equipment.lifetime = lifetime
-            equipment.price = price
-            equipment.factory = factory
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(factory == nil || name.isEmpty || price == 0)
     }

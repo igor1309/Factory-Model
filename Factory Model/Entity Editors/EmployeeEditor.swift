@@ -90,27 +90,30 @@ struct EmployeeEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            var employee: Employee
-            if let employeeToEdit = employeeToEdit {
-                employee = employeeToEdit
-                employee.objectWillChange.send()
-            } else {
-                employee = Employee(context: context)
+            withAnimation {
+                var employee: Employee
+                
+                if let employeeToEdit = employeeToEdit {
+                    employee = employeeToEdit
+                    employee.objectWillChange.send()
+                } else {
+                    employee = Employee(context: context)
+                }
+                
+                employee.department?.objectWillChange.send()
+                
+                employee.name = name
+                employee.note = note
+                employee.position = position
+                employee.salary = salary
+                employee.period = period
+                employee.department = department
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            employee.department?.objectWillChange.send()
-            
-            employee.name = name
-            employee.note = note
-            employee.position = position
-            employee.salary = salary
-            employee.period = period
-            employee.department = department
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(department == nil || name.isEmpty || position.isEmpty || salary <= 0)
     }

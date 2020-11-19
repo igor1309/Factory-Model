@@ -78,28 +78,31 @@ struct SalesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            var sales: Sales
-            if let salesToEdit = salesToEdit {
-                sales = salesToEdit
-                sales.objectWillChange.send()
-            } else {
-                sales = Sales(context: context)
+            withAnimation {
+                var sales: Sales
+                
+                if let salesToEdit = salesToEdit {
+                    sales = salesToEdit
+                    sales.objectWillChange.send()
+                } else {
+                    sales = Sales(context: context)
+                }
+                
+                sales.buyer?.objectWillChange.send()
+                sales.product?.objectWillChange.send()
+                
+                sales.name = ""
+                sales.priceExVAT = priceExVAT
+                sales.qty = qty
+                sales.period = period
+                sales.buyer = buyer
+                sales.product = product
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            sales.buyer?.objectWillChange.send()
-            sales.product?.objectWillChange.send()
-            
-            sales.name = ""
-            sales.priceExVAT = priceExVAT
-            sales.qty = qty
-            sales.period = period
-            sales.buyer = buyer
-            sales.product = product
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(priceExVAT == 0 || qty == 0 || buyer == nil || product == nil)
     }

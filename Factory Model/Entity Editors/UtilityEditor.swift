@@ -72,25 +72,28 @@ struct UtilityEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let utility: Utility
-            if let utilityToEdit = utilityToEdit {
-                utility = utilityToEdit
-                utility.objectWillChange.send()
-            } else {
-                utility = Utility(context: context)
+            withAnimation {
+                let utility: Utility
+                
+                if let utilityToEdit = utilityToEdit {
+                    utility = utilityToEdit
+                    utility.objectWillChange.send()
+                } else {
+                    utility = Utility(context: context)
+                }
+                
+                utility.base?.objectWillChange.send()
+                
+                utility.name = name
+                utility.priceExVAT = priceExVAT
+                utility.vat = vat
+                utility.base = base
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            utility.base?.objectWillChange.send()
-            
-            utility.name = name
-            utility.priceExVAT = priceExVAT
-            utility.vat = vat
-            utility.base = base
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(name.isEmpty || priceExVAT == 0 || vat == 0 || base == nil)
     }

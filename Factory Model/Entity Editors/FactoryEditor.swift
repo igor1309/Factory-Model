@@ -64,23 +64,26 @@ struct FactoryEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let factory: Factory
-            if let factoryToEdit = factoryToEdit {
-                factory = factoryToEdit
-                factory.objectWillChange.send()
-            } else {
-                factory = Factory(context: context)
+            withAnimation {
+                let factory: Factory
+                
+                if let factoryToEdit = factoryToEdit {
+                    factory = factoryToEdit
+                    factory.objectWillChange.send()
+                } else {
+                    factory = Factory(context: context)
+                }
+                
+                factory.name = name
+                factory.note = note
+                factory.profitTaxRate = profitTaxRate
+                factory.salaryBurdenRate = salaryBurdenRate
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            factory.name = name
-            factory.note = note
-            factory.profitTaxRate = profitTaxRate
-            factory.salaryBurdenRate = salaryBurdenRate
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(name.isEmpty || profitTaxRate == 0)
     }

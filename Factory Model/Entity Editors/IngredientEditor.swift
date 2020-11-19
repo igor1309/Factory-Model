@@ -80,23 +80,26 @@ struct IngredientEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let ingredient: Ingredient
-            if let ingredientToEdit = ingredientToEdit {
-                ingredient = ingredientToEdit
-                ingredient.objectWillChange.send()
-            } else {
-                ingredient = Ingredient(context: context)
+            withAnimation {
+                let ingredient: Ingredient
+                
+                if let ingredientToEdit = ingredientToEdit {
+                    ingredient = ingredientToEdit
+                    ingredient.objectWillChange.send()
+                } else {
+                    ingredient = Ingredient(context: context)
+                }
+                
+                ingredient.name = name
+                ingredient.unitString_ = unitString_
+                ingredient.priceExVAT = priceExVAT
+                ingredient.vat = vat
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            ingredient.name = name
-            ingredient.unitString_ = unitString_
-            ingredient.priceExVAT = priceExVAT
-            ingredient.vat = vat
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(name.isEmpty || unitString_.isEmpty || priceExVAT == 0)
     }

@@ -56,23 +56,26 @@ struct DivisionEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let division: Division
-            if let divisionToEdit = divisionToEdit {
-                division = divisionToEdit
-                division.objectWillChange.send()
-            } else {
-                division = Division(context: context)
+            withAnimation {
+                let division: Division
+                
+                if let divisionToEdit = divisionToEdit {
+                    division = divisionToEdit
+                    division.objectWillChange.send()
+                } else {
+                    division = Division(context: context)
+                }
+                
+                division.factory?.objectWillChange.send()
+                
+                division.name = name
+                division.factory = factory
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-
-            division.factory?.objectWillChange.send()
-            
-            division.name = name
-            division.factory = factory
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(factory == nil || name.isEmpty)
     }

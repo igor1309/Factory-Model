@@ -70,26 +70,29 @@ struct ExpensesEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            var expenses: Expenses
-            if let expensesToEdit = expensesToEdit {
-                expenses = expensesToEdit
-                expenses.objectWillChange.send()
-            } else {
-                expenses = Expenses(context: context)
+            withAnimation {
+                var expenses: Expenses
+                
+                if let expensesToEdit = expensesToEdit {
+                    expenses = expensesToEdit
+                    expenses.objectWillChange.send()
+                } else {
+                    expenses = Expenses(context: context)
+                }
+                
+                expenses.factory?.objectWillChange.send()
+                
+                expenses.name = name
+                expenses.amount = amount
+                expenses.period = period
+                expenses.note = note
+                expenses.factory = factory
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            expenses.factory?.objectWillChange.send()
-            
-            expenses.name = name
-            expenses.amount = amount
-            expenses.period = period
-            expenses.note = note
-            expenses.factory = factory
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(factory == nil || name.isEmpty || amount == 0)
     }

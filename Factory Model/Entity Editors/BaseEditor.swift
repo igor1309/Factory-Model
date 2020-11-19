@@ -128,39 +128,42 @@ struct BaseEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let base: Base
-            if let baseToEdit = baseToEdit {
-                base = baseToEdit
-                base.objectWillChange.send()
-            } else {
-                base = Base(context: context)
+            withAnimation {
+                let base: Base
+                
+                if let baseToEdit = baseToEdit {
+                    base = baseToEdit
+                    base.objectWillChange.send()
+                } else {
+                    base = Base(context: context)
+                }
+                
+                base.factory?.objectWillChange.send()
+                
+                base.name = name
+                base.unitString_ = unitString_
+                base.code = code
+                base.code = code
+                base.group = group
+                base.note = note
+                base.initialInventory = initialInventory
+                base.weightNetto = weightNetto
+                base.complexity = complexity
+                base.factory = factory
+                
+                for draft in recipeDrafts {
+                    let recipe = Recipe(context: context)
+                    recipe.ingredient = draft.ingredient
+                    recipe.qty = draft.qty
+                    recipe.coefficientToParentUnit = draft.coefficientToParentUnit
+                    base.addToRecipes_(recipe)
+                }
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            base.factory?.objectWillChange.send()
-            
-            base.name = name
-            base.unitString_ = unitString_
-            base.code = code
-            base.code = code
-            base.group = group
-            base.note = note
-            base.initialInventory = initialInventory
-            base.weightNetto = weightNetto
-            base.complexity = complexity
-            base.factory = factory
-            
-            for draft in recipeDrafts {
-                let recipe = Recipe(context: context)
-                recipe.ingredient = draft.ingredient
-                recipe.qty = draft.qty
-                recipe.coefficientToParentUnit = draft.coefficientToParentUnit
-                base.addToRecipes_(recipe)
-            }
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(factory == nil || name.isEmpty || unitString_.isEmpty || weightNetto == 0)
     }

@@ -132,41 +132,44 @@ struct ProductEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let product: Product
-            if let productToEdit = productToEdit {
-                product = productToEdit
-                product.objectWillChange.send()
-            } else {
-                product = Product(context: context)
+            withAnimation {
+                let product: Product
+                
+                if let productToEdit = productToEdit {
+                    product = productToEdit
+                    product.objectWillChange.send()
+                } else {
+                    product = Product(context: context)
+                }
+                
+                product.base?.objectWillChange.send()
+                product.packaging?.objectWillChange.send()
+                
+                product.name = name
+                product.baseQty = baseQty
+                product.code = code
+                product.coefficientToParentUnit = coefficientToParentUnit
+                product.group = group
+                product.note = note
+                product.productionQty = productionQty
+                product.period = period
+                product.vat = vat
+                product.base = base
+                product.packaging = packaging
+                
+                for draft in salesDrafts {
+                    let sales = Sales(context: context)
+                    sales.priceExVAT = draft.priceExVAT
+                    sales.qty = draft.qty
+                    sales.buyer = draft.buyer
+                    product.addToSales_(sales)
+                }
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            product.base?.objectWillChange.send()
-            product.packaging?.objectWillChange.send()
-            
-            product.name = name
-            product.baseQty = baseQty
-            product.code = code
-            product.coefficientToParentUnit = coefficientToParentUnit
-            product.group = group
-            product.note = note
-            product.productionQty = productionQty
-            product.period = period
-            product.vat = vat
-            product.base = base
-            product.packaging = packaging
-            
-            for draft in salesDrafts {
-                let sales = Sales(context: context)
-                sales.priceExVAT = draft.priceExVAT
-                sales.qty = draft.qty
-                sales.buyer = draft.buyer
-                product.addToSales_(sales)
-            }
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(name.isEmpty || baseQty == 0 || productionQty == 0 || vat == 0 || base == nil || packaging == nil)
     }

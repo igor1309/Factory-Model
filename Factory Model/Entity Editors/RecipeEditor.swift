@@ -76,26 +76,29 @@ struct RecipeEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let recipe: Recipe
-            if let recipeToEdit = recipeToEdit {
-                recipe = recipeToEdit
-                recipe.objectWillChange.send()
-            } else {
-                recipe = Recipe(context: context)
+            withAnimation {
+                let recipe: Recipe
+                
+                if let recipeToEdit = recipeToEdit {
+                    recipe = recipeToEdit
+                    recipe.objectWillChange.send()
+                } else {
+                    recipe = Recipe(context: context)
+                }
+                
+                recipe.base?.objectWillChange.send()
+                recipe.ingredient?.objectWillChange.send()
+                
+                recipe.base = base
+                recipe.ingredient = ingredient
+                recipe.qty = qty
+                recipe.coefficientToParentUnit = coefficientToParentUnit
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            recipe.base?.objectWillChange.send()
-            recipe.ingredient?.objectWillChange.send()
-            
-            recipe.base = base
-            recipe.ingredient = ingredient
-            recipe.qty = qty
-            recipe.coefficientToParentUnit = coefficientToParentUnit
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(base == nil || ingredient == nil || qty == 0)
     }

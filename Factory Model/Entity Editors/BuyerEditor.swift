@@ -73,31 +73,34 @@ struct BuyerEditor: View {
     
     private var saveButton: some View {
         Button("Save") {
-            let buyer: Buyer
-            if let buyerToEdit = buyerToEdit {
-                buyer = buyerToEdit
-                buyer.objectWillChange.send()
-            } else {
-                buyer = Buyer(context: context)
+            withAnimation {
+                let buyer: Buyer
+                
+                if let buyerToEdit = buyerToEdit {
+                    buyer = buyerToEdit
+                    buyer.objectWillChange.send()
+                } else {
+                    buyer = Buyer(context: context)
+                }
+                
+                buyer.factory?.objectWillChange.send()
+                
+                buyer.name = name
+                buyer.factory = factory
+                
+                for draft in salesDrafts {
+                    let sales = Sales(context: context)
+                    sales.priceExVAT = draft.priceExVAT
+                    sales.qty = draft.qty
+                    sales.product = draft.product
+                    buyer.addToSales_(sales)
+                }
+                
+                context.saveContext()
+                
+                isPresented = false
+                presentation.wrappedValue.dismiss()
             }
-            
-            buyer.factory?.objectWillChange.send()
-            
-            buyer.name = name
-            buyer.factory = factory
-            
-            for draft in salesDrafts {
-                let sales = Sales(context: context)
-                sales.priceExVAT = draft.priceExVAT
-                sales.qty = draft.qty
-                sales.product = draft.product
-                buyer.addToSales_(sales)
-            }
-            
-            context.saveContext()
-            
-            isPresented = false
-            presentation.wrappedValue.dismiss()
         }
         .disabled(factory == nil || name.isEmpty)
     }
