@@ -180,7 +180,7 @@ fileprivate struct AmountPickerSheet: View {
                                 Text(qty.formattedGrouped)
                             }
                         }
-                        .foregroundColor(.systemOrange)
+                        .foregroundColor(.systemTeal)
                         .font(.title)
                     }
                     
@@ -202,7 +202,7 @@ fileprivate struct AmountPickerSheet: View {
                 .padding([.horizontal, .top])
                 
                 //  https://swiftui-lab.com/impossible-grids/
-                ScrollView(.vertical) { // .vertical is the default, so it can be omitted
+                ScrollView {
                     LazyVGrid(
                         columns: Array(repeating: GridItem(.flexible(), spacing: 12), count: columnsCount)
                     ) {
@@ -221,7 +221,6 @@ fileprivate struct AmountPickerSheet: View {
                                         .fixedSize()
                                 }
                                 .font(.subheadline)
-                                //                                        .padding(3)
                                 .simpleCardify()
                             }
                         }
