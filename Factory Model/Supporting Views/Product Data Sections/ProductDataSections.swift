@@ -186,6 +186,7 @@ struct ProductDataSections_Previews: PreviewProvider {
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("ProductDataSections", displayMode: .inline)
         }
+        .previewLayout(.fixed(width: 350, height: 800))
         .environmentObject(Settings())
         .environment(\.colorScheme, .dark)
     }
