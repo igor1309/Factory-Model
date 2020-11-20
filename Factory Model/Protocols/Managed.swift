@@ -60,13 +60,13 @@ extension Base: Managed {}
 extension Buyer: Managed {}
 extension Department: Managed {}
 extension Division: Managed {}
+extension Employee: Managed {}
 extension Equipment: Managed {}
 extension Expenses: Managed {}
 extension Factory: Managed {}
 extension Ingredient: Managed {}
-extension Recipe: Managed {}
 extension Packaging: Managed {}
 extension Product: Managed {}
+extension Recipe: Managed {}
 extension Sales: Managed {}
 extension Utility: Managed {}
-extension Employee: Managed {}

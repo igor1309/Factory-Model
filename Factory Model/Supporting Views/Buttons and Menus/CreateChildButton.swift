@@ -83,18 +83,21 @@ struct CreateChildButton_Previews: PreviewProvider {
                 .navigationBarTitle("Products: Create Child Button", displayMode: .inline)
                 .navigationBarItems(trailing: CreateChildButton(parent: base, keyPathToParent: \Product.base))
             }
+            .previewLayout(.fixed(width: 350, height: 200))
             
             NavigationView {
                 EquipmentList(for: factory)
                     .navigationBarTitle("Equipments: Create Child Button", displayMode: .inline)
                     .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Equipment.factory))
             }
+            .previewLayout(.fixed(width: 350, height: 450))
             
             NavigationView {
                 DivisionList(for: factory)
                     .navigationBarTitle("Divisions: Create Child Button", displayMode: .inline)
                     .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Division.factory))
             }
+            .previewLayout(.fixed(width: 350, height: 700))
             
             NavigationView {
                 //  MARK: - FINISH THIS IT CRASHES!!
@@ -102,6 +105,7 @@ struct CreateChildButton_Previews: PreviewProvider {
                     .navigationBarTitle("Base: Create Child Button", displayMode: .inline)
                     .navigationBarItems(trailing: CreateChildButton(parent: factory, keyPathToParent: \Base.factory))
             }
+            .previewLayout(.fixed(width: 350, height: 600))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
