@@ -65,7 +65,7 @@ struct BaseGroupList: View {
     private var plusButton: some View {
         Button {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 let base = Base(context: context)

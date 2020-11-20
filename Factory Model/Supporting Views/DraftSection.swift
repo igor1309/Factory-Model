@@ -8,7 +8,8 @@
 import CoreData
 import SwiftUI
 
-struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summarizable>: View {
+struct DraftSection<T: NSManagedObject & Managed & Summarizable,
+                    U: Draftable & Summarizable>: View {
     
     @EnvironmentObject private var settings: Settings
     
@@ -21,7 +22,7 @@ struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summ
         ) {
             Button {
                 let haptics = Haptics()
-                haptics.haptic()
+                haptics.feedback()
                 
                 withAnimation {
                     isNewDraftActive = true
@@ -39,6 +40,9 @@ struct DraftSection<T: NSManagedObject & Managed & Summarizable, U: Draft & Summ
     }
     
     private func delete(at offsets: IndexSet) {
+        let haptics = Haptics()
+        haptics.feedback()
+        
         drafts.remove(atOffsets: offsets)
     }
 }

@@ -133,7 +133,7 @@ struct ProductEditor: View {
     private var saveButton: some View {
         Button("Save") {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 let product: Product

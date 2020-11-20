@@ -91,7 +91,7 @@ struct EmployeeEditor: View {
     private var saveButton: some View {
         Button("Save") {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 var employee: Employee

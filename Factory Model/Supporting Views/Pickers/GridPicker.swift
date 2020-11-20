@@ -38,7 +38,7 @@ struct GridPicker<Value: Hashable & Equatable>: View {
                 ForEach(options, id: \.self) { item in
                     Button {
                         let haptics = Haptics()
-                        haptics.haptic()
+                        haptics.feedback()
 
                         withAnimation {
                             selection = item

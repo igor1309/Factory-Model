@@ -72,7 +72,7 @@ struct SettingsView: View {
     private func createFactory1Button() -> some View {
         Button {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 let _ = Factory.createFactory1(in: context)
@@ -87,7 +87,7 @@ struct SettingsView: View {
     private func createFactory2Button() -> some View {
         Button {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 let _ = Factory.createFactory2(in: context)

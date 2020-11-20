@@ -22,7 +22,7 @@ fileprivate struct CreateOrphanButton<Child: Managed & Summarizable & Sketchable
     var body: some View {
         Button {
             let haptics = Haptics()
-            haptics.haptic()
+            haptics.feedback()
             
             withAnimation {
                 let child = Child(context: context)

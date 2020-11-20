@@ -66,7 +66,7 @@ struct RecipeRow/*<T: Managed>*/: View {
     
     private func delete(_ item: Recipe) {
         let haptics = Haptics()
-        haptics.haptic()
+        haptics.feedback()
         
         withAnimation {
             context.delete(item)

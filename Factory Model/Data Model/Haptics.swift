@@ -12,14 +12,14 @@ final class Haptics {
     
     let hapticsAvailable: Bool = CHHapticEngine.capabilitiesForHardware().supportsHaptics
     
-    func haptic(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
+    func feedback(style: UIImpactFeedbackGenerator.FeedbackStyle = .light) {
         if hapticsAvailable {
             let generator = UIImpactFeedbackGenerator(style: style)
             generator.impactOccurred()
         }
     }
     
-    func haptic(feedback: UINotificationFeedbackGenerator.FeedbackType) {
+    func feedback(feedback: UINotificationFeedbackGenerator.FeedbackType) {
         if hapticsAvailable {
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(feedback)

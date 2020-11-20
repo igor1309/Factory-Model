@@ -117,7 +117,7 @@ fileprivate struct EntityRowWithAction<T: Listable>: View {
     
     private func delete(_ entity: T) {
         let haptics = Haptics()
-        haptics.haptic()
+        haptics.feedback()
         
         withAnimation {
             context.delete(entity)

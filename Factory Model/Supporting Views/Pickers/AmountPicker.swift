@@ -212,7 +212,7 @@ fileprivate struct AmountPickerSheet: View {
                         ForEach(scale.values, id: \.self) { value in
                             Button {
                                 let haptics = Haptics()
-                                haptics.haptic()                                
+                                haptics.feedback()                                
                                 
                                 withAnimation {
                                     qty = value / (scale == .percent ? 100 : 1)
