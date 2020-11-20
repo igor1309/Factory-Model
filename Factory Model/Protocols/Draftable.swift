@@ -1,5 +1,5 @@
 //
-//  Draft.swift
+//  Draftable.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 19.08.2020.
@@ -7,16 +7,16 @@
 
 import Foundation
 
-protocol Draft: Identifiable {
+protocol Draftable: Identifiable {
     static var plural: String { get }
 }
-extension EmployeeDraft: Draft {
+extension EmployeeDraft: Draftable {
     static var plural: String { "Employees" }
 }
-extension RecipeDraft: Draft {
+extension RecipeDraft: Draftable {
     static var plural: String { "Recipes" }
 }
-extension SalesDraft: Draft {
+extension SalesDraft: Draftable {
     static var plural: String { "Sales" }
 }
 
