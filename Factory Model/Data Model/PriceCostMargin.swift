@@ -69,7 +69,7 @@ struct PriceCostMargin {
 extension PriceCostMargin {
     
     func updatingCost(title: String, header: String) -> PriceCostMargin {
-        let cost = Cost (
+        let cost = Cost(
             title: title,
             header: header,
             ingredient: self.cost.ingredient,
@@ -96,19 +96,21 @@ extension PriceCostMargin {
         )
     }
     
-    static let zero = PriceCostMargin(
-        price: 0,
-        cost: Cost(
-            title: "",
-            header: "",
-            ingredient: CostComponent.zero,
-            salary: CostComponent.zero,
-            depreciation: CostComponent.zero,
-            utility: CostComponent.zero
-        ),
-        weightNetto: 0,
-        formatWithDecimal: true
-    )
+    static func zero(title: String, header: String) -> PriceCostMargin {
+        PriceCostMargin(
+            price: 0,
+            cost: Cost(
+                title: title,
+                header: header,
+                ingredient: CostComponent.zero,
+                salary: CostComponent.zero,
+                depreciation: CostComponent.zero,
+                utility: CostComponent.zero
+            ),
+            weightNetto: 0,
+            formatWithDecimal: true
+        )
+    }
     
     static func + (_ lhs: PriceCostMargin, _ rhs: PriceCostMargin) -> PriceCostMargin {
         PriceCostMargin(
