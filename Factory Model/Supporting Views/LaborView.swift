@@ -53,35 +53,36 @@ struct LaborView<T: NSManagedObject & Laborable>: View {
     
     private func laborSection(header: String, headcount: Int, workHours: Double, salaryWithTax: Double, salaryPerHourWithTax: Double) -> some View {
         
-        Section(header: Text(header)) {
-            if settings.asStack {
-                VStack(spacing: 6) {
-                    LabelWithDetail("Headcount", headcount.formattedGrouped)
-                    
-                    LabelWithDetail("Work Hours", "\(workHours.formattedGrouped)")
-                    
-                    LabelWithDetail("Salary incl taxes", "\(salaryWithTax.formattedGrouped)")
-                    
-                    LabelWithDetail("Salary per hour incl taxes", "\(salaryPerHourWithTax.formattedGrouped)")
-                }
-                .padding(.vertical, 3)
-                .foregroundColor(.secondary)
-                .font(.footnote)
-            } else {
-                Group {
-                    LabelWithDetail("person.crop.rectangle", "Headcount", headcount.formattedGrouped)
-                    
-                    LabelWithDetail("clock.arrow.circlepath", "Work Hours", "\(workHours.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary incl taxes", "\(salaryWithTax.formattedGrouped)")
-                    
-                    LabelWithDetail("dollarsign.square", "Salary per hour incl taxes", "\(salaryPerHourWithTax.formattedGrouped)")
-                }
-                .foregroundColor(.secondary)
-                .font(.subheadline)
+        func groupOfLabels() -> some View {
+            Group {
+                LabelWithDetail(
+                    settings.asStack ? nil : "person.crop.rectangle",
+                    "Headcount",
+                    headcount.formattedGrouped
+                )
+                
+                LabelWithDetail(
+                    settings.asStack ? nil : "clock.arrow.circlepath",
+                    "Work Hours",
+                    "\(workHours.formattedGrouped)"
+                )
+                
+                LabelWithDetail(
+                    settings.asStack ? nil : "dollarsign.square",
+                    "Salary incl taxes",
+                    "\(salaryWithTax.formattedGrouped)"
+                )
+                
+                LabelWithDetail(
+                    settings.asStack ? nil : "dollarsign.square",
+                    "Salary per hour incl taxes",
+                    "\(salaryPerHourWithTax.formattedGrouped)"
+                )
             }
         }
-    }    
+        
+        return SectionAsStackOrGroup(header: header, labelGroup: groupOfLabels(), asStack: settings.asStack)
+    }
 }
 
 struct LaborView_Previews: PreviewProvider {
@@ -109,7 +110,7 @@ struct LaborView_Previews: PreviewProvider {
                 .navigationBarTitle("LaborView", displayMode: .inline)
                 .environmentObject(settings2)
             }
-            .previewLayout(.fixed(width: 350, height: 550))
+            .previewLayout(.fixed(width: 350, height: 570))
         }
         .environment(\.colorScheme, .dark)
     }

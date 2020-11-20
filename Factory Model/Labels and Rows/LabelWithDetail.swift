@@ -14,7 +14,7 @@ struct LabelWithDetail<T: StringProtocol, U: StringProtocol>: View {
     private let detail: U
     
     init(
-        _ systemName: String,
+        _ systemName: String? = nil,
         _ title: T,
         _ detail: U
     ) {
