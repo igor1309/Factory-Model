@@ -10,7 +10,7 @@ import SwiftUI
 struct CostStructureSection: View {
     @EnvironmentObject private var settings: Settings
     
-    @ObservedObject var factory: Factory
+    let factory: Factory
     
     init(for factory: Factory) {
         self.factory = factory
@@ -18,15 +18,18 @@ struct CostStructureSection: View {
     
     var body: some View {
         Section(
-            header: Text("Base Products Cost Structure")
+            header: Text("Production Cost Structure")
         ) {
             DataPointsView2(dataBlock: factory.productionIngredientCostExVATPercentageDataPoints(in: settings.period))
                 .foregroundColor(Ingredient.color)
                 .padding(.top, 3)
+            
             DataPointsView2(dataBlock: factory.productionSalaryWithTaxPercentageDataPoints(in: settings.period))
                 .foregroundColor(Employee.color)
+            
             DataPointsView2(dataBlock: factory.depreciationPercentageDataPoints(in: settings.period))
                 .foregroundColor(Equipment.color)
+            
             DataPointsView2(dataBlock: factory.utilitiesExVATPercentageDataPoints(in: settings.period))
                 .foregroundColor(Utility.color)
                 .padding(.bottom, 3)
@@ -43,8 +46,8 @@ struct CostStructureSection_Previews: PreviewProvider {
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("Test Factory", displayMode: .inline)
         }
-        .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
+        .previewLayout(.fixed(width: 350, height: 600))
     }
 }

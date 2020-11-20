@@ -1,5 +1,5 @@
 //
-//  SalesSection.swift
+//  SalesSections.swift
 //  Factory Model
 //
 //  Created by Igor Malyarov on 06.11.2020.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SalesSection: View {
+struct SalesSections: View {
     @EnvironmentObject private var settings: Settings
     
     @ObservedObject var factory: Factory
@@ -47,14 +47,17 @@ struct SalesSection: View {
             }
             .font(.subheadline)
         }
+        
+        
+        CostSection(factory.sold(in: settings.period).cost)
     }
 }
 
-struct SalesSection_Previews: PreviewProvider {
+struct SalesSections_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List {
-                SalesSection(for: Factory.example)
+                SalesSections(for: Factory.example)
             }
             .listStyle(InsetGroupedListStyle())
             .navigationBarTitle("Test Factory", displayMode: .inline)
@@ -62,6 +65,6 @@ struct SalesSection_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 450))
+        .previewLayout(.fixed(width: 350, height: 600))
     }
 }

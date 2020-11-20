@@ -35,13 +35,13 @@ struct FactoryView: View {
                 
                 issuesSection
                 
-                SalesSection(for: factory)
-                
-                CostSection(factory.sold(in: settings.period).cost)
-                
-                CostSection(factory.produced(in: settings.period).cost)
+                SalesSections(for: factory)
                 
                 ProductionSection(for: factory)
+                
+                ProductionCostStructureSection(for: factory)
+                
+                ProductionOutputSection(for: factory)
                 
                 CostStructureSection(for: factory)
             }
