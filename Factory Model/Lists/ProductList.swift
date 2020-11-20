@@ -32,19 +32,12 @@ struct ProductList: View {
     
     @ViewBuilder
     private func dashboard() -> some View {
-        Section(header: Text("Production")) {
-            productionGroup()
-                .foregroundColor(.secondary)
-        }
         
-        Section(header: Text("Sales")) {
-            salesGroup()
-                .foregroundColor(.secondary)
-        }
+        SectionAsStackOrGroup(header: "Production", labelGroup: productionGroup(), asStack: settings.asStack)
         
-        Section(header: Text("Margin")) {
-            marginGroup()
-        }
+        SectionAsStackOrGroup(header: "Sales", labelGroup: salesGroup(), asStack: settings.asStack)
+        
+        SectionAsStackOrGroup(header: "Margin", labelGroup: marginGroup(), asStack: settings.asStack)
         
         Section(
             header: Text("TBD Total"),
@@ -77,115 +70,92 @@ struct ProductList: View {
         }
     }
     
-    @ViewBuilder
     private func productionGroup() -> some View {
-        if settings.asStack {
-            /// no icons
-            VStack(spacing: 6) {
-                LabelWithDetail("Production Weight Netto, t", factory.produced(in: settings.period).weightNettoTonsStr)
-                
-                LabelWithDetail("Production Cost ex VAT", factory.produced(in: settings.period).cost.fullCostStr)
-                
-                LabelWithDetail(
-                    "Avg Cost ex VAT, per kilo",
-                    //factory.avgCostPerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).cost.fullCostStr
-                )
-            }
-            .padding(.vertical, 3)
-            .font(.footnote)
-        } else {
-            Group {
-                LabelWithDetail("scalemass", "Production Weight Netto, t", factory.produced(in: settings.period).weightNettoTonsStr)
-                
-                LabelWithDetail("dollarsign.circle", "Production Cost ex VAT", factory.produced(in: settings.period).cost.fullCostStr)
-                
-                LabelWithDetail(
-                    "dollarsign.circle",
-                    "Avg Cost ex VAT, per kilo",
-                    //factory.avgCostPerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).cost.fullCostStr
-                )
-            }
-            .font(.subheadline)
+        Group {
+            LabelWithDetail(
+                settings.asStack ? nil : "scalemass",
+                "Production Weight Netto, t",
+                factory.produced(in: settings.period).weightNettoTonsStr
+            )
+            
+            LabelWithDetail(
+                settings.asStack ? nil : "dollarsign.circle",
+                "Production Cost ex VAT",
+                factory.produced(in: settings.period).cost.fullCostStr
+            )
+            
+            LabelWithDetail(
+                settings.asStack ? nil : "dollarsign.circle",
+                "Avg Cost ex VAT, per kilo",
+                //factory.avgCostPerKiloExVAT(in: settings.period).formattedGrouped
+                factory.perKilo(in: settings.period).cost.fullCostStr
+            )
         }
     }
     
-    @ViewBuilder
     private func salesGroup() -> some View {
-        if settings.asStack {
-            /// no icons
-            VStack(spacing: 6) {
-                LabelWithDetail("Sales Weight Netto, t", factory.sold(in: settings.period).weightNettoTonsStr)
-                
-                LabelWithDetail("Revenue ex VAT", factory.revenueExVAT(in: settings.period).formattedGrouped)
-                
-                LabelWithDetail(
-                    "Avg Price ex VAT, per kilo",
-                    //factory.avgPricePerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).priceStr
-                )
-            }
-            .padding(.vertical, 3)
-            .font(.footnote)
-        } else {
-            Group {
-                LabelWithDetail("scalemass", "Sales Weight Netto, t", factory.sold(in: settings.period).weightNettoTonsStr)
-                
-                LabelWithDetail(Sales.icon, "Revenue ex VAT", factory.revenueExVAT(in: settings.period).formattedGrouped)
-                
-                LabelWithDetail(
-                    "dollarsign.circle",
-                    "Avg Price ex VAT, per kilo",
-                    //factory.avgPricePerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).priceStr
-                )
-            }
-            .font(.subheadline)
+        Group {
+            LabelWithDetail(
+                settings.asStack ? nil : "scalemass",
+                "Sales Weight Netto, t",
+                factory.sold(in: settings.period).weightNettoTonsStr
+            )
+            
+            LabelWithDetail(
+                settings.asStack ? nil : Sales.icon,
+                "Revenue ex VAT",
+                factory.revenueExVAT(in: settings.period).formattedGrouped
+            )
+            
+            LabelWithDetail(
+                settings.asStack ? nil : "dollarsign.circle",
+                "Avg Price ex VAT, per kilo",
+                //factory.avgPricePerKiloExVAT(in: settings.period).formattedGrouped
+                factory.perKilo(in: settings.period).priceStr
+            )
         }
     }
     
-    @ViewBuilder
     private func marginGroup() -> some View {
-        if settings.asStack {
-            /// no icons
-            VStack(spacing: 6) {
-                LabelWithDetail("Margin ex VAT", factory.pnl(in: settings.period).margin.formattedGrouped)
-                
-                LabelWithDetail(
-                    "Avg Margin ex VAT, per kilo",
-                    //factory.avgMarginPerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).marginStr
-                )
-            }
-            .foregroundColor(factory.perKilo(in: settings.period).margin > 0 ? .secondary : .red)
-            .padding(.vertical, 3)
-            .font(.footnote)
-        } else {
-            Group {
-                LabelWithDetail(Sales.icon, "Margin ex VAT", factory.pnl(in: settings.period).margin.formattedGrouped)
-                
-                LabelWithDetail(
-                    Sales.icon,
-                    "Avg Margin ex VAT, per kilo",
-                    //factory.avgMarginPerKiloExVAT(in: settings.period).formattedGrouped
-                    factory.perKilo(in: settings.period).marginStr
-                )
-            }
-            .foregroundColor(factory.perKilo(in: settings.period).margin > 0 ? .secondary : .red)
-            .font(.subheadline)
+        Group {
+            LabelWithDetail(
+                settings.asStack ? nil : Sales.icon,
+                "Margin ex VAT",
+                factory.pnl(in: settings.period).margin.formattedGrouped
+            )
+            
+            LabelWithDetail(
+                settings.asStack ? nil : Sales.icon,
+                "Avg Margin ex VAT, per kilo",
+                //factory.avgMarginPerKiloExVAT(in: settings.period).formattedGrouped
+                factory.perKilo(in: settings.period).marginStr
+            )
         }
+        .foregroundColor(factory.perKilo(in: settings.period).margin > 0 ? .secondary : .red)
     }
 }
 
 struct ProductList_Previews: PreviewProvider {
+    static var settings1 = Settings()
+    static var settings2 = Settings()
+    
     static var previews: some View {
-        NavigationView {
-            ProductList(for: Factory.example)
+        settings1.asStack = true
+        settings2.asStack = false
+        
+        return Group {
+            NavigationView {
+                ProductList(for: Factory.example)
+            }
+            .previewLayout(.fixed(width: 350, height: 900))
+            .environmentObject(settings1)
+            
+            NavigationView {
+                ProductList(for: Factory.example)
+            }
+            .previewLayout(.fixed(width: 350, height: 900))
+            .environmentObject(settings2)
         }
-        .environment(\.managedObjectContext, PersistenceManager.previewContext)
-        .environmentObject(Settings())
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 1000))
     }
 }

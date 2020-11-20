@@ -135,6 +135,7 @@
 		2A9C8DAF24D4BE3C00AD7C34 /* ProfitAndLossView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */; };
 		2A9D27D225651F2C007D0AA4 /* GridPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D27D125651F2C007D0AA4 /* GridPicker.swift */; };
 		2A9D27F025671245007D0AA4 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D27EF25671245007D0AA4 /* Haptics.swift */; };
+		2A9D281225687711007D0AA4 /* SectionAsStackOrGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9D281125687711007D0AA4 /* SectionAsStackOrGroup.swift */; };
 		2A9F592124F66F4300E0EDAB /* ProductionOutputSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */; };
 		2A9F592424F90AAC00E0EDAB /* PeriodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */; };
 		2A9F592624F98ACE00E0EDAB /* Period.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9F592524F98ACE00E0EDAB /* Period.swift */; };
@@ -311,6 +312,7 @@
 		2A9C8DAE24D4BE3C00AD7C34 /* ProfitAndLossView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfitAndLossView.swift; sourceTree = "<group>"; };
 		2A9D27D125651F2C007D0AA4 /* GridPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridPicker.swift; sourceTree = "<group>"; };
 		2A9D27EF25671245007D0AA4 /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		2A9D281125687711007D0AA4 /* SectionAsStackOrGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionAsStackOrGroup.swift; sourceTree = "<group>"; };
 		2A9F592024F66F4300E0EDAB /* ProductionOutputSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionOutputSection.swift; sourceTree = "<group>"; };
 		2A9F592224F90A2800E0EDAB /* Period.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Period.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2A9F592324F90AAB00E0EDAB /* PeriodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodPicker.swift; sourceTree = "<group>"; };
@@ -729,6 +731,7 @@
 				2AF8EC9424CFFE1B00EDA2AE /* ListWithDashboard.swift */,
 				2A81582C24CDB0E3003A95C0 /* GenericListSection.swift */,
 				2A7F4AB424EE537C002A315F /* EntityLinkToList.swift */,
+				2A9D281125687711007D0AA4 /* SectionAsStackOrGroup.swift */,
 			);
 			path = "Generic Lists and Sections";
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				2A936E5324C63DF100C34381 /* Array+Ext.swift in Sources */,
 				2A808B042542CD470030268C /* Product Sample.swift in Sources */,
 				2A9D27D225651F2C007D0AA4 /* GridPicker.swift in Sources */,
+				2A9D281225687711007D0AA4 /* SectionAsStackOrGroup.swift in Sources */,
 				2AF0820D25553E1500C66CAF /* Packaging Sample.swift in Sources */,
 				2A85734924C5FDB1009FF51A /* ListRow.swift in Sources */,
 				2A6979A724DFE342009B03F2 /* Factory+Employees.swift in Sources */,
