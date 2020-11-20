@@ -81,7 +81,7 @@
 		2A79E5C3256310D200569A3F /* Viewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A79E5C2256310D200569A3F /* Viewable.swift */; };
 		2A7C3DA724D3F321005A03B3 /* IssuesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA624D3F321005A03B3 /* IssuesList.swift */; };
 		2A7C3DA924D3F9A2005A03B3 /* Buyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */; };
-		2A7C3DAB24D3FD59005A03B3 /* Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAA24D3FD59005A03B3 /* Issues.swift */; };
+		2A7C3DAB24D3FD59005A03B3 /* Factory+Issues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7C3DAA24D3FD59005A03B3 /* Factory+Issues.swift */; };
 		2A7CC72524E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */; };
 		2A7CC72924EA735300B43E7F /* CreateNewEntityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */; };
 		2A7CC72B24EA765500B43E7F /* CreateEntityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */; };
@@ -256,7 +256,7 @@
 		2A79E5C2256310D200569A3F /* Viewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewable.swift; sourceTree = "<group>"; };
 		2A7C3DA624D3F321005A03B3 /* IssuesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesList.swift; sourceTree = "<group>"; };
 		2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buyer.swift; sourceTree = "<group>"; };
-		2A7C3DAA24D3FD59005A03B3 /* Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issues.swift; sourceTree = "<group>"; };
+		2A7C3DAA24D3FD59005A03B3 /* Factory+Issues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Factory+Issues.swift"; sourceTree = "<group>"; };
 		2A7CC72424E9C57700B43E7F /* NameGroupCodeNoteEditorSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameGroupCodeNoteEditorSection.swift; sourceTree = "<group>"; };
 		2A7CC72824EA735300B43E7F /* CreateNewEntityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewEntityButton.swift; sourceTree = "<group>"; };
 		2A7CC72A24EA765500B43E7F /* CreateEntityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEntityPicker.swift; sourceTree = "<group>"; };
@@ -422,9 +422,6 @@
 			isa = PBXGroup;
 			children = (
 				2AADA0A824C4F4E2005F1E9F /* DataModel.xcdatamodeld */,
-				2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */,
-				2AD752812543705D004A5F13 /* saveContext.swift */,
-				2A255BBF24DD21E700B4D89D /* CustomUnit.swift */,
 				2A2F4BD124C5A84600B2F8D9 /* Base.swift */,
 				2A7C3DA824D3F9A2005A03B3 /* Buyer.swift */,
 				2AA8D05C24CC2ED80058D48F /* Department.swift */,
@@ -436,8 +433,8 @@
 				2A6979AD24DFF1D4009B03F2 /* Factory+P&L.swift */,
 				2A7DA8FC24FE5A3600A3B0CD /* Factoty+DataPoints.swift */,
 				2A6979A624DFE342009B03F2 /* Factory+Employees.swift */,
+				2A7C3DAA24D3FD59005A03B3 /* Factory+Issues.swift */,
 				2A936E5424C6D5C200C34381 /* Ingredient.swift */,
-				2A7C3DAA24D3FD59005A03B3 /* Issues.swift */,
 				2A31654924CCD32000AF68A1 /* Packaging.swift */,
 				2A936E5624C6DB7500C34381 /* Product.swift */,
 				2A3746E724CDF97D008D40F1 /* Recipe.swift */,
@@ -475,6 +472,7 @@
 			children = (
 				2A5C94642510DEC200DE7DF2 /* Cost.swift */,
 				2A9FC8382517408400C4AD0D /* CostComponent.swift */,
+				2A255BBF24DD21E700B4D89D /* CustomUnit.swift */,
 				2A7DA8F524FE4D3D00A3B0CD /* DataPoint.swift */,
 				2A9F592524F98ACE00E0EDAB /* Period.swift */,
 				2A870CB22514AE560018A8D3 /* PNL.swift */,
@@ -566,6 +564,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2A9D28052567FBCA007D0AA4 /* Core Data Stack */ = {
+			isa = PBXGroup;
+			children = (
+				2A2F4BCC24C5A26700B2F8D9 /* PersistenceManager.swift */,
+				2AD752812543705D004A5F13 /* saveContext.swift */,
+			);
+			path = "Core Data Stack";
+			sourceTree = "<group>";
+		};
 		2AADA08D24C4F4A8005F1E9F = {
 			isa = PBXGroup;
 			children = (
@@ -604,6 +611,7 @@
 				2A31654424CC6DFA00AF68A1 /* Data Model */,
 				2AD51E3024ED51FB00BE3005 /* Core Data Model Drafts */,
 				2A2F4BCE24C5A42000B2F8D9 /* Core Data Model */,
+				2A9D28052567FBCA007D0AA4 /* Core Data Stack */,
 				2A6979AA24DFE522009B03F2 /* Sample Data */,
 				2A31654524CC6E1F00AF68A1 /* Playgrounds */,
 				2A892AE6250A5A660031492D /* Extensions */,
@@ -845,7 +853,7 @@
 				2A9FC83E251747E200C4AD0D /* Warable.swift in Sources */,
 				2A936E5924C6DDDF00C34381 /* Utility.swift in Sources */,
 				2A93D97624D17B8F00DF1A35 /* PickerWithTextField.swift in Sources */,
-				2A7C3DAB24D3FD59005A03B3 /* Issues.swift in Sources */,
+				2A7C3DAB24D3FD59005A03B3 /* Factory+Issues.swift in Sources */,
 				2A6979A924DFE51F009B03F2 /* Factory Sample.swift in Sources */,
 				2A024CF624CD9419001A4B5C /* Validatable.swift in Sources */,
 				2A167EFB24EBF74100A8E7DE /* BuyerEditor.swift in Sources */,
