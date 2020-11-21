@@ -37,10 +37,10 @@ extension Summarizable where Self: Inventorable & Merch & Warable {
         }
         
         return """
-Sales \(sold(in: period).weightNettoTonsStr) of \(produced(in: period).weightNettoTonsStr)t production
-\(salesQty(in: period).formattedGrouped) of \(productionQty(in: period).formattedGrouped)
-x\(unit(in: period).priceStr) = \(sold(in: period).revenueStr) ex VAT
-"""
+            Sales \(sold(in: period).weightNettoTonsStr) of \(produced(in: period).weightNettoTonsStr)t production
+            \(salesQty(in: period).formattedGrouped) of \(productionQty(in: period).formattedGrouped)
+            x\(unit(in: period).priceStr) = \(sold(in: period).revenueStr) ex VAT
+            """
     }
 }
 extension Summarizable where Self: Validatable {
@@ -197,33 +197,36 @@ extension Factory: Summarizable {
         }
         
         return """
-(\(period.short))
+            Production \(produced(in: period).weightNettoTonsStr) tons
+            Market Value \(produced(in: period).priceStr)
+            Cost \(produced(in: period).cost.fullCostStr)
 
-Production \(produced(in: period).weightNettoTonsStr) tons
-Market Value \(produced(in: period).priceStr)
-Cost \(produced(in: period).cost.fullCostStr)
+            Sales \(sold(in: period).weightNettoTonsStr) tons
+            \(sold(in: period).priceStr)
 
-Sales \(sold(in: period).weightNettoTonsStr) tons
-\(sold(in: period).priceStr)
+            Margin \(sold(in: period).marginStr) (\(sold(in: period).marginPercentageStr))
 
-Margin \(sold(in: period).marginStr) (\(sold(in: period).marginPercentageStr))
+            Headcount \(headcount)
 
-Headcount \(headcount)
+            (??) Work Hours
+            - production \(productionWorkHours(in: period).formattedGrouped)
+            - total \(workHours(in: period).formattedGrouped)
+                    
+            TBD: Base product lists with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
 
-(??) Work Hours
-- production \(productionWorkHours(in: period).formattedGrouped)
-- total \(workHours(in: period).formattedGrouped)
-        
-TBD: Base product lists with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
-
-Production per year \(produced(in: .year()).weightNettoTonsStr) tons
-Equipment \(equipmentTotal.formattedGrouped)
-"""
+            Production per year \(produced(in: .year()).weightNettoTonsStr) tons
+            Equipment \(equipmentTotal.formattedGrouped)
+            """
     }
 
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
-        return note
+        return """
+            
+            (\(period.short))
+
+            \(note)
+            """
     }
     
     static var icon: String { "building.2" }
