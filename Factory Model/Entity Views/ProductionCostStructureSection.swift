@@ -69,7 +69,7 @@ struct ProductionCostStructureSection_Previews: PreviewProvider {
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Test Factory", displayMode: .inline)
             }
-            .previewLayout(.fixed(width: 350, height: 600))
+            .previewLayout(.fixed(width: 350, height: 400))
             
             NavigationView {
                 ProductionCostDetailView(for: Factory.example)

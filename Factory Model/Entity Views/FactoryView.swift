@@ -22,41 +22,21 @@ struct FactoryView: View {
     
     var body: some View {
         List {
-            Section(
-                header: Text("Factory Detail")
-            ) {
-                NavigationLink(destination: FactoryEditor(factory)) {
-                    ListRow(factory, period: settings.period)
-                }
-            }
+            FactoryDetailGroup(for: factory)
             
-            Group {
-                reportsSection
-                
-                issuesSection
-                
-                SalesSections(for: factory)
-                
-                ProductionSection(for: factory)
-                
-                ProductionCostStructureSection(for: factory)
-                
-                ProductionOutputSection(for: factory)
-                
-                CostStructureSection(for: factory)
-            }
+            SalesSections(for: factory)
             
-            Group {
-                procurementSection
-                
-                personnelSection
-                
-                expensesSection
-                
-                equipmentSection
-            }
+            ProductionSection(for: factory)
             
-            oldSection
+            ProductionCostStructureSection(for: factory)
+            
+            FactoryProcurementSection(for: factory)
+            
+            FactoryPersonnelSection(for: factory)
+            
+            FactoryEquipmentSection(for: factory)
+            
+            FactoryExpensesSection(for: factory)
         }
         .listStyle(InsetGroupedListStyle())
         .navigationBarTitle(factory.name, displayMode: .inline)
@@ -66,6 +46,30 @@ struct FactoryView: View {
                 CreateEntityPickerButton(factory: factory, isTabItem: true)
             }
         )
+    }
+}
+
+fileprivate struct FactoryDetailGroup: View {
+    @EnvironmentObject private var settings: Settings
+    
+    let factory: Factory
+    
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
+    var body: some View {
+        Group {
+            Section(header: Text("Factory Detail")) {
+                NavigationLink(destination: FactoryEditor(factory)) {
+                    ListRow(factory, period: settings.period)
+                }
+            }
+            
+            reportsSection
+            
+            issuesSection
+        }
     }
     
     private var reportsSection: some View {
@@ -110,11 +114,19 @@ struct FactoryView: View {
         }
         //  }
     }
+}
+
+fileprivate struct FactoryProcurementSection: View {
+    @EnvironmentObject private var settings: Settings
     
-    private var procurementSection: some View {
-        Section(
-            header: Text("Procurement")
-        ) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
+    var body: some View {
+        Section(header: Text("Procurement")) {
             Group {
                 NavigationLink(
                     destination: IngredientList(for: factory)
@@ -142,11 +154,19 @@ struct FactoryView: View {
             }
         }
     }
+}
+
+fileprivate struct FactoryPersonnelSection: View {
+    @EnvironmentObject private var settings: Settings
     
-    private var personnelSection: some View {
-        Section(
-            header: Text("Personnel")
-        ) {
+    let factory: Factory
+    
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
+    var body: some View {
+        Section(header: Text("Personnel")) {
             Group {
                 NavigationLink(
                     destination: DivisionList(for: factory)
@@ -172,8 +192,16 @@ struct FactoryView: View {
             }
         }
     }
+}
+
+fileprivate struct FactoryEquipmentSection: View {
+    let factory: Factory
     
-    private var equipmentSection: some View {
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
+    var body: some View {
         Section(header: Text("Equipment")) {
             NavigationLink(
                 destination: EquipmentList(for: factory)
@@ -190,11 +218,17 @@ struct FactoryView: View {
             }
         }
     }
+}
+
+fileprivate struct FactoryExpensesSection: View {
+    let factory: Factory
     
-    private var expensesSection: some View {
-        Section(
-            header: Text("Expenses")
-        ) {
+    init(for factory: Factory) {
+        self.factory = factory
+    }
+    
+    var body: some View {
+        Section(header: Text("Expenses")) {
             NavigationLink(
                 destination: ExpensesList(for: factory)
             ) {
@@ -206,33 +240,92 @@ struct FactoryView: View {
             }
         }
     }
-    
-    private var oldSection: some View {
-        Section(
-            header: Text("Old")
-        ) {
-            Group {
-                NavigationLink(
-                    destination: Text("Production TBD")
-                ) {
-                    LabelWithDetail("bag.fill.badge.plus", "Production", "TBD")
-                }
-            }
-            .font(.subheadline)
-        }
-    }
 }
 
 struct FactoryView_Previews: PreviewProvider {
     @StateObject static var settings = Settings()
     
     static var previews: some View {
-        NavigationView {
-            FactoryView(Factory.example)
+        Group {
+            NavigationView {
+                List {
+                    FactoryDetailGroup(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("Group One", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 820))
+            
+            NavigationView {
+                List {
+                    SalesSections(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("SalesSections", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 820))
+            
+            NavigationView {
+                List {
+                    ProductionSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("ProductionSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 600))
+            
+            NavigationView {
+                List {
+                    ProductionCostStructureSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("ProductionCostStructureSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 400))
+            
+            NavigationView {
+                List {
+                    FactoryProcurementSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("FactoryProcurementSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 300))
+            
+            NavigationView {
+                List {
+                    FactoryPersonnelSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("FactoryPersonnelSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 300))
+            
+            NavigationView {
+                List {
+                    FactoryEquipmentSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("FactoryEquipmentSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 300))
+            
+            NavigationView {
+                List {
+                    FactoryExpensesSection(for: Factory.example)
+                }
+                .listStyle(InsetGroupedListStyle())
+                .navigationBarTitle("FactoryExpensesSection", displayMode: .inline)
+            }
+            .previewLayout(.fixed(width: 350, height: 250))
+            
+//            NavigationView {
+//                FactoryView(Factory.example)
+//            }
+//            .previewLayout(.fixed(width: 350, height: 1200))
         }
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(settings)
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 1200))
     }
 }

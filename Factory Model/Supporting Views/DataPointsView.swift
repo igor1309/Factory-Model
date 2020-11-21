@@ -55,16 +55,30 @@ struct DataPointsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             List {
-                Section(header: Text("DataPointsView")) {
+                Section(header: Text("Data Points View")) {
                     DataPointsView(dataBlock: DataBlock.example)
+                    
+                    DataPointsView(dataBlock: Factory.example.productionIngredientCostExVATDataPoints(in: .month()))
+                        .foregroundColor(Ingredient.color)
+                    
+                    DataPointsView(dataBlock: Factory.example.productionSalaryWithTaxDataPoints(in: .month()))
+                        .foregroundColor(Employee.color)
                 }
                 
-                Section(header: Text("DataPointsView2")) {
+                Section(header: Text("Data Points View 2")) {
                     DataPointsView2(dataBlock: DataBlock.example)
+                    
+                    DataPointsView2(dataBlock: Factory.example.productionIngredientCostExVATPercentageDataPoints(in: .month()))
+                        .foregroundColor(Ingredient.color)
+                    
+                    DataPointsView2(dataBlock: Factory.example.productionSalaryWithTaxPercentageDataPoints(in: .month()))
+                        .foregroundColor(Employee.color)
                 }
             }
             .listStyle(InsetGroupedListStyle())
+            .navigationBarTitle("Data Points Views", displayMode:.inline)
         }
         .environment(\.colorScheme, .dark)
+        .previewLayout(.fixed(width: 350, height: 800))
     }
 }

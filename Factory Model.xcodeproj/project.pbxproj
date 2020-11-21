@@ -167,7 +167,6 @@
 		2AE6DB432513CE7E00457D74 /* PCM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE6DB422513CE7E00457D74 /* PCM.swift */; };
 		2AE7F9CA2555DAC300847496 /* ProductionCostStructureSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F9C92555DAC300847496 /* ProductionCostStructureSection.swift */; };
 		2AE7F9CD2555DDB100847496 /* SalesSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F9CC2555DDB100847496 /* SalesSections.swift */; };
-		2AE7F9D12555E23B00847496 /* CostStructureSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE7F9D02555E23B00847496 /* CostStructureSection.swift */; };
 		2AF0820425553AE700C66CAF /* Equipment Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0820325553AE700C66CAF /* Equipment Sample.swift */; };
 		2AF0820725553C3300C66CAF /* Expenses Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0820625553C3300C66CAF /* Expenses Sample.swift */; };
 		2AF0820A25553CDB00C66CAF /* Ingredient Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF0820925553CDB00C66CAF /* Ingredient Sample.swift */; };
@@ -350,7 +349,6 @@
 		2AE6DB422513CE7E00457D74 /* PCM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCM.swift; sourceTree = "<group>"; };
 		2AE7F9C92555DAC300847496 /* ProductionCostStructureSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionCostStructureSection.swift; sourceTree = "<group>"; };
 		2AE7F9CC2555DDB100847496 /* SalesSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesSections.swift; sourceTree = "<group>"; };
-		2AE7F9D02555E23B00847496 /* CostStructureSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CostStructureSection.swift; sourceTree = "<group>"; };
 		2AF0820325553AE700C66CAF /* Equipment Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Equipment Sample.swift"; sourceTree = "<group>"; };
 		2AF0820625553C3300C66CAF /* Expenses Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expenses Sample.swift"; sourceTree = "<group>"; };
 		2AF0820925553CDB00C66CAF /* Ingredient Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient Sample.swift"; sourceTree = "<group>"; };
@@ -540,7 +538,6 @@
 				2AE7F9CC2555DDB100847496 /* SalesSections.swift */,
 				2A9D280825681399007D0AA4 /* ProductionSection.swift */,
 				2AE7F9C92555DAC300847496 /* ProductionCostStructureSection.swift */,
-				2AE7F9D02555E23B00847496 /* CostStructureSection.swift */,
 				2A936E6024C7051500C34381 /* IngredientView.swift */,
 				2A8B35F424EE5DD300A829DD /* PackagingView.swift */,
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
@@ -972,7 +969,6 @@
 				2AD51E2F24ED51EF00BE3005 /* SalesDraft.swift in Sources */,
 				2A9B996C25542B9D0062A1C2 /* Buyer Sample.swift in Sources */,
 				2A31654A24CCD32000AF68A1 /* Packaging.swift in Sources */,
-				2AE7F9D12555E23B00847496 /* CostStructureSection.swift in Sources */,
 				2A9FC7F72515EA6F00C4AD0D /* PriceCostMarginSection.swift in Sources */,
 				2AE6DB372512033700457D74 /* Ingredientable.swift in Sources */,
 				2A9F592824FA416B00E0EDAB /* Periodable.swift in Sources */,
@@ -1121,7 +1117,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
@@ -1146,7 +1142,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Factory Model/Factory Model.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_ASSET_PATHS = "\"Factory Model/Preview Content\"";
 				DEVELOPMENT_TEAM = VRVJ9YNRQU;
 				ENABLE_PREVIEWS = YES;
