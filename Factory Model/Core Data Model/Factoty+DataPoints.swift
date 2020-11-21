@@ -15,8 +15,30 @@ extension Factory {
         bases.flatMap(\.products)
     }
     
+    func baseListWithProductionWeightNetto(in period: Period) -> String {
+        bases
+            .filter {
+                $0.produced(in: period).weightNetto > 0
+            }
+            .map {
+                "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)"
+            }
+            .joined(separator: ", ")
+    }
+    
+    func productListWithProductionWeightNetto(in period: Period) -> String {
+        products
+            .filter {
+                $0.produced(in: period).weightNetto > 0
+            }
+            .map {
+                "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)"
+            }
+            .joined(separator: ", ")
+    }
+    
     //  MARK: Weight Netto
-        
+    
     func salesWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let weight = sold(in: period).weightNettoTons
         let title = title ?? "Weight Netto, t"
@@ -250,7 +272,7 @@ extension Factory {
         return DataBlock(icon: Utility.icon, title: "Utility", value: utilities.formattedPercentageWith1Decimal, data: data)
     }
     
-
+    
     //  MARK: Margin
     
     func marginDataPoints(in period: Period) -> DataBlock {

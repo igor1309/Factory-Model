@@ -200,21 +200,19 @@ extension Factory: Summarizable {
             Production \(produced(in: period).weightNettoTonsStr) tons
             Market Value \(produced(in: period).priceStr)
             Cost \(produced(in: period).cost.fullCostStr)
+                    
+            Bases: \(baseListWithProductionWeightNetto(in: period))
+            Production per year \(produced(in: .year()).weightNettoTonsStr) tons
 
             Sales \(sold(in: period).weightNettoTonsStr) tons
             \(sold(in: period).priceStr)
-
             Margin \(sold(in: period).marginStr) (\(sold(in: period).marginPercentageStr))
 
             Headcount \(headcount)
-
             (??) Work Hours
             - production \(productionWorkHours(in: period).formattedGrouped)
             - total \(workHours(in: period).formattedGrouped)
-                    
-            TBD: Base product lists with production volume (in their units): Сулугуни (10,000), Хинкали(15,000)
 
-            Production per year \(produced(in: .year()).weightNettoTonsStr) tons
             Equipment \(equipmentTotal.formattedGrouped)
             """
     }

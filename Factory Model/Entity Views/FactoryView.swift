@@ -254,7 +254,7 @@ struct FactoryView_Previews: PreviewProvider {
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("Group One", displayMode: .inline)
             }
-            .previewLayout(.fixed(width: 350, height: 820))
+            .previewLayout(.fixed(width: 350, height: 800))
             
             NavigationView {
                 List {

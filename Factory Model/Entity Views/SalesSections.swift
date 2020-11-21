@@ -39,19 +39,12 @@ struct SalesSections: View {
             //  MARK: Volumes
             //
             VStack(alignment: .leading, spacing: 6) {
-                Text("TBD: change sample data to real")
-                    .foregroundColor(.systemRed)
-                    .font(.footnote)
-                
                 Text("Volume".uppercased())
                     .foregroundColor(.secondary)
                     .font(.caption)
                 
-                DataPointsView(dataBlock: factory.revenueDataPoints(in: settings.period, title: "Products"))
+                DataPointsView(dataBlock: factory.salesWeightNettoDataPoints(in: settings.period, title: nil))
                     .foregroundColor(Product.color)
-                
-                DataPointsView(dataBlock: factory.basesRevenueDataPoints(in: settings.period, title: "Base Products"))
-                    .foregroundColor(Base.color)
             }
             .padding(.vertical, 3)
             
@@ -92,6 +85,6 @@ struct SalesSections_Previews: PreviewProvider {
         .environment(\.managedObjectContext, PersistenceManager.previewContext)
         .environmentObject(Settings())
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 820))
+        .previewLayout(.fixed(width: 350, height: 750))
     }
 }
