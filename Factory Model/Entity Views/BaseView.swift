@@ -50,14 +50,14 @@ struct BaseView: View {
             Group {
                 ProductionOutputSection(for: base)
                 
-                CostSection(base.unit(in: settings.period).cost)
-                CostSection(base.perKilo(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(base.unit(in: settings.period).cost)
+                CostSection<EmptyView>(base.perKilo(in: settings.period).cost, showBarChart: false)
                 
-                CostSection(base.produced(in: settings.period).cost, showBarChart: false)
-                CostSection(base.produced(in: settings.period).cost)
+                CostSection<EmptyView>(base.produced(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(base.produced(in: settings.period).cost)
                 
-                CostSection(base.sold(in: settings.period).cost, showBarChart: false)
-                CostSection(base.sold(in: settings.period).cost)
+                CostSection<EmptyView>(base.sold(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(base.sold(in: settings.period).cost)
             }
             
             Group {

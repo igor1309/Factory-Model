@@ -67,14 +67,14 @@ struct ProductView: View {
             Group {
                 ProductionOutputSection(for: product)
                 
-                CostSection(product.unit(in: settings.period).cost)
-                CostSection(product.perKilo(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(product.unit(in: settings.period).cost)
+                CostSection<EmptyView>(product.perKilo(in: settings.period).cost, showBarChart: false)
 
-                CostSection(product.produced(in: settings.period).cost, showBarChart: false)
-                CostSection(product.produced(in: settings.period).cost)
+                CostSection<EmptyView>(product.produced(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(product.produced(in: settings.period).cost)
                 
-                CostSection(product.sold(in: settings.period).cost, showBarChart: false)
-                CostSection(product.sold(in: settings.period).cost)
+                CostSection<EmptyView>(product.sold(in: settings.period).cost, showBarChart: false)
+                CostSection<EmptyView>(product.sold(in: settings.period).cost)
             }
             
             Group {

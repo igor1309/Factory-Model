@@ -7,21 +7,27 @@
 
 import SwiftUI
 
-struct CostSection: View {
-    let cost: Cost
-    var showBarChart: Bool
-    var barHeight: CGFloat
+
+struct CostSection<V: View>: View {
+    typealias Bottom = () -> V
     
-    init(_ cost: Cost, showBarChart: Bool) {
+    let cost: Cost
+    let showBarChart: Bool
+    let barHeight: CGFloat
+    let bottom: Bottom?
+    
+    init(_ cost: Cost, showBarChart: Bool, bottom: Bottom? = nil) {
         self.cost = cost
         self.showBarChart = false
         self.barHeight = 3
+        self.bottom = bottom
     }
     
-    init(_ cost: Cost, barHeight: CGFloat = 3) {
+    init(_ cost: Cost, barHeight: CGFloat = 3, bottom: Bottom? = nil) {
         self.cost = cost
         self.showBarChart = true
         self.barHeight = barHeight
+        self.bottom = bottom
     }
     
     var body: some View {
@@ -33,6 +39,10 @@ struct CostSection: View {
                     CostView(cost, barHeight: barHeight)
                 } else {
                     CostView(cost, showBarChart: false)
+                }
+                
+                if let bottom = bottom {
+                    bottom()
                 }
             }
         }
@@ -121,18 +131,26 @@ struct CostView: View {
 
 struct CostSection_Previews: PreviewProvider {
     static var previews: some View {
-        Form {
-            Section(header: Text("Cost Views")) {
-                CostView(Cost.example, barHeight: 3)
-                CostView(Cost.example, barHeight: 6)
+        NavigationView {
+            List {
+                Section(header: Text("Cost Views")) {
+                    CostView(Cost.example, barHeight: 3)
+                    CostView(Cost.example, barHeight: 6)
+                    
+                    CostView(Cost.example, showBarChart: false)
+                }
                 
-                CostView(Cost.example, showBarChart: false)
+                Text("Cost Sections below")
+                CostSection<EmptyView>(Cost.example, barHeight: 3)
+                CostSection(Cost.example, showBarChart: false) {
+                    NavigationLink(destination: Text("<Extra here>")) {  Text("More…")
+                    }
+                }
             }
-            
-            CostSection(Cost.example, barHeight: 3)
-            CostSection(Cost.example, showBarChart: false)
+            .listStyle(InsetGroupedListStyle())
+            .navigationBarTitle("Cost Views & Sections", displayMode: .inline)
         }
         .preferredColorScheme(.dark)
-        .previewLayout(.fixed(width: 350, height: 900))
+        .previewLayout(.fixed(width: 350, height: 1000))
     }
 }

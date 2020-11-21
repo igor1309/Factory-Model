@@ -49,7 +49,7 @@ struct SalesSections: View {
         }
         
         
-        CostSection(factory.sold(in: settings.period).cost)
+        CostSection<EmptyView>(factory.sold(in: settings.period).cost)
     }
 }
 
