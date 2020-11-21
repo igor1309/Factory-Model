@@ -53,8 +53,8 @@ struct ProductDataCostSection<
                     FinListRow(
                         type:       Ingredient.self,
                         title:      "Ingredients",
-                        detail:     perKilo.ingredient.valueStr,
-                        percentage: perKilo.ingredient.percentageStr
+                        detail:     perKilo.components[0].valueStr,
+                        percentage: perKilo.components[0].percentageStr
                     )
                 }
                 
@@ -64,8 +64,8 @@ struct ProductDataCostSection<
                     FinListRow(
                         type:       Department.self,
                         title:      "Salary",
-                        detail:     perKilo.salary.valueStr,
-                        percentage: perKilo.salary.percentageStr
+                        detail:     perKilo.components[1].valueStr,
+                        percentage: perKilo.components[1].percentageStr
                     )
                 }
                 
@@ -75,8 +75,8 @@ struct ProductDataCostSection<
                     FinListRow(
                         type:       Equipment.self,
                         title:      "Depreciation",
-                        detail:     perKilo.depreciation.valueStr,
-                        percentage: perKilo.depreciation.percentageStr
+                        detail:     perKilo.components[2].valueStr,
+                        percentage: perKilo.components[2].percentageStr
                     )
                 }
                 
@@ -86,16 +86,16 @@ struct ProductDataCostSection<
                     FinListRow(
                         type:       Utility.self,
                         title:      "Utility",
-                        detail:     perKilo.utility.valueStr,
-                        percentage: perKilo.utility.percentageStr
+                        detail:     perKilo.components[3].valueStr,
+                        percentage: perKilo.components[3].percentageStr
                     )
                 }
                 
                 HBar(
-                    [ColorPercentage(Ingredient.color, perKilo.ingredient.percentage),
-                     ColorPercentage(Employee.color,   perKilo.salary.percentage),
-                     ColorPercentage(Equipment.color,  perKilo.depreciation.percentage),
-                     ColorPercentage(Utility.color,    perKilo.utility.percentage)],
+                    [ColorPercentage(Ingredient.color, perKilo.components[0].percentage),
+                     ColorPercentage(Employee.color,   perKilo.components[1].percentage),
+                     ColorPercentage(Equipment.color,  perKilo.components[2].percentage),
+                     ColorPercentage(Utility.color,    perKilo.components[3].percentage)],
                     height: 3
                 )
                 

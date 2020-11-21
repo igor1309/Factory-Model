@@ -70,48 +70,25 @@ struct CostView: View {
     var body: some View {
         if cost.fullCost > 0 {
             VStack(alignment: .leading, spacing: 4) {
-                FinancialRow(
-                    DataPointWithShare(
-                        title: "Ingredients",
-                        value: cost.ingredient.valueStr,
-                        percentage: cost.ingredient.percentageStr
-                    )
-                )
-                .foregroundColor(Ingredient.color)
                 
-                FinancialRow(
-                    DataPointWithShare(
-                        title: "Salary with tax",
-                        value: cost.salary.valueStr,
-                        percentage: cost.salary.percentageStr
+                ForEach(cost.components) { item in
+                    FinancialRow(
+                        DataPointWithShare(
+                            title: item.title,
+                            value: item.valueStr,
+                            percentage: item.percentageStr
+                        )
                     )
-                )
-                .foregroundColor(Employee.color)
-                
-                FinancialRow(
-                    DataPointWithShare(
-                        title: "Depreciation",
-                        value: cost.depreciation.valueStr,
-                        percentage: cost.depreciation.percentageStr
-                    )
-                )
-                .foregroundColor(Equipment.color)
-                
-                FinancialRow(
-                    DataPointWithShare(
-                        title: "Utility",
-                        value: cost.utility.valueStr,
-                        percentage: cost.utility.percentageStr
-                    )
-                )
-                .foregroundColor(Utility.color)
-                
+                    .foregroundColor(item.color)
+                }
+                                
                 VStack(spacing: 0) {
                     if showBarChart {
                         HBar(cost.chartData, height: barHeight)
                             .padding(.top, 3)
                     } else {
                         Divider()
+                            .padding(.bottom, 3)
                     }
                     
                     FinancialRow(

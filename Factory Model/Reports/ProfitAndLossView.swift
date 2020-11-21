@@ -53,13 +53,13 @@ struct ProfitAndLossView: View {
                         Group {
                             FinancialRow(
                                 "Ingredient Cost, ex VAT",
-                                value:      salesCost.ingredient.value,
-                                percentage: salesCost.ingredient.percentage
+                                value:      salesCost.components[0].value,
+                                percentage: salesCost.components[0].percentage
                             )
                             FinancialRow(
                                 "Salary incl taxes",
-                                value:      salesCost.salary.value,
-                                percentage: salesCost.salary.percentage
+                                value:      salesCost.components[1].value,
+                                percentage: salesCost.components[1].percentage
                             )
                             FinancialRow(
                                 "Depreciation",
@@ -68,8 +68,8 @@ struct ProfitAndLossView: View {
                             )
                             FinancialRow(
                                 "Utilities, ex VAT",
-                                value:      salesCost.utility.value,
-                                percentage: salesCost.utility.percentage
+                                value:      salesCost.components[2].value,
+                                percentage: salesCost.components[2].percentage
                             )
                         }
                         .foregroundColor(.secondary)
@@ -77,7 +77,7 @@ struct ProfitAndLossView: View {
                         FinancialRow(
                             "COGS",
                             value:      salesCost.fullCost,
-                            percentage: salesCost.utility.percentage
+                            percentage: salesCost.components[3].percentage
                         )
                     }
                     
@@ -174,8 +174,8 @@ struct ProfitAndLossView: View {
                         Group {
                             FinancialRow(
                                 "Production Salary",
-                                value:      factory.produced(in: settings.period).cost.salary.value,
-                                percentage: factory.produced(in: settings.period).cost.salary.percentage
+                                value:      factory.produced(in: settings.period).cost.components[1].value,
+                                percentage: factory.produced(in: settings.period).cost.components[1].percentage
                             )
                             FinancialRow(
                                 "Non Production Salary",

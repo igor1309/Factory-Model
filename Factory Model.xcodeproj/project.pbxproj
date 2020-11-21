@@ -51,6 +51,7 @@
 		2A33A47D24F29725001DAE71 /* FinListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A33A47C24F29725001DAE71 /* FinListRow.swift */; };
 		2A360C3C24D8077A00804C87 /* SimpleCardViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */; };
 		2A3746E824CDF97D008D40F1 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3746E724CDF97D008D40F1 /* Recipe.swift */; };
+		2A40F6FC25693A19000EBD2F /* FactoryPersonnelSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40F6FB25693A19000EBD2F /* FactoryPersonnelSection.swift */; };
 		2A43472D24F56A1200ADCB23 /* Laborable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43472C24F56A1200ADCB23 /* Laborable.swift */; };
 		2A43472F24F56E1800ADCB23 /* Division Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43472E24F56E1800ADCB23 /* Division Sample.swift */; };
 		2A43473124F5701400ADCB23 /* LaborView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43473024F5701400ADCB23 /* LaborView.swift */; };
@@ -225,6 +226,7 @@
 		2A33A47C24F29725001DAE71 /* FinListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinListRow.swift; sourceTree = "<group>"; };
 		2A360C3B24D8077A00804C87 /* SimpleCardViewModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleCardViewModifier.swift; sourceTree = "<group>"; };
 		2A3746E724CDF97D008D40F1 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		2A40F6FB25693A19000EBD2F /* FactoryPersonnelSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryPersonnelSection.swift; sourceTree = "<group>"; };
 		2A43472C24F56A1200ADCB23 /* Laborable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Laborable.swift; sourceTree = "<group>"; };
 		2A43472E24F56E1800ADCB23 /* Division Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Division Sample.swift"; sourceTree = "<group>"; };
 		2A43473024F5701400ADCB23 /* LaborView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaborView.swift; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 				2AE7F9CC2555DDB100847496 /* SalesSections.swift */,
 				2A9D280825681399007D0AA4 /* ProductionSection.swift */,
 				2AE7F9C92555DAC300847496 /* ProductionCostStructureSection.swift */,
+				2A40F6FB25693A19000EBD2F /* FactoryPersonnelSection.swift */,
 				2A936E6024C7051500C34381 /* IngredientView.swift */,
 				2A8B35F424EE5DD300A829DD /* PackagingView.swift */,
 				2A02DF1B24CAF30D00A6E35A /* ProductView.swift */,
@@ -909,6 +912,7 @@
 				2AFF9FFB2557DDEC00004B82 /* ProductDataCostSection.swift in Sources */,
 				2AADA09C24C4F4A8005F1E9F /* ContentView.swift in Sources */,
 				2A936E6524C7147100C34381 /* SalesList.swift in Sources */,
+				2A40F6FC25693A19000EBD2F /* FactoryPersonnelSection.swift in Sources */,
 				2A2F4BA324C4FC1600B2F8D9 /* Sales.swift in Sources */,
 				2A5C94672510EF0B00DE7DF2 /* CostView.swift in Sources */,
 				2ABB435F24EE6ED00036F42F /* BuyerView.swift in Sources */,

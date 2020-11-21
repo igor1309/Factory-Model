@@ -204,7 +204,7 @@ extension Factory {
             .compactMap(\.ingredient)
     }
     func ingredientsDetail(in period: Period) -> String {
-        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(produced(in: period).cost.ingredient.valueStr)"
+        "Total Cost ex VAT of \(ingredients.count) Ingredients used in Production \(produced(in: period).cost.components[0].valueStr)"
     }
     
     

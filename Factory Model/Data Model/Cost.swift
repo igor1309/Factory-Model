@@ -12,19 +12,13 @@ struct Cost {
     init(
         title: String,
         header: String,
-        ingredient: CostComponent,
-        salary: CostComponent,
-        depreciation: CostComponent,
-        utility: CostComponent,
+        components: [CostComponent],
         formatWithDecimal: Bool = false
     ) {
         self.title = title
         self.header = header
         self.formatWithDecimal = formatWithDecimal
-        self.ingredient = ingredient
-        self.salary = salary
-        self.depreciation = depreciation
-        self.utility = utility
+        self.components = components
     }
     
     let title: String
@@ -32,21 +26,11 @@ struct Cost {
     
     let formatWithDecimal: Bool
     
-    /// Ingredient Cost ex VAT
-    let ingredient: CostComponent//Double
-    /// Production Salary with Tax
-    let salary: CostComponent//Double
-    /// Depreciation
-    let depreciation: CostComponent//Double
-    /// Utility ex VAT
-    let utility: CostComponent//Double
+    let components: [CostComponent]
     
     /// Full Cost
     var fullCost: Double {
-        ingredient.value
-            + salary.value
-            + depreciation.value
-            + utility.value
+        components.reduce(0, { $0 + $1.value})
     }
     
     //  MARK: Formatted Strings
@@ -64,12 +48,9 @@ struct Cost {
     //  MARK: Chart Data
     
     var chartData: [ColorPercentage] {
-        [
-            ColorPercentage(Ingredient.color, ingredient.percentage),
-            ColorPercentage(Employee.color, salary.percentage),
-            ColorPercentage(Equipment.color, depreciation.percentage),
-            ColorPercentage(Utility.color, utility.percentage)
-        ]
+        components.map {
+            ColorPercentage($0.color, $0.percentage)
+        }
     }
 }
 
@@ -79,10 +60,9 @@ extension Cost {
         Cost(
             title: self.title,
             header: self.header,
-            ingredient: self.ingredient.multiplying(by: number, formatWithDecimal: formatWithDecimal),
-            salary: self.salary.multiplying(by: number, formatWithDecimal: formatWithDecimal),
-            depreciation: self.depreciation.multiplying(by: number, formatWithDecimal: formatWithDecimal),
-            utility: self.utility.multiplying(by: number, formatWithDecimal: formatWithDecimal),
+            components: components.map {
+                $0.multiplying(by: number, formatWithDecimal: formatWithDecimal)
+            },
             formatWithDecimal: formatWithDecimal
         )
     }
@@ -91,10 +71,7 @@ extension Cost {
         Cost(
             title: lhs.title,
             header: lhs.header,
-            ingredient: lhs.ingredient + rhs.ingredient,
-            salary: lhs.salary + rhs.salary,
-            depreciation: lhs.depreciation + rhs.depreciation,
-            utility: lhs.utility + rhs.utility,
+            components: zip(lhs.components, rhs.components).map(+),
             formatWithDecimal: lhs.formatWithDecimal
         )
     }
@@ -113,10 +90,7 @@ extension Cost {
         Cost(
             title: lhs.title,
             header: lhs.header,
-            ingredient: lhs.ingredient / rhs,
-            salary: lhs.salary / rhs,
-            depreciation: lhs.depreciation / rhs,
-            utility: lhs.utility / rhs,
+            components: lhs.components.map { $0 / rhs },
             formatWithDecimal: lhs.formatWithDecimal
         )
     }
@@ -127,10 +101,12 @@ extension Cost {
         Cost(
             title: "Test Cost",
             header: "Production Cost Structure",
-            ingredient: CostComponent.ingredient,
-            salary: CostComponent.salary,
-            depreciation: CostComponent.depreciation,
-            utility: CostComponent.utility
+            components: [
+                CostComponent.ingredient,
+                CostComponent.salary,
+                CostComponent.depreciation,
+                CostComponent.utility
+            ]
         )
     }
 }

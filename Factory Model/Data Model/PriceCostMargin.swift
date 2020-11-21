@@ -72,13 +72,10 @@ extension PriceCostMargin {
         let cost = Cost(
             title: title,
             header: header,
-            ingredient: self.cost.ingredient,
-            salary: self.cost.salary,
-            depreciation: self.cost.depreciation,
-            utility: self.cost.utility,
+            components: self.cost.components,
             formatWithDecimal: self.cost.formatWithDecimal
         )
-            
+        
         return PriceCostMargin(
             price: price,
             cost: cost,
@@ -96,16 +93,34 @@ extension PriceCostMargin {
         )
     }
     
-    static func zero(title: String, header: String) -> PriceCostMargin {
-        PriceCostMargin(
+    static func productionZero(title: String, header: String) -> PriceCostMargin {
+        let components = [
+            CostComponent.zero(title: "Ingredient", color: Ingredient.color),
+            CostComponent.zero(title: "Salary", color: Employee.color),
+            CostComponent.zero(title: "Depreciation", color: Equipment.color),
+            CostComponent.zero(title: "Utility", color: Utility.color)
+        ]
+        
+        return PriceCostMargin(
             price: 0,
+            cost: Cost(title: title, header: header, components: components),
+            weightNetto: 0,
+            formatWithDecimal: true
+        )
+    }
+    
+    static var example: PriceCostMargin {
+        PriceCostMargin(
+            price: 12345,
             cost: Cost(
-                title: title,
-                header: header,
-                ingredient: CostComponent.zero,
-                salary: CostComponent.zero,
-                depreciation: CostComponent.zero,
-                utility: CostComponent.zero
+                title: "Example PCM",
+                header: "PriceCostMargin",
+                components: [
+                    CostComponent.zero(title: "Ingredient", color: Ingredient.color),
+                    CostComponent.zero(title: "Salary", color: Employee.color),
+                    CostComponent.zero(title: "Depreciation", color: Equipment.color),
+                    CostComponent.zero(title: "Utility", color: Utility.color)
+                ]
             ),
             weightNetto: 0,
             formatWithDecimal: true
@@ -120,14 +135,14 @@ extension PriceCostMargin {
             formatWithDecimal: lhs.formatWithDecimal
         )
     }
-//    static func * (_ lhs: Double, _ rhs: PriceCostMargin) -> PriceCostMargin {
-//        PriceCostMargin(
-//            price: lhs * rhs.price,
-//            cost: lhs * rhs.cost,
-//            weightNetto: lhs * rhs.weightNetto,
-//            formatWithDecimal: rhs.formatWithDecimal
-//        )
-//    }
+    //    static func * (_ lhs: Double, _ rhs: PriceCostMargin) -> PriceCostMargin {
+    //        PriceCostMargin(
+    //            price: lhs * rhs.price,
+    //            cost: lhs * rhs.cost,
+    //            weightNetto: lhs * rhs.weightNetto,
+    //            formatWithDecimal: rhs.formatWithDecimal
+    //        )
+    //    }
     static func / (_ lhs: PriceCostMargin, _ rhs: Double) -> PriceCostMargin {
         PriceCostMargin(
             price: lhs.price / rhs,

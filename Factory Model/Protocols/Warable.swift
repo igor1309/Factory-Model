@@ -98,26 +98,36 @@ extension Base: Warable {
             cost: Cost(
                 title: "Cost per Unit",
                 header: "Cost per Unit",
-                ingredient: CostComponent(
-                    value: ingredient,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                salary: CostComponent(
-                    value: salary,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                depreciation: CostComponent(
-                    value: depreciation,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                utility: CostComponent(
-                    value: utility,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
+                components: [
+                    CostComponent(
+                        title: "Ingredient",
+                        value: ingredient,
+                        color: Ingredient.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Salary",
+                        value: salary,
+                        color: Employee.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Equipment",
+                        value: depreciation,
+                        color: Equipment.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Utility",
+                        value: utility,
+                        color: Utility.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    )
+                ],
                 formatWithDecimal: formatWithDecimal
             ),
             weightNetto: weightNetto,
@@ -201,26 +211,36 @@ extension Product: Warable {
             cost: Cost(
                 title: "Cost per Unit",
                 header: "Cost per Unit",
-                ingredient: CostComponent(
-                    value: ingredient,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                salary: CostComponent(
-                    value: salary,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                depreciation: CostComponent(
-                    value: depreciation,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
-                utility: CostComponent(
-                    value: utility,
-                    fullCost: fullCost,
-                    formatWithDecimal: formatWithDecimal
-                ),
+                components: [
+                    CostComponent(
+                        title: "Ingredient",
+                        value: ingredient,
+                        color: Ingredient.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Salary",
+                        value: salary,
+                        color: Employee.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Equipment",
+                        value: depreciation,
+                        color: Equipment.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    ),
+                    CostComponent(
+                        title: "Utility",
+                        value: utility,
+                        color: Utility.color,
+                        fullCost: fullCost,
+                        formatWithDecimal: formatWithDecimal
+                    )
+                ],
                 formatWithDecimal: formatWithDecimal
             ),
             weightNetto: weightNetto,

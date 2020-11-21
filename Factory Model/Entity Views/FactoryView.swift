@@ -156,44 +156,6 @@ fileprivate struct FactoryProcurementSection: View {
     }
 }
 
-fileprivate struct FactoryPersonnelSection: View {
-    @EnvironmentObject private var settings: Settings
-    
-    let factory: Factory
-    
-    init(for factory: Factory) {
-        self.factory = factory
-    }
-    
-    var body: some View {
-        Section(header: Text("Personnel")) {
-            Group {
-                NavigationLink(
-                    destination: DivisionList(for: factory)
-                ) {
-                    ListRow(
-                        title: "Divisions",
-                        subtitle: "Salary incl taxes \(factory.salaryWithTax(in: settings.period).formattedGrouped)",
-                        detail: factory.divisionNames,
-                        icon: "person.crop.rectangle",
-                        color: Division.color
-                    )
-                }
-                
-                NavigationLink(
-                    destination: EmployeeList(for: factory)
-                ) {
-                    ListRow(
-                        title: "People (\(factory.headcount.formattedGrouped))",
-                        icon: Department.icon,
-                        color: Department.color
-                    )
-                }
-            }
-        }
-    }
-}
-
 fileprivate struct FactoryEquipmentSection: View {
     let factory: Factory
     
@@ -299,7 +261,7 @@ struct FactoryView_Previews: PreviewProvider {
                 .listStyle(InsetGroupedListStyle())
                 .navigationBarTitle("FactoryPersonnelSection", displayMode: .inline)
             }
-            .previewLayout(.fixed(width: 350, height: 300))
+            .previewLayout(.fixed(width: 350, height: 500))
             
             NavigationView {
                 List {

@@ -72,14 +72,14 @@ extension Factory: Merch {
     /// data per kilo
     func perKilo(in period: Period) -> PriceCostMargin {
         //  MARK: - FINISH THIS
-        PriceCostMargin.zero(title: "Cost Per Kilo", header: "Cost Per Kilo")
+        PriceCostMargin.productionZero(title: "Cost Per Kilo", header: "Cost Per Kilo")
     }
     /// data for all sold products (revenue, cost, etc.)
     func sold(in period: Period) -> PriceCostMargin {
         let header = "Sales Cost Structure"
         let title = "Sales Cost"
         let pcm = products
-            .reduce(PriceCostMargin.zero(title: title, header: header)) { $0 + $1.sold(in: period) }
+            .reduce(PriceCostMargin.productionZero(title: title, header: header)) { $0 + $1.sold(in: period) }
             .multiplying(by: 1, formatWithDecimal: false)
         
         return pcm
@@ -89,7 +89,7 @@ extension Factory: Merch {
         let header = "Production Cost Structure"
         let title = "Production Cost"
         let pcm = bases
-            .reduce(PriceCostMargin.zero(title: title, header: header)) { $0 + $1.produced(in: period) }
+            .reduce(PriceCostMargin.productionZero(title: title, header: header)) { $0 + $1.produced(in: period) }
             .multiplying(by: 1, formatWithDecimal: false)
         
         return pcm

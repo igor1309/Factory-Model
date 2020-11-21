@@ -5,39 +5,155 @@
 //  Created by Igor Malyarov on 01.09.2020.
 //
 
-import Foundation
+import SwiftUI
+
+//  MARK: Data Points
+
+let colors: [Color] = [.orange, .purple, .systemIndigo, .yellow, .systemTeal, .blue, .green, .pink, .systemOrange, .systemPurple, .systemTeal]
 
 extension Factory {
-    
-    //  MARK: - Data Points
     
     var products: [Product] {
         bases.flatMap(\.products)
     }
     
+    
+    //  MARK: - Personnel
+    
+    func personnelByDivisionCost(in period: Period, title: String? = nil) -> Cost {
+        let totalSalary = salaryWithTax(in: period)
+        
+        let components = zip(divisions, colors)
+            .map {
+                CostComponent(
+                    title: $0.0.name,
+                    value: $0.0.salaryWithTax(in: period),
+                    color: $0.1,
+                    fullCost: totalSalary,
+                    formatWithDecimal: false
+                )
+            }
+
+        return Cost(title: "Total", header: "Salary by Division", components: components, formatWithDecimal: false)
+    }
+    
+    func personnelByDepartmentCost(in period: Period, title: String? = nil) -> Cost {
+        let totalSalary = salaryWithTax(in: period)
+        let departments = divisions.flatMap { $0.departments }
+        let components: [CostComponent] = zip(departments, colors.dropFirst(3))
+            .map {
+                CostComponent(
+                    title: $0.0.name,
+                    value: $0.0.salaryWithTax(in: period),
+                    color: $0.1,
+                    fullCost: totalSalary,
+                    formatWithDecimal: false
+                )
+            }
+        
+        return Cost(title: "Total", header: "Salary by Department", components: components, formatWithDecimal: false)
+    }
+    
+    func personnelByDepartmentTypeCost(in period: Period, title: String? = nil) -> Cost {
+        let totalSalary = salaryWithTax(in: period)
+        
+        let grouped = divisions.flatMap { $0.departments }
+        let d: [Department.DepartmentType : [Department]] = Dictionary(grouping: grouped) { $0.type }
+        
+        let components1: [CostComponent] = d
+            .map {
+                CostComponent(
+                    title: $0.key.rawValue.capitalized,
+                    value: $0.value.reduce(0, { $0 + $1.salaryWithTax(in: period) }),
+                    //  MARK: - FINISH THIS SET COLORS FOR DIVISIONS
+                    color: .secondary,
+                    fullCost: totalSalary,
+                    formatWithDecimal: false
+                )
+            }
+            /// using Dictionary so need to sort for consistency
+            .sorted { $0.title < $1.title }
+        
+        let components = zip(components1, colors.reversed())
+            .map {
+                CostComponent(
+                    title: $0.0.title,
+                    value: $0.0.value,
+                    color: $0.1,
+                    fullCost: $0.0.fullCost,
+                    formatWithDecimal: $0.0.formatWithDecimal
+                )
+            }
+        
+        return Cost(title: "Total", header: "Salary by Department Type", components: components, formatWithDecimal: false)
+    }
+    
+    func personnelByDivisionDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let salary = salaryWithTax(in: period)
+        let title = title ?? "Salary"
+        let data = divisions.map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.salaryWithTax(in: period).formattedGrouped,
+                percentage: (salary == 0 ? 0 : $0.salaryWithTax(in: period) / salary).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: "dollarsign.square", title: title, value: salary.formattedGrouped, data: data)
+    }
+    
+    func personnelByDepartmentTypeDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let salary = salaryWithTax(in: period)
+        let title = title ?? "Salary"
+        let data = divisions
+            .flatMap { $0.departments }
+            //  MARK: - FINISH THIS GROUP BY DEPARTMENT TYPE
+            .map {
+                DataPointWithShare(
+                    title: $0.name,
+                    value: $0.salaryWithTax(in: period).formattedGrouped,
+                    percentage: (salary == 0 ? 0 : $0.salaryWithTax(in: period) / salary).formattedPercentage
+                )
+            }
+        
+        return DataBlock(icon: "dollarsign.square", title: title, value: salary.formattedGrouped, data: data)
+    }
+    
+    func personnelByDepartmentDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let salary = salaryWithTax(in: period)
+        let title = title ?? "Salary"
+        let data = divisions
+            .flatMap { $0.departments }
+            .map {
+            DataPointWithShare(
+                title: $0.name,
+                value: $0.salaryWithTax(in: period).formattedGrouped,
+                percentage: (salary == 0 ? 0 : $0.salaryWithTax(in: period) / salary).formattedPercentage
+            )
+        }
+        
+        return DataBlock(icon: "dollarsign.square", title: title, value: salary.formattedGrouped, data: data)
+    }
+    
+
+    //  MARK: - Bases & Products Lists (Strings
+    
     func baseListWithProductionWeightNetto(in period: Period) -> String {
         bases
-            .filter {
-                $0.produced(in: period).weightNetto > 0
-            }
-            .map {
-                "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)"
-            }
+            .filter { $0.produced(in: period).weightNetto > 0 }
+            .map { "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)" }
             .joined(separator: ", ")
     }
     
     func productListWithProductionWeightNetto(in period: Period) -> String {
         products
-            .filter {
-                $0.produced(in: period).weightNetto > 0
-            }
-            .map {
-                "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)"
-            }
+            .filter { $0.produced(in: period).weightNetto > 0 }
+            .map { "\($0.name) (\($0.produced(in: period).weightNettoTonsStr)t)" }
             .joined(separator: ", ")
     }
     
-    //  MARK: Weight Netto
+    
+    //  MARK: - Weight Netto
     
     func salesWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let weight = sold(in: period).weightNettoTons
@@ -82,7 +198,7 @@ extension Factory {
     }
     
     
-    //  MARK: Revenue
+    //  MARK: - Revenue
     
     func revenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let revenue = revenueExVAT(in: period)
@@ -113,7 +229,7 @@ extension Factory {
     }
     
     
-    //  MARK: Avg Price and Cost per Kilo
+    //  MARK: - Avg Price and Cost per Kilo
     
     func avgPricePerKiloExVATDataPoints(in period: Period) -> DataBlock {
         //avgPricePerKiloExVAT(in: period)
@@ -150,15 +266,15 @@ extension Factory {
     }
     
     
-    //  MARK: Output (production) Cost Structure Data Points
+    //  MARK: - Output (production) Cost Structure Data Points
     
     func productionIngredientCostExVATDataPoints(in period: Period) -> DataBlock {
-        let ingredientsStr = produced(in: period).cost.ingredient.valueStr
+        let ingredientsStr = produced(in: period).cost.components[0].valueStr
         let data = bases.map {
             DataPointWithShare(
                 title:      $0.name,
-                value:      $0.produced(in: period).cost.ingredient.valueStr,
-                percentage: $0.produced(in: period).cost.ingredient.percentageStr
+                value:      $0.produced(in: period).cost.components[0].valueStr,
+                percentage: $0.produced(in: period).cost.components[0].percentageStr
             )
         }
         
@@ -179,7 +295,7 @@ extension Factory {
     }
     
     func depreciationDataPoints(in period: Period) -> DataBlock {
-        let depreciation = produced(in: period).cost.depreciation.value
+        let depreciation = produced(in: period).cost.components[2].value
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
@@ -192,12 +308,12 @@ extension Factory {
     }
     
     func utilitiesExVATDataPoints(in period: Period) -> DataBlock {
-        let utilities = sold(in: period).cost.utility.value
+        let utilities = sold(in: period).cost.components[3].value
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
                 value: $0.utilitiesExVAT(in: period).formattedGrouped,
-                percentage: (utilities == 0 ? 0 : $0.sold(in: period).cost.utility.value / utilities).formattedPercentage
+                percentage: (utilities == 0 ? 0 : $0.sold(in: period).cost.components[3].value / utilities).formattedPercentage
             )
         }
         
@@ -205,15 +321,15 @@ extension Factory {
     }
     
     
-    //  MARK: Output (production) Cost Structure Percentage Data Points
+    //  MARK: - Output (production) Cost Structure Percentage Data Points
     
     func productionCostStructureDataPoints(in period: Period) -> DataBlock {
-        let ingredients = produced(in: period).cost.ingredient.percentage
+        let ingredients = produced(in: period).cost.components[0].percentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.produced(in: period).cost.ingredient.percentageStr
+                percentage: $0.produced(in: period).cost.components[0].percentageStr
             )
         }
         
@@ -221,12 +337,12 @@ extension Factory {
     }
     
     func productionIngredientCostExVATPercentageDataPoints(in period: Period) -> DataBlock {
-        let ingredients = produced(in: period).cost.ingredient.percentage
+        let ingredients = produced(in: period).cost.components[0].percentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.produced(in: period).cost.ingredient.percentageStr
+                percentage: $0.produced(in: period).cost.components[0].percentageStr
             )
         }
         
@@ -239,7 +355,7 @@ extension Factory {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.produced(in: period).cost.salary.percentageStr
+                percentage: $0.produced(in: period).cost.components[1].percentageStr
             )
         }
         
@@ -247,12 +363,12 @@ extension Factory {
     }
     
     func depreciationPercentageDataPoints(in period: Period) -> DataBlock {
-        let depreciation = sold(in: period).cost.depreciation.percentage
+        let depreciation = sold(in: period).cost.components[2].percentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.sold(in: period).cost.depreciation.percentageStr
+                percentage: $0.sold(in: period).cost.components[2].percentageStr
             )
         }
         
@@ -260,12 +376,12 @@ extension Factory {
     }
     
     func utilitiesExVATPercentageDataPoints(in period: Period) -> DataBlock {
-        let utilities = sold(in: period).cost.utility.percentage
+        let utilities = sold(in: period).cost.components[4].percentage
         let data = bases.map {
             DataPointWithShare(
                 title: $0.name,
                 value: "",
-                percentage: $0.sold(in: period).cost.utility.percentageStr
+                percentage: $0.sold(in: period).cost.components[4].percentageStr
             )
         }
         
@@ -273,7 +389,7 @@ extension Factory {
     }
     
     
-    //  MARK: Margin
+    //  MARK: - Margin
     
     func marginDataPoints(in period: Period) -> DataBlock {
         let totalMargin = pnl(in: period).margin
