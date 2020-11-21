@@ -15,10 +15,11 @@ extension Factory {
         bases.flatMap(\.products)
     }
     
-    //  Weight Netto
+    //  MARK: Weight Netto
         
-    func salesWeightNettoDataPoints(in period: Period) -> DataBlock {
-        let weight = sold(in: period).weightNetto
+    func salesWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
+        let weight = sold(in: period).weightNettoTons
+        let title = title ?? "Weight Netto, t"
         let data = products.map {
             DataPointWithShare(
                 title: $0.name,
@@ -27,11 +28,11 @@ extension Factory {
             )
         }
         
-        return DataBlock(icon: "scalemass", title: "Weight Netto, t", value: weight.formattedGroupedWith1Decimal, data: data)
+        return DataBlock(icon: "scalemass", title: title, value: weight.formattedGroupedWith1Decimal, data: data)
     }
     
     func productionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = produced(in: period).weightNetto
+        let weight = produced(in: period).weightNettoTons
         let title = title ?? "Weight Netto, t"
         let data = products.map {
             DataPointWithShare(
@@ -45,7 +46,7 @@ extension Factory {
     }
     
     func basesProductionWeightNettoDataPoints(in period: Period, title: String? = nil) -> DataBlock {
-        let weight = produced(in: period).weightNetto
+        let weight = produced(in: period).weightNettoTons
         let title = title ?? "Weight Netto, t"
         let data = bases.map {
             DataPointWithShare(
@@ -59,7 +60,7 @@ extension Factory {
     }
     
     
-    //  Revenue
+    //  MARK: Revenue
     
     func revenueDataPoints(in period: Period, title: String? = nil) -> DataBlock {
         let revenue = revenueExVAT(in: period)
@@ -90,7 +91,7 @@ extension Factory {
     }
     
     
-    //  Avg Price and Cost per Kilo
+    //  MARK: Avg Price and Cost per Kilo
     
     func avgPricePerKiloExVATDataPoints(in period: Period) -> DataBlock {
         //avgPricePerKiloExVAT(in: period)
@@ -110,7 +111,7 @@ extension Factory {
     }
     
     func avgCostPerKiloExVATDataPoints(in period: Period) -> DataBlock {
-        //  avgCostPerKiloExVAT(in: period)
+        /// avgCostPerKiloExVAT(in: period)
         let cost = perKilo(in: period).cost.fullCost
         let data = products.map {
             DataPointWithShare(
@@ -127,7 +128,7 @@ extension Factory {
     }
     
     
-    //  Output (production) Cost Structure Data Points
+    //  MARK: Output (production) Cost Structure Data Points
     
     func productionIngredientCostExVATDataPoints(in period: Period) -> DataBlock {
         let ingredientsStr = produced(in: period).cost.ingredient.valueStr
@@ -182,7 +183,7 @@ extension Factory {
     }
     
     
-    //  Output (production) Cost Structure Percentage Data Points
+    //  MARK: Output (production) Cost Structure Percentage Data Points
     
     func productionCostStructureDataPoints(in period: Period) -> DataBlock {
         let ingredients = produced(in: period).cost.ingredient.percentage
@@ -250,7 +251,7 @@ extension Factory {
     }
     
 
-    //  Margin
+    //  MARK: Margin
     
     func marginDataPoints(in period: Period) -> DataBlock {
         let totalMargin = pnl(in: period).margin
