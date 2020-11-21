@@ -197,12 +197,13 @@ extension Factory: Summarizable {
         }
         
         return """
-            Production \(produced(in: period).weightNettoTonsStr) tons
+            (\(period.short))
+
+            Production \(produced(in: period).weightNettoTonsStr) tons (\(produced(in: .year()).weightNettoTonsStr) per year)
             Market Value \(produced(in: period).priceStr)
             Cost \(produced(in: period).cost.fullCostStr)
                     
             Bases: \(baseListWithProductionWeightNetto(in: period))
-            Production per year \(produced(in: .year()).weightNettoTonsStr) tons
 
             Sales \(sold(in: period).weightNettoTonsStr) tons
             \(sold(in: period).priceStr)
@@ -219,12 +220,7 @@ extension Factory: Summarizable {
 
     func detail(in period: Period) -> String? {
         guard isValid else { return errorMessage! }
-        return """
-            
-            (\(period.short))
-
-            \(note)
-            """
+        return note
     }
     
     static var icon: String { "building.2" }
